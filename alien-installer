@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.13  2005/03/02 11:41:04  buncic
+# Added option to install specific AliEn release.
+#
 # Revision 1.12  2005/03/01 13:53:34  buncic
 # Be quite.
 #
@@ -63,9 +66,17 @@ ECHO=""
 Exit()
 ###########################################################################
 {
-  #clear
-  #InstallerRcUpdate
+  clear
+  InstallerRcUpdate
   exit $*
+}
+
+###########################################################################
+Error()
+###########################################################################
+{
+   dialog $style --msgbox "$1" $height $width 
+   Exit 1
 }
 ###########################################################################
 InstallerRcUpdate()
@@ -146,9 +157,9 @@ InstallerSync()
     then 
      echo "$ALIEN_INSTALLER_CVS Ah<Z" >> cat $HOME/.cvspass
     fi
-    cvs -z -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE
+    cvs -z -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE || Error "Error: CVS update failed." 
   else
-    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/releases/$ALIEN_RELEASE .
+    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/releases/$ALIEN_RELEASE . || Error "Error: rsync update failed." 
   fi
   ) > /dev/null 2>&1
 }
@@ -438,7 +449,7 @@ InstallerUI()
 
     if [ $? -eq 1 ] 
     then 
-       $platform=`$ALIEN_DIALOG $style \
+       platform=`$ALIEN_DIALOG $style \
                   --radiolist 'PLEASE SELECT PLATFORM:' 0 0 0 \
                               'i686-pc-linux-gnu'         'Linux i686' on \
                               'ia64-unknown-linux-gnu'    'Linux ia64' 0  \
