@@ -40,7 +40,7 @@
  shared: shared.C
 -	$(CPlusPlus) -fPIC -shared -o libshared.so shared.C
 +	rm -f $(LIBCLASSAD)
-+	$(CPlusPlus) -fPIC $(GARSHARED) $(LD_FLAGS) -o $(LIBCLASSAD) shared.C
++	$(CPlusPlus) -fPIC $(GARSHARED) libclassad.a -o $(LIBCLASSAD) shared.C
  
 -install:: $(LIB_NAME) classad_functional_tester classad_unit_tester classad_version
 +install:: $(LIB_NAME) 
