@@ -6,20 +6,17 @@ export PLATFORM=@PLATFORM@
 export CACHE_DIR=@CACHE_DIR@
 export CACHE_URL=@CACHE_URL@
 export GLITE_BUILD=@GLITE_BUILD@
+export ALIEN_PREFIX=@PREFIX@
 
-MASTER_SITES += http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)
+# The GARCHIVEDIR is a directory containing cached files. It can be created
+# manually, or with 'make garchive' once you've started downloading required
+# files (say with 'make paranoid-checksum'. Example:
 
-export MASKED=@MASKED@
+GARCHIVEDIR = @CACHE_DIR@
 
-ifeq ($(GARNAME),$(findstring $(GARNAME),$(MASKED)))
-DISTFILES :=
-CONFIGURE_SCRIPTS :=
-BUILD_SCRIPTS :=
-INSTALL_SCRIPTS :=
-LIBDEPS :=
-BUILDDEPS :=
-SOURCEDEPS :=
-BINDISTFILES :=
-PATCHFILES :=
-ALLFILES :=
-endif
+#BUILD_CLEAN = true
+
+MASTER_SITES += @CACHE_URL@ http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)
+
+export MASKED += @MASKED@
+

@@ -225,7 +225,7 @@ case $arg in
      #########
      which openssl >& /dev/null || exit 1
      case `openssl version` in
-       *0.9.7e*)
+       *0.9.7*)
          exit 0
          ;;
        *)

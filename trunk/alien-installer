@@ -28,6 +28,7 @@ ALIEN_INSTALLER_METHOD=${ALIEN_INSTALLER_METHOD:=bininstall}
 ALIEN_INSTALLER_AUTODETECT=${ALIEN_INSTALLER_AUTODETECT:=false}
 ALIEN_INSTALLER_TYPE=${ALIEN_INSTALLER_TYPE:=all}
 ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
+ALIEN_DIALOG=${ALIEN_DIALOG:=dialog}
 ECHO=""
 ###########################################################################
 Exit()
@@ -138,13 +139,13 @@ InstallerSetup()
       form="$form $var  $i 1 ${!var}  $i 25 256 0"
       i=`expr $i + 1`
     else
-      dialog $style \
+      $ALIEN_DIALOG $style \
            --msgbox "Installation failed: $var undefined." $height $width
       Exit 1
     fi
   done
 
-  arg1=`$ALIEN_INSTALLER_PREFIX/bin/dialog $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form | \
+  arg1=`$ALIEN_INSTALLER_PREFIX/bin/$ALIEN_DIALOG $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form | \
 ( 
   read GLOBUS_LOCATION 
   read SWIG_LOCATION 
@@ -191,7 +192,7 @@ InstallerSetup()
     i=`expr $i + 1`
   done
 
-  arg2=`$ALIEN_INSTALLER_PREFIX/bin/dialog $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form | \
+  arg2=`$ALIEN_INSTALLER_PREFIX/bin/$ALIEN_DIALOG $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form | \
 ( 
   read ALIEN_ORGANISATION 
   read ALIEN_USER 
@@ -220,13 +221,13 @@ InstallerSetup()
 
   if [ $? -eq 1 ]
   then
-    dialog $style \
+    $ALIEN_DIALOG $style \
           --msgbox 'Configuration failed: Please check the log file.' $height $width
-    dialog $style \
+    $ALIEN_DIALOG $style \
           --textbox install.log 0 0  
     Exit 
   else
-    dialog $style --sleep 3 \
+    $ALIEN_DIALOG $style --sleep 3 \
               --infobox 'You have sucessfuly installed and configured  AliEn gridware on your computer. Enjoy!' $height $width  
  
     Exit
@@ -296,7 +297,7 @@ InstallerUI()
 
   style="--title AliEn-Installer-v0.01 --clear  --stdout"
 
-  method=`dialog  $style \
+  method=`$ALIEN_DIALOG  $style \
           --radiolist "PLEASE SELECT THE INSTALLATION METHOD"  0 0 0 \
                       "Binary" "Download precompiled packages"   on  \
                       "Source" "Compile everything from sources" 0` || Exit 1
@@ -307,7 +308,7 @@ InstallerUI()
     ALIEN_INSTALLER_METHOD='install'
   fi
 
-  dialog  $style --defaultno \
+  $ALIEN_DIALOG  $style --defaultno \
           --yesno "Would you like installer to autodetect and reuse already installed software components on your system?" 0 0 
 
   if [ $? -eq 0 ] 
@@ -319,12 +320,12 @@ InstallerUI()
 
   workspace=$ALIEN_INSTALLER_HOME
 
-  dialog  $style \
+  $ALIEN_DIALOG  $style \
           --yesno "Default workspace location for this installation is $workspace. Press YES if you want to keep it that way or press NO if you want to pick another location." 0 0 
 
   if [ $? -eq 1 ]
   then
-    workspace=`dialog $style \
+    workspace=`$ALIEN_DIALOG $style \
                --inputbox 'Please enter workspace directory:' $height $width \
                $workspace` || Exit 1
   fi
@@ -337,7 +338,7 @@ InstallerUI()
 
   cmd=$cmd" -p $workspace "
 
-  dialog $style --sleep 3 \
+  $ALIEN_DIALOG $style --sleep 3 \
                 --infobox 'Synchronizing with the server.' $height $width
 
   InstallerSync
@@ -352,12 +353,12 @@ InstallerUI()
     then 
       platform=`$workspace/config.guess`
     fi
-    dialog  $style \
+    $ALIEN_DIALOG  $style \
             --yesno "Detected/configured platform setting for this machine is $platform. Press YES if you want to keep it that way or press NO if you want to select another supported platform." 0 0
 
     if [ $? -eq 1 ] 
     then 
-       $platform=`dialog $style \
+       $platform=`$ALIEN_DIALOG $style \
                   --radiolist 'PLEASE SELECT THE PLATFORM:' 0 0 0 \
                               'i686-pc-linux-gnu'      'Linux i686' on \
                               'ia64-itanium-linux-gnu' 'Linux ia64' 0  \ 
@@ -372,19 +373,19 @@ InstallerUI()
 
   prefix=$ALIEN_INSTALLER_PREFIX
 
-  dialog $style \
+  $ALIEN_DIALOG $style \
          --yesno "Default installation location location is $prefix. Press YES if you want to keep it that way or press NO if you want to select another location." $height $width
 
   if [ $? -eq 1 ]
   then
-     prefix=`dialog $style \
+     prefix=`$ALIEN_DIALOG $style \
                     --inputbox 'Please specify installation directory'  $height $width \
                      $prefix` || Exit 1
   fi
 
   if [ -d $prefix ]
   then
-    dialog  $style \
+    $ALIEN_DIALOG  $style \
             --yesno "Directory $prefix already exist. Press YES if you want to overwrite existing files, press NO if you want cacncel the installation." 0 0 || Exit 1
   fi 
 
@@ -396,7 +397,7 @@ InstallerUI()
 
   cmd=$cmd"--prefix=$prefix"
 
-  list=`dialog $style \
+  list=`$ALIEN_DIALOG $style \
                --radiolist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
                            'all'    'All packages'            on \
                            'client' 'Client'                  0  \
@@ -407,7 +408,7 @@ InstallerUI()
 
   ALIEN_INSTALLER_TYPE="$list"
   
-  dialog $style --sleep 3 \
+  $ALIEN_DIALOG $style --sleep 3 \
               --infobox 'Configuring...' $height $width
  
   echo $cmd > install.log
@@ -417,7 +418,7 @@ InstallerUI()
   for meta in $list
   do
     pkgdir=`echo $meta | sed 's/"//g'`
-    dialog $style --sleep 3 \
+    $ALIEN_DIALOG $style --sleep 3 \
                   --infobox "Getting the list of packages to install for $pkgdir..." $height $width
     if [ -d $workspace/meta/$pkgdir ]
     then
@@ -435,22 +436,22 @@ InstallerUI()
         InstallerMakePkg clean $pkg >> install.log
         InstallerMakePkg $ALIEN_INSTALLER_METHOD $pkg >> install.log
         echo $g
-      done | dialog $style --gauge "Installing $pkg..."  $height $width
+      done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
     fi 
   done
 
   if [ -x $prefix/bin/alien-perl ]
   then
-    dialog $style --sleep 3 \
+    $ALIEN_DIALOG $style --sleep 3 \
                   --infobox 'Running post installation scripts...' $height $width
     $prefix/bin/alien-perl --bootstrap --prefix $prefix
  
-    dialog $style --sleep 3 \
+    $ALIEN_DIALOG $style --sleep 3 \
                 --infobox 'Done.' $height $width
   else
-    dialog $style \
+    $ALIEN_DIALOG $style \
             --msgbox 'Installation failed: alien-perl not found.' $height $width
-    dialog $style \
+    $ALIEN_DIALOG $style \
           --textbox install.log 0 0  
     Exit 
   fi

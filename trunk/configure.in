@@ -84,5 +84,5 @@ AC_SUBST(GLOBUS_LOCATION)
 AC_SUBST(GLOBUS_FLAVOR)
 AC_SUBST(GLITE_BUILD)
 
-AC_OUTPUT(gar.conf.mk alien.conf.mk)
+AC_OUTPUT(alien.conf.mk)
 
