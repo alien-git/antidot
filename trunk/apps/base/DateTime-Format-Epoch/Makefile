@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/P/PI/PIJLL/ http://www.cpan.org/authors
 
 LIBDEPS = apps/base/perl apps/base/DateTime
 
-DESCRIPTION = 
+DESCRIPTION = Convert DateTimes to/from epoch seconds
+AUTHOR =  Eugene van der Pijll 
+URL = http://cpan.uwinnipeg.ca/~pijll
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

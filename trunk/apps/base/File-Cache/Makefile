@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DC/DCLINTON/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Share data between processes via filesystem
+AUTHOR = DeWitt Clinton
+URL = http://cpan.uwinnipeg.ca/~dclinton
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

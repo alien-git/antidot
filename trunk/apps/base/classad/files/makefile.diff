@@ -14,7 +14,7 @@
  LIB_INSTALL = $(DESTDIR)/lib
  BIN_INSTALL = $(DESTDIR)/bin
 -INCLUDE_INSTALL = $(DESTDIR)/include
-+INCLUDE_INSTALL = $(DESTDIR)/include/classads
++INCLUDE_INSTALL = $(DESTDIR)/include/classad
  
  CPlusPlus = g++
 -C_PLUS_FLAGS = $(EXTRA_C_PLUS_FLAGS) -Wall -g -DCLASSAD_DISTRIBUTION 

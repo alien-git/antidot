@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DR/DROLSKY/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl apps/base/Params-Validate
 
 DESCRIPTION = Log messages to multiple outputs
+AUTHOR = Dave Rolsky
+URL = http://cpan.uwinnipeg.ca/~drolsky
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Build.PL
 BUILD_SCRIPTS = $(WORKSRC)/Build

@@ -5,15 +5,6 @@ DIRS=devel base gui portal server glite alien
 
 %:
 	@for i in $(DIRS); do \
-		$(MAKE) -C $$i $* ; \
+		$(MAKE) -C $$i -s $* ; \
 	done
 
-status:
-	@for i in $(DIRS); do \
-		$(MAKE) -C $$i -s status ; \
-	done
-
-version:
-	@for i in $(DIRS); do \
-		$(MAKE) -C $$i -s version ; \
-	done

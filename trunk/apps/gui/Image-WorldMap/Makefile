@@ -12,6 +12,7 @@ DESCRIPTION = Create graphical world maps of data
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = 
 
 CONFIGURE_ARGS =  
 BUILD_ARGS =  

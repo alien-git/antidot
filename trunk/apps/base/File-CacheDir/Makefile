@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/E/EA/EARL/ http://www.cpan.org/authors/
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = auto ttl-based file cleanup without a cron
+DESCRIPTION = Auto ttl-based file cleanup without a cron
+AUTHOR = Earl Cahill
+URL = http://cpan.uwinnipeg.ca/~earl
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -13,10 +13,10 @@ LIBDEPS = apps/alien/common apps/alien/admin apps/alien/gas apps/alien/gssapi ap
 
 DESCRIPTION = AliEn tests
 
-CONFIGURE_SCRIPTS = $(WORKSRC)/configure
+CONFIGURE_SCRIPTS = # $(WORKSRC)/configure
 BUILD_SCRIPTS = 
 INSTALL_SCRIPTS = 
-TEST_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = # $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = 
 

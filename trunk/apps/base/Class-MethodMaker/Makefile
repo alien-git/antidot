@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/F/FL/FLUFFY/ http://www.cpan.org/author
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Create generic class methods
+AUTHOR = Martyn J. Pearce
+URL = http://cpan.uwinnipeg.ca/~fluffy
+LICENSE = GPL or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

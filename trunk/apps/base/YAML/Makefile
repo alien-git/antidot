@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/I/IN/INGY/ http://www.cpan.org/authors/
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = YAML Ain't Markup Language (tm)
+DESCRIPTION = YAML Ain Markup Language (tm)
+AUTHOR = Brian Ingerson 
+URL = http://cpan.uwinnipeg.ca/~ingy
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SO/SOLIVER/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Module to capture output from XML::Writer
+AUTHOR = Simon Oliver
+URL = http://cpan.uwinnipeg.ca/~soliver
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -12,9 +12,10 @@ DESCRIPTION =
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-TEST_SCRIPTS = 
+TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS =  
+TEST_ENV = printf "\n" |
+
 BUILD_ARGS =  
 
 include ../category.mk

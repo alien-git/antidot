@@ -9,6 +9,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RG/RGIERSIG/ ftp://sunsite.cnlab-swit
 LIBDEPS = apps/base/perl apps/base/IO-Tty 
 
 DESCRIPTION = Perl version of Don Libes Tcl-Expect
+AUTHOR = Roland Giersig 
+URL = http://cpan.uwinnipeg.ca/~rgiersig
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

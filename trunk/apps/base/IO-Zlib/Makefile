@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TO/TOMHUGHES/ http://www.cpan.org/aut
 LIBDEPS = apps/base/perl apps/base/Compress-Zlib
 
 DESCRIPTION = IO:: style interface to Compress::Zlib
+AUTHOR = Tom Hughes
+URL = http://cpan.uwinnipeg.ca/~tomhughes
+LICENSE = Perl 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

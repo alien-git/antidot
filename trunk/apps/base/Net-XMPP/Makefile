@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RE/REATMON/ http://www.cpan.org/autho
 
 LIBDEPS = apps/base/perl apps/base/XML-Stream
 
-DESCRIPTION = 
+DESCRIPTION = XMPP Perl Library
+AUTHOR = Ryan Eatmon 
+URL = http://cpan.uwinnipeg.ca/~reatmon
+LICENSE = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

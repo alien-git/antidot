@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MI/MIYAGAWA/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl apps/base/Email-Valid apps/base/MailTools
 
 DESCRIPTION = Find RFC 822 email addresses in plain text
+AUTHOR = Tatsuhiko Miyagawa
+URL = http://cpan.uwinnipeg.ca/~miyagawa
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

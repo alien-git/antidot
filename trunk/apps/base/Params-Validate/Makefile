@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DR/DROLSKY/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Validate sub params against a spec
+AUTHOR = Dave Rolsky
+URL = http://cpan.uwinnipeg.ca/~drolsky
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CL/CLEISHMAN/ http://www.cpan.org/aut
 
 LIBDEPS = apps/base/perl apps/base/TimeDate apps/base/Digest-SHA1 apps/base/File-NFSLock apps/base/Heap apps/base/IO-String apps/base/DB_File
 
-DESCRIPTION = 
+AUTHOR = Chris Leishman
+DESCRIPTION = The Cache interface
+URL = http://cpan.uwinnipeg.ca/~cleishman
+LICENSE = GPL or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

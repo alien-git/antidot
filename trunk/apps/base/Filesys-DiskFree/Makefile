@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AB/ABARCLAY/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = OS independant parser of the df command
+AUTHOR = Alan Barclay 
+URL = http://cpan.uwinnipeg.ca/~abarclay
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

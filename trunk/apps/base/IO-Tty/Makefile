@@ -6,6 +6,9 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RG/RGIERSIG/ http://www.cpan.org/authors/id/R/RG/RGIERSIG/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RG/RGIERSIG/
 
 LIBDEPS = apps/base/perl
+AUTHOR = Roland Giersig
+URL = http://cpan.uwinnipeg.ca/~rgiersig
+LICENSE = Perl
 
 DESCRIPTION = provide an interface to TTYs and PTYs
 

@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JM/JMM/ http://www.cpan.org/authors/i
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Define Heap interface
+AUTHOR = John Macdonald
+URL = http://cpan.uwinnipeg.ca/~jmm
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

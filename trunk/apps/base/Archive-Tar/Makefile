@@ -7,8 +7,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KA/KANE/ http://www.cpan.org/authors/
 
 LIBDEPS = apps/base/perl apps/base/IO-Zlib apps/base/IO-String
 
-AUTHOR  = Nikolay Pelov
-LICENSE = Perl
+AUTHOR  = Jos Boumans
+LICENSE = GPL or Artistic
+URL     = http://cpan.uwinnipeg.ca/~kane
 
 DESCRIPTION = Read, write and manipulate tar files
 

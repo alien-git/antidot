@@ -10,7 +10,10 @@ MASTER_SITES =$(CPAN_MIRROR)/authors/id/$(CPAN_AUTHOR_ID) http://www.cpan.org/au
 LIBDEPS = apps/base/perl
 
 DESCRIPTION =  I/O on in-core objects like strings/arrays
-
+AUTHOR = David F. Skoll
+URL = http://cpan.uwinnipeg.ca/~dskoll
+LICENSE = Perl
+ 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS =$(WORKSRC)/Makefile

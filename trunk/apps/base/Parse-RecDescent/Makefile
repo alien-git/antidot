@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DC/DCONWAY/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Recursive descent parser generator
+AUTHOR = Damian Conway
+URL = http://cpan.uwinnipeg.ca/~dconway
+LICENSE = Perl 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

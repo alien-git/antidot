@@ -1,5 +1,5 @@
 GARNAME = ExtUtils-CBuilder
-GARVERSION = 0.07
+GARVERSION = 0.10
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KW/KWILLIAMS/ http://www.cpan.org/aut
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Compile and link C code for Perl modules
+AUTHOR = Ken Williams
+URL = http://cpan.uwinnipeg.ca/~kwilliams
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

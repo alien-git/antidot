@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MA/MAURICE/ http://www.cpan.org/autho
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Check validity of Internet email addresses
+AUTHOR = Maurice Aubrey
+URL = http://cpan.uwinnipeg.ca/~maurice
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

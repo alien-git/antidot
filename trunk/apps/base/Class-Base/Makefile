@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AB/ABW/ http://www.cpan.org/authors/i
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Useful base class for deriving other modules
+AUTHOR = Andy Wardley
+URL = http://cpan.uwinnipeg.ca/~abw
+LICENSE = GPL or Artisitc
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KE/KELLAN/ http://www.cpan.org/author
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Parse and format W3CDTF datetime strings
+AUTHOR = Kellan Elliott-Mccrea
+URL = http://cpan.uwinnipeg.ca/~kellan
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

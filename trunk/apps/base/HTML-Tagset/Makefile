@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SB/SBURKE/ http://www.cpan.org/author
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = data tables useful in parsing HTML
+AUTHOR = Sean M. Burke
+URL = http://cpan.uwinnipeg.ca/~sburke
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

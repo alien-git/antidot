@@ -12,6 +12,7 @@ DESCRIPTION = Interface to LDAP Protocol (RFC1777)
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ENV = printf "\n" |  
 BUILD_ARGS =  

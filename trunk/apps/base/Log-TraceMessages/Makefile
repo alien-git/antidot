@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/E/ED/EDAVIS/ http://www.cpan.org/author
 
 LIBDEPS = apps/base/perl apps/base/HTML-FromText
 
-DESCRIPTION = Print developer's trace messages
+DESCRIPTION = Print developers trace messages
+AUTHOR = Ed Avis
+URL = http://cpan.uwinnipeg.ca/~edavis
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

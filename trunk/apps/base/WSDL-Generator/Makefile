@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/P/PD/PDENIS/ http://www.cpan.org/author
 
 LIBDEPS = apps/base/perl apps/base/Class-Hook
 
-DESCRIPTION = 
+DESCRIPTION = Generates wsdl code without hassle
+AUTHOR = Pierre Denis
+URI = http://cpan.uwinnipeg.ca/~pdenis
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

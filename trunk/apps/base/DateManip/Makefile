@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SB/SBECK/ http://www.cpan.org/authors
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = Complete date/time manipulation package
+DESCRIPTION = Routines for parsing/manipulating dates and time.
+AUTHOR = Sullivan Beck 
+URL = http://cpan.uwinnipeg.ca/~sbeck
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

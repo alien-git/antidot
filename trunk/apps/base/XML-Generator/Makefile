@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BH/BHOLZMAN/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Generates XML documents
+AUTHOR = Benjamin Holzman
+URL = http://cpan.uwinnipeg.ca/~bholzman
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
