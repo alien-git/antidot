@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.12  2005/03/01 13:53:34  buncic
+# Be quite.
+#
 # Revision 1.11  2005/03/01 13:46:50  buncic
 # Redefine TPUT when redirecting output to file.
 #
@@ -45,7 +48,7 @@ VERSION=0.01
 [ -f $HOME/.alien/installer.rc ] && . $HOME/.alien/installer.rc
 ###########################################################################
 ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME:=$HOME/alien}
-ALIEN_INSTALLER_URL=${ALIEN_INSTALLER_URL:=rsync://alien.cern.ch:8873/cache} 
+ALIEN_INSTALLER_URL=${ALIEN_INSTALLER_URL:=rsync://alien.cern.ch:8873/releases} 
 ALIEN_INSTALLER_CVS=${ALIEN_INSTALLER_CVS:=":pserver:cvs@alisoft.cern.ch:/soft/cvsroot"}
 ALIEN_INSTALLER_BINARY_UPDATE=${ALIEN_INSTALLER_BINARY_UPDATE:=0}
 ALIEN_INSTALLER_PREFIX=${ALIEN_INSTALLER_PREFIX:=/opt/alien}
@@ -54,13 +57,14 @@ ALIEN_INSTALLER_AUTODETECT=${ALIEN_INSTALLER_AUTODETECT:=false}
 ALIEN_INSTALLER_TYPE=${ALIEN_INSTALLER_TYPE:=all}
 ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
 ALIEN_DIALOG=${ALIEN_DIALOG:=dialog}
+ALIEN_RELEASE=${ALIEN_RELEASE:=HEAD}
 ECHO=""
 ###########################################################################
 Exit()
 ###########################################################################
 {
-  clear
-  InstallerRcUpdate
+  #clear
+  #InstallerRcUpdate
   exit $*
 }
 ###########################################################################
@@ -78,6 +82,8 @@ InstallerRcUpdate()
     echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
     echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
     echo "ALIEN_INSTALLER_CVS=$ALIEN_INSTALLER_CVS" 
+    echo "ALIEN_DIALOG=$ALIEN_DIALOG" 
+    echo "ALIEN_RELEASE=$ALIEN_RELEASE" 
   ) > $HOME/.alien/installer.rc
 
 }
@@ -140,9 +146,9 @@ InstallerSync()
     then 
      echo "$ALIEN_INSTALLER_CVS Ah<Z" >> cat $HOME/.cvspass
     fi
-    cvs -z -d $ALIEN_INSTALLER_CVS update -dP
+    cvs -z -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE
   else
-    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL .
+    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/releases/$ALIEN_RELEASE .
   fi
   ) > /dev/null 2>&1
 }
@@ -154,6 +160,13 @@ InstallerSetup()
   height=8
   width=60
   style="--title AliEn-Configuratior-v0.01 --clear  --stdout"
+
+  if [ -f /usr/share/terminfo ]
+  then
+    export TERMINFO=/usr/share/terminfo
+  fi
+  export LD_LIBRARY_PATH=$ALIEN_INSTALLER_PREFIX/lib:$LD_LIBRARY_PATH
+  export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
   eval `$ALIEN_INSTALLER_PREFIX/bin/alien configure` || Exit 1
 
@@ -220,13 +233,6 @@ InstallerSetup()
     fi
     i=`expr $i + 1`
   done
-  
-  if [ -f /usr/share/terminfo ] 
-  then  
-    export TERMINFO=/usr/share/terminfo 
-  fi
-  export LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH
-  export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
   arg2=`$ALIEN_INSTALLER_PREFIX/bin/$ALIEN_DIALOG $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form | \
 ( 
@@ -336,6 +342,19 @@ InstallerUI()
 
   style="--title AliEn-Installer-v0.01 --clear  --stdout"
 
+  release_file=`mktemp /tmp/release.XXXXXX`
+
+  wget -O $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
+
+  list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{printf("%s %s 0 ",$1,$2)}'`
+
+  release=`$ALIEN_DIALOG $style \
+            --radiolist "PLEASE SELECT ALIEN RELEASE:" 0 0 0 \
+                        "HEAD" "Curent CVS HEAD (Warning: use at own risk!)" on \
+                        $list` || Exit 1
+
+  ALIEN_RELEASE=$release
+
   method=`$ALIEN_DIALOG  $style \
           --radiolist "PLEASE SELECT THE INSTALLATION METHOD"  0 0 0 \
                       "Binary" "Download precompiled packages"   on  \
@@ -388,7 +407,6 @@ InstallerUI()
 
   if [ "$method" == "Binary" ]
   then
-
     if [ "$ALIEN_INSTALLER_PLATFORM" == "" ]
     then 
 
@@ -476,12 +494,6 @@ InstallerUI()
 
   (autoconf; $cmd ) > install.log 2>&1
 
-  (
-    cd $workspace
-    InstallerMakePkg clean apps/base/ncurses >> install.log
-    InstallerMakePkg $ALIEN_INSTALLER_METHOD apps/base/ncurses >> install.log
-  ) > /dev/null 2>&1
-
   for meta in $list
   do
     pkgdir=`echo $meta | sed 's/"//g'`
@@ -550,6 +562,11 @@ do
         -u|--url)
             shift 1
 	    ALIEN_INSTALLER_URL=$1
+            shift 1
+           ;;
+        -r|--release)
+            shift 1
+	    ALIEN_RELEASE=$1
             shift 1
            ;;
         -b|--binary)
