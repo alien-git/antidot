@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.24  2005/03/11 12:47:49  buncic
+# Fixed release version problem.
+#
 # Revision 1.23  2005/03/11 11:14:35  buncic
 # Changed format of release tag.
 #
@@ -118,6 +121,7 @@ Exit()
 {
   clear
   InstallerRcUpdate
+  rm -rf $release_file $dialog_file
   exit $*
 }
 
@@ -205,15 +209,19 @@ InstallerSetup()
   height=8
   width=60
   style="--title AliEn-Configuratior-v0.01 --clear  --stdout"
+  dialog_file=`mktemp /tmp/dialog.XXXXXX`
 
   if [ -f $ALIEN_INSTALLER_PREFIX/bin/dialog ]
   then
      export LD_LIBRARY_PATH=$ALIEN_INSTALLER_PREFIX/lib:$LD_LIBRARY_PATH
      export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
      dialog_form=$ALIEN_INSTALLER_PREFIX/bin/dialog
+     export TERMINFO_DIRS=/usr/share/terminfo:$ALIEN_INSTALLER_PREFIX/share/terminfo
   else
      dialog_form=dialog
   fi
+
+  eval `$ALIEN_INSTALLER_PREFIX/bin/alien --printenv | grep -e ALIEN_ORGANISATION -e ALIEN_USER` || Exit 1
 
   eval `$ALIEN_INSTALLER_PREFIX/bin/alien configure` || Exit 1
 
@@ -234,7 +242,7 @@ InstallerSetup()
     fi
   done
 
-  arg1=`$dialog_form $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form | \
+  arg1=`($dialog_form $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form 2>$dialog_file && cat $dialog_file) | \
 ( 
   read GLOBUS_LOCATION 
   read SWIG_LOCATION 
@@ -281,7 +289,7 @@ InstallerSetup()
     i=`expr $i + 1`
   done
 
-  arg2=`$dialog_form $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form | \
+  arg2=`($dialog_form $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form 2>$dialog_file && cat $dialog_file) | \
 ( 
   read ALIEN_ORGANISATION 
   read ALIEN_USER 
@@ -321,7 +329,8 @@ InstallerSetup()
  
     Exit
   fi
-  
+
+  Exit
 }
 
 ###########################################################################
@@ -387,25 +396,26 @@ InstallerUI()
 
   export TPUT=undef
 
-  style="--title AliEn-Installer-v0.01 --clear  --stdout"
+  style="--title AliEn-Installer-v0.01 --clear"
 
   release_file=`mktemp /tmp/release.XXXXXX`
+  dialog_file=`mktemp /tmp/dialog.XXXXXX`
 
   wget -O $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
 
   list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{printf("%s %s 0 ",$3,$2)}'`
 
-  release=`$ALIEN_DIALOG $style \
+  release=`($ALIEN_DIALOG $style \
             --radiolist "PLEASE SELECT ALIEN RELEASE:" 0 0 0 \
                         "HEAD" "Curent CVS HEAD (Warning: use at own risk!)" on \
-                        $list` || Exit 1
+                        $list 2>$dialog_file && cat $dialog_file)` || Exit 1
 
   ALIEN_RELEASE=$release
 
-  method=`$ALIEN_DIALOG  $style \
+  method=`($ALIEN_DIALOG  $style \
           --radiolist "PLEASE SELECT THE INSTALLATION METHOD"  0 0 0 \
                       "Binary" "Download precompiled packages"   on  \
-                      "Source" "Compile everything from sources" 0` || Exit 1
+                      "Source" "Compile everything from sources" 0 2>$dialog_file && cat $dialog_file)` || Exit 1
 
   if [ "$method" == "Source" ]
   then
@@ -430,9 +440,9 @@ InstallerUI()
 
   if [ $? -eq 1 ]
   then
-    workspace=`$ALIEN_DIALOG $style \
+    workspace=`($ALIEN_DIALOG $style \
                --inputbox 'Please enter workspace directory:' $height $width \
-               $workspace` || Exit 1
+               $workspace 2>$dialog_file && cat $dialog_file)` || Exit 1
   fi
 
   mkdir -p $workspace || ( Error "You must specify the workspace directory.") 
@@ -503,9 +513,9 @@ InstallerUI()
 
   if [ $? -eq 1 ]
   then
-     prefix=`$ALIEN_DIALOG $style \
+     prefix=`($ALIEN_DIALOG $style \
                     --inputbox 'Please specify installation directory'  $height $width \
-                     $prefix` || Exit 1
+                     $prefix 2>$dialog_file && cat $dialog_file)` || Exit 1
   fi
 
   if [ -d $prefix ]
@@ -522,14 +532,14 @@ InstallerUI()
 
   cmd=$cmd"--prefix=$prefix"
 
-  list=`$ALIEN_DIALOG $style \
+  list=`($ALIEN_DIALOG $style \
                --radiolist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
                            'all'    'All packages'            on \
                            'client' 'Client'                  0  \
                            'portal' 'Portal'                  0  \
                            'site'   'Site CE/SE services'     0  \
                            'core'   'Core VO services'        0  \
-                           'wn'     'Worker node'             0` || Exit 1
+                           'wn'     'Worker node'             0 2>$dialog_file && cat $dialog_file)` || Exit 1
 
   ALIEN_INSTALLER_TYPE="$list"
   
@@ -540,7 +550,7 @@ InstallerUI()
 
   echo $cmd > install.log
 
-  (autoconf; $cmd ) > install.log 2>&1
+  (autoconf; $cmd ) >> install.log 2>&1
 
   for meta in $list
   do
@@ -585,6 +595,7 @@ InstallerUI()
 
   InstallerSetup
 
+  rm -rf $release_file $dialog_file
 }
 
 ###########################################################################
