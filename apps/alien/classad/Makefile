@@ -19,9 +19,13 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-glite-prefix=$(PREFIX) --with-stage-dir=$(PREFIX) --with-build-dir=$(WORKSRC)/build --with-dest-dir=$(PREFIX) --with-classads-dir=$(PREFIX) --with-classad-lib=classad --with-swig-dir=$(PREFIX) --with-perl5=$(PREFIX)/bin/perl
 
-CONFIGURE_ENV = env  CXXFLAGS="$(OWN_CXXFLAGS)"
-
 include ../category.mk
 
 PRE_CONFIGURE = (cd $(WORKSRC);env PREFIX=$(PREFIX) sh bootstrap )
-POST_INSTALL  = (touch $(PREFIX)/lib/perl5/site_perl/5.8.6/Classad.pm) 
+
+POST_INSTALL  = (touch $(PREFIX)/lib/perl5/site_perl/5.8.6/Classad.pm); 
+
+ifeq ($(shell uname),Darwin)
+  POST_INSTALL  += ( cd $(PREFIX)/lib;  [ -f libClassad.so ] && mv libClassad.so libClassad.dylib )
+endif
+
