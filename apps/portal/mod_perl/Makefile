@@ -12,6 +12,7 @@ DESCRIPTION = The Apache interface to perl
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS =  $(WORKSRC)/Makefile
 INSTALL_SCRIPTS =  $(WORKSRC)/Makefile
+TEST_SCRIPTS = 
 
 APACHE_SRC=../../../../portal/apache/work/apache_$(APACHE)/src
 

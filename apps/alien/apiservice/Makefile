@@ -7,7 +7,7 @@ NOCHECKSUM = $(DISTFILES)
 GARCVSNAME    = org.glite.alien.apiservice
 GARCVSVERSION = glite-alien-apiservice_branch_1_0_0
 
-MASTER_SITES = http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)/src/ webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
+MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
 LIBDEPS = apps/base/perl apps/alien/perl apps/base/openssl apps/base/gsoap apps/glite/glite 
 
@@ -21,5 +21,5 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --with-dist-location=$(PREFIX) -with-glite-l
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); mkdir -p $(PREFIX)/share/glite/project;  cp -R $(PREFIX)/share/glite/project/* project; ( [ -f bootstrap ] && sh bootstrap) || autoconf )
+PRE_CONFIGURE = (cd $(WORKSRC); ([ -f bootstrap ] && sh bootstrap) || autoconf )
 

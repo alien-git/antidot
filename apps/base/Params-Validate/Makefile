@@ -12,6 +12,7 @@ DESCRIPTION = Validate sub params against a spec
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS =  
 BUILD_ARGS =  

@@ -12,6 +12,7 @@ DESCRIPTION = auto ttl-based file cleanup without a cron
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS =  
 BUILD_ARGS =  

@@ -12,6 +12,7 @@ DESCRIPTION = OpenSSL toolkit
 CONFIGURE_SCRIPTS = $(WORKSRC)/config
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = $(DIRPATHS) shared --openssldir=$(PREFIX)/ssl
 NODIRPATHS = --bindir --exec_prefix --sbindir --libexecdir --datadir --sysconfdir --sharedstatedir --localstatedir --libdir --infodir --includedir --mandir

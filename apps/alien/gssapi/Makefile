@@ -7,7 +7,7 @@ NOCHECKSUM = $(DISTFILES)
 GARCVSNAME    = org.glite.alien.gssapi
 GARCVSVERSION = glite-alien-gssapi_branch_2_0_0
 
-MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)/src/
+MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
 
 LIBDEPS = apps/base/perl apps/base/globus apps/base/myproxy

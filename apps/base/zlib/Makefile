@@ -12,6 +12,7 @@ DESCRIPTION = Lossless data-compression library
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = $(DIRPATHS) --shared 
 NODIRPATHS = --bindir --exec_prefix --sbindir --libexecdir --datadir --sysconfdir --sharedstatedir --localstatedir --libdir --infodir --includedir --mandir
