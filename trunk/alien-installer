@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.15  2005/03/02 11:58:24  buncic
+# Fixed rsync update.
+#
 # Revision 1.14  2005/03/02 11:50:37  buncic
 # Popup error box if synchronisation fails.
 #
@@ -159,9 +162,9 @@ InstallerSync()
     then 
      echo "$ALIEN_INSTALLER_CVS Ah<Z" >> cat $HOME/.cvspass
     fi
-    cvs -z -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE || Error "Error: CVS update failed." 
+    cvs -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE || Error "Error: CVS update failed ($ALIEN_RELEASE)." 
   else
-    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/releases/$ALIEN_RELEASE/ . || Error "Error: rsync update failed." 
+    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/$ALIEN_RELEASE/ . || Error "Error: rsync update failed." 
   fi
   ) > /dev/null 2>&1
 }
@@ -425,7 +428,7 @@ InstallerUI()
 
       p=`$workspace/config.guess`
 
-      case $platform in
+      case $p in
         i*86-*-linux-gnu)
           platform=i686-pc-linux-gnu
           ;;
