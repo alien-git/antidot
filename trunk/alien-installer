@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.10  2005/03/01 13:28:13  buncic
+# Fixed cvs checkout.
+#
 # Revision 1.9  2005/03/01 12:12:50  buncic
 # Add -d option to cvs update.
 #
@@ -277,6 +280,7 @@ InstallerUpdate()
   InstallerSync
 
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
+  export TPUT=undef
 
   for meta in $ALIEN_INSTALLER_TYPE
   do
@@ -322,6 +326,8 @@ InstallerUI()
   height=8
   width=60
   cmd="./alien-installer "
+
+  export TPUT=undef
 
   style="--title AliEn-Installer-v0.01 --clear  --stdout"
 
