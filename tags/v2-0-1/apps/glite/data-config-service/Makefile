@@ -1,0 +1,25 @@
+GARNAME = glite-data-config-service
+GARVERSION = 1.1.4
+CATEGORIES = apps-tools
+DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
+PATCHFILES = bootstrap.patch
+
+GARCVSNAME    = org.glite.data.config-service
+GARCVSVERSION = glite-data-config-service_R_1_1_4
+NOCHECKSUM    = $(DISTFILES)
+MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
+
+LIBDEPS = apps/base/globus apps/base/log4cpp apps/base/xerces-c apps/base/xalan-c apps/glite/glite
+
+DESCRIPTION = Glite Data Configurtion Service
+
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+
+CONFIGURE_ARGS = $(DIRPATHS) --with-version=$(GARVERSION) --prefix=$(PREFIX) --with-glite-location=$(PREFIX) --with-dist-location=$(PREFIX) --with-xercesc-prefix=$(PREFIX) --with-xalanc-prefix=$(PREFIX) --with-log4cpp-prefix=$(PREFIX)
+
+include ../category.mk
+
+PRE_CONFIGURE = (cd $(WORKSRC); env PREFIX=$(PREFIX) ./bootstrap )
+

@@ -1,0 +1,11 @@
+5b84ce74fc387f956644099e0f5b61f6  download/classads-0.9.7_i686-pc-linux-gnu-2.96.tar.bz2
+74f36fffe76080a5604a83ac7cfd228e  download/classads-0.9.7.tar.gz
+e43a7dfdba88f16c090716542495d36f  files/limits.diff
+1ccd37d38e6288a589eecfb650bee23d  files/ostream.diff
+0da8f586555aad2d7628f019ef2c1bb8  files/fnCall.diff
+b8c5ff95db32f9936fa1527f17047806  files/util.diff
+c6e9cff4190a5f6046f368a9fe06e56a  files/instantiations.diff
+f0a79058c31eead3f177b8313f348c5e  download/classads-0.9.7_i686-pc-linux-gnu.tar.bz2
+0d46e2ec94d79e9d60c51e2f49a5aace  download/classads-0.9.7_ia64-unknown-linux-gnu.tar.bz2
+d35382c04706be7159a73bcf98cbe1b3  download/classads-0.9.7_powerpc-apple-darwin7.7.0.tar.bz2
+68a049fe012a42c08bb37ab5781077e5  files/makefile.diff
