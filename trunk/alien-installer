@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.4  2005/03/01 04:47:02  buncic
+# Checksums for i386 binary packages.
+#
 #
 # SYNOPSIS
 #
@@ -102,19 +105,14 @@ InstallerMakePkg()
 InstallerSync()
 ###########################################################################
 {
- ( 
-  case $ALIEN_INSTALLER_URL in
-     rsync://*)
-       (cd $ALIEN_INSTALLER_HOME && rsync -acvz $ALIEN_INSTALLER_URL .)
-       ;;
-     cvs://*)
-       (cd $ALIEN_INSTALLER_HOME && cvs update -dP)
-       ;;
-     *)
-        echo "Error: Wrong URL: "$ALIEN_INSTALLER_URL
-        Exit 1
-        ;;
-   esac
+ (
+  cd $ALIEN_INSTALLER_HOME
+  if [ -d CVS ]
+  then
+    cvs -z update -dP
+  else
+    rsync -acvz --cvs-exclude --exclude=alien.conf.mk $ALIEN_INSTALLER_URL .
+  fi
   ) > /dev/null 2>&1
 }
 
@@ -351,19 +349,38 @@ InstallerUI()
   then
     if [ "$ALIEN_INSTALLER_PLATFORM" == "" ]
     then 
-      platform=`$workspace/config.guess`
+      p=`$workspace/config.guess`
+
+      case $platform in
+        i*86-*-linux-gnu)
+          platform=i686-pc-linux-gnu
+          ;;
+        x86_64-*-linux-gnu)
+          platform=i686-pc-linux-gnu
+          ;;
+        powerpc-apple-darwin7.*)
+          platform=powerpc-apple-darwin7.7.0
+          ;;
+        ia64-*-linux-gnu)
+          platform=ia64-unknown-linux-gnu
+          ;;
+         *)
+          echo "Error: Unknown or unsupported platform: $platform"
+          ;;
+        exit 1
+      esac
     fi
+
     $ALIEN_DIALOG  $style \
             --yesno "Detected/configured platform setting for this machine is $platform. Press YES if you want to keep it that way or press NO if you want to select another supported platform." 0 0
 
     if [ $? -eq 1 ] 
     then 
        $platform=`$ALIEN_DIALOG $style \
-                  --radiolist 'PLEASE SELECT THE PLATFORM:' 0 0 0 \
-                              'i686-pc-linux-gnu'      'Linux i686' on \
-                              'ia64-itanium-linux-gnu' 'Linux ia64' 0  \ 
-                              'ix64-opteron-linux-gnu' 'Linux ix64' 0  \
-                              'Darwin-gnu'             'MacOS X'    0` || Exit 1 
+                  --radiolist 'PLEASE SELECT PLATFORM:' 0 0 0 \
+                              'i686-pc-linux-gnu'         'Linux i686' on \
+                              'ia64-unknown-linux-gnu'    'Linux ia64' 0  \
+                              'powerpc-apple-darwin7.7.0' 'MacOS X'    0` || Exit 1 
 
       cmd=$cmd"--with-platform=$platform "
     fi

@@ -3,32 +3,37 @@ AC_INIT(alien.conf.mk.in)
 
 # Configuration items
 
-PLATFORM=`./config.guess`
+platform=`./config.guess`
+
+case $platform in
+  i*86-*-linux-gnu)
+   PLATFORM=i686-pc-linux-gnu
+   ;;
+  x86_64-*-linux-gnu)
+   PLATFORM=i686-pc-linux-gnu
+   ;;
+  powerpc-apple-darwin7.*)
+   PLATFORM=powerpc-apple-darwin7.7.0
+   ;;
+  ia64-*-linux-gnu)
+   PLATFORM=ia64-unknown-linux-gnu
+   ;;
+  *)
+   echo "Error: Unknown or unsupported platform: $platform"
+   exit 1
+   ;;
+esac
 
 AC_PREFIX_DEFAULT([/opt/alien])
 
 case $PLATFORM in 
-  *64*)
+  ia64-*-linux-gnu)
      GLOBUS_FLAVOR=gcc64
     ;;
    *)
      GLOBUS_FLAVOR=gcc32
     ;;
 esac
-
-case $PLATFORM in 
-  x86_64*)
-     TARGET_64BIT=true
-    ;;
-   *)
-     TARGET_64BIT=false
-    ;;
-esac
-
-#AC_ARG_WITH(prefix_dir,
-#            [  --prefix=dir       prefix],
-#            [PREFIX=$prefix_dir],
-#            [PREFIX=/opt/alien])
 
 PREFIX=$prefix
 
@@ -73,7 +78,6 @@ AC_ARG_WITH(masked,
             [MASKED= ])
 
 AC_SUBST(MASKED)
-AC_SUBST(TARGET_64BIT)
 AC_SUBST(CACHE_DIR)
 AC_SUBST(CACHE_URL)
 AC_SUBST(PLATFORM)
