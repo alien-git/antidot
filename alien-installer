@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.20  2005/03/08 14:16:50  buncic
+# Always use dialog from /opt/alien if it exists.
+#
 # Revision 1.19  2005/03/08 14:12:46  buncic
 # Require dialog > 1.0 to process forms.
 #
@@ -349,7 +352,7 @@ InstallerUpdate()
 
   if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien-perl ]
   then
-    echo'Running post installation scripts...'
+    echo 'Running post installation scripts...'
     $ALIEN_INSTALLER_PREFIX/bin/alien-perl --bootstrap --prefix $ALIEN_INSTALLER_PREFIX
   else
     echo 'Installation failed: alien-perl not found.' 
@@ -499,7 +502,7 @@ InstallerUI()
   if [ -d $prefix ]
   then
     $ALIEN_DIALOG  $style \
-            --yesno "Directory $prefix already exist. Press YES if you want to overwrite existing files, press NO if you want cacncel the installation." 0 0 || Exit 1
+            --yesno "Directory $prefix already exist. Press YES if you want to overwrite existing files, press NO if you want cancel the installation." 0 0 || Exit 1
   fi 
 
   ALIEN_INSTALLER_PREFIX=$prefix

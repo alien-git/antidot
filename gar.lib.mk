@@ -325,31 +325,31 @@ POST_INSTALL = true
 configure-%/configure:
 	@$(PRE_CONFIGURE)
 	@echo ' $(call TMSG_LIB,Running configure in,$*)'
-	@cd $* && $(CONFIGURE_ENV) ./configure $(CONFIGURE_ARGS)
+	@(cd $* && $(CONFIGURE_ENV) ./configure $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
 
 configure-%/Configure:
 	@$(PRE_CONFIGURE)
 	@echo ' $(call TMSG_LIB,Running Configure in,$*)'
-	@cd $* && $(CONFIGURE_ENV) ./Configure $(CONFIGURE_ARGS)
+	@(cd $* && $(CONFIGURE_ENV) ./Configure $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
 
 configure-%/Makefile.PL:
 	@$(PRE_CONFIGURE)
 	@echo ' $(call TMSG_LIB,Running perl Makefile.PL in,$*)'
-	@cd $* && $(CONFIGURE_ENV) $(PREFIX)/bin/perl Makefile.PL $(CONFIGURE_ARGS)
+	@(cd $* && $(CONFIGURE_ENV) $(PREFIX)/bin/perl Makefile.PL $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
 
 configure-%/Build.PL:
 	@$(PRE_CONFIGURE)
 	@echo ' $(call TMSG_LIB,Running perl Build.PL in,$*)'
-	@cd $* && $(CONFIGURE_ENV) $(PREFIX)/bin/perl Build.PL $(CONFIGURE_ARGS)
+	@(cd $* && $(CONFIGURE_ENV) $(PREFIX)/bin/perl Build.PL $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
 
 configure-%/config:
 	true && $(PRE_CONFIGURE)
 	@echo ' $(call TMSG_LIB,Running config in,$*)'
-	@cd $* && $(CONFIGURE_ENV) ./config $(CONFIGURE_ARGS)
+	@(cd $* && $(CONFIGURE_ENV) ./config $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
 
 # configure a package that uses imake
@@ -358,7 +358,7 @@ configure-%/config:
 configure-%/Imakefile:
 	@$(PRE_CONFIGURE)
 	@echo ' $(call TMSG_LIB,Running xmkmf in,$*)'
-	@cd $* && $(CONFIGURE_ENV) xmkmf $(CONFIGURE_ARGS)
+	@(cd $* && $(CONFIGURE_ENV) xmkmf $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
 
 #################### BUILD RULES ####################
@@ -367,7 +367,7 @@ configure-%/Imakefile:
 
 build-%/Build:
 	@echo ' $(call TMSG_LIB,Running Build in,$*)'
-	@cd $* && $(BUILD_ENV) ./Build $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") $* $(BUILD_ARGS)
+	@(cd $* && $(BUILD_ENV) ./Build $(BUILD_ARGS))
 	@$(MAKECOOKIE)
 
 build-%/Makefile:
@@ -392,7 +392,7 @@ build-%/GNUmakefile:
 test-%/Build:
 	@echo ' $(call TMSG_LIB,Testing Build in,$*)'
 	@mkdir -p $(dir $(COOKIEDIR)/$(TEST_TARGETS))
-	@cd $* && ($(TEST_ENV) ./Build $(foreach TTT,$(TEST_OVERRIDE_DIRS),$(TTT)="$($(TTT))") $* test $(TEST_ARGS) && $(MAKECOOKIE)) || true
+	@((cd $* && $(TEST_ENV) ./Build test $(TEST_ARGS)) && $(MAKECOOKIE)) || true
 
 test-%/Makefile:
 	@echo ' $(call TMSG_LIB,Testing make in,$*)'
@@ -435,7 +435,7 @@ install-%/build_gpt:
 	@echo ' $(call TMSG_LIB,Running gptinstall in,$*)'
 	@$(PROVIDE_BEGIN)
 	@$(PRE_INSTALL)
-	@ cd $* && $(INSTALL_ENV) ./build_gpt $(INSTALL_ARGS)
+	@(cd $* && $(INSTALL_ENV) ./build_gpt $(INSTALL_ARGS))
 	@$(POST_INSTALL)
 	@$(PROVIDE_END)
 	@$(MAKECOOKIE)
@@ -444,16 +444,17 @@ install-%/gpt-build:
 	@echo ' $(call TMSG_LIB,Running gptinstall in,$*)'
 	@$(PROVIDE_BEGIN)
 	@$(PRE_INSTALL)
-	@ cd $* && $(INSTALL_ENV) $(GPT_LOCATION)/sbin/gpt-build $(INSTALL_ARGS)
+	@(cd $* && $(INSTALL_ENV) $(GPT_LOCATION)/sbin/gpt-build $(INSTALL_ARGS))
 	@$(POST_INSTALL)
 	@$(PROVIDE_END)
 	@$(MAKECOOKIE)
 
 install-%/Build:
-	@echo ' $(call TMSG_LIB,Running make install in,$*)'
+	@echo ' $(call TMSG_LIB,Running Build install in,$*)'
 	@$(PROVIDE_BEGIN)
 	@$(PRE_INSTALL)
-	@ cd $* && $(INSTALL_ENV) ./Build DESTDIR=$(DESTDIR) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) install
+	@(cd $* && ./Build DESTDIR=$(DESTDIR) $(INSTALL_ARGS) fakeinstall | grep ^Skipping | awk '{print $2}' | xargs rm -f {} \; ) || true
+	@(cd $* && $(INSTALL_ENV) ./Build DESTDIR=$(DESTDIR) $(INSTALL_ARGS) install)
 	@$(POST_INSTALL)
 	@$(PROVIDE_END)
 	@$(MAKECOOKIE)
