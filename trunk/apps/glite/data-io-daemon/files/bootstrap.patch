@@ -1,5 +1,5 @@
---- work/glite-data-io-daemon-1.2.0/bootstrap	Tue Jul  6 12:48:22 2004
-+++ work/glite-data-io-daemon-1.2.0/bootstrap.new	Thu Feb  3 10:05:47 2005
+--- work/glite-data-io-daemon-1.2.1/bootstrap	Tue Jul  6 12:48:22 2004
++++ work/glite-data-io-daemon-1.2.1/bootstrap.new	Thu Feb  3 10:05:47 2005
 @@ -2,7 +2,7 @@
  
  mkdir -p src/autogen

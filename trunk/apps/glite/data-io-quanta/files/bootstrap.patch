@@ -1,11 +1,18 @@
---- work/glite-data-io-quanta-1.1.4/bootstrap	Fri Jul  2 14:57:26 2004
-+++ work/glite-data-io-quanta-1.1.4/bootstrap.new	Fri Feb  4 13:40:52 2005
-@@ -2,7 +2,7 @@
+--- work/glite-data-io-quanta-1.0.0/bootstrap	Fri Jul  2 14:57:26 2004
++++ work/glite-data-io-quanta-1.0.0/bootstrap.new	Thu Mar  3 15:07:24 2005
+@@ -2,13 +2,13 @@
  
  mkdir -p src/autogen
  set -x
 -aclocal -I project
-+aclocal -I $PREFIX/share/glite/project
++aclocal -I $PREFIX/share/glite/project -I project
  
  
  # Darwin/MacOS X has a different name for libtoolize.
+ case `uname` in
+ 	Darwin* | darwin*)
+-		glibtoolize --force
++		libtoolize --force
+ 		;;
+ 	*)
+ 		libtoolize --force

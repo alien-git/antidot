@@ -1,14 +1,13 @@
 GARNAME = glite-data-io-daemon
-GARVERSION = 1.2.0
+GARVERSION = 1.2.1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 PATCHFILES = bootstrap.patch
 NOCHECKSUM = $(DISTFILES)
 
 GARCVSNAME    = org.glite.data.io-daemon
-GARCVSVERSION = glite-data-io-daemon_branch_1_1_1_RC1
-
-MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)/src/
+GARCVSVERSION = glite-data-io-daemon_R_1_2_1
+MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
 LIBDEPS = apps/base/globus apps/base/log4cpp apps/glite/data-io-quanta apps/glite/data-io-gss-auth apps/glite/data-io-base apps/glite/data-config-service
 

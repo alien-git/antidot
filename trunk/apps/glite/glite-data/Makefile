@@ -1,5 +1,5 @@
 GARNAME    = glite-data
-GARVERSION = 1.1.5
+GARVERSION = 1.1.9
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 

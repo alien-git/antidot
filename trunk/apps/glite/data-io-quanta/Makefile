@@ -1,14 +1,13 @@
 GARNAME = glite-data-io-quanta
-GARVERSION = 1.1.4
+GARVERSION = 1.0.0
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 PATCHFILES = bootstrap.patch
 
+MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 GARCVSNAME    = org.glite.data.io-quanta
-GARCVSVERSION = glite-data-io-quanta_branch_1_0_0_RC1
+GARCVSVERSION = glite-data-io-quanta_R_1_0_0
 NOCHECKSUM    = $(DISTFILES)
-
-MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)/src/
 
 LIBDEPS = apps/base/globus apps/base/log4cpp apps/base/xerces-c apps/base/xalan-c apps/glite/glite-data
 
@@ -23,5 +22,4 @@ CONFIGURE_ARGS = $(DIRPATHS) --with-version=$(GARVERSION) --prefix=$(PREFIX) --w
 include ../category.mk
 
 PRE_CONFIGURE = (cd $(WORKSRC); env PREFIX=$(PREFIX) ./bootstrap )
-
 
