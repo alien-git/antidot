@@ -15,7 +15,12 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 BUILD_ARGS =  
+
+ifeq ($(shell uname),Darwin)
+CONFIGURE_ARGS = -default /usr
+else
 CONFIGURE_ARGS = -default $(PREFIX)  
+endif
 CONFIGURE_ENV  =  
 
 include ../category.mk
