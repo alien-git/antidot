@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.8  2005/03/01 12:07:00  buncic
+# Ditto.
+#
 # Revision 1.7  2005/03/01 12:02:57  buncic
 # Fixed typo.
 #
@@ -122,7 +125,7 @@ InstallerSync()
   then
     if [ `cat $HOME/.cvspass | grep -c $ALIEN_INSTALLER_CVS` -eq 0 ]
     then 
-      cvs $ALIEN_INSTALLER_CVS login<<EOF 
+      cvs -d $ALIEN_INSTALLER_CVS login<<EOF 
 cvs
 EOF
     fi
