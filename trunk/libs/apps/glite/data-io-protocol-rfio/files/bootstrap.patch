@@ -1,0 +1,11 @@
+--- work/glite-data-io-protocol-rfio-1.3.0/bootstrap	Mon Jul 19 11:35:54 2004
++++ work/glite-data-io-protocol-rfio-1.3.0/bootstrap.new	Fri Feb  4 14:42:19 2005
+@@ -2,7 +2,7 @@
+ 
+ mkdir -p src/autogen
+ set -x
+-aclocal -I project
++aclocal -I $PREFIX/share/glite/project
+ libtoolize --force
+ autoheader
+ automake --foreign --add-missing --copy

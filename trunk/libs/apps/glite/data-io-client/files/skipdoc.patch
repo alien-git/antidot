@@ -1,0 +1,11 @@
+--- work/glite-data-io-client-1.3.1/Makefile.am	Wed Feb  2 17:00:09 2005
++++ work/glite-data-io-client-1.3.1/Makefile.am.new	Fri Feb  4 15:33:40 2005
+@@ -19,7 +19,7 @@
+ ## *
+ ## *********************************************************************
+ 
+-SUBDIRS		= interface src doc test config
++SUBDIRS		= interface src 
+ 
+ commonutdir = $(datadir)/doc/$(PACKAGE)
+ dist_commonut_DATA = RELEASE-NOTES LICENSE

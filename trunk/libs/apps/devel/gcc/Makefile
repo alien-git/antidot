@@ -1,0 +1,18 @@
+GARNAME = gcc
+GARVERSION = 3.2.3
+CATEGORIES = apps-libs
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
+
+MASTER_SITES =  ftp://ftp.gnu.org/gnu/gcc/gcc-3.2.3/  http://alien.cern.ch/cache/
+
+LIBDEPS = apps/devel/autoconf apps/devel/automake  apps/devel/libtool 
+
+DESCRIPTION = GNU C/C++ compiler
+
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure 
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+
+CONFIGURE_ARGS = $(DIRPATHS) --enable-languages=c++,f77
+
+include ../category.mk

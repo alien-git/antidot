@@ -1,0 +1,42 @@
+--- work/classads-0.9.7/Makefile	Thu Oct 28 23:53:21 2004
++++ work/classads-0.9.7/Makefile.new	Fri Jan 28 15:40:43 2005
+@@ -5,14 +5,14 @@
+ 
+ LD_FLAGS = $(EXTRA_LD_FLAGS) -L. -l$(LIB_LINK_NAME)
+ 
+-all:: $(LIB_NAME) classad_functional_tester classad_unit_tester classad_version cxi extra_tests test_xml sample
++all:: $(LIB_NAME) libclassad.so
+ 
+ LIB_INSTALL = $(DESTDIR)/lib
+ BIN_INSTALL = $(DESTDIR)/bin
+-INCLUDE_INSTALL = $(DESTDIR)/include
++INCLUDE_INSTALL = $(DESTDIR)/include/classad
+ 
+ CPlusPlus = g++
+-C_PLUS_FLAGS = $(EXTRA_C_PLUS_FLAGS) -Wall -g -DCLASSAD_DISTRIBUTION 
++C_PLUS_FLAGS = $(EXTRA_C_PLUS_FLAGS) -fPIC -Wall -g -DCLASSAD_DISTRIBUTION 
+ INST_C_PLUS_FLAGS = $(C_PLUS_FLAGS) -w
+ NO_INST_C_PLUS_FLAGS = -fno-implicit-templates $(C_PLUS_FLAGS)
+ PURIFY = purify -g++=yes -chain-length=35 $(CPlusPlus)
+@@ -32,6 +32,10 @@
+ 	rm -f  $(LIB_NAME)
+ 	ar vrs $(LIB_NAME)  $(LIB_OBJ)
+ 
++libclassad.so: $(LIB_OBJ)
++	rm -f libclassad.so
++	$(CPlusPlus) -shared $(LIB_OBJ) -o libclassad.so
++
+ instantiations.o:   instantiations.C
+ 	$(CPlusPlus) $(INST_C_PLUS_FLAGS) -c instantiations.C -o instantiations.o
+ 
+@@ -70,9 +74,7 @@
+ 	mkdir -p $(BIN_INSTALL)
+ 	mkdir -p $(INCLUDE_INSTALL)
+ 	cp $(LIB_NAME)  $(LIB_INSTALL)
+-	cp classad_functional_tester $(BIN_INSTALL)
+-	cp classad_unit_tester $(BIN_INSTALL)
+-	cp classad_version $(BIN_INSTALL)
++	cp libclassad.so $(LIB_INSTALL)
+ 	cp $(HEADER_FILES) $(INCLUDE_INSTALL)
+ 
+ clean: tidy
