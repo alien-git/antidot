@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TJ/TJMATHER/ http://www.cpan.org/auth
 
 LIBDEPS = apps/base/perl apps/base/libwww-perl apps/base/libxml-perl apps/base/XML-RegExp
 
-DESCRIPTION = Implements Level 1 of W3's DOM
+DESCRIPTION = Implements Level 1 of W3 DOM
+AUTHOR = T.J. Mather
+URL = http://cpan.uwinnipeg.ca/~tjmather
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

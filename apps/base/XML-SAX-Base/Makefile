@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KH/KHAMPTON/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Base class SAX Drivers and Filters
+AUTHOR = Kip Hampton 
+URL = http://cpan.uwinnipeg.ca/~khampton
+LICENSE = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

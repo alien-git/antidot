@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GB/GBARR/ http://www.cpan.org/authors
 LIBDEPS = apps/base/perl # apps/base/cyrus-sasl
 
 DESCRIPTION = SASL authentication framework
+AUTHOR = Graham Barr 
+URL = http://cpan.uwinnipeg.ca/~gbarr
+LICENSE = GPL or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

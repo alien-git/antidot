@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BY/BYRNE/SOAP/ http://www.cpan.org/au
 LIBDEPS = apps/base/perl apps/base/XML-Parser apps/base/MIME-Base64 apps/base/URI apps/base/libwww-perl apps/base/Crypt-SSLeay apps/base/Net-Jabber apps/base/IO-Socket-SSL apps/base/Compress-Zlib apps/base/MIME-tools
 
 DESCRIPTION = SOAP toolkit for perl
+AUTHOR = Byrne Reese
+URL = http://cpan.uwinnipeg.ca/~byrne
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

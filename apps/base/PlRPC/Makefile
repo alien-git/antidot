@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JW/JWIED/ http://www.cpan.org/authors
 
 LIBDEPS = apps/base/perl apps/base/Net-Daemon
 
-DESCRIPTION = Interface for building pServer Clients
+DESCRIPTION = Perl Remote Method Invocation
+AUTHOR = Jochen Wiedmann 
+URL = http://cpan.uwinnipeg.ca/~jwied
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -1,5 +1,5 @@
 GARNAME = MailTools
-GARVERSION = 1.65
+GARVERSION = 1.66
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MA/MARKOV/ http://www.cpan.org/author
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = Mail utilities (for by some Mail::* modules)
+DESCRIPTION = Various Mail related modules
+AUTHOR = Mark Overmeer
+URL = http://cpan.uwinnipeg.ca/~markov
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

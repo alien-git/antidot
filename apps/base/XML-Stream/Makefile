@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RE/REATMON/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl apps/base/Authen-SASL
 
 DESCRIPTION = Module for handling XML Streams
+AUTHOR = Ryan Eatmon
+URL = http://cpan.uwinnipeg.ca/~reatmon
+LICENSE = LGPL
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

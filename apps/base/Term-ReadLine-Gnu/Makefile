@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/H/HA/HAYASHI/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl apps/base/readline
 
 DESCRIPTION = GNU Readline XS library wrapper
+AUTHOR = Hiroo HAYASHI
+URL = http://cpan.uwinnipeg.ca/~hayashi
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

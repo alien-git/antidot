@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSHELOR/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Perl extension for SHA-1/224/256/384/512
+AUTHOR = Mark Shelor
+URL = http://cpan.uwinnipeg.ca/~mshelor
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

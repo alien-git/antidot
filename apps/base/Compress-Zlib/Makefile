@@ -1,5 +1,5 @@
 GARNAME = Compress-Zlib
-GARVERSION = 1.33
+GARVERSION = 1.34
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/P/PM/PMQS/ http://www.cpan.org/authors/
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Interface to zlib compression library
+AUTHOR = Paul Marquess 
+URL = http://cpan.uwinnipeg.ca/~pmqs
+LICENSE = GPL or Artisitic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

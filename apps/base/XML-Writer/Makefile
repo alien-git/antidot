@@ -1,5 +1,5 @@
 GARNAME = XML-Writer
-GARVERSION = 0.520
+GARVERSION = 0.531
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JO/JOSEPHW/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Module for writing XML documents
+AUTHOR = Joseph Walton
+URL = http://cpan.uwinnipeg.ca/~josephw
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

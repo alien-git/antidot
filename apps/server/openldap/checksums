@@ -3,4 +3,4 @@ a1e6508c471dd47205a3492cf57110a6  download/openldap-2.0.27.tgz
 2c4908d326ee423f4c6505935081c05a  files/Makefile.in.patch
 cf4a12db562a00bafe3a5e45ba7477e0  files/Portfile.patch
 98cb8402346b707c359974246c9f7c73  download/openldap-2.0.27_ia64-unknown-linux-gnu.tar.bz2
-42dc1655d9dd7e2dfb14c4b2bb86c0a5  download/openldap-2.0.27_i686-pc-linux-gnu.tar.bz2
+1d0c00d92c6b389c5080b322d7ef218e  download/openldap-2.0.27_i686-pc-linux-gnu.tar.bz2

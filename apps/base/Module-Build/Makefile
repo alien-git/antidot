@@ -1,5 +1,5 @@
 GARNAME = Module-Build
-GARVERSION = 0.2607
+GARVERSION = 0.2608
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -9,10 +9,14 @@ LIBDEPS = apps/base/perl apps/base/Module-Signature  apps/base/Archive-Tar apps/
 
 
 DESCRIPTION = Build, test, and install Perl modules
+AUTHOR = Ken Williams
+URL = http://cpan.uwinnipeg.ca/~kwilliams
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Build.PL
 BUILD_SCRIPTS = $(WORKSRC)/Build
 INSTALL_SCRIPTS = $(WORKSRC)/Build
+TEST_SCRIPTS = 
 
 CONFIGURE_ENV = 
 BUILD_ARGS =  

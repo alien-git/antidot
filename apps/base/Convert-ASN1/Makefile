@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GB/GBARR/ http://www.cpan.org/authors
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Standard en/decode of ASN.1 structures
+AUTHOR = Graham Barr 
+URL = http://cpan.uwinnipeg.ca/~gbarr
+LICENSE = GPL or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

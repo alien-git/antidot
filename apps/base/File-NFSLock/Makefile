@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BB/BBB/ http://www.cpan.org/authors/i
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = NFS compatible (safe) locking utility
+AUTHOR = Rob Brown
+URL = http://cpan.uwinnipeg.ca/~bbb
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

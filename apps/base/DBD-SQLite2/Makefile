@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSERGEANT/ http://www.cpan.org/aut
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Self Contained RDBMS in a DBI Driver 
+AUTHOR = Matt Sergeant
+URL = http://cpan.uwinnipeg.ca/~msergeant
+LICENSE = Perl 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

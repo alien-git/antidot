@@ -8,7 +8,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SA/SAMTREGAR/ http://www.cpan.org/aut
 
 LIBDEPS = apps/base/perl apps/base/Class-MethodMaker 
 
-DESCRIPTION = 
+DESCRIPTION = Use Apache format config files
+AUTHOR = Sam Tregar
+URL = http://cpan.uwinnipeg.ca/~samtregar
+LICENSE = GPL or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SA/SAMPO/ http://www.cpan.org/authors
 
 LIBDEPS = apps/base/perl apps/base/openssl
 
-DESCRIPTION = Secure Socket Layer (based on OpenSSL)
+DESCRIPTION = Perl extension for using OpenSSL
+AUTHOR = Sampo Kellomaki
+URL = http://cpan.uwinnipeg.ca/~sampo
+LICENSE = OpenSSL
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

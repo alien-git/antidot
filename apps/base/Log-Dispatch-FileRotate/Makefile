@@ -1,5 +1,5 @@
 GARNAME = Log-Dispatch-FileRotate
-GARVERSION = 1.11
+GARVERSION = 1.13
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MA/MARKPF/ http://www.cpan.org/author
 
 LIBDEPS = apps/base/perl apps/base/DateManip apps/base/Log-Dispatch apps/base/Log-Log4perl
 
-DESCRIPTION = 
+DESCRIPTION = Log to files that archive/rotate themselves
+AUTHOR = Mark Pfeiffer 
+URL = http://cpan.uwinnipeg.ca/~markpf
+LICENSE = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

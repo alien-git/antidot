@@ -9,6 +9,9 @@ MASTER_SITES =   http://alien.cern.ch/cache/ http://www.kernel.org/pub/linux/lib
 LIBDEPS = 
 
 DESCRIPTION =  Linux-PAM (Pluggable Authentication Modules for Linux)
+AUTHOR =  Andrew Morgan
+URL = http://osx.freshmeat.net/redir/linux-pam/5890/url_homepage/pam
+LICENSE = GPL
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

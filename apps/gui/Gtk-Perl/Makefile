@@ -12,6 +12,7 @@ DESCRIPTION = binding of the Gtk library used by GIMP
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = 
 
 CONFIGURE_ARGS =  --without-guessing
 BUILD_ARGS =  

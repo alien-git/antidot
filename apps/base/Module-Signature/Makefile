@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AU/AUTRIJUS/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl apps/base/gnupg
 
 DESCRIPTION = Module signature file manipulation
+AUTHOR = Autrijus Tang
+URL = http://cpan.uwinnipeg.ca/~autrijus
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

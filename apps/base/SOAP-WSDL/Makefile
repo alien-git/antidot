@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MK/MKUTTER/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl apps/base/XML-XPath apps/base/SOAP-Lite
 
 DESCRIPTION = Complete WSDL support for SOAP::Lite
+AUTHOR = Martin Kutter 
+URL = http://cpan.uwinnipeg.ca/~mkutter
+LICENSE = Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

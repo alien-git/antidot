@@ -8,6 +8,9 @@ MASTER_SITES = http://alien.cern.ch/cache/ $(CPAN_MIRROR)/authors/id/R/RE/REATMO
 LIBDEPS = apps/base/perl apps/base/XML-Stream apps/base/Digest-SHA1
 
 DESCRIPTION = Access to the Jabber protocol
+AUTHOR = Ryan Eatmon
+URL = http://cpan.uwinnipeg.ca/~reatmon
+LICENSE = LGPL
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

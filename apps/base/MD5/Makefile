@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GA/GAAS/ http://www.cpan.org/authors/
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Perl interface to the MD5 Message-Digest Algorithm
+AUTHOR = Gisle Aas
+URL = http://cpan.uwinnipeg.ca/~gaas
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

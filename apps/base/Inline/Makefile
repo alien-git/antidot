@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/I/IN/INGY/ http://www.cpan.org/authors/
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = Write Perl subroutines in C
+DESCRIPTION = Write Perl subroutines in other languages
+AUTHOR =  Brian Ingerson
+URL = http://cpan.uwinnipeg.ca/~ingy
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSCHILLI/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Log4j implementation in Perl
+AUTHOR = Michael Schilli 
+URL = http://cpan.uwinnipeg.ca/~mschilli
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

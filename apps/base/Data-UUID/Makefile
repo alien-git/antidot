@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AG/AGOLOMSH/ http://www.cpan.org/auth
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Perl extension for generating Globally/Universally IDs
+AUTHOR = Alexander Golomshtok 
+URL = http://cpan.uwinnipeg.ca/~agolomsh
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSERGEANT/ http://www.cpan.org/aut
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = A set of modules for parsing and evaluating
+AUTHOR = Matt Sergeant
+URL = http://cpan.uwinnipeg.ca/~msergeant
+LICENSE =
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

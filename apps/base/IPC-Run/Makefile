@@ -1,13 +1,16 @@
 GARNAME = IPC-Run
-GARVERSION = 0.78
+GARVERSION = 0.79
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RB/RBS/ http://www.cpan.org/authors/id/R/RB/RBS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RB/RBS/
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RS/RSOD/ http://www.cpan.org/authors/id/R/RS/RSOD/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RS/RSOD/
 
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Child procs w/ piping, redir and psuedo-ttys
+AUTHOR = Richard Soderberg
+URL = http://cpan.uwinnipeg.ca/~rsod
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -9,6 +9,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/N/NI/NIKIP/ http://www.cpan.org/authors
 LIBDEPS = apps/base/perl apps/base/Linux-PAM
 
 DESCRIPTION = Interface to PAM library
+AUTHOR = Nikolay Pelov 
+URL    = http://cpan.uwinnipeg.ca/~nikip
+LICENSE= GPL or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

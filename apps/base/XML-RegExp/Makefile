@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TJ/TJMATHER/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Regular expressions for XML tokens
+AUTHOR = T.J. Mather
+URL = http://cpan.uwinnipeg.ca/~tjmather
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -1,5 +1,5 @@
 GARNAME = DateTime-Locale
-GARVERSION = 0.09
+GARVERSION = 0.21
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DR/DROLSKY/ http://www.cpan.org/autho
 
 LIBDEPS = apps/base/perl apps/base/Module-Build
 
-DESCRIPTION = 
+DESCRIPTION = Localization support for DateTime.pm
+AUTHOR = Dave Rolsky 
+URL = http://cpan.uwinnipeg.ca/~drolsky
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Build.PL
 BUILD_SCRIPTS = $(WORKSRC)/Build

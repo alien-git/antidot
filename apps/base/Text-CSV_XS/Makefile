@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JW/JWIED/ http://www.cpan.org/authors
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Fast 8bit clean version of Text::CSV
+AUTHOR = Jochen Wiedmann
+URL = http://cpan.uwinnipeg.ca/~jwied
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

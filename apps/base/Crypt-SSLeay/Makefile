@@ -8,7 +8,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CH/CHAMAS/ http://www.cpan.org/author
 
 LIBDEPS = apps/base/perl apps/base/openssl
 
-DESCRIPTION = 
+DESCRIPTION = OpenSSL glue that provides LWP https support
+AUTHOR = Joshua Chamas
+URL = http://cpan.uwinnipeg.ca/~chamas
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

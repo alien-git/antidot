@@ -9,6 +9,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/I/IR/IROBERTS/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl apps/base/openssl apps/base/Crypt-OpenSSL-Random
 
 DESCRIPTION = Interface to OpenSSL RSA methods
+AUTHOR = Ian Robertson
+URL = http://cpan.uwinnipeg.ca/~iroberts
+LICENSE = GPL or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

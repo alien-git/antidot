@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JZ/JZUCKER/ http://www.cpan.org/autho
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Small SQL parser and engine
+AUTHOR = Jeff Zucker
+URL = http://cpan.uwinnipeg.ca/~jzucker
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
