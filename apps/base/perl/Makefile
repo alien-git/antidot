@@ -10,7 +10,7 @@ LIBDEPS = apps/devel/automake apps/devel/autoconf apps/devel/libtool apps/base/g
 DESCRIPTION = The Perl interpreter
 AUTHOR = Larry Wall
 URL = http://www.perl.org
-LICENSE = Perl or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

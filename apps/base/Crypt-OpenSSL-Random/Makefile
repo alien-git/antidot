@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl apps/base/openssl
 DESCRIPTION = Interface to OpenSSL PRNG methods
 AUTHOR = Ian Robertson
 URL = http://cpan.uwinnipeg.ca/~iroberts
-LICENSE = GPL or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
