@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.30  2005/03/15 07:37:01  buncic
+# Tests added to CVS.
+#
 # Revision 1.29  2005/03/14 13:37:19  buncic
 # Grrr..
 #
@@ -195,6 +198,10 @@ InstallerSync()
 {
  (
   cd $ALIEN_INSTALLER_HOME
+  if [ ! -d CVS ]
+  then
+    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/$ALIEN_RELEASE/ . || Error "Error: rsync update failed." 
+  fi
   if [ -d CVS -a -f alien-installer ]
   then
     if [ ! -f $HOME/.cvspass ]
@@ -211,10 +218,8 @@ InstallerSync()
     else
       cvs -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE || Error "Error:CVS update failed ($ALIEN_RELEASE)."
     fi
-  else
-    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/$ALIEN_RELEASE/ . || Error "Error: rsync update failed." 
   fi
-  ) > /dev/null 2>&1
+  ) > install.log 2>&1
 }
 
 ###########################################################################
