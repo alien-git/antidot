@@ -40,7 +40,8 @@ apps/portal/apache \
 apps/portal/mod_perl \
 apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
-apps/portal/gridport
+apps/portal/gridport \
+apps/base/Authen-PAM
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 

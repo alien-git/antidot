@@ -27,7 +27,8 @@ apps/alien/apiservice \
 apps/server/mysql \
 apps/server/DBD-mysql \
 apps/server/jabberd \
-apps/server/openldap
+apps/server/openldap \
+apps/base/Authen-PAM
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
