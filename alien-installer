@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.26  2005/03/14 10:08:56  buncic
+# Avoid using backticks.
+#
 # Revision 1.25  2005/03/14 09:52:39  buncic
 # Fixed problem with dialog running under su.
 #
@@ -311,7 +314,7 @@ InstallerSetup()
                          arg=$arg" --VO $ALIEN_ORGANISATION"
   [ "$ALIEN_PROMPT" != "" ] && \
                          arg=$arg" --prompt $ALIEN_PROMPT"
-  [ "$ALIEN_LDAP_DN" != "" -a "$ALIEN_LDAP_DN" != "auto"] && \
+  [ "$ALIEN_LDAP_DN" != "" -a "$ALIEN_LDAP_DN" != "auto" ] && \
                          arg=$arg" --ldap-dn $ALIEN_LDAP_DN"
   [ "$ALIEN_MYPROXY_SERVER" != "" -a "$ALIEN_MYPROXY_SERVER" != "none" ] && \
                          arg=$arg" --myproxy-server $ALIEN_MYPROXY_SERVER"
@@ -506,12 +509,12 @@ InstallerUI()
 
     if [ $? -eq 1 ] 
     then 
-       platform=`$ALIEN_DIALOG $style \
+       $ALIEN_DIALOG $style \
                   --radiolist 'PLEASE SELECT PLATFORM:' 0 0 0 \
                               'i686-pc-linux-gnu'         'Linux i686' on \
                               'ia64-unknown-linux-gnu'    'Linux ia64' 0  \
-                              'powerpc-apple-darwin7.7.0' 'MacOS X'    0` || Exit 1 
-
+                              'powerpc-apple-darwin7.7.0' 'MacOS X'    0  2>$dialog_file || Exit 1 
+      prefix=`cat $dialog_file`
       cmd=$cmd"--with-platform=$platform "
     fi
   fi
