@@ -21,7 +21,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 TEST_ENV = env ALIEN_TESTDIR=test/alien ALIEN_ROOT=$(PREFIX)
 
-CONFIGURE_ARGS = 
+CONFIGURE_ARGS = --prefix=$(PREFIX)
 
 include ../category.mk
 
