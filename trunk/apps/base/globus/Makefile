@@ -9,13 +9,15 @@ LIBDEPS = apps/base/gpt
 
 DESCRIPTION = Globus Toolkit
 
-CONFIGURE_SCRIPTS = 
-BUILD_SCRIPTS = 
-INSTALL_SCRIPTS = $(WORKSRC)/gpt-build
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-INSTALL_ARGS = -force -verbose -installdir=$(GLOBUS_LOCATION) globus-gsi-2.4.3-src_bundle.tar.gz globus_io-4.0.tar.gz globus_ftp_control-1.11.tar.gz globus_ftp_client-1.10.tar.gz globus_gridftp_server-1.12.tar.gz globus_gass_transfer-2.4.tar.gz globus_gass_copy-2.9.tar.gz $(GLOBUS_FLAVOR)
+INSTALL_ENV = env GLOBUS_CC="gcc" GLOBUS_LOCATION=$(GLOBUS_LOCATION) GPT_LOCATION=$(GPT_LOCATION) GLOBUS_FLAVOR=$(GLOBUS_FLAVOR) GLOBUS_BUILD_TARGETS="client"
 
-INSTALL_ENV = env GLOBUS_CC="cc"
+CONFIGURE_ENV = env GLOBUS_CC="gcc" GLOBUS_LOCATION=$(GLOBUS_LOCATION) GPT_LOCATION=$(GPT_LOCATION) GLOBUS_FLAVOR=$(GLOBUS_FLAVOR) CPPFLAGS="-I/sw/include -no-cpp-precomp -I/sw/include -no-cpp-precomp -DHAVE_NETDB_H -DHAVE_SYS_SOCKET_H -DBIND_8_COMPAT"
+
+CONFIGURE_ARGS =  --with-flavor=$(GLOBUS_FLAVOR)
 
 include ../category.mk
 

@@ -19,7 +19,8 @@ CONFIGURE_SCRIPTS =
 BUILD_SCRIPTS = 
 INSTALL_SCRIPTS = $(WORKSRC)/build_gpt
 
-BUILD_ARGS = -prefix=$(GPT_LOCATION) -with-perl=$(PREFIX)/bin/perl -verbose
+BUILD_ARGS = -prefix=$(GPT_LOCATION) -with-perl=$(PREFIX)/bin/perl -verbose -autotools
+
 BUILD_ENV  = env GPT_LOCATION=$(GPT_LOCATION)
 
 include ../category.mk

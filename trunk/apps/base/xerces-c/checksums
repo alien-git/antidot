@@ -5,5 +5,5 @@ c7fbc42e38244ac62ebd675315be0272  files/Makefile
 e7ff7d007fabfa7e3fc8c75a8007b0b1  download/xerces-c-src_2_5_0.tar.gz
 f962fbc2d57f4da7b5801106f9b01149  files/Makefile.in.patch
 135027a54593011e9a0841f2c61ef2a4  download/xerces-c-2_5_0_ia64-unknown-linux-gnu.tar.bz2
-2e32ff1917bc8dfbb04361e34c2c3918  download/xerces-c-2_5_0_powerpc-apple-darwin7.7.0.tar.bz2
 44ae90c8c6fe533da4880d04238a50dd  download/xerces-c-2_5_0_i686-pc-linux-gnu.tar.bz2
+b970db09ae67944b4f02ca3febe4acb9  download/xerces-c-2_5_0_powerpc-apple-darwin7.7.0.tar.bz2
