@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.11  2005/03/01 13:46:50  buncic
+# Redefine TPUT when redirecting output to file.
+#
 # Revision 1.10  2005/03/01 13:28:13  buncic
 # Fixed cvs checkout.
 #
@@ -222,6 +225,8 @@ InstallerSetup()
   then  
     export TERMINFO=/usr/share/terminfo 
   fi
+  export LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH
+  export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
   arg2=`$ALIEN_INSTALLER_PREFIX/bin/$ALIEN_DIALOG $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form | \
 ( 
