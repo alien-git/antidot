@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.14  2005/03/02 11:50:37  buncic
+# Popup error box if synchronisation fails.
+#
 # Revision 1.13  2005/03/02 11:41:04  buncic
 # Added option to install specific AliEn release.
 #
@@ -76,7 +79,8 @@ Error()
 ###########################################################################
 {
    dialog $style --msgbox "$1" $height $width 
-   Exit 1
+   clear
+   exit 1
 }
 ###########################################################################
 InstallerRcUpdate()
@@ -115,8 +119,7 @@ InstallerMake()
       do
         if [ ! -d $dir ]
         then
-          echo "No such package: $dir"
-          Exit 1
+          Error "No such package: $dir"
         fi
         $ECHO make -C $dir $cmd || Exit 1
       done
@@ -134,8 +137,7 @@ InstallerMakePkg()
   do
     if [ ! -d $dir ]
     then
-      echo "No such package: $dir"
-      Exit 1
+      Error "No such package: $dir"
     fi
     $ECHO make -C $dir $cmd || Exit 1
   done
@@ -159,7 +161,7 @@ InstallerSync()
     fi
     cvs -z -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE || Error "Error: CVS update failed." 
   else
-    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/releases/$ALIEN_RELEASE . || Error "Error: rsync update failed." 
+    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/releases/$ALIEN_RELEASE/ . || Error "Error: rsync update failed." 
   fi
   ) > /dev/null 2>&1
 }
@@ -399,11 +401,11 @@ InstallerUI()
                $workspace` || Exit 1
   fi
 
-  mkdir -p $workspace || ( echo "You must specify the workspace directory." && Exit 1) 
+  mkdir -p $workspace || ( Error "You must specify the workspace directory.") 
 
   ALIEN_INSTALLER_HOME=$workspace
 
-  cd $workspace || ( echo  "Cannot change directory to $workspace" && Exit 1)
+  cd $workspace || ( Error  "Cannot change directory to $workspace" )
 
   cmd=$cmd" -p $workspace "
 
@@ -437,8 +439,7 @@ InstallerUI()
           platform=ia64-unknown-linux-gnu
           ;;
          *)
-          echo "Error: Unknown or unsupported platform: $platform"
-          exit 1
+          Error "Unknown or unsupported platform: $platform"
           ;;
       esac
 
