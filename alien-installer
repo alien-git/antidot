@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.9  2005/03/01 12:12:50  buncic
+# Add -d option to cvs update.
+#
 # Revision 1.8  2005/03/01 12:07:00  buncic
 # Ditto.
 #
@@ -123,15 +126,17 @@ InstallerSync()
   cd $ALIEN_INSTALLER_HOME
   if [ -d CVS ]
   then
+    if [ ! -f $HOME/.cvspass ]
+    then 
+     touch $HOME/.cvspass
+    fi
     if [ `cat $HOME/.cvspass | grep -c $ALIEN_INSTALLER_CVS` -eq 0 ]
     then 
-      cvs -d $ALIEN_INSTALLER_CVS login<<EOF 
-cvs
-EOF
+     echo "$ALIEN_INSTALLER_CVS Ah<Z" >> cat $HOME/.cvspass
     fi
-    cvs -z update -dP
+    cvs -z -d $ALIEN_INSTALLER_CVS update -dP
   else
-    rsync -acvz --cvs-exclude --exclude=alien.conf.mk $ALIEN_INSTALLER_URL .
+    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL .
   fi
   ) > /dev/null 2>&1
 }
@@ -209,6 +214,11 @@ InstallerSetup()
     fi
     i=`expr $i + 1`
   done
+  
+  if [ -f /usr/share/terminfo ] 
+  then  
+    export TERMINFO=/usr/share/terminfo 
+  fi
 
   arg2=`$ALIEN_INSTALLER_PREFIX/bin/$ALIEN_DIALOG $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form | \
 ( 
@@ -454,6 +464,12 @@ InstallerUI()
   echo $cmd > install.log
 
   (autoconf; $cmd ) > install.log 2>&1
+
+  (
+    cd $workspace
+    InstallerMakePkg clean apps/base/ncurses >> install.log
+    InstallerMakePkg $ALIEN_INSTALLER_METHOD apps/base/ncurses >> install.log
+  ) > /dev/null 2>&1
 
   for meta in $list
   do
