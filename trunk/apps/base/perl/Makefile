@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES = http://ftp.funet.fi/pub/CPAN/src/ 
 
-LIBDEPS = apps/base/gcc apps/base/db apps/base/openssl
+LIBDEPS = apps/base/automake apps/base/autoconf apps/base/libtool apps/base/gcc apps/base/db apps/base/openssl
 
 DESCRIPTION = GNU Autoconf
 
