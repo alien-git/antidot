@@ -250,10 +250,14 @@ RELOCATE_TARGETS = $(addprefix relocate-,$(filter-out $(NOEXTRACT),$(BINDISTFILE
 install-bin: checksum $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(BUILDDEPS)) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS)) $(addprefix bindep-$(GARDIR)/,$(EXTRACTDEPS)) pre-extract $(BINEXTRACT_TARGETS) $(RELOCATE_TARGETS) post-extract
 	$(DONADA)
 
+binclean:
+	rm -rf $(COOKIEDIR)/*binextract*
+
 bininstall: 
 ifeq ($(CATEGORIES),source-only)
-	@$(MAKE) install
+	@$(MAKE) reinstall
 else
+	rm -rf $(COOKIEDIR)/*binextract*
   ifeq ($(GARAUTODETECT),true)
 	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) && $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) ALLFILES= NOCHECKSUM=$(BINDISTFILES) BINDISTFILES=) || $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) ALLFILES=$(BINDISTFILES) NOCHECKSUM=$(BINDISTFILES)
   else
