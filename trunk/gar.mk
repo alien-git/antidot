@@ -50,7 +50,7 @@ ROOTFROMDEST = $(call DIRSTODOTS,$(DESTDIR))
 
 ALLFILES    = $(DISTFILES) $(PATCHFILES)
 
-GARFNAME=$(subst $(shell (cd $(GARDIR); pwd))/,,$(CURDIR))
+GARFNAME=$(subst $(dir $(dir $(dir $(CURDIR)))),,$(CURDIR))
 
 # Several variables depend on the target architecture
 
@@ -183,6 +183,15 @@ showdeps:
 		echo -e "$(TABLEVEL)$$i";\
 		$(MAKE) -s -C $(GARDIR)/$$i TABLEVEL="$(TABLEVEL)\t" showdeps;\
 	done
+
+version:
+	@printf "%-32s -14%s\n" $(GARNAME) $(GARVERSION)
+
+status-q: $(TEST_TARGETS)
+	@( [ ! -f $(COOKIEDIR)/$(TEST_TARGETS) -a -d $(COOKIEDIR)/test-work ] && echo "*failed*" ) || ( [ ! -f $(COOKIEDIR)/$(TEST_TARGETS) ] && echo "n/a" ) || echo "ok" 
+
+status: 
+	@printf "%-32s %-14s %-12s\n" $(GARNAME) $(GARVERSION) `$(MAKE) -s status-q`
 
 # fetch			- Retrieves $(DISTFILES) (and $(PATCHFILES) if defined)
 #				  into $(DOWNLOADDIR) as necessary.
@@ -320,6 +329,11 @@ build-p:
 # strip			- Strip binaries
 strip: build pre-strip $(addprefix strip-,$(STRIP_SCRIPTS)) post-strip
 	@echo "$(call TMSG_FAIL,$@) NOT IMPLEMENTED YET"
+
+TEST_TARGETS = $(addprefix test-,$(TEST_SCRIPTS))
+
+test: install $(TEST_TARGETS) post-install
+	$(DONADA)
 
 # install		- Install the results of a build.
 INSTALL_TARGETS = $(addprefix install-,$(INSTALL_SCRIPTS))

@@ -16,7 +16,7 @@ GARCHIVEDIR = @CACHE_DIR@
 
 #BUILD_CLEAN = true
 
-MASTER_SITES += @CACHE_URL@ http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)
+MASTER_SITES += @CACHE_URL@ http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)/src/
 
 export MASKED += @MASKED@
 

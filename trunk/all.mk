@@ -1,8 +1,19 @@
 # This makefile is to be included from Makefiles in each category
 # directory.
+
 %:
 	@for i in $(filter-out CVS category.mk Makefile make.log,$(wildcard *)) ; do \
 		$(MAKE) -C $$i $* ; \
+	done
+
+status:
+	@for i in $(filter-out CVS category.mk Makefile make.log,$(wildcard *)) ; do \
+		$(MAKE) -C $$i -s status ; \
+	done
+
+version:
+	@for i in $(filter-out CVS category.mk Makefile make.log,$(wildcard *)) ; do \
+		$(MAKE) -C $$i -s version ; \
 	done
 
 paranoid-%:

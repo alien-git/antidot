@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.16  2005/03/02 12:18:07  buncic
+# Fixed CVS update problem
+#
 # Revision 1.15  2005/03/02 11:58:24  buncic
 # Fixed rsync update.
 #
@@ -69,6 +72,26 @@ ALIEN_DIALOG=${ALIEN_DIALOG:=dialog}
 ALIEN_RELEASE=${ALIEN_RELEASE:=HEAD}
 ECHO=""
 ###########################################################################
+InstallerRcUpdate()
+###########################################################################
+{
+  mkdir -p $HOME/.alien
+  (
+    echo "ALIEN_INSTALLER_HOME=$ALIEN_INSTALLER_HOME" 
+    echo "ALIEN_INSTALLER_URL=$ALIEN_INSTALLER_URL" 
+    echo "ALIEN_INSTALLER_CVS=$ALIEN_INSTALLER_CVS" 
+    echo "ALIEN_INSTALLER_BINARY_UPDATE=$ALIEN_INSTALLER_BINARY_UPDATE" 
+    echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
+    echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD" 
+    echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
+    echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
+    echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
+    echo "ALIEN_DIALOG=$ALIEN_DIALOG" 
+    echo "ALIEN_RELEASE=$ALIEN_RELEASE" 
+  ) > $HOME/.alien/installer.rc
+
+}
+###########################################################################
 Exit()
 ###########################################################################
 {
@@ -84,26 +107,6 @@ Error()
    dialog $style --msgbox "$1" $height $width 
    clear
    exit 1
-}
-###########################################################################
-InstallerRcUpdate()
-###########################################################################
-{
-  mkdir -p $HOME/.alien
-  (
-    echo "ALIEN_INSTALLER_HOME=$ALIEN_INSTALLER_HOME" 
-    echo "ALIEN_INSTALLER_URL=$ALIEN_INSTALLER_URL" 
-    echo "ALIEN_INSTALLER_BINARY_UPDATE=$ALIEN_INSTALLER_BINARY_UPDATE" 
-    echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
-    echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD" 
-    echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
-    echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
-    echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
-    echo "ALIEN_INSTALLER_CVS=$ALIEN_INSTALLER_CVS" 
-    echo "ALIEN_DIALOG=$ALIEN_DIALOG" 
-    echo "ALIEN_RELEASE=$ALIEN_RELEASE" 
-  ) > $HOME/.alien/installer.rc
-
 }
 ###########################################################################
 InstallerMake()
@@ -152,7 +155,7 @@ InstallerSync()
 {
  (
   cd $ALIEN_INSTALLER_HOME
-  if [ -d CVS ]
+  if [ -d CVS -a -f alien-installer ]
   then
     if [ ! -f $HOME/.cvspass ]
     then 
@@ -160,9 +163,14 @@ InstallerSync()
     fi
     if [ `cat $HOME/.cvspass | grep -c $ALIEN_INSTALLER_CVS` -eq 0 ]
     then 
-     echo "$ALIEN_INSTALLER_CVS Ah<Z" >> cat $HOME/.cvspass
+     echo "$ALIEN_INSTALLER_CVS Ah<Z" >> $HOME/.cvspass
     fi
-    cvs -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE || Error "Error: CVS update failed ($ALIEN_RELEASE)." 
+    if [ "$ALIEN_RELEASE" = "HEAD" ]
+    then
+      cvs -d $ALIEN_INSTALLER_CVS update -dPA || Error "Error: CVS update failed ($ALIEN_RELEASE)."
+    else
+      cvs -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE || Error "Error:CVS update failed ($ALIEN_RELEASE)."
+    fi
   else
     rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/$ALIEN_RELEASE/ . || Error "Error: rsync update failed." 
   fi
@@ -177,12 +185,17 @@ InstallerSetup()
   width=60
   style="--title AliEn-Configuratior-v0.01 --clear  --stdout"
 
-  if [ -f /usr/share/terminfo ]
-  then
-    export TERMINFO=/usr/share/terminfo
-  fi
-  export LD_LIBRARY_PATH=$ALIEN_INSTALLER_PREFIX/lib:$LD_LIBRARY_PATH
-  export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
+  case `dialog --version` in
+    *0.[0-9]a*)
+        export LD_LIBRARY_PATH=$ALIEN_INSTALLER_PREFIX/lib:$LD_LIBRARY_PATH
+        export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
+        dialog_form=$ALIEN_INSTALLER_PREFIX/bin/dialog
+        ;;
+     *)
+        dialog_vorm=dialog
+        ;;
+  esac
+
 
   eval `$ALIEN_INSTALLER_PREFIX/bin/alien configure` || Exit 1
 
@@ -203,7 +216,7 @@ InstallerSetup()
     fi
   done
 
-  arg1=`$ALIEN_INSTALLER_PREFIX/bin/$ALIEN_DIALOG $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form | \
+  arg1=`$dialog_form $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form | \
 ( 
   read GLOBUS_LOCATION 
   read SWIG_LOCATION 
@@ -250,7 +263,7 @@ InstallerSetup()
     i=`expr $i + 1`
   done
 
-  arg2=`$ALIEN_INSTALLER_PREFIX/bin/$ALIEN_DIALOG $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form | \
+  arg2=`$dialog_form $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form | \
 ( 
   read ALIEN_ORGANISATION 
   read ALIEN_USER 
@@ -642,8 +655,8 @@ do
            ;;
         configure)
             shift 1
-            InstallerSync
             InstallerRcUpdate
+            InstallerSync
             cd $ALIEN_INSTALLER_HOME && autoconf && ./configure $*
             exit
            ;;
