@@ -2,7 +2,7 @@ GARNAME = glite-data-io-quanta
 GARVERSION = 1.1.4
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
-PATCHFILES = bootstrap.patch
+PATCHFILES = bootstrap.patch bootstrap1.patch
 
 GARCVSNAME    = org.glite.data.io-quanta
 GARCVSVERSION = glite-data-io-quanta_branch_1_0_0_RC1

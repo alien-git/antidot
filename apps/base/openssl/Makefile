@@ -17,3 +17,4 @@ CONFIGURE_ARGS = $(DIRPATHS) shared --openssldir=$(PREFIX)/ssl
 NODIRPATHS = --bindir --exec_prefix --sbindir --libexecdir --datadir --sysconfdir --sharedstatedir --localstatedir --libdir --infodir --includedir --mandir
 
 include ../category.mk
+

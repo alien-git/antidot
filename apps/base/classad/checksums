@@ -5,3 +5,8 @@ e43a7dfdba88f16c090716542495d36f  files/limits.diff
 1ccd37d38e6288a589eecfb650bee23d  files/ostream.diff
 15209efe81e8a2dc26ed829582f608d3  files/makefile.diff
 0da8f586555aad2d7628f019ef2c1bb8  files/fnCall.diff
+b8c5ff95db32f9936fa1527f17047806  files/util.diff
+c6e9cff4190a5f6046f368a9fe06e56a  files/instantiations.diff
+e4bd8caf1385e529d8f58bd0da8503db  files/makefile3.diff
+c1647d4dc7e0c1a192cfc062926b37c3  files/makefile2.diff
+8d60a3bfc9aba6c0c824f083b983370b  download/classads-0.9.7_powerpc-apple-darwin7.7.0.tar.bz2

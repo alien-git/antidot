@@ -4,3 +4,4 @@ c7fbc42e38244ac62ebd675315be0272  files/Makefile
 0256dad691d6843a8849f65d031003d7  files/configure
 e7ff7d007fabfa7e3fc8c75a8007b0b1  download/xerces-c-src_2_5_0.tar.gz
 f962fbc2d57f4da7b5801106f9b01149  files/Makefile.in.patch
+bfd1bedb0fb90446e8651653d762b264  download/xerces-c-2_5_0_powerpc-apple-darwin7.7.0.tar.bz2

@@ -24,6 +24,7 @@ INSTALL_ARGS = -C src/xercesc
 
 include ../category.mk
 
+PRE_INSTALL = (cd $(PREFIX)/lib; rm -rf libxerces-c* )
 PRE_CONFIGURE = cp files/configure $(WORKSRC); cd $(WORKSRC)/src/xercesc ; autoconf; 
 
 export XERCESCROOT:=$(shell pwd)/$(WORKSRC)

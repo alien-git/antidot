@@ -14,7 +14,11 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = INC=-I/usr/kerberos/include CC=$(PREFIX)/bin/gcc
+ifeq ($(shell uname),Darwin)
+CONFIGURE_ARGS = INC=-I/usr/kerberos/include
+else
+CONFIGURE_ARGS = INC=-I/usr/kerberos/include CC=gcc LIBS="-L$(PREFIX) -lssl -lcrypto"
+endif
 
 CONFIGURE_ENV = 
 
