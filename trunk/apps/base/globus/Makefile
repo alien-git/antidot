@@ -28,6 +28,9 @@ else
 INSTALL_ENV += GLOBUS_BUILD_TARGETS="client server"
 endif
 
-
 include ../category.mk
+
+ifeq ($(GLOBUS_FLAVOR),gcc64)
+CONFIGURE_ARGS += --enable-64bit 
+endif
 
