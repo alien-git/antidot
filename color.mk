@@ -23,7 +23,7 @@ ifneq ($(TERM),)
 	###
 	# if you don't have tput, we could rely on ANSI, but that 
 	# would defeat the purpose of using tput as a safe colorizer.
-	ifneq ($(strip $(shell which tput)),)
+	ifneq ($(strip $(shell which /usr/bin/tput)),)
 		TERM_RST 	=$(shell tput sgr0)
 		TERM_BOLD	=$(shell tput bold)
 
