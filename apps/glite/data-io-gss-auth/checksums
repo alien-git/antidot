@@ -2,3 +2,4 @@
 ff4624236752b8cc197682c67093af61  files/bootstrap.patch
 a096940916c54e78ddfe420add10f858  files/configure.ac.patch
 6dda8c2b3eef933ee66550e24e5867e1  download/glite-data-io-gss-auth-1.0.0_ia64-unknown-linux-gnu.tar.bz2
+7102c9e905845cbb84cb0e76455e46a7  download/glite-data-io-gss-auth-1.0.0_powerpc-apple-darwin7.7.0.tar.bz2

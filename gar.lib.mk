@@ -307,9 +307,8 @@ patch-%.patch: normal-patch-%.patch
 
 #################### CONFIGURE RULES ####################
 export PREFIX=$(prefix)
-export PATH +=$(prefix)/bin
-export LD_LIBRARY_PATH += $(prefix)/lib
-export PERL5LIB += $(prefix)/lib/perl5
+export PATH:=$(prefix)/bin:$(PATH)
+export PERL5LIB=$(prefix)/lib/perl5
 
 TMP_DIRPATHS = --prefix=$(prefix) --exec_prefix=$(exec_prefix) --bindir=$(bindir) --sbindir=$(sbindir) --libexecdir=$(libexecdir) --datadir=$(datadir) --sysconfdir=$(sysconfdir) --sharedstatedir=$(sharedstatedir) --localstatedir=$(localstatedir) --libdir=$(libdir) --infodir=$(infodir) --lispdir=$(lispdir) --includedir=$(includedir) --mandir=$(mandir) 
 
