@@ -186,6 +186,11 @@ showdeps:
 		$(MAKE) -s -C $(GARDIR)/$$i TABLEVEL="$(TABLEVEL)\t" showdeps;\
 	done
 
+showdeps-l:
+	@for i in $(LIBDEPS) $(BUILDDEPS); do \
+		echo $$i; \
+	done
+
 version:
 	@printf "%-32s -14%s\n" $(GARNAME) $(GARVERSION)
 
