@@ -1,0 +1,20 @@
+GARNAME = Exporter-Lite
+GARVERSION = 0.01
+CATEGORIES = perl
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSCHWERN/ http://www.cpan.org/authors/id/M/MS/MSCHWERN/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MS/MSCHWERN/
+
+LIBDEPS = apps/base/perl
+
+DESCRIPTION = 
+
+CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+
+CONFIGURE_ARGS =  
+BUILD_ARGS =  
+
+include ../category.mk
+

@@ -1,0 +1,20 @@
+GARNAME = Log-Log4perl
+GARVERSION = 0.51
+CATEGORIES = perl
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSCHILLI/ http://www.cpan.org/authors/id/M/MS/MSCHILLI/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MS/MSCHILLI/
+
+LIBDEPS = apps/base/perl
+
+DESCRIPTION = Log4j implementation in Perl
+
+CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+
+CONFIGURE_ARGS =  
+BUILD_ARGS =  
+
+include ../category.mk
+

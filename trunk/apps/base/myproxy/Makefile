@@ -1,0 +1,19 @@
+GARNAME = myproxy
+GARVERSION = 1.9
+CATEGORIES = apps-tools
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+MASTER_SITES = ftp://ftp.ncsa.uiuc.edu/aces/myproxy/ http://alien.cern.ch/cache/
+
+LIBDEPS = apps/base/globus
+
+DESCRIPTION = myproxy
+
+CONFIGURE_ARGS = $(DIRPATHS) 
+CONFIGURE_SCRIPTS = 
+BUILD_SCRIPTS =
+INSTALL_SCRIPTS = $(WORKSRC)/gpt-build
+
+INSTALL_ARGS = -installdir=$(GLOBUS_LOCATION) -verbose ../../download/$(GARNAME)-$(GARVERSION).tar.gz  $(GLOBUS_FLAVOR)
+
+include ../category.mk
