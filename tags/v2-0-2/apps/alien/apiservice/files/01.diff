@@ -1,0 +1,11 @@
+--- work/glite-alien-apiservice-1.0.0/configure.ac	2005-01-14 18:59:17.000000000 +0100
++++ work/glite-alien-apiservice-1.0.0/configure.ac.new	2005-01-20 17:29:16.000000000 +0100
+@@ -104,7 +104,7 @@
+ fi
+ 
+ ## TODO: better version control method
+-soapcpp_req=2.6
++soapcpp_req=2.7
+ soapcpp_found=`$SOAP_CPP -v 2>&1`
+ tmp_soapcpp=`echo $soapcpp_found|grep $soapcpp_req`
+ if test x"$tmp_soapcpp" = x
