@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.23  2005/03/11 11:14:35  buncic
+# Changed format of release tag.
+#
 # Revision 1.22  2005/03/11 09:37:44  buncic
 # Fixed problem with double sync
 #
@@ -73,7 +76,7 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.01
+VERSION=0.02
 ###########################################################################
 [ -f $HOME/.alien/installer.rc ] && . $HOME/.alien/installer.rc
 ###########################################################################
@@ -390,7 +393,7 @@ InstallerUI()
 
   wget -O $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
 
-  list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{printf("%s %s 0 ",$1,$3)}'`
+  list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{printf("%s %s 0 ",$3,$2)}'`
 
   release=`$ALIEN_DIALOG $style \
             --radiolist "PLEASE SELECT ALIEN RELEASE:" 0 0 0 \
