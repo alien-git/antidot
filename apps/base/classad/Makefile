@@ -17,8 +17,6 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS =  --prefix $(PREFIX) --enable-namespace --enable-flexible-member
 
-INSTALL_ARGS = DESTDIR=$(PREFIX)
-
 include ../category.mk
 
 PRE_CONFIGURE = ( cd $(WORKSRC); sh bootstrap )
