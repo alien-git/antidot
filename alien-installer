@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.27  2005/03/14 10:58:42  buncic
+# Typo.,..
+#
 # Revision 1.26  2005/03/14 10:08:56  buncic
 # Avoid using backticks.
 #
@@ -158,7 +161,7 @@ InstallerMake()
         then
           Error "No such package: $dir"
         fi
-        $ECHO make -C $dir $cmd || Exit 1
+        $ECHO make -C $dir $cmd > /dev/null 2>&1 || Exit 1
       done
     done
   fi
@@ -176,7 +179,7 @@ InstallerMakePkg()
     then
       Error "No such package: $dir"
     fi
-    $ECHO make -C $dir $cmd || Exit 1
+    $ECHO make -C $dir $cmd > /dev/null 2>&1 || Exit 1
   done
 }
 
@@ -460,7 +463,7 @@ InstallerUI()
     workspace=`cat $dialog_file`
   fi
 
-  mkdir -p $workspace || ( Error "You must specify the workspace directory.") 
+  mkdir -p $workspace || Error "Cannot create $workspace directory."
 
   ALIEN_INSTALLER_HOME=$workspace
 
@@ -544,7 +547,7 @@ InstallerUI()
 
   [ -d $prefix ] &&  rm -rf $prefix/*  
 
-  mkdir -p $prefix
+  mkdir -p $prefix || Error "Cannot create $prefix directory"
 
   cmd=$cmd"--prefix=$prefix"
 
@@ -624,6 +627,9 @@ args=$*
  
 while [ $# -gt 0 ]
 do
+    echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD"
+
+
     case $1 in
         selfupdate|sync)
             InstallerSync 
@@ -645,15 +651,39 @@ do
 	    ALIEN_RELEASE=$1
             shift 1
            ;;
-        -b|--binary)
+        -t|--type)
+            shift 1
+	    ALIEN_INSTALLER_TYPE=$1
+            shift 1
+           ;;
+        --platform)
+            shift 1
+	    ALIEN_INSTALLER_PLATFORM=$1
+            shift 1
+           ;;
+        --method)
+            shift 1
+	    ALIEN_INSTALLER_METHOD=$1
+            shift 1
+           ;;
+        --prefix)
+            shift 1
+	    ALIEN_INSTALLER_PLATFORM=$1
+            shift 1
+           ;;
+        -b|--binary|--binary-update)
             shift 1
 	    ALIEN_INSTALLER_BINARY_UPDATE=1
+           ;;
+        -a|--autodetect)
+            shift 1
+	    ALIEN_INSTALLER_AUTODETECT=1
            ;;
         --pretend)
             shift 1
 	    ECHO=echo
            ;;
-        -p|--build-prefix)
+        -p|--build-prefix|--home)
             shift 1
 	    ALIEN_INSTALLER_HOME=$1
             shift 1
@@ -744,6 +774,7 @@ Common commmands:
   apropos    - list packages matching a search keyword
   describe   - display a detailed description of the named packages
   index      - force rebuild of package cache 
+
 Options:
   -b, --binary       - use binary packages 
   -p, --build-prefix - installation directory
@@ -752,7 +783,34 @@ Options:
   -q, --quiet        -  be less verbose, opposite of --verbose
   -V, --version      - display version information
   -v, --verbose      - to be more verbose, opposite of --quiet
+
+Configuration:
+
+ alien-installer <installer option> configure <configure options>
+ 
+Installer options:
+  --url <URL>                [rsync://alien.cern.ch:8873/releases]
+  --release <RELEASE>        [HEAD] 
+  --type <installation type> [all,client,portal,site,core,wn]
+  --platform <platform>      [,i686-pc-linux-gnu,ia64-unknown-linux-gnu,powerpc-apple-darwin7.7.0]
+  --method <method>          [bininstall,install]  
+  --prefix <path>            [/opt/alien]  
+  --home <path>              [$HOME/alien]
+  --binary-update   
+  --autodetect
+ 
+Configure options:
+  --prefix=dir                   Installation prefix 
+  --with-globus-location=dir     Globus directory
+  --with-gpt-location=dir        GPT directory
+  --with-globus-flavor=string    Globus flavor
+  --with-glite-build=string      gLite build id
+  --with-cache-dir=dir           Local package cache
+  --with-cache-url=url           Remote package cache
+  --with-platform=string         Platform
 EOF
+
+
             exit
            ;;
         list|apropos|index|describe)
