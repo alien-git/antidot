@@ -13,7 +13,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS =  
+CONFIGURE_ARGS = 
+
 BUILD_ARGS =  
 
 include ../category.mk
