@@ -1,5 +1,5 @@
 GARNAME    = glite
-GARVERSION = 1.0.5
+GARVERSION = 1.0.8
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 
@@ -17,3 +17,9 @@ INSTALL_ENV = env PREFIX=$(PREFIX)
 CONFIGURE_ARGS =
 
 include ../category.mk
+
+x:
+	echo $(MASTER_SITES)
+	echo $(DISTFILES)
+
+

@@ -5,10 +5,9 @@ DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 PATCHFILES = bootstrap.patch
 
 GARCVSNAME    = org.glite.data.io-base
-GARCVSVERSION = glite-data-io-base_branch_1_2_1_RC1 
+GARCVSVERSION = glite-data-io-base_R_1_3_0
 NOCHECKSUM    = $(DISTFILES)
-
-MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)/src/
+MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
 LIBDEPS = apps/base/globus apps/base/log4cpp apps/glite/data-io-quanta apps/glite/data-io-gss-auth apps/glite/glite-data
 
