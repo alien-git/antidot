@@ -18,7 +18,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS =  --prefix $(PREFIX) --enable-namespaces --enable-flexible-member
+CONFIGURE_ARGS =  --prefix $(PREFIX) --enable-namespace --enable-flexible-member
 
 include ../category.mk
 
