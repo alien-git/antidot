@@ -17,6 +17,5 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = $(DIRPATHS) 
-CONFIGURE_ENV  = env LDFLAGS=-static
 
 include ../category.mk
