@@ -57,7 +57,7 @@ GARFNAME=$(subst $(shell (cd $(GARDIR); pwd))/,,$(CURDIR))
 GARUNAME_S=$(shell uname -s)
 GARUNAME_M=$(shell uname -m)
 
-include $(wildcard $(GARDIR)/platform/$(GARUNAME_S).mk $(GARDIR)/platform/$(GARUNAME_S).mk )
+include $(wildcard $(GARDIR)/platform/$(GARUNAME_S).mk $(GARDIR)/platform/$(GARUNAME_S).$(GARUNAME_M).mk )
 
 include $(GARDIR)/alien.conf.mk
 
