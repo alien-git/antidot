@@ -30,7 +30,7 @@
 -	mkdir -p $(LIB_INSTALL)
 +$(LIBCLASSAD): $(LIB_OBJ)
 +	rm -f $(LIBCLASSAD)
-+	$(CPlusPlus) $(GARSHARED) $(LIB_OBJ) -o $(LIBCLASSAD)
++	$(CPlusPlus) $(OWN_CXXLDFLAGS) $(LIB_OBJ) -o $(LIBCLASSAD)
 +
 +
 +install:: $(LIB_NAME) 
