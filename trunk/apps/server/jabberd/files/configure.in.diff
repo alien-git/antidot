@@ -8,11 +8,11 @@
 +        for mpath in $prefix /usr/include /usr/local/include; do
              if test "x-$ac_cv_header_mysql_h" != "x-yes" ; then
 -                AC_MSG_CHECKING([for mysql.h in $incpath])
-+                AC_MSG_CHECKING([for mysql.h in $path/mysql])
++                AC_MSG_CHECKING([for mysql.h in $mpath/include/mysql])
                  save_cppflags="$CPPFLAGS"
 -                CPPFLAGS="-I$incpath $CPPFLAGS"
 +                save_ldflags="$LDFLAGS"
-+                CPPFLAGS="-I$mpath/mysql $CPPFLAGS"
++                CPPFLAGS="-I$mpath/include/mysql $CPPFLAGS"
 +                LDFLAGS="-L$mpath/lib $LDFLAGS"
                  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <mysql.h>]])],
                                    [AC_MSG_RESULT(yes)
