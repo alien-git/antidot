@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.29  2005/03/14 13:37:19  buncic
+# Grrr..
+#
 # Revision 1.28  2005/03/14 13:21:03  buncic
 # Added options to configure installer w/o dialog (from command line)
 #
@@ -440,7 +443,7 @@ InstallerUI()
   if [ "$method" == "Source" ]
   then
     cmd=$cmd"-b "
-    ALIEN_INSTALLER_METHOD='install'
+    ALIEN_INSTALLER_METHOD='reinstall'
   fi
 
   $ALIEN_DIALOG  $style --defaultno \
@@ -593,7 +596,6 @@ InstallerUI()
         echo XXX
         echo "Installing $pkg..."
         echo XXX
-        InstallerMakePkg clean $pkg >> install.log
         InstallerMakePkg $ALIEN_INSTALLER_METHOD $pkg >> install.log
         echo $g
       done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
