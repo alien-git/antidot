@@ -50,6 +50,31 @@ ROOTFROMDEST = $(call DIRSTODOTS,$(DESTDIR))
 
 ALLFILES    = $(DISTFILES) $(PATCHFILES)
 
+GARFNAME=$(subst $(shell (cd $(GARDIR); pwd))/,,$(CURDIR))
+
+# Several variables depend on the target architecture
+
+GARUNAME_S=$(shell uname -s)
+GARUNAME_M=$(shell uname -m)
+
+include $(wildcard $(GARDIR)/platform/$(GARUNAME_S).mk $(GARDIR)/platform/$(GARUNAME_S).mk )
+
+include $(GARDIR)/alien.conf.mk
+
+ifeq ($(GARFNAME),$(findstring $(GARFNAME),$(MASKED)))
+DISTFILES := 
+CONFIGURE_SCRIPTS :=
+BUILD_SCRIPTS :=
+INSTALL_SCRIPTS :=
+LIBDEPS :=
+BUILDDEPS :=
+SOURCEDEPS :=
+BINDISTFILES :=
+PATCHFILES :=
+ALLFILES := 
+endif
+
+
 INSTALL_DIRS = $(addprefix $(DESTDIR),$(BUILD_PREFIX) $(prefix) $(exec_prefix) $(bindir) $(sbindir) $(libexecdir) $(datadir) $(sysconfdir) $(sharedstatedir) $(localstatedir) $(libdir) $(infodir) $(lispdir) $(includedir) $(mandir) $(foreach NUM,1 2 3 4 5 6 7 8, $(mandir)/man$(NUM)) $(sourcedir))
 
 # These are bad, since exporting them mucks up the dep rules!
@@ -68,9 +93,8 @@ DONADA = @echo "	[$(call TMSG_ACTION,$@)] complete for $(call TMSG_ID,$(GARNAME)
 all: build
 	$(DONADA)
 
-
 # include the configuration file to override any of these variables
-include $(GARDIR)/alien.conf.mk
+
 include $(GARDIR)/gar.conf.mk
 include $(GARDIR)/gar.lib.mk
 include $(GARDIR)/color.mk
@@ -80,6 +104,7 @@ DO_BUILD_CLEAN = buildclean
 else
 DO_BUILD_CLEAN =
 endif
+
 
 # some packages use DESTDIR, but some use other methods.  For the
 # rules that *we* write, the DESTDIR will be transparently added.
@@ -332,11 +357,13 @@ provides: build
 # TODO: actually write it!
 cache: install
 	@mkdir -p $(CACHE_DIR)
+ifeq ($(wildcard $(COOKIEDIR)/provides), $(COOKIEDIR)/provides) 
 	@($(TAR) jcf $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 -C $(BUILD_PREFIX) `cat $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%'`) || touch $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 
 	@grep -v  $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CHECKSUM_FILE) > $(CHECKSUM_FILE).swp
 	@LC_ALL="C" LANG="C" $(MD5) $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 >> $(CHECKSUM_FILE).swp
 	@mv -f $(CHECKSUM_FILE).swp $(CHECKSUM_FILE) && rm -f $(CHECKSUM_FILE).swp
 	@cp -f $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CACHE_DIR)
+endif
 	    
 # tarball		- Make a tarball from an install of the package into a scratch dir
 tarball: build
@@ -364,7 +391,3 @@ buildclean:
 # jdub.
 .NOTPARALLEL:
 
-test:
-	echo GARNAME=$(GARNAME)
-	echo MASKED=$(MASKED)
-	echo DISTFILES=$(DISTFILES)
