@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd c && rm -f configure; autoconf && sh runConfigure $*
