@@ -29,7 +29,12 @@ ProvidesStop()
       do
         if [ ! -z $f ]
         then 
-          cat $f | grep -e type=file -e type=link | awk '{print $1}' >> $COOKIEDIR/provides.all
+          if [ `grep -c -e type=file -e type=link $f` -gt 0 ] 
+          then 
+            grep -e type=file -e type=link $f | awk '{print $1}' >> $COOKIEDIR/provides.all
+          else
+            cat $f >> $COOKIEDIR/provides.all
+          fi
         fi
       done
     fi
