@@ -7,7 +7,7 @@ PATCHFILES = ostream.diff limits.diff fnCall.diff util.diff  instantiations.diff
 MASTER_SITES = http://alien.cern.ch/cache/ 
 AUTHOR = Condor Project 
 URL = http://www.cs.wisc.edu/condor/classad/
-LICENSE = Condor Public License 
+LICENSE = Condor
 
 LIBDEPS = 
 

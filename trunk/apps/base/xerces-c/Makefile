@@ -12,7 +12,7 @@ LIBDEPS =
 
 DESCRIPTION = Xerces-C++ is a validating XML parser written in a portable subset of C++
 URL = http://xml.apache.org/xerces-c/
-LICENSE = Apache v1.1
+LICENSE = Apache
 AUTHOR = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure

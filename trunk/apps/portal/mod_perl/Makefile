@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl apps/portal/apache apps/base/libwww-perl apps/base/HTML
 DESCRIPTION = The Apache interface to perl
 URL = http://perl.apache.org/
 AUTHOR = 
-LICENSE = Apache 1.1
+LICENSE = Apache
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS =  $(WORKSRC)/Makefile
