@@ -5,6 +5,11 @@
 		$(MAKE) -C $$i $* ; \
 	done
 
+status:
+	@for i in $(filter-out CVS/,$(wildcard */)) ; do \
+		$(MAKE) -C $$i -s status ; \
+	done
+
 paranoid-%:
 	@for i in $(filter-out CVS/,$(wildcard */)) ; do \
 		$(MAKE) -C $$i $* || exit 2; \

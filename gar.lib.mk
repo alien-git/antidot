@@ -47,7 +47,7 @@ $(DOWNLOADDIR)/%:
 	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
 		for i in $(filter %/$*,$(URLS)); do  \
-			$(MAKE) -s $$i >& /dev/null || continue; \
+			$(MAKE) -s $$i > /dev/null 2>&1 || continue; \
 			break; \
 		done; \
 		if test -r $@ ; then : ; else \
@@ -66,10 +66,6 @@ webcvs//%:
 	@(cd $(DOWNLOADDIR) && tar zxf $(GARCVSNAME).tar.gz && mv $(GARCVSNAME) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && tar zcf $(GARNAME)-$(GARVERSION)_src.tar.gz $(GARNAME)-$(GARVERSION)) 
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARCVSNAME).tar.gz  ./$(GARNAME)-$(GARVERSION))
-#	@grep -v  $(DOWNLOADDIR)/$(GARNAME)-$(GARVERSION)_src.tar.gz  $(CHECKSUM_FILE) > $(TMPFILE)
-#	@LC_ALL="C" LANG="C" $(MD5) $(DOWNLOADDIR)/$(GARNAME)-$(GARVERSION)_src.tar.gz > $(CHECKSUM_FILE)
-#	@cat $(TMPFILE) >> $(CHECKSUM_FILE) && rm -f $(TMPFILE)
-
 
 # download an ftp URL
 ftp//%:
@@ -388,6 +384,31 @@ build-%/GNUmakefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
 	@$(MAKECOOKIE)
+
+#################### TEST RULES ####################
+
+# build from a standard gnu-style makefile's default rule.
+
+test-%/Build:
+	@echo ' $(call TMSG_LIB,Testing Build in,$*)'
+	@mkdir -p $(dir $(COOKIEDIR)/$(TEST_TARGETS))
+	@cd $* && ($(TEST_ENV) ./Build $(foreach TTT,$(TEST_OVERRIDE_DIRS),$(TTT)="$($(TTT))") $* test $(TEST_ARGS) && $(MAKECOOKIE)) || true
+
+test-%/Makefile:
+	@echo ' $(call TMSG_LIB,Testing make in,$*)'
+	mkdir -p $(dir $(COOKIEDIR)/$(TEST_TARGETS))
+	@($(TEST_ENV) $(MAKE) $(foreach TTT,$(TEST_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* test $(TEST_ARGS) &&  $(MAKECOOKIE)) || true
+
+test-%/makefile:
+	@echo ' $(call TMSG_LIB,Testing make in,$*)'
+	@mkdir -p $(dir $(COOKIEDIR)/$(TEST_TARGETS))
+	@($(TEST_ENV) $(MAKE) $(foreach TTT,$(TEST_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* test $(TEST_ARGS) && $(MAKECOOKIE)) || true
+
+test-%/GNUmakefile:
+	@echo ' $(call TMSG_LIB,Running test in,$*)'
+	@mkdir -p $(dir $(COOKIEDIR)/$(TEST_TARGETS))
+	@($(TEST_ENV) $(MAKE) $(foreach TTT,$(TEST_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C test $* $(BUILD_ARGS) && $(MAKECOOKIE)) || true
+
 
 #################### STRIP RULES ####################
 # The strip rule should probably strip uninstalled binaries.

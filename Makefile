@@ -7,6 +7,9 @@ clean:
 dist:
 	tar zcvf ../alien-aibi-0.1.tar.gz `find . -type f` 
 
+status:
+	(cd apps; make -s status) 
+
 distclean:
 	make clean
 	(cd apps; make clean) 
