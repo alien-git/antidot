@@ -5,7 +5,7 @@ DISTFILES  =
 FILTER_OUT ?= 
 FILTER     ?= % 
  
-ALL=$(shell (cd $(GARDIR)/apps; make listdeps))
+ALL=$(shell (cd $(GARDIR)/apps; make -s listdeps))
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
