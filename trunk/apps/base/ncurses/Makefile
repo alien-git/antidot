@@ -17,7 +17,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --with-shared  --enable-broken_linker
+CONFIGURE_ARGS = $(DIRPATHS) --with-shared  --enable-broken_linker --without-ada 
 
 include ../category.mk
 
