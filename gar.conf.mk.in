@@ -1,0 +1,126 @@
+#-*- mode: Fundamental; tab-width: 4; -*-
+# ex:ts=4
+# $Id$
+
+# This file contains configuration variables that are global to
+# the GAR system.  Users wishing to make a change on a
+# per-package basis should edit the category/package/Makefile, or
+# specify environment variables on the make command-line.
+
+# Variables that define the default *actions* (rather than just
+# default data) of the system will remain in bbc.gar.mk
+# (bbc.port.mk)
+
+# Setting this variable will cause the results of your builds to
+# be cleaned out after being installed.  Uncomment only if you
+# desire this behavior!
+
+#BUILD_CLEAN = true
+
+# The GARCHIVEDIR is a directory containing cached files. It can be created
+# manually, or with 'make garchive' once you've started downloading required
+# files (say with 'make paranoid-checksum'. Example:
+
+GARCHIVEDIR = @prefix@/dist
+
+# Set this variable if you want to compile KDE for a 64bit target (x86_64)
+
+ifeq (true,@TARGET_64BIT@)
+HAVE_64BIT_TARGET = true
+endif
+
+# Several variables depend on the target architecture
+
+ifdef HAVE_64BIT_TARGET
+  ENABLE_LIBSUFFIX="--enable-libsuffix=64"
+  TARGET_LIBNAME = lib64
+  TARGET_PLATFORM = linux-g++-64
+  TARGET_X11_LIB = /usr/X11R6/lib64
+  TARGET_PKG_CONFIG_PATH = /usr/lib64/pkgconfig:/usr/local/lib64/pkgconfig
+
+  # *Mandatory* compiler options on x86_64
+  OWN_CFLAGS = -m64 -fPIC
+
+  # Compiler options (optional)
+  OWN_CFLAGS += -O2 -pipe
+
+  # Optional compiler options for gcc >= 3.4.0
+#  OWN_CFLAGS += -march=opteron -O3 -pipe
+
+else
+  ENABLE_LIBSUFFIX=
+  TARGET_LIBNAME = lib
+  TARGET_PLATFORM = linux-g++
+  TARGET_X11_LIB = /usr/X11R6/lib
+  TARGET_PKG_CONFIG_PATH = /usr/lib/pkgconfig:/usr/local/lib/pkgconfig
+
+  # Compiler options (optional)
+  OWN_CFLAGS = -O2 -pipe
+
+endif
+
+# These are the standard directory name variables from all GNU
+# makefiles.  They're also used by autoconf, and can be adapted
+# for a variety of build systems.
+#
+# TODO: set $(SYSCONFDIR) and $(LOCALSTATEDIR) to never use
+# /usr/etc or /usr/var
+prefix ?= @prefix@
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+sbindir = $(exec_prefix)/sbin
+libexecdir = $(exec_prefix)/libexec
+datadir = $(prefix)/share
+sysconfdir = $(prefix)/etc
+sharedstatedir = $(prefix)/share
+localstatedir = $(prefix)/var
+libdir = $(exec_prefix)/$(TARGET_LIBNAME)
+infodir = $(BUILD_PREFIX)/info
+lispdir = $(prefix)/share/emacs/site-lisp
+includedir = $(BUILD_PREFIX)/include
+mandir = $(BUILD_PREFIX)/man
+docdir = $(BUILD_PREFIX)/share/doc
+sourcedir = $(BUILD_PREFIX)/src
+
+# the DESTDIR is used at INSTALL TIME ONLY to determine what the
+# filesystem root should be.  The BUILD_PREFIX is the prefix that
+# usurps the DESTDIR.  It should be considered relative to
+# $(DESTDIR).  Thus, if includedir were set to
+# $(BUILD_PREFIX)/include, it would expand out at install time
+# (BUT NO SOONER) to /tmp/gar/../../tmp/build.  The /../../ at
+# the front should be harmless, as .. for / is just / itself.
+DESTDIR ?=
+BUILD_PREFIX ?= $(prefix)
+#BUILD_PREFIX ?= $(ROOTFROMDEST)/tmp/build
+
+CPPFLAGS += -I$(DESTDIR)$(includedir) -I$(DESTDIR)/usr/X11R6/include
+CFLAGS += -I$(DESTDIR)$(includedir) -I$(DESTDIR)/usr/X11R6/include -L$(DESTDIR)$(libdir) -L$(DESTDIR)$(TARGET_X11_LIB)
+LDFLAGS += -L$(DESTDIR)$(libdir) -L$(DESTDIR)$(TARGET_X11_LIB)
+  # allow us to use programs we just built
+PATH := $(DESTDIR)$(bindir):$(DESTDIR)$(sbindir):$(DESTDIR)$(BUILD_PREFIX)/bin:$(DESTDIR)$(BUILD_PREFIX)/sbin:$(PATH)
+LD_LIBRARY_PATH := $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(LD_LIBRARY_PATH)
+
+# This is for foo-config chaos
+PKG_CONFIG_PATH:=$(DESTDIR)$(libdir)/pkgconfig:$(TARGET_PKG_CONFIG_PATH):$(PKG_CONFIG_PATH)
+
+# Now add own flags to CFLAGS and keep OWN_CFLAGS for qt-x11-free's Makefile.
+CFLAGS += $(OWN_CFLAGS)
+
+# Equalise CFLAGS and CXXFLAGS
+CXXFLAGS := $(CFLAGS)
+
+# If you have no following GNU tools installed change these lines
+TAR = tar
+MD5 = md5sum
+
+# make these variables available to configure and build scripts
+# outside of make's realm.
+export DESTDIR prefix exec_prefix bindir sbindir libexecdir datadir sysconfdir
+export sharedstatedir localstatedir libdir infodir lispdir includedir mandir
+export docdir sourcedir
+export CC CXX
+export CPPFLAGS CFLAGS CXXFLAGS LDFLAGS PATH LD_LIBRARY_PATH LD_PRELOAD
+export PKG_CONFIG_PATH BUILD_CLEAN
+
+# prepend the local file listing
+FILE_SITES = file://$(FILEDIR)/ file://$(GARCHIVEDIR)/
