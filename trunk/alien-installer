@@ -1,0 +1,610 @@
+#!/bin/sh
+#############################################################################
+# alien-installer - a front-end script to install and configure AliEn
+#############################################################################
+#
+# modification history
+# $Log$
+#
+# SYNOPSIS
+#
+# DESCRIPTION
+#
+# AUTHOR:
+# Predrag Buncic, e-mail: Predrag.Buncic@cern.ch
+#
+# CREATION DATE:
+#C<
+#############################################################################
+VERSION=0.01
+###########################################################################
+[ -f $HOME/.alien/installer.rc ] && . $HOME/.alien/installer.rc
+###########################################################################
+ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME:=$HOME/alien}
+ALIEN_INSTALLER_URL=${ALIEN_INSTALLER_URL:=rsync://alien.cern.ch:8873/cache} 
+ALIEN_INSTALLER_BINARY_UPDATE=${ALIEN_INSTALLER_BINARY_UPDATE:=0}
+ALIEN_INSTALLER_PREFIX=${ALIEN_INSTALLER_PREFIX:=/opt/alien}
+ALIEN_INSTALLER_METHOD=${ALIEN_INSTALLER_METHOD:=bininstall}
+ALIEN_INSTALLER_AUTODETECT=${ALIEN_INSTALLER_AUTODETECT:=false}
+ALIEN_INSTALLER_TYPE=${ALIEN_INSTALLER_TYPE:=all}
+ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
+ECHO=""
+###########################################################################
+Exit()
+###########################################################################
+{
+  clear
+  InstallerRcUpdate
+  exit $*
+}
+###########################################################################
+InstallerRcUpdate()
+###########################################################################
+{
+  mkdir -p $HOME/.alien
+  (
+    echo "ALIEN_INSTALLER_HOME=$ALIEN_INSTALLER_HOME" 
+    echo "ALIEN_INSTALLER_URL=$ALIEN_INSTALLER_URL" 
+    echo "ALIEN_INSTALLER_BINARY_UPDATE=$ALIEN_INSTALLER_BINARY_UPDATE" 
+    echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
+    echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD" 
+    echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
+    echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
+    echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
+  ) > $HOME/.alien/installer.rc
+
+}
+###########################################################################
+InstallerMake()
+###########################################################################
+{
+  cmd=$1; shift 1
+  if [ $# -eq 0 ]
+  then
+    $ECHO make -C $ALIEN_INSTALLER_HOME/meta/alien $cmd || Exit 1
+  else
+    list=$*
+    for pkg in $list
+    do
+      dirs=`find $ALIEN_INSTALLER_HOME/apps -type d -mindepth 2 -maxdepth 2 -type d -path "$pkg"`
+      for dir in $dirs 
+      do
+        if [ ! -d $dir ]
+        then
+          echo "No such package: $dir"
+          Exit 1
+        fi
+        $ECHO make -C $dir $cmd || Exit 1
+      done
+    done
+  fi
+}
+
+###########################################################################
+InstallerMakePkg()
+###########################################################################
+{
+  cmd=$1; shift 1
+  list=$*
+  for dir in $list
+  do
+    if [ ! -d $dir ]
+    then
+      echo "No such package: $dir"
+      Exit 1
+    fi
+    $ECHO make -C $dir $cmd || Exit 1
+  done
+}
+
+###########################################################################
+InstallerSync()
+###########################################################################
+{
+ ( 
+  case $ALIEN_INSTALLER_URL in
+     rsync://*)
+       (cd $ALIEN_INSTALLER_HOME && rsync -acvz $ALIEN_INSTALLER_URL .)
+       ;;
+     cvs://*)
+       (cd $ALIEN_INSTALLER_HOME && cvs update -dP)
+       ;;
+     *)
+        echo "Error: Wrong URL: "$ALIEN_INSTALLER_URL
+        Exit 1
+        ;;
+   esac
+  ) > /dev/null 2>&1
+}
+
+###########################################################################
+InstallerSetup()
+###########################################################################
+{
+  height=8
+  width=60
+  style="--title AliEn-Configuratior-v0.01 --clear  --stdout"
+
+  eval `$ALIEN_INSTALLER_PREFIX/bin/alien configure` || Exit 1
+
+  VARS="GLOBUS_LOCATION SWIG_LOCATION GSOAP_LOCATION CGSI_GSOAP_LOCATION CLASSAD_LOCATION MYPROXY_LOCATION"
+
+  i=1
+  form=""
+  for var in $VARS
+  do
+    if [ "${!var}" != "" ]
+    then
+      form="$form $var  $i 1 ${!var}  $i 25 256 0"
+      i=`expr $i + 1`
+    else
+      dialog $style \
+           --msgbox "Installation failed: $var undefined." $height $width
+      Exit 1
+    fi
+  done
+
+  arg1=`$ALIEN_INSTALLER_PREFIX/bin/dialog $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form | \
+( 
+  read GLOBUS_LOCATION 
+  read SWIG_LOCATION 
+  read GSOAP_LOCATION 
+  read CGSI_GSOAP_LOCATION 
+  read CLASSAD_LOCATION 
+  read MYPROXY_LOCATION
+
+  [ "$GLOBUS_LOCATION" != "" ] && \
+                         arg=$arg" --globus-location $GLOBUS_LOCATION"
+  [ "$SWIG_LOCATION" != "" ] && \
+                         arg=$arg" --swig-location $SWIG_LOCATION"
+  [ "$GSOAP_LOCATION" != "" ] && \
+                         arg=$arg" --gsoap-location $GSOAP_LOCATION"
+  [ "$CGSI_GSOAP_LOCATION" != "" ] && \
+                         arg=$arg" --cgsi-gsoap-location $CGSI_GSOAP_LOCATION"
+  [ "$CLASSAD_LOCATION" != "" ] && \
+                         arg=$arg" --classad-location $CLASSAD_LOCATION"
+  [ "$MYPROXY_LOCATION" != "" ] && \
+                         arg=$arg" --myproxy-location $MYPROXY_LOCATION"
+
+  echo $arg 
+)`
+
+  ALIEN_ORGANISATION=${ALIEN_ORGANISATION:=Alice}
+  ALIEN_USER=${ALIEN_USER:=${USER}}
+  ALIEN_PROMPT=${ALIEN_PROMPT:=alien}
+  ALIEN_LDAP_DN=${ALIEN_LDAP_DN:=auto}
+  ALIEN_MYPROXY_SERVER=${ALIEN_MYPROXY_SERVER:=none}
+  ALIEN_MYPROXY_DOMAIN=${ALIEN_MYPROXY_DOMAIN:=none}
+
+  VARS="ALIEN_ORGANISATION ALIEN_USER ALIEN_PROMPT ALIEN_LDAP_DN ALIEN_MYPROXY_SERVER ALIEN_MYPROXY_DOMAIN"
+
+  i=1
+  form=""
+  for var in $VARS
+  do
+    if [ "${!var}" != "" ]
+    then
+      form="$form $var  $i  1 ${!var}   $i 25 25 0"
+    else
+      form="$form $var  $i  1 \"\"  $i 25 25 0"
+    fi
+    i=`expr $i + 1`
+  done
+
+  arg2=`$ALIEN_INSTALLER_PREFIX/bin/dialog $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form | \
+( 
+  read ALIEN_ORGANISATION 
+  read ALIEN_USER 
+  read ALIEN_PROMPT 
+  read ALIEN_LDAP_DN 
+  read ALIEN_MYPROXY_SERVER 
+  read ALIEN_MYPROXY_DOMAIN
+
+  [ "$ALIEN_USER" != "" ] && \
+                         arg=$arg" --user $ALIEN_USER"
+  [ "$ALIEN_ORGANISATION" != "" ] && \
+                         arg=$arg" --VO $ALIEN_ORGANISATION"
+  [ "$ALIEN_PROMPT" != "" ] && \
+                         arg=$arg" --prompt $ALIEN_PROMPT"
+  [ "$ALIEN_LDAP_DN" != "" -a "$ALIEN_LDAP_DN" != "auto"] && \
+                         arg=$arg" --ldap-dn $ALIEN_LDAP_DN"
+  [ "$ALIEN_MYPROXY_SERVER" != "" -a "$ALIEN_MYPROXY_SERVER" != "none" ] && \
+                         arg=$arg" --myproxy-server $ALIEN_MYPROXY_SERVER"
+  [ "$ALIEN_MYPROXY_DOMAIN" != "" -a "$ALIEN_MYPROXY_DOMAIN" != "none" ] && \
+                         arg=$arg" --myproxy-domain $ALIEN_MYPROXY_DOMAIN"
+
+  echo $arg
+)` 
+
+  $ALIEN_INSTALLER_PREFIX/bin/alien configure $arg1 $arg2 
+
+  if [ $? -eq 1 ]
+  then
+    dialog $style \
+          --msgbox 'Configuration failed: Please check the log file.' $height $width
+    dialog $style \
+          --textbox install.log 0 0  
+    Exit 
+  else
+    dialog $style --sleep 3 \
+              --infobox 'You have sucessfuly installed and configured  AliEn gridware on your computer. Enjoy!' $height $width  
+ 
+    Exit
+  fi
+  
+}
+
+###########################################################################
+InstallerCount()
+###########################################################################
+{
+  grep -e NONE
+}
+
+###########################################################################
+InstallerUpdate()
+###########################################################################
+{
+  InstallerSync
+
+  export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
+
+  for meta in $ALIEN_INSTALLER_TYPE
+  do
+    pkgdir=`echo $meta | sed 's/"//g'`
+    if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
+    then
+      packages=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make list_packages`
+      npkgs=`echo $packages | wc -w`
+      cd $ALIEN_INSTALLER_HOME
+      i=0
+      for pkg in $packages
+      do
+        g=$[$[i * 100]/$[npkgs + 1]];
+        i=$[i + 1]
+        echo "Updating $pkg..."
+        InstallerMakePkg $ALIEN_INSTALLER_METHOD $pkg 
+      done
+    fi 
+  done
+
+  if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien-perl ]
+  then
+    echo'Running post installation scripts...'
+    $ALIEN_INSTALLER_PREFIX/bin/alien-perl --bootstrap --prefix $ALIEN_INSTALLER_PREFIX
+  else
+    echo 'Installation failed: alien-perl not found.' 
+  fi
+
+  $ALIEN_INSTALLER_PREFIX/bin/alien configure >> install.log
+
+  if [ $? -ne 0 ]
+  then
+    echo 'Update failed: Configuration problem.' 
+    Exit 1
+  fi
+}
+
+
+###########################################################################
+InstallerUI()
+###########################################################################
+{
+  height=8
+  width=60
+  cmd="./alien-installer "
+
+  style="--title AliEn-Installer-v0.01 --clear  --stdout"
+
+  method=`dialog  $style \
+          --radiolist "PLEASE SELECT THE INSTALLATION METHOD"  0 0 0 \
+                      "Binary" "Download precompiled packages"   on  \
+                      "Source" "Compile everything from sources" 0` || Exit 1
+
+  if [ "$method" == "Source" ]
+  then
+    cmd=$cmd"-b "
+    ALIEN_INSTALLER_METHOD='install'
+  fi
+
+  dialog  $style --defaultno \
+          --yesno "Would you like installer to autodetect and reuse already installed software components on your system?" 0 0 
+
+  if [ $? -eq 0 ] 
+  then
+    ALIEN_INSTALLER_AUTODETECT="true"
+  fi
+
+  export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
+
+  workspace=$ALIEN_INSTALLER_HOME
+
+  dialog  $style \
+          --yesno "Default workspace location for this installation is $workspace. Press YES if you want to keep it that way or press NO if you want to pick another location." 0 0 
+
+  if [ $? -eq 1 ]
+  then
+    workspace=`dialog $style \
+               --inputbox 'Please enter workspace directory:' $height $width \
+               $workspace` || Exit 1
+  fi
+
+  mkdir -p $workspace || ( echo "You must specify the workspace directory." && Exit 1) 
+
+  ALIEN_INSTALLER_HOME=$workspace
+
+  cd $workspace || ( echo  "Cannot change directory to $workspace" && Exit 1)
+
+  cmd=$cmd" -p $workspace "
+
+  dialog $style --sleep 3 \
+                --infobox 'Synchronizing with the server.' $height $width
+
+  InstallerSync
+
+  cmd=$cmd"configure "
+
+  platform=$ALIEN_INSTALLER_PLATFORM
+
+  if [ "$method" == "Binary" ]
+  then
+    if [ "$ALIEN_INSTALLER_PLATFORM" == "" ]
+    then 
+      platform=`$workspace/config.guess`
+    fi
+    dialog  $style \
+            --yesno "Detected/configured platform setting for this machine is $platform. Press YES if you want to keep it that way or press NO if you want to select another supported platform." 0 0
+
+    if [ $? -eq 1 ] 
+    then 
+       $platform=`dialog $style \
+                  --radiolist 'PLEASE SELECT THE PLATFORM:' 0 0 0 \
+                              'i686-pc-linux-gnu'      'Linux i686' on \
+                              'ia64-itanium-linux-gnu' 'Linux ia64' 0  \ 
+                              'ix64-opteron-linux-gnu' 'Linux ix64' 0  \
+                              'Darwin-gnu'             'MacOS X'    0` || Exit 1 
+
+      cmd=$cmd"--with-platform=$platform "
+    fi
+  fi
+
+  ALIEN_INSTALLER_PLATFORM=$platform  
+
+  prefix=$ALIEN_INSTALLER_PREFIX
+
+  dialog $style \
+         --yesno "Default installation location location is $prefix. Press YES if you want to keep it that way or press NO if you want to select another location." $height $width
+
+  if [ $? -eq 1 ]
+  then
+     prefix=`dialog $style \
+                    --inputbox 'Please specify installation directory'  $height $width \
+                     $prefix` || Exit 1
+  fi
+
+  if [ -d $prefix ]
+  then
+    dialog  $style \
+            --yesno "Directory $prefix already exist. Press YES if you want to overwrite existing files, press NO if you want cacncel the installation." 0 0 || Exit 1
+  fi 
+
+  ALIEN_INSTALLER_PREFIX=$prefix
+
+  [ -d $prefix ] &&  rm -rf $prefix/*  
+
+  mkdir -p $prefix
+
+  cmd=$cmd"--prefix=$prefix"
+
+  list=`dialog $style \
+               --radiolist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
+                           'all'    'All packages'            on \
+                           'client' 'Client'                  0  \
+                           'portal' 'Portal'                  0  \
+                           'site'   'Site CE/SE services'     0  \
+                           'core'   'Core VO services'        0  \
+                           'wn'     'Worker node'             0` || Exit 1
+
+  ALIEN_INSTALLER_TYPE="$list"
+  
+  dialog $style --sleep 3 \
+              --infobox 'Configuring...' $height $width
+ 
+  echo $cmd > install.log
+
+  (autoconf; $cmd ) > install.log 2>&1
+
+  for meta in $list
+  do
+    pkgdir=`echo $meta | sed 's/"//g'`
+    dialog $style --sleep 3 \
+                  --infobox "Getting the list of packages to install for $pkgdir..." $height $width
+    if [ -d $workspace/meta/$pkgdir ]
+    then
+      packages=`cd $workspace/meta/$pkgdir; make list_packages`
+      npkgs=`echo $packages | wc -w`
+      cd $workspace
+      i=0
+      for pkg in $packages
+      do
+        g=$[$[i * 100]/$[npkgs + 1]];
+        i=$[i + 1]
+        echo XXX
+        echo "Installing $pkg..."
+        echo XXX
+        InstallerMakePkg clean $pkg >> install.log
+        InstallerMakePkg $ALIEN_INSTALLER_METHOD $pkg >> install.log
+        echo $g
+      done | dialog $style --gauge "Installing $pkg..."  $height $width
+    fi 
+  done
+
+  if [ -x $prefix/bin/alien-perl ]
+  then
+    dialog $style --sleep 3 \
+                  --infobox 'Running post installation scripts...' $height $width
+    $prefix/bin/alien-perl --bootstrap --prefix $prefix
+ 
+    dialog $style --sleep 3 \
+                --infobox 'Done.' $height $width
+  else
+    dialog $style \
+            --msgbox 'Installation failed: alien-perl not found.' $height $width
+    dialog $style \
+          --textbox install.log 0 0  
+    Exit 
+  fi
+
+  InstallerSetup
+
+}
+
+###########################################################################
+###########################################################################
+
+mkdir -p $ALIEN_INSTALLER_HOME || Exit 1
+
+args=$*
+ 
+while [ $# -gt 0 ]
+do
+    case $1 in
+        selfupdate|sync)
+            InstallerSync 
+            name=`echo $0 | sed 's%./%%'`
+            exec $ALIEN_INSTALLER_HOME/alien-installer --copy $0
+           ;;
+        --copy)
+            shift 1
+            cp -f $0 $1
+	    exit
+           ;;
+        -u|--url)
+            shift 1
+	    ALIEN_INSTALLER_URL=$1
+            shift 1
+           ;;
+        -b|--binary)
+            shift 1
+	    ALIEN_INSTALLER_BINARY_UPDATE=1
+           ;;
+        --pretend)
+            shift 1
+	    ECHO=echo
+           ;;
+        -p|--build-prefix)
+            shift 1
+	    ALIEN_INSTALLER_HOME=$1
+            shift 1
+            mkdir -p $ALIEN_INSTALLER_HOME || exit 1
+           ;;
+        update|update-all)
+            shift 1
+	    InstallerUpdate $*
+            exit
+           ;;
+        make)
+            shift 1
+            InstallerMake $*
+            exit
+           ;;
+        test)
+            shift 1
+            InstallerMake test $*
+            exit
+           ;;
+        makepkg)
+            shift 1
+            InstallerMakePkg $*
+            exit
+           ;;
+        remove)
+            shift 1
+            InstallerMake buildclean $*
+            exit
+           ;;
+        purge)
+            shift 1
+            InstallerMake clean $*
+            exit
+           ;;
+        install)
+           shift 1
+           case $ALIEN_INSTALLER_BINARY_UPDATE in
+             1|true|TRUE|True|yes|Yes|YES|Y)
+               InstallerMake bininstall $*
+               ;;
+             *)
+               InstallerMake install $*
+               ;;
+           esac
+           exit
+           ;;
+        configure)
+            shift 1
+            InstallerSync
+            InstallerRcUpdate
+            cd $ALIEN_INSTALLER_HOME && autoconf && ./configure $*
+            exit
+           ;;
+        setup)
+            shift 1
+            InstallerSetup $*
+            exit
+           ;;
+        -q)
+           shift 1
+	   QUIET=1
+           ;;
+        -v|--trace)
+           shift 1
+           set -vx
+           ;;
+        -V)
+           print $VERSION
+           exit
+           ;; 
+        -y)
+           shift 1
+           YES=1
+           ;;
+        --help|-help|-h)
+            cat<<EOF
+
+Usage: alien-installer [options] command [package...]
+
+Common commmands:
+  install    - install/update the named packages
+  remove     - remove the named packages
+  purge      - same as remove but also removes all configuration files
+  update     - update the named packages
+  sync       - upgrade to the latest release
+  update-all - update all installed packages
+  configure  - rerun the configuration process
+  list       - list available packages, optionally filtering by name,
+  apropos    - list packages matching a search keyword
+  describe   - display a detailed description of the named packages
+  index      - force rebuild of package cache 
+Options:
+  -b, --binary       - use binary packages 
+  -p, --build-prefix - installation directory
+  -u, --url          - cache url         
+  -h, --help         - display this help text
+  -q, --quiet        -  be less verbose, opposite of --verbose
+  -V, --version      - display version information
+  -v, --verbose      - to be more verbose, opposite of --quiet
+EOF
+            exit
+           ;;
+        list|apropos|index|describe)
+            shift 1
+            echo "Sorry, not implemented (yet)..."
+            exit 1
+           ;;
+        *)
+           shift 1
+           ;;
+    esac
+done
+
+InstallerUI $*

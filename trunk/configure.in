@@ -1,0 +1,88 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(gar.conf.mk.in)
+
+# Configuration items
+
+PLATFORM=`./config.guess`
+
+AC_PREFIX_DEFAULT([/opt/alien])
+
+case $PLATFORM in 
+  *64*)
+     GLOBUS_FLAVOR=gcc64
+    ;;
+   *)
+     GLOBUS_FLAVOR=gcc32
+    ;;
+esac
+
+case $PLATFORM in 
+  x86_64*)
+     TARGET_64BIT=true
+    ;;
+   *)
+     TARGET_64BIT=false
+    ;;
+esac
+
+#AC_ARG_WITH(prefix_dir,
+#            [  --prefix=dir       prefix],
+#            [PREFIX=$prefix_dir],
+#            [PREFIX=/opt/alien])
+
+PREFIX=$prefix
+
+AC_ARG_WITH(globus_location,
+            [  --with-globus-location=dir     Globus directory],
+            [GLOBUS_LOCATION=$with_globus_location],
+            [GLOBUS_LOCATION=$prefix/globus])
+
+AC_ARG_WITH(gpt_location,
+            [  --with-gpt-location=dir     GPT directory],
+            [GPT_LOCATION=$with_gpt_location],
+            [GPT_LOCATION=$GLOBUS_LOCATION])
+
+AC_ARG_WITH(globus_flavor,
+            [  --with-globus-flavor=string     Globus flavor],
+            [GLOBUS_FLAVOR=$with_globus_flavor],
+            [GLOBUS_FLAVOR=$GLOBUS_FLAVOR])
+
+AC_ARG_WITH(glite_build,
+            [  --with-glite-build=string     gLite build id],
+            [GLITE_BUILD=$with_glite_build],
+            [GLITE_BUILD=current])
+
+AC_ARG_WITH(cache_dir,
+            [  --with-cache-dir=dir       local package cache],
+            [CACHE_DIR=$with_cache_dir],
+            [CACHE_DIR=$prefix/dist])
+
+AC_ARG_WITH(cache_url,
+            [  --with-cache-url=url       remote package cache],
+            [CACHE_URL=$with_cache_url],
+            [CACHE_URL=http://alien.cern.ch/cache/dist/])
+
+AC_ARG_WITH(platform,
+            [  --with-platform=string     platform],
+            [PLATFORM=$with_platform],
+            [PLATFORM=$PLATFORM])
+
+AC_ARG_WITH(masked,
+            [  --mask=string              masked packages],
+            [MASKED=$masked],
+            [MASKED= ])
+
+AC_SUBST(MASKED)
+AC_SUBST(TARGET_64BIT)
+AC_SUBST(CACHE_DIR)
+AC_SUBST(CACHE_URL)
+AC_SUBST(PLATFORM)
+AC_SUBST(PREFIX)
+AC_SUBST(CACHEDIR)
+AC_SUBST(GPT_LOCATION)
+AC_SUBST(GLOBUS_LOCATION)
+AC_SUBST(GLOBUS_FLAVOR)
+AC_SUBST(GLITE_BUILD)
+
+AC_OUTPUT(gar.conf.mk alien.conf.mk)
+
