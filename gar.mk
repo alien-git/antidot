@@ -247,7 +247,8 @@ RELOCATE_TARGETS = $(addprefix relocate-,$(filter-out $(NOEXTRACT),$(BINDISTFILE
 #install-bin: checksum $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix dep-$(GARDIR)/,$(EXTRACTDEPS)) pre-extract $(BINEXTRACT_TARGETS) post-extract
 #	$(DONADA)
 
-install-bin: checksum $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(BUILDDEPS)) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS)) $(addprefix bindep-$(GARDIR)/,$(EXTRACTDEPS)) pre-extract $(BINEXTRACT_TARGETS) $(RELOCATE_TARGETS) post-extract
+#install-bin: checksum $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(BUILDDEPS)) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS)) $(addprefix bindep-$(GARDIR)/,$(EXTRACTDEPS)) pre-extract $(BINEXTRACT_TARGETS) $(RELOCATE_TARGETS) post-extract
+install-bin: $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(BUILDDEPS)) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS)) $(addprefix bindep-$(GARDIR)/,$(EXTRACTDEPS)) pre-extract $(BINEXTRACT_TARGETS) $(RELOCATE_TARGETS) post-extract
 	$(DONADA)
 
 bininstall: 

@@ -14,7 +14,7 @@ FindLocation()
      do
        if [ -d $dir ]
        then
-         file=`find $dir -path $1 -type f -print -maxdepth 3`
+         file=`find $dir -path $1 -type f -print -maxdepth 3  2> /dev/null`
          if [ $? -eq 0 -a -f "$file" ]
          then
            bindir=`dirname $file`

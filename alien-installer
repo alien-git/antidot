@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.21  2005/03/10 05:11:24  buncic
+# Again
+#
 # Revision 1.20  2005/03/08 14:16:50  buncic
 # Always use dialog from /opt/alien if it exists.
 #
@@ -665,7 +668,6 @@ do
         configure)
             shift 1
             InstallerRcUpdate
-            InstallerSync
             cd $ALIEN_INSTALLER_HOME && autoconf && ./configure $*
             exit
            ;;
