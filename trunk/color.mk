@@ -4,7 +4,7 @@
 
 ###
 # This file contains non-invasive color patterns for output.
-
+TPUT ?= /usr/bin/tput
 ###
 #	failsafe defaults.
 TMSG_BRIGHT	=$1
@@ -23,18 +23,18 @@ ifneq ($(TERM),)
 	###
 	# if you don't have tput, we could rely on ANSI, but that 
 	# would defeat the purpose of using tput as a safe colorizer.
-	ifneq ($(strip $(shell which /usr/bin/tput)),)
-		TERM_RST 	=$(shell tput sgr0)
-		TERM_BOLD	=$(shell tput bold)
+	ifneq ($(strip $(shell which $(TPUT))),)
+		TERM_RST 	=$(shell $(TPUT) sgr0)
+		TERM_BOLD	=$(shell $(TPUT) bold)
 
-		TERM_BLACK	=$(shell tput setaf 0)
-		TERM_RED 	=$(shell tput setaf 1)
-		TERM_GREEN	=$(shell tput setaf 2)
-		TERM_YELLOW	=$(shell tput setaf 3)
-		TERM_BLUE	=$(shell tput setaf 4)
-		TERM_MAGENTA	=$(shell tput setaf 5)
-		TERM_CYAN	=$(shell tput setaf 6)
-		TERM_WHITE	=$(shell tput setaf 7)
+		TERM_BLACK	=$(shell $(TPUT) setaf 0)
+		TERM_RED 	=$(shell $(TPUT) setaf 1)
+		TERM_GREEN	=$(shell $(TPUT) setaf 2)
+		TERM_YELLOW	=$(shell $(TPUT) setaf 3)
+		TERM_BLUE	=$(shell $(TPUT) setaf 4)
+		TERM_MAGENTA	=$(shell $(TPUT) setaf 5)
+		TERM_CYAN	=$(shell $(TPUT) setaf 6)
+		TERM_WHITE	=$(shell $(TPUT) setaf 7)
 
 		# some functional color substitutions; these
 		# were designed on a white background; YMMV.
@@ -58,6 +58,6 @@ ifneq ($(TERM),)
 		# $(call TMSG_LIB,extracting,some_file)
 		TMSG_LIB	=$(call TMSG_BRIGHT,==>) $1 $(call TMSG_ID,$2) $3
 		
-	endif # tput?
+	endif # $(TPUT)?
 endif # TERM?
 
