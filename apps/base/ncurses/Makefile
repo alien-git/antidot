@@ -14,7 +14,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS)
+CONFIGURE_ARGS = $(DIRPATHS) --with-shared    
 
 include ../category.mk
 
+POST_INSTALL = (cd $(PREFIX)/lib; rm -rf libtermcap.so.2; ln -s libncurses.so libtermcap.so.2 ) 
