@@ -1,5 +1,5 @@
 GARNAME = GD
-GARVERSION = 2.19
+GARVERSION = 2.21
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -13,9 +13,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ENV = printf "\y\y\n" | env GD_LIBS=$(PREFIX)/lib GD_INC=-I$(PREFIX)/include
+CONFIGURE_ENV = printf "$(PREFIX)\n\n\n\n\n" | env GD_LIBS="-L$(PREFIX)/lib" GD_INC=-I$(PREFIX)/include
  
 BUILD_ARGS =  
 
 include ../category.mk
-

@@ -9,3 +9,5 @@ TARGET_PKG_CONFIG_PATH = /usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 OWN_CFLAGS = -O2 -pipe
 export GARLIBEXT=so
 export GARSHARED=-shared
+
+export MASKED := apps/gui/GD

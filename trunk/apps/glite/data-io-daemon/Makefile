@@ -18,7 +18,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --with-version=$(GARVERSION) --enable-gss-auth --prefix=$(PREFIX) --with-glite-location=$(PREFIX) --with-dist-location=$(PREFIX) --with-globus-prefix=$(GLOBUS_PREFIX) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-log4cpp-prefix=$(PREFIX)
+CONFIGURE_ARGS = $(DIRPATHS) --with-version=$(GARVERSION) --enable-gss-auth --prefix=$(PREFIX) --with-glite-location=$(PREFIX) --with-dist-location=$(PREFIX) --with-globus-prefix=$(GLOBUS_LOCATION) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-log4cpp-prefix=$(PREFIX)
 
 include ../category.mk
 
