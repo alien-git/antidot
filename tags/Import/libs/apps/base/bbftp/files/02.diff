@@ -1,0 +1,32 @@
+--- work/bbftp-3.0.1/bbftpd/signals_routines.c	Wed Apr 17 10:45:10 2002
++++ new/bbftp-3.1.0/bbftpd/signals_routines.c	Wed Jun 30 19:38:52 2004
+@@ -29,6 +29,8 @@
+                     v 2.0.2 2001/05/04  - Correct include for RFIO
+  
+ *****************************************************************************/
++#include <bbftpd.h>
++
+ #include <errno.h>
+ #include <signal.h>
+ #include <sys/wait.h>
+@@ -36,8 +38,10 @@
+ #include <netinet/in.h>
+ #include <sys/socket.h>
+ #include <utime.h>
++#if HAVE_STRING_H
++# include <string.h>
++#endif
+ 
+-#include <bbftpd.h>
+ #include <daemon.h>
+ #include <daemon_proto.h>
+ #include <status.h>
+@@ -192,7 +196,7 @@
+         */ 
+         if ( unlinkfile == 1 ) unlink(currentfilename) ;
+         clean_child() ;
+-        exit() ;
++        exit(0) ; 	/* BUG porting */
+     } else {
+         exit(EINTR) ;
+     }

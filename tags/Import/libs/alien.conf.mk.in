@@ -1,0 +1,10 @@
+export GLOBUS_LOCATION=@GLOBUS_LOCATION@
+export GLOBUS_FLAVOR=@GLOBUS_FLAVOR@
+export GPT_LOCATION=@GPT_LOCATION@
+export PKG_CONFIG_PATH=@PREFIX@/lib/pkgconfig/
+export PLATFORM=@PLATFORM@
+export CACHE_DIR=@CACHE_DIR@
+export CACHE_URL=@CACHE_URL@
+export GLITE_BUILD=@GLITE_BUILD@
+
+MASTER_SITES += http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)

@@ -1,0 +1,11 @@
+--- work/glite-data-protocol-resolve-alien-1.0.1/bootstrap	Fri Dec 10 16:03:19 2004
++++ work/glite-data-protocol-resolve-alien-1.0.1/bootstrap.new	Fri Feb  4 15:51:07 2005
+@@ -3,7 +3,7 @@
+ mkdir -p src/autogen
+ set -x
+ libtoolize --force
+-aclocal -I project
++aclocal -I $PREFIX/share/glite/project
+ autoheader
+ automake --foreign --add-missing --copy
+ autoconf
