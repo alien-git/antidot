@@ -11,7 +11,7 @@ LIBDEPS = apps/base/perl apps/base/Class-MethodMaker
 DESCRIPTION = Use Apache format config files
 AUTHOR = Sam Tregar
 URL = http://cpan.uwinnipeg.ca/~samtregar
-LICENSE = GPL or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl apps/base/TimeDate apps/base/Digest-SHA1 apps/base/File
 AUTHOR = Chris Leishman
 DESCRIPTION = The Cache interface
 URL = http://cpan.uwinnipeg.ca/~cleishman
-LICENSE = GPL or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

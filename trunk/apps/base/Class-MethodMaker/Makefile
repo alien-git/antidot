@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl
 DESCRIPTION = Create generic class methods
 AUTHOR = Martyn J. Pearce
 URL = http://cpan.uwinnipeg.ca/~fluffy
-LICENSE = GPL or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

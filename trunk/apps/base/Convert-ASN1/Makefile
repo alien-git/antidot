@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl
 DESCRIPTION = Standard en/decode of ASN.1 structures
 AUTHOR = Graham Barr 
 URL = http://cpan.uwinnipeg.ca/~gbarr
-LICENSE = GPL or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl
 DESCRIPTION = Provide utility methods for factory classes
 AUTHOR = Dave Rolsky
 URL = http://cpan.uwinnipeg.ca/~drolsky
-LICENSE = GPL or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

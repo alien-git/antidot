@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl apps/base/zlib
 DESCRIPTION = Provides an interface to ZIP archive files
 AUTHOR  = Ned Konz
 URL     = http://cpan.uwinnipeg.ca/~nedkonz 
-LICENSE = GPL or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

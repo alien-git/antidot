@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl
 DESCRIPTION = Base class for dynamic factory classes
 AUTHOR = Chris Winters
 URL = http://cpan.uwinnipeg.ca/~cwinters
-LICENSE = GPL or Artistic
+LICENSE = Perl
  
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

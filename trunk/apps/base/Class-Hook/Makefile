@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl
 DESCRIPTION = Add hooks on methods from other classes
 AUTHOR = Pierre Denis
 URL = http://cpan.uwinnipeg.ca/~pdenis
-LICENSE = GPL or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

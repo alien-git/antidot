@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl
 DESCRIPTION = Useful base class for deriving other modules
 AUTHOR = Andy Wardley
 URL = http://cpan.uwinnipeg.ca/~abw
-LICENSE = GPL or Artisitc
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

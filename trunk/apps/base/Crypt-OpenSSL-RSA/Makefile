@@ -11,7 +11,7 @@ LIBDEPS = apps/base/perl apps/base/openssl apps/base/Crypt-OpenSSL-Random
 DESCRIPTION = Interface to OpenSSL RSA methods
 AUTHOR = Ian Robertson
 URL = http://cpan.uwinnipeg.ca/~iroberts
-LICENSE = GPL or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

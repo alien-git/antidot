@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl
 DESCRIPTION = Interface to zlib compression library
 AUTHOR = Paul Marquess 
 URL = http://cpan.uwinnipeg.ca/~pmqs
-LICENSE = GPL or Artisitic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

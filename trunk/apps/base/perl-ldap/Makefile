@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl apps/base/XML-Parser apps/base/IO-Socket-SSL apps/base/
 DESCRIPTION = Interface to LDAP Protocol (RFC1777)
 URL = http://ldap.perl.org/
 AUTHOR = Graham Barr
-LICENSE = Perl or Artistic
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

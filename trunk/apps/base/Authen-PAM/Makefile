@@ -11,7 +11,7 @@ LIBDEPS = apps/base/perl apps/base/Linux-PAM
 DESCRIPTION = Interface to PAM library
 AUTHOR = Nikolay Pelov 
 URL    = http://cpan.uwinnipeg.ca/~nikip
-LICENSE= GPL or Artistic
+LICENSE= Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
