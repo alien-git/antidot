@@ -1,0 +1,11 @@
+--- work/xrootd-20050328/Makefile	Tue Apr  5 14:11:01 2005
++++ work/xrootd-20050328/Makefile.new	Tue Apr  5 14:09:57 2005
+@@ -0,0 +1,8 @@
++include GNUmakefile
++
++install:
++	mkdir -p $(PREFIX)/bin
++	cp  bin/arch/* $(PREFIX)/bin
++	cp  lib/arch/* $(PREFIX)/lib
++
++test:
