@@ -2,7 +2,6 @@ GARNAME = cgsi-gsoap
 GARVERSION = 1.1.5
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = makefile.in.diff
 
 MASTER_SITES = http://alien.cern.ch/cache/
 

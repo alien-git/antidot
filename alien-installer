@@ -5,9 +5,6 @@
 #
 # modification history
 # $Log$
-# Revision 1.2  2005/02/27 15:58:40  buncic
-# Updates for Mac OS platform.
-#
 #
 # SYNOPSIS
 #
@@ -106,13 +103,18 @@ InstallerSync()
 ###########################################################################
 {
  ( 
-  cd $ALIEN_INSTALLER_HOME
-  if [ -d CVS ] 
-  then
-    cvs -z update -dP 
-  else
-    rsync -acvz $ALIEN_INSTALLER_URL .
-  fi
+  case $ALIEN_INSTALLER_URL in
+     rsync://*)
+       (cd $ALIEN_INSTALLER_HOME && rsync -acvz $ALIEN_INSTALLER_URL .)
+       ;;
+     cvs://*)
+       (cd $ALIEN_INSTALLER_HOME && cvs update -dP)
+       ;;
+     *)
+        echo "Error: Wrong URL: "$ALIEN_INSTALLER_URL
+        Exit 1
+        ;;
+   esac
   ) > /dev/null 2>&1
 }
 

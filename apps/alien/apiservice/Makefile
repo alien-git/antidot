@@ -21,5 +21,5 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --with-dist-location=$(PREFIX) -with-glite-l
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); mkdir -p $(PREFIX)/share/glite/project;  cp -R $(PREFIX)/share/glite/project/* project; ( [ -f bootstrap ] && sh bootstrap) || autoconf )
+PRE_CONFIGURE = (cd $(WORKSRC); mkdir -p $(PREFIX)/share/glite/project;  cp -dR $(PREFIX)/share/glite/project/* project; ( [ -f bootstrap ] && sh bootstrap) || autoconf )
 

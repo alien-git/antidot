@@ -9,11 +9,9 @@ LIBDEPS = apps/base/globus
 
 DESCRIPTION = myproxy
 
-CONFIGURE_ARGS = $(DIRPATHS) 
-CONFIGURE_SCRIPTS = 
-BUILD_SCRIPTS =
-INSTALL_SCRIPTS = $(WORKSRC)/gpt-build
-
-INSTALL_ARGS = -installdir=$(PREFIX) -verbose ../../download/$(GARNAME)-$(GARVERSION).tar.gz  $(GLOBUS_FLAVOR)
+CONFIGURE_ARGS = $(DIRPATHS) --with-flavor=$(GLOBUS_FLAVOR)
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure 
+BUILD_SCRIPTS = $(WORKSRC)/Makefile 
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile 
 
 include ../category.mk

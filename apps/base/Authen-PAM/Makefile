@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/N/NI/NIKIP/ http://www.cpan.org/authors/id/N/NI/NIKIP/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/N/NI/NIKIP/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/perl apps/base/Linux-PAM
 
 DESCRIPTION = Interface to PAM library
 

@@ -19,5 +19,3 @@ INSTALL_ENV = env GLOBUS_CC="gcc"
 
 include ../category.mk
 
-#PRE_INSTALL =  ([ -f $(PREFIX)/bin/openssl ] && mv -f $(PREFIX)/bin/openssl $(PREFIX)/bin/openssl-noglobus) || true
-#POST_INSTALL  =  $(GPT_LOCATION)/sbin/gpt-postinstall; ([ -f $(PREFIX)/bin/openssl -a -f $(PREFIX)/bin/openssl-noglobus ] && rm -f $(PREFIX)/bin/openssl && mv -f $(PREFIX)/bin/openssl-noglobus $(PREFIX)/bin/openssl) || true
