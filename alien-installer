@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.17  2005/03/08 13:52:50  buncic
+# Check that alien-installer exists upin cvs checkout.
+#
 # Revision 1.16  2005/03/02 12:18:07  buncic
 # Fixed CVS update problem
 #
@@ -185,14 +188,14 @@ InstallerSetup()
   width=60
   style="--title AliEn-Configuratior-v0.01 --clear  --stdout"
 
-  case `dialog --version` in
+  case `dialog --version 2&>1` in
     *0.[0-9]a*)
         export LD_LIBRARY_PATH=$ALIEN_INSTALLER_PREFIX/lib:$LD_LIBRARY_PATH
         export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
         dialog_form=$ALIEN_INSTALLER_PREFIX/bin/dialog
         ;;
      *)
-        dialog_vorm=dialog
+        dialog_form=dialog
         ;;
   esac
 
