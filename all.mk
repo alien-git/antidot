@@ -14,7 +14,7 @@ status:
 listdeps:
 	@for i in $(filter-out CVS category.mk Makefile make.log,$(wildcard *)) ; do \
 		$(MAKE) -C $$i -s showdeps-l ; \
-	done | sort -u
+	done
 
 version:
 	@for i in $(filter-out CVS category.mk Makefile make.log,$(wildcard *)) ; do \

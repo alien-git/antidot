@@ -50,9 +50,9 @@ ROOTFROMDEST = $(call DIRSTODOTS,$(DESTDIR))
 
 ALLFILES    = $(DISTFILES) $(PATCHFILES)
 
-GARFNAME=$(subst $(dir $(dir $(dir $(CURDIR)))),,$(CURDIR))
+GARFNAME=$(shell (echo $(CURDIR) | sed 's%.*/apps/%apps/%'))
 
-MYNAME ?= $(GARFNAME)
+MYNAME ?= $(shell basename $(GARFNAME))
 
 # Several variables depend on the target architecture
 
@@ -187,6 +187,7 @@ showdeps:
 	done
 
 showdeps-l:
+	@echo $(GARFNAME)
 	@for i in $(LIBDEPS) $(BUILDDEPS); do \
 		echo $$i; \
 	done
