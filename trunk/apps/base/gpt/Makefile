@@ -1,6 +1,5 @@
 GARNAME = gpt
 GARVERSION = 2.2.10
-GARVERSION = 3.0.1
 CATEGORIES = apps-tools
 
 DISTFILES = $(GARNAME)-$(GARVERSION)-src.tar.gz
