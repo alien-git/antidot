@@ -16,7 +16,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --enable-static-link
+CONFIGURE_ARGS = $(DIRPATHS)
 CONFIGURE_ENV  = 
 
 include ../category.mk
