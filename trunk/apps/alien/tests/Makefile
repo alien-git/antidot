@@ -12,15 +12,18 @@ MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/
 LIBDEPS = apps/alien/common apps/alien/admin apps/alien/gas apps/alien/gssapi apps/alien/packman
 
 DESCRIPTION = AliEn tests
+URL = http://alien.cern.ch
+LICENSE =
 
-CONFIGURE_SCRIPTS = # $(WORKSRC)/configure
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = 
 INSTALL_SCRIPTS = 
-TEST_SCRIPTS = # $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
+TEST_ENV = env ALIEN_TESTDIR=$(WORKSRC)/src/test/alien
 
 CONFIGURE_ARGS = 
 
 include ../category.mk
 
-PRE_CONFIGURE =
+PRE_CONFIGURE = (cd $(WORKSRC); ./bootstrap )
 

@@ -8,7 +8,10 @@ MASTER_SITES = http://alien.cern.ch/cache/
 LIBDEPS = apps/base/gpt
 
 DESCRIPTION = Globus Toolkit
-
+URL = http://www.globus.org/
+LICENSE = Globus 
+AUTHOR = Globus Alliance
+ 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

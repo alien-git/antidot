@@ -52,6 +52,8 @@ ALLFILES    = $(DISTFILES) $(PATCHFILES)
 
 GARFNAME=$(subst $(dir $(dir $(dir $(CURDIR)))),,$(CURDIR))
 
+MYNAME ?= $(GARFNAME)
+
 # Several variables depend on the target architecture
 
 GARUNAME_S=$(shell uname -s)
@@ -338,6 +340,15 @@ TEST_TARGETS = $(addprefix test-,$(TEST_SCRIPTS))
 
 test: install $(TEST_TARGETS) post-install
 	$(DONADA)
+
+use: $(addprefix usedby-$(GARDIR)/,$(BUILDDEPS)) $(addprefix usedby-$(GARDIR)/,$(LIBDEPS)) 
+	$(DONADA)
+
+use-q: 
+	@(([ ! -d $(COOKIEDIR)/usedby ] && echo 0 ) || ls -1 $(COOKIEDIR)/usedby |  wc -l) 
+
+ustatus: 
+	@printf "%-32s %-14s %s\n" $(GARNAME) $(GARVERSION) `$(MAKE) -s use-q`
 
 # install		- Install the results of a build.
 INSTALL_TARGETS = $(addprefix install-,$(INSTALL_SCRIPTS))

@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SH/SHANCOCK/ http://www.cpan.org/auth
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION =  Perltidy is a tool to indent and reformat perl scripts
+AUTHOR = Steve Hancock
+URL = http://cpan.uwinnipeg.ca/~shancock
+LICENSE = GPL2
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

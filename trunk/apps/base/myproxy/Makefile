@@ -7,7 +7,10 @@ MASTER_SITES = ftp://ftp.ncsa.uiuc.edu/aces/myproxy/ http://alien.cern.ch/cache/
 
 LIBDEPS = apps/base/globus
 
-DESCRIPTION = myproxy
+DESCRIPTION = MyProxy Online Credential Repository
+URL = http://grid.ncsa.uiuc.edu/myproxy/
+AUTHOR = NCSA MyProxy Team
+LICENSE = MyProxy
 
 CONFIGURE_ARGS = $(DIRPATHS) --with-flavor=$(GLOBUS_FLAVOR)
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure 

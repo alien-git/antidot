@@ -9,6 +9,9 @@ MASTER_SITES = http://alien.cern.ch/cache/ ftp://ftp.in2p3.fr/pub/bbftp/
 LIBDEPS = apps/base/globus
 
 DESCRIPTION = BaBar file transfer protocol
+AUTHOR = Gilles Farrache 
+URL = http://doc.in2p3.fr/bbftp/index.html
+LICENSE = GPL
 
 ifeq "$(shell uname)" "Darwin"
 CONFIGURE_SCRIPTS =

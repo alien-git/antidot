@@ -9,6 +9,9 @@ MASTER_SITES = http://apache.crihan.fr/dist/httpd/ http://alien.cern.ch/cache/
 LIBDEPS = apps/base/openssl 
 #BUILDDEPS = apps/portal/mod_ssl
 DESCRIPTION = Apache Web Server
+URL = http://www.apache.org
+AUTHOR = Apache Project
+LICENSE = Apache
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

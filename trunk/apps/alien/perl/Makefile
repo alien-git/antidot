@@ -9,6 +9,8 @@ MASTER_SITES = http://alien.cern.ch/cache/
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = AliEn perl
+URL = http://alien.cern.ch
+LICENSE =
 
 CONFIGURE_SCRIPTS =
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

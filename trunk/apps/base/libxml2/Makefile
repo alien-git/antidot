@@ -5,7 +5,10 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES = http://ftp.gnome.org/pub/gnome/sources/libxml2/2.6/ ftp://xmlsoft.org/
 
-DESCRIPTION = libxml2
+DESCRIPTION = The XML C parser and toolkit of Gnome
+URL = http://xmlsoft.org/
+AUTHOR = Daniel Veillard
+LICENSE = libxml2
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,6 +8,9 @@ MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/swig/ http://ovh.dl.
 LIBDEPS = 
 
 DESCRIPTION = SWIG
+URL = http://www.swig.org/
+AUTHOR = 
+LICENSE = SWIG
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -10,10 +10,12 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)-src.tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/ http://www-unix.mcs.anl.gov/~globus/ 
-
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = Globus packaging tool
+DESCRIPTION = Grid packaging tool
+URL = http://www.gridpackagingtools.org/
+AUTHORE = NCSA
+LICENSE = GPT
 
 CONFIGURE_SCRIPTS = 
 BUILD_SCRIPTS = 

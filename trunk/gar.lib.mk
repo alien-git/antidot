@@ -385,6 +385,11 @@ build-%/GNUmakefile:
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
 	@$(MAKECOOKIE)
 
+#################### USE RULES ####################
+usedby-$(GARDIR)/%:
+	@echo ' $(call TMSG_LIB,Using $* as a dependency)'
+	@(cd $(GARDIR)/$* ; [ ! -d $(COOKIEDIR)/usedby ] && mkdir -p $(COOKIEDIR)/usedby;	touch  $(COOKIEDIR)/usedby/$(MYNAME))
+
 #################### TEST RULES ####################
 
 # build from a standard gnu-style makefile's default rule.

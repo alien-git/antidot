@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/L/LD/LDS/ http://www.cpan.org/authors/i
 LIBDEPS = apps/base/perl apps/gui/gd
 
 DESCRIPTION = Interface to Gd Graphics Library
+URL = http://cpan.uwinnipeg.ca/~lds
+LICENSE = Artistic
+AUTHOR = Lincoln D. Stein
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

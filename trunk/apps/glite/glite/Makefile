@@ -8,6 +8,8 @@ MASTER_SITES = http://alien.cern.ch/cache/
 LIBDEPS =
 
 DESCRIPTION = Glite project files
+URL = http://www.glite.org
+LICENSE = EGEE
 
 CONFIGURE_SCRIPTS =
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

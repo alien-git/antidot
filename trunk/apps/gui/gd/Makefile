@@ -8,6 +8,10 @@ LIBDEPS = apps/gui/freetype2 apps/gui/t1lib
 MASTER_SITES = http://www.boutell.com/gd/http/ http://alien.cern.ch/cache/
 
 DESCRIPTION = GD Graphics Library
+URL = http://www.boutell.com/gd/
+LICENSE = GD
+AUTHOR =
+
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

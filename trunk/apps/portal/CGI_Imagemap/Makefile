@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MI/MIKEH/ http://www.cpan.org/authors
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Imagemap handling for specialized apps
+AUTHOR = Mike Heins
+URL = http://cpan.uwinnipeg.ca/~mikeh
+LICENSE = Perl 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -11,7 +11,9 @@ NOCHECKSUM    = $(DISTFILES)
 
 LIBDEPS = apps/base/globus apps/base/log4cpp apps/base/xerces-c apps/base/xalan-c apps/glite/glite-data
 
-DESCRIPTION = 
+DESCRIPTION = gLite
+URL = http://www.glite.org
+LICENSE = EGEE
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,6 +8,9 @@ MASTER_SITES = http://alien.cern.ch/cache/
 LIBDEPS = apps/base/perl apps/portal/apache apps/base/libwww-perl apps/base/HTML-Parser
 
 DESCRIPTION = The Apache interface to perl
+URL = http://perl.apache.org/
+AUTHOR = 
+LICENSE = Apache 1.1
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS =  $(WORKSRC)/Makefile

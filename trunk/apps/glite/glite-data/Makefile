@@ -8,6 +8,8 @@ MASTER_SITES = http://alien.cern.ch/cache/
 LIBDEPS = apps/glite/glite
 
 DESCRIPTION = Glite data subproject files
+URL = http://www.glite.org
+LICENSE = EGEE
 
 CONFIGURE_SCRIPTS =
 BUILD_SCRIPTS = 

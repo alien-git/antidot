@@ -8,6 +8,9 @@ MASTER_SITES = ftp://mirror.switch.ch/mirror/mysql/Downloads/MySQL-4.0/  http://
 LIBDEPS = 
 
 DESCRIPTION = MySQL database
+URL = http://dev.mysql.com/
+LICENSE = MySQL
+AUTHOR = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

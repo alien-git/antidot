@@ -12,6 +12,8 @@ MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/
 LIBDEPS = apps/base/perl apps/base/cgsi-gsoap apps/base/gsoap apps/base/perl
 
 DESCRIPTION = AliEn interface to SRM
+URL = http://alien.cern.ch
+LICENSE =
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

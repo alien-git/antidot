@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KM/KMACLEOD/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = 
+URL = http://perl-xml.sourceforge.net/libxml-perl/
+AUTHOR = Ken MacLeod
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
