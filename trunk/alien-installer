@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.7  2005/03/01 12:02:57  buncic
+# Fixed typo.
+#
 # Revision 1.6  2005/03/01 11:56:47  buncic
 # Create anonymous cvs login if it does not exist.
 #
@@ -31,7 +34,7 @@ VERSION=0.01
 ###########################################################################
 ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME:=$HOME/alien}
 ALIEN_INSTALLER_URL=${ALIEN_INSTALLER_URL:=rsync://alien.cern.ch:8873/cache} 
-ALIEN_INSTALLER_CVS=${ALIEN_INSTALLER_CVS:=:pserver:cvs@alisoft.cern.ch:/soft/cvsroot}
+ALIEN_INSTALLER_CVS=${ALIEN_INSTALLER_CVS:=":pserver:cvs@alisoft.cern.ch:/soft/cvsroot"}
 ALIEN_INSTALLER_BINARY_UPDATE=${ALIEN_INSTALLER_BINARY_UPDATE:=0}
 ALIEN_INSTALLER_PREFIX=${ALIEN_INSTALLER_PREFIX:=/opt/alien}
 ALIEN_INSTALLER_METHOD=${ALIEN_INSTALLER_METHOD:=bininstall}
@@ -118,6 +121,7 @@ InstallerSync()
   if [ -d CVS ]
   then
     if [ `cat $HOME/.cvspass | grep -c $ALIEN_INSTALLER_CVS` -eq 0 ]
+    then 
       cvs $ALIEN_INSTALLER_CVS login<<EOF 
 cvs
 EOF
