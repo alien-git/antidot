@@ -2,3 +2,4 @@
 f8454e164787ea0e9406fe7bcc2dd806  files/Makefile.am.patch
 8051f012fcc58173e8015710d449457a  download/log4cpp-0.3.4b.tar.gz
 2999889cc1153e7b819d25f5c640fc31  download/log4cpp-0.3.4b_i686-pc-linux-gnu.tar.bz2
+9f5073e8e9169990c707b91712841573  download/log4cpp-0.3.4b_ia64-unknown-linux-gnu.tar.bz2
