@@ -1,9 +1,9 @@
 GARNAME = Net-Jabber
-GARVERSION = 2.0
+GARVERSION = 1.29
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RE/REATMON/ http://www.cpan.org/authors/id/R/RE/REATMON/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RE/REATMON/
+MASTER_SITES = http://alien.cern.ch/cache/ $(CPAN_MIRROR)/authors/id/R/RE/REATMON/ http://www.cpan.org/authors/id/R/RE/REATMON/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RE/REATMON/
 
 LIBDEPS = apps/base/perl
 

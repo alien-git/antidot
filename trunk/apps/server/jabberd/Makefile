@@ -13,6 +13,6 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --enable-ssl
+CONFIGURE_ARGS = $(DIRPATHS) --enable-ssl --enable-mysql --enable-ssl --enable-idn
 
 include ../category.mk
