@@ -12,6 +12,7 @@ DESCRIPTION = GNU Readline XS library wrapper
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 ifeq ($(shell uname),Darwin) 
 CONFIGURE_ARGS = --includedir=/sw/include --libdir=/sw/lib
