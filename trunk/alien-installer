@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.6  2005/03/01 11:56:47  buncic
+# Create anonymous cvs login if it does not exist.
+#
 # Revision 1.5  2005/03/01 05:52:10  buncic
 # Fixed platform names.
 #
@@ -357,8 +360,10 @@ InstallerUI()
 
   if [ "$method" == "Binary" ]
   then
+
     if [ "$ALIEN_INSTALLER_PLATFORM" == "" ]
     then 
+
       p=`$workspace/config.guess`
 
       case $platform in
@@ -376,9 +381,10 @@ InstallerUI()
           ;;
          *)
           echo "Error: Unknown or unsupported platform: $platform"
+          exit 1
           ;;
-        exit 1
       esac
+
     fi
 
     $ALIEN_DIALOG  $style \
