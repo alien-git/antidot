@@ -1,9 +1,6 @@
 GARNAME = gpt
-ifeq ($(shell uname),Darwin)
+
 GARVERSION = 3.0.1
-else
-GARVERSION = 2.2.10
-endif
 
 CATEGORIES = apps-tools
 
