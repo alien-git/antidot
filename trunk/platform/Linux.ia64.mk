@@ -1,6 +1,6 @@
 ENABLE_LIBSUFFIX=
-TARGET_LIBNAME = lib
-TARGET_PLATFORM = linux-g++
+TARGET_LIBNAME=lib
+TARGET_PLATFORM=linux-g++
 TARGET_PKG_CONFIG_PATH = /usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 
 # Compiler options (optional)

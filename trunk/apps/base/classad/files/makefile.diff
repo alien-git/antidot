@@ -1,11 +1,16 @@
 --- work/classads-0.9.7/Makefile	Thu Oct 28 23:53:21 2004
-+++ work/classads-0.9.7/Makefile.new	Fri Jan 28 15:40:43 2005
-@@ -5,14 +5,14 @@
++++ work/classads-0.9.7/Makefile.new	Fri Mar  4 13:42:10 2005
+@@ -3,16 +3,18 @@
+ # This include will redefine DESTDIR, if Makefile.config exists
+ include Makefile.config
  
- LD_FLAGS = $(EXTRA_LD_FLAGS) -L. -l$(LIB_LINK_NAME)
+-LD_FLAGS = $(EXTRA_LD_FLAGS) -L. -l$(LIB_LINK_NAME)
++LD_FLAGS = $(EXTRA_LD_FLAGS) $(LDFLAGS) -L. -l$(LIB_LINK_NAME)
  
 -all:: $(LIB_NAME) classad_functional_tester classad_unit_tester classad_version cxi extra_tests test_xml sample
-+all:: $(LIB_NAME) libclassad.so
++LIBCLASSAD=libclassad.$(GARLIBEXT)
++
++all:: $(LIB_NAME) shared
  
  LIB_INSTALL = $(DESTDIR)/lib
  BIN_INSTALL = $(DESTDIR)/bin
@@ -18,25 +23,35 @@
  INST_C_PLUS_FLAGS = $(C_PLUS_FLAGS) -w
  NO_INST_C_PLUS_FLAGS = -fno-implicit-templates $(C_PLUS_FLAGS)
  PURIFY = purify -g++=yes -chain-length=35 $(CPlusPlus)
-@@ -32,6 +32,10 @@
- 	rm -f  $(LIB_NAME)
- 	ar vrs $(LIB_NAME)  $(LIB_OBJ)
+@@ -21,8 +23,8 @@
+ 	$(CPlusPlus) $(NO_INST_C_PLUS_FLAGS) -c $<
  
-+libclassad.so: $(LIB_OBJ)
-+	rm -f libclassad.so
-+	$(CPlusPlus) -shared $(LIB_OBJ) -o libclassad.so
-+
- instantiations.o:   instantiations.C
- 	$(CPlusPlus) $(INST_C_PLUS_FLAGS) -c instantiations.C -o instantiations.o
+ LIB_OBJ = attrrefs.o classad.o collection.o collectionBase.o debug.o	\
+-exprList.o exprTree.o fnCall.o indexfile.o lexer.o lexerSource.o		\
+-literals.o matchClassad.o operators.o query.o sink.o source.o			\
++exprList.o exprTree.o fnCall.o indexfile.o lexer.o lexerSource.o	\
++literals.o matchClassad.o operators.o query.o sink.o source.o		\
+ transaction.o util.o value.o view.o xmlLexer.o xmlSink.o xmlSource.o	\
+ cclassad.o instantiations.o
  
-@@ -70,9 +74,7 @@
+@@ -63,16 +65,15 @@
+ 	$(CPlusPlus) -o sample sample.o $(LD_FLAGS)
+ 
+ shared: shared.C
+-	$(CPlusPlus) -fPIC -shared -o libshared.so shared.C
++	rm -f $(LIBCLASSAD)
++	$(CPlusPlus) -fPIC $(GARSHARED) $(LD_FLAGS) -o $(LIBCLASSAD) shared.C
+ 
+-install:: $(LIB_NAME) classad_functional_tester classad_unit_tester classad_version
++install:: $(LIB_NAME) 
+ 	mkdir -p $(LIB_INSTALL)
  	mkdir -p $(BIN_INSTALL)
  	mkdir -p $(INCLUDE_INSTALL)
  	cp $(LIB_NAME)  $(LIB_INSTALL)
 -	cp classad_functional_tester $(BIN_INSTALL)
 -	cp classad_unit_tester $(BIN_INSTALL)
 -	cp classad_version $(BIN_INSTALL)
-+	cp libclassad.so $(LIB_INSTALL)
++	cp $(LIBCLASSAD) $(LIB_INSTALL)
  	cp $(HEADER_FILES) $(INCLUDE_INSTALL)
  
  clean: tidy

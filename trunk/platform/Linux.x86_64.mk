@@ -1,7 +1,6 @@
 ENABLE_LIBSUFFIX="--enable-libsuffix=64"
-TARGET_LIBNAME = lib64
-TARGET_PLATFORM = linux-g++-64
-#TARGET_X11_LIB = /usr/X11R6/lib64
+TARGET_LIBNAME=lib64
+TARGET_PLATFORM=linux-g++-64
 TARGET_PKG_CONFIG_PATH = /usr/lib64/pkgconfig:/usr/local/lib64/pkgconfig
 
 # *Mandatory* compiler options on x86_64

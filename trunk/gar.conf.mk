@@ -56,7 +56,8 @@ LDFLAGS += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir))
 
 # allow us to use programs we just built
 PATH := $(DESTDIR)$(bindir):$(DESTDIR)$(sbindir):$(DESTDIR)$(BUILD_PREFIX)/bin:$(DESTDIR)$(BUILD_PREFIX)/sbin:$(PATH)
-LD_LIBRARY_PATH := $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(LD_LIBRARY_PATH)
+LD_LIBRARY_PATH=$(strip $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(PREFIX)/lib)
+DYLD_LIBRARY_PATH=$(LD_LIBRARY_PATH)
 
 # This is for foo-config chaos
 PKG_CONFIG_PATH:=$(DESTDIR)$(libdir)/pkgconfig:$(TARGET_PKG_CONFIG_PATH):$(PKG_CONFIG_PATH)
@@ -79,6 +80,7 @@ export docdir sourcedir
 export CC CXX
 export CPPFLAGS CFLAGS CXXFLAGS LDFLAGS PATH LD_LIBRARY_PATH LD_PRELOAD
 export PKG_CONFIG_PATH BUILD_CLEAN
+export DYLD_LIBRARY_PATH
 
 # prepend the local file listing
 FILE_SITES = file://$(FILEDIR)/ file://$(GARCHIVEDIR)/

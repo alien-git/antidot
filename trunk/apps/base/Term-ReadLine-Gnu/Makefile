@@ -13,9 +13,11 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = 
-
+ifeq ($(shell uname),Darwin) 
+CONFIGURE_ARGS = --includedir=/sw/include --libdir=/sw/lib
+else
 BUILD_ARGS =  
+endif
 
 include ../category.mk
 
