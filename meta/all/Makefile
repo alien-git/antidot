@@ -126,7 +126,6 @@ apps/base/Unicode-String \
 apps/base/URI \
 apps/base/WSDL-Generator \
 apps/base/WSRF-Lite \
-apps/base/XML-DOM \
 apps/base/XML-Generator \
 apps/base/XML-Parser \
 apps/base/XML-Parser-EasyTree \
