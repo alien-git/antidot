@@ -8,5 +8,5 @@ c6e9cff4190a5f6046f368a9fe06e56a  files/instantiations.diff
 7aa1c2952453aa495856081fa66d8d08  files/makefile.diff
 66d790e223620cc2a3c7ccb881046273  download/classads-0.9.7_powerpc-apple-darwin7.7.0.tar.bz2
 edef0989cff0a9abfd7e8f0289962c90  download/classads-0.9.7a.tar.gz
-700d44b49b6f93523952a3be2939faf8  download/classads-0.9.7_i686-pc-linux-gnu.tar.bz2
 383698d235ce3ea094af33f8d41b23b3  download/classads-0.9.7_ia64-unknown-linux-gnu.tar.bz2
+0a685326fafd6a50fa5df1e10c456474  download/classads-0.9.7_i686-pc-linux-gnu.tar.bz2

@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.31  2005/03/31 07:50:11  buncic
+# Always update from CVS.
+#
 # Revision 1.30  2005/03/15 07:37:01  buncic
 # Tests added to CVS.
 #
@@ -447,8 +450,12 @@ InstallerUI()
 
   if [ "$method" == "Source" ]
   then
-    cmd=$cmd"-b "
     ALIEN_INSTALLER_METHOD='reinstall'
+    ALIEN_INSTALLER_BINARY_UPDATE=0
+  else
+    cmd=$cmd" -b "
+    ALIEN_INSTALLER_METHOD='bininstall'
+    ALIEN_INSTALLER_BINARY_UPDATE=1
   fi
 
   $ALIEN_DIALOG  $style --defaultno \
