@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.5  2005/03/01 05:52:10  buncic
+# Fixed platform names.
+#
 # Revision 1.4  2005/03/01 04:47:02  buncic
 # Checksums for i386 binary packages.
 #
@@ -25,6 +28,7 @@ VERSION=0.01
 ###########################################################################
 ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME:=$HOME/alien}
 ALIEN_INSTALLER_URL=${ALIEN_INSTALLER_URL:=rsync://alien.cern.ch:8873/cache} 
+ALIEN_INSTALLER_CVS=${ALIEN_INSTALLER_CVS:=:pserver:cvs@alisoft.cern.ch:/soft/cvsroot}
 ALIEN_INSTALLER_BINARY_UPDATE=${ALIEN_INSTALLER_BINARY_UPDATE:=0}
 ALIEN_INSTALLER_PREFIX=${ALIEN_INSTALLER_PREFIX:=/opt/alien}
 ALIEN_INSTALLER_METHOD=${ALIEN_INSTALLER_METHOD:=bininstall}
@@ -55,6 +59,7 @@ InstallerRcUpdate()
     echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
     echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
     echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
+    echo "ALIEN_INSTALLER_CVS=$ALIEN_INSTALLER_CVS" 
   ) > $HOME/.alien/installer.rc
 
 }
@@ -109,6 +114,11 @@ InstallerSync()
   cd $ALIEN_INSTALLER_HOME
   if [ -d CVS ]
   then
+    if [ `cat $HOME/.cvspass | grep -c $ALIEN_INSTALLER_CVS` -eq 0 ]
+      cvs $ALIEN_INSTALLER_CVS login<<EOF 
+cvs
+EOF
+    fi
     cvs -z update -dP
   else
     rsync -acvz --cvs-exclude --exclude=alien.conf.mk $ALIEN_INSTALLER_URL .
