@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KE/KELLAN/ http://www.cpan.org/authors/id/K/KE/KELLAN/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/K/KE/KELLAN/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/perl apps/base/DateTime
 
 DESCRIPTION = Parse and format W3CDTF datetime strings
 AUTHOR = Kellan Elliott-Mccrea
