@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.25  2005/03/14 09:52:39  buncic
+# Fixed problem with dialog running under su.
+#
 # Revision 1.24  2005/03/11 12:47:49  buncic
 # Fixed release version problem.
 #
@@ -242,7 +245,9 @@ InstallerSetup()
     fi
   done
 
-  arg1=`($dialog_form $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form 2>$dialog_file && cat $dialog_file) | \
+  $dialog_form $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form 2>$dialog_file
+
+  arg1=`cat $dialog_file | \
 ( 
   read GLOBUS_LOCATION 
   read SWIG_LOCATION 
@@ -289,7 +294,9 @@ InstallerSetup()
     i=`expr $i + 1`
   done
 
-  arg2=`($dialog_form $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form 2>$dialog_file && cat $dialog_file) | \
+  $dialog_form $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form 2>$dialog_file
+
+  arg2=`cat $dialog_file | \
 ( 
   read ALIEN_ORGANISATION 
   read ALIEN_USER 
@@ -405,17 +412,21 @@ InstallerUI()
 
   list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{printf("%s %s 0 ",$3,$2)}'`
 
-  release=`($ALIEN_DIALOG $style \
+  $ALIEN_DIALOG $style \
             --radiolist "PLEASE SELECT ALIEN RELEASE:" 0 0 0 \
                         "HEAD" "Curent CVS HEAD (Warning: use at own risk!)" on \
-                        $list 2>$dialog_file && cat $dialog_file)` || Exit 1
+                        $list 2>$dialog_file || Exit 1
+
+  release=`cat $dialog_file`
 
   ALIEN_RELEASE=$release
 
-  method=`($ALIEN_DIALOG  $style \
+  $ALIEN_DIALOG  $style \
           --radiolist "PLEASE SELECT THE INSTALLATION METHOD"  0 0 0 \
                       "Binary" "Download precompiled packages"   on  \
-                      "Source" "Compile everything from sources" 0 2>$dialog_file && cat $dialog_file)` || Exit 1
+                      "Source" "Compile everything from sources" 0 2>$dialog_file  || Exit 1
+
+  method=`cat $dialog_file`
 
   if [ "$method" == "Source" ]
   then
@@ -440,9 +451,10 @@ InstallerUI()
 
   if [ $? -eq 1 ]
   then
-    workspace=`($ALIEN_DIALOG $style \
+    $ALIEN_DIALOG $style \
                --inputbox 'Please enter workspace directory:' $height $width \
-               $workspace 2>$dialog_file && cat $dialog_file)` || Exit 1
+               $workspace 2>$dialog_file || Exit 1
+    workspace=`cat $dialog_file`
   fi
 
   mkdir -p $workspace || ( Error "You must specify the workspace directory.") 
@@ -513,9 +525,10 @@ InstallerUI()
 
   if [ $? -eq 1 ]
   then
-     prefix=`($ALIEN_DIALOG $style \
+     $ALIEN_DIALOG $style \
                     --inputbox 'Please specify installation directory'  $height $width \
-                     $prefix 2>$dialog_file && cat $dialog_file)` || Exit 1
+                     $prefix 2>$dialog_file || Exit 1
+     prefix=`cat $dialog_file`
   fi
 
   if [ -d $prefix ]
@@ -532,14 +545,15 @@ InstallerUI()
 
   cmd=$cmd"--prefix=$prefix"
 
-  list=`($ALIEN_DIALOG $style \
+  $ALIEN_DIALOG $style \
                --radiolist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
                            'all'    'All packages'            on \
                            'client' 'Client'                  0  \
                            'portal' 'Portal'                  0  \
                            'site'   'Site CE/SE services'     0  \
                            'core'   'Core VO services'        0  \
-                           'wn'     'Worker node'             0 2>$dialog_file && cat $dialog_file)` || Exit 1
+                           'wn'     'Worker node'             0 2>$dialog_file || Exit 1
+  list=`cat $dialog_file`
 
   ALIEN_INSTALLER_TYPE="$list"
   
