@@ -1,0 +1,13 @@
+--- work/bbftp-3.0.1/bbftpd/configure.in	Mon Sep 15 23:18:38 2003
++++ work/bbftp-3.0.1/bbftpd/configure.in.new	Thu Jan 27 15:52:09 2005
+@@ -580,6 +580,10 @@
+     fi
+ fi
+ 
++if test "$WITH_RFIO64" != "no" ; then
++   CFLAGS="$CFLAGS -DWITH_RFIO64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE"
++fi
++
+ dnl ===========================================================================
+ dnl Now check for the additional librairies
+ dnl ===========================================================================

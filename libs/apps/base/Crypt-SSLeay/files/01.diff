@@ -1,0 +1,11 @@
+--- work/Crypt-SSLeay-0.51/Makefile.PL	2003-04-22 07:38:06.000000000 +0200
++++ new/Crypt-SSLeay-0.51/Makefile.PL	2005-01-17 15:21:26.000000000 +0100
+@@ -13,7 +13,7 @@
+ chdir($currdir) || die("can't change to $currdir: $!");
+ 
+ # FIND POSSIBLE SSL INSTALLATIONS
+-my @POSSIBLE_SSL_DIRS = qw(/usr/local/openssl /usr/local/ssl /local/ssl /opt/ssl /usr/local /local /usr);
++my @POSSIBLE_SSL_DIRS = qw($opt_default);
+ if($^O eq 'MSWin32') {
+     unshift(@POSSIBLE_SSL_DIRS, 'c:/openssl');
+ }
