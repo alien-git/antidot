@@ -13,6 +13,9 @@ status:
 ustatus:
 	(cd apps; make -s ustatus) 
 
+listdeps:
+	(cd apps; make -s listdeps) 
+
 distclean:
 	make clean
 	(cd apps; make clean) 

@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.32  2005/04/01 10:35:45  buncic
+# Fix to alien-installer
+#
 # Revision 1.31  2005/03/31 07:50:11  buncic
 # Always update from CVS.
 #
@@ -618,7 +621,7 @@ InstallerUI()
   then
     $ALIEN_DIALOG $style --sleep 3 \
                   --infobox 'Running post installation scripts...' $height $width
-    $prefix/bin/alien-perl --bootstrap --prefix $prefix
+    $prefix/bin/alien-perl --bootstrap --prefix $prefix >> install.log
  
     $ALIEN_DIALOG $style --sleep 3 \
                 --infobox 'Done.' $height $width
