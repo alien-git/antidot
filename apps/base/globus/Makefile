@@ -1,5 +1,5 @@
 GARNAME = globus
-GARVERSION = 2.4.3
+GARVERSION = 2.4.3ng
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
