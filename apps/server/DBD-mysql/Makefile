@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RU/RUDY/ http://www.cpan.org/authors/
 LIBDEPS = apps/base/perl apps/server/mysql
 
 DESCRIPTION = MySQL driver for DBI
+AUTHOR = Rudy Lippan
+URL = http://cpan.uwinnipeg.ca/~rudy
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

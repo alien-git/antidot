@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RJ/RJRAY/ http://www.cpan.org/authors
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Collect module use information
+AUTHOR = Randy J Ray
+URL = http://cpan.uwinnipeg.ca/~rjray
+LICENSE = Artistic 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

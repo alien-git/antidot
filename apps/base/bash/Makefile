@@ -8,6 +8,9 @@ MASTER_SITES =  http://alien.cern.ch/cache/ http://ftp.gnu.org/gnu/bash/
 LIBDEPS = apps/devel/autoconf apps/devel/automake
 
 DESCRIPTION = Bash is the GNU shell
+AUTHOR = Chet Ramey
+URL =  http://www.gnu.org/software/bash/bash.html
+LICENSE = GPL2
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

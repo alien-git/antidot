@@ -11,7 +11,9 @@ MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/
 
 LIBDEPS = apps/base/globus apps/base/log4cpp apps/glite/data-io-quanta apps/glite/data-io-gss-auth apps/glite/glite-data
 
-DESCRIPTION = 
+DESCRIPTION = gLite
+URL = http://www.glite.org
+LICENSE = EGEE
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GB/GBARR/ http://www.cpan.org/authors
 LIBDEPS = apps/base/perl apps/base/XML-Parser apps/base/IO-Socket-SSL apps/base/XML-SAX-Base apps/base/ExtUtils-AutoInstall apps/base/Convert-ASN1
 
 DESCRIPTION = Interface to LDAP Protocol (RFC1777)
+URL = http://ldap.perl.org/
+AUTHOR = Graham Barr
+LICENSE = Perl or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

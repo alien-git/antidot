@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JM/JMOORE/ http://www.cpan.org/author
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Perl extension for managing templates, and performing variable interpolation.
+URL = http://cpan.uwinnipeg.ca/~jmoore
+AUTHOR = Jason Moore
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

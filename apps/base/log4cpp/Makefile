@@ -9,6 +9,9 @@ MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/log4cpp/ http://alie
 LIBDEPS = 
 
 DESCRIPTION = A library of C++ classes for flexible logging to files, syslog, IDSA and other destinations.
+URL = http://log4cpp.sourceforge.net/
+AUTHOR = Bastiaan Bakker 
+LICENSE = LGPL
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

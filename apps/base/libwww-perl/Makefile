@@ -8,7 +8,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GA/GAAS/ http://www.cpan.org/authors/
 LIBDEPS = apps/base/perl apps/base/Compress-Zlib apps/base/HTML-Parser apps/base/URI
 
 DESCRIPTION = Libwww-perl
-
+URL = http://lwp.linpro.no/lwp/
+AUTHOR = Gisle Aas
+LICENSE = Perl or Artistic
+ 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

@@ -12,6 +12,8 @@ MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/
 LIBDEPS = apps/base/perl apps/alien/classad apps/alien/gssapi apps/base/SOAP-Lite apps/base/DBI apps/base/perl-ldap apps/base/XML-Generator apps/base/XML-Parser-EasyTree apps/base/XML-Simple apps/base/Log-TraceMessages apps/base/Data-UUID apps/base/Crypt-OpenSSL-RSA apps/base/Crypt-OpenSSL-Random apps/base/Log-Dispatch apps/base/Log-Dispatch-FileRotate apps/base/Cache-Cache apps/base/DBD-CSV apps/base/DBD-SQLite2 apps/base/Term-ReadLine-Gnu apps/base/Compress-Zlib apps/base/DateTime apps/base/Filesys-DiskFree apps/base/MIME-Base64 apps/base/PlRPC apps/base/URI apps/base/WSRF-Lite apps/base/bbftp apps/base/Authen-SASL apps/base/Archive-Zip apps/base/bash apps/base/ApMon 
 
 DESCRIPTION = AliEn common component
+URL = http://alien.cern.ch
+LICENSE =
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

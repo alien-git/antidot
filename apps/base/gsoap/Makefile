@@ -9,6 +9,9 @@ MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/gsoap2/  http://alie
 LIBDEPS = 
 
 DESCRIPTION = gSOAP Toolkit
+URL = http://gsoap2.sourceforge.net/
+AUTHOR = 
+LICENSE = gSOAP and GPL
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

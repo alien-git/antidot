@@ -8,6 +8,9 @@ MASTER_SITES = ftp://ftp.gtk.org/pub/gtk/v2.6/ ftp://ftp.gnome.org/pub/gnome/sou
 LIBDEPS = apps/devel/pkgconfig
 
 DESCRIPTION = low-level core library
+URL = http://www.gtk.org/
+AUTOR = GPL2
+LICENSE = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

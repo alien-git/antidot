@@ -12,6 +12,9 @@ MASTER_SITES = http://archive.apache.org/dist/xml/xalan-c/source/ http://alien.c
 LIBDEPS = apps/base/xerces-c
 
 DESCRIPTION = XSLT stylesheet processors, in Java and C+
+URL = http://xml.apache.org/xalan-c/
+AUTHOR = 
+LICENSE = Apache
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS =  $(WORKSRC)/Makefile

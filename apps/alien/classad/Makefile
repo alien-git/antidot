@@ -12,6 +12,8 @@ MASTER_SITES =  webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/
 LIBDEPS = apps/base/perl apps/base/classad apps/base/swig apps/glite/glite
 
 DESCRIPTION = AliEn classad component
+URL = http://alien.cern.ch
+LICENSE =
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

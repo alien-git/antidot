@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/L/LB/LBROCARD/ http://www.cpan.org/auth
 LIBDEPS = apps/base/perl apps/gui/Image-Imlib2
 
 DESCRIPTION = Create graphical world maps of data
+AUTHOR = Leon Brocard
+URL = http://cpan.uwinnipeg.ca/~lbrocard
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,7 +8,10 @@ MASTER_SITES =  http://alien.cern.ch/cache/ ftp://ftp.gnu.org/gnu/gcc/gcc-3.2.3/
 LIBDEPS = apps/devel/autoconf apps/devel/automake
 
 DESCRIPTION = GNU C/C++ compiler
-
+URL = http://gcc.gnu.org/
+AUTHOR = GCC Team
+LICENSE = GPL2
+ 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

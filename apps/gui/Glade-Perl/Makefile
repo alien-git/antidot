@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DM/DMUSGR/ http://www.cpan.org/author
 
 LIBDEPS = apps/base/perl apps/base/XML-Parser apps/gui/Gtk-Perl apps/base/Unicode-String
 
-DESCRIPTION = 
+DESCRIPTION = UI builder and source generator
+AUTHOR = Dermot Musgrove
+URL = http://cpan.uwinnipeg.ca/~dmusgr
+LICENSE = Perl or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,6 +8,9 @@ MASTER_SITES =  http://puzzle.dl.sourceforge.net/sourceforge/libpng/ http://alie
 LIBDEPS = 
 
 DESCRIPTION = Lossless data-compression library 
+URL = http://www.zlib.net/
+AUTHOR = Jean-loup Gailly Mark Adler
+LICENSE = zlib
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

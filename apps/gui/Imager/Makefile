@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TO/TONYC/ http://www.cpan.org/authors
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Draws, reads and writes Imagefiles
+AUTHOR = Tony Cook
+URL = http://cpan.uwinnipeg.ca/~tonyc
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,7 +8,10 @@ LIBDEPS = apps/gui/freetype2 apps/base/edb
 MASTER_SITES = http://heanet.dl.sourceforge.net/sourceforge/enlightenment/ http://alien.cern.ch/cache/
 
 DESCRIPTION = imlib2
-
+URL = http://freshmeat.net/projects/imlib2/
+AUTHOR =  Carsten Haitzler
+LICENSE = BSD
+ 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

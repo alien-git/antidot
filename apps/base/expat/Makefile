@@ -9,7 +9,10 @@ MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/expat/ http://alien.
 LIBDEPS = 
 
 DESCRIPTION = Expat XML Parser
-
+URL = http://www.libexpat.org/
+AUTHOR = Expat maintainers
+LICENSE = Expat
+ 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

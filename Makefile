@@ -10,6 +10,9 @@ dist:
 status:
 	(cd apps; make -s status) 
 
+ustatus:
+	(cd apps; make -s ustatus) 
+
 distclean:
 	make clean
 	(cd apps; make clean) 

@@ -8,6 +8,9 @@ MASTER_SITES = http://alien.cern.ch/cache/
 LIBDEPS = apps/base/perl apps/base/myproxy apps/base/Expect apps/base/perl-ldap
 
 DESCRIPTION = Grid Portal
+URL = http://gridport.net/index.cgi
+AUTHOR = 
+LICENCE = gridport
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

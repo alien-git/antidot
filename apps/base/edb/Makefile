@@ -7,7 +7,10 @@ LIBDEPS =
 
 MASTER_SITES = http://heanet.dl.sourceforge.net/sourceforge/enlightenment/ http://alien.cern.ch/cache/
 
-DESCRIPTION = edb
+DESCRIPTION = Enlightenment Database Access Library
+URL = http://www.enlightenment.org/pages/edb.html
+AUTHOR = Mike Frysinger
+LICENSE = EDB
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

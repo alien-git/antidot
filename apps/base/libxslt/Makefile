@@ -7,7 +7,10 @@ MASTER_SITES = http://ftp.acc.umu.se/pub/gnome/sources/libxslt/1.1/ ftp://xmlsof
 
 LIBDEPS = apps/base/libxml2
 
-DESCRIPTION = libxslt
+DESCRIPTION = The XSLT C library for Gnome
+URL = http://xmlsoft.org/XSLT/
+AUTHOR = Daniel Veillard
+LICENSE = libexslt 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -13,12 +13,12 @@ MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/
 LIBDEPS = apps/base/perl apps/base/globus apps/base/myproxy
 
 DESCRIPTION = AliEn GSSAPI component
+URL = http://alien.cern.ch
+LICENSE =
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-
-#CONFIGURE_ARGS = --prefix=$(PREFIX) --with-glite-prefix=$(PREFIX) --with-stage-dir=$(PREFIX) --with-build-dir=$(WORKSRC)/build --with-dest-dir=$(PREFIX) --with-globus-prefix=$(PREFIX) --with-globus-thr-flavor=$(GLOBUS_FLAVOR)thr  --with-globus-nothr-flavor=$(GLOBUS_FLAVOR)
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-glite-prefix=$(PREFIX) --with-globus-prefix=$(GLOBUS_LOCATION) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR)
 

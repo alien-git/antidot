@@ -9,6 +9,9 @@ MASTER_SITES =   http://alien.cern.ch/cache/ http://freshmeat.net/redir/ncurses/
 LIBDEPS = 
 
 DESCRIPTION =  Freeware emulation of System V Release 4.0 curses.
+URL = http://www.gnu.org/software/ncurses/ncurses.html
+AUTHOR = Pavel Curtis
+LICENSE = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

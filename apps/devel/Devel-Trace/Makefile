@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MJ/MJD/ http://www.cpan.org/authors/i
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Print out each line before it is executed 
+URL = http://cpan.uwinnipeg.ca/~mjd
+AUTHOR = Mark Jason Dominus 
+LICENSE =
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

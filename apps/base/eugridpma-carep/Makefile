@@ -11,7 +11,10 @@ MASTER_SITES = http://www.eugridpma.org/distribution/current/  http://alien.cern
 LIBDEPS = 
 
 DESCRIPTION =  European Policy Management Authority for Grid Authentication in e-Science - acredited CA certificates
-
+LICENSE =
+AUTHOR =
+URL = http://www.eugridpma.org
+ 
 
 CONFIGURE_SCRIPTS =
 BUILD_SCRIPTS =  

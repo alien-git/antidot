@@ -7,7 +7,10 @@ MASTER_SITES = http://ftp.funet.fi/pub/CPAN/src/
 
 LIBDEPS = apps/devel/automake apps/devel/autoconf apps/devel/libtool apps/base/gcc apps/base/db apps/base/openssl
 
-DESCRIPTION = GNU Autoconf
+DESCRIPTION = The Perl interpreter
+AUTHOR = Larry Wall
+URL = http://www.perl.org
+LICENSE = Perl or Artistic
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,6 +8,9 @@ MASTER_SITES = http://www.openssl.org/source/
 LIBDEPS = apps/base/zlib 
 
 DESCRIPTION = OpenSSL toolkit 
+URL = http://www.openssl.org/
+AUTHOR = OpenSSL Project
+LICENSE = Apache
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/config
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
