@@ -1,0 +1,65 @@
+--- work/bbftp-3.0.1/bbftpd/bbftpd_signals.c	Tue Mar 11 13:34:36 2003
++++ new/bbftp-3.1.0/bbftpd/bbftpd_signals.c	Wed Jun 30 19:38:51 2004
+@@ -32,16 +32,29 @@
+                                         - Correct syslog level
+ 
+ *****************************************************************************/
++#include <bbftpd.h>
++
+ #include <errno.h>
+ #include <signal.h>
+ #include <sys/wait.h>
+ #include <syslog.h>
+ #include <netinet/in.h>
+ #include <sys/socket.h>
+-#include <sys/time.h>
++#if TIME_WITH_SYS_TIME
++# include <sys/time.h>
++# include <time.h>
++#else
++# if HAVE_SYS_TIME_H
++#  include <sys/time.h>
++# else
++#  include <time.h>
++# endif
++#endif
+ #include <utime.h>
++#if HAVE_STRING_H
++# include <string.h>
++#endif
+ 
+-#include <bbftpd.h>
+ #include <daemon.h>
+ #include <daemon_proto.h>
+ #include <status.h>
+@@ -268,7 +281,7 @@
+         */ 
+         if ( unlinkfile == 1 ) unlink(realfilename) ;
+         clean_child() ;
+-        exit() ;
++        exit(0) ; /* BUG porting */
+     } else {
+         exit(EINTR) ;
+     }
+@@ -364,17 +377,21 @@
+         syslog(BBFTPD_ERR,"Error sigaction SIGPOLL : %s",strerror(errno)) ;
+         return(-1) ;
+     }
++#ifdef SIGPROF		/* BUG porting */
+     if ( sigaction(SIGPROF,&sga,0) < 0 ) {
+         syslog(BBFTPD_ERR,"Error sigaction SIGPROF : %s",strerror(errno)) ;
+         return(-1) ;
+     }
++#endif
+     if ( sigaction(SIGURG,&sga,0) < 0 ) {
+         syslog(BBFTPD_ERR,"Error sigaction SIGURG : %s",strerror(errno)) ;
+         return(-1) ;
+     }
++#ifdef SIGVTALRM	/* BUG porting */
+     if ( sigaction(SIGVTALRM,&sga,0) < 0 ) {
+         syslog(BBFTPD_ERR,"Error sigaction SIGVTALRM : %s",strerror(errno)) ;
+         return(-1) ;
+     }
++#endif
+     return 0 ;
+ }

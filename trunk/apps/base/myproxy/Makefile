@@ -14,6 +14,6 @@ CONFIGURE_SCRIPTS =
 BUILD_SCRIPTS =
 INSTALL_SCRIPTS = $(WORKSRC)/gpt-build
 
-INSTALL_ARGS = -installdir=$(GLOBUS_LOCATION) -verbose ../../download/$(GARNAME)-$(GARVERSION).tar.gz  $(GLOBUS_FLAVOR)
+INSTALL_ARGS = -installdir=$(PREFIX) -verbose ../../download/$(GARNAME)-$(GARVERSION).tar.gz  $(GLOBUS_FLAVOR)
 
 include ../category.mk

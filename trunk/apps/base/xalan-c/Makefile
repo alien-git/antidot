@@ -25,7 +25,7 @@ INSTALL_ARGS = -C c
 include ../category.mk
 
 PRE_CONFIGURE = cp files/configure $(WORKSRC) 
-
+  
 export XALANCROOT:=$(shell pwd)/$(WORKSRC)/c
 export XERCESCROOT:=$(PREFIX)
 

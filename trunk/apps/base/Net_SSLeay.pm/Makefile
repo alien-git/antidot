@@ -13,7 +13,12 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
+ifeq ($(shell uname),Darwin)
+CONFIGURE_ARGS = -- PREFIX=$(PREFIX)
+else
 CONFIGURE_ARGS = $(PREFIX) -- PREFIX=$(PREFIX)
+endif
+
 BUILD_ARGS =  
 
 include ../category.mk

@@ -13,7 +13,12 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = INC=-I/usr/kerberos/include LIBS=-L$(PREFIX) # -lcrypto -lssl
+ifeq ($(shell uname),Darwin)
+CONFIGURE_ARGS = INC=-I/usr/kerberos/include 
+else
+CONFIGURE_ARGS = INC=-I/usr/kerberos/include LIBS="-L$(PREFIX) -lssl -lcrypto" 
+endif
+
 BUILD_ARGS =  
 
 include ../category.mk
