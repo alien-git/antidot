@@ -37,6 +37,7 @@ MAKECOOKIE = mkdir -p $(COOKIEDIR)/$(@D) && date >> $(COOKIEDIR)/$@
 URLS = $(subst ://,//,$(foreach SITE,$(FILE_SITES) $(MASTER_SITES),$(addprefix $(SITE),$(DISTFILES))) $(foreach SITE,$(FILE_SITES) $(PATCH_SITES) $(MASTER_SITES),$(addprefix $(SITE),$(PATCHFILES))) $(foreach SITE,$(FILE_SITES) $(BIN_SITES) $(MASTER_SITES),$(addprefix $(SITE),$(BINDISTFILES))))
 
 TMPFILE=$(shell mktemp /tmp/checksums.XXXXXX)
+WGETOPTS=-nd --passive-ftp --timeout=60 --waitretry=10 --tries=3
 
 # Download the file if and only if it doesn't have a preexisting
 # checksum file.  Loop through available URLs and stop when you
@@ -58,18 +59,18 @@ $(DOWNLOADDIR)/%:
 
 # download an http URL
 http//%:
-	@wget -c -nd --passive-ftp -P $(DOWNLOADDIR) http://$*
+	@wget -c $(WGETOPTS) -P $(DOWNLOADDIR) http://$*
 
 # download file from cvsweb
 webcvs//%:
-	@(cd $(DOWNLOADDIR) && wget -nd --passive-ftp  -O $(GARCVSNAME).tar.gz http://$(dir $*)/$(GARCVSNAME)/$(GARCVSNAME).tar.gz?tarball=1\&only_with_tag=$(GARCVSVERSION))
+	@(cd $(DOWNLOADDIR) && wget $(WGETOPTS) -O $(GARCVSNAME).tar.gz http://$(dir $*)/$(GARCVSNAME)/$(GARCVSNAME).tar.gz?tarball=1\&only_with_tag=$(GARCVSVERSION))
 	@(cd $(DOWNLOADDIR) && tar zxf $(GARCVSNAME).tar.gz && mv $(GARCVSNAME) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && tar zcf $(GARNAME)-$(GARVERSION)_src.tar.gz $(GARNAME)-$(GARVERSION)) 
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARCVSNAME).tar.gz  ./$(GARNAME)-$(GARVERSION))
 
 # download an ftp URL
 ftp//%:
-	@wget -c -nd --passive-ftp -P $(DOWNLOADDIR) ftp://$*
+	@wget -c $(WGETOPTS) -P $(DOWNLOADDIR) ftp://$*
 
 # link to a local copy of the file
 # (absolute path)
