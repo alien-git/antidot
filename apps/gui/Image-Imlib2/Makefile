@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/L/LB/LBROCARD/ http://search.cpan.org/CPAN/authors/id/L/LB/LBROCARD/ 
 
-LIBDEPS = apps/base/perl apps/gui/imlib2
+LIBDEPS = apps/base/perl apps/base/Module-Build apps/gui/imlib2
 
 DESCRIPTION = Interface to the Imlib2 image library
 AUTHOR = Leon Brocard 
