@@ -11,40 +11,13 @@
 # default data) of the system will remain in bbc.gar.mk
 # (bbc.port.mk)
 
-# Setting this variable will cause the results of your builds to
-# be cleaned out after being installed.  Uncomment only if you
-# desire this behavior!
-
-#BUILD_CLEAN = true
-
-# The GARCHIVEDIR is a directory containing cached files. It can be created
-# manually, or with 'make garchive' once you've started downloading required
-# files (say with 'make paranoid-checksum'. Example:
-
-GARCHIVEDIR = @prefix@/dist
-
-# Several variables depend on the target architecture
-
-
-GARUNAME_S=$(shell uname -s)
-GARUNAME_M=$(shell uname -m)
-
-if $(shell test -f $(GARDIR)/gar.$(GARUNAME_S).mk)
-include $(GARDIR)/gar.$(GARUNAME_S).mk
-endif
-
-if $(shell test -f $(GARDIR)/paltform/$(GARUNAME_S).$(GARUNAME_M).mk)
-include $(GARDIR)/paltform/$(GARUNAME_S).$(GARUNAKE_M).mk
-endif
-
-
 # These are the standard directory name variables from all GNU
 # makefiles.  They're also used by autoconf, and can be adapted
 # for a variety of build systems.
 #
 # TODO: set $(SYSCONFDIR) and $(LOCALSTATEDIR) to never use
 # /usr/etc or /usr/var
-prefix ?= @prefix@
+prefix ?= $(ALIEN_PREFIX)
 exec_prefix = $(prefix)
 bindir = $(exec_prefix)/bin
 sbindir = $(exec_prefix)/sbin
@@ -72,17 +45,23 @@ DESTDIR ?=
 BUILD_PREFIX ?= $(prefix)
 #BUILD_PREFIX ?= $(ROOTFROMDEST)/tmp/build
 
-CPPFLAGS += $(filter-out $(NOCPPFLAGS),-I$(DESTDIR)$(includedir) -I$(DESTDIR)/usr/X11R6/include)
-CFLAGS += $(filter-out $(NOCFLAGS),-I$(DESTDIR)$(includedir) -I$(DESTDIR)/usr/X11R6/include -L$(DESTDIR)$(libdir) -L$(DESTDIR)$(TARGET_X11_LIB))
-LDFLAGS += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir) -L$(DESTDIR)$(TARGET_X11_LIB))
-  # allow us to use programs we just built
+CPPFLAGS += $(filter-out $(NOCPPFLAGS),-I$(DESTDIR)$(includedir))
+
+#CFLAGS += $(filter-out $(NOCFLAGS),-I$(DESTDIR)$(includedir) -I$(DESTDIR)/usr/X11R6/include -L$(DESTDIR)$(libdir) -L$(DESTDIR)$(TARGET_X11_LIB))
+
+CFLAGS += $(filter-out $(NOCFLAGS),-I$(DESTDIR)$(includedir))
+
+#LDFLAGS += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir) -L$(DESTDIR)$(TARGET_X11_LIB)) 
+LDFLAGS += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir)) 
+
+# allow us to use programs we just built
 PATH := $(DESTDIR)$(bindir):$(DESTDIR)$(sbindir):$(DESTDIR)$(BUILD_PREFIX)/bin:$(DESTDIR)$(BUILD_PREFIX)/sbin:$(PATH)
 LD_LIBRARY_PATH := $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(LD_LIBRARY_PATH)
 
 # This is for foo-config chaos
 PKG_CONFIG_PATH:=$(DESTDIR)$(libdir)/pkgconfig:$(TARGET_PKG_CONFIG_PATH):$(PKG_CONFIG_PATH)
 
-# Now add own flags to CFLAGS and keep OWN_CFLAGS for qt-x11-free's Makefile.
+# Now add own flags to CFLAGS 
 CFLAGS += $(OWN_CFLAGS)
 
 # Equalise CFLAGS and CXXFLAGS
