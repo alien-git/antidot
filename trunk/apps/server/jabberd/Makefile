@@ -17,5 +17,6 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = $(DIRPATHS) --enable-ssl --enable-mysql --enable-ssl --enable-idn
+CONFIGURE_ENV = CPPFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib"
 
 include ../category.mk

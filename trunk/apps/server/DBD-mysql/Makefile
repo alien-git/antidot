@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RU/RUDY/ http://www.cpan.org/authors/id/R/RU/RUDY/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RU/RUDY/
 
-LIBDEPS = apps/base/perl apps/server/mysql
+LIBDEPS = apps/base/perl apps/server/mysql apps/base/DBI
 
 DESCRIPTION = MySQL driver for DBI
 AUTHOR = Rudy Lippan
