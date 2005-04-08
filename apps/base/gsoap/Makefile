@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).2.tar.gz
 PATCHFILES = gsoap-2.6.2-instsrc.patch
 
-MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/gsoap2/  http://alien.cern.ch/cache/
+MASTER_SITES = http://alien.cern.ch/cache/ http://puzzle.dl.sourceforge.net/sourceforge/gsoap2/  
 
 LIBDEPS = 
 

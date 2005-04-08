@@ -3,7 +3,7 @@ GARVERSION = 1.2.2
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
-MASTER_SITES =  http://puzzle.dl.sourceforge.net/sourceforge/libpng/ http://alien.cern.ch/cache/
+MASTER_SITES =  http://alien.cern.ch/cache/ http://puzzle.dl.sourceforge.net/sourceforge/libpng/ 
 
 LIBDEPS = 
 
