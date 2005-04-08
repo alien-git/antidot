@@ -24,3 +24,5 @@ CONFIGURE_ENV = printf "\n" |
 BUILD_ARGS =  
 
 include ../category.mk
+
+PRE_CONFIGURE = (cd $(WORKSRC)/t; rm 03-server.t 04-attach.t)
