@@ -15,7 +15,9 @@ LICENSE = Perl
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+ifeq($(ALICBS),)
 TEST_SCRIPTS = $(WORKSRC)/Makefile
+endif
 
 ifeq ($(shell uname),Darwin) 
 CONFIGURE_ARGS = --includedir=/sw/include --libdir=/sw/lib
