@@ -7,7 +7,7 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GA/GAAS/ http://www.cpan.org/authors/
 
 LIBDEPS = apps/base/perl apps/base/HTML-Tagset
 
-DESCRIPTION =  Parse <HEAD> section of HTML documents
+DESCRIPTION =  Parse HEAD section of HTML documents
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
