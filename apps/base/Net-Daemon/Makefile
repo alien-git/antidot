@@ -22,3 +22,4 @@ BUILD_ARGS =
 
 include ../category.mk
 
+PRE_CONFIGURE = (cd $(WORKSRC); rm -f t/forkm.t)
