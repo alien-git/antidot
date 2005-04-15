@@ -1,9 +1,9 @@
 GARNAME = gnupg
-GARVERSION = 1.4.0
+GARVERSION = 1.4.1
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
-MASTER_SITES = ftp://ftp.gnupg.org/gcrypt/gnupg/ http://alien.cern.ch/cache/
+MASTER_SITES = http://alien.cern.ch/cache/ ftp://ftp.gnupg.org/gcrypt/gnupg/ 
 
 LIBDEPS = 
 
