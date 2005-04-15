@@ -1,0 +1,2 @@
+#!/bin/sh
+$GPT_LOCATION/sbin/gpt-build $*

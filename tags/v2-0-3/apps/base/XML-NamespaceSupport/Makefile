@@ -1,0 +1,23 @@
+GARNAME = XML-NamespaceSupport
+GARVERSION = 1.08
+CATEGORIES = perl
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RB/RBERJON/ http://www.cpan.org/authors/id/R/RB/RBERJON/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RB/RBERJON/
+
+LIBDEPS = apps/base/perl
+
+DESCRIPTION = Flexible fast parser with plug-in styles
+AUTHOR = Robin Berjon
+URL = http://cpan.uwinnipeg.ca/~rberjon
+LICENSE = Perl
+
+CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
+
+CONFIGURE_ARGS = # EXPATLIBPATH=$(PREFIX)/lib EXPATINCPATH=$(PREFIX)/include  
+BUILD_ARGS =  
+
+include ../category.mk
