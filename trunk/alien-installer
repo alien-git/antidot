@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.33  2005/04/01 11:47:40  buncic
+# Cleanup..
+#
 # Revision 1.32  2005/04/01 10:35:45  buncic
 # Fix to alien-installer
 #
@@ -268,7 +271,7 @@ InstallerSetup()
     fi
   done
 
-  $dialog_form $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form 2>$dialog_file
+  $dialog_form $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form > $dialog_file 2>&1
 
   arg1=`cat $dialog_file | \
 ( 
@@ -317,7 +320,7 @@ InstallerSetup()
     i=`expr $i + 1`
   done
 
-  $dialog_form $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form 2>$dialog_file
+  $dialog_form $style --form 'This is your curent AliEn configuration. Please edit.' 20 50 0  $form > $dialog_file 2>&1
 
   arg2=`cat $dialog_file | \
 ( 
