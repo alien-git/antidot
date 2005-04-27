@@ -1,12 +1,12 @@
 GARNAME = xrootd
-GARVERSION = 20050328
+GARVERSION = 20050527
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Makefile.diff
+PATCHFILES = 
 
 MASTER_SITES =  http://alien.cern.ch/cache/
 
-LIBDEPS = 
+LIBDEPS = apps/base/SealedEnvelope apps/base/AuthzXMLreader
 
 DESCRIPTION = Xrootd
 
@@ -19,8 +19,10 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ENV = env PREFIX=$(PREFIX)
-INSTALL_ARGS = -f Makefile
+CONFIGURE_ARGS = --prefix=$(PREFIX) -enable-castor=castorofs
 
 include ../category.mk
+
+PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; automake -a; libtoolize -c; autoconf)
+
 

@@ -7,7 +7,7 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KM/KMACLEOD/ http://www.cpan.org/auth
 
 LIBDEPS = apps/base/perl apps/base/XML-Parser
 
-DESCRIPTION = 
+DESCRIPTION = Collection of Perl modules, scripts, and documents for working with XML in Perl
 URL = http://perl-xml.sourceforge.net/libxml-perl/
 AUTHOR = Ken MacLeod
 LICENSE = Perl

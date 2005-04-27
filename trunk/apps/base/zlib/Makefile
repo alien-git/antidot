@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES =  http://alien.cern.ch/cache/ http://puzzle.dl.sourceforge.net/sourceforge/libpng/ 
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = Lossless data-compression library 
 URL = http://www.zlib.net/

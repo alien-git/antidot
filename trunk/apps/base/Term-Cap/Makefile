@@ -7,7 +7,7 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JS/JSTOWE/ http://www.cpan.org/author
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = Basic termcap: Tgetent, Tputs, Tgoto
+DESCRIPTION = Basic termcap 
 AUTHOR = Jonathan Stowe
 URL = http://cpan.uwinnipeg.ca/~jstowe
 LICENSE = Perl

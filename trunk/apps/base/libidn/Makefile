@@ -5,12 +5,12 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = ftp://alpha.gnu.org/pub/gnu/libidn/ http://josefsson.org/libidn/releases/ http://alien.cern.ch/cache/
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
-DESCRIPTION = GNU IDN Library
+DESCRIPTION = Internationalized Domain Names implementation
 URL = http://www.gnu.org/software/libidn/
-AUTHOR = 
-LCIENSE = GPL2
+AUTHOR = gnu.org
+LCIENSE = LGPL2.1
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

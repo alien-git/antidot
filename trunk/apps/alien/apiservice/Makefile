@@ -19,9 +19,11 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-dist-location=$(PREFIX) -with-glite-location=$(PREFIX) --enable-debugmacros --with-aio=no --with-aio-header=$(PREFIX)/include/glite/data/io/daemon --with-perl=$(PREFIX)/bin/perl --with-aio-lib=$(PREFIX)/lib --enable-gsisoap --with-globus-location=$(GLOBUS_LOCATION) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-gsoap-soapcpp2=$(PREFIX)/bin --with-gsoap-src=$(PREFIX)/share/soapcpp2 --disable-readline 
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-dist-location=$(PREFIX) -with-glite-location=$(PREFIX) --enable-debugmacros --with-aio=no --with-aio-header=$(PREFIX)/include/glite/data/io/daemon --with-perl=$(PREFIX)/bin/perl --with-aio-lib=$(PREFIX)/lib --enable-gsisoap --with-globus-location=$(GLOBUS_LOCATION) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-gsoap-soapcpp2=$(PREFIX)/bin --with-gsoap-src=$(PREFIX)/share/soapcpp2 --disable-readline --with-perl-module
 
 include ../category.mk
 
 PRE_CONFIGURE = (cd $(WORKSRC); ([ -f bootstrap ] && sh bootstrap) || autoconf )
+
+POST_INSTALL = (cd $(WORKSRC) ; make perlmodule-install)
 

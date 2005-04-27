@@ -7,7 +7,7 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GA/GAAS/ http://www.cpan.org/authors/
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = IO::File interface for in-core strings
+DESCRIPTION = IO-File interface for in-core strings
 AUTHOR = Gisle Aas
 URL = http://cpan.uwinnipeg.ca/~gaas
 LICENSE = Perl

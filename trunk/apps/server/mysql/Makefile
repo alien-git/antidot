@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = ftp://mirror.switch.ch/mirror/mysql/Downloads/MySQL-4.0/  http://alien.cern.ch/cache/
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = MySQL database
 URL = http://dev.mysql.com/

@@ -7,7 +7,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BI/BINKLEY/ http://www.cpan.org/autho
 
 LIBDEPS = apps/base/perl
 
-DESCRIPTION = 
+DESCRIPTION = Adds data members to Perl packages 
+AUTHOR = B. K. Oxley
+URL = http://cpan.uwinnipeg.ca/~binkley
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -7,7 +7,7 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BE/BEHROOZI/ http://www.cpan.org/auth
 
 LIBDEPS = apps/base/perl apps/base/openssl apps/base/Net_SSLeay.pm
 
-DESCRIPTION = Nearly transparent SSL encapsulation for IO::Socket::INET
+DESCRIPTION = Nearly transparent SSL encapsulation for IO-Socket-INET
 AUTHOR =  Peter Behroozi
 URL = http://cpan.uwinnipeg.ca/~behroozi
 LICENSE = 

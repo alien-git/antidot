@@ -1,6 +1,6 @@
 GARNAME = Devel-Trace
 GARVERSION = 0.10
-CATEGORIES = perl
+CATEGORIES = perl-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MJ/MJD/ http://www.cpan.org/authors/id/M/MJ/MJD/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MJ/MJD/

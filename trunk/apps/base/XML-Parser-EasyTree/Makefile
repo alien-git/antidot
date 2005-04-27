@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/E/EB/EBOHLMAN/ http://www.cpan.org/authors/id/E/EB/EBOHLMAN/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/E/EB/EBOHLMAN/
 
-DESCRIPTION = Easier tree style for XML::Parser
+DESCRIPTION = Easier tree style for XML-Parser
 LIBDEPS = apps/base/perl
 AUTHOR = Eric Bohlman 
 URL = http://cpan.uwinnipeg.ca/~ebohlman

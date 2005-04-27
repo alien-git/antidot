@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/ http://ftp.sleepycat.com/releases/
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = Berkeley DB
 URL = http://www.sleepycat.com/

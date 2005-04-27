@@ -1,6 +1,6 @@
 GARNAME = Perl-Tidy
 GARVERSION = 20031021
-CATEGORIES = perl
+CATEGORIES = perl-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SH/SHANCOCK/ http://www.cpan.org/authors/id/S/SH/SHANCOCK/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/S/SH/SHANCOCK/

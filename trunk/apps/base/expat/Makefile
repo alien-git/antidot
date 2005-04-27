@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = http://alien.cern.ch/cache/ http://puzzle.dl.sourceforge.net/sourceforge/expat/ 
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = Expat XML Parser
 URL = http://www.libexpat.org/

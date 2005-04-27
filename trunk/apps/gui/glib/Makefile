@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES = ftp://ftp.gtk.org/pub/gtk/v2.6/ ftp://ftp.gnome.org/pub/gnome/sources/glib/2.6/
 
-LIBDEPS = apps/devel/pkgconfig
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = low-level core library
 URL = http://www.gtk.org/

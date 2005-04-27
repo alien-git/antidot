@@ -1,6 +1,6 @@
 GARNAME = automake
 GARVERSION = 1.6.3
-CATEGORIES = apps-tools
+CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES = http://ftp.gnu.org/gnu/automake/

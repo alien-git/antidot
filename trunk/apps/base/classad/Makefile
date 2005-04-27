@@ -9,7 +9,7 @@ AUTHOR = Condor Project
 URL = http://www.cs.wisc.edu/condor/classad/
 LICENSE = Condor
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = Condor ClassAd library
 

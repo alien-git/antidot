@@ -342,6 +342,16 @@ build-p:
 strip: build pre-strip $(addprefix strip-,$(STRIP_SCRIPTS)) post-strip
 	@echo "$(call TMSG_FAIL,$@) NOT IMPLEMENTED YET"
 
+AUTOPACKAGE_TARGETS = $(addprefix autopackage-,$(WORKSRC)/makeinstaller)
+
+autopackage: cache $(AUTOPACKAGE_TARGETS)
+	$(DONADA)
+
+SKELETON_TARGETS = $(addprefix autopackage-,$(WORKSRC)/skeleton)
+
+skeletons: $(SKELETON_TARGETS)
+	$(DONADA)
+
 TEST_TARGETS = $(addprefix test-,$(TEST_SCRIPTS))
 
 test: install $(TEST_TARGETS) post-install
@@ -387,6 +397,7 @@ uninstall: build
 # provides
 provides: build
 	@[ -f $(COOKIEDIR)/provides ] && cat $(COOKIEDIR)/provides
+
 
 # bindist		- Create a package from an _installed_ port.
 # TODO: actually write it!

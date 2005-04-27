@@ -13,7 +13,7 @@ LIBDEPS = apps/base/xerces-c
 
 DESCRIPTION = XSLT stylesheet processors, in Java and C+
 URL = http://xml.apache.org/xalan-c/
-AUTHOR = 
+AUTHOR = Apache Project
 LICENSE = Apache
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure

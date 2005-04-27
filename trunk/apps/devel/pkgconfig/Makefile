@@ -1,6 +1,6 @@
 GARNAME = pkgconfig
 GARVERSION = 0.15.0
-CATEGORIES = misc
+CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES = http://ftp.acc.umu.se/pub/GNOME/sources/pkgconfig/0.15/

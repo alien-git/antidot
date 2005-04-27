@@ -6,7 +6,7 @@ DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES =   http://alien.cern.ch/cache/ http://freshmeat.net/redir/ncurses/6995/url_tgz/
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION =  Freeware emulation of System V Release 4.0 curses.
 URL = http://www.gnu.org/software/ncurses/ncurses.html
@@ -17,7 +17,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --with-shared  --enable-broken_linker --without-ada 
+CONFIGURE_ARGS = $(DIRPATHS) --with-shared  --enable-broken_linker --without-ada  --enable-symlinks
 
 include ../category.mk
 

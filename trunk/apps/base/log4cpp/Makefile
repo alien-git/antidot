@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = http://alien.cern.ch/cache/ http://puzzle.dl.sourceforge.net/sourceforge/log4cpp/ 
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = A library of C++ classes for flexible logging to files, syslog, IDSA and other destinations.
 URL = http://log4cpp.sourceforge.net/

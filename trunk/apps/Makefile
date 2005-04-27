@@ -1,6 +1,6 @@
 all:
 
-DIRS=devel base gui portal server glite alien
+DIRS=gcc devel base gui portal server glite alien
 
 
 %:

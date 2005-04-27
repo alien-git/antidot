@@ -44,11 +44,12 @@ WGETOPTS=-nd --passive-ftp --timeout=60 --waitretry=10 --tries=3
 # get one that doesn't return an error code.
 
 
-$(DOWNLOADDIR)/%:
+$(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
 		for i in $(filter %/$*,$(URLS)); do  \
 			$(MAKE) -s $$i > /dev/null 2>&1 || continue; \
+			$(MAKECOOKIE); \
 			break; \
 		done; \
 		if test -r $@ ; then : ; else \
@@ -390,6 +391,21 @@ build-%/GNUmakefile:
 usedby-$(GARDIR)/%:
 	@echo ' $(call TMSG_LIB,Using $* as a dependency)'
 	@(cd $(GARDIR)/$* ; [ ! -d $(COOKIEDIR)/usedby ] && mkdir -p $(COOKIEDIR)/usedby;	touch  $(COOKIEDIR)/usedby/$(MYNAME))
+
+#################### AUTOPACKAGE RULES ####################
+autopackage-%/makeinstaller:
+	@echo ' $(call TMSG_LIB,Autopackaging $*)'
+	@(env PREFIX=$(PREFIX) COOKIEDIR="$(COOKIEDIR)" GARFNAME="$(GARFNAME)" GARVERSION="$(GARVERSION)" DESCRIPTION="$(DESCRIPTION)" GARNAME="$(GARNAME)" AUTHOR="$(AUTHOR)" URL="$(URL)" LICENSE="$(LICENSE)" COOKIEDIR="$(CURDIR)/$(COOKIEDIR)" LIBDEPS="$(LIBDEPS)" BINDISTFILES="$(BINDISTFILES)" $(GARDIR)/autopackage.sh )
+	@$(MAKECOOKIE)
+
+autopackage-%/skeleton:
+	@echo ' $(call TMSG_LIB,Creating skeleton $*)'
+	@(env PREFIX="$(PREFIX)" COOKIEDIR="$(COOKIEDIR)" GARFNAME="$(GARFNAME)" GARVERSION="$(GARVERSION)" DESCRIPTION="$(DESCRIPTION)" GARNAME="$(GARNAME)" AUTHOR="$(AUTHOR)" URL="$(URL)" LICENSE="$(LICENSE)" COOKIEDIR="$(CURDIR)/$(COOKIEDIR)" LIBDEPS="$(LIBDEPS)" BINDISTFILES="$(BINDISTFILES)" $(GARDIR)/skeleton.sh )
+	@$(MAKECOOKIE)
+
+
+
+
 
 #################### TEST RULES ####################
 

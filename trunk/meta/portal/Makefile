@@ -1,4 +1,4 @@
-GARNAME = portal
+GARNAME = alien-meta-portal
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
@@ -45,7 +45,7 @@ apps/base/Authen-PAM
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
-DESCRIPTION = AliEn
+DESCRIPTION = AliEn - Portal components
 
 include ../category.mk
 

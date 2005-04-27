@@ -3,7 +3,7 @@ GARVERSION = 2.1.5
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 MASTER_SITES = ftp://sunsite.cnlab-switch.ch/mirror/freetype/freetype2/ http://sunsite.cnlab-switch.ch/ftp/mirror/freetype/freetype2/ http://alien.cern.ch/cache/
 

@@ -1,4 +1,4 @@
-GARNAME = client
+GARNAME = alien-core
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
@@ -32,7 +32,7 @@ apps/base/Authen-PAM
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
-DESCRIPTION = AliEn
+DESCRIPTION = AliEn - core services
 
 include ../category.mk
 
