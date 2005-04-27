@@ -1,6 +1,6 @@
 GARNAME = DBD-mysql
 GARVERSION = 2.9004
-CATEGORIES = apps-tools
+CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RU/RUDY/ http://www.cpan.org/authors/id/R/RU/RUDY/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RU/RUDY/

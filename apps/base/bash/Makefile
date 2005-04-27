@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES =  http://alien.cern.ch/cache/ http://ftp.gnu.org/gnu/bash/
 
-LIBDEPS = apps/devel/autoconf apps/devel/automake
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = Bash is the GNU shell
 AUTHOR = Chet Ramey

@@ -6,7 +6,7 @@ PATCHFILES = makefile.diff
 
 MASTER_SITES =   http://alien.cern.ch/cache/ http://www.kernel.org/pub/linux/libs/pam/pre/library/ 
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION =  Linux-PAM (Pluggable Authentication Modules for Linux)
 AUTHOR =  Andrew Morgan

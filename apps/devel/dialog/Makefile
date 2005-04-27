@@ -1,6 +1,6 @@
 GARNAME = dialog
 GARVERSION = 1.0-20050206
-CATEGORIES = apps-tools
+CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/ 

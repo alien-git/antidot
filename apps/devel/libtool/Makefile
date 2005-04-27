@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://ftp.gnu.org/gnu/libtool/
 
-LIBDEPS = apps/base/gcc
+LIBDEPS = 
 
 DESCRIPTION = GNU Libtool
 URL = http://www.gnu.org/software/libtool/libtool.html

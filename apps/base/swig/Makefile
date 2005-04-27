@@ -5,12 +5,12 @@ DISTFILES = swig-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/ http://puzzle.dl.sourceforge.net/sourceforge/swig/ http://ovh.dl.sourceforge.net/sourceforge/swig/ 
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = SWIG
 URL = http://www.swig.org/
-AUTHOR = 
-LICENSE = SWIG
+AUTHOR = Dave Beazley et al.
+LICENSE = as-is
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

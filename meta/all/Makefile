@@ -1,15 +1,15 @@
-GARNAME = all
-GARVERSION = 1
+GARNAME = alien-meta-all
+GARVERSION = 1.0
 CATEGORIES = meta
 DISTFILES  =
-FILTER_OUT ?= 
+FILTER_OUT ?= apps/gcc/gcc
 FILTER     ?= % 
  
 ALL=$(shell (cd $(GARDIR)/apps; make -s listdeps | sort -u))
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
-DESCRIPTION = AliEn
+DESCRIPTION = AliEn - all components
 
 include ../category.mk
 

@@ -7,7 +7,7 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/L/LD/LDS/ http://www.cpan.org/authors/i
 
 LIBDEPS = apps/base/perl 
 
-DESCRIPTION = Cipherblock chaining for Crypt::DES/IDEA
+DESCRIPTION = Cipherblock chaining for Crypt-DES/IDEA
 AUTHOR =   Lincoln D. Stein 
 URL = http://cpan.uwinnipeg.ca/~lds
 LICENSE = 

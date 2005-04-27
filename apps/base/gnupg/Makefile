@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES = http://alien.cern.ch/cache/ ftp://ftp.gnupg.org/gcrypt/gnupg/ 
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = The GNU Privacy Guard
 URL = http://www.gnupg.org/

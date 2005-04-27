@@ -3,7 +3,7 @@ GARVERSION = 1.0.5
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-LIBDEPS = 
+LIBDEPS = apps/gcc/gcc
 
 MASTER_SITES = http://heanet.dl.sourceforge.net/sourceforge/enlightenment/ http://alien.cern.ch/cache/
 

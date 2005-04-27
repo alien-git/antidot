@@ -1,4 +1,4 @@
-GARNAME = client
+GARNAME = alien-meta-site
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
@@ -28,7 +28,7 @@ apps/alien/apiservice
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
-DESCRIPTION = AliEn
+DESCRIPTION = AliEn - Site services
 
 include ../category.mk
 
