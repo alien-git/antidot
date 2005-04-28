@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/ 
 
-LIBDEPS = # apps/base/zlib
+LIBDEPS = apps/base/zlib extra/autopackage/autopackage
 
 DESCRIPTION = Autopackage GTK frontend
 URL = http://autopackage.org
@@ -20,3 +20,5 @@ CONFIGURE_ARGS = $(DIRPATHS)
 
 include ../category.mk
 
+
+PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; automake -a; libtoolize -c --force ; autoconf)
