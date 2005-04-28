@@ -16,6 +16,53 @@
 #############################################################################
 VERSION=0.01
 ###########################################################################
+[ -f $HOME/.alien/apkg.rc ] && . $HOME/.alien/apkg.rc
+###########################################################################
+URL=${APKG_URL:=http://alien.cern.ch/cache/dist}
+AUTOURL=${APKG_AUTOURL:=http://alien.cern.ch/cache/packages}
+CACHEURL=${APKG_CACHEURL:=http://alien.cern.ch/cache}
+PREFIX=${APKG_PREFIX:=/opt/alien}
+PLATFORM=${APKG_PLATFORM:=}
+ALIEN_VERSION=1
+AUTOPACKAGE_VERSION=1.05
+
+###########################################################################
+RcUpdate()
+###########################################################################
+{
+  mkdir -p $HOME/.alien
+  (
+    echo "APKG_URL=$URL"
+    echo "APKG_AUTOURL=$AUTOURL"
+    echo "APKG_CACHEURL=$CACHEURL"
+    echo "APKG_PREFIX=$PREFIX"
+    echo "APKG_PLATFORM=$PLATFORM"
+  ) > $HOME/.alien/apkg.rc
+}
+###########################################################################
+Usage()
+###########################################################################
+{
+cat<<EOF  
+
+apkg  [--prefix <path>]
+      [--force] 
+      [-qt|--qtfe][-g|--gtkfe][-t|--ttyfe]
+      [--platform <string>]
+      [--url <url>][--cacheurl <cache url>][--autourl <autopackage url>]
+      [-h|--help]"
+      manager
+      install <all|client|site|wn|core>
+      <autopackage action> <args>
+
+EOF
+
+[ -x $PREFIX/bin/package ] && $PREFIX/bin/package --help
+
+exit 0
+
+}
+###########################################################################
 Error()
 ###########################################################################
 {
@@ -23,7 +70,7 @@ Error()
    exit 1
 }
 ###########################################################################
-Install()
+Configure()
 ###########################################################################
 {
   [ ! -f $PREFIX/bin/apkg ] && cp $0 $PREFIX/bin
@@ -37,10 +84,10 @@ Install()
 
   AUTOPACKAGES=""
 
-  [ ! -f $PREFIX/bin/package -o ! -z $FORCE ] && \
+  [ ! -f $PREFIX/bin/package -o ! -z "$FORCE" ] && \
                               AUTOPACKAGES=$AUTOPACKAGES" autopackage"
 
-  [ ! -f $PREFIX/bin/apg++ -o ! -z $FORCE ] && \
+  [ ! -f $PREFIX/bin/apg++ -o ! -z "$FORCE" ] && \
                               AUTOPACKAGES=$AUTOPACKAGES" autopackage-apbuild"
 
   LIBS="glib-2.0 gtk+"
@@ -54,10 +101,10 @@ Install()
     [ "$MODE" = "" ] && MODE="gtkfe"
  done
 
-  [ ! -f $PREFIX/bin/autopackage-frontend-gtk -o ! -z $FORCE ] && \
+  [ ! -f $PREFIX/bin/autopackage-frontend-gtk -o ! -z "$FORCE" ] && \
                               AUTOPACKAGES=$AUTOPACKAGES" autopackage-gtkfe"
 
-  [ ! -f $PREFIX/bin/autopackage-manager-gtk -o ! -z $FORCE ]  && \
+  [ ! -f $PREFIX/bin/autopackage-manager-gtk -o ! -z "$FORCE" ]  && \
                               AUTOPACKAGES=$AUTOPACKAGES" autopackage-manager"
 
   DIRS="/usr/lib/qt3/lib"
@@ -72,19 +119,17 @@ Install()
     fi
   done
 
-  [ "$MODE" = "" ] && MODE="ttyfe"
-
   ld_path=`echo $ld_path | sed -e 's/ *//g' -e 's/::/:/g' -e 's/^://'`
 
   mkdir -p $PREFIX || Error "Cannot create directory: $PREFIX"
 
   EXTRAPACKAGES=""
 
-  [ ! -f $PREFIX/lib/libuau.a -o ! -z $FORCE ]  && \
+  [ ! -f $PREFIX/lib/libuau.a -o ! -z "$FORCE" ]  && \
                                EXTRAPACKAGES=$EXTRAPACKAGES" luau-0.1.9"
-  [ ! -f $PREFIX/bin/curl -o ! -z $FORCE ]  && \
+  [ ! -f $PREFIX/bin/curl -o ! -z "$FORCE" ]  && \
                                EXTRAPACKAGES=$EXTRAPACKAGES" curl-7.13.2"
-  [ ! -f $PREFIX/lib/libhistory.a -o ! -z $FORCE ] && \
+  [ ! -f $PREFIX/lib/libhistory.a -o ! -z "$FORCE" ] && \
                                EXTRAPACKAGES=$EXTRAPACKAGES" readline-5.0"
 
   for name in $EXTRAPACKAGES
@@ -97,6 +142,15 @@ Install()
     (cd $PREFIX; wget -q -O - ${URL}/${name}-${AUTOPACKAGE_VERSION}_${PLATFORM}.tar.bz2 | tar jxf -)
   done
 
+  RcUpdate
+}
+
+###########################################################################
+Install()
+###########################################################################
+{
+  Configure
+
   export LD_LIBRARY_PATH=$PREFIX/lib:$ld_path:$LD_LIBRARY_PATH
   export PATH=$PREFIX/bin:$PATH
 
@@ -104,56 +158,87 @@ Install()
 
   mkdir -p $tmpdir || Error "Cannot create directory: $tmpdir"
 
+  if [ "$MODE" = "qtfe" ] 
+  then
+    arg=""
+  else
+    arg="--$MODE"
+  fi
+
   for pkg in $*
   do
-    (cd $tmpdir && wget -q ${AUTOURL}/alien-meta-$pkg-${ALIEN_VERSION}.${autoplatform}.package && sh alien-meta-$pkg-${ALIEN_VERSION}.${autoplatform}.package --$MODE) || Error "Could not install $pkg"
+    (cd $tmpdir && wget -q ${AUTOURL}/alien-meta-$pkg-${ALIEN_VERSION}.${PLATFORM}.package && sh alien-meta-$pkg-${ALIEN_VERSION}.${PLATFORM}.package $arg) || Error "Could not install $pkg"
   done
 
   rm -rf $tmpdir
-
 }
 
 ###########################################################################
-URL="http://alien.cern.ch/cache/dist"
-AUTOURL="http://alien.cern.ch/cache/packages"
-CACHEURL="http://alien.cern.ch/cache"
-ALIEN_VERSION=1
-AUTOPACKAGE_VERSION=1.05
+Manage()
+###########################################################################
+{
+  Configure
+
+  export LD_LIBRARY_PATH=$PREFIX/lib:$ld_path:$LD_LIBRARY_PATH
+  export PATH=$PREFIX/bin:$PATH
+
+  case $MODE in
+     qtfe)
+       [ -x $PREFIX/bin/autopackage-manager-qt ] && \
+            $PREFIX/bin/autopackage-manager-qt
+       ;; 
+     gtkfe)
+       [ -x $PREFIX/bin/autopackage-manager-gtk ] && \
+            $PREFIX/bin/autopackage-manager-gtk
+       ;; 
+     *)
+       break     
+  esac
+  
+  exit 
+}
+
+###########################################################################
 ###########################################################################
 
-for dir in /usr/share/libtool /usr/lib/rpm 
-do
-  if [ -f $dir/config.guess ]
-  then
-    p=`$dir/config.guess`
-    break
-  fi
-done
 
-case $p in
-  i*86-*-linux-gnu)
+if [ "$PLATFORM" = "" ]
+then
+  for dir in /usr/share/libtool /usr/lib/rpm 
+  do
+    if [ -f $dir/config.guess ]
+    then
+      p=`$dir/config.guess`
+      break
+    fi
+  done
+
+  case $p in
+    i*86-*-linux-gnu)
       platform=i686-pc-linux-gnu
       autoplatform=x86
       ;;
-  x86_64-*-linux-gnu)
+    x86_64-*-linux-gnu)
       platform=i686-pc-linux-gnu
       autoplatform=x86_64
       ;;
-  powerpc-apple-darwin7.*)
+    powerpc-apple-darwin7.*)
       platform=powerpc-apple-darwin7.7.0
       autoplatform=ppc
       ;;
-  ia64-*-linux-gnu)
+    ia64-*-linux-gnu)
       platform=ia64-unknown-linux-gnu
       autoplatform=ia64
       ;;
      *)
       Error "Unknown or unsupported platform: $platform"
-      ;;
-esac
+      ;;  
+  esac
 
-PLATFORM=$platform
-PREFIX="/opt/alien"
+  PLATFORM=$autoplatform
+
+fi
+
 FORCE=""
 
 args=$*
@@ -181,6 +266,11 @@ do
 	    AUTOURL=$1
             shift 1
            ;;
+        --cacheurl)
+            shift 1
+	    CACHEURL=$1
+            shift 1
+           ;;
         --trace)
             shift 1
 	    set -vx
@@ -200,6 +290,15 @@ do
         -t|--ttyfe)
             shift 1
 	    MODE=ttyfe
+           ;;
+        -h|--help)
+            shift 1
+	    Usage
+           ;;
+        manager)
+            shift 1
+	    Manage
+            exit 
            ;;
         install)
             shift 1
