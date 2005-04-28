@@ -1,0 +1,10 @@
+--- work/SealedEnvelope-20050527/perl/Makefile.PL	Tue Apr 26 15:18:35 2005
++++ work/SealedEnvelope-20050527/perl/Makefile.PL.new	Thu Apr 28 08:53:13 2005
+@@ -2,7 +2,6 @@
+ WriteMakefile(
+ 	      'CC'                => 'g++',
+ 	      'LD'                => 'g++',
+-	      'PERL'              => 'alien-perl',
+ 	      'NAME'              => 'SealedEnvelope',
+ 	      'VERSION'           => '1.00',
+ 	      'OBJECT'            => 'SealedEnvelope_wrap.o ../.libs/libSealedEnvelope.so',

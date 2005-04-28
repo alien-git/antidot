@@ -2,6 +2,7 @@ GARNAME = SealedEnvelope
 GARVERSION = 20050527
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = Makefile.PL.diff
 
 MASTER_SITES = http://alien.cern.ch/cache/
 
