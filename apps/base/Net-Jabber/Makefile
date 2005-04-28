@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/ $(CPAN_MIRROR)/authors/id/R/RE/REATMON/ http://www.cpan.org/authors/id/R/RE/REATMON/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RE/REATMON/
 
-LIBDEPS = apps/base/perl apps/base/XML-Stream apps/base/Digest-SHA1
+LIBDEPS = apps/base/XML-Stream apps/base/Digest-SHA1
 
 DESCRIPTION = Access to the Jabber protocol
 AUTHOR = Ryan Eatmon

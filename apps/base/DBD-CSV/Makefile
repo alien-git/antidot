@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JZ/JZUCKER/ http://www.cpan.org/authors/id/J/JZ/JZUCKER/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/J/JZ/JZUCKER/
 
-LIBDEPS = apps/base/perl apps/base/DBI apps/base/SQL-Statement apps/base/Text-CSV_XS
+LIBDEPS = apps/base/DBI apps/base/SQL-Statement apps/base/Text-CSV_XS
 
 DESCRIPTION = SQL engine and DBI driver for CSV files
 AUTHOR = Jeff Zucker 

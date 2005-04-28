@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/P/PM/PMQS/ http://www.cpan.org/authors/id/P/PM/PMQS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/P/PM/PMQS/
 
-LIBDEPS = apps/base/perl apps/base/Linux-PAM
+LIBDEPS = apps/base/Linux-PAM
 
 DESCRIPTION = Tie to DB files
 AUTHOR = Paul Marquess

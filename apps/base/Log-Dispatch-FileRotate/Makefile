@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MA/MARKPF/ http://www.cpan.org/authors/id/M/MA/MARKPF/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MA/MARKPF/
 
-LIBDEPS = apps/base/perl apps/base/DateManip apps/base/Log-Dispatch apps/base/Log-Log4perl
+LIBDEPS = apps/base/DateManip apps/base/Log-Dispatch apps/base/Log-Log4perl
 
 DESCRIPTION = Log to files that archive/rotate themselves
 AUTHOR = Mark Pfeiffer 

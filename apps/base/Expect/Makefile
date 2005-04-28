@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RG/RGIERSIG/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RG/RGIERSIG/
 
-LIBDEPS = apps/base/perl apps/base/IO-Tty 
+LIBDEPS = apps/base/IO-Tty 
 
 DESCRIPTION = Perl version of Don Libes Tcl-Expect
 AUTHOR = Roland Giersig 

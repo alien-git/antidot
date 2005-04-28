@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TI/TIMB/ http://www.cpan.org/authors/id/T/TI/TIMB/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/T/TI/TIMB/
 
-LIBDEPS = apps/base/perl apps/base/PlRPC
+LIBDEPS = apps/base/PlRPC
 
 DESCRIPTION = Generic Database Interface (see DBD modules)
 AUTHOR = Tim Bunce 

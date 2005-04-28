@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DM/DMUSGR/ http://www.cpan.org/authors/id/D/DM/DMUSGR/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/D/DM/DMUSGR/
 
-LIBDEPS = apps/base/perl apps/base/XML-Parser apps/gui/Gtk-Perl apps/base/Unicode-String
+LIBDEPS = apps/base/XML-Parser apps/gui/Gtk-Perl apps/base/Unicode-String
 
 DESCRIPTION = UI builder and source generator
 AUTHOR = Dermot Musgrove

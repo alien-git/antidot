@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/E/ED/EDAVIS/ http://www.cpan.org/authors/id/E/ED/EDAVIS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/E/ED/EDAVIS/
 
-LIBDEPS = apps/base/perl apps/base/HTML-FromText
+LIBDEPS = apps/base/HTML-FromText
 
 DESCRIPTION = Print developers trace messages
 AUTHOR = Ed Avis

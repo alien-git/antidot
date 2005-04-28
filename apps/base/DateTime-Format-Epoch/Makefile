@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/P/PI/PIJLL/ http://www.cpan.org/authors/id/P/PI/PIJLL/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/P/PI/PIJLL/
 
-LIBDEPS = apps/base/perl apps/base/DateTime
+LIBDEPS = apps/base/DateTime
 
 DESCRIPTION = Convert DateTimes to/from epoch seconds
 AUTHOR =  Eugene van der Pijll 

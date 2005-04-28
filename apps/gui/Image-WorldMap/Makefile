@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/L/LB/LBROCARD/ http://www.cpan.org/authors/id/L/LB/LBROCARD/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/L/LB/LBROCARD/
 
-LIBDEPS = apps/base/perl apps/gui/Image-Imlib2
+LIBDEPS = apps/gui/Image-Imlib2
 
 DESCRIPTION = Create graphical world maps of data
 AUTHOR = Leon Brocard

@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MK/MKUTTER/ http://www.cpan.org/authors/id/M/MK/MKUTTER/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MK/MKUTTER/
 
-LIBDEPS = apps/base/perl apps/base/XML-XPath apps/base/SOAP-Lite
+LIBDEPS = apps/base/XML-XPath apps/base/SOAP-Lite
 
 DESCRIPTION = Complete WSDL support for SOAP-Lite
 AUTHOR = Martin Kutter 

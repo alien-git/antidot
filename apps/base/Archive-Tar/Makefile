@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KA/KANE/ http://www.cpan.org/authors/id/K/KA/KANE/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/K/KA/KANE/
 
-LIBDEPS = apps/base/perl apps/base/IO-Zlib apps/base/IO-String
+LIBDEPS = apps/base/IO-Zlib apps/base/IO-String
 
 AUTHOR  = Jos Boumans
 LICENSE = Perl

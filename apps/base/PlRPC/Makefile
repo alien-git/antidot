@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JW/JWIED/ http://www.cpan.org/authors/id/J/JW/JWIED/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/J/JW/JWIED/
 
-LIBDEPS = apps/base/perl apps/base/Net-Daemon
+LIBDEPS = apps/base/Net-Daemon
 
 DESCRIPTION = Perl Remote Method Invocation
 AUTHOR = Jochen Wiedmann 

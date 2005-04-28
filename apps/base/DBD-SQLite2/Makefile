@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSERGEANT/ http://www.cpan.org/authors/id/M/MS/MSERGEANT/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MS/MSERGEANT/
 
-LIBDEPS = apps/base/perl apps/base/DBI
+LIBDEPS = apps/base/DBI
 
 DESCRIPTION = Self Contained RDBMS in a DBI Driver 
 AUTHOR = Matt Sergeant

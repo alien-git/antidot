@@ -6,7 +6,7 @@ PATCHFILES = tests.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SA/SAMTREGAR/ http://www.cpan.org/authors/id/S/SA/SAMTREGAR/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/S/SA/SAMTREGAR/
 
-LIBDEPS = apps/base/perl apps/base/Class-MethodMaker 
+LIBDEPS = apps/base/Class-MethodMaker 
 
 DESCRIPTION = Use Apache format config files
 AUTHOR = Sam Tregar

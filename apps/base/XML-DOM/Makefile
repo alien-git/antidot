@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TJ/TJMATHER/ http://www.cpan.org/authors/id/T/TJ/TJMATHER/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/T/TJ/TJMATHER/
 
-LIBDEPS = apps/base/perl apps/base/libwww-perl apps/base/libxml-perl apps/base/XML-RegExp
+LIBDEPS = apps/base/libwww-perl apps/base/libxml-perl apps/base/XML-RegExp
 
 DESCRIPTION = Implements Level 1 of W3 DOM
 AUTHOR = T.J. Mather

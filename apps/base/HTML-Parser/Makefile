@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GA/GAAS/ http://www.cpan.org/authors/id/G/GA/GAAS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/G/GA/GAAS/
 
-LIBDEPS = apps/base/perl apps/base/HTML-Tagset
+LIBDEPS = apps/base/HTML-Tagset
 
 DESCRIPTION =  Parse HEAD section of HTML documents
 

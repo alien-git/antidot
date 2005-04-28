@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KM/KMACLEOD/ http://www.cpan.org/authors/id/K/KM/KMACLEOD/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/K/KM/KMACLEOD/
 
-LIBDEPS = apps/base/perl apps/base/XML-Parser
+LIBDEPS = apps/base/XML-Parser
 
 DESCRIPTION = Collection of Perl modules, scripts, and documents for working with XML in Perl
 URL = http://perl-xml.sourceforge.net/libxml-perl/
