@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/
 
-LIBDEPS = apps/autopackage/apbuild apps/autopackage/luau 
+LIBDEPS = extra/autopackage/luau
 
 DESCRIPTION = Autopackage 
 URL = http://autopackage.org

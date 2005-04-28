@@ -20,4 +20,5 @@ CONFIGURE_ARGS = $(DIRPATHS)
 
 include ../category.mk
 
+PRE_CONFIGURE= ( cd $(WORKSRC); qmake -o Makefile qtfe.pro )
 POST_INSTALL = ( cp -f $(WORKSRC)/bin/* $(PREFIX)/bin )
