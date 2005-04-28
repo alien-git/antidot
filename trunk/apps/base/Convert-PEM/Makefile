@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BT/BTROTT/ http://www.cpan.org/authors/id/B/BT/BTROTT/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/B/BT/BTROTT/
 
-LIBDEPS = apps/base/perl apps/base/Crypt-DES_EDE3
+LIBDEPS = apps/base/Crypt-DES_EDE3
 
 DESCRIPTION = Read/write encrypted ASN.1 PEM files
 AUTHOR =  Benjamin Trott

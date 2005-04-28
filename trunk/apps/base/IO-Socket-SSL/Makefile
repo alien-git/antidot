@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BE/BEHROOZI/ http://www.cpan.org/authors/id/B/BE/BEHROOZI/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/B/BE/BEHROOZI/
 
-LIBDEPS = apps/base/perl apps/base/openssl apps/base/Net_SSLeay.pm
+LIBDEPS = apps/base/openssl apps/base/Net_SSLeay.pm
 
 DESCRIPTION = Nearly transparent SSL encapsulation for IO-Socket-INET
 AUTHOR =  Peter Behroozi

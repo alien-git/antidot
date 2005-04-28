@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/
 
-LIBDEPS = apps/base/perl apps/base/libwww-perl
+LIBDEPS = apps/base/libwww-perl
 
 AUTHOR  = Catalin Cirstoiu
 LICENSE = 

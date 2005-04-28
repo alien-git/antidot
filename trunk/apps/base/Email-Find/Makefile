@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MI/MIYAGAWA/ http://www.cpan.org/authors/id/M/MI/MIYAGAWA/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MI/MIYAGAWA/
 
-LIBDEPS = apps/base/perl apps/base/Email-Valid apps/base/MailTools
+LIBDEPS = apps/base/Email-Valid apps/base/MailTools
 
 DESCRIPTION = Find RFC 822 email addresses in plain text
 AUTHOR = Tatsuhiko Miyagawa

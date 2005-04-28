@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TO/TOMHUGHES/ http://www.cpan.org/authors/id/T/TO/TOMHUGHES/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/T/TO/TOMHUGHES/
 
-LIBDEPS = apps/base/perl apps/base/Compress-Zlib
+LIBDEPS = apps/base/Compress-Zlib
 
 DESCRIPTION = IO style interface to Compress-Zlib
 AUTHOR = Tom Hughes

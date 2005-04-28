@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DC/DCLINTON/ http://www.cpan.org/authors/id/D/DC/DCLINTON/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/D/DC/DCLINTON/
 
-LIBDEPS = apps/base/perl apps/base/Error
+LIBDEPS = apps/base/Error
 
 DESCRIPTION = Generic cache interface and implementations
 

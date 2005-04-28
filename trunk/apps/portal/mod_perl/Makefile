@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/
 
-LIBDEPS = apps/base/perl apps/portal/apache apps/base/libwww-perl apps/base/HTML-Parser
+LIBDEPS = apps/portal/apache apps/base/libwww-perl
 
 DESCRIPTION = The Apache interface to perl
 URL = http://perl.apache.org/

@@ -5,9 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/ 
 
-LIBDEPS = apps/base/perl
-
-LIBDEPS = apps/base/perl apps/base/XML-DOM apps/base/DateTime-Format-W3CDTF apps/base/DateTime-Format-Epoch
+LIBDEPS = apps/base/XML-DOM apps/base/DateTime-Format-W3CDTF apps/base/DateTime-Format-Epoch
 
 DESCRIPTION = WSRF container for perl by Mark Mc Keown, mark.mckeown@man.ac.uk
 AUTHOR = Mark Mc Keown

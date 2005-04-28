@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/N/NE/NEDKONZ/ http://www.cpan.org/authors/id/N/NE/NEDKONZ/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/N/NE/NEDKONZ/
 
-LIBDEPS = apps/base/perl apps/base/zlib apps/base/Compress-Zlib
+LIBDEPS = apps/base/zlib apps/base/Compress-Zlib
 
 DESCRIPTION = Provides an interface to ZIP archive files
 AUTHOR  = Ned Konz

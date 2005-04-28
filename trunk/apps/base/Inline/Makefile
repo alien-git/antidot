@@ -5,8 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/I/IN/INGY/ http://www.cpan.org/authors/id/I/IN/INGY/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/I/IN/INGY/
 
-LIBDEPS = apps/base/perl apps/base/Digest-MD5 apps/base/Parse-RecDescent
-
+LIBDEPS = apps/base/Digest-MD5 apps/base/Parse-RecDescent
 
 DESCRIPTION = Write Perl subroutines in other languages
 AUTHOR =  Brian Ingerson

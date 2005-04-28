@@ -10,7 +10,7 @@ GARCVSVERSION = glite-alien-gssapi_branch_2_0_0
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
 
-LIBDEPS = apps/base/perl apps/base/globus apps/base/myproxy apps/base/eugridpma-carep
+LIBDEPS = apps/base/globus apps/base/myproxy apps/base/eugridpma-carep
 
 DESCRIPTION = AliEn GSSAPI component
 URL = http://alien.cern.ch

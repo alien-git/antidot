@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GR/GRANTM/ http://www.cpan.org/authors/id/G/GR/GRANTM/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/G/GR/GRANTM/
 
-LIBDEPS = apps/base/perl apps/base/XML-SAX 
+LIBDEPS = apps/base/XML-SAX 
 
 DESCRIPTION = Easy API to maintain XML (esp config files)
 AUTHOR = Grant McLean 

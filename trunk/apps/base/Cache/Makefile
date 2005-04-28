@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CL/CLEISHMAN/ http://www.cpan.org/authors/id/C/CL/CLEISHMAN/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/C/CL/CLEISHMAN/
 
-LIBDEPS = apps/base/perl apps/base/TimeDate apps/base/Digest-SHA1 apps/base/File-NFSLock apps/base/Heap apps/base/IO-String apps/base/DB_File
+LIBDEPS = apps/base/TimeDate apps/base/Digest-SHA1 apps/base/File-NFSLock apps/base/Heap apps/base/IO-String apps/base/DB_File
 
 AUTHOR = Chris Leishman
 DESCRIPTION = The Cache interface

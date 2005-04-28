@@ -9,7 +9,7 @@ GARCVSVERSION = glite-alien-gas_branch_2_0_0
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
-LIBDEPS = apps/base/perl apps/alien/common apps/base/WSRF-Lite
+LIBDEPS = apps/alien/common apps/base/WSRF-Lite
 
 DESCRIPTION = AliEn GAS Component
 URL = http://alien.cern.ch

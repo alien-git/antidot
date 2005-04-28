@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/
 
-LIBDEPS = apps/base/perl apps/base/myproxy apps/base/Expect apps/base/perl-ldap
+LIBDEPS = apps/base/myproxy apps/base/Expect apps/base/perl-ldap
 
 DESCRIPTION = Grid Portal
 URL = http://gridport.net/index.cgi
