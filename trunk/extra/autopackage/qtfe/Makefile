@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/ 
 
-LIBDEPS = # apps/base/zlib
+LIBDEPS = apps/base/zlib extra/autopackage/autopackage
 
 DESCRIPTION = Autopackage QT frontend
 URL = http://autopackage.org
