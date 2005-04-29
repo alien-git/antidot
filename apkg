@@ -75,6 +75,8 @@ Error()
 Configure()
 ###########################################################################
 {
+  mkdir -p $PREFIX/bin || Error "Cannot create directory: $PREFIX"
+
   [ ! -f $PREFIX/bin/apkg ] && cp $0 $PREFIX/bin
 
   TOOLS="tar wget pkg-config"
@@ -122,8 +124,6 @@ Configure()
   done
 
   ld_path=`echo $ld_path | sed -e 's/ *//g' -e 's/::/:/g' -e 's/^://'`
-
-  mkdir -p $PREFIX || Error "Cannot create directory: $PREFIX"
 
   EXTRAPACKAGES=""
 
