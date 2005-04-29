@@ -118,8 +118,8 @@ Configure()
     if [ -d $dir ]
     then 
       ld_path=$ld_path:$dir
-      # AUTOPACKAGES=$AUTOPACKAGES" autopackage-qtfe"
-      # [ "$MODE" = "" ] && MODE="qtfe"
+      AUTOPACKAGES=$AUTOPACKAGES" autopackage-qtfe"
+      [ "$MODE" = "" ] && MODE="qtfe"
     fi
   done
 
