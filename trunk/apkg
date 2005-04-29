@@ -23,6 +23,7 @@ AUTOURL=${APKG_AUTOURL:=http://alien.cern.ch/cache/packages}
 CACHEURL=${APKG_CACHEURL:=http://alien.cern.ch/cache}
 PREFIX=${APKG_PREFIX:=/opt/alien}
 PLATFORM=${APKG_PLATFORM:=}
+CONFIG_PLATFORM=${APKG_CONFIG_PLATFORM:=}
 ALIEN_VERSION=1
 AUTOPACKAGE_VERSION=1.05
 
@@ -37,6 +38,7 @@ RcUpdate()
     echo "APKG_CACHEURL=$CACHEURL"
     echo "APKG_PREFIX=$PREFIX"
     echo "APKG_PLATFORM=$PLATFORM"
+    echo "APKG_CONFIG_PLATFORM=$CONFIG_PLATFORM"
   ) > $HOME/.alien/apkg.rc
 }
 ###########################################################################
@@ -134,12 +136,12 @@ Configure()
 
   for name in $EXTRAPACKAGES
   do
-    (cd $PREFIX; wget -q -O - ${URL}/${name}_${PLATFORM}.tar.bz2 | tar jxf -)
+    (cd $PREFIX; wget -q -O - ${URL}/${name}_${CONFIG_PLATFORM}.tar.bz2 | tar jxf -)
   done
 
   for name in $AUTOPACKAGES
   do
-    (cd $PREFIX; wget -q -O - ${URL}/${name}-${AUTOPACKAGE_VERSION}_${PLATFORM}.tar.bz2 | tar jxf -)
+    (cd $PREFIX; wget -q -O - ${URL}/${name}-${AUTOPACKAGE_VERSION}_${CONFIG_PLATFORM}.tar.bz2 | tar jxf -)
   done
 
   RcUpdate
@@ -202,7 +204,7 @@ Manage()
 ###########################################################################
 
 
-if [ "$PLATFORM" = "" ]
+if [ "$PLATFORM" = "" -o "$CONFIG_PLATFORM" = "" ]
 then
   for dir in /usr/share/libtool /usr/lib/rpm 
   do
@@ -236,7 +238,7 @@ then
   esac
 
   PLATFORM=$autoplatform
-
+  CONFIG_PLATFORM=$platform
 fi
 
 FORCE=""
