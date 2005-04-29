@@ -14,11 +14,11 @@ LICENSE = GPL
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS  = $(WORKSRC)/Makefile 
-INSTALL_SCRIPTS = 
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile 
 
 CONFIGURE_ARGS = $(DIRPATHS) 
 
 include ../category.mk
 
 PRE_CONFIGURE= ( cd $(WORKSRC); qmake -o Makefile qtfe.pro )
-POST_INSTALL = ( cp -f $(WORKSRC)/bin/* $(PREFIX)/bin )
+
