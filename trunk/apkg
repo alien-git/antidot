@@ -111,7 +111,7 @@ Configure()
   [ ! -f $PREFIX/bin/autopackage-manager-gtk -o ! -z "$FORCE" ]  && \
                               AUTOPACKAGES=$AUTOPACKAGES" autopackage-manager"
 
-  DIRS="/usr/lib/qt3/lib"
+  DIRS="/usr/lib/qt3/lib /usr/qt/3/lib"
 
   for dir in $DIRS
   do
