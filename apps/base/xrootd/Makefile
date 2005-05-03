@@ -1,5 +1,5 @@
 GARNAME = xrootd
-GARVERSION = 20050527
+GARVERSION = 20050503
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
@@ -19,7 +19,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) -enable-castor=castorofs
+CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-castor
 
 include ../category.mk
 

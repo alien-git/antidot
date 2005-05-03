@@ -6,6 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 MASTER_SITES = http://ftp.gnome.org/pub/gnome/sources/libxml2/2.6/ ftp://xmlsoft.org/
 
 LIBDEPS = apps/gcc/gcc
+
 DESCRIPTION = The XML C parser and toolkit of Gnome
 URL = http://xmlsoft.org/
 AUTHOR = Daniel Veillard
