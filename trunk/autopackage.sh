@@ -30,8 +30,6 @@ true
 (cd \$build_root; [ -f $PREFIX/dist/$BINDISTFILES ] &&  tar jxf  $PREFIX/dist/$BINDISTFILES; echo . ) | import
 
 [Prepare]
-# Dependency checking
-#registerRepository @alien.cern.ch/$GARFNAME http://alien.cern.ch/cache/packages/$GARNAME.xml
 true
 
 EOF
@@ -51,15 +49,8 @@ cat <<EOF>>autopackage/default.apspec
 
 [Install]
 #copyFiles --nobackup * "\$PREFIX"
-if [ ! `ls | wc -l` ]
-then
-  tar cf - * | (cd "\$PREFIX"; tar xf -)
-  for file in `find . -type f -o -type l -printf "\$PREFIX/%P "`
-  do
-    logFile \$file
-  done
-done
- 
+(tar cf - * | (cd "\$PREFIX"; tar xvf -) | xargs printf "\$PREFIX/%s " {}) || true
+
 [Uninstall]
 # Usually just the following line is enough to uninstall everything
 uninstallFromLog
