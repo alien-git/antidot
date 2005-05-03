@@ -427,7 +427,7 @@ clean:
 	@rm -rf $(DOWNLOADDIR) $(COOKIEDIR) $(COOKIEDIR)-* $(WORKSRC) $(WORKDIR) $(EXTRACTDIR) $(SCRATCHDIR) $(SCRATCHDIR)-$(COOKIEDIR) $(SCRATCHDIR)-build *~
 
 buildclean:
-	@rm -rf $(WORKSRC) $(WORKDIR) $(EXTRACTDIR) $(SCRATCHDIR) $(SCRATCHDIR)-$(COOKIEDIR) $(SCRATCHDIR)-build *~
+	@rm -rf $(WORKSRC) $(WORKDIR) $(EXTRACTDIR) $(SCRATCHDIR) $(SCRATCHDIR)-$(COOKIEDIR) $(SCRATCHDIR)-build *~ autopackage
 
 # these targets do not have actual corresponding files
 .PHONY: all fetch-list fetch checksum makesum extract checkpatch patch makepatch configure build bininstall install clean buildclean beaujolais strip fetch-p checksum-p extract-p patch-p configure-p build-p install-p bininstall-p 
