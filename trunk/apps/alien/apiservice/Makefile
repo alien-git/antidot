@@ -25,5 +25,5 @@ include ../category.mk
 
 PRE_CONFIGURE = (cd $(WORKSRC); ([ -f bootstrap ] && sh bootstrap) || autoconf )
 
-POST_INSTALL = (cd $(WORKSRC) ; make perlmodule-install)
+
 
