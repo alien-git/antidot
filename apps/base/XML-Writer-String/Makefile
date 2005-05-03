@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SO/SOLIVER/ http://www.cpan.org/authors/id/S/SO/SOLIVER/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/S/SO/SOLIVER/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/XML-Writer
 
 DESCRIPTION = Module to capture output from XML-Writer
 AUTHOR = Simon Oliver
