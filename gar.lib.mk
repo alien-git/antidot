@@ -1,4 +1,4 @@
-#-*- mode: Fundamental; tab-width: 4; -*-
+\#-*- mode: Fundamental; tab-width: 4; -*-
 # ex:ts=4
 # $Id$
 
@@ -47,6 +47,7 @@ $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 	@if test -s $(COOKIEDIR)/checksum-$*; then \
 		echo " ==> Checking $(call TMSG_ID,$@) for updates.."; \
 		grep -- `cat $(COOKIEDIR)/checksum-$*` $(CHECKSUM_FILE) || rm -f $(COOKIEDIR)/checksum-$* ; \
+		[ -f $(COOKIEDIR)/provides ] && echo rm -f `cat $(COOKIEDIR)/provides | awk '{print "$(PREFIX)"/$1}'` ; \
 	fi
 	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
@@ -55,6 +56,7 @@ $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 			$(MAKECOOKIE); \
 			break; \
 		done; \
+		rm -f $(COOKIEDIR)/checksum-$* ; \
 		if test -r $@ ; then : ; else \
 			echo '*** GAR GAR GAR!  Failed to download $(call TMSG_ID,$@)!  GAR GAR GAR! ***' 1>&2; \
 			false; \
@@ -110,7 +112,7 @@ scp//%:
 checksum-%: $(CHECKSUM_FILE) $(MAKEFILE)
 	@echo " ==> Running checksum on $(call TMSG_ID,$*)"
 	@if grep -- '$*' $(CHECKSUM_FILE) > /dev/null ; then \
-		(LC_ALL="C" LANG="C" $(MD5) -c $(CHECKSUM_FILE) 2>&1 | grep -- '$*' | grep -v ':[ ]\+OK' || \
+		(LC_ALL="C" LANG="C" $(MD5) -c $(CHECKSUM_FILE) 2>&1 | grep '$*:[ ]\+OK' && \
 			$(MAKECOOKIE) && LC_ALL="C" LANG="C" $(MD5) $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) > /dev/null 2>&1 ; \
 		if test -f $(COOKIEDIR)/checksum-$*; then \
 			echo 'file $(call TMSG_ID,$*) passes checksum test!' > /dev/null ; \
@@ -147,7 +149,8 @@ tar-bz-extract-%:
 # rule to extract files with tar and bzip
 tar-bz-binextract-%:
 	@echo ' $(call TMSG_LIB,Extracting,$(DOWNLOADDIR)/$*)'
-	@bzip2 -dc $(DOWNLOADDIR)/$* | $(TAR) -xf - -C $(BUILD_PREFIX)
+	@mkdir -p $(COOKIEDIR)
+	@bzip2 -dc $(DOWNLOADDIR)/$* | $(TAR) -xvf - -C $(BUILD_PREFIX) > $(COOKIEDIR)/provides
 	@$(MAKECOOKIE)
 
 # rule to relocate extracted files 
