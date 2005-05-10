@@ -17,6 +17,8 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
+AUTOTEST = testForAliEnPerlModule Crypt::OpenSSL::Random $(GARVERSION)
+
 ifeq ($(shell uname),Darwin)
 CONFIGURE_ARGS = INC=-I/usr/kerberos/include 
 else

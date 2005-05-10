@@ -1,7 +1,7 @@
 GARNAME    = alien-perl
-GARVERSION = 2.0.1
+GARVERSION = 2.0.2
 CATEGORIES = apps-tools
-DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
+DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 NOCHECKSUM = $(DISTFILES)
 
 MASTER_SITES = http://alien.cern.ch/cache/

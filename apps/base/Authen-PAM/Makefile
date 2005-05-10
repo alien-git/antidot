@@ -20,6 +20,8 @@ ifeq ($(ALICBS),)
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 endif
 
+AUTOTEST = testForAliEnPerlModule Authen::PAM $(GARVERSION)
+
 CONFIGURE_ARGS =  
 BUILD_ARGS =  
 

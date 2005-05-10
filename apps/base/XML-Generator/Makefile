@@ -17,6 +17,8 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
+AUTOTEST = testForAliEnPerlModule XML::Generator $(GARVERSION)
+
 CONFIGURE_ARGS =  
 BUILD_ARGS =  
 

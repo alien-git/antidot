@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES =  http://alien.cern.ch/cache/ ftp://ftp.gnu.org/gnu/gcc/gcc-3.2.3/  
 
-LIBDEPS = apps/devel/libtool apps/devel/autoconf apps/devel/automake
+LIBDEPS = apps/devel/libtool apps/devel/automake
 
 DESCRIPTION = GNU C/C++ compiler
 URL = http://gcc.gnu.org/

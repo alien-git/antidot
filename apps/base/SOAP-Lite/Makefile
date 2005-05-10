@@ -17,6 +17,8 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
+AUTOTEST = testForAliEnPerlModule SOAP::Lite $(GARVERSION)
+
 CONFIGURE_ARGS = --noprompt --HTTPS-Client --noMAILTO-Client --FTP-Client --HTTP-Daemon --noHTTP-FCGI --noPOP3-Server --IO-Server --noMQ --JABBER --MIMEParser --TCP --HTTP 
 
 CONFIGURE_ENV = printf "\n" |

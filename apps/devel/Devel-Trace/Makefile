@@ -17,6 +17,8 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
+AUTOTEST = testForAliEnPerlModule Devel::Trace $(GARVERSION)
+
 TEST_ENV = printf "\n" |
 
 BUILD_ARGS =  

@@ -44,6 +44,7 @@ EXTRACTDIR ?= $(WORKDIR)
 SCRATCHDIR ?= tmp
 CHECKSUM_FILE ?= checksums
 MANIFEST_FILE ?= manifest
+MAKEFILE = Makefile
 
 DIRSTODOTS = $(subst . /,./,$(patsubst %,/..,$(subst /, ,/$(1))))
 ROOTFROMDEST = $(call DIRSTODOTS,$(DESTDIR))
@@ -166,6 +167,12 @@ deep-%: %
 # The main rules also run the $(DONADA) code, which prints out
 # what just happened when all the dependencies are finished.
 
+$(MAKEFILE):
+	@echo "[$(call TMSG_BRIGHT,=====) $(call TMSG_ACTION,NOW BUILDING):	 $(MAKEFILE))	$(call TMSG_BRIGHT,=====)]"
+
+$(CHECKSUM_FILE):
+	@echo "[$(call TMSG_BRIGHT,=====) $(call TMSG_ACTION,NOW BUILDING):	 $(CHECKSUM_FILE)	$(call TMSG_BRIGHT,=====)]"
+
 announce:
 	@echo "[$(call TMSG_BRIGHT,=====) $(call TMSG_ACTION,NOW BUILDING):	 $(call TMSG_ID,$(DISTNAME))	$(call TMSG_BRIGHT,=====)]"
 
@@ -208,6 +215,9 @@ FETCH_TARGETS =  $(addprefix $(DOWNLOADDIR)/,$(ALLFILES))
 fetch: announce pre-everything $(DOWNLOADDIR) $(addprefix dep-$(GARDIR)/,$(FETCHDEPS)) pre-fetch $(FETCH_TARGETS) post-fetch
 	$(DONADA)
 
+fetch-bin: announce pre-everything $(DOWNLOADDIR) $(addprefix dep-$(GARDIR)/,$(FETCHDEPS)) pre-fetch  $(addprefix $(DOWNLOADDIR)/,$(BINDISTFILES)) post-fetch
+	$(DONADA)
+
 # returns true if fetch has completed successfully, false
 # otherwise
 fetch-p:
@@ -218,6 +228,9 @@ fetch-p:
 CHECKSUM_TARGETS = $(addprefix checksum-,$(filter-out $(NOCHECKSUM),$(ALLFILES)))
 
 checksum: fetch $(COOKIEDIR) pre-checksum $(CHECKSUM_TARGETS) post-checksum
+	$(DONADA)
+
+checksum-bin: fetch-bin $(COOKIEDIR) pre-checksum  $(addprefix checksum-,$(BINDISTFILES)) post-checksum
 	$(DONADA)
 
 # returns true if checksum has completed successfully, false
@@ -252,10 +265,7 @@ BINEXTRACT_TARGETS = $(addprefix binextract-,$(filter-out $(NOEXTRACT),$(BINDIST
 
 RELOCATE_TARGETS = $(addprefix relocate-,$(filter-out $(NOEXTRACT),$(BINDISTFILES))) 
 
-#install-bin: checksum $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix dep-$(GARDIR)/,$(EXTRACTDEPS)) pre-extract $(BINEXTRACT_TARGETS) post-extract
-#	$(DONADA)
-
-install-bin: checksum $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(BUILDDEPS)) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS)) $(addprefix bindep-$(GARDIR)/,$(EXTRACTDEPS)) pre-extract $(BINEXTRACT_TARGETS) $(RELOCATE_TARGETS) post-extract
+install-bin: checksum-bin $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS))  pre-extract $(BINEXTRACT_TARGETS) $(RELOCATE_TARGETS) post-extract
 	$(DONADA)
 
 binclean:
@@ -265,11 +275,10 @@ bininstall:
 ifeq ($(CATEGORIES),source-only)
 	@$(MAKE) reinstall
 else
-	rm -rf $(COOKIEDIR)/*binextract*
   ifeq ($(GARAUTODETECT),true)
-	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) && $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) ALLFILES= NOCHECKSUM=$(BINDISTFILES) BINDISTFILES=) || $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) ALLFILES=$(BINDISTFILES) NOCHECKSUM=$(BINDISTFILES)
+	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) && $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) <|| $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
   else
-	@$(MAKE) install-bin MASTER_SITES=$(CACHE_URL) ALLFILES=$(BINDISTFILES) NOCHECKSUM=$(BINDISTFILES)
+	@$(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
   endif
 endif
 
@@ -407,7 +416,7 @@ ifeq ($(wildcard $(COOKIEDIR)/provides), $(COOKIEDIR)/provides)
 	@($(TAR) jcf $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 -C $(BUILD_PREFIX) `cat $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%'`) || touch $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 
 	@grep -v  $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CHECKSUM_FILE) > $(CHECKSUM_FILE).swp
 	@LC_ALL="C" LANG="C" $(MD5) $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 >> $(CHECKSUM_FILE).swp
-	@mv -f $(CHECKSUM_FILE).swp $(CHECKSUM_FILE) && rm -f $(CHECKSUM_FILE).swp
+	@cat $(CHECKSUM_FILE).swp | sort -u > $(CHECKSUM_FILE) && rm -f $(CHECKSUM_FILE).swp
 	@cp -f $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CACHE_DIR)
 endif
 	    
