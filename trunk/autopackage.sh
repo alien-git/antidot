@@ -30,26 +30,20 @@ true
 (cd \$build_root; [ -f $PREFIX/dist/$BINDISTFILES ] &&  tar jxf  $PREFIX/dist/$BINDISTFILES; echo . ) | import
 
 [Prepare]
-true
-
 EOF
 
-for dep in $LIBDEPS
-do
-  case $dep in
-     apps/base/gcc)
-     ;;
-     *)
-     echo require @alien.cern.ch/$dep 0.0
-     ;;
-  esac 
-done >> autopackage/default.apspec
+(make -s showautodeps) >> autopackage/default.apspec
 
 cat <<EOF>>autopackage/default.apspec
 
 [Install]
 #copyFiles --nobackup * "\$PREFIX"
-(tar cf - * | (cd "\$PREFIX"; tar xvf -) | xargs printf "\$PREFIX/%s " {}) || true
+
+if [ `test -s cookies/provides && echo 1 || echo 0` -eq 1 ]
+then
+  tar cf - * | ( cd "\$PREFIX"; tar xf -) 
+  echo "`cat cookies/provides | sed -e 's%^/opt/alien%$PREFIX%'`" >> "\$apkg_filelist"
+fi
 
 [Uninstall]
 # Usually just the following line is enough to uninstall everything

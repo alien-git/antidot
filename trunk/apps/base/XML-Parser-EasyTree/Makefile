@@ -16,6 +16,8 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
+AUTOTEST = testForAliEnPerlModule XML::Parser::EasyTree $(GARVERSION)
+
 CONFIGURE_ARGS =  
 BUILD_ARGS =  
 

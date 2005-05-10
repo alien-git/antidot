@@ -36,7 +36,6 @@ MAKECOOKIE = mkdir -p $(COOKIEDIR)/$(@D) && date >> $(COOKIEDIR)/$@
 
 URLS = $(subst ://,//,$(foreach SITE,$(FILE_SITES) $(MASTER_SITES),$(addprefix $(SITE),$(DISTFILES))) $(foreach SITE,$(FILE_SITES) $(PATCH_SITES) $(MASTER_SITES),$(addprefix $(SITE),$(PATCHFILES))) $(foreach SITE,$(FILE_SITES) $(BIN_SITES) $(MASTER_SITES),$(addprefix $(SITE),$(BINDISTFILES))))
 
-TMPFILE=$(shell mktemp /tmp/checksums.XXXXXX)
 WGETOPTS=-nd --passive-ftp --timeout=60 --waitretry=10 --tries=3
 
 # Download the file if and only if it doesn't have a preexisting
@@ -45,6 +44,10 @@ WGETOPTS=-nd --passive-ftp --timeout=60 --waitretry=10 --tries=3
 
 
 $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
+	@if test -s $(COOKIEDIR)/checksum-$*; then \
+		echo " ==> Checking $(call TMSG_ID,$@) for updates.."; \
+		grep -- `cat $(COOKIEDIR)/checksum-$*` $(CHECKSUM_FILE) || rm -f $(COOKIEDIR)/checksum-$* ; \
+	fi
 	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
 		for i in $(filter %/$*,$(URLS)); do  \
@@ -104,16 +107,17 @@ scp//%:
 
 # check a given file's checksum against $(CHECKSUM_FILE) and
 # error out if it mentions the file without an "OK".
-checksum-%: $(CHECKSUM_FILE)
+checksum-%: $(CHECKSUM_FILE) $(MAKEFILE)
 	@echo " ==> Running checksum on $(call TMSG_ID,$*)"
-	@if grep -- '$*' $(CHECKSUM_FILE); then \
-		if LC_ALL="C" LANG="C" $(MD5) -c $(CHECKSUM_FILE) 2>&1 | grep -- '$*' | grep -v ':[ ]\+OK' ; then \
+	@if grep -- '$*' $(CHECKSUM_FILE) > /dev/null ; then \
+		(LC_ALL="C" LANG="C" $(MD5) -c $(CHECKSUM_FILE) 2>&1 | grep -- '$*' | grep -v ':[ ]\+OK' || \
+			$(MAKECOOKIE) && LC_ALL="C" LANG="C" $(MD5) $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) > /dev/null 2>&1 ; \
+		if test -f $(COOKIEDIR)/checksum-$*; then \
+			echo 'file $(call TMSG_ID,$*) passes checksum test!' > /dev/null ; \
+		else \
 			echo '*** GAR GAR GAR!  $(call TMSG_ID,$*) failed checksum test!  GAR GAR GAR! ***' 1>&2; \
 			false; \
-		else \
-			echo 'file $(call TMSG_ID,$*) passes checksum test!'; \
-			$(MAKECOOKIE); \
-		fi \
+		fi ; \
 	else \
 		echo '*** GAR GAR GAR!  $(call TMSG_ID,$*) not in $(CHECKSUM_FILE) file!  GAR GAR GAR! ***' 1>&2; \
 		false; \

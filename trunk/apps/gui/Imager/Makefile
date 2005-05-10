@@ -17,6 +17,8 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
+AUTOTEST = testForAliEnPerlModule Imager $(GARVERSION)
+
 CONFIGURE_ENV = env IM_ENABLE="jpeg png gif T1-fonts freetype1" IM_INCPATH=$(PREFIX)/include/freetype:$(PREFIX)/include IM_LIBPATH=$(PREFIX)/lib IM_SUPPRESS_PROMPT=1 
   
 BUILD_ARGS =  

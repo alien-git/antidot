@@ -1,5 +1,5 @@
 GARNAME = glite-alien-tests
-GARVERSION = 2.0.1
+GARVERSION = 2.0.2
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
