@@ -276,7 +276,7 @@ ifeq ($(CATEGORIES),source-only)
 	@$(MAKE) reinstall
 else
   ifeq ($(GARAUTODETECT),true)
-	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) && $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) <|| $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
+	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) && $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
   else
 	@$(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
   endif
