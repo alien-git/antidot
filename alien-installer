@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.36  2005/05/10 10:49:48  buncic
+# This is v2.0.4 rc1.
+#
 # Revision 1.35  2005/04/27 08:11:13  buncic
 # Added autopackage tools and apkg as alternative installer.
 #
@@ -556,15 +559,30 @@ InstallerUI()
 
   prefix=$ALIEN_INSTALLER_PREFIX
 
+  if [ "$prefix" = "$workspace" ]
+  then
+    prefix="unknown"
+  fi
+
   $ALIEN_DIALOG $style \
-         --yesno "Default installation location location is $prefix. Press YES if you want to keep it that way or press NO if you want to select another location." $height $width
+         --yesno "Default installation location location is $prefix. Press YES if you want to keep it that way or press NO if you want to select another location. Please note that the installation directory must be different form workspace directory." $height $width
 
   if [ $? -eq 1 ]
   then
+    while :
+    do
      $ALIEN_DIALOG $style \
                     --inputbox 'Please specify installation directory'  $height $width \
                      $prefix 2>$dialog_file || Exit 1
      prefix=`cat $dialog_file`
+     if [ "$prefix" = "$workspace" ]
+     then
+       $ALIEN_DIALOG $style --sleep 3 \
+              --infobox "Installation prefix ($prefix) must be different from workspace ($workspace)." $height $width
+     else
+       break
+     fi
+    done
   fi
 
   if [ -d $prefix ]
