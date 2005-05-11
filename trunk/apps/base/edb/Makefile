@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 LIBDEPS = apps/gcc/gcc
 
-MASTER_SITES = http://heanet.dl.sourceforge.net/sourceforge/enlightenment/ http://alien.cern.ch/cache/
+MASTER_SITES = http://alien.cern.ch/cache/ http://heanet.dl.sourceforge.net/sourceforge/enlightenment/ 
 
 DESCRIPTION = Enlightenment Database Access Library
 URL = http://www.enlightenment.org/pages/edb.html
