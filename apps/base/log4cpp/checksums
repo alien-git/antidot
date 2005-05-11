@@ -1,6 +1,6 @@
 24927a36cdc12ee6912a0f8cbe7a62d4  download/log4cpp-0.3.4b_i686-pc-linux-gnu-2.96.tar.bz2
-f8454e164787ea0e9406fe7bcc2dd806  files/Makefile.am.patch
-8051f012fcc58173e8015710d449457a  download/log4cpp-0.3.4b.tar.gz
-550c2eb4cef672dc5fe9d21d1c9a89e4  download/log4cpp-0.3.4b_powerpc-apple-darwin7.7.0.tar.bz2
 3d4988971c391d21ed773ae7a41e373a  download/log4cpp-0.3.4b_ia64-unknown-linux-gnu.tar.bz2
-a625784d839d0adffaa43ba56c55dda0  download/log4cpp-0.3.4b_i686-pc-linux-gnu.tar.bz2
+550c2eb4cef672dc5fe9d21d1c9a89e4  download/log4cpp-0.3.4b_powerpc-apple-darwin7.7.0.tar.bz2
+610b773ad2fd3e53187da7d93c8d2975  download/log4cpp-0.3.4b_i686-pc-linux-gnu.tar.bz2
+8051f012fcc58173e8015710d449457a  download/log4cpp-0.3.4b.tar.gz
+f8454e164787ea0e9406fe7bcc2dd806  files/Makefile.am.patch
