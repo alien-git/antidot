@@ -2,7 +2,7 @@
 
 ChecksumPackage()
 {
-  cat $1 | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | sort -k2,2 | awk '{print $1} END{print NR}' | md5sum | awk -v name=$2 '{printf("%s  %s\n",$1,name)}' 
+  cat $1 | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort | md5sum | awk -v name=$2 '{printf("%s  %s\n",$1,name)}' 
 }
 
 ChecksumPrint()
@@ -15,7 +15,7 @@ ChecksumPrint()
     tar jxvf $1 -C $tmpdir/$dir | \
     (
       cd $tmpdir/$dir
-      awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | sort -k2,2 | awk '{print $1} END{print NR}' | md5sum | awk -v name=$1 '{printf("%s  %s\n",$1,name)}'
+      awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort | md5sum | awk -v name=$1 '{printf("%s  %s\n",$1,name)}'
     )
     rm -rf $tmpdir
   else
