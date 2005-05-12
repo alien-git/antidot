@@ -47,7 +47,7 @@ $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 	@if test -s $(COOKIEDIR)/checksum-$*; then \
 		echo " ==> Checking $(call TMSG_ID,$@) for updates.."; \
 		grep -- `cat $(COOKIEDIR)/checksum-$*` $(CHECKSUM_FILE) || rm -f $(COOKIEDIR)/checksum-$* ; \
-		[ -f $(COOKIEDIR)/provides ] && echo rm -f `cat $(COOKIEDIR)/provides | awk '{print "$(PREFIX)"/$1}'` ; \
+		[ -f $(COOKIEDIR)/provides ] && echo rm -f `cat $(COOKIEDIR)/provides` ; \
 	fi
 	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
@@ -112,8 +112,8 @@ scp//%:
 checksum-%: $(CHECKSUM_FILE) $(MAKEFILE)
 	@echo " ==> Running checksum on $(call TMSG_ID,$*)"
 	@if grep -- '$*' $(CHECKSUM_FILE) > /dev/null ; then \
-		(LC_ALL="C" LANG="C" $(MD5) -c $(CHECKSUM_FILE) 2>&1 | grep '$*:[ ]\+OK' && \
-			$(MAKECOOKIE) && LC_ALL="C" LANG="C" $(MD5) $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) > /dev/null 2>&1 ; \
+		($(MD5) check $(CHECKSUM_FILE) $(DOWNLOADDIR)/$* && \
+			$(MAKECOOKIE) && $(MD5) print $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) > /dev/null 2>&1 ; \
 		if test -f $(COOKIEDIR)/checksum-$*; then \
 			echo 'file $(call TMSG_ID,$*) passes checksum test!' > /dev/null ; \
 		else \

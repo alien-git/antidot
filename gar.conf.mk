@@ -70,7 +70,7 @@ CXXFLAGS := $(CFLAGS)
 
 # If you have no following GNU tools installed change these lines
 TAR = tar
-MD5 = md5sum
+MD5 = $(GARDIR)/checksum.sh
 
 # make these variables available to configure and build scripts
 # outside of make's realm.
