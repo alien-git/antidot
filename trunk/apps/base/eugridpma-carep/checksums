@@ -1,4 +1,3 @@
-879d7dfa13a2e20469c393947b2b9c9e  download/carep_i686-pc-linux-gnu.tar.bz2
-8ed462e9620d9530993b02e3848f115c  download/eugridpma-carep-0.26.tar.bz2
+34e2b499a7a89a5112bdadf9ab339ed3  download/eugridpma-carep-0.26.tar.bz2
 d352d3f37599f2e1f59396ad0b786752  download/eugridpma-carep-0.26.tar.gz
-f8072964a9ed798a0a52455c66193f16  files/Makefile.patch
+f8072964a9ed798a0a52455c66193f16  download/Makefile.patch

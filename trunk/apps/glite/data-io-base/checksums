@@ -1,4 +1,3 @@
-23efbb9604a5fc428148631b128444d9  download/glite-data-io-base-1.3.0_i686-pc-linux-gnu.tar.bz2
-7cdd924b4dbecb635ad95ebc0facedf7  download/glite-data-io-base-1.3.0_ia64-unknown-linux-gnu.tar.bz2
-9d36fe21756009ac3faba3ceddfe03de  files/bootstrap.patch
-f677b4e9fece0cf560f8625955fa6f71  download/glite-data-io-base-1.3.0_powerpc-apple-darwin7.7.0.tar.bz2
+77db1027751d8da39115ab76231a32e9  download/glite-data-io-base-1.3.0_i686-pc-linux-gnu.tar.bz2
+839b4ff59c34a7655054f69011210cba  download/glite-data-io-base-1.3.0_src.tar.gz
+9d36fe21756009ac3faba3ceddfe03de  download/bootstrap.patch
