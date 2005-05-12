@@ -276,9 +276,9 @@ ifeq ($(CATEGORIES),source-only)
 	@$(MAKE) reinstall
 else
   ifeq ($(GARAUTODETECT),true)
-	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) && $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
+	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) && env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
   else
-	@$(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
+	@env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
   endif
 endif
 
@@ -415,7 +415,7 @@ cache: install
 ifeq ($(wildcard $(COOKIEDIR)/provides), $(COOKIEDIR)/provides) 
 	@($(TAR) jcf $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 -C $(BUILD_PREFIX) `cat $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%'`) || touch $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 
 	@grep -v  $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CHECKSUM_FILE) > $(CHECKSUM_FILE).swp
-	@LC_ALL="C" LANG="C" $(MD5) $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 >> $(CHECKSUM_FILE).swp
+	@$(MD5) package $(COOKIEDIR)/provides $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 >> $(CHECKSUM_FILE).swp
 	@cat $(CHECKSUM_FILE).swp | sort -u > $(CHECKSUM_FILE) && rm -f $(CHECKSUM_FILE).swp
 	@cp -f $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CACHE_DIR)
 endif
