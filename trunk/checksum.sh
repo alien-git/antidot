@@ -12,10 +12,10 @@ ChecksumPrint()
     tmpdir=`mktemp -d /tmp/checksum.XXXXXX`
     dir=`dirname $1`
     mkdir -p $tmpdir/$dir || exit 1
-    tar jxvf $1 -C $tmpdir/$dir | \
+    tar jxvf $1 -C $tmpdir/$dir > $tmpdir/list
     (
       cd $tmpdir/$dir
-      awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort | md5sum | awk -v name=$1 '{printf("%s  %s\n",$1,name)}'
+      cat ../list | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort | md5sum | awk -v name=$1 '{printf("%s  %s\n",$1,name)}'
     )
     rm -rf $tmpdir
   else
