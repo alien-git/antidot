@@ -55,8 +55,10 @@ case $1 in
        exit
        ;;
   --help)
-       echo "Usage: checksum.sh <<file | list <file_list>> file_name>"
-       exit 1
+       echo "Usage: checksum.sh print <file_name>"
+       echo "                   check <checksum file> <file>"
+       echo "                   package <file list> <file>"
+       exit 0
        ;;
        *)
        md5sum $*
