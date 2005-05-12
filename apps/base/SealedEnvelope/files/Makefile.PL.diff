@@ -1,5 +1,5 @@
---- work/SealedEnvelope-20050503/perl/Makefile.PL	Tue Apr 26 15:18:35 2005
-+++ work/SealedEnvelope-20050503/perl/Makefile.PL.new	Thu Apr 28 08:53:13 2005
+--- work/SealedEnvelope-1.0.0/perl/Makefile.PL	Tue Apr 26 15:18:35 2005
++++ work/SealedEnvelope-1.0.0/perl/Makefile.PL.new	Thu Apr 28 08:53:13 2005
 @@ -2,7 +2,6 @@
  WriteMakefile(
  	      'CC'                => 'g++',

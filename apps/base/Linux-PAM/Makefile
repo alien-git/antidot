@@ -22,4 +22,4 @@ CONFIGURE_ARGS = $(DIRPATHS) --enable-includedir=$(PREFIX)/include
 include ../category.mk
 
 PRE_CONFIGURE = (cd $(WORKSRC); autoconf)
-POST_INSTALL  = (cd $(PREFIX)/lib; rm -f libpam.so.0; ln -s libpam.so.0.78 libpam.so.0)
+PRE_INSTALL  = (cd $(PREFIX)/lib; rm -f libpam.so.0; ln -s libpam.so.0.78 libpam.so.0)

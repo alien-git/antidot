@@ -1,6 +1,6 @@
 258b1adbfc23aca5c650f49e6b32049e  download/Crypt-SSLeay-0.51_powerpc-apple-darwin7.7.0.tar.bz2
-402cdae8944d39178b2ee68cd87b2c6c  download/Crypt-SSLeay-0.51_i686-pc-linux-gnu.tar.bz2
 796ec8403ebbd12978feae0291649e3d  download/Crypt-SSLeay-0.51_i686-pc-linux-gnu-2.96.tar.bz2
 7cfe846ff8689405705d1fd9b0d92182  download/Crypt-SSLeay-0.51_ia64-unknown-linux-gnu.tar.bz2
-c2004c373f144b81a66a4131d2247a9f  files/01.diff
+c2004c373f144b81a66a4131d2247a9f  download/01.diff
+d952cf7810cf40182dc6dff022fecd2e  download/Crypt-SSLeay-0.51_i686-pc-linux-gnu.tar.bz2
 e276fd3970d573139fe56695a7b747bd  download/Crypt-SSLeay-0.51.tar.gz

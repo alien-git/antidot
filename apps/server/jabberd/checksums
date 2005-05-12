@@ -1,6 +1,3 @@
-035f837292fe083d7a484ae95c43f36e  download/jabberd-2.0s6_i686-pc-linux-gnu-2.96.tar.bz2
-05ae11f5ebc276ceddbe1ac258b18b2a  files/configure.in.diff
-2d076e8b2cbae789059aeb6a0026c9c7  download/jabberd-2.0s6_i686-pc-linux-gnu.tar.bz2
-649051e6da07420b7ae49475775173af  download/jabberd-2.0s6_ia64-unknown-linux-gnu.tar.bz2
-79807ec791868dedd18e98cd5d1d4ea9  Makefile
+05ae11f5ebc276ceddbe1ac258b18b2a  download/configure.in.diff
 ca2818885e126181e002949c71603df3  download/jabberd-2.0s6.tar.gz
+f8c549d607baa614acd99919f2da755d  download/jabberd-2.0s6_i686-pc-linux-gnu.tar.bz2
