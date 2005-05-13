@@ -1,10 +1,5 @@
 #!/bin/sh
 
-ChecksumPackage()
-{
-  cat $1 | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort | md5sum | awk -v name=$2 '{printf("%s  %s\n",$1,name)}' 
-}
-
 ChecksumPrint()
 {
   if [ "$BININSTALL" != "" ]
@@ -13,10 +8,10 @@ ChecksumPrint()
     dir=`dirname $1`
     mkdir -p $tmpdir/$dir || exit 1
     tar jxvf $1 -C $tmpdir/$dir > $tmpdir/list
-    (
-      cd $tmpdir/$dir
-      cat ../list | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort | md5sum | awk -v name=$1 '{printf("%s  %s\n",$1,name)}'
-    )
+    cd $tmpdir/$dir
+    cat ../list | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort > `basename $1`
+    cd $tmpdir
+    md5sum $1
     rm -rf $tmpdir
   else
     md5sum $*
@@ -37,11 +32,6 @@ CheckFile()
 }
 
 case $1 in
-  package)
-       shift 1
-       ChecksumPackage $*
-       exit
-       ;;
   print) 
        shift 1
        ChecksumPrint $*
