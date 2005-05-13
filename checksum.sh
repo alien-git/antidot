@@ -12,7 +12,7 @@ ChecksumPrint()
     cat ../list | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort > `basename $1`
     cd $tmpdir
     md5sum $1
-    rm -rf $tmpdir
+    # rm -rf $tmpdir
   else
     md5sum $*
   fi
