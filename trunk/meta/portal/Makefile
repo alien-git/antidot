@@ -37,7 +37,6 @@ apps/gui/Image-Imlib2 \
 apps/gui/Imager \
 apps/gui/Image-WorldMap \
 apps/portal/apache \
-apps/portal/mod_perl \
 apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
 apps/portal/gridport \

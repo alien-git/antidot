@@ -415,7 +415,7 @@ cache: install
 ifeq ($(wildcard $(COOKIEDIR)/provides), $(COOKIEDIR)/provides) 
 	@($(TAR) jcf $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 -C $(BUILD_PREFIX) `cat $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%'`) || touch $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 
 	@grep -v  $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CHECKSUM_FILE) > $(CHECKSUM_FILE).swp
-	env BININSTALL=1 $(MD5) print $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 >> $(CHECKSUM_FILE).swp
+	@env BININSTALL=1 $(MD5) print $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 >> $(CHECKSUM_FILE).swp
 	@cat $(CHECKSUM_FILE).swp | sort -u > $(CHECKSUM_FILE) && rm -f $(CHECKSUM_FILE).swp
 	@cp -f $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CACHE_DIR)
 endif
