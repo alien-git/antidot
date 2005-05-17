@@ -9,7 +9,7 @@ GARCVSNAME    = org.glite.data.io-quanta
 GARCVSVERSION = glite-data-io-quanta_R_1_0_0
 NOCHECKSUM    = $(DISTFILES)
 
-LIBDEPS = apps/base/globus apps/base/log4cpp apps/base/xerces-c apps/base/xalan-c apps/glite/glite-data
+LIBDEPS = apps/glite/data-config-service
 
 DESCRIPTION = gLite
 URL = http://www.glite.org

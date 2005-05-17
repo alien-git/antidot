@@ -9,7 +9,7 @@ GARCVSVERSION = glite-data-config-service_R_1_1_4
 NOCHECKSUM    = $(DISTFILES)
 MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
-LIBDEPS = apps/base/globus apps/base/log4cpp apps/base/xerces-c apps/base/xalan-c apps/glite/glite
+LIBDEPS = apps/base/log4cpp apps/base/xerces-c apps/base/xalan-c apps/glite/glite-data
 
 DESCRIPTION = Glite Data Configurtion Service
 URL = http://www.glite.org

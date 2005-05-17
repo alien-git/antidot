@@ -9,7 +9,7 @@ GARCVSNAME    = org.glite.data.io-daemon
 GARCVSVERSION = glite-data-io-daemon_R_1_2_1
 MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
-LIBDEPS = apps/base/globus apps/base/log4cpp apps/glite/data-io-quanta apps/glite/data-io-gss-auth apps/glite/data-io-base apps/glite/data-config-service
+LIBDEPS = apps/glite/data-io-base 
 
 DESCRIPTION = gLite I/O Daemon 
 URL = http://www.glite.org
