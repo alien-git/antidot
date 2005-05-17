@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.39  2005/05/17 10:22:00  buncic
+# Adding --force flag.
+#
 # Revision 1.38  2005/05/17 04:49:22  buncic
 # PReserve output in case of error.
 #
@@ -162,7 +165,6 @@ Exit()
 ###########################################################################
 {
   clear
-  [ -f install.log ] && cat install.log
   InstallerRcUpdate
   rm -rf $release_file $dialog_file
   exit $*
