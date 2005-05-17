@@ -46,9 +46,9 @@ WGETOPTS=-nd --passive-ftp --timeout=60 --waitretry=10 --tries=3
 $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 	@if test -s $(COOKIEDIR)/checksum-$*; then \
 		echo " ==> Checking $(call TMSG_ID,$@) for updates.."; \
-		grep -- `cat $(COOKIEDIR)/checksum-$*` $(CHECKSUM_FILE) || (rm -f $(COOKIEDIR)/checksum-$* && [ -f $(COOKIEDIR)/provides ] && rm -f `cat $(COOKIEDIR)/provides` && rm -f $(COOKIEDIR)/* ) ; \
+		grep -- `cat $(COOKIEDIR)/checksum-$*` $(CHECKSUM_FILE) || (rm -f $(COOKIEDIR)/checksum-$* && [ -f $(COOKIEDIR)/provides ] && rm -rf `cat $(COOKIEDIR)/provides` && rm -f $(COOKIEDIR)/* ) ; \
 	fi
-	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
+	if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
 		for i in $(filter %/$*,$(URLS)); do  \
 			$(MAKE) -s $$i > /dev/null 2>&1 || continue; \
@@ -112,7 +112,7 @@ checksum-%: $(CHECKSUM_FILE) $(MAKEFILE)
 	@echo " ==> Running checksum on $(call TMSG_ID,$*)"
 	@if grep -- '$*' $(CHECKSUM_FILE) > /dev/null ; then \
 		($(MD5) check $(CHECKSUM_FILE) $(DOWNLOADDIR)/$* && \
-			$(MAKECOOKIE) && $(MD5) print $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) || rm -f  $(COOKIEDIR)/checksum-$* > /dev/null 2>&1 ; \
+			$(MAKECOOKIE) && $(MD5) print $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) || ( rm -rf  $(COOKIEDIR)/* && $(MAKE) $(DOWNLOADDIR)/$*)  > /dev/null 2>&1 ; \
 		if test -f $(COOKIEDIR)/checksum-$*; then \
 			echo 'file $(call TMSG_ID,$*) passes checksum test!' > /dev/null ; \
 		else \
@@ -149,7 +149,7 @@ tar-bz-extract-%:
 tar-bz-binextract-%:
 	@echo ' $(call TMSG_LIB,Extracting,$(DOWNLOADDIR)/$*)'
 	@mkdir -p $(COOKIEDIR)
-	@bzip2 -dc $(DOWNLOADDIR)/$* | $(TAR) -xvf - -C $(BUILD_PREFIX) | awk -v prefix=$(PREFIX) '{printf("%s/%s",prefix,$1)}'  > $(COOKIEDIR)/provides
+	@bzip2 -dc $(DOWNLOADDIR)/$* | $(TAR) -xvf - -C $(BUILD_PREFIX) | awk -v prefix=$(PREFIX) '{printf("%s/%s\n",prefix,$$1)}'  > $(COOKIEDIR)/provides
 	@$(MAKECOOKIE)
 
 # rule to relocate extracted files 
