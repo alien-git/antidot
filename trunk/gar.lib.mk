@@ -112,7 +112,7 @@ checksum-%: $(CHECKSUM_FILE) $(MAKEFILE)
 	@echo " ==> Running checksum on $(call TMSG_ID,$*)"
 	@if grep -- '$*' $(CHECKSUM_FILE) > /dev/null ; then \
 		($(MD5) check $(CHECKSUM_FILE) $(DOWNLOADDIR)/$* && \
-			$(MAKECOOKIE) && $(MD5) print $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) > /dev/null 2>&1 ; \
+			$(MAKECOOKIE) && $(MD5) print $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) || rm -f  $(COOKIEDIR)/checksum-$* > /dev/null 2>&1 ; \
 		if test -f $(COOKIEDIR)/checksum-$*; then \
 			echo 'file $(call TMSG_ID,$*) passes checksum test!' > /dev/null ; \
 		else \
