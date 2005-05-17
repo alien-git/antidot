@@ -46,8 +46,7 @@ WGETOPTS=-nd --passive-ftp --timeout=60 --waitretry=10 --tries=3
 $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 	@if test -s $(COOKIEDIR)/checksum-$*; then \
 		echo " ==> Checking $(call TMSG_ID,$@) for updates.."; \
-		grep -- `cat $(COOKIEDIR)/checksum-$*` $(CHECKSUM_FILE) || rm -f $(COOKIEDIR)/checksum-$* ; \
-		[ -f $(COOKIEDIR)/provides ] && echo rm -f `cat $(COOKIEDIR)/provides` ; \
+		grep -- `cat $(COOKIEDIR)/checksum-$*` $(CHECKSUM_FILE) || (rm -f $(COOKIEDIR)/checksum-$* && [ -f $(COOKIEDIR)/provides ] && rm -f `cat $(COOKIEDIR)/provides` && rm -f $(COOKIEDIR)/* ) ; \
 	fi
 	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
@@ -150,7 +149,7 @@ tar-bz-extract-%:
 tar-bz-binextract-%:
 	@echo ' $(call TMSG_LIB,Extracting,$(DOWNLOADDIR)/$*)'
 	@mkdir -p $(COOKIEDIR)
-	@bzip2 -dc $(DOWNLOADDIR)/$* | $(TAR) -xvf - -C $(BUILD_PREFIX) > $(COOKIEDIR)/provides
+	@bzip2 -dc $(DOWNLOADDIR)/$* | $(TAR) -xvf - -C $(BUILD_PREFIX) | awk -v prefix=$(PREFIX) '{printf("%s/%s",prefix,$1)}'  > $(COOKIEDIR)/provides
 	@$(MAKECOOKIE)
 
 # rule to relocate extracted files 
