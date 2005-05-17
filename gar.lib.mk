@@ -112,12 +112,11 @@ checksum-%: $(CHECKSUM_FILE) $(MAKEFILE)
 	@echo " ==> Running checksum on $(call TMSG_ID,$*)"
 	@if grep -- '$*' $(CHECKSUM_FILE) > /dev/null ; then \
 		($(MD5) check $(CHECKSUM_FILE) $(DOWNLOADDIR)/$* && \
-			$(MAKECOOKIE) && $(MD5) print $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) || ( rm -rf  $(COOKIEDIR)/* && $(MAKE) $(DOWNLOADDIR)/$*)  > /dev/null 2>&1 ; \
+			$(MAKECOOKIE) && $(MD5) print $(DOWNLOADDIR)/$* > $(COOKIEDIR)/checksum-$*) || ( rm -rf  $(COOKIEDIR)/* )  > /dev/null 2>&1 ; \
 		if test -f $(COOKIEDIR)/checksum-$*; then \
 			echo 'file $(call TMSG_ID,$*) passes checksum test!' > /dev/null ; \
 		else \
-			echo '*** GAR GAR GAR!  $(call TMSG_ID,$*) failed checksum test!  GAR GAR GAR! ***' 1>&2; \
-			false; \
+			(rm -f $(DOWNLOADDIR)/$*; [ "$BININSTALL" = "" ] && echo '*** GAR GAR GAR!  $(call TMSG_ID,$*) failed checksum test!  GAR GAR GAR! ***' 1>&2; false ) || make checksum-bin; \
 		fi ; \
 	else \
 		echo '*** GAR GAR GAR!  $(call TMSG_ID,$*) not in $(CHECKSUM_FILE) file!  GAR GAR GAR! ***' 1>&2; \
