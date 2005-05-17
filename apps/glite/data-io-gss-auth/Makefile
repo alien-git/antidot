@@ -9,7 +9,7 @@ GARCVSNAME    = org.glite.data.io-gss-auth
 GARCVSVERSION = glite-data-io-gss-auth_R_1_0_0
 NOCHECKSUM    = $(DISTFILES)
 
-LIBDEPS = apps/base/globus apps/base/log4cpp apps/glite/data-io-quanta apps/glite/glite-data
+LIBDEPS = apps/base/globus apps/glite/data-config-service
 
 DESCRIPTION = gLite
 URL = http://www.glite.org
