@@ -6,7 +6,7 @@
  	cd $(INSTALL_DIR)
 -	$(LN_S) $(INSTALL_DIR)/lib/$(LIB_NAME).$(VERSION) $(INSTALL_DIR)/lib/$(LIB_NAME)
 -	$(LN_S) $(INSTALL_DIR)/include/gfw.h.$(VERSION) $(INSTALL_DIR)/include/gfw.h
-+	(cd $(INSTALL_DIR); rm -f $(LIB_NAME); $(LN_S) $(LIB_NAME).$(VERSION) $(LIB_NAME))
++	(cd $(INSTALL_DIR)/lib; rm -f $(LIB_NAME); $(LN_S) $(LIB_NAME).$(VERSION) $(LIB_NAME))
 +	(cd $(INSTALL_DIR)/include; rm -f gfw.h; $(LN_S) gfw.h.$(VERSION) gfw.h)
  
  clean:
