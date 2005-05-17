@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.38  2005/05/17 04:49:22  buncic
+# PReserve output in case of error.
+#
 # Revision 1.37  2005/05/11 04:20:18  buncic
 # Added warning message if user selects prefix directory same as workspace.
 #
@@ -403,6 +406,10 @@ InstallerUpdate()
       packages=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make list_packages`
       npkgs=`echo $packages | wc -w`
       cd $ALIEN_INSTALLER_HOME
+      if [ "$ALIEN_FORCE" = "1" ]
+      then
+        rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
+      fi
       i=0
       for pkg in $packages
       do
@@ -423,12 +430,6 @@ InstallerUpdate()
   fi
 
   $ALIEN_INSTALLER_PREFIX/bin/alien configure >> install.log
-
-  if [ $? -ne 0 ]
-  then
-    echo 'Update failed: Configuration problem.' 
-    Exit 1
-  fi
 }
 
 
@@ -726,6 +727,14 @@ do
         -a|--autodetect)
             shift 1
 	    ALIEN_INSTALLER_AUTODETECT=1
+           ;;
+        -f|--force)
+            shift 1
+	    ALIEN_FORCE=1
+           ;;
+        -r|--runtime)
+            shift 1
+	    export INSTALL_FILTER="doc/% %.a %.la info/% share/doc/%" 
            ;;
         --pretend)
             shift 1
