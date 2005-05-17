@@ -48,7 +48,7 @@ $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 		echo " ==> Checking $(call TMSG_ID,$@) for updates.."; \
 		grep -- `cat $(COOKIEDIR)/checksum-$*` $(CHECKSUM_FILE) || (rm -f $(COOKIEDIR)/checksum-$* && [ -f $(COOKIEDIR)/provides ] && rm -rf `cat $(COOKIEDIR)/provides` && rm -f $(COOKIEDIR)/* ) ; \
 	fi
-	if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
+	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
 		for i in $(filter %/$*,$(URLS)); do  \
 			$(MAKE) -s $$i > /dev/null 2>&1 || continue; \

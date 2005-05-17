@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.37  2005/05/11 04:20:18  buncic
+# Added warning message if user selects prefix directory same as workspace.
+#
 # Revision 1.36  2005/05/10 10:49:48  buncic
 # This is v2.0.4 rc1.
 #
@@ -156,6 +159,7 @@ Exit()
 ###########################################################################
 {
   clear
+  [ -f install.log ] && cat install.log
   InstallerRcUpdate
   rm -rf $release_file $dialog_file
   exit $*
@@ -188,7 +192,7 @@ InstallerMake()
         then
           Error "No such package: $dir"
         fi
-        $ECHO make -C $dir $cmd > /dev/null 2>&1 || Exit 1
+        $ECHO make -C $dir $cmd > install.log 2>&1 || Exit 1
       done
     done
   fi
@@ -206,7 +210,7 @@ InstallerMakePkg()
     then
       Error "No such package: $dir"
     fi
-    $ECHO make -C $dir $cmd > /dev/null 2>&1 || Exit 1
+    $ECHO make -C $dir $cmd > install.log 2>&1 || Exit 1
   done
 }
 
