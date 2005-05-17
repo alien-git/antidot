@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/I/IR/IROBERTS/ http://www.cpan.org/authors/id/I/IR/IROBERTS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/I/IR/IROBERTS/
 
-LIBDEPS = apps/base/openssl apps/base/Crypt-OpenSSL-Random
+LIBDEPS = apps/base/Crypt-OpenSSL-Random
 
 DESCRIPTION = Interface to OpenSSL RSA methods
 AUTHOR = Ian Robertson
