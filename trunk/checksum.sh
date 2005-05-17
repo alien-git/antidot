@@ -3,7 +3,7 @@
 ChecksumPrint()
 {
   if [ "$BININSTALL" != "" ]
-  then 
+  then
     tmpdir=`mktemp -d /tmp/checksum.XXXXXX`
     dir=`dirname $1`
     mkdir -p $tmpdir/$dir || exit 1
@@ -12,7 +12,7 @@ ChecksumPrint()
     cat ../list | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort > `basename $1`
     cd $tmpdir
     md5sum $1
-    # rm -rf $tmpdir
+    rm -rf $tmpdir
   else
     md5sum $*
   fi
@@ -20,6 +20,10 @@ ChecksumPrint()
 
 CheckFile()
 {
+   if [ ! -f "$1" ]
+   then
+     exit 1
+   fi
    sum=`grep $1 $checksums | awk '{print $1}'` || exit 1
    if [ "$BININSTALL" != "" ]
    then 
