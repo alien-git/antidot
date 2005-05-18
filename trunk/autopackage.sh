@@ -15,6 +15,7 @@ Summary: $DESCRIPTION
 URL: $URL
 License: $LICENSE
 SoftwareVersion: $GARVERSION
+InterfaceVersion: $GARVERSION
 AutopackageTarget: 1.0
 
 [Description]
@@ -32,7 +33,7 @@ true
 [Prepare]
 EOF
 
-(make -s showautodeps) >> autopackage/default.apspec
+make -s showautodeps >> autopackage/default.apspec
 
 cat <<EOF>>autopackage/default.apspec
 
@@ -54,4 +55,4 @@ export APKG_URL=http://alien.cern.ch/cache/packages
 
 mkdir -p $PREFIX/packages
 makeinstaller -b -x && mv *.package* *.xml $PREFIX/packages
-rm -rf autopackage
+#rm -rf autopackage
