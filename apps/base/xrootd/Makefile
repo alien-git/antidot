@@ -1,8 +1,8 @@
 GARNAME = xrootd
-GARVERSION = 1.0.0
+GARVERSION = 1.0.1
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = shift.diff
+PATCHFILES = # shift.diff # castor.diff castor1.diff
 
 MASTER_SITES =  http://alien.cern.ch/cache/
 
