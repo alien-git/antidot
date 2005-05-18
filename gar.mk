@@ -22,6 +22,8 @@ BINDISTNAME ?= $(GARNAME)-$(GARVERSION)_$(PLATFORM)
   
 BINDISTFILES=$(BINDISTNAME).tar.bz2 
 
+INTERFACE_VERSION = $(shell echo $(subst _,.,$(GARVERSION)) | awk -F'.' '{printf("%0d.%0d.%0d\n",$$1,$$2,$$3)}')
+
 ifeq ($(CATEGORIES),meta)
   BINDISTFILES=
 endif
@@ -51,7 +53,7 @@ ROOTFROMDEST = $(call DIRSTODOTS,$(DESTDIR))
 
 ALLFILES    = $(DISTFILES) $(PATCHFILES)
 
-GARFNAME=$(shell (echo $(CURDIR) | sed 's%.*/apps/%apps/%'))
+GARFNAME=$(shell (echo $(CURDIR) | sed -e 's%.*/apps/%apps/%' -e 's%.*/meta/%meta/%'))
 
 MYNAME ?= $(shell basename $(GARFNAME))
 
@@ -193,6 +195,14 @@ showdeps:
 		$(MAKE) -s -C $(GARDIR)/$$i TABLEVEL="$(TABLEVEL)\t" showdeps;\
 	done
 
+showautodeps:
+	@for i in $(LIBDEPS); do \
+		$(MAKE) -s -C $(GARDIR)/$$i showautoversion;\
+	done
+
+showautoversion:
+	@echo "require @alien.cern.ch/$(GARFNAME) $(INTERFACE_VERSION)"
+
 showdeps-l:
 	@echo $(GARFNAME)
 	@for i in $(LIBDEPS) $(BUILDDEPS); do \
@@ -200,7 +210,7 @@ showdeps-l:
 	done
 
 version:
-	@printf "%-32s -14%s\n" $(GARNAME) $(GARVERSION)
+	@printf "%-32s %-14s\n" $(GARNAME) $(INTERFACE_VERSION)
 
 status-q: $(TEST_TARGETS)
 	@( [ ! -f $(COOKIEDIR)/$(TEST_TARGETS) -a -d $(COOKIEDIR)/test-work ] && echo "*failed*" ) || ( [ ! -f $(COOKIEDIR)/$(TEST_TARGETS) ] && echo "n/a" ) || echo "ok" 

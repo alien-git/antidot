@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DC/DCLINTON/ http://www.cpan.org/auth
 LIBDEPS = apps/base/Error
 
 DESCRIPTION = Generic cache interface and implementations
+LICENSE = Perl
+URL = http://cpan.uwinnipeg.ca/~dclinton
+AUTHOR = DeWitt Clinton
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
