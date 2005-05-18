@@ -9,7 +9,7 @@ GARCVSVERSION = glite-data-io-base_R_1_3_0
 NOCHECKSUM    = $(DISTFILES)
 MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
-LIBDEPS = apps/glite/data-io-quanta apps/glite/data-io-gss-auth apps/glite/data-config-service
+LIBDEPS = apps/glite/data-io-gss-auth
 
 DESCRIPTION = gLite
 URL = http://www.glite.org
