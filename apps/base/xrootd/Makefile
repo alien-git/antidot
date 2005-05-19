@@ -1,5 +1,5 @@
 GARNAME = xrootd
-GARVERSION = 1.0.2
+GARVERSION = 1.0.3
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = # shift.diff # castor.diff castor1.diff
