@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AU/AUTRIJUS/ http://www.cpan.org/authors/id/A/AU/AUTRIJUS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/A/AU/AUTRIJUS/
 
-LIBDEPS = apps/base/gnupg apps/base/Digest-SHA1 apps/base/Digest-SHA 
+LIBDEPS = apps/base/gnupg apps/base/Digest-SHA1
 
 DESCRIPTION = Module signature file manipulation
 AUTHOR = Autrijus Tang
