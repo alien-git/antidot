@@ -286,9 +286,9 @@ ifeq ($(CATEGORIES),source-only)
 	@$(MAKE) reinstall
 else
   ifeq ($(GARAUTODETECT),true)
-	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) && env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
+	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) && env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BINCACHE_URL) 
   else
-	@env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(CACHE_URL) 
+	@env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BINCACHE_URL) 
   endif
 endif
 
