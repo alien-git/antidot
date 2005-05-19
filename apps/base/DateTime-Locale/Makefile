@@ -5,6 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DR/DROLSKY/ http://www.cpan.org/authors/id/D/DR/DROLSKY/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/D/DR/DROLSKY/
 
+LIBDEPS = apps/base/Params-Validate
 BUILDDEPS = apps/base/Module-Build
 
 DESCRIPTION = Localization support for DateTime.pm
