@@ -9,7 +9,7 @@ GARCVSVERSION = glite-alien-apiservice_branch_1_0_0
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
-LIBDEPS = apps/base/perl apps/alien/perl apps/base/openssl apps/base/gsoap apps/glite/glite 
+LIBDEPS = apps/alien/common apps/alien/gssapi apps/glite/data-io-daemon 
 
 DESCRIPTION = AliEn API
 URL = http://alien.cern.ch
