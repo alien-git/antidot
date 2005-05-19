@@ -1,5 +1,5 @@
 GARNAME = xrootd
-GARVERSION = 1.0.1
+GARVERSION = 1.0.2
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = # shift.diff # castor.diff castor1.diff
@@ -19,7 +19,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-castor
+CONFIGURE_ARGS = --prefix=$(PREFIX)
 
 include ../category.mk
 
