@@ -2,6 +2,7 @@ GARNAME = ApMon-CPP
 GARVERSION = 2.0.4
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = Makefile.am.diff
 
 MASTER_SITES = http://alien.cern.ch/cache/
 
