@@ -3,7 +3,7 @@ GARVERSION = 1.4.1
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
-MASTER_SITES = http://alien.cern.ch/cache/ ftp://ftp.gnupg.org/gcrypt/gnupg/ 
+MASTER_SITES = ftp://ftp.gnupg.org/gcrypt/gnupg/ 
 
 LIBDEPS = apps/gcc/gcc
 

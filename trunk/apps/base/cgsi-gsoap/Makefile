@@ -6,7 +6,7 @@ ifeq ($(shell uname),Darwin)
 PATCHFILES = makefile.in.diff
 endif
  
-MASTER_SITES = http://alien.cern.ch/cache/
+MASTER_SITES = 
 
 LIBDEPS = apps/base/gsoap apps/base/globus
 

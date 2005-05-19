@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 NOCHECKSUM = $(DISTFILES)
 
-MASTER_SITES = http://alien.cern.ch/cache/
+MASTER_SITES = 
 
 LIBDEPS = apps/base/perl
 

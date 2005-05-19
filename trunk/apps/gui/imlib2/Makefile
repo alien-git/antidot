@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 LIBDEPS = apps/gui/freetype2 apps/base/edb
 
-MASTER_SITES = http://alien.cern.ch/cache/ http://heanet.dl.sourceforge.net/sourceforge/enlightenment/ 
+MASTER_SITES = http://heanet.dl.sourceforge.net/sourceforge/enlightenment/ 
 
 DESCRIPTION = imlib2
 URL = http://freshmeat.net/projects/imlib2/

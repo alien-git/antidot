@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = configure.in.diff
  
-MASTER_SITES = http://alien.cern.ch/cache/
+MASTER_SITES = 
 
 LIBDEPS = apps/base/openssl apps/base/libxml2 apps/base/libidn apps/server/mysql
 

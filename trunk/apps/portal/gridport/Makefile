@@ -3,7 +3,7 @@ GARVERSION = 2.3.2
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://alien.cern.ch/cache/
+MASTER_SITES = 
 
 LIBDEPS = apps/base/myproxy apps/base/Expect apps/base/perl-ldap
 

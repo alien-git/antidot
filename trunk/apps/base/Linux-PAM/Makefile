@@ -4,7 +4,7 @@ CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.bz2
 PATCHFILES = makefile.diff
 
-MASTER_SITES =   http://alien.cern.ch/cache/ http://www.kernel.org/pub/linux/libs/pam/pre/library/ 
+MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/pre/library/ 
 
 LIBDEPS = apps/gcc/gcc
 
@@ -23,3 +23,4 @@ include ../category.mk
 
 PRE_CONFIGURE = (cd $(WORKSRC); autoconf)
 PRE_INSTALL  = (cd $(PREFIX)/lib; rm -f libpam.so.0; ln -s libpam.so.0.78 libpam.so.0)
+

@@ -3,7 +3,7 @@ GARVERSION = 1.3.19
 CATEGORIES = apps-tools
 DISTFILES = swig-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://alien.cern.ch/cache/ http://puzzle.dl.sourceforge.net/sourceforge/swig/ http://ovh.dl.sourceforge.net/sourceforge/swig/ 
+MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/swig/ http://ovh.dl.sourceforge.net/sourceforge/swig/ 
 
 LIBDEPS = apps/gcc/gcc
 

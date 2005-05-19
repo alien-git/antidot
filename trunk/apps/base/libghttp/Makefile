@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 LIBDEPS = apps/gcc/gcc
 
-MASTER_SITES = http://ftp.gnome.org/pub/GNOME/sources/libghttp/1.0/ http://alien.cern.ch/cache/
+MASTER_SITES = http://ftp.gnome.org/pub/GNOME/sources/libghttp/1.0/ 
 
 DESCRIPTION = Gnome HTTP Library
 URL = http://www.gnome.org

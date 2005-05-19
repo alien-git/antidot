@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 LIBDEPS = apps/gcc/gcc
 
-MASTER_SITES = ftp://sunsite.unc.edu/pub/Linux/libs/graphics/ http://alien.cern.ch/cache/
+MASTER_SITES = ftp://sunsite.unc.edu/pub/Linux/libs/graphics/ 
 
 DESCRIPTION = t1lib
 AUTHOR = Rainer Menzner

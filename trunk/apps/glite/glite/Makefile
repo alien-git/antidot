@@ -3,7 +3,7 @@ GARVERSION = 1.0.8
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 
-MASTER_SITES = http://alien.cern.ch/cache/
+MASTER_SITES = 
 
 LIBDEPS =
 

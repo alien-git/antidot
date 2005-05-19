@@ -7,6 +7,7 @@ export CACHE_DIR=@CACHE_DIR@
 export CACHE_URL=@CACHE_URL@
 export GLITE_BUILD=@GLITE_BUILD@
 export ALIEN_PREFIX=@PREFIX@
+export BINCACHE_URL=@CACHE_URL@dist/releases/@RELEASE@/ 
 
 # The GARCHIVEDIR is a directory containing cached files. It can be created
 # manually, or with 'make garchive' once you've started downloading required
@@ -16,7 +17,7 @@ GARCHIVEDIR = @CACHE_DIR@
 
 #BUILD_CLEAN = true
 
-MASTER_SITES += @CACHE_URL@ http://glite.web.cern.ch/glite/packages/$(GLITE_BUILD)/src/
+MASTER_SITES := @CACHE_URL@ @CACHE_URL@dist/releases/@RELEASE@/ $(MASTER_SITES)
 
 export MASKED += @MASKED@
 

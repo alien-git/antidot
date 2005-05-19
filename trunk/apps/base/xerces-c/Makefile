@@ -6,7 +6,7 @@ DISTNAME  = $(GARNAME)-src_$(GARVERSION)
 BINDISTNAME = $(GARNAME)-$(GARVERSION)_$(PLATFORM)
 PATCHFILES  = Makefile.in.patch
 
-MASTER_SITES = http://archive.apache.org/dist/xml/xerces-c/Xerces-C_2_5_0/ http://alien.cern.ch/cache/
+MASTER_SITES = http://archive.apache.org/dist/xml/xerces-c/Xerces-C_2_5_0/ 
 
 LIBDEPS = apps/gcc/gcc
 

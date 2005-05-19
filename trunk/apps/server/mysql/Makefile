@@ -3,7 +3,7 @@ GARVERSION = 4.0.24
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = ftp://mirror.switch.ch/mirror/mysql/Downloads/MySQL-4.0/  http://alien.cern.ch/cache/
+MASTER_SITES = ftp://mirror.switch.ch/mirror/mysql/Downloads/MySQL-4.0/ 
 
 LIBDEPS = apps/gcc/gcc
 
