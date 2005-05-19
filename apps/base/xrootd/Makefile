@@ -6,7 +6,7 @@ PATCHFILES = # shift.diff # castor.diff castor1.diff
 
 MASTER_SITES =  http://alien.cern.ch/cache/
 
-LIBDEPS = apps/base/SealedEnvelope apps/base/AuthzXMLreader
+LIBDEPS = apps/base/SealedEnvelope apps/base/AuthzXMLreader apps/base/ApMon-CPP
 
 DESCRIPTION = Xrootd
 
