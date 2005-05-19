@@ -4,7 +4,7 @@ CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
-MASTER_SITES = http://alien.cern.ch/cache/ http://puzzle.dl.sourceforge.net/sourceforge/log4cpp/ 
+MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/log4cpp/ 
 
 LIBDEPS = apps/gcc/gcc
 

@@ -3,7 +3,7 @@ GARVERSION = 1.9
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = ftp://ftp.ncsa.uiuc.edu/aces/myproxy/ http://alien.cern.ch/cache/
+MASTER_SITES = ftp://ftp.ncsa.uiuc.edu/aces/myproxy/ 
 
 LIBDEPS = apps/base/globus
 

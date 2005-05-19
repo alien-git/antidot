@@ -3,7 +3,7 @@ GARVERSION = 3.2.3
 CATEGORIES = apps-gcc
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
-MASTER_SITES =  http://alien.cern.ch/cache/ ftp://ftp.gnu.org/gnu/gcc/gcc-3.2.3/  
+MASTER_SITES = ftp://ftp.gnu.org/gnu/gcc/gcc-3.2.3/  
 
 LIBDEPS = apps/devel/libtool apps/devel/automake
 

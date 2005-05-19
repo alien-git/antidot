@@ -3,7 +3,7 @@ GARVERSION = 4.3.27
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://alien.cern.ch/cache/ http://ftp.sleepycat.com/releases/
+MASTER_SITES = http://ftp.sleepycat.com/releases/
 
 LIBDEPS = apps/gcc/gcc
 

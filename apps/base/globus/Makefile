@@ -3,7 +3,7 @@ GARVERSION = 2.4.3ng
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://alien.cern.ch/cache/
+MASTER_SITES = 
 
 BUILDDEPS = apps/base/gpt
 

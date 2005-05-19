@@ -4,7 +4,7 @@ CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = # shift.diff # castor.diff castor1.diff
 
-MASTER_SITES =  http://alien.cern.ch/cache/
+MASTER_SITES =  
 
 LIBDEPS = apps/base/SealedEnvelope apps/base/AuthzXMLreader apps/base/ApMon-CPP
 

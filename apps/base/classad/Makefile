@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)a.tar.gz
 PATCHFILES = ostream.diff limits.diff fnCall.diff util.diff  instantiations.diff
 
-MASTER_SITES = http://alien.cern.ch/cache/ 
+MASTER_SITES = 
 AUTHOR = Condor Project 
 URL = http://www.cs.wisc.edu/condor/classad/
 LICENSE = Condor

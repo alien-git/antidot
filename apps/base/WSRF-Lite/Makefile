@@ -3,7 +3,7 @@ GARVERSION = 0.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://alien.cern.ch/cache/ 
+MASTER_SITES = 
 
 LIBDEPS = apps/base/XML-DOM apps/base/DateTime-Format-W3CDTF apps/base/DateTime-Format-Epoch
 

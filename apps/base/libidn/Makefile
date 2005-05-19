@@ -3,7 +3,7 @@ GARVERSION = 0.5.9
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = ftp://alpha.gnu.org/pub/gnu/libidn/ http://josefsson.org/libidn/releases/ http://alien.cern.ch/cache/
+MASTER_SITES = ftp://alpha.gnu.org/pub/gnu/libidn/ http://josefsson.org/libidn/releases/ 
 
 LIBDEPS = apps/gcc/gcc
 

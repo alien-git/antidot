@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 01.diff 02.diff 03.diff 04.diff bbftpc_rfio.patch bbftpd_rfio.patch
  
-MASTER_SITES = http://alien.cern.ch/cache/ ftp://ftp.in2p3.fr/pub/bbftp/
+MASTER_SITES = ftp://ftp.in2p3.fr/pub/bbftp/
 
 LIBDEPS = apps/base/globus
 

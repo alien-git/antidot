@@ -3,7 +3,7 @@ GARVERSION = 1.0
 CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://alien.cern.ch/cache/ 
+MASTER_SITES = 
 
 LIBDEPS = apps/base/ncurses
 

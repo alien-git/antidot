@@ -4,7 +4,7 @@ CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 
 
-MASTER_SITES =   http://alien.cern.ch/cache/ ftp://ftp.gnu.org/gnu/readline/
+MASTER_SITES = ftp://ftp.gnu.org/gnu/readline/
 
 LIBDEPS = apps/base/ncurses
 

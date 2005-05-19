@@ -6,7 +6,7 @@ DISTNAME  = carep
 BINDISTNAME = $(GARNAME)-$(GARVERSION)
 PATCHFILES = Makefile.patch
 
-MASTER_SITES = http://www.eugridpma.org/distribution/current/  http://alien.cern.ch/cache/
+MASTER_SITES = http://www.eugridpma.org/distribution/current/  
 
 LIBDEPS = 
 

@@ -6,7 +6,7 @@ CATEGORIES = apps-tools
 
 DISTFILES = $(GARNAME)-$(GARVERSION)-src.tar.gz
 
-MASTER_SITES = http://alien.cern.ch/cache/ http://www-unix.mcs.anl.gov/~globus/ 
+MASTER_SITES = http://www-unix.mcs.anl.gov/~globus/ 
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Grid packaging tool

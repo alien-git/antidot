@@ -3,7 +3,7 @@ GARVERSION = 2.05a
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES =  http://alien.cern.ch/cache/ http://ftp.gnu.org/gnu/bash/
+MASTER_SITES =  http://ftp.gnu.org/gnu/bash/
 
 LIBDEPS = apps/gcc/gcc
 

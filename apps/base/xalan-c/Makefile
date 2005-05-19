@@ -7,7 +7,7 @@ BINDISTNAME = $(GARNAME)-$(GARVERSION)_$(PLATFORM)
 
 PATCHFILES = Makefile.in.patch
 
-MASTER_SITES = http://archive.apache.org/dist/xml/xalan-c/source/ http://alien.cern.ch/cache/
+MASTER_SITES = http://archive.apache.org/dist/xml/xalan-c/source/ 
 
 LIBDEPS = apps/base/xerces-c
 
