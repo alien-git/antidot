@@ -70,7 +70,7 @@ AC_ARG_WITH(cache_dir,
 AC_ARG_WITH(cache_url,
             [  --with-cache-url=url       remote package cache],
             [CACHE_URL=$with_cache_url],
-            [CACHE_URL=http://alien.cern.ch/cache/dist/$ALIEN_RELEASE])
+            [CACHE_URL=http://alien.cern.ch/cache/dist/releases/$ALIEN_RELEASE])
 
 AC_ARG_WITH(platform,
             [  --with-platform=string     platform],
