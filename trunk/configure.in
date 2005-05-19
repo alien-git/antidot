@@ -57,6 +57,11 @@ AC_ARG_WITH(glite_build,
             [GLITE_BUILD=$with_glite_build],
             [GLITE_BUILD=current])
 
+AC_ARG_WITH(alien_release,
+            [  --with-alien-release=string     AliEn release],
+            [ALIEN_RELEASE=$with_alien_release],
+            [ALIEN_RELEASE=HEAD])
+
 AC_ARG_WITH(cache_dir,
             [  --with-cache-dir=dir       local package cache],
             [CACHE_DIR=$with_cache_dir],
@@ -65,7 +70,7 @@ AC_ARG_WITH(cache_dir,
 AC_ARG_WITH(cache_url,
             [  --with-cache-url=url       remote package cache],
             [CACHE_URL=$with_cache_url],
-            [CACHE_URL=http://alien.cern.ch/cache/dist/])
+            [CACHE_URL=http://alien.cern.ch/cache/dist/$ALIEN_RELEASE])
 
 AC_ARG_WITH(platform,
             [  --with-platform=string     platform],

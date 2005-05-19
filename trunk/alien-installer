@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.40  2005/05/17 10:55:00  buncic
+# Skip installation log dump if there was no error.
+#
 # Revision 1.39  2005/05/17 10:22:00  buncic
 # Adding --force flag.
 #
@@ -462,6 +465,8 @@ InstallerUI()
   release=`cat $dialog_file`
 
   ALIEN_RELEASE=$release
+
+  cmd=$cmd" --with-alien-release=$ALIEN_RELEASE "
 
   $ALIEN_DIALOG  $style \
           --radiolist "PLEASE SELECT THE INSTALLATION METHOD"  0 0 0 \
