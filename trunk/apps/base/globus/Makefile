@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/
 
-LIBDEPS = apps/base/gpt
+BUILDDEPS = apps/base/gpt
 
 DESCRIPTION = Globus Toolkit
 URL = http://www.globus.org/

@@ -7,7 +7,7 @@ CPAN_AUTHOR_ID=/D/DS/DSKOLL/
 
 MASTER_SITES =$(CPAN_MIRROR)/authors/id/$(CPAN_AUTHOR_ID) http://www.cpan.org/authors/id/$(CPAN_AUTHOR_ID) ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/$(CPAN_AUTHOR_ID) 
 
-LIBDEPS = apps/base/IO-Stringy apps/base/MIME-Base64 apps/base/MailTools
+LIBDEPS = apps/base/IO-Stringy apps/base/MailTools
 
 DESCRIPTION =  Parses streams to create MIME entities
 AUTHOR = David F. Skoll 
