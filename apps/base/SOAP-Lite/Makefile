@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION)a.tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BY/BYRNE/SOAP/ http://www.cpan.org/authors/id/B/BY/BYRNE/SOAP/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/B/BY/BYRNE/SOAP/
 
-LIBDEPS = apps/base/XML-Parser apps/base/libwww-perl apps/base/Crypt-SSLeay apps/base/Net-Jabber apps/base/IO-Socket-SSL apps/base/Compress-Zlib apps/base/MIME-tools
+LIBDEPS = apps/base/XML-Parser apps/base/libwww-perl apps/base/Crypt-SSLeay apps/base/Net-Jabber apps/base/IO-Socket-SSL apps/base/MIME-tools
 
 DESCRIPTION = SOAP toolkit for perl
 AUTHOR = Byrne Reese
