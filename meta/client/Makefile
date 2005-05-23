@@ -36,3 +36,4 @@ apps/install-%/Makefile:
 
 list_packages:
 	@echo $(LIBDEPS)
+
