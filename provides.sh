@@ -24,7 +24,7 @@ ProvidesStop()
 
     if [ -s $COOKIEDIR/provides.perl ] 
     then 
-      list=`cat $COOKIEDIR/provides.perl` 
+      list=`cat $COOKIEDIR/provides.perl | grep -v 'perllocal.pod$'` 
       for f in $list
       do
         if [ ! -z $f ]
