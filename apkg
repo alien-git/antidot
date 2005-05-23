@@ -18,7 +18,7 @@ VERSION=0.01
 ###########################################################################
 [ -f $HOME/.alien/apkg.rc ] && . $HOME/.alien/apkg.rc
 ###########################################################################
-URL=${APKG_URL:=http://alien.cern.ch/cache/dist}
+URL=${APKG_URL:=http://alien.cern.ch/cache/dist/releases/HEAD}
 AUTOURL=${APKG_AUTOURL:=http://alien.cern.ch/cache/packages}
 CACHEURL=${APKG_CACHEURL:=http://alien.cern.ch/cache}
 PREFIX=${APKG_PREFIX:=/opt/alien}
