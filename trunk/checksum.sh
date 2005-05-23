@@ -9,7 +9,7 @@ ChecksumPrint()
     mkdir -p $tmpdir/$dir || exit 1
     tar jxvf $1 -C $tmpdir/$dir > $tmpdir/list
     cd $tmpdir/$dir
-    cat ../list | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort > `basename $1`
+    grep -v -e '.*/lib.*\.a$' ../list | awk '{printf("[ -f %s ] && md5sum %s\n",$1,$1)}' | sh | awk '{print $1} END{print NR}' | sort > `basename $1`
     cd $tmpdir
     md5sum $1
     rm -rf $tmpdir
