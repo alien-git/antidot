@@ -1,0 +1,10 @@
+--- work/xerces-c-src_2_5_0/src/xercesc/Makefile.in	Thu Nov 20 17:59:23 2003
++++ work/xerces-c-src_2_5_0/src/xercesc/Makefile.in.new	Wed Feb  9 10:48:42 2005
+@@ -245,6 +245,7 @@
+ 
+ 	@echo Populate the binary output directory
+ 	@echo Copying binary outputs ...
++	-${RM} -Rf ${BINTARGETDIR}/lib/libxerces*
+ 	-${CP} -Rf ${XERCESCROOT}/bin/* ${BINTARGETDIR}/bin
+ 	-${CP} -Rf ${XERCESCROOT}/src/xercesc/config.status ${BINTARGETDIR}/etc
+ 	-${CP} -Rf ${XERCESCROOT}/bin/obj/*.map ${BINTARGETDIR}/etc
