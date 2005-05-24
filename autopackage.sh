@@ -15,7 +15,7 @@ Summary: $DESCRIPTION
 URL: $URL
 License: $LICENSE
 SoftwareVersion: $GARVERSION
-InterfaceVersion: $GARVERSION
+InterfaceVersion: $INTERFACE_VERSION
 AutopackageTarget: 1.0
 
 [Description]
