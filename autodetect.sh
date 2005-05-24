@@ -1,5 +1,5 @@
 #!/bin/sh
-set -vx
+
 ###########################################################################
 STANDARD_DIRS="$prefix /opt/globus /opt/alien /opt/glite /opt/glite/externals /usr/local /usr/bin /usr/lib"
 ###########################################################################

@@ -32,7 +32,8 @@ true
 
 [Prepare]
 EOF
-make -s showautodeps | grep require >> autopackage/default.apspec 
+
+make -s showautodeps >> autopackage/default.apspec
 
 cat <<EOF>>autopackage/default.apspec
 
