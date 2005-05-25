@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/ML/MLEHMANN/ http://www.cpan.org/authors/id/M/ML/MLEHMANN/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/ML/MLEHMANN/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/XML-Parser
 
 DESCRIPTION = binding of the Gtk library used by GIMP
 
