@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MA/MAURICE/ http://www.cpan.org/authors/id/M/MA/MAURICE/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MA/MAURICE/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/MailTools
 
 DESCRIPTION = Check validity of Internet email addresses
 AUTHOR = Maurice Aubrey
