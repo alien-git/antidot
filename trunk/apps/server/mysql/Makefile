@@ -1,9 +1,9 @@
 GARNAME = mysql
-GARVERSION = 4.0.24
+GARVERSION = 4.1.12
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = ftp://mirror.switch.ch/mirror/mysql/Downloads/MySQL-4.0/ 
+MASTER_SITES = ftp://mirror.switch.ch/mirror/mysql/Downloads/MySQL-4.1/ 
 
 LIBDEPS = apps/gcc/gcc
 
