@@ -27,3 +27,4 @@ BUILD_ARGS =
 
 include ../category.mk
 
+PRE_CONFIGURE = ( rm -f $(WORKSRC)/t/t30t1font.t )
