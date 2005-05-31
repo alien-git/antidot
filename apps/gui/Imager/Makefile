@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TO/TONYC/ http://www.cpan.org/authors/id/T/TO/TONYC/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/T/TO/TONYC/
 
-LIBDEPS = apps/base/perl apps/gui/imlib2
+LIBDEPS = apps/base/perl apps/gui/t1lib
 
 DESCRIPTION = Draws, reads and writes Imagefiles
 AUTHOR = Tony Cook
