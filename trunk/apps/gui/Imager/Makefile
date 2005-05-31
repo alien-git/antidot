@@ -5,12 +5,14 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TO/TONYC/ http://www.cpan.org/authors/id/T/TO/TONYC/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/T/TO/TONYC/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/perl apps/gui/freetype2
 
 DESCRIPTION = Draws, reads and writes Imagefiles
 AUTHOR = Tony Cook
 URL = http://cpan.uwinnipeg.ca/~tonyc
 LICENSE = Perl
+
+AUTOTEST = testForAliEnPerlModule Imager $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
