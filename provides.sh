@@ -16,7 +16,7 @@ ProvidesStop()
 {
   if [ -f files/provides ]
   then
-     cp files/provides $COOKIEDIR
+     cat files/provides | sed -e "s%^PREFIX%$PREFIX%" > $COOKIEDIR/provides
   else
     find $PREFIX -cnewer $COOKIEDIR/provides  -a \( -type f -o -type l \) > $COOKIEDIR/provides.all
 
