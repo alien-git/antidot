@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.42  2005/06/02 07:29:40  buncic
+# Preparing for v2-0-5 release.
+#
 # Revision 1.41  2005/05/19 07:58:43  buncic
 # Using separate binary repository for each release.
 #
@@ -616,13 +619,15 @@ InstallerUI()
   cmd=$cmd"--prefix=$prefix"
 
   $ALIEN_DIALOG $style \
-               --radiolist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
-                           'all'    'All packages'            on \
-                           'client' 'Client'                  0  \
-                           'portal' 'Portal'                  0  \
-                           'site'   'Site CE/SE services'     0  \
-                           'core'   'Core VO services'        0  \
-                           'wn'     'Worker node'             0 2>$dialog_file || Exit 1
+               --checklist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
+                           'all'     'All packages'            on \
+                           'gShell'  'Min-client using gShell' 0  \
+                           'client'  'Client'                  0  \
+                           'portal'  'Portal'                  0  \
+                           'site'    'Site CE/SE services'     0  \
+                           'monitor' 'MonaLisa site monitor'   0  \
+                           'core'    'Core VO services'        0  \
+                           'wn'      'Worker node'             0 2>$dialog_file || Exit 1
   list=`cat $dialog_file`
 
   ALIEN_INSTALLER_TYPE="$list"
