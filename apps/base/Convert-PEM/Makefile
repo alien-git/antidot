@@ -12,6 +12,8 @@ AUTHOR =  Benjamin Trott
 URL = http://cpan.uwinnipeg.ca/~btrott
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Convert::PEM $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

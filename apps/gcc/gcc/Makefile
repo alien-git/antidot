@@ -16,6 +16,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
+AUTOTEST=locateCommand gcc -dumpversion
+
 CONFIGURE_ARGS = $(DIRPATHS) --enable-languages=c,c++,f77
 
 include ../category.mk

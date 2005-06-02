@@ -11,6 +11,8 @@ DESCRIPTION = Automatic install of dependencies via CPAN
 AUTHOR = Autrijus Tang
 URL = http://cpan.uwinnipeg.ca/~autrijus
 LICENSE = Perl
+
+AUTOTEST = testForAliEnPerlModule ExtUtils::AutoInstall $(GARVERSION )
  
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

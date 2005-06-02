@@ -12,6 +12,7 @@ AUTHOR =  Peter Behroozi
 URL = http://cpan.uwinnipeg.ca/~behroozi
 LICENSE = 
 
+AUTOTEST = testForAliEnPerlModule IO::Socket::SSL $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

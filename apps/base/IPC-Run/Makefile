@@ -12,6 +12,8 @@ AUTHOR = Richard Soderberg
 URL = http://cpan.uwinnipeg.ca/~rsod
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule IPC::Run $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

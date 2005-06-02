@@ -8,6 +8,9 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KW/KWILLIAMS/ http://www.cpan.org/aut
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Handling files and directories portably
+LICENSE = Perl
+
+AUTOTEST = testForAliEnPerlModule Cwd $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

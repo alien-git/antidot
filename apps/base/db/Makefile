@@ -16,6 +16,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/build_unix/configure
 BUILD_SCRIPTS = $(WORKSRC)/build_unix/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/build_unix/Makefile
 
+AUTOTEST=locateCommand db_verify -V | awk -F' |:' '{print $6}'
+
 CONFIGURE_ARGS = $(DIRPATHS) --enable-posixmutexes
 
 include ../category.mk

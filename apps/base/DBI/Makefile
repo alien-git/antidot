@@ -11,6 +11,8 @@ DESCRIPTION = Generic Database Interface (see DBD modules)
 AUTHOR = Tim Bunce 
 URL = http://cpan.uwinnipeg.ca/~timb
 LICENSE = Perl
+
+AUTOTEST = testForAliEnPerlModule DBI $(GARVERSION)
  
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

@@ -12,6 +12,8 @@ URL = http://cpan.uwinnipeg.ca/~jmoore
 AUTHOR = Jason Moore
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule CGI::FastTemplate $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

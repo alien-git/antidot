@@ -1,0 +1,14 @@
+--- work/MonaLisa.v1.2/Makefile	1970-01-01 01:00:00.000000000 +0100
++++ work/MonaLisa.v1.2/Makefile.new	2005-05-20 15:06:40.818125052 +0200
+@@ -0,0 +1,11 @@
++
++install:
++	tar zxvf $(DISTNAME).tar.gz ; \
++	rm -rf $(PREFIX)/$(DISTNAME) ; \
++	mv $(DISTNAME) $(PREFIX)/ ; \
++	echo "Copying AliEn specific files..." ; \
++	cp -r ../../files/AliEn $(PREFIX)/$(DISTNAME) ; \
++	cp -r ../../files/Service $(PREFIX)/$(DISTNAME) ; \
++	cd $(PREFIX)/ ; rm -f MonaLisa ; \
++	ln -sf $(DISTNAME) MonaLisa
++

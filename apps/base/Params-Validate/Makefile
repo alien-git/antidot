@@ -12,6 +12,8 @@ AUTHOR = Dave Rolsky
 URL = http://cpan.uwinnipeg.ca/~drolsky
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Params::Validate $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

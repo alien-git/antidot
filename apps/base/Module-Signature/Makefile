@@ -12,6 +12,8 @@ AUTHOR = Autrijus Tang
 URL = http://cpan.uwinnipeg.ca/~autrijus
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Module::Signature $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

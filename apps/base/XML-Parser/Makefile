@@ -12,6 +12,8 @@ AUTHOR = Matt Sergeant
 URL = http://cpan.uwinnipeg.ca/~msergeant
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule XML::Parser $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

@@ -12,6 +12,8 @@ AUTHOR = Michael G Schwern
 URL  = http://cpan.uwinnipeg.ca/~mschwern 
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Exporter::Lite $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

@@ -12,6 +12,8 @@ URL = http://invisible-island.net/dialog/dialog.html
 AUTHOR = 
 LICENSE = GPL2
 
+AUTOTEST=
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

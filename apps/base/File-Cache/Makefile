@@ -12,6 +12,8 @@ AUTHOR = DeWitt Clinton
 URL = http://cpan.uwinnipeg.ca/~dclinton
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule File::Cache $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

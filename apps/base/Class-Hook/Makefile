@@ -12,6 +12,8 @@ AUTHOR = Pierre Denis
 URL = http://cpan.uwinnipeg.ca/~pdenis
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Class::Hook $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

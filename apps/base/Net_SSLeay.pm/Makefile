@@ -12,6 +12,8 @@ AUTHOR = Sampo Kellomaki
 URL = http://cpan.uwinnipeg.ca/~sampo
 LICENSE = OpenSSL
 
+AUTOTEST = testForAliEnPerlModule Net::SSLeay $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

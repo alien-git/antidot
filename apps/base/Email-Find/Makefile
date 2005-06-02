@@ -12,6 +12,8 @@ AUTHOR = Tatsuhiko Miyagawa
 URL = http://cpan.uwinnipeg.ca/~miyagawa
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Email::Find $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

@@ -8,6 +8,8 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/L/LB/LBROCARD/ http://search.cpan.org/C
 LIBDEPS = apps/base/perl apps/gui/imlib2
 BUILDDEPS = apps/base/Module-Build
 
+AUTOTEST = testForAliEnPerlModule Image::Imlib2 $(GARVERSION )
+
 DESCRIPTION = Interface to the Imlib2 image library
 AUTHOR = Leon Brocard 
 URL = http://cpan.uwinnipeg.ca/~lbrocard

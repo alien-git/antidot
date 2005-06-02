@@ -12,6 +12,8 @@ AUTHOR = Jonathan Stowe
 URL = http://cpan.uwinnipeg.ca/~jstowe
 LICENSE = Other
 
+AUTOTEST = testForAliEnPerlModule Term::ReadKey $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

@@ -12,6 +12,8 @@ URL = http://ldap.perl.org/
 AUTHOR = Graham Barr
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Net::LDAP $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

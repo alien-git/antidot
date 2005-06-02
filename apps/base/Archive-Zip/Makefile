@@ -12,6 +12,8 @@ AUTHOR  = Ned Konz
 URL     = http://cpan.uwinnipeg.ca/~nedkonz 
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Archive::Zip $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

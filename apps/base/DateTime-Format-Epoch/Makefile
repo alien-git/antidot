@@ -12,6 +12,8 @@ AUTHOR =  Eugene van der Pijll
 URL = http://cpan.uwinnipeg.ca/~pijll
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule DateTime::Format::Epoch $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

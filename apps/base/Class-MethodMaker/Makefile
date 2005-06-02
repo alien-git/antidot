@@ -12,6 +12,8 @@ AUTHOR = Martyn J. Pearce
 URL = http://cpan.uwinnipeg.ca/~fluffy
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Class::MethodMaker $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
