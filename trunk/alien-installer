@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.43  2005/06/02 07:54:52  buncic
+# Adding gshell and monitor meta packages
+#
 # Revision 1.42  2005/06/02 07:29:40  buncic
 # Preparing for v2-0-5 release.
 #
@@ -620,7 +623,7 @@ InstallerUI()
 
   $ALIEN_DIALOG $style \
                --checklist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
-                           'all'     'All packages'            on \
+                           'all'     'All packages'            0  \
                            'gShell'  'Min-client using gShell' 0  \
                            'client'  'Client'                  0  \
                            'portal'  'Portal'                  0  \
@@ -629,6 +632,11 @@ InstallerUI()
                            'core'    'Core VO services'        0  \
                            'wn'      'Worker node'             0 2>$dialog_file || Exit 1
   list=`cat $dialog_file`
+
+  if [ "$list" = "" ]
+  then
+    Error "Nothing selected - exiting..."
+  fi
 
   ALIEN_INSTALLER_TYPE="$list"
   

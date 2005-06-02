@@ -7,7 +7,7 @@ FILTER     ?= %
  
 ALL=\
 apps/devel/dialog \
-apps/base/eugridpma-carep \
+apps/base/bash \
 apps/alien/apiservice
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
