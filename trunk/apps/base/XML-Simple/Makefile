@@ -12,6 +12,8 @@ AUTHOR = Grant McLean
 URL = http://cpan.uwinnipeg.ca/~grantm
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule XML::Simple $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

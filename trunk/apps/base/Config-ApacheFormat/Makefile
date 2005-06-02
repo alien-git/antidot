@@ -13,6 +13,8 @@ AUTHOR = Sam Tregar
 URL = http://cpan.uwinnipeg.ca/~samtregar
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Config::ApacheFormat $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

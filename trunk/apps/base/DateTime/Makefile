@@ -11,6 +11,8 @@ BUILDDEPS = apps/base/Module-Build
 
 DESCRIPTION = A complete, easy to use date and time object
 
+AUTOTEST = testForAliEnPerlModule DateTime $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

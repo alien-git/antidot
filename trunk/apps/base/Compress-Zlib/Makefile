@@ -12,6 +12,8 @@ AUTHOR = Paul Marquess
 URL = http://cpan.uwinnipeg.ca/~pmqs
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Compress::Zlib $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

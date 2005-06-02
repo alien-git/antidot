@@ -12,6 +12,8 @@ AUTHOR =  Dave Paris
 URL = http://cpan.uwinnipeg.ca/~dparis
 LICENSE = 
 
+AUTOTEST = testForAliEnPerlModule Crypt::DES $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

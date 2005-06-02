@@ -13,6 +13,8 @@ DESCRIPTION =  I/O on in-core objects like strings/arrays
 AUTHOR = David F. Skoll
 URL = http://cpan.uwinnipeg.ca/~dskoll
 LICENSE = Perl
+
+AUTOTEST = testForAliEnPerlModule IO::stringy $(GARVERSION )
  
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

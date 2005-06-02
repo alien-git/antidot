@@ -12,6 +12,8 @@ AUTHOR = Kip Hampton
 URL = http://cpan.uwinnipeg.ca/~khampton
 LICENSE = 
 
+AUTOTEST = testForAliEnPerlModule XML::SAX::Base $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

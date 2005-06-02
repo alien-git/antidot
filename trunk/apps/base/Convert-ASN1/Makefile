@@ -12,6 +12,8 @@ AUTHOR = Graham Barr
 URL = http://cpan.uwinnipeg.ca/~gbarr
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Convert::ASN1 $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

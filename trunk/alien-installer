@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.41  2005/05/19 07:58:43  buncic
+# Using separate binary repository for each release.
+#
 # Revision 1.40  2005/05/17 10:55:00  buncic
 # Skip installation log dump if there was no error.
 #
@@ -227,6 +230,7 @@ InstallerSync()
 ###########################################################################
 {
  (
+  mkdir -p $ALIEN_INSTALLER_HOME || Exit 1
   cd $ALIEN_INSTALLER_HOME
   if [ ! -d CVS ]
   then
@@ -679,8 +683,6 @@ InstallerUI()
 
 ###########################################################################
 ###########################################################################
-
-mkdir -p $ALIEN_INSTALLER_HOME || Exit 1
 
 args=$*
  

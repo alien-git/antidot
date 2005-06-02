@@ -12,6 +12,8 @@ AUTHOR = Sullivan Beck
 URL = http://cpan.uwinnipeg.ca/~sbeck
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule DateManip $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

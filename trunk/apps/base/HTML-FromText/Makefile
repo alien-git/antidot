@@ -9,6 +9,8 @@ LIBDEPS = apps/base/Email-Find apps/base/Exporter-Lite apps/base/HTML-Parser
 
 DESCRIPTION = Mark up text as HTML
 
+AUTOTEST = testForAliEnPerlModule HTML::FromText $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

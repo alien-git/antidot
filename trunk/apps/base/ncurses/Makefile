@@ -19,6 +19,8 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = $(DIRPATHS) --with-shared  --enable-broken_linker --without-ada  --enable-symlinks
 
+AUTOTEST = testForLib -i libncurses.so.$(GARVERSION)
+
 include ../category.mk
 
 POST_INSTALL = (cd $(PREFIX)/lib; rm -rf libtermcap.so.2; ln -s libncurses.so libtermcap.so.2 ) 

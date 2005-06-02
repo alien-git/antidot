@@ -12,6 +12,8 @@ AUTHOR = Damian Conway
 URL = http://cpan.uwinnipeg.ca/~dconway
 LICENSE = Perl 
 
+AUTOTEST = testForAliEnPerlModule Parse::RecDescent $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

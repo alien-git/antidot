@@ -12,6 +12,8 @@ URL = http://www.gnu.org/software/autoconf/
 LICENSE = GPL2
 AUTHOR = 
 
+AUTOTEST=locateCommand autoconf --version | awk '{print $3}'
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

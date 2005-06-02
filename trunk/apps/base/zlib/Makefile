@@ -17,6 +17,8 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
+AUTOTEST = testForLib -i libz.so.$(GARVERSION)
+
 CONFIGURE_ARGS = $(DIRPATHS) --shared 
 NODIRPATHS = --bindir --exec_prefix --sbindir --libexecdir --datadir --sysconfdir --sharedstatedir --localstatedir --libdir --infodir --includedir --mandir
 

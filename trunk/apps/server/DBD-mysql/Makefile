@@ -12,6 +12,8 @@ AUTHOR = Rudy Lippan
 URL = http://cpan.uwinnipeg.ca/~rudy
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule DBD::mysql $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

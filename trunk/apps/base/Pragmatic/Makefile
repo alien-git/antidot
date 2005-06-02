@@ -12,6 +12,8 @@ AUTHOR = B. K. Oxley
 URL = http://cpan.uwinnipeg.ca/~binkley
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Pragmatic $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

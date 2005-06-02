@@ -7,6 +7,8 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DC/DCLINTON/ http://www.cpan.org/auth
 
 LIBDEPS = apps/base/Error
 
+AUTOTEST = testForAliEnPerlModule Cache::Cache $(GARVERSION)
+
 DESCRIPTION = Generic cache interface and implementations
 LICENSE = Perl
 URL = http://cpan.uwinnipeg.ca/~dclinton

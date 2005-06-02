@@ -12,6 +12,8 @@ LICENSE = Perl
 
 DESCRIPTION = provide an interface to TTYs and PTYs
 
+AUTOTEST = testForAliEnPerlModule IO::Tty $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

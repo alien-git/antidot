@@ -12,6 +12,8 @@ AUTHOR =  Brian Ingerson
 URL = http://cpan.uwinnipeg.ca/~ingy
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Inline $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

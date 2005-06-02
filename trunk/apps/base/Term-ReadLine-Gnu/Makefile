@@ -12,6 +12,8 @@ AUTHOR = Hiroo HAYASHI
 URL = http://cpan.uwinnipeg.ca/~hayashi
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Term::ReadLine::Gnu $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

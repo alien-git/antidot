@@ -12,6 +12,8 @@ AUTHOR = Leon Brocard
 URL = http://cpan.uwinnipeg.ca/~lbrocard
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Image::WorldMap $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

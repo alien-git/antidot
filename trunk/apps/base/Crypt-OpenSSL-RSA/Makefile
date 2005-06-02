@@ -13,6 +13,8 @@ AUTHOR = Ian Robertson
 URL = http://cpan.uwinnipeg.ca/~iroberts
 LICENSE = Perl
 
+AUTOTEST = testForAliEnPerlModule Crypt::OpenSSL::RSA $(GARVERSION)
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

@@ -28,7 +28,8 @@ apps/server/mysql \
 apps/server/DBD-mysql \
 apps/server/jabberd \
 apps/server/openldap \
-apps/base/Authen-PAM
+apps/base/Authen-PAM \
+apps/monitor/MonaLisa 
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 

@@ -12,6 +12,8 @@ AUTHOR = Mike Heins
 URL = http://cpan.uwinnipeg.ca/~mikeh
 LICENSE = Perl 
 
+AUTOTEST = testForAliEnPerlModule CGI::Imagemap $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

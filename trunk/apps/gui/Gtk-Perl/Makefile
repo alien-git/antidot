@@ -9,6 +9,8 @@ LIBDEPS = apps/base/XML-Parser
 
 DESCRIPTION = binding of the Gtk library used by GIMP
 
+AUTOTEST = testForAliEnPerlModule Gtk $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

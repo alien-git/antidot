@@ -11,6 +11,8 @@ DESCRIPTION = Libwww-perl
 URL = http://lwp.linpro.no/lwp/
 AUTHOR = Gisle Aas
 LICENSE = Perl
+
+AUTOTEST = testForAliEnPerlModule LWP $(GARVERSION )
  
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

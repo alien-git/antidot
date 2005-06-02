@@ -9,6 +9,8 @@ LIBDEPS = apps/base/HTML-Tagset
 
 DESCRIPTION =  Parse HEAD section of HTML documents
 
+AUTOTEST = testForAliEnPerlModule HTML::Parser $(GARVERSION )
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
