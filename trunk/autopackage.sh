@@ -54,4 +54,4 @@ export APKG_URL=http://alien.cern.ch/cache/packages
 
 mkdir -p $PREFIX/packages
 makeinstaller -b -x && mv *.package* *.xml $PREFIX/packages
-#rm -rf autopackage
+rm -rf autopackage
