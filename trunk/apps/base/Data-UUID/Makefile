@@ -2,6 +2,7 @@ GARNAME = Data-UUID
 GARVERSION = 0.11
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = UUID.xs.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AG/AGOLOMSH/ http://www.cpan.org/authors/id/A/AG/AGOLOMSH/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/A/AG/AGOLOMSH/
 
