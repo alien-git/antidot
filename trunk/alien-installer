@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.45  2005/06/02 08:22:43  buncic
+# Typo.
+#
 # Revision 1.44  2005/06/02 08:09:20  buncic
 # No default meta package selected.
 #
@@ -627,8 +630,8 @@ InstallerUI()
   $ALIEN_DIALOG $style \
                --checklist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
                            'all'     'All packages'             0  \
-                           'gshell'  'Mini-client using gShell' 0  \
                            'client'  'Client'                   0  \
+                           'gshell'  'gShell and ROOT'          0  \
                            'portal'  'Portal'                   0  \
                            'site'    'Site CE/SE services'      0  \
                            'monitor' 'MonaLisa site monitor'    0  \
