@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.46  2005/06/02 10:57:23  buncic
+# Adding root to gshell meta package.
+#
 # Revision 1.45  2005/06/02 08:22:43  buncic
 # Typo.
 #
@@ -621,7 +624,7 @@ InstallerUI()
 
   ALIEN_INSTALLER_PREFIX=$prefix
 
-  [ -d $prefix ] &&  rm -rf $prefix/*  
+  #  [ -d $prefix ] &&  rm -rf $prefix/*  
 
   mkdir -p $prefix || Error "Cannot create $prefix directory"
 
