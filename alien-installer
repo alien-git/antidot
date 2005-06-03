@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.50  2005/06/03 08:42:52  buncic
+# typo
+#
 # Revision 1.49  2005/06/03 08:34:45  buncic
 # Fixing multiple met package list.
 #
@@ -654,7 +657,7 @@ InstallerUI()
                            'core'    'Core VO services'         0  \
                            'wn'      'Worker node'              0 2>$dialog_file || Exit 1
 
-  list=$(cat $dialog_file | sed 's/"//g')
+  list=\"$(cat $dialog_file | sed 's/"//g')\"
 
   if [ "$list" = "" ]
   then
