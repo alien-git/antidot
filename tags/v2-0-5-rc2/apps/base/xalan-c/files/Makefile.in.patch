@@ -1,0 +1,11 @@
+--- work/xml-xalan/c/src/xalanc/Makefile.in	Tue Dec 21 06:55:45 2004
++++ work/xml-xalan/c/src/xalanc/Makefile.in.new	Fri Feb  4 11:24:46 2005
+@@ -149,7 +149,7 @@
+ ${XSL_OBJ_DIR}/%.o:%.hpp
+ 	$(CC1) $(XSL_BUILD_OPTIONS) -c $(XSL_INCL) $(EXTRA_COMPILE_OPTIONS) -o $@ $(patsubst .hpp,.cpp,$<)
+ 
+-all:	 lib  testXSLT testXPath XalanExe
++all:	 lib  XalanExe
+ 
+ prepare:
+ 	@echo Preparing the directory structure for a build ...
