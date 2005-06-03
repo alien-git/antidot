@@ -1,0 +1,11 @@
+--- work/glite-data-config-service-1.1.4/bootstrap	Fri Aug 20 14:35:04 2004
++++ work/glite-data-config-service-1.1.4/bootstrap.new	Thu Feb  3 12:48:30 2005
+@@ -2,7 +2,7 @@
+ 
+ mkdir -p src/autogen
+ set -x
+-aclocal -I project
++aclocal -I $PREFIX/share/glite/project 
+ libtoolize --force
+ autoheader
+ automake --foreign --add-missing --copy
