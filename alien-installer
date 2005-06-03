@@ -189,7 +189,7 @@ InstallerRcUpdate()
     echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
     echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD" 
     echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
-    echo "ALIEN_INSTALLER_TYPE=\"$ALIEN_INSTALLER_TYPE\"" 
+    echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
     echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
     echo "ALIEN_DIALOG=$ALIEN_DIALOG" 
     echo "ALIEN_RELEASE=$ALIEN_RELEASE" 
@@ -440,6 +440,10 @@ InstallerUpdate()
   for meta in $ALIEN_INSTALLER_TYPE
   do
     pkgdir=`echo $meta | sed 's/"//g'`
+    if [ "$pkgdir" = "" ]
+    then
+      continue
+    fi 
     if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
     then
       packages=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make list_packages`
@@ -660,7 +664,7 @@ InstallerUI()
                            'core'    'Core VO services'         0  \
                            'wn'      'Worker node'              0 2>$dialog_file || Exit 1
 
-  list=\"$(cat $dialog_file | sed 's/"//g')\"
+  list=\"$(cat $dialog_file | sed 's/"//g' )\"
 
   if [ "$list" = "" ]
   then
@@ -681,6 +685,10 @@ InstallerUI()
   for meta in $list
   do
     pkgdir=`echo $meta | sed 's/"//g'`
+    if [ "$pkgdir" = "" ]
+    then
+      continue
+    fi 
     $ALIEN_DIALOG $style --sleep 3 \
                   --infobox "Getting the list of packages to install for $pkgdir..." $height $width
     if [ -d $workspace/meta/$pkgdir ]
