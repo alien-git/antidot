@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.49  2005/06/03 08:34:45  buncic
+# Fixing multiple met package list.
+#
 # Revision 1.48  2005/06/03 08:21:47  buncic
 # Added --force option for update.
 #
@@ -650,7 +653,8 @@ InstallerUI()
                            'monitor' 'MonaLisa site monitor'    0  \
                            'core'    'Core VO services'         0  \
                            'wn'      'Worker node'              0 2>$dialog_file || Exit 1
-  list=`cat $dialog_file | sed 's/"//g'`
+
+  list=$(cat $dialog_file | sed 's/"//g')
 
   if [ "$list" = "" ]
   then
