@@ -1,5 +1,5 @@
 GARNAME = xrootd
-GARVERSION = 1.0.3
+GARVERSION = 1.0.4
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
@@ -22,7 +22,7 @@ TEST_SCRIPTS =
 CONFIGURE_ARGS = --prefix=$(PREFIX)
 
 ifeq ($(shell uname -m),ia64)
-CONFIGURE_ARGS += --ccflavour=gccia64
+CONFIGURE_ARGS += --with-xccflavour=gcc
 endif
 
 include ../category.mk
