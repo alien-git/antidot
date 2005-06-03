@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.47  2005/06/02 12:16:28  buncic
+# Do not clean target directory.
+#
 # Revision 1.46  2005/06/02 10:57:23  buncic
 # Adding root to gshell meta package.
 #
@@ -432,6 +435,10 @@ InstallerUpdate()
       cd $ALIEN_INSTALLER_HOME
       if [ "$ALIEN_FORCE" = "1" ]
       then
+        if [ -f $ALIEN_INSTALLER_PREFIX/bin/alien-perl ] 
+        then
+           rm -rf $ALIEN_INSTALLER_PREFIX/*
+        fi 
         rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
       fi
       i=0
