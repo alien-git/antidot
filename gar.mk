@@ -47,6 +47,7 @@ SCRATCHDIR ?= tmp
 CHECKSUM_FILE ?= checksums
 MANIFEST_FILE ?= manifest
 MAKEFILE = Makefile
+INSTALL_TARGET ?= install
 
 DIRSTODOTS = $(subst . /,./,$(patsubst %,/..,$(subst /, ,/$(1))))
 ROOTFROMDEST = $(call DIRSTODOTS,$(DESTDIR))

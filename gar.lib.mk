@@ -490,7 +490,7 @@ install-%/Makefile:
 	@echo ' $(call TMSG_LIB,Running make install in,$*)'
 	$(PROVIDE_BEGIN)
 	@$(PRE_INSTALL)
-	@$(INSTALL_ENV) $(MAKE) DESTDIR=$(DESTDIR) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) install
+	@$(INSTALL_ENV) $(MAKE) DESTDIR=$(DESTDIR) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) $(INSTALL_TARGET)
 	@$(POST_INSTALL)
 	$(PROVIDE_END)
 	@$(MAKECOOKIE)
@@ -499,7 +499,7 @@ install-%/makefile:
 	@echo ' $(call TMSG_LIB,Running make install in,$*)'
 	@$(PROVIDE_BEGIN)
 	@$(PRE_INSTALL)
-	@$(INSTALL_ENV) $(MAKE) DESTDIR=$(DESTDIR) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) install
+	@$(INSTALL_ENV) $(MAKE) DESTDIR=$(DESTDIR) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) $(INSTALL_TARGET)
 	@$(POST_INSTALL)
 	@$(PROVIDE_END)
 	@$(MAKECOOKIE)
@@ -508,7 +508,7 @@ install-%/GNUmakefile:
 	@echo ' $(call TMSG_LIB,Running make install in,$*)'
 	@$(PROVIDE_BEGIN)
 	@$(PRE_INSTALL)
-	@$(INSTALL_ENV) $(MAKE) DESTDIR=$(DESTDIR) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) install
+	@$(INSTALL_ENV) $(MAKE) DESTDIR=$(DESTDIR) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) $(INSTALL_TARGET)
 	@$(POST_INSTALL)
 	@$(PROVIDE_END)
 	@$(MAKECOOKIE)
