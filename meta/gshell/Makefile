@@ -7,8 +7,6 @@ FILTER     ?= %
  
 ALL=\
 apps/devel/dialog \
-apps/base/bash \
-apps/alien/apiservice \
 apps/root/root
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
