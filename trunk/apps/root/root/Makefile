@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = 
 
-LIBDEPS = apps/alien/apiservice
+LIBDEPS = apps/alien/api
 
 DESCRIPTION = ROOT- An Object-Oriented Data Analysis Framework
 URL = http://root.cern.ch
