@@ -1,9 +1,5 @@
-#!/usr/local/bin/perl
-
 # Stopping script for ML
-# v0.00
+# v0.01
 
-my $ALIEN_ROOT = "/opt/alien";
-
-system("$ALIEN_ROOT/java/MonaLisa/Service/CMD/ML_SER stop");
+system("$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER stop 1>/dev/null 2>&1");
 
