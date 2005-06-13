@@ -27,6 +27,3 @@ INSTALL_ARGS = install
 INSTALL_ENV = env DISTNAME=$(DISTNAME) PREFIX=$(PREFIX)/java
 
 include ../category.mk
-
-POST_INSTALL = sh files/first_config.sh $(PREFIX)/java/$(DISTNAME) files/
-
