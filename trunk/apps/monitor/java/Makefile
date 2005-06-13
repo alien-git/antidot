@@ -11,8 +11,8 @@ MASTER_SITES = http://monalisa.cern.ch/MONALISA/download/ http://monalisa.cacr.c
 LIBDEPS = 
 
 DESCRIPTION = Java Runtime Environment
-LICENSE =
-AUTHOR = SUN
+LICENSE = Java
+AUTHOR = Sun Microsystems
 URL = http://java.sun.com
 
 
