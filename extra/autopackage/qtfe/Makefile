@@ -16,7 +16,10 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS  = $(WORKSRC)/Makefile 
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile 
 
+QTDIR=$(firstword $(sort $(wildcard /usr/lib/qt-3* /lib/qt-3* /usr/local/lib/qt-3*)))
+
 CONFIGURE_ARGS = $(DIRPATHS) 
+CONFIGURE_ENV = env QTDIR=$(QTLIB)
 
 include ../category.mk
 
