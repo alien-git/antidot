@@ -9,7 +9,7 @@ GARCVSVERSION = alien-apiservice-1_0_3
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
-BUILDDEPS = apps/alien/common apps/alien/gssapi apps/base/cgsi-gsoap
+BUILDDEPS = apps/alien/common apps/alien/gssapi
 LIBDEPS   = apps/alien/perl apps/base/bash apps/base/cgsi-gsoap
 
 DESCRIPTION = AliEn API
