@@ -1,5 +1,7 @@
 # Starting script for ML
-# v0.1
+# v0.2
+# Catalin.Cirstoiu@cern.ch
+# 14/06/2005
 
 use strict;
 use AliEn::Config;
@@ -79,7 +81,12 @@ sub setupConfig {
     my $user = $ENV{ALIEN_USER};
     my $javaHome = "$ENV{ALIEN_ROOT}/java/java";
     my $mlHome = "$ENV{ALIEN_ROOT}/java/MonaLisa";
+
+    system("mkdir -p $mlHome/Service/myFarm");
     
+    # db.conf.embedded
+    setupFile("$mlHome/AliEn/db.conf.embedded", "$mlHome/Service/myFarm/db.conf.embedded", {}, [], []); 
+ 
     # ml_env
     my $farmName = ($config->{MONALISA_NAME} or die("MonaLisa configuration not found in LDAP. Not starting it...\n"));
     my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "true");
@@ -99,7 +106,6 @@ sub setupConfig {
     $add = ($config->{MONALISA_ADDMODULES_LIST} or []);
     $rmv = ($config->{MONALISA_REMOVEMODULES_LIST} or []);
     $changes = {};
-    system("mkdir -p $mlHome/Service/myFarm");
     setupFile("$mlHome/AliEn/myFarm.conf", "$mlHome/Service/myFarm/myFarm.conf", $changes, $add, $rmv);
     
     # ml.properties
@@ -159,11 +165,11 @@ sub setupConfig {
 #print "========================\n";
 #dumpConfig();
 #print "Setting up ML config...\n";
-#setupConfig();
+setupConfig();
 #print "Starting ML...\n";
 
 # Start ML
-my $r = system("$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER start 1>/dev/null 2>&1");
+my $r = system("$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER start"); #1>/dev/null 2>&1");
 system("ln -sf $ENV{ALIEN_ROOT}/java/MonaLisa/Service/myFarm/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
 system("( cd $config->{LOG_DIR} ; ln -sf MonaLisa.log.0 MonaLisa.log )");
 
