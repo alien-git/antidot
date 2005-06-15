@@ -17,7 +17,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ENV = env GLOBUS_LOCATION= 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --etcdir=$(PREFIX)/etc --with-globus=$(GLOBUS_LOCATION) --enable-alien --with-alien-incdir=$(PREFIX)/include --with-alien-libdir=$(PREFIX)/lib --disable-xrootd 
+CONFIGURE_ARGS = --prefix=$(PREFIX) --etcdir=$(PREFIX)/etc --enable-alien --with-alien-incdir=$(PREFIX)/include --with-alien-libdir=$(PREFIX)/lib --disable-xrootd 
 
 include ../category.mk
 
