@@ -1,5 +1,5 @@
 GARNAME = glite-alien-common
-GARVERSION = 2.1.8
+GARVERSION = 2.1.0
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
@@ -23,5 +23,5 @@ CONFIGURE_ARGS = $(DIRPATHS) --with-glite-prefix=$(PREFIX) --with-stage-dir=$(PR
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); find . -name bootstrap -exec chmod +x {} \; ; sh bootstrap )
+PRE_CONFIGURE = (cd $(WORKSRC); find . -name bootstrap -exec chmod +x {} \; ; sh bootstrap; cd src; echo "VERSION='$(GARVERSION)'" > VERSION )
 
