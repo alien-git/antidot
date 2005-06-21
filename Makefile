@@ -21,5 +21,5 @@ distclean:
 	(cd apps; make clean) 
 
 %:
-	(cd meta; make $@)
+	(cd apps; make $@)
 
