@@ -2,24 +2,24 @@
 all:
 
 clean:
-	rm -rf config.log install-sh config.status  configure *~ missing config.cache  mkinstalldirs alien.conf.mk 
+	rm -rf config.log install-sh config.status  *~ missing config.cache  mkinstalldirs alien.conf.mk 
 
 dist:
-	tar zcvf ../antidot-0.1.tar.gz `find . -type f` 
+	tar zcvf ../alien.tar.gz `find . -type f` 
 
 status:
-	(cd apps; make -s status) 
+	(cd apps; $(MAKE) -s status) 
 
 ustatus:
-	(cd apps; make -s ustatus) 
+	(cd apps; $(MAKE) -s ustatus) 
 
 listdeps:
-	(cd apps; make -s listdeps) 
+	(cd apps; $(MAKE) -s listdeps) 
 
 distclean:
-	make clean
-	(cd apps; make clean) 
+	$(MAKE) clean
+	(cd apps;$(MAKE) clean) 
 
 %:
-	(cd apps; make $@)
+	(cd apps; $(MAKE) $@)
 
