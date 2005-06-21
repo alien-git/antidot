@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.53  2005/06/03 09:16:50  buncic
+# Finally fixing update...
+#
 # Revision 1.51  2005/06/03 08:47:50  buncic
 # ditto...
 #
@@ -200,7 +203,7 @@ InstallerRcUpdate()
 Exit()
 ###########################################################################
 {
-  clear
+  [ $debug -eq 0 ] &&  clear
   InstallerRcUpdate
   rm -rf $release_file $dialog_file
   exit $*
@@ -211,7 +214,7 @@ Error()
 ###########################################################################
 {
    dialog $style --msgbox "$1" $height $width 
-   clear
+   [ $debug -eq 0 ] &&  clear
    exit 1
 }
 ###########################################################################
@@ -734,6 +737,8 @@ InstallerUI()
 ###########################################################################
 ###########################################################################
 
+debug=0
+
 args=$*
  
 while [ $# -gt 0 ]
@@ -863,6 +868,7 @@ do
            ;;
         -v|--trace)
            shift 1
+           debug=1
            set -vx
            ;;
         -V)
