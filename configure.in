@@ -52,11 +52,6 @@ AC_ARG_WITH(globus_flavor,
             [GLOBUS_FLAVOR=$with_globus_flavor],
             [GLOBUS_FLAVOR=$GLOBUS_FLAVOR])
 
-AC_ARG_WITH(glite_build,
-            [  --with-glite-build=string     gLite build id],
-            [GLITE_BUILD=$with_glite_build],
-            [GLITE_BUILD=current])
-
 AC_ARG_WITH(alien_release,
             [  --with-alien-release=string     AliEn release],
             [RELEASE=$with_alien_release],
@@ -91,7 +86,6 @@ AC_SUBST(CACHEDIR)
 AC_SUBST(GPT_LOCATION)
 AC_SUBST(GLOBUS_LOCATION)
 AC_SUBST(GLOBUS_FLAVOR)
-AC_SUBST(GLITE_BUILD)
 AC_SUBST(RELEASE)
 
 AC_OUTPUT(alien.conf.mk)
