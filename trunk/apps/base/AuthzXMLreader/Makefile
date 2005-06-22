@@ -3,6 +3,10 @@ GARVERSION = 1.0.0
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+ifeq ($(shell uname),Darwin)
+PATCHFILES = macos.diff
+endif
+
 MASTER_SITES = 
 
 LIBDEPS = apps/base/perl apps/base/libxml2
