@@ -2,7 +2,7 @@ GARNAME = ApMon-CPP
 GARVERSION = 2.0.4
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Makefile.am.diff
+PATCHFILES = Makefile.am.diff macos.diff
 
 MASTER_SITES = 
 
