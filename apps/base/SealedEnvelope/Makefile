@@ -2,11 +2,11 @@ GARNAME = SealedEnvelope
 GARVERSION = 1.0.1
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Makefile.PL.diff
+PATCHFILES = Makefile.PL.diff configure.diff uuid.diff
 
 MASTER_SITES = 
 
-LIBDEPS = apps/base/perl apps/base/swig
+LIBDEPS = apps/base/swig apps/base/uuid
 
 AUTHOR  = Andreas Peters
 LICENSE = 
