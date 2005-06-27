@@ -543,6 +543,8 @@ fi
 
 
 
+PREFIX=$prefix
+
 PLATFORM=$(platform.sh platform)
 
 GLOBUS_FLAVOR=$(platform.sh flavor)
