@@ -547,12 +547,6 @@ PLATFORM=$(platform.sh platform)
 
 GLOBUS_FLAVOR=$(platform.sh flavor)
 
-
-echo $PLATFORM
-echo $GLOBUS_FLAVOR
-
-exit
-
 # Check whether --with-globus_location or --without-globus_location was given.
 if test "${with_globus_location+set}" = set; then
   withval="$with_globus_location"
