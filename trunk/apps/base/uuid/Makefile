@@ -2,6 +2,7 @@ GARNAME = uuid
 GARVERSION = 1.1.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = macos.diff
 
 MASTER_SITES = ftp://ftp.ossp.org/pkg/lib/uuid/
 
@@ -22,4 +23,3 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --with-perl
 
 include ../category.mk
 
- 

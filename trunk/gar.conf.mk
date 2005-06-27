@@ -43,20 +43,15 @@ sourcedir = $(BUILD_PREFIX)/src
 # the front should be harmless, as .. for / is just / itself.
 DESTDIR ?=
 BUILD_PREFIX ?= $(prefix)
-#BUILD_PREFIX ?= $(ROOTFROMDEST)/tmp/build
 
 CPPFLAGS += $(filter-out $(NOCPPFLAGS),-I$(DESTDIR)$(includedir))
-
-#CFLAGS += $(filter-out $(NOCFLAGS),-I$(DESTDIR)$(includedir) -I$(DESTDIR)/usr/X11R6/include -L$(DESTDIR)$(libdir) -L$(DESTDIR)$(TARGET_X11_LIB))
-
-CFLAGS += $(filter-out $(NOCFLAGS),-I$(DESTDIR)$(includedir))
-
-#LDFLAGS += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir) -L$(DESTDIR)$(TARGET_X11_LIB)) 
-LDFLAGS += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir)) 
+CFLAGS   += $(filter-out $(NOCFLAGS),-I$(DESTDIR)$(includedir))
+LDFLAGS  += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir)) 
 
 # allow us to use programs we just built
 PATH := $(DESTDIR)$(bindir):$(DESTDIR)$(sbindir):$(DESTDIR)$(BUILD_PREFIX)/bin:$(DESTDIR)$(BUILD_PREFIX)/sbin:$(PATH)
 LD_LIBRARY_PATH=$(strip $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(PREFIX)/lib)
+
 DYLD_LIBRARY_PATH=$(LD_LIBRARY_PATH)
 
 # This is for foo-config chaos
