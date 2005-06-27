@@ -21,7 +21,7 @@ case `$dir/config.guess` in
     ia64-*-linux-gnu)
       platform=ia64-unknown-linux-gnu
       autoplatform=ia64
-      javaplatform=linux-i64
+      javaplatform=linux-ia64
       ;;
      *)
       echo "Unknown or unsupported platform: $platform"
