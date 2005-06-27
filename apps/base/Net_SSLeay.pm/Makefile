@@ -2,6 +2,7 @@ GARNAME = Net_SSLeay.pm
 GARVERSION = 1.25
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = test.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SA/SAMPO/ http://www.cpan.org/authors/id/S/SA/SAMPO/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/S/SA/SAMPO/
 
