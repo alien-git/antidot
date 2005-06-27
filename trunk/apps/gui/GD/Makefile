@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/L/LD/LDS/ http://www.cpan.org/authors/id/L/LD/LDS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/L/LD/LDS/
 
-LIBDEPS = apps/base/perl apps/gui/gd
+LIBDEPS = apps/base/perl apps/gui/gdlib
 
 DESCRIPTION = Interface to Gd Graphics Library
 URL = http://cpan.uwinnipeg.ca/~lds
