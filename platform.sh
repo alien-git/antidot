@@ -21,6 +21,11 @@ case `$dir/config.guess` in
       javaplatform=linux-ppc
       flavor=gcc32
       ;;
+    powerpc-apple-darwin8.*)
+      platform=powerpc-apple-darwin8.1.0
+      javaplatform=linux-ppc
+      flavor=gcc32
+      ;;
     ia64-*-linux-gnu)
       platform=ia64-unknown-linux-gnu
       autoplatform=ia64

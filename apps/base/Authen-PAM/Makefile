@@ -2,7 +2,7 @@ GARNAME = Authen-PAM
 GARVERSION = 0.15
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = test.pl.diff
+PATCHFILES = test.pl.diff Makefile.PL.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/N/NI/NIKIP/ http://www.cpan.org/authors/id/N/NI/NIKIP/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/N/NI/NIKIP/
 
