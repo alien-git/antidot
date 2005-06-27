@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.56  2005/06/27 13:38:59  buncic
+# Adding patches for Tiger (fca).
+#
 # Revision 1.55  2005/06/27 13:06:33  buncic
 # Use common platform.sh script where possible.
 #
@@ -446,6 +449,18 @@ InstallerUpdate()
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
   export TPUT=undef
 
+  cd $ALIEN_INSTALLER_HOME
+
+  if [ "$ALIEN_FORCE" = "1" ]
+  then
+    if [ -f $ALIEN_INSTALLER_PREFIX/bin/alien-perl ] 
+    then
+       rm -rf $ALIEN_INSTALLER_PREFIX/*
+    fi 
+    rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
+  fi
+
+
   for meta in $ALIEN_INSTALLER_TYPE
   do
     pkgdir=`echo $meta | sed 's/"//g'`
@@ -457,15 +472,6 @@ InstallerUpdate()
     then
       packages=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make list_packages`
       npkgs=`echo $packages | wc -w`
-      cd $ALIEN_INSTALLER_HOME
-      if [ "$ALIEN_FORCE" = "1" ]
-      then
-        if [ -f $ALIEN_INSTALLER_PREFIX/bin/alien-perl ] 
-        then
-           rm -rf $ALIEN_INSTALLER_PREFIX/*
-        fi 
-        rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
-      fi
       i=0
       for pkg in $packages
       do
@@ -671,6 +677,9 @@ InstallerUI()
   echo $cmd > install.log
 
   (autoconf; $cmd ) >> install.log 2>&1
+
+
+  (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
   for meta in $list
   do
