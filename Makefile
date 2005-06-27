@@ -17,8 +17,8 @@ listdeps:
 	(cd apps; $(MAKE) -s listdeps) 
 
 distclean:
-	$(MAKE) clean
 	(cd apps;$(MAKE) clean) 
+	$(MAKE) clean
 
 %:
 	(cd apps; $(MAKE) $@)

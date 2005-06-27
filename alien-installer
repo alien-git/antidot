@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.54  2005/06/21 09:20:53  buncic
+# Do not clear the screen if --trace option is specified
+#
 # Revision 1.53  2005/06/03 09:16:50  buncic
 # Finally fixing update...
 #
@@ -574,27 +577,7 @@ InstallerUI()
   then
     if [ "$ALIEN_INSTALLER_PLATFORM" == "" ]
     then 
-
-      p=`$workspace/config.guess`
-
-      case $p in
-        i*86-*-linux-gnu)
-          platform=i686-pc-linux-gnu
-          ;;
-        x86_64-*-linux-gnu)
-          platform=i686-pc-linux-gnu
-          ;;
-        powerpc-apple-darwin7.*)
-          platform=powerpc-apple-darwin7.7.0
-          ;;
-        ia64-*-linux-gnu)
-          platform=ia64-unknown-linux-gnu
-          ;;
-         *)
-          Error "Unknown or unsupported platform: $platform"
-          ;;
-      esac
-
+      platform=$($workspace/platform.sh platform)
     fi
 
     $ALIEN_DIALOG  $style \

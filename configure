@@ -11,15 +11,13 @@
 ac_help=
 ac_default_prefix=/usr/local
 # Any additions from configure.in:
-ac_default_prefix=/opt/alien
+ac_default_prefix="/opt/alien"
 ac_help="$ac_help
   --with-globus-location=dir     Globus directory"
 ac_help="$ac_help
   --with-gpt-location=dir     GPT directory"
 ac_help="$ac_help
   --with-globus-flavor=string     Globus flavor"
-ac_help="$ac_help
-  --with-glite-build=string     gLite build id"
 ac_help="$ac_help
   --with-alien-release=string     AliEn release"
 ac_help="$ac_help
@@ -543,39 +541,17 @@ fi
 
 # Configuration items
 
-platform=`./config.guess`
-
-case $platform in
-  i*86-*-linux-gnu)
-   PLATFORM=i686-pc-linux-gnu
-   ;;
-  x86_64-*-linux-gnu)
-   PLATFORM=i686-pc-linux-gnu
-   ;;
-  powerpc-apple-darwin7.*)
-   PLATFORM=powerpc-apple-darwin7.7.0
-   ;;
-  ia64-*-linux-gnu)
-   PLATFORM=ia64-unknown-linux-gnu
-   ;;
-  *)
-   echo "Error: Unknown or unsupported platform: $platform"
-   exit 1
-   ;;
-esac
 
 
+PLATFORM=$(platform.sh platform)
 
-case $PLATFORM in 
-  ia64-*-linux-gnu)
-     GLOBUS_FLAVOR=gcc64
-    ;;
-   *)
-     GLOBUS_FLAVOR=gcc32
-    ;;
-esac
+GLOBUS_FLAVOR=$(platform.sh flavor)
 
-PREFIX=$prefix
+
+echo $PLATFORM
+echo $GLOBUS_FLAVOR
+
+exit
 
 # Check whether --with-globus_location or --without-globus_location was given.
 if test "${with_globus_location+set}" = set; then
@@ -601,15 +577,6 @@ if test "${with_globus_flavor+set}" = set; then
   GLOBUS_FLAVOR=$with_globus_flavor
 else
   GLOBUS_FLAVOR=$GLOBUS_FLAVOR
-fi
-
-
-# Check whether --with-glite_build or --without-glite_build was given.
-if test "${with_glite_build+set}" = set; then
-  withval="$with_glite_build"
-  GLITE_BUILD=$with_glite_build
-else
-  GLITE_BUILD=current
 fi
 
 
@@ -656,7 +623,6 @@ if test "${with_masked+set}" = set; then
 else
   MASKED= 
 fi
-
 
 
 
@@ -823,7 +789,6 @@ s%@CACHEDIR@%$CACHEDIR%g
 s%@GPT_LOCATION@%$GPT_LOCATION%g
 s%@GLOBUS_LOCATION@%$GLOBUS_LOCATION%g
 s%@GLOBUS_FLAVOR@%$GLOBUS_FLAVOR%g
-s%@GLITE_BUILD@%$GLITE_BUILD%g
 s%@RELEASE@%$RELEASE%g
 
 CEOF
