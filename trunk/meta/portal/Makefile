@@ -17,17 +17,11 @@ apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
 apps/alien/packman \
-apps/alien/perl \
 apps/alien/apiservice \
 apps/gui/glib \
-apps/gui/imlib2 \
-apps/gui/t1lib \
-apps/gui/freetype2 \
-apps/gui/gd \
 apps/gui/GD \
 apps/gui/Glade-Perl \
 apps/gui/Gtk-Perl \
-apps/gui/Image-Imlib2 \
 apps/gui/Imager \
 apps/gui/Image-WorldMap \
 apps/portal/apache \

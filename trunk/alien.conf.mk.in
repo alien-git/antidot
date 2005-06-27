@@ -5,7 +5,6 @@ export PKG_CONFIG_PATH=@PREFIX@/lib/pkgconfig/
 export PLATFORM=@PLATFORM@
 export CACHE_DIR=@CACHE_DIR@
 export CACHE_URL=@CACHE_URL@
-export GLITE_BUILD=@GLITE_BUILD@
 export ALIEN_PREFIX=@PREFIX@
 export BINCACHE_URL=@CACHE_URL@dist/releases/@RELEASE@/ 
 

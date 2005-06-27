@@ -364,7 +364,7 @@ strip: build pre-strip $(addprefix strip-,$(STRIP_SCRIPTS)) post-strip
 
 AUTOPACKAGE_TARGETS = $(addprefix autopackage-,$(WORKSRC)/makeinstaller)
 
-autopackage: cache $(AUTOPACKAGE_TARGETS)
+autopackage: cache skeletons $(AUTOPACKAGE_TARGETS)
 	$(DONADA)
 
 SKELETON_TARGETS = $(addprefix autopackage-,$(WORKSRC)/skeleton)
