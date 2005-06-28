@@ -8,9 +8,9 @@ AC_PREFIX_DEFAULT("/opt/alien")
 
 PREFIX=$prefix
 
-PLATFORM=$(platform.sh platform)
+PLATFORM=$(./platform.sh platform)
 
-GLOBUS_FLAVOR=$(platform.sh flavor)
+GLOBUS_FLAVOR=$(./platform.sh flavor)
 
 AC_ARG_WITH(globus_location,
             [  --with-globus-location=dir     Globus directory],
