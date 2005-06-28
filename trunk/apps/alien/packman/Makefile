@@ -1,4 +1,4 @@
-GARNAME = glite-alien-packman
+GARNAME = alien-packman
 GARVERSION = 2.1.1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
