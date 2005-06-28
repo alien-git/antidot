@@ -1,4 +1,4 @@
-GARNAME = glite-alien-srm
+GARNAME = alien-srm
 GARVERSION = 2.1.0
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz

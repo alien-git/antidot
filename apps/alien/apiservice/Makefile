@@ -1,4 +1,4 @@
-GARNAME    = glite-alien-apiservice
+GARNAME    = alien-apiservice
 GARVERSION = 1.0.3
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
