@@ -3,7 +3,7 @@ GARVERSION = 0.01
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AB/ABW/ http://www.cpan.org/authors/id/A/AB/ABW/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/A/AB/ABW/
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BT/BTROTT/ http://www.cpan.org/authors/id/B/BT/BTROTT/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/B/BT/BTROTT/
 
 LIBDEPS = apps/base/perl
 
