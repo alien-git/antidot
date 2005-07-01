@@ -6,7 +6,7 @@ PATCHFILES = 01.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CH/CHAMAS/ http://www.cpan.org/authors/id/C/CH/CHAMAS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/C/CH/CHAMAS/
 
-LIBDEPS = apps/base/openssl
+LIBDEPS = apps/base/openssl apps/base/perl
 
 DESCRIPTION = OpenSSL glue that provides LWP https support
 AUTHOR = Joshua Chamas

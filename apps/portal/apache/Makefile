@@ -6,7 +6,7 @@ DISTNAME  = $(GARNAME)-$(GARVERSION)
 
 MASTER_SITES = 
 
-LIBDEPS = apps/base/openssl 
+LIBDEPS = apps/base/openssl apps/base/perl
 
 DESCRIPTION = Apache Web Server
 URL = http://www.apache.org
