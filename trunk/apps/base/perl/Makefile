@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES = http://ftp.funet.fi/pub/CPAN/src/ 
 
-LIBDEPS = apps/base/gdb
+LIBDEPS = apps/base/gdbm
 
 DESCRIPTION = The Perl interpreter
 AUTHOR = Larry Wall
