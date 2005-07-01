@@ -1,4 +1,4 @@
-\GARNAME = Term-ReadLine-Gnu
+GARNAME = Term-ReadLine-Gnu
 GARVERSION = 1.15
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
