@@ -7,7 +7,7 @@ MASTER_SITES = ftp://mirror.switch.ch/mirror/gnu/gdbm/
 
 LIBDEPS = apps/base/db
 
-DESCRIPTION = GNU dbm - a aet of database routines that use extensible hashing.
+DESCRIPTION = GNU dbm - a set of database routines that use extensible hashing.
 AUTHOR = FSF 
 LICENSE = GPL2 
 URL= http://www.gnu.org/software/gdbm/gdbm.html
@@ -19,3 +19,5 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 CONFIGURE_ARGS = $(DIRPATHS)
 
 include ../category.mk
+
+POST_INSTALL = (cd $(WORKSRC); make install-compat )
