@@ -2,7 +2,7 @@
 +++ work/MonaLisa.v1.2/Makefile.new	2005-07-01 12:12:25.832463775 +0200
 @@ -0,0 +1,21 @@
 +build:
-+	../../files/get_java.pl $(JAVA_PLATFORM) && \
++	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) && \
 +	tar zxvf $(DISTNAME).tar.gz && \
 +	(cd $(DISTNAME) ; \
 +	JAVA_BIN=`ls ../j2sdk*.bin` ; \
