@@ -6,7 +6,7 @@ export PLATFORM=@PLATFORM@
 export CACHE_DIR=@CACHE_DIR@
 export CACHE_URL=@CACHE_URL@
 export ALIEN_PREFIX=@PREFIX@
-export BINCACHE_URL=@CACHE_URL@dist/releases/@RELEASE@/ 
+export BITS_URL=@BITS_URL@
 
 # The GARCHIVEDIR is a directory containing cached files. It can be created
 # manually, or with 'make garchive' once you've started downloading required
@@ -16,7 +16,7 @@ GARCHIVEDIR = @CACHE_DIR@
 
 #BUILD_CLEAN = true
 
-MASTER_SITES := @CACHE_URL@ @CACHE_URL@dist/releases/@RELEASE@/ $(MASTER_SITES)
+MASTER_SITES := @CACHE_URL@ @BITS_URL@ $(MASTER_SITES)
 
 export MASKED += @MASKED@
 
