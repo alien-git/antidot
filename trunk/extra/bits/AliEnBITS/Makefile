@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://monalisa2.cern.ch/~catac/AliEnBITS/
 
-LIBDEPS = extra/bits/Template extra/bits/Graphviz-perl extra/bits/SLOCcount apps/portal/apache
+LIBDEPS = extra/bits/Template extra/bits/Graphviz-perl extra/bits/SLOCcount apps/portal/apache apps/base/ApMon
 
 DESCRIPTION = AliEn Build Integration and Testing System
 AUTHOR = Catalin Cirstoiu
