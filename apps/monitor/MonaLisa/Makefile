@@ -11,7 +11,7 @@ PATCHFILES = Makefile.patch
 
 MASTER_SITES = http://monalisa.cern.ch/MONALISA/download/ http://monalisa.cacr.caltech.edu/download/
 
-LIBDEPS =
+LIBDEPS = apps/base/perl
 
 DESCRIPTION = MonALISA Monitoring Framework
 LICENSE = CIT
