@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.57  2005/06/27 15:05:52  buncic
+# Clean cookies before full install.
+#
 # Revision 1.56  2005/06/27 13:38:59  buncic
 # Adding patches for Tiger (fca).
 #
@@ -214,7 +217,7 @@ Exit()
 {
   [ $debug -eq 0 ] &&  clear
   InstallerRcUpdate
-  rm -rf $release_file $dialog_file
+  rm -rf $release_file $dialog_file $cache_file
   exit $*
 }
 
@@ -508,9 +511,11 @@ InstallerUI()
   style="--title AliEn-Installer-v0.01 --clear"
 
   release_file=`mktemp /tmp/release.XXXXXX`
+  cache_file=`mktemp /tmp/cache.XXXXXX`
   dialog_file=`mktemp /tmp/dialog.XXXXXX`
 
   wget -O $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
+  wget -O $cache_file http://alien.cern.ch/BitServers > /dev/null 2>&1 
 
   list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{printf("%s %s 0 ",$3,$2)}'`
 
@@ -607,6 +612,18 @@ InstallerUI()
 
   ALIEN_INSTALLER_PLATFORM=$platform  
 
+  if [ "$method" == "Binary" ]
+  then
+     caches=`grep -v -e "^#" $cache_file | grep $platform | awk -v platform=$ALIEN_INSTALLER_PLATFORM -v release=$ALIEN_RELEASE -F'|' '{printf("%s/%s/%s/dist/",$2,platform,release)}' | sed 's/ *//'`
+     cmd=$cmd" --with-bits-url=$caches "
+     $ALIEN_DIALOG  $style \
+          --yesno "Installer will use the following binary caches to download AliEn components: $caches. Do you want to continue?" 0 0 
+     if [ $? -eq 1 ] 
+     then
+        Exit 1 
+     fi
+  fi
+
   prefix=$ALIEN_INSTALLER_PREFIX
 
   if [ "$prefix" = "$workspace" ]
@@ -669,15 +686,14 @@ InstallerUI()
 
   ALIEN_INSTALLER_TYPE="$list"
   
+  echo $cmd > install.log
+
   $ALIEN_DIALOG $style --sleep 3 \
               --infobox 'Configuring...' $height $width
  
   InstallerRcUpdate
 
-  echo $cmd > install.log
-
   (autoconf; $cmd ) >> install.log 2>&1
-
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 

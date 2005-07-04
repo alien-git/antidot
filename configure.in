@@ -42,6 +42,11 @@ AC_ARG_WITH(cache_url,
             [CACHE_URL=$with_cache_url],
             [CACHE_URL=http://alien.cern.ch/cache/])
 
+AC_ARG_WITH(bits_url,
+            [  --with-bits-url=string     remote binary package cache],
+            [BITS_URL=$with_bits_url],
+            [BITS_URL=http://alien.cern.ch/cache/dist/releases/$RELEASE/])
+
 AC_ARG_WITH(platform,
             [  --with-platform=string     platform],
             [PLATFORM=$with_platform],
@@ -55,6 +60,7 @@ AC_ARG_WITH(masked,
 AC_SUBST(MASKED)
 AC_SUBST(CACHE_DIR)
 AC_SUBST(CACHE_URL)
+AC_SUBST(BITS_URL)
 AC_SUBST(PLATFORM)
 AC_SUBST(PREFIX)
 AC_SUBST(CACHEDIR)
