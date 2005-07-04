@@ -1,7 +1,9 @@
 # Starting script for ML
-# v0.2
+# v0.2.1
 # Catalin.Cirstoiu@cern.ch
-# 14/06/2005
+
+# 21/06/2005 - check if MONALISA_HOST from LDAP config == hostname -f
+# 14/06/2005 - first useful release
 
 use strict;
 use AliEn::Config;
@@ -10,7 +12,7 @@ my $config = new AliEn::Config({ "SILENT" => 1, "DEBUG" => 0 } );
 
 $config or die("ERROR getting the configuration from LDAP!\n");
 
-( -f "$ENV{ALIEN_ROOT}/java/java/bin/java" ) or die("ERROR Java is not installed!\n");
+( -f "$ENV{ALIEN_ROOT}/java/MonaLisa/java/bin/java" ) or die("ERROR Java is not installed!\n");
 
 ( -f "$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER" ) or die("ERROR MonaLisa is not installed!\n");
 
@@ -79,7 +81,7 @@ sub setupFile {
 # Setup configuration files for MonaLisa
 sub setupConfig {
     my $user = $ENV{ALIEN_USER};
-    my $javaHome = "$ENV{ALIEN_ROOT}/java/java";
+    my $javaHome = "$ENV{ALIEN_ROOT}/java/MonaLisa/java";
     my $mlHome = "$ENV{ALIEN_ROOT}/java/MonaLisa";
 
     system("mkdir -p $mlHome/Service/myFarm");
@@ -89,6 +91,11 @@ sub setupConfig {
  
     # ml_env
     my $farmName = ($config->{MONALISA_NAME} or die("MonaLisa configuration not found in LDAP. Not starting it...\n"));
+    my $fqdn = `hostname -f`;
+    chomp $fqdn;
+    if($config->{MONALISA_HOST} && ($fqdn ne $config->{MONALISA_HOST})){
+	die("MonaLisa hostname from LDAP config [".$config->{MONALISA_HOST}."] differs from local one [$fqdn]. Not starting it...\n");
+    }
     my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "true");
     my $javaOpts = ($config->{MONALISA_JAVAOPTS} or "");
     my $add = [];
