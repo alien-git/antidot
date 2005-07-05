@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://ftp.andrew.cmu.edu/pub/cyrus-mail/
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/base/openssl
 
 DESCRIPTION = SASL is the Simple Authentication and Security Layer
 URL = http://asg.web.cmu.edu/sasl/
