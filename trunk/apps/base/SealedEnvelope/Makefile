@@ -6,7 +6,7 @@ PATCHFILES = Makefile.PL.diff configure.diff uuid.diff
 
 MASTER_SITES = 
 
-LIBDEPS = apps/base/swig apps/base/uuid
+LIBDEPS = apps/base/swig apps/base/uuid apps/base/openssl
 
 AUTHOR  = Andreas Peters
 LICENSE = 
