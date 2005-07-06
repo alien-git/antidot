@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.58  2005/07/04 21:20:21  buncic
+# Using binary distribution from the build servers.
+#
 # Revision 1.57  2005/06/27 15:05:52  buncic
 # Clean cookies before full install.
 #
@@ -517,7 +520,7 @@ InstallerUI()
   wget -O $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
   wget -O $cache_file http://alien.cern.ch/BitServers > /dev/null 2>&1 
 
-  list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{printf("%s %s 0 ",$3,$2)}'`
+  list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{printf("%s %s 0 ",$3,$4)}'`
 
   $ALIEN_DIALOG $style \
             --radiolist "PLEASE SELECT ALIEN RELEASE:" 0 0 0 \
