@@ -1,11 +1,11 @@
 GARNAME    = alien-api
-GARVERSION = 1.0.3
+GARVERSION = 1.0.4
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
 
 GARCVSNAME    = org.glite.alien.apiservice
-GARCVSVERSION = alien-apiservice-1_0_3
+GARCVSVERSION = alien-apiservice-1_0_4
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
