@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.59  2005/07/06 21:00:15  buncic
+# Changed release label in installer
+#
 # Revision 1.58  2005/07/04 21:20:21  buncic
 # Using binary distribution from the build servers.
 #
@@ -617,7 +620,7 @@ InstallerUI()
 
   if [ "$method" == "Binary" ]
   then
-     caches=`grep -v -e "^#" $cache_file | grep $platform | awk -v platform=$ALIEN_INSTALLER_PLATFORM -v release=$ALIEN_RELEASE -F'|' '{printf("%s/%s/%s/dist/",$2,platform,release)}' | sed 's/ *//'`
+     caches=`grep -v -e "^#" $cache_file | grep $platform | awk -v platform=$ALIEN_INSTALLER_PLATFORM -v release=$ALIEN_RELEASE -F'|' '{printf("%s/%s/%s/download/",$2,platform,release)}' | sed 's/ *//'`
      cmd=$cmd" --with-bits-url=$caches "
      $ALIEN_DIALOG  $style \
           --yesno "Installer will use the following binary caches to download AliEn components: $caches. Do you want to continue?" 0 0 
