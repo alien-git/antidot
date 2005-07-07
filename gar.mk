@@ -60,8 +60,8 @@ MYNAME ?= $(shell basename $(GARFNAME))
 
 # Several variables depend on the target architecture
 
-GARUNAME_S=$(shell uname -s)
-GARUNAME_M=$(shell uname -m)
+GARUNAME_S=$(shell uname -s | sed -e 's/ *//g')
+GARUNAME_M=$(shell uname -m | sed -e 's/ *//g')
 
 include $(wildcard $(GARDIR)/platform/$(GARUNAME_S).mk $(GARDIR)/platform/$(GARUNAME_S).$(GARUNAME_M).mk $(GARDIR)/platform/$(shell $(GARDIR)/config.guess).mk)
 
