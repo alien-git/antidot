@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).src.tar.gz
 
 MASTER_SITES = http://ftp.stack.nl/pub/users/dimitri/
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/base/perl
 
 DESCRIPTION = Documentation system for C++, C, Java, Objective-C
 
