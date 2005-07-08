@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
 
 GARCVSNAME    = org.glite.alien.rls
-GARCVSVERSION = glite-alien-rls_branch_2_0_0
+GARCVSVERSION = v2-1-1
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
