@@ -1,12 +1,12 @@
 GARNAME = alien-common
 
-GARVERSION = 2.1.9
+GARVERSION = 2.1.10
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
 
 GARCVSNAME    = org.glite.alien.common
-GARCVSVERSION = glite-alien-common_branch_2_0_0
+GARCVSVERSION = v2-1-1
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
