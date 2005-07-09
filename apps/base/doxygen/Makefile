@@ -11,7 +11,7 @@ DESCRIPTION = Documentation system for C++, C, Java, Objective-C
 
 URL = http://www.stack.nl/~dimitri/doxygen/
 AUTHOR = Dimitri van Heesch
-LICENSE = GPL2 
+LICENSE = GPL 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
