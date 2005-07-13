@@ -1,8 +1,8 @@
 GARNAME = ApMon-CPP
-GARVERSION = 2.0.4
+GARVERSION = 2.0.5
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Makefile.am.diff macos.diff
+PATCHFILES = macos.diff
 
 MASTER_SITES = 
 
@@ -24,4 +24,4 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)
 
 include ../category.mk
 
-PRE_CONFIGURE = ( cd $(WORKSRC); sh bootstrap )
+PRE_CONFIGURE = ( cd $(WORKSRC); aclocal; autoheader; libtoolize --force; automake -a; autoconf )
