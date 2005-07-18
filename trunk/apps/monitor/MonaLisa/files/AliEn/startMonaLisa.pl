@@ -1,7 +1,8 @@
 # Starting script for ML
-# v0.2.1
+# v0.2.2
 # Catalin.Cirstoiu@cern.ch
 
+# 18/07/2005 - added AliEnFilter configuration to ml.properties
 # 21/06/2005 - check if MONALISA_HOST from LDAP config == hostname -f
 # 14/06/2005 - first useful release
 
@@ -131,6 +132,10 @@ sub setupConfig {
     }
     my $storeType = ($config->{MONALISA_STORETYPE} or "mem");
     $add = ($config->{MONALISA_ADDPROPERTIES_LIST} or []);
+    push(@$add, "lia.Monitor.Filters.AliEnFilter=true");
+    push(@$add, "lia.Monitor.Filters.AliEnFilter.SLEEP_TIME=60");
+    push(@$add, "lia.Monitor.Filters.AliEnFilter.PARAM_EXPIRE=300");
+    
     $rmv = ($config->{MONALISA_REMOVEPROPERTIES_LIST} or []);
     $changes = {
 	"^MonaLisa.ContactName.*" => "MonaLisa.ContactName=$admin",
