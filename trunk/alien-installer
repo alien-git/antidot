@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.60  2005/07/07 07:39:36  buncic
+# Fixed download URL (/download and not /dist)
+#
 # Revision 1.59  2005/07/06 21:00:15  buncic
 # Changed release label in installer
 #
@@ -181,14 +184,13 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.02
+VERSION=0.03
 ###########################################################################
 [ -f $HOME/.alien/installer.rc ] && . $HOME/.alien/installer.rc
 ###########################################################################
-ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME:=$HOME/alien}
+ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME:=$HOME/.alien/cache}
 ALIEN_INSTALLER_URL=${ALIEN_INSTALLER_URL:=rsync://alien.cern.ch:8873/releases} 
 ALIEN_INSTALLER_CVS=${ALIEN_INSTALLER_CVS:=":pserver:cvs@alisoft.cern.ch:/soft/cvsroot"}
-ALIEN_INSTALLER_BINARY_UPDATE=${ALIEN_INSTALLER_BINARY_UPDATE:=0}
 ALIEN_INSTALLER_PREFIX=${ALIEN_INSTALLER_PREFIX:=/opt/alien}
 ALIEN_INSTALLER_METHOD=${ALIEN_INSTALLER_METHOD:=bininstall}
 ALIEN_INSTALLER_AUTODETECT=${ALIEN_INSTALLER_AUTODETECT:=false}
@@ -206,7 +208,6 @@ InstallerRcUpdate()
     echo "ALIEN_INSTALLER_HOME=$ALIEN_INSTALLER_HOME" 
     echo "ALIEN_INSTALLER_URL=$ALIEN_INSTALLER_URL" 
     echo "ALIEN_INSTALLER_CVS=$ALIEN_INSTALLER_CVS" 
-    echo "ALIEN_INSTALLER_BINARY_UPDATE=$ALIEN_INSTALLER_BINARY_UPDATE" 
     echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
     echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD" 
     echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
@@ -514,7 +515,7 @@ InstallerUI()
 
   export TPUT=undef
 
-  style="--title AliEn-Installer-v0.01 --clear"
+  style="--title AliEn-Installer-v$VERSION --clear"
 
   release_file=`mktemp /tmp/release.XXXXXX`
   cache_file=`mktemp /tmp/cache.XXXXXX`
@@ -536,22 +537,7 @@ InstallerUI()
 
   cmd=$cmd" --with-alien-release=$ALIEN_RELEASE "
 
-  $ALIEN_DIALOG  $style \
-          --radiolist "PLEASE SELECT THE INSTALLATION METHOD"  0 0 0 \
-                      "Binary" "Download precompiled packages"   on  \
-                      "Source" "Compile everything from sources" 0 2>$dialog_file  || Exit 1
-
-  method=`cat $dialog_file`
-
-  if [ "$method" == "Source" ]
-  then
-    ALIEN_INSTALLER_METHOD='reinstall'
-    ALIEN_INSTALLER_BINARY_UPDATE=0
-  else
-    cmd=$cmd" -b "
-    ALIEN_INSTALLER_METHOD='bininstall'
-    ALIEN_INSTALLER_BINARY_UPDATE=1
-  fi
+  ALIEN_INSTALLER_METHOD='bininstall'
 
   $ALIEN_DIALOG  $style --defaultno \
           --yesno "Would you like installer to autodetect and reuse already installed software components on your system?" 0 0 
@@ -593,18 +579,16 @@ InstallerUI()
 
   platform=$ALIEN_INSTALLER_PLATFORM
 
-  if [ "$method" == "Binary" ]
-  then
-    if [ "$ALIEN_INSTALLER_PLATFORM" == "" ]
-    then 
+  if [ "$ALIEN_INSTALLER_PLATFORM" == "" ]
+  then 
       platform=$($workspace/platform.sh platform)
-    fi
+  fi
 
-    $ALIEN_DIALOG  $style \
+  $ALIEN_DIALOG  $style \
             --yesno "Detected/configured platform setting for this machine is $platform. Press YES if you want to keep it that way or press NO if you want to select another supported platform." 0 0
 
-    if [ $? -eq 1 ] 
-    then 
+  if [ $? -eq 1 ] 
+  then 
        $ALIEN_DIALOG $style \
                   --radiolist 'PLEASE SELECT PLATFORM:' 0 0 0 \
                               'i686-pc-linux-gnu'         'Linux i686' on \
@@ -613,22 +597,15 @@ InstallerUI()
                               'powerpc-apple-darwin8.1.0' 'MacOS X'    0  2>$dialog_file || Exit 1 
       prefix=`cat $dialog_file`
       cmd=$cmd"--with-platform=$platform "
-    fi
   fi
 
   ALIEN_INSTALLER_PLATFORM=$platform  
 
-  if [ "$method" == "Binary" ]
-  then
-     caches=`grep -v -e "^#" $cache_file | grep $platform | awk -v platform=$ALIEN_INSTALLER_PLATFORM -v release=$ALIEN_RELEASE -F'|' '{printf("%s/%s/%s/download/",$2,platform,release)}' | sed 's/ *//'`
-     cmd=$cmd" --with-bits-url=$caches "
-     $ALIEN_DIALOG  $style \
-          --yesno "Installer will use the following binary caches to download AliEn components: $caches. Do you want to continue?" 0 0 
-     if [ $? -eq 1 ] 
-     then
-        Exit 1 
-     fi
-  fi
+  caches=`grep -v -e "^#" $cache_file | grep $platform | awk -v platform=$ALIEN_INSTALLER_PLATFORM -v release=$ALIEN_RELEASE -F'|' '{printf("%s/%s/%s/download/",$2,platform,release)}' | sed 's/ *//'`
+  cmd=$cmd" --with-bits-url=$caches "
+
+  $ALIEN_DIALOG  $style --sleep 3 \
+          --infobox "Using $caches repository..."
 
   prefix=$ALIEN_INSTALLER_PREFIX
 
@@ -638,7 +615,7 @@ InstallerUI()
   fi
 
   $ALIEN_DIALOG $style \
-         --yesno "Default installation location location is $prefix. Press YES if you want to keep it that way or press NO if you want to select another location. Please note that the installation directory must be different form workspace directory." $height $width
+         --yesno "Default installation location location is $prefix. Press YES if you want to keep it that way or press NO if you want to select another location." $height $width
 
   if [ $? -eq 1 ]
   then
@@ -792,19 +769,10 @@ do
 	    ALIEN_INSTALLER_PLATFORM=$1
             shift 1
            ;;
-        --method)
-            shift 1
-	    ALIEN_INSTALLER_METHOD=$1
-            shift 1
-           ;;
         --prefix)
             shift 1
 	    ALIEN_INSTALLER_PREFIX=$1
             shift 1
-           ;;
-        -b|--binary|--binary-update)
-            shift 1
-	    ALIEN_INSTALLER_BINARY_UPDATE=1
            ;;
         -a|--autodetect)
             shift 1
@@ -860,14 +828,7 @@ do
            ;;
         install)
            shift 1
-           case $ALIEN_INSTALLER_BINARY_UPDATE in
-             1|true|TRUE|True|yes|Yes|YES|Y)
-               InstallerMake bininstall $*
-               ;;
-             *)
-               InstallerMake install $*
-               ;;
-           esac
+           InstallerMake bininstall $*
            exit
            ;;
         configure)
@@ -916,7 +877,6 @@ Common commmands:
   index      - force rebuild of package cache 
 
 Options:
-  -b, --binary       - use binary packages 
   -p, --build-prefix - installation directory
   -u, --url          - cache url         
   -h, --help         - display this help text
@@ -933,10 +893,8 @@ Installer options:
   --release <RELEASE>        [HEAD] 
   --type <installation type> [all,client,portal,site,core,wn]
   --platform <platform>      [,i686-pc-linux-gnu,ia64-unknown-linux-gnu,powerpc-apple-darwin7.7.0]
-  --method <method>          [bininstall,install]  
   --prefix <path>            [/opt/alien]  
   --home <path>              [$HOME/alien]
-  --binary-update   
   --autodetect
  
 Configure options:
