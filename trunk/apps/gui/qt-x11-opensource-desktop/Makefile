@@ -17,7 +17,11 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX) -fast -qt-gif -qt-libpng -qt-libjpeg -static -release -no-exceptions 
+
 CONFIGURE_ENV  = echo yes |
+BUILD TARGETS  = symlinks src-qmake src-moc sub-src sub-tools
 
 include ../category.mk
+
+POST_INSTALL = (cd $(WORKSRC)/src; make uninstall_htmldocs) 
