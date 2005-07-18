@@ -16,7 +16,6 @@ apps/alien/srm \
 apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
-apps/alien/packman \
 apps/alien/apiservice \
 apps/gui/glib \
 apps/gui/GD \

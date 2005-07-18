@@ -15,7 +15,6 @@ apps/alien/srm \
 apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
-apps/alien/packman \
 apps/alien/perl \
 apps/alien/apiservice \
 apps/server/mysql \
