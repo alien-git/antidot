@@ -24,4 +24,4 @@ BUILD TARGETS  = symlinks src-qmake src-moc sub-src sub-tools
 
 include ../category.mk
 
-POST_INSTALL = (cd $(WORKSRC)/src; make uninstall_htmldocs) 
+POST_INSTALL = ( rm -rf $(PREFIX)/examples $(PREFIX)/doc/html $(PREFIX)/demos )
