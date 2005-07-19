@@ -5,7 +5,8 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 LIBDEPS = apps/gcc/gcc
 
-MASTER_SITES =  http://sunsite.rediris.es/mirror/Qt/source/
+MASTER_SITES = ftp://ftp.fu-berlin.de/unix/X11/gui/Qt/source/ http://sunsite.rediris.es/mirror/Qt/source/
+PATCHFILES = qatomic.patch
 
 DESCRIPTION = QT Graphics Library
 URL = http://www.trolltech.com/
