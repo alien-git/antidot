@@ -1,7 +1,8 @@
 # Starting script for ML
-# v0.2.2
+# v0.2.3
 # Catalin.Cirstoiu@cern.ch
 
+# 19/07/2005 - try to add a crontab entry to check for updates
 # 18/07/2005 - added AliEnFilter configuration to ml.properties
 # 21/06/2005 - check if MONALISA_HOST from LDAP config == hostname -f
 # 14/06/2005 - first useful release
@@ -172,12 +173,25 @@ sub setupConfig {
     }
     setupFile("$mlHome/AliEn/ml.properties", "$mlHome/Service/myFarm/ml.properties", $changes, $add, $rmv);
 }
+
+# Setup crontab (if possible) so that ML will check for updates
+sub setupCrontab {
+        my $ml_line = "*/20 * * * *     $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE";
+        my $lines = `env VISUAL=cat crontab -e 2>/dev/null | grep -v '/Service/CMD/CHECK_UPDATE'`;
+	if(open(CRON, "| crontab - &>/dev/null")){
+		print CRON $lines;
+		print CRON $ml_line;
+		close(CRON);
+	}
+}
+
 #print "------------------------\n";
 #dumpENV();
 #print "========================\n";
 #dumpConfig();
 #print "Setting up ML config...\n";
 setupConfig();
+setupCrontab();
 #print "Starting ML...\n";
 
 # Start ML
