@@ -8,7 +8,7 @@ GARCVSNAME    = org.glite.data.transfer-api-perl
 GARCVSVERSION = GLITE_RELEASE_1_1_2
 NOCHECKSUM    = $(DISTFILES)
 
-LIBDEPS = apps/glite/glite-data-api-perl
+LIBDEPS = apps/glite/data-api-perl
 
 DESCRIPTION = gLite data perl API
 URL = http://www.glite.org
