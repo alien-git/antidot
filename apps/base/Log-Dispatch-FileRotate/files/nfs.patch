@@ -1,5 +1,5 @@
 --- work/Log-Dispatch-FileRotate-1.13/FileRotate.pm	Tue Mar  1 02:32:56 2005
-+++ work/Log-Dispatch-FileRotate-1.13/FileRotate.pm.new	Wed Jul 20 15:17:23 2005
++++ work/Log-Dispatch-FileRotate-1.13/FileRotate.pm.new	Mon Jul 25 16:16:15 2005
 @@ -15,6 +15,8 @@
  use Params::Validate qw(validate SCALAR BOOLEAN);
  Params::Validate::validation_options( allow_extra => 1 );
@@ -9,7 +9,7 @@
  use vars qw[ $VERSION ];
  
  $VERSION = sprintf "%d.%02d", q$Revision$ =~ /: (\d+)\.(\d+)/;
-@@ -555,10 +557,10 @@
+@@ -555,10 +557,11 @@
  {
  	my $self = shift;
  
@@ -19,20 +19,21 @@
  
 -	# Make sure we are at the EOF
 -	seek($self->{LDF}->{fh}, 0, 2);
-+        $self->{lo} = File::NFSLock->new($self->{lf},LOCK_EX|LOCK_NB,$blocking_timeout,$stale_lock_timeout);
++        $self->{lock} = File::NFSLock->new($self->{lf},LOCK_EX|LOCK_NB,$blocking_timeout,$stale_lock_timeout) || 
++                        die "I couldn't lock the file [$File::NFSLock::errstr]";
  
  	warn localtime() ." $$ Locked\n" if $self->{debug};
  	return;
-@@ -567,7 +569,7 @@
+@@ -567,7 +570,7 @@
  sub unlock 
  {
  	my $self = shift;
 -	flock($self->{LDF}->{fh},LOCK_UN);
-+	$self->{lo}->unlock();
++	defined ($self->{lock}) && $self->{lock}->unlock();
  	warn localtime() . " $$ unLocked\n" if $self->{debug};
  }
  
-@@ -606,6 +608,9 @@
+@@ -606,6 +609,9 @@
  {
  	my $self = shift;
  
@@ -42,22 +43,23 @@
  	if (!$self->{lfh})
  	{
  		if (!open(LFH, ">>$self->{lf}"))
-@@ -615,7 +620,8 @@
+@@ -615,7 +621,9 @@
  		$self->{lfh} = *LFH;
  	}
  
 -	flock($self->{lfh},LOCK_EX);
-+        $self->{lo} = File::NFSLock->new($self->{lf},LOCK_EX|LOCK_NB,$blocking_timeout,$stale_lock_timeout);
++        $self->{lock} = File::NFSLock->new($self->{lf},LOCK_EX|LOCK_NB,$blocking_timeout,$stale_lock_timeout) ||
++                        die "I couldn't lock the file [$File::NFSLock::errstr]";
 +
  }
  
  sub lfhunlock 
-@@ -624,7 +630,7 @@
+@@ -624,7 +632,7 @@
  
  	if($self->{lfh})
  	{
 -		flock($self->{lfh},LOCK_UN);
-+		$self->{lo}->unlock();
++		defined ($self->{lock}) && $self->{lock}->unlock();
  		close $self->{lfh};
  		$self->{lfh} = 0;
  	}
