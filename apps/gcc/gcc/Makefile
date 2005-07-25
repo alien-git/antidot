@@ -18,7 +18,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 AUTOTEST=locateCommand gcc -dumpversion
 
-CONFIGURE_ARGS = $(DIRPATHS) --enable-languages=c,c++,f77
+CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-threads=posix --enable-clocale=gnu --enable-__cxa_atexit --enable-languages=c,c++,f77
 
 include ../category.mk
 
