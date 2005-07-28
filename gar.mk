@@ -424,7 +424,7 @@ provides: build
 cache: install
 	@mkdir -p $(CACHE_DIR)
 ifeq ($(wildcard $(COOKIEDIR)/provides), $(COOKIEDIR)/provides) 
-	@(grep -v -e '.*/lib.*\.a$$' $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%') > $(COOKIEDIR)/provides.swp 
+	@(grep -v -e '.*/lib.*\.la' $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%') > $(COOKIEDIR)/provides.swp 
 	@($(TAR) jcf $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 -C $(BUILD_PREFIX) -T $(COOKIEDIR)/provides.swp ) || touch $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 
 	@rm -f $(COOKIEDIR)/provides.swp
 	@grep -v  $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CHECKSUM_FILE) > $(CHECKSUM_FILE).swp
