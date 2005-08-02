@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.62  2005/08/02 13:53:17  buncic
+# Allow installer updates to new version (-r vN-M)
+#
 # Revision 1.61  2005/07/18 10:51:45  buncic
 # Streamlining alien-installer, removing a few questions...
 #
@@ -202,6 +205,7 @@ ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
 ALIEN_DIALOG=${ALIEN_DIALOG:=dialog}
 ALIEN_RELEASE=${ALIEN_RELEASE:=HEAD}
 ALIEN_BITS_URL=${ALIEN_BITS_URL:=http://alienbuild.cern.ch:8888/$ALIEN_INSTALLER_PLATFORM/$ALIEN_RELEASE/download/} 
+ALIEN_INSTALLER_TYPE=$(echo $ALIEN_INSTALLER_TYPE | sed 's/+/ /g')
 ECHO=""
 ###########################################################################
 InstallerRcUpdate()
@@ -209,13 +213,14 @@ InstallerRcUpdate()
 {
   mkdir -p $HOME/.alien
   (
+    ALIEN_INSTALLER_TYPE=$(echo $ALIEN_INSTALLER_TYPE | sed 's/ /+/g')
     echo "ALIEN_INSTALLER_HOME=$ALIEN_INSTALLER_HOME" 
     echo "ALIEN_INSTALLER_URL=$ALIEN_INSTALLER_URL" 
     echo "ALIEN_INSTALLER_CVS=$ALIEN_INSTALLER_CVS" 
     echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
     echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD" 
     echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
-    echo "ALIEN_INSTALLER_TYPE=\"$ALIEN_INSTALLER_TYPE\"" 
+    echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
     echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
     echo "ALIEN_DIALOG=$ALIEN_DIALOG" 
     echo "ALIEN_RELEASE=$ALIEN_RELEASE" 
