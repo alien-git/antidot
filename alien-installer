@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.61  2005/07/18 10:51:45  buncic
+# Streamlining alien-installer, removing a few questions...
+#
 # Revision 1.60  2005/07/07 07:39:36  buncic
 # Fixed download URL (/download and not /dist)
 #
@@ -198,6 +201,7 @@ ALIEN_INSTALLER_TYPE=${ALIEN_INSTALLER_TYPE:=all}
 ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
 ALIEN_DIALOG=${ALIEN_DIALOG:=dialog}
 ALIEN_RELEASE=${ALIEN_RELEASE:=HEAD}
+ALIEN_BITS_URL=${ALIEN_BITS_URL:=http://alienbuild.cern.ch:8888/$ALIEN_INSTALLER_PLATFORM/$ALIEN_RELEASE/download/} 
 ECHO=""
 ###########################################################################
 InstallerRcUpdate()
@@ -211,10 +215,11 @@ InstallerRcUpdate()
     echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
     echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD" 
     echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
-    echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
+    echo "ALIEN_INSTALLER_TYPE=\"$ALIEN_INSTALLER_TYPE\"" 
     echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
     echo "ALIEN_DIALOG=$ALIEN_DIALOG" 
     echo "ALIEN_RELEASE=$ALIEN_RELEASE" 
+    echo "ALIEN_BITS_URL=$ALIEN_BITS_URL" 
   ) > $HOME/.alien/installer.rc
 
 }
@@ -234,6 +239,7 @@ Error()
 {
    dialog $style --msgbox "$1" $height $width 
    [ $debug -eq 0 ] &&  clear
+   [ -f install.log ] && cat install.log  
    exit 1
 }
 ###########################################################################
@@ -255,7 +261,7 @@ InstallerMake()
         then
           Error "No such package: $dir"
         fi
-        $ECHO make -C $dir $cmd > install.log 2>&1 || Exit 1
+        $ECHO make -C $dir $cmd >> install.log 2>&1 || Exit 1
       done
     done
   fi
@@ -273,7 +279,7 @@ InstallerMakePkg()
     then
       Error "No such package: $dir"
     fi
-    $ECHO make -C $dir $cmd > install.log 2>&1 || Exit 1
+    $ECHO make -C $dir $cmd >> install.log 2>&1 || Exit 1
   done
 }
 
@@ -470,6 +476,9 @@ InstallerUpdate()
     rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
   fi
 
+  ALIEN_BITS_URL="http://alienbuild.cern.ch:8888/$ALIEN_INSTALLER_PLATFORM/$ALIEN_RELEASE/download/"
+
+ (cd $ALIEN_INSTALLER_HOME; ./alien-installer -p $ALIEN_INSTALLER_HOME -r $ALIEN_RELEASE configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
 
   for meta in $ALIEN_INSTALLER_TYPE
   do
@@ -497,11 +506,9 @@ InstallerUpdate()
   then
     echo 'Running post installation scripts...'
     $ALIEN_INSTALLER_PREFIX/bin/alien-perl --bootstrap --prefix $ALIEN_INSTALLER_PREFIX
-  else
-    echo 'Installation failed: alien-perl not found.' 
+    $ALIEN_INSTALLER_PREFIX/bin/alien configure >> install.log
   fi
 
-  $ALIEN_INSTALLER_PREFIX/bin/alien configure >> install.log
 }
 
 
@@ -603,6 +610,8 @@ InstallerUI()
 
   caches=`grep -v -e "^#" $cache_file | grep $platform | awk -v platform=$ALIEN_INSTALLER_PLATFORM -v release=$ALIEN_RELEASE -F'|' '{printf("%s/%s/%s/download/",$2,platform,release)}' | sed 's/ *//'`
   cmd=$cmd" --with-bits-url=$caches "
+
+  ALIEN_BITS_URL=$caches
 
   $ALIEN_DIALOG  $style --sleep 3 \
           --infobox "Using $caches repository..."
