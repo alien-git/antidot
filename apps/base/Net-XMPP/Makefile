@@ -24,3 +24,4 @@ BUILD_ARGS =
 
 include ../category.mk
 
+PRE_CONFIGURE = (rm -f $(WORKSRC)/t/2_client_jabberd1.4.t)
