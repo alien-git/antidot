@@ -24,7 +24,7 @@ endif
 ifeq ($(shell uname),Darwin) 
 CONFIGURE_ARGS = --includedir=/sw/include --libdir=/sw/lib
 else
-BUILD_ARGS =  
+CONFIGURE_ARGS = --includedir=$(PREFIX)/include --libdir=$(PREFIX)/lib  
 endif
 
 include ../category.mk
