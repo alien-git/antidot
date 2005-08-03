@@ -30,7 +30,7 @@
 -	$self->{'lf'} = $lockfile;
 +	$self->{'lf'} = $name;
 +
-+        $self->{'lockmgr'} = LockFile::Simple->make(-format => '%f.lck',
++        $self->{'lockmgr'} = LockFile::Simple->make(-format => '/tmp/alien-%p.lck',
 +				   -max => 20, -delay => 1, -nfs => 1);
  
  	# Have we been called with a time based rotation pattern then setup
