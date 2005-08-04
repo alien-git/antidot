@@ -1,11 +1,11 @@
 GARNAME = glite-data-transfer-api-perl
-GARVERSION = 1.5.2
+GARVERSION = 2.9.2
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 
 MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 GARCVSNAME    = org.glite.data.transfer-api-perl
-GARCVSVERSION = GLITE_RELEASE_1_1_2
+GARCVSVERSION = glite-data-transfer-api-perl_R_2_9_0_2
 NOCHECKSUM    = $(DISTFILES)
 
 LIBDEPS = apps/glite/data-api-perl
