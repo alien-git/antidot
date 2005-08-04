@@ -2,6 +2,7 @@
 # v0.2.3
 # Catalin.Cirstoiu@cern.ch
 
+# 03/08/2005 - added an expiry timeout for zombie jobs in ml.properties
 # 19/07/2005 - try to add a crontab entry to check for updates
 # 18/07/2005 - added AliEnFilter configuration to ml.properties
 # 21/06/2005 - check if MONALISA_HOST from LDAP config == hostname -f
@@ -134,8 +135,9 @@ sub setupConfig {
     my $storeType = ($config->{MONALISA_STORETYPE} or "mem");
     $add = ($config->{MONALISA_ADDPROPERTIES_LIST} or []);
     push(@$add, "lia.Monitor.Filters.AliEnFilter=true");
-    push(@$add, "lia.Monitor.Filters.AliEnFilter.SLEEP_TIME=60");
+    push(@$add, "lia.Monitor.Filters.AliEnFilter.SLEEP_TIME=120");
     push(@$add, "lia.Monitor.Filters.AliEnFilter.PARAM_EXPIRE=300");
+    push(@$add, "lia.Monitor.Filters.AliEnFilter.ZOMBIE_EXPIRE=7200");
     
     $rmv = ($config->{MONALISA_REMOVEPROPERTIES_LIST} or []);
     $changes = {
