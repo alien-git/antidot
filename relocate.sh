@@ -17,6 +17,9 @@ then
           perl -pi -e "s%$build_prefix/%$prefix/%g" $file
      done
      ;;
+   */apps/base/globus)
+     $prefix/globus/setup/setup-globus-common 
+     ;;
      *)
       ;;
   esac 
