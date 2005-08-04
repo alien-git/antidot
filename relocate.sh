@@ -18,7 +18,7 @@ then
      done
      ;;
    */apps/base/globus)
-     $prefix/globus/setup/setup-globus-common 
+     $prefix/globus/setup/globus/setup-globus-common 
      ;;
      *)
       ;;
