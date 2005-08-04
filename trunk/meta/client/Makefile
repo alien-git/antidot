@@ -7,8 +7,8 @@ FILTER     ?= %
  
 ALL=\
 apps/devel/dialog \
+apps/devel/glite \
 apps/base/eugridpma-carep \
-apps/glite/glite \
 apps/alien/classad \
 apps/alien/rls \
 apps/alien/srm \
