@@ -20,7 +20,8 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 AUTOTEST = 
 
-CONFIGURE_ARGS = $(DIRPATHS)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-ssl-dir=$(PREFIX)/include --with-ssl-lib-dir=$(PREFIX)/lib
+CONFIGURE_ENV  = env LDFLAGS=-L$(PREFIX)/lib
 
 include ../category.mk
 
