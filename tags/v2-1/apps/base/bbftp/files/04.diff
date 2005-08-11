@@ -1,0 +1,13 @@
+--- work/bbftp-3.0.1/gfw/Makefile.in	Thu Dec  5 17:26:58 2002
++++ work/bbftp-3.0.1/gfw/Makefile.in.new	Fri May 13 11:33:12 2005
+@@ -46,8 +46,8 @@
+ 	cp gfw.h $(INSTALL_DIR)/include/gfw.h.$(VERSION)
+ 	rm -f $(INSTALL_DIR)/include/gfw.h
+ 	cd $(INSTALL_DIR)
+-	$(LN_S) $(INSTALL_DIR)/lib/$(LIB_NAME).$(VERSION) $(INSTALL_DIR)/lib/$(LIB_NAME)
+-	$(LN_S) $(INSTALL_DIR)/include/gfw.h.$(VERSION) $(INSTALL_DIR)/include/gfw.h
++	(cd $(INSTALL_DIR)/lib; rm -f $(LIB_NAME); $(LN_S) $(LIB_NAME).$(VERSION) $(LIB_NAME))
++	(cd $(INSTALL_DIR)/include; rm -f gfw.h; $(LN_S) gfw.h.$(VERSION) gfw.h)
+ 
+ clean:
+ 	rm -f *.o

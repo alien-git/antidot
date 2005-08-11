@@ -1,0 +1,12 @@
+--- work/Net_SSLeay.pm-1.25/test.pl	Sun Aug 17 09:27:54 2003
++++ work/Net_SSLeay.pm-1.25/test.pl.new	Mon Jun 27 15:03:53 2005
+@@ -168,8 +168,8 @@
+ www.cdw.com
+ banking.wellsfargo.com
+ secure.worldgaming.net
+-www.ubs.com
+ 	    );
++#www.ubs.com
+ #www.engelschall.com
+ #www.openssl.org
+ 
