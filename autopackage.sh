@@ -2,6 +2,13 @@
 
 mkdir -p autopackage
 
+if [ "$BITS_HOME" = "" ]
+then
+  makeinstaller=makeinstaller
+else
+  makeinstaller=$BITS_HOME/bin/makeinstaller
+fi
+
 cat <<EOF>autopackage/default.apspec 
 # -*-shell-script-*-
 
@@ -53,5 +60,5 @@ EOF
 export APKG_URL=http://alien.cern.ch/cache/packages
 
 mkdir -p $PREFIX/packages
-makeinstaller -b -x && mv *.package* *.xml $PREFIX/packages
+$makeinstaller -b -x && mv *.package* *.xml $PREFIX/packages
 rm -rf autopackage
