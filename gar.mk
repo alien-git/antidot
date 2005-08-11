@@ -411,7 +411,7 @@ reinstall: build
 # uninstall		- Remove the installation.
 # TODO: actually write it!
 uninstall: build
-	@[ -f $(COOKIEDIR)/provides -a ! -z $(COOKIEDIR)/provides ] && cat $(COOKIEDIR)/provides | (while read file; do rm -f $$file; done) 
+	@[ -f $(COOKIEDIR)/provides -a ! -z $(COOKIEDIR)/provides ] && rm -rf `cat $(COOKIEDIR)/provides` 
 	@echo "	[$(call TMSG_ACTION,$@)] complete for $(call TMSG_ID,$(GARNAME))."
 
 # provides
@@ -424,12 +424,9 @@ provides: build
 cache: install
 	@mkdir -p $(CACHE_DIR)
 ifeq ($(wildcard $(COOKIEDIR)/provides), $(COOKIEDIR)/provides) 
-	@(grep -v -e '.*/lib.*\.la' $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%') > $(COOKIEDIR)/provides.swp 
-	@($(TAR) jcf $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 -C $(BUILD_PREFIX) -T $(COOKIEDIR)/provides.swp ) || touch $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 
-	@rm -f $(COOKIEDIR)/provides.swp
+	@($(TAR) jcf $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 -C $(BUILD_PREFIX) `grep -v -e '.*/lib.*\.a$$' $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%'`) || touch $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 
 	@grep -v  $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CHECKSUM_FILE) > $(CHECKSUM_FILE).swp
-	@cat $(CHECKSUM_FILE).swp | sort -u > $(CHECKSUM_FILE) 
-	@rm -f $(CHECKSUM_FILE).swp
+	@cat $(CHECKSUM_FILE).swp | sort -u > $(CHECKSUM_FILE) && rm -f $(CHECKSUM_FILE).swp
 	@cp -f $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CACHE_DIR)
 endif
 	    
@@ -446,7 +443,7 @@ tarball: build
 # file after a successful checksum (or just remove the checksum
 # cookie, but that would be lame and unportable).
 clean:
-	@([ -f $(COOKIEDIR)/provides ] && cat $(COOKIEDIR)/provides | (while read file; do rm -f $$file; done)) || true
+	@([ -f $(COOKIEDIR)/provides ] && rm -rf `cat $(COOKIEDIR)/provides`) || true
 	@rm -rf $(DOWNLOADDIR) $(COOKIEDIR) $(COOKIEDIR)-* $(WORKSRC) $(WORKDIR) $(EXTRACTDIR) $(SCRATCHDIR) $(SCRATCHDIR)-$(COOKIEDIR) $(SCRATCHDIR)-build *~ autopackage
 
 buildclean:

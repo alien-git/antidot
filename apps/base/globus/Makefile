@@ -31,8 +31,6 @@ endif
 
 include ../category.mk
 
-POST_INSTALL = (env GLOBUS_LOCATION=$(GLOBUS_LOCATION) $(PREFIX)/globus/setup/globus/setup-globus-common)
-
 ifeq ($(GLOBUS_FLAVOR),gcc64)
 CONFIGURE_ARGS += --enable-64bit 
 endif

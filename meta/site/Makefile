@@ -15,8 +15,8 @@ apps/alien/srm \
 apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
+apps/alien/packman \
 apps/alien/perl \
-apps/monitor/monit \
 apps/alien/apiservice
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))

@@ -1,6 +1,6 @@
 all:
 
-DIRS=gcc devel base gui portal server glite lcg alien monitor root
+DIRS=gcc devel base gui portal server glite alien monitor root
 
 
 %:

@@ -1,5 +1,5 @@
 GARNAME = alien-tests
-GARVERSION = 2.2.1
+GARVERSION = 2.1.1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
@@ -9,7 +9,7 @@ GARCVSVERSION = glite-alien-tests_branch_2_0_0
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
-LIBDEPS = apps/alien/common apps/alien/admin apps/alien/gas apps/alien/gssapi 
+LIBDEPS = apps/alien/common apps/alien/admin apps/alien/gas apps/alien/gssapi apps/alien/packman
 
 DESCRIPTION = AliEn tests
 URL = http://alien.cern.ch

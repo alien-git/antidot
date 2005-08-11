@@ -7,14 +7,15 @@ FILTER     ?= %
  
 ALL=\
 apps/devel/dialog \
-apps/glite/glite \
 apps/base/eugridpma-carep \
+apps/glite/glite \
 apps/alien/classad \
 apps/alien/rls \
 apps/alien/srm \
 apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
+apps/alien/packman \
 apps/alien/perl \
 apps/alien/api
 

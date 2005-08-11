@@ -15,6 +15,7 @@ apps/alien/srm \
 apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
+apps/alien/packman \
 apps/alien/perl \
 apps/alien/apiservice \
 apps/server/mysql \
@@ -22,7 +23,6 @@ apps/server/DBD-mysql \
 apps/server/jabberd \
 apps/server/openldap \
 apps/base/Authen-PAM \
-apps/monitor/monit \
 apps/monitor/MonaLisa 
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))

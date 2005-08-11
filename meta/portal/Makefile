@@ -16,6 +16,7 @@ apps/alien/srm \
 apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
+apps/alien/packman \
 apps/alien/apiservice \
 apps/gui/glib \
 apps/gui/GD \
@@ -27,7 +28,6 @@ apps/portal/apache \
 apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
 apps/portal/gridport \
-apps/monitor/monit \
 apps/base/Authen-PAM
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))

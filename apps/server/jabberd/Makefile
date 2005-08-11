@@ -1,5 +1,5 @@
 GARNAME = jabberd
-GARVERSION = 2.0s9
+GARVERSION = 2.0s6
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = configure.in.diff

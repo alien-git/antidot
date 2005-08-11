@@ -24,4 +24,3 @@ BUILD_ARGS =
 
 include ../category.mk
 
-PRE_CONFIGURE = (rm -rf $(WORKSRC)/t/2_client.t) 
