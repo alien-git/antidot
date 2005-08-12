@@ -5,8 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = 
 
-LIBDEPS   = apps/gcc/gcc
-BUILDDEPS = apps/base/gpt
+LIBDEPS   = apps/gcc/gcc apps/base/gpt
 
 DESCRIPTION = Globus Toolkit
 URL = http://www.globus.org/
