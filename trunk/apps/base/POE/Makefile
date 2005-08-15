@@ -3,7 +3,7 @@ GARVERSION = 0.3101
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/
+MASTER_SITES = http://backpan.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/
 
 LIBDEPS  = apps/base/Socket6 apps/base/Event apps/base/Curses
 
