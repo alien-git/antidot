@@ -9,4 +9,4 @@ OWN_CFLAGS = -O2 -pipe
 export GARLIBEXT=so
 export GARSHARED=-shared
 
-export MASKED := apps/gui/GD
+export MASKED := 

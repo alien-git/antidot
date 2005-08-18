@@ -9,4 +9,4 @@ OWN_CFLAGS = -O2 -pipe
 export GARLIBEXT=so
 export GARSHARED=-shared
 
-export MASKED := apps/base/ncurses apps/devel/dialog apps/base/readline
+export MASKED := 
