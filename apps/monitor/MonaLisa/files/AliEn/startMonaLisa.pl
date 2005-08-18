@@ -83,14 +83,15 @@ sub setupFile {
 
 # Setup configuration files for MonaLisa
 sub setupConfig {
-    my $user = $ENV{ALIEN_USER};
+    my $user = $ENV{USER} || $ENV{LOGNAME};
     my $javaHome = "$ENV{ALIEN_ROOT}/java/MonaLisa/java";
     my $mlHome = "$ENV{ALIEN_ROOT}/java/MonaLisa";
+    my $farmHome = "$config->{LOG_DIR}/MonaLisa";
 
-    system("mkdir -p $mlHome/Service/myFarm");
+    system("rm -rf $farmHome; mkdir -p $farmHome");
     
     # db.conf.embedded
-    setupFile("$mlHome/AliEn/db.conf.embedded", "$mlHome/Service/myFarm/db.conf.embedded", {}, [], []); 
+    setupFile("$mlHome/AliEn/db.conf.embedded", "$farmHome/db.conf.embedded", {}, [], []); 
  
     # ml_env
     my $farmName = ($config->{MONALISA_NAME} or die("MonaLisa configuration not found in LDAP. Not starting it...\n"));
@@ -99,7 +100,7 @@ sub setupConfig {
     if($config->{MONALISA_HOST} && ($fqdn ne $config->{MONALISA_HOST})){
 	die("MonaLisa hostname from LDAP config [".$config->{MONALISA_HOST}."] differs from local one [$fqdn]. Not starting it...\n");
     }
-    my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "true");
+    my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "false");
     my $javaOpts = ($config->{MONALISA_JAVAOPTS} or "");
     my $add = [];
     my $rmv = [];
@@ -108,6 +109,7 @@ sub setupConfig {
 	"^JAVA_HOME=.*" => "JAVA_HOME=\"$javaHome\"",
 	"^SHOULD_UPDATE=.*" => "SHOULD_UPDATE=\"$shouldUpdate\"",
 	"^MonaLisa_HOME=.*" => "MonaLisa_HOME=\"$mlHome\"",
+	"^FARM_HOME=.*" => "FARM_HOME=\"$farmHome\"",
 	"^#?FARM_NAME=.*" => "FARM_NAME=\"$farmName\"",
 	"^#?JAVA_OPTS=.*" => "JAVA_OPTS=\"$javaOpts\""};
     setupFile("$mlHome/AliEn/ml_env", "$mlHome/Service/CMD/ml_env", $changes, $add, $rmv);
@@ -116,7 +118,7 @@ sub setupConfig {
     $add = ($config->{MONALISA_ADDMODULES_LIST} or []);
     $rmv = ($config->{MONALISA_REMOVEMODULES_LIST} or []);
     $changes = {};
-    setupFile("$mlHome/AliEn/myFarm.conf", "$mlHome/Service/myFarm/myFarm.conf", $changes, $add, $rmv);
+    setupFile("$mlHome/AliEn/myFarm.conf", "$farmHome/myFarm.conf", $changes, $add, $rmv);
     
     # ml.properties
     my $group = ($config->{MONALISA_GROUP} or "alice");
@@ -134,6 +136,7 @@ sub setupConfig {
     }
     my $storeType = ($config->{MONALISA_STORETYPE} or "mem");
     $add = ($config->{MONALISA_ADDPROPERTIES_LIST} or []);
+    push(@$add, "lia.Monitor.Store.FileLogger.maxDays=0");
     push(@$add, "lia.Monitor.Filters.AliEnFilter=true");
     push(@$add, "lia.Monitor.Filters.AliEnFilter.SLEEP_TIME=120");
     push(@$add, "lia.Monitor.Filters.AliEnFilter.PARAM_EXPIRE=300");
@@ -149,7 +152,6 @@ sub setupConfig {
 	"^MonaLisa.LONG.*" => "MonaLisa.LONG=$long",
 	"^lia.Monitor.LUSs.*" => "lia.Monitor.LUSs=$lus",
 	"^lia.Monitor.group.*" => "lia.Monitor.group=$group",
-	"^java.util.logging.FileHandler.pattern.*" => "java.util.logging.FileHandler.pattern=$config->{LOG_DIR}/MonaLisa.log",
     };
     if($storeType =~ /mem.*/){
 	$changes->{"^lia.Monitor.Store.TransparentStoreFast.web_writes.*"} = "lia.Monitor.Store.TransparentStoreFast.web_writes=0";
@@ -173,18 +175,18 @@ sub setupConfig {
 	push(@$rmv, "lia.Monitor.jdbcDriverString\\s*=\\s*com.mckoi.JDBCDriver");
 	push(@$rmv, "lia.Monitor.jdbcDriverString\\s*=\\s*com.mysql.jdbc.Driver");
     }
-    setupFile("$mlHome/AliEn/ml.properties", "$mlHome/Service/myFarm/ml.properties", $changes, $add, $rmv);
+    setupFile("$mlHome/AliEn/ml.properties", "$farmHome/ml.properties", $changes, $add, $rmv);
 }
 
 # Setup crontab (if possible) so that ML will check for updates
 sub setupCrontab {
-        my $ml_line = "*/20 * * * *     $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE";
-        my $lines = `env VISUAL=cat crontab -e 2>/dev/null | grep -v '/Service/CMD/CHECK_UPDATE'`;
-	if(open(CRON, "| crontab - &>/dev/null")){
-		print CRON $lines;
-		print CRON $ml_line;
-		close(CRON);
-	}
+    my $ml_line = "*/20 * * * *$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE";
+    my $lines = `env VISUAL=cat crontab -e 2>/dev/null | grep -v '/Service/CMD/CHECK_UPDATE'`;
+    if(open(CRON, "| crontab - &>/dev/null")){
+	print CRON $lines;
+	print CRON $ml_line;
+	close(CRON);
+    }
 }
 
 #print "------------------------\n";
@@ -198,7 +200,8 @@ setupCrontab();
 
 # Start ML
 my $r = system("$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER start"); #1>/dev/null 2>&1");
-system("ln -sf $ENV{ALIEN_ROOT}/java/MonaLisa/Service/myFarm/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
-system("( cd $config->{LOG_DIR} ; ln -sf MonaLisa.log.0 MonaLisa.log )");
+system("ln -sf $config->{LOG_DIR}/MonaLisa/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
+system("ln -sf $config->{LOG_DIR}/MonaLisa/ML0.log $config->{LOG_DIR}/MonaLisa.log");
 
 exit $r;
+
