@@ -17,7 +17,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --enable-ssl --enable-mysql --enable-ssl --enable-idn --with-extra-library-path=$(PREFIX)/lib/mysql
+CONFIGURE_ARGS = $(DIRPATHS) --enable-mysql --enable-ssl --enable-idn --with-extra-library-path=$(PREFIX)/lib/mysql:$(PREFIX)/lib
 
 include ../category.mk
 
