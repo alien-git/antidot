@@ -8,6 +8,7 @@ if [ "$prefix" != "$build_prefix" ]
 then
   case $app in 
    */apps/base/perl)
+     echo Relocating $app
      config=`find $prefix/lib/perl5 -name Config.pm -exec grep -l "This file was created by configpm" {} \;`
      perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $config
      config=`find $prefix/lib/perl5 -path "*/CORE/config.h"`
@@ -18,7 +19,12 @@ then
      done
      ;;
    */apps/base/globus)
-     $prefix/globus/setup/globus/setup-globus-common 
+     echo Relocating $app
+     env PERL5LIB=$prefix/globus/lib $prefix/globus/setup/globus/setup-globus-common 
+     if [ -f $prefix/globus/setup/globus/setup-globus-common ]
+     then
+       env GLOBUS_LOCATION=$prefix/globus PERL5LIB=$prefix/globus/lib $prefix/globus/setup/globus/setup-globus-common
+     fi 
      ;;
      *)
       ;;
