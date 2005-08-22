@@ -9,3 +9,29 @@
  #include <netinet/in.h>
  #include <unistd.h>
  #include <zlib.h>
+--- work/SealedEnvelope-1.0.1/TSealedEnvelope.cxx	2005-06-24 15:10:21.000000000 +0200
++++ work/SealedEnvelope-1.0.1/TSealedEnvelope.cxx.new	2005-06-24 15:11:35.000000000 +0200
+@@ -1,8 +1,10 @@
+ 
++#ifdef __APPLE__
++#define uuid_t notype_t
++#endif
+ #include "TSealedEnvelope.h"
+ #include <iostream>
+ #include <sstream>
+-#include <uuid.h>
+ #include <netinet/in.h>
+ #include <unistd.h>
+ #include <zlib.h>
+@@ -11,6 +13,11 @@
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <map>
++#ifdef __APPLE__
++#undef uuid_t
++#endif
++
++#include <uuid.h>
+ 
+ #ifdef WITHTHREADS
+ #include <pthread.h>
