@@ -23,3 +23,6 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --with-perl
 
 include ../category.mk
 
+pre-install:
+	rm work/$(GARNAME)-$(GARVERSION)/install
+

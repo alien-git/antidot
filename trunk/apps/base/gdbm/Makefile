@@ -2,6 +2,7 @@ GARNAME = gdbm
 GARVERSION = 1.8.3
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = macosx.diff
 
 MASTER_SITES = ftp://mirror.switch.ch/mirror/gnu/gdbm/
 

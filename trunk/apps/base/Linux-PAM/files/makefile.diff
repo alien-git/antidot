@@ -42,3 +42,63 @@
  
  dnl Checks for programs.
  AC_PROG_CC
+@@ -263,7 +263,7 @@
+ dnl Look for cracklib dictionary
+ AC_MSG_CHECKING(path to cracklib dictionary)
+ DICT_DIR_CANDIDATES="/usr/lib /usr/share/dict /usr/share/lib \
+-  /usr/local/lib /usr/local/share/lib"
++  /usr/local/lib /usr/local/share/lib /usr/share/cracklib"
+ DICT_FILE_CANDIDATES="pw_dict cracklib_dict"
+ CRACKLIB_DICTPATH=""
+ for d in $DICT_DIR_CANDIDATES ; do
+--- work/Linux-PAM-0.78/configure.in	2005-06-22 12:53:22.000000000 +0200
++++ work/Linux-PAM-0.78/configure.in.new	2005-06-22 13:06:11.000000000 +0200
+@@ -42,10 +42,25 @@
+ MANMODE=644			; AC_SUBST(MANMODE)
+ 
+ dnl These are most likely platform specific - I think HPUX differs
+-USESONAME=yes			; AC_SUBST(USESONAME)
+-SOSWITCH="-Wl,-soname -Wl,"	; AC_SUBST(SOSWITCH)
+-NEEDSONAME=yes			; AC_SUBST(NEEDSONAME)
+-LDCONFIG=echo			; AC_SUBST(LDCONFIG)
++	case $OS in
++	darwin)
++		USESONAME=no
++		SOSWITCH=
++		NEEDSONAME=no
++		LDCONFIG=echo
++		;;
++	*)
++		USESONAME=yes
++		SOSWITCH="-Wl,-soname -Wl,"
++		NEEDSONAME=yes
++		LDCONFIG=echo
++		;;
++	esac
++
++AC_SUBST(USESONAME)
++AC_SUBST(SOSWITCH)
++AC_SUBST(NEEDSONAME)
++AC_SUBST(LDCONFIG)
+ 
+ dnl Checks for programs.
+ AC_PROG_CC
+@@ -318,6 +333,18 @@
+ 		STRIP=strip
+ 		CC_STATIC="-Xlinker -export-dynamic"
+ 		;;
++	darwin)
++		OS_CFLAGS=
++		LD_D="export MACOSX_DEPLOYMENT_TARGET=10.4; $CC -dynamiclib -undefined dynamic_lookup $LDFLAGS"
++		WARNINGS="$GCC_WARNINGS"
++		PIC="-fPIC"
++		DYNTYPE=dylib
++		LD=g++
++		LD_L="export MACOSX_DEPLOYMENT_TARGET=10.4; $CC -dynamiclib -undefined dynamic_lookup $LDFLAGS"
++		RANLIB=ranlib
++		STRIP=strip
++		CC_STATIC=
++		;;
+ 	sunos)
+ 		OS_CFLAGS="-ansi -pedantic"
+ 		LD_D="gcc -shared -Xlinker -x"
