@@ -2,7 +2,7 @@ GARNAME = SealedEnvelope
 GARVERSION = 1.0.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Makefile.PL.diff configure.diff uuid.diff
+PATCHFILES = Makefile.PL.diff configure.diff 
 
 MASTER_SITES = 
 
