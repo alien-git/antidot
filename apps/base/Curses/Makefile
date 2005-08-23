@@ -23,3 +23,7 @@ CONFIGURE_ARGS =
 
 include ../category.mk
 
+pre-configure:
+	cp work/Curses-1.12/hints/c-darwin-thread-multi-2level.h work/Curses-1.12/hints/c-darwin.h
+
+
