@@ -3,6 +3,9 @@ GARVERSION = 1.0.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = Makefile.PL.diff configure.diff 
+ifeq ($(shell uname),Darwin)
+PATCHFILES += macosx.diff
+endif
 
 MASTER_SITES = 
 
@@ -25,7 +28,8 @@ BUILD_ARGS =
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; automake -a; libtoolize -c; autoconf)
+
+PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; libtoolize -c; automake -a; autoconf)
  
 
 POST_INSTALL = (cd $(WORKSRC) ; make perlmodule-install) 
