@@ -1,0 +1,14 @@
+--- work/SealedEnvelope-1.0.2/perl/Makefile.PL.ori	2005-08-24 10:00:20.000000000 +0200
++++ work/SealedEnvelope-1.0.2/perl/Makefile.PL	2005-08-24 10:00:37.000000000 +0200
+@@ -1,10 +1,9 @@
+ use ExtUtils::MakeMaker;
+ WriteMakefile(
+ 	      'CC'                => 'g++',
+-	      'LD'                => 'g++',
+ 	      'NAME'              => 'SealedEnvelope',
+ 	      'VERSION'           => '1.00',
+-	      'OBJECT'            => 'SealedEnvelope_wrap.o ../.libs/libSealedEnvelope.so',
++	      'OBJECT'            => 'SealedEnvelope_wrap.o ../.libs/libSealedEnvelope.$(SO)',
+ 	      'INC'               => '-I /usr/kerberos/include -I $(PERLPREFIX)/include ',
+ 	      'DEFINE'            => '-D__SWIG__',
+ 	      );

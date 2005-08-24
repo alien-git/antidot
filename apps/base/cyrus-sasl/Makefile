@@ -2,6 +2,7 @@ GARNAME = cyrus-sasl
 GARVERSION = 2.1.20
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = gcc4.diff
 
 MASTER_SITES = http://ftp.andrew.cmu.edu/pub/cyrus-mail/
 
