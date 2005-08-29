@@ -12,7 +12,7 @@ AUTHOR  =  Ralf S. Engelschall
 LICENSE = MIT
 URL     = http://www.ossp.org/pkg/lib/uuid/
 
-DESCRIPTION = C and Perl API and CLI for the generation of standard UUIDs
+DESCRIPTION = C and Perl API and CLI for the generation of standard UUID
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
@@ -24,5 +24,5 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --with-perl
 include ../category.mk
 
 pre-install:
-	rm work/$(GARNAME)-$(GARVERSION)/install
+	rm -f work/$(GARNAME)-$(GARVERSION)/install
 
