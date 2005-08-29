@@ -20,10 +20,9 @@ then
      ;;
    */apps/base/globus)
      echo Relocating $app
-     env PERL5LIB=$prefix/globus/lib $prefix/globus/setup/globus/setup-globus-common 
      if [ -f $prefix/globus/setup/globus/setup-globus-common ]
      then
-       env GLOBUS_LOCATION=$prefix/globus PERL5LIB=$prefix/globus/lib $prefix/globus/setup/globus/setup-globus-common
+       env GLOBUS_LOCATION=$prefix/globus PERL5LIB="$prefix/globus/lib/perl:$prefix/lib"$prefix/bin/perl $prefix/globus/setup/globus/setup-globus-common.pl
      fi 
      ;;
      *)
