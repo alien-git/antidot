@@ -2,6 +2,7 @@ GARNAME = globus
 GARVERSION = 2.4.3ng
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = config.diff
 
 MASTER_SITES = 
 
