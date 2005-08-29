@@ -12,11 +12,15 @@ URL = http://www.boutell.com/gd/
 LICENSE = GD
 AUTHOR =
 
-
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
+
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS)
+CONFIGURE_ARGS = $(DIRPATHS) 
 
 include ../category.mk
+
+ifeq ($(GARUNAME_S),Darwin)
+CONFIGURE_ARGS += --with-jpeg=/sw --with-fontconfig=/usr/X11R6
+endif

@@ -2,6 +2,7 @@ GARNAME = t1lib
 GARVERSION = 5.1.0
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = macos.diff
 
 LIBDEPS = apps/gcc/gcc
 
