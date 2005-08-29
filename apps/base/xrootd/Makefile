@@ -2,7 +2,7 @@ GARNAME = xrootd
 GARVERSION = 1.0.7
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = 
+PATCHFILES = macos.diff
 
 MASTER_SITES =  
 
@@ -27,6 +27,6 @@ endif
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; automake -a; libtoolize -c; autoconf)
+PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; libtoolize -c; automake -a; autoconf)
 
 

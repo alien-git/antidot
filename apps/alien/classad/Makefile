@@ -28,6 +28,6 @@ PRE_CONFIGURE = (cd $(WORKSRC);env PREFIX=$(PREFIX) sh bootstrap )
 #POST_INSTALL  = (touch $(PREFIX)/lib/perl5/site_perl/5.8.6/Classad.pm); 
 
 ifeq ($(shell uname),Darwin)
-  POST_INSTALL  += ( cd $(PREFIX)/lib;  [ -f libClassad.so ] && mv libClassad.so libClassad.dylib )
+  POST_INSTALL  += ; ( cd $(PREFIX)/lib;  [ -f libClassad.so ] && mv libClassad.so libClassad.dylib )
 endif
 
