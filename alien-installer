@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.63  2005/08/02 15:26:17  buncic
+# USe + insted of " " to separate compinents in ALIEN_INSTALLER_TYPE
+#
 # Revision 1.62  2005/08/02 13:53:17  buncic
 # Allow installer updates to new version (-r vN-M)
 #
@@ -293,28 +296,25 @@ InstallerSync()
 ###########################################################################
 {
  (
-  mkdir -p $ALIEN_INSTALLER_HOME || Exit 1
+  mkdir -p $ALIEN_INSTALLER_HOME || Error "Error: Cannot create $ALIEN_INSTALLER_HOME directory"
   cd $ALIEN_INSTALLER_HOME
   if [ ! -d CVS ]
   then
-    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/$ALIEN_RELEASE/ . || Error "Error: rsync update failed." 
+    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/$ALIEN_RELEASE/ . 
   fi
-  if [ -d CVS -a -f alien-installer ]
-  then
-    if [ ! -f $HOME/.cvspass ]
-    then 
+  if [ ! -f $HOME/.cvspass ]
+  then 
      touch $HOME/.cvspass
-    fi
-    if [ `cat $HOME/.cvspass | grep -c $ALIEN_INSTALLER_CVS` -eq 0 ]
-    then 
+  fi
+  if [ `cat $HOME/.cvspass | grep -c $ALIEN_INSTALLER_CVS` -eq 0 ]
+  then 
      echo "$ALIEN_INSTALLER_CVS Ah<Z" >> $HOME/.cvspass
-    fi
-    if [ "$ALIEN_RELEASE" = "HEAD" ]
-    then
+  fi
+  if [ "$ALIEN_RELEASE" = "HEAD" ]
+  then
       cvs -d $ALIEN_INSTALLER_CVS update -dPA || Error "Error: CVS update failed ($ALIEN_RELEASE)."
-    else
+  else
       cvs -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE || Error "Error:CVS update failed ($ALIEN_RELEASE)."
-    fi
   fi
   ) >> install.log 2>&1
 }
