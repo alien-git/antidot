@@ -2,7 +2,7 @@ GARNAME = SealedEnvelope
 GARVERSION = 1.0.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Makefile.PL.diff  uuid.diff
+PATCHFILES = Makefile.PL.diff  uuid.diff Makefile.am.diff
 ifeq ($(shell uname),Darwin)
 PATCHFILES += macosx.diff 
 endif
@@ -31,5 +31,4 @@ include ../category.mk
 
 PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; libtoolize -c; automake -a; autoconf)
  
-
-POST_INSTALL = (cd $(WORKSRC) ; make perlmodule-install) 
+#POST_INSTALL = (cd $(WORKSRC) ; make perlmodule-install) 

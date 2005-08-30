@@ -1,0 +1,11 @@
+--- work/SealedEnvelope-1.0.2/Makefile.am	Thu Aug 11 16:00:51 2005
++++ work/SealedEnvelope-1.0.2/Makefile.am.new	Tue Aug 30 23:25:41 2005
+@@ -2,6 +2,8 @@
+ INCLUDES = -I./ -I$(KERBEROSINC)/ -I $(prefix)/include/
+ lib_LTLIBRARIES = libSealedEnvelope.la
+ include_HEADERS = TSealedEnvelope.h 
++all-local:	    perlmodule
++install-data-local: perlmodule-install
+ 
+ libSealedEnvelope_la_SOURCES = TSealedEnvelope.cxx spc_b64.cxx TSealedEnvelope.h 
+ 
