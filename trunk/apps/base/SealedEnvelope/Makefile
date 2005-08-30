@@ -2,9 +2,9 @@ GARNAME = SealedEnvelope
 GARVERSION = 1.0.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Makefile.PL.diff configure.diff 
+PATCHFILES = Makefile.PL.diff  uuid.diff
 ifeq ($(shell uname),Darwin)
-PATCHFILES += macosx.diff
+PATCHFILES += macosx.diff 
 endif
 
 MASTER_SITES = 
