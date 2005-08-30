@@ -22,7 +22,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-perl=$(PREFIX)/bin/perl --enable-perl-module --with-swig=$(PREFIX)/bin/swig
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-perl=$(PREFIX)/bin/perl --enable-perl-module --with-swig=$(PREFIX)/bin
 
 BUILD_ARGS =
 
