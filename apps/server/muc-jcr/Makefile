@@ -17,3 +17,6 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 include ../category.mk
+
+post-extract:
+	find work -name '*.o' | xargs rm 

@@ -2,7 +2,7 @@ GARNAME = lfc
 GARVERSION = 1.3.7
 CATEGORIES = apps-gcc
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = config.diff
+PATCHFILES = config.diff macos.diff
 
 MASTER_SITES = 
 
@@ -26,4 +26,4 @@ INSTALL_ARGS  = DESTDIR=$(PREFIX)/include/lfc
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); sh scripts/choose-module lfc mysql ) 
+PRE_CONFIGURE = (cd $(WORKSRC)/scripts; sh choose-module mysql lfc ) 

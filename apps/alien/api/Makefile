@@ -3,6 +3,7 @@ GARVERSION = 1.0.5
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
+PATCHFILES = macos.diff
 
 GARCVSNAME    = org.glite.alien.apiservice
 GARCVSVERSION = alien-apiservice-1_0_5

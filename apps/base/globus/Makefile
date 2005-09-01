@@ -31,7 +31,7 @@ endif
 
 include ../category.mk
 
-POST_INSTALL = (env GLOBUS_LOCATION=$(GLOBUS_LOCATION) $(PREFIX)/globus/setup/globus/setup-globus-common)
+POST_INSTALL = (env GLOBUS_LOCATION=$(PREFIX)/globus GPT_LOCATION=$(PREFIX)/globus PERL5LIB="$prefix/globus/lib/perl5:$(PREFIX)/lib/perl5" $(PREFIX)/bin/perl $(PREFIX)/globus/setup/globus/setup-globus-common.pl)
 
 ifeq ($(GLOBUS_FLAVOR),gcc64)
 CONFIGURE_ARGS += --enable-64bit 
