@@ -3,6 +3,7 @@ GARVERSION = 2.1.0
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
+PATCHFILES = Makefile.am.diff
 
 GARCVSNAME    = org.glite.alien.classad
 GARCVSVERSION = glite-alien-classad_branch_2_0_0
