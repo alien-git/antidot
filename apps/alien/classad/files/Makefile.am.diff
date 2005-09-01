@@ -1,0 +1,11 @@
+--- work/alien-classad-2.1.0/src/Makefile.am	Fri Mar 25 21:02:47 2005
++++ work/alien-classad-2.1.0/src/Makefile.am.new	Thu Sep  1 14:30:03 2005
+@@ -12,7 +12,7 @@
+ Classad.C \
+ Classad_wrap.cxx
+ 
+-libClassad_la_LIBADD = -L$(SWIGDIR)/lib -lswigpl -L$(CLASSADSDIR)/lib -l@CLASSADSLIB@  -L/usr/lib -lstdc++
++libClassad_la_LIBADD = -L$(CLASSADSDIR)/lib -l@CLASSADSLIB@  -L/usr/lib -lstdc++
+ 
+ libClassad_la_LDFLAGS = -module -avoid-version
+ 
