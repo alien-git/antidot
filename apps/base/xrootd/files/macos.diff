@@ -187,3 +187,57 @@
     libfn[sizeof(libfn)-1] = '\0';
  
  // Determine path
+--- work/xrootd-1.0.7/xrootd/config/GNUmake.rules.macos.ori	2005-09-02 10:09:36.000000000 +0200
++++ work/xrootd-1.0.7/xrootd/config/GNUmake.rules.macos	2005-09-02 09:57:37.000000000 +0200
+@@ -15,7 +15,7 @@
+ TYPELINK   = -undefined dynamic_lookup -multiply_defined suppress 
+ TYPEOPT    = $(TYPEMISC) $(TYPELINK)
+ TYPEDBG    = $(TYPEMISC) -g
+-TYPELDSO   = $(TYPELINK) -dynamiclib
++TYPELDSO   = $(TYPELINK) -dynamiclib -Wl,-install_name,$(EXTINSTALL)/lib/$(shell basename $(LIBRARY))
+ TYPESHLIB  = dylib
+ 
+ # In MacOSx the threading functions should come libc.
+--- work/xrootd-1.0.7/xrootd/src/XrdClient/GNUmakefile.ori	2005-09-01 17:50:42.000000000 +0200
++++ work/xrootd-1.0.7/xrootd/src/XrdClient/GNUmakefile	2005-09-01 17:50:48.000000000 +0200
+@@ -7,7 +7,11 @@
+ include ../GNUmake.env
+ 
+ 
+-BINLIBS = -L$(LIBDIR) -lXrdClient -lXrdNet -lXrdOuc -lXrdSec 
++ifneq ($(uname -s),Darwin)
++BINLIBS = -L$(LIBDIR) -lXrdClient -lXrdNet -lXrdOuc -lXrdSec
++else
++BINLIBS = -L$(LIBDIR) -lXrdClient -lXrdNet -lXrdOuc -Wl,-dylib_file,$(EXTINSTALL)/lib/libXrdSec.dylib:$(LIBRARY)/libXrdSec.dylib $(LIBKRB5)
++endif
+ 
+ LIBDEPS = $(LIBDIR)/libXrdNet.a 
+ 
+--- work/xrootd-1.0.7/xrootd/src/XrdPosix/GNUmakefile.ori	2005-09-01 17:49:25.000000000 +0200
++++ work/xrootd-1.0.7/xrootd/src/XrdPosix/GNUmakefile	2005-09-01 18:17:42.000000000 +0200
+@@ -18,7 +18,11 @@
+         $(OBJDIR)/XrdPosix.o  \
+         $(OBJDIR)/XrdPosixXrootd.o
+ 
++ifneq ($(uname -s),Darwin)
+ MORELIBS = -L$(LIBDIR) -lXrdClient -lXrdNet -lXrdOuc -lXrdSec
++else
++MORELIBS = -L$(LIBDIR) -lXrdClient -lXrdNet -lXrdOuc -Wl,-dylib_file,$(EXTINSTALL)/lib/libXrdSec.dylib:$(LIBRARY)/libXrdSec.dylib $(LIBKRB5)
++endif
+ 
+ LIBDEP   = $(LIBDIR)/libXrdClient.a \
+            $(LIBDIR)/libXrdNet.a \
+--- work/xrootd-1.0.7/xrootd/src/XrdXr/GNUmakefile.ori	2005-09-01 17:47:39.000000000 +0200
++++ work/xrootd-1.0.7/xrootd/src/XrdXr/GNUmakefile	2005-09-01 17:47:53.000000000 +0200
+@@ -5,7 +5,11 @@
+ #------------------------------------------------------------------------------#
+ include ../GNUmake.env
+ 
++ifneq ($(uname -s),Darwin)
+ BINLIBS = -L$(LIBDIR) -lXrdNet -lXrdOuc -lXrdSec
++else
++BINLIBS = -L$(LIBDIR) -lXrdNet -lXrdOuc -Wl,-dylib_file,$(EXTINSTALL)/lib/libXrdSec.dylib:$(LIBRARY)/libXrdSec.dylib $(LIBKRB5)
++endif
+ 
+ #------------------------------------------------------------------------------#
+ #                             C o m p o n e n t s                              #

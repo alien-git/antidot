@@ -2,3 +2,9 @@
 eff2bb9c35d21c74b1cef37dceb6cabf  download/SealedEnvelope-1.0.2.tar.gz
 a945b6a98d6cf10414daafd528a22288  download/uuid.diff
 026d7c86445591dba2443cf3303f0829  download/Makefile.am.diff
+757cc54fcc6ee5c506ebb9a9c7add2ba  download/Makefile.PL.diff
+026d7c86445591dba2443cf3303f0829  download/Makefile.am.diff
+eff2bb9c35d21c74b1cef37dceb6cabf  download/SealedEnvelope-1.0.2.tar.gz
+85c4607081d7c54ebcf82ede09b2c5c0  download/configure.diff
+7bdb87190cb6a2dcdb7dad5ca2d8f7f1  download/macosx.diff
+a945b6a98d6cf10414daafd528a22288  download/uuid.diff
