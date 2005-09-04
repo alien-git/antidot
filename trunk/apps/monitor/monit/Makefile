@@ -2,6 +2,7 @@ GARNAME = monit
 GARVERSION = 4.5.1
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = macos.diff
 
 MASTER_SITES =  http://www.tildeslash.com/monit/dist/
 
@@ -20,7 +21,11 @@ TEST_SCRIPTS =
 
 AUTOTEST = 
 
+ifneq ($(shell uname -s),Darwin)
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-ssl-dir=$(PREFIX)/include --with-ssl-lib-dir=$(PREFIX)/lib
+else
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-ssl-dir=/usr
+endif
 CONFIGURE_ENV  = env LDFLAGS=-L$(PREFIX)/lib
 
 include ../category.mk
