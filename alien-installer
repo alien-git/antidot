@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.64  2005/08/29 13:25:22  buncic
+# Use CVS only if rsync fails
+#
 # Revision 1.63  2005/08/02 15:26:17  buncic
 # USe + insted of " " to separate compinents in ALIEN_INSTALLER_TYPE
 #
@@ -435,7 +438,7 @@ InstallerSetup()
   echo $arg
 )` 
 
-  $ALIEN_INSTALLER_PREFIX/bin/alien configure $arg1 $arg2 
+  $ALIEN_INSTALLER_PREFIX/bin/alien configure common $arg1 $arg2 
 
   if [ $? -eq 1 ]
   then
@@ -605,7 +608,6 @@ InstallerUI()
                   --radiolist 'PLEASE SELECT PLATFORM:' 0 0 0 \
                               'i686-pc-linux-gnu'         'Linux i686' on \
                               'ia64-unknown-linux-gnu'    'Linux ia64' 0  \
-                              'powerpc-apple-darwin7.7.0' 'MacOS X'    0  \
                               'powerpc-apple-darwin8.1.0' 'MacOS X'    0  2>$dialog_file || Exit 1 
       prefix=`cat $dialog_file`
       cmd=$cmd"--with-platform=$platform "
