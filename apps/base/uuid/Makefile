@@ -23,3 +23,4 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --with-perl
 
 include ../category.mk
 
+PRE_INSTALL = (rm -f $(WORKSRC)/Install)

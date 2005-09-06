@@ -22,3 +22,22 @@
 +	find Service ! -path \*/CVS* -type f -exec cp {} $(PREFIX)/$(DISTNAME)/{} \; ) ; \
 +	cd $(PREFIX)/ ; ln -sf $(DISTNAME) MonaLisa
 +
+--- work/MonaLisa.v1.2/Makefile.ori	2005-09-06 18:36:44.000000000 +0200
++++ work/MonaLisa.v1.2/Makefile	2005-09-06 18:37:17.000000000 +0200
+@@ -1,4 +1,5 @@
+ build:
++ifneq ($(shell uname -s),Darwin)
+ 	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) && \
+ 	tar zxvf $(DISTNAME).tar.gz && \
+ 	(cd $(DISTNAME) ; \
+@@ -6,6 +7,10 @@
+ 	echo "yes" | sh $$JAVA_BIN | tee /dev/null ; \
+ 	JAVA_HOME=j2sdk* ; ln -sf $$JAVA_HOME java ; cd $$JAVA_HOME ; \
+ 	rm -rf demo man src.zip jre/plugin jre/javaws)
++else
++	echo Java is already installed on Darwin
++	tar zxvf $(DISTNAME).tar.gz
++endif
+ 
+ install:
+ 	rm -rf $(PREFIX)/$(DISTNAME) ; rm -f MonaLisa ; \

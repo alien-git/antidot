@@ -2,7 +2,7 @@ GARNAME = pks
 GARVERSION = 0.9.6
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = 
+PATCHFILES = macos.diff
 
 MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/pks/
 
