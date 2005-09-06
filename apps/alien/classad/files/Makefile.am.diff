@@ -9,3 +9,13 @@
  
  libClassad_la_LDFLAGS = -module -avoid-version
  
+--- work/alien-classad-2.1.0/src/Makefile.am	Thu Sep  1 14:31:36 2005
++++ work/alien-classad-2.1.0/src/Makefile.am.new	Tue Sep  6 13:34:36 2005
+@@ -1,6 +1,6 @@
+ AUTOMAKE_OPTIONS = foreign
+ 
+-INCLUDES = -I. -I$(CLASSADSDIR)/include/classads -I$(CLASSADSDIR)/include -I$(SWIGDIR)/lib/swig1.3 -I$(SWIGDIR)/lib/swig1.3/perl5  -I${PERL5EXT}
++INCLUDES = -I. -I$(CLASSADSDIR)/include/classads -I$(CLASSADSDIR)/include -I${PERL5EXT}
+ 
+ CXXFLAGS = @CXXFLAGS@ -DCLASSAD_DISTRIBUTION
+ 
