@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.66  2005/09/07 09:36:00  buncic
+# Fixing update
+#
 # Revision 1.65  2005/09/05 13:30:35  buncic
 # installer setup will configure common and not user Environment
 #
@@ -678,6 +681,7 @@ InstallerUI()
                            'gshell'  'gShell and ROOT'          0  \
                            'portal'  'Portal'                   0  \
                            'site'    'Site CE/SE services'      0  \
+                           'lcg'     'LCG Components'           0  \
                            'monitor' 'MonaLisa site monitor'    0  \
                            'core'    'Core VO services'         0  \
                            'wn'      'Worker node'              0 2>$dialog_file || Exit 1
