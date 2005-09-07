@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.65  2005/09/05 13:30:35  buncic
+# installer setup will configure common and not user Environment
+#
 # Revision 1.64  2005/08/29 13:25:22  buncic
 # Use CVS only if rsync fails
 #
@@ -470,6 +473,8 @@ InstallerUpdate()
 {
   InstallerSync
 
+  InstallerRcUpdate
+
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
   export TPUT=undef
 
@@ -484,9 +489,10 @@ InstallerUpdate()
     rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
   fi
 
-  ALIEN_BITS_URL="http://alienbuild.cern.ch:8888/$ALIEN_INSTALLER_PLATFORM/$ALIEN_RELEASE/download/"
+ (cd $ALIEN_INSTALLER_HOME/apps/alien; make clean)
 
  (cd $ALIEN_INSTALLER_HOME; ./alien-installer -p $ALIEN_INSTALLER_HOME -r $ALIEN_RELEASE configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
+
 
   for meta in $ALIEN_INSTALLER_TYPE
   do
@@ -773,6 +779,7 @@ do
         -r|--release)
             shift 1
 	    ALIEN_RELEASE=$1
+            ALIEN_BITS_URL="http://alienbuild.cern.ch:8888/$ALIEN_INSTALLER_PLATFORM/$ALIEN_RELEASE/download/" 
             shift 1
            ;;
         -t|--type)
@@ -798,7 +805,7 @@ do
             shift 1
 	    ALIEN_FORCE=1
            ;;
-        -r|--runtime)
+        --runtime)
             shift 1
 	    export INSTALL_FILTER="doc/% %.a %.la info/% share/doc/%" 
            ;;
