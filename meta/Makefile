@@ -1,6 +1,6 @@
 all:
 
-DIRS=all client  core  portal  site  wn
+DIRS=all client  core  portal  site  wn lcg
 
 %:
 	@for i in $(DIRS); do \
