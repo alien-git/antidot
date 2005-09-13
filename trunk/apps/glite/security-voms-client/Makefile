@@ -19,7 +19,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-docs=no
+CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-docs=no --with-pic
 
 include ../category.mk
 
