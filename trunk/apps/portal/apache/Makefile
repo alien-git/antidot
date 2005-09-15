@@ -7,7 +7,7 @@ PATCHFILES = macos.diff
 
 MASTER_SITES = 
 
-LIBDEPS = apps/base/openssl apps/base/perl
+LIBDEPS = apps/base/openssl apps/base/libwww-perl
 
 DESCRIPTION = Apache Web Server
 URL = http://www.apache.org
