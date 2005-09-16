@@ -23,4 +23,4 @@ PKG_CONFIG_PATH+=:/sw/lib/pkgconfig
 endif
 
 pre-install:
-	rm $(WORKSRC)/INSTALL
+	rm -f $(WORKSRC)/INSTALL
