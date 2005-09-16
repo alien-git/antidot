@@ -2,7 +2,11 @@ GARNAME = glite-security-voms-client
 GARVERSION = 1.6.4
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
+ifeq ($(shell uname -s),Darwin)
+PATCHFILES = Makefile.am.diff macos.diff
+else
 PATCHFILES = Makefile.am.diff
+endif
 
 MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 GARCVSNAME    = org.glite.security.voms

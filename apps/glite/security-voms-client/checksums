@@ -1,2 +1,3 @@
 fdf27edc0dd4db26feb9de3424fb0d01  download/Makefile.am.diff
-28c77ca880c0ec6684a2be026d9f905b  download/glite-security-voms-client-1.6.4_src.tar.gz
+3a8030036c67beee4d7b1822cc3ed569  download/glite-security-voms-client-1.6.4_src.tar.gz
+a876da05855a95b6460f92877c7b60df  download/macos.diff

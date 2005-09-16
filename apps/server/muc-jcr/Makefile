@@ -17,3 +17,10 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 include ../category.mk
+
+ifeq ($(shell uname -s),Darwin)
+PKG_CONFIG_PATH+=:/sw/lib/pkgconfig
+endif
+
+pre-install:
+	rm $(WORKSRC)/INSTALL
