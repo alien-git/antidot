@@ -3,6 +3,10 @@ GARVERSION = 0.79
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+ifeq ($(shell uname -s),Darwin)
+PATCHFILES = macos.diff
+endif
+
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RS/RSOD/
 
 LIBDEPS = apps/base/perl 
