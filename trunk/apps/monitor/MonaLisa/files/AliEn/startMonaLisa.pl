@@ -1,7 +1,9 @@
 # Starting script for ML
-# v0.2.3
+# v0.3.0
 # Catalin.Cirstoiu@cern.ch
 
+# 08/09/2005 - search for java in $JAVA_HOME or path if not found in default location
+#            - install ml_env and site_env in $LOG_DIR to be sure we can write them
 # 03/08/2005 - added an expiry timeout for zombie jobs in ml.properties
 # 19/07/2005 - try to add a crontab entry to check for updates
 # 18/07/2005 - added AliEnFilter configuration to ml.properties
@@ -15,7 +17,17 @@ my $config = new AliEn::Config({ "SILENT" => 1, "DEBUG" => 0 } );
 
 $config or die("ERROR getting the configuration from LDAP!\n");
 
-( -f "$ENV{ALIEN_ROOT}/java/MonaLisa/java/bin/java" ) or die("ERROR Java is not installed!\n");
+my $javaHome = "$ENV{ALIEN_ROOT}/java/MonaLisa/java";
+if(! -f "$javaHome/bin/java"){
+	$javaHome = $ENV{JAVA_HOME};
+	if( ! ( $javaHome && (-f "$javaHome/bin/java") ) ){
+		my $javaPath = `which java`;
+		chomp($javaPath);
+		$javaHome = $1 if ($javaPath =~ /(.*)\/bin\/java$/);
+	}
+}
+
+( -f "$javaHome/bin/java" ) or die("ERROR Cannot find Java in $ENV{ALIEN_ROOT}/java/MonaLisa/java, \$JAVA_HOME or in path. Please install Java!\n");
 
 ( -f "$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER" ) or die("ERROR MonaLisa is not installed!\n");
 
@@ -84,7 +96,6 @@ sub setupFile {
 # Setup configuration files for MonaLisa
 sub setupConfig {
     my $user = $ENV{USER} || $ENV{LOGNAME};
-    my $javaHome = "$ENV{ALIEN_ROOT}/java/MonaLisa/java";
     my $mlHome = "$ENV{ALIEN_ROOT}/java/MonaLisa";
     my $farmHome = "$config->{LOG_DIR}/MonaLisa";
 
@@ -112,7 +123,13 @@ sub setupConfig {
 	"^FARM_HOME=.*" => "FARM_HOME=\"$farmHome\"",
 	"^#?FARM_NAME=.*" => "FARM_NAME=\"$farmName\"",
 	"^#?JAVA_OPTS=.*" => "JAVA_OPTS=\"$javaOpts\""};
-    setupFile("$mlHome/AliEn/ml_env", "$mlHome/Service/CMD/ml_env", $changes, $add, $rmv);
+    setupFile("$mlHome/AliEn/ml_env", "$farmHome/ml_env", $changes, $add, $rmv);
+
+    # site_env
+    $add = [];
+    $rmv = [];
+    $changes = {};
+    setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
     # myFarm.conf
     $add = ($config->{MONALISA_ADDMODULES_LIST} or []);
@@ -141,6 +158,7 @@ sub setupConfig {
     push(@$add, "lia.Monitor.Filters.AliEnFilter.SLEEP_TIME=120");
     push(@$add, "lia.Monitor.Filters.AliEnFilter.PARAM_EXPIRE=300");
     push(@$add, "lia.Monitor.Filters.AliEnFilter.ZOMBIE_EXPIRE=7200");
+    push(@$add, "lia.Monitor.Filters.AliEnFilter.LDAP_QUERY_INTERVAL=7200");
     
     $rmv = ($config->{MONALISA_REMOVEPROPERTIES_LIST} or []);
     $changes = {
@@ -180,7 +198,7 @@ sub setupConfig {
 
 # Setup crontab (if possible) so that ML will check for updates
 sub setupCrontab {
-    my $ml_line = "*/20 * * * *$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE";
+    my $ml_line = "*/20 * * * * $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE";
     my $lines = `env VISUAL=cat crontab -e 2>/dev/null | grep -v '/Service/CMD/CHECK_UPDATE'`;
     if(open(CRON, "| crontab - &>/dev/null")){
 	print CRON $lines;
@@ -199,9 +217,10 @@ setupCrontab();
 #print "Starting ML...\n";
 
 # Start ML
-my $r = system("$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER start"); #1>/dev/null 2>&1");
-system("ln -sf $config->{LOG_DIR}/MonaLisa/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
-system("ln -sf $config->{LOG_DIR}/MonaLisa/ML0.log $config->{LOG_DIR}/MonaLisa.log");
+my $mlLogDir = "$config->{LOG_DIR}/MonaLisa";
+my $r = system("export CONFDIR=$mlLogDir ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER start");
+system("ln -sf $mlLogDir/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
+system("ln -sf $mlLogDir/ML0.log $config->{LOG_DIR}/MonaLisa.log");
 
 exit $r;
 
