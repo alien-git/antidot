@@ -19,7 +19,7 @@ apps/alien/perl \
 apps/alien/apiservice \
 apps/server/mysql \
 apps/server/DBD-mysql \
-apps/server/jabberd \
+apps/server/ejabberd \
 apps/server/openldap \
 apps/base/Authen-PAM \
 apps/monitor/monit \
