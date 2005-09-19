@@ -9,7 +9,7 @@ GARCVSVERSION = glite-alien-admin_branch_2_0_0
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
-LIBDEPS = apps/alien/common apps/server/DBD-mysql apps/server/openldap apps/server/jabberd
+LIBDEPS = apps/alien/common apps/server/DBD-mysql apps/server/openldap apps/server/ejabberd
 
 DESCRIPTION = AliEn admin component
 URL = http://alien.cern.ch
