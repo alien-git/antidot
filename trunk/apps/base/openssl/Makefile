@@ -2,6 +2,9 @@ GARNAME = openssl
 GARVERSION = 0.9.8
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+ifeq ($(shell uname),Darwin)
+PATCHFILES = macos.diff
+endif
 
 MASTER_SITES = http://www.openssl.org/source/ 
 
@@ -17,7 +20,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) shared --openssldir=$(PREFIX)/ssl
-NODIRPATHS = --bindir --exec_prefix --sbindir --libexecdir --datadir --sysconfdir --sharedstatedir --localstatedir --libdir --infodir --includedir --mandir
+CONFIGURE_ARGS = -L$(PREFIX)/lib --openssldir=$(PREFIX)/ssl zlib no-asm no-krb5 shared 
 
 include ../category.mk
+
