@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES =  
 
-LIBDEPS = apps/lcg/lfc 
+LIBDEPS = apps/lcg/lfc apps/server/openldap
 
 DESCRIPTION = Grid file access library
 URL = http://lcg.web.cern.ch/LCG
