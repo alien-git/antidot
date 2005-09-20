@@ -1,0 +1,25 @@
+GARNAME = lcg-gfal
+GARVERSION = 1.7.3
+CATEGORIES = apps-tools
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = 
+
+MASTER_SITES =  
+
+LIBDEPS = apps/lcg/lfc 
+
+DESCRIPTION = Grid file access library
+URL = http://lcg.web.cern.ch/LCG
+AUTHOR = CERN LCG
+LICENSE =
+
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+
+CONFIGURE_ARGS = --prefix=$(PREFIX)
+
+include ../category.mk
+
+PRE_CONFIGURE = (cd $(WORKSRC);env PREFIX=$(PREFIX) sh bootstrap )
+
