@@ -1,19 +1,16 @@
 --- work/perl-5.8.7/lib/locale.t	Sun Jul  4 17:11:17 2004
-+++ work/perl-5.8.7/lib/locale.t.new	Tue Sep 20 15:49:57 2005
-@@ -437,6 +437,17 @@
++++ work/perl-5.8.7/lib/locale.t.new	Tue Sep 20 23:20:38 2005
+@@ -437,6 +437,14 @@
  
  setlocale(LC_ALL, "C");
  
-+ 
 +if ($^O eq 'darwin') {
 +    # Darwin 8/Mac OS X 10.4 has bad Catalan locales: perl bug #35895,
 +    # Apple bug ID# 4139653. It also has a problem in Byelorussian.
 +    if ($Config{osvers} ge '8' and $Config{osvers} le '8.3.0') {
-+	debug "# Skipping eu_ES, be_BY locales -- buggy in Darwin\n";
-+	[at]Locale = grep ! m/^(eu_ES|be_BY.CP1131$)/, @Locale;
++       debug "# Skipping eu_ES, be_BY locales -- buggy in Darwin\n";
 +    }
 +}
-+
 +
  @Locale = sort @Locale;
  
