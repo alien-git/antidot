@@ -2,7 +2,7 @@ GARNAME = readline
 GARVERSION = 5.0
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = shobj-conf.diff
+PATCHFILES = shobj-conf.diff patch-001-005.diff
 
 MASTER_SITES = ftp://ftp.gnu.org/gnu/readline/
 
