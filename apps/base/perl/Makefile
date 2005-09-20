@@ -21,3 +21,7 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 CONFIGURE_ARGS = $(PERL_DIRPATHS) -d -des -Dinstalldirs=perl  -Doptimize="-O" -Dcccdlflags=-fPIC -Dinstallprefix=$(PREFIX) -Dprefix=$(PREFIX) -Dd_semctl_semun -Di_db -Di_syslog -Dudsedl=yes -Dman3ext=3 -Dusemymalloc=no -DDEBUGGING -Dlibpth="/lib /usr/lib" -A append:libswanted=" pthread"
 
 include ../category.mk
+
+ifeq ($(shell uname),Darwin)
+PRE_CONFIGURE = (rm -f $(WORKSRC)/lib/locale.t)
+endif
