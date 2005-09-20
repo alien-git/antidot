@@ -1,4 +1,4 @@
-GARNAME = QT meta package
+GARNAME = qt
 GARVERSION = 4.0.1
 CATEGORIES = meta
 DISTFILES  =
