@@ -2,7 +2,7 @@ GARNAME = ncurses
 GARVERSION = 5.4
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-
+PATCHFILES = shlib.diff
 
 MASTER_SITES =  http://freshmeat.net/redir/ncurses/6995/url_tgz/
 
