@@ -8,7 +8,7 @@ endif
 
 MASTER_SITES =  
 
-LIBDEPS = apps/lcg/lfc apps/base/perl
+LIBDEPS = apps/lcg/lfc apps/base/perl apps/base/swig
 
 DESCRIPTION = Perl interface to LFC
 URL = http://lcg.web.cern.ch/LCG
