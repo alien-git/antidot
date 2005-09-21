@@ -10,7 +10,6 @@ apps/devel/dialog \
 apps/base/eugridpma-carep \
 apps/glite/glite \
 apps/alien/classad \
-apps/alien/rls \
 apps/alien/srm \
 apps/alien/gas \
 apps/alien/common \
