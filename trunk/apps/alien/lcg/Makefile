@@ -5,7 +5,7 @@ DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = 
 
-LIBDEPS = apps/alien/common apps/lcg/lfc apps/glite/data-transfer-api-perl
+LIBDEPS = apps/alien/common apps/lcg/lfc-perl  apps/glite/data-transfer-api-perl
 
 DESCRIPTION = AliEn LCG Interface
 URL = http://alien.cern.ch
