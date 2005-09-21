@@ -5,7 +5,7 @@
 +
 +install:
 +	mkdir -p $(GLOBUS_LOCATION)/share/certificates
-+	for dir in `cat accredited.in` ; do \
++	for dir in `awk '{print $$1}' accredited.in` ; do \
 +		cp -f $$dir/* $(GLOBUS_LOCATION)/share/certificates; \
 +	done
 +
