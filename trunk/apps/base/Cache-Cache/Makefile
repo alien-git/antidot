@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/D/DC/DCLINTON/ http://www.cpan.org/authors/id/D/DC/DCLINTON/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/D/DC/DCLINTON/
 
-LIBDEPS = apps/base/Error
+LIBDEPS = apps/base/Error apps/base/Digest-SHA1
 
 AUTOTEST = testForAliEnPerlModule Cache::Cache $(GARVERSION)
 
