@@ -1,12 +1,12 @@
 GARNAME = eugridpma-carep
-GARVERSION = 0.26
+GARVERSION = 0.32
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 DISTNAME  = carep
 BINDISTNAME = $(GARNAME)-$(GARVERSION)
 PATCHFILES = Makefile.patch
 
-MASTER_SITES = http://www.eugridpma.org/distribution/current/  
+MASTER_SITES =
 
 LIBDEPS = 
 
