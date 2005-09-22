@@ -14,3 +14,5 @@ OWN_CFLAGS += -O2 -pipe
 #  OWN_CFLAGS += -march=opteron -O3 -pipe
 export GARLIBEXT=so
 export GARSHARED=-shared
+
+export MASKED := apps/gui/qt-mac-opensource-src
