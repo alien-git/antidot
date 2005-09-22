@@ -1,0 +1,12 @@
+--- work/alien-classad-2.1.0/src/configure.in	Tue Feb  1 20:20:48 2005
++++ work/alien-classad-2.1.0/src/configure.in.new	Thu Sep 22 13:04:34 2005
+@@ -50,9 +50,6 @@
+             CLASSADSDIR=$with_classads_dir,
+             CLASSADSDIR=$prefix)
+ 
+-AC_CHECK_FILE(${CLASSADSDIR}/lib/libclassad.a,,
+-              AC_MSG_ERROR([can not find libclassad.a ! Use --with-classads=]))
+-
+ AC_SUBST(CLASSADSDIR) 
+ 
+ #----------------------------------------------------------------
