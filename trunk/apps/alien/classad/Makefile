@@ -21,7 +21,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-glite-prefix=$(PREFIX) --with-stage-dir=$(PREFIX) --with-build-dir=$(WORKSRC)/build --with-dest-dir=$(PREFIX) --with-classads-dir=$(PREFIX) --with-classad-lib=classad --with-swig-dir=$(PREFIX) --with-perl5=$(PREFIX)/bin/perl
-CONFIGURE_ENV = env CXXFLAGS=$(OWN_CXXLDFLAGS)
+CONFIGURE_ENV = env CXXFLAGS="$(OWN_CXXLDFLAGS)"
 
 include ../category.mk
 
