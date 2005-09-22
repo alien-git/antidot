@@ -3,7 +3,7 @@ GARVERSION = 2.1.0
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
-PATCHFILES = Makefile.am.diff
+PATCHFILES = Makefile.am.diff configure.in.diff
 
 GARCVSNAME    = org.glite.alien.classad
 GARCVSVERSION = glite-alien-classad_branch_2_0_0
@@ -27,8 +27,3 @@ include ../category.mk
 PRE_CONFIGURE = (cd $(WORKSRC);env PREFIX=$(PREFIX) sh bootstrap )
 
 #POST_INSTALL  = (touch $(PREFIX)/lib/perl5/site_perl/5.8.6/Classad.pm); 
-
-ifeq ($(shell uname),Darwin)
-  POST_INSTALL  += ; ( cd $(PREFIX)/lib;  [ -f libClassad.so ] && mv libClassad.so libClassad.dylib )
-endif
-
