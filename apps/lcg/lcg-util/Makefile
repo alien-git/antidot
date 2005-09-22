@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES =  
 
-LIBDEPS = apps/lcg/lcg-gfal
+LIBDEPS = apps/lcg/lcg-gfal apps/server/openldap
 
 DESCRIPTION = LCG utilities
 URL = http://lcg.web.cern.ch/LCG
