@@ -2,7 +2,7 @@ GARNAME = classads
 GARVERSION = 0.9.7
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)a.tar.gz
-PATCHFILES = ostream.diff limits.diff fnCall.diff util.diff  instantiations.diff gcc4.diff
+PATCHFILES = ostream.diff limits.diff fnCall.diff util.diff  instantiations.diff gcc4.diff Makefile.am.diff
 
 MASTER_SITES = 
 AUTHOR = Condor Project 
