@@ -129,6 +129,7 @@ sub setupConfig {
     $add = [];
     $rmv = [];
     $changes = {};
+    push(@$add, "export ALIEN_ROOT=$ENV{ALIEN_ROOT}");
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
     # myFarm.conf
@@ -198,12 +199,16 @@ sub setupConfig {
 
 # Setup crontab (if possible) so that ML will check for updates
 sub setupCrontab {
-    my $ml_line = "*/20 * * * * $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE";
+    my $mlLogDir = shift;
+    
+    my $ml_line = "0,20,40 * * * * /bin/sh -c 'export PATH=/bin:\$PATH ; export CONFDIR=$mlLogDir ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE'";
     my $lines = `env VISUAL=cat crontab -e 2>/dev/null | grep -v '/Service/CMD/CHECK_UPDATE'`;
     if(open(CRON, "| crontab - &>/dev/null")){
 	print CRON $lines;
 	print CRON $ml_line;
 	close(CRON);
+    }else{
+	print "Couldn't install ML in crontab. Please try to add manually the following line:\n$ml_line\n\n";
     }
 }
 
@@ -213,11 +218,11 @@ sub setupCrontab {
 #dumpConfig();
 #print "Setting up ML config...\n";
 setupConfig();
-setupCrontab();
+my $mlLogDir = "$config->{LOG_DIR}/MonaLisa";
+setupCrontab($mlLogDir);
 #print "Starting ML...\n";
 
 # Start ML
-my $mlLogDir = "$config->{LOG_DIR}/MonaLisa";
 my $r = system("export CONFDIR=$mlLogDir ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER start");
 system("ln -sf $mlLogDir/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
 system("ln -sf $mlLogDir/ML0.log $config->{LOG_DIR}/MonaLisa.log");

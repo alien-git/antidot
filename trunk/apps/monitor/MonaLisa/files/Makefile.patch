@@ -1,18 +1,24 @@
 --- work/MonaLisa.v1.2/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ work/MonaLisa.v1.2/Makefile.new	2005-07-01 12:12:25.832463775 +0200
-@@ -0,0 +1,21 @@
++++ work/MonaLisa.v1.2/Makefile.new	2005-09-22 20:39:00.000000000 +0200
+@@ -0,0 +1,28 @@
 +build:
-+	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) && \
++ifneq ($(shell uname -s),Darwin)
++	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) $(JAVA_VERSION) $(MASTER_SITES) && \
 +	tar zxvf $(DISTNAME).tar.gz && \
 +	(cd $(DISTNAME) ; \
 +	JAVA_BIN=`ls ../j2sdk*.bin` ; \
 +	echo "yes" | sh $$JAVA_BIN | tee /dev/null ; \
 +	JAVA_HOME=j2sdk* ; ln -sf $$JAVA_HOME java ; cd $$JAVA_HOME ; \
 +	rm -rf demo man src.zip jre/plugin jre/javaws)
++else
++	echo Java is already installed on Darwin
++	tar zxvf $(DISTNAME).tar.gz
++endif
 +
 +install:
 +	rm -rf $(PREFIX)/$(DISTNAME) ; rm -f MonaLisa ; \
 +	mkdir -p $(PREFIX); \
++	find $(DISTNAME) -exec touch {} \; ; \
 +	cp -r $(DISTNAME) $(PREFIX)/ ; \
 +	echo "Copying AliEn specific files..." ; \
 +	(cd ../../files ; \
@@ -20,24 +26,6 @@
 +	find AliEn ! -path \*/CVS* -type f -exec cp {} $(PREFIX)/$(DISTNAME)/{} \; ; \
 +	find Service ! -path \*/CVS* -type d -exec mkdir -p $(PREFIX)/$(DISTNAME)/{} \; ; \
 +	find Service ! -path \*/CVS* -type f -exec cp {} $(PREFIX)/$(DISTNAME)/{} \; ) ; \
-+	cd $(PREFIX)/ ; ln -sf $(DISTNAME) MonaLisa
++	cd $(PREFIX)/ ; ln -sf $(DISTNAME) MonaLisa ; \
++	cd MonaLisa/Service/CMD/ ; chmod a+rx common.sh CHECK_UPDATE ML_SER
 +
---- work/MonaLisa.v1.2/Makefile.ori	2005-09-06 18:36:44.000000000 +0200
-+++ work/MonaLisa.v1.2/Makefile	2005-09-06 18:37:17.000000000 +0200
-@@ -1,4 +1,5 @@
- build:
-+ifneq ($(shell uname -s),Darwin)
- 	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) && \
- 	tar zxvf $(DISTNAME).tar.gz && \
- 	(cd $(DISTNAME) ; \
-@@ -6,6 +7,10 @@
- 	echo "yes" | sh $$JAVA_BIN | tee /dev/null ; \
- 	JAVA_HOME=j2sdk* ; ln -sf $$JAVA_HOME java ; cd $$JAVA_HOME ; \
- 	rm -rf demo man src.zip jre/plugin jre/javaws)
-+else
-+	echo Java is already installed on Darwin
-+	tar zxvf $(DISTNAME).tar.gz
-+endif
- 
- install:
- 	rm -rf $(PREFIX)/$(DISTNAME) ; rm -f MonaLisa ; \
