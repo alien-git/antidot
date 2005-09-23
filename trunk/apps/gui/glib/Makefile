@@ -2,6 +2,7 @@ GARNAME = glib
 GARVERSION = 2.6.1
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
+PATCHFILES = macos.diff
 
 MASTER_SITES = ftp://ftp.gtk.org/pub/gtk/v2.6/ ftp://ftp.gnome.org/pub/gnome/sources/glib/2.6/
 

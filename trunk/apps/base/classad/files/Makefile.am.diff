@@ -27,10 +27,3 @@
  					  classad.C			\
  					  collection.C			\
  					  collectionBase.C		\
-@@ -114,4 +114,4 @@
- 	@make check-TESTS
- ##
- # EOF
--#
-\ No newline at end of file
-+#
