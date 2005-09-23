@@ -1,3 +1,15 @@
+--- ./work/uuid-1.1.2/Makefile.in.ori	2005-09-23 17:43:08.000000000 +0200
++++ ./work/uuid-1.1.2/Makefile.in	2005-09-23 17:45:24.000000000 +0200
+@@ -97,7 +97,8 @@
+ 	@$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $(PRG_NAME) $(PRG_OBJS) $(LIB_NAME) $(LIBS)
+ 
+ $(PERL_NAME): $(PERL_OBJS) $(LIB_NAME)
+-	@cd perl && $(PERL) Makefile.PL PREFIX=$(prefix) && $(MAKE) $(MFLAGS) all
++	@cd perl && $(PERL) Makefile.PL PREFIX=$(prefix) LDDLFLAGS="-L$(prefix)/lib -bundle -undefined dynamic_lookup" \
++		LDFLAGS="-L$(prefix)/lib" && $(MAKE) $(MFLAGS) all
+ 	@touch $(PERL_NAME)
+ 
+ uuid.lo: uuid.c config.h uuid.h uuid_md5.h uuid_prng.h uuid_mac.h uuid_ui64.h uuid_str.h uuid_bm.h uuid_ac.h
 --- work/uuid-1.1.2/uuid.c	2005-01-13 11:24:13.000000000 +0100
 +++ work/uuid-1.1.2/uuid.c.new	2005-06-23 18:53:54.000000000 +0200
 @@ -27,14 +27,16 @@
