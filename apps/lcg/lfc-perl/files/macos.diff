@@ -1,3 +1,14 @@
+--- ./work/lfc-perl-1.3.7/Makefile.am.ori	2005-09-23 14:43:41.000000000 +0200
++++ ./work/lfc-perl-1.3.7/Makefile.am	2005-09-23 14:44:03.000000000 +0200
+@@ -19,7 +19,7 @@
+ SWIG = @SWIGDIR@/bin/swig
+ 
+ lfc_wrap.c: lfc.i
+-	${SWIG} ${INCLUDES} -perl5 -noproxy $^
++	${SWIG} -D$(shell uname -s) ${INCLUDES} -perl5 -noproxy $^
+ 	cp -f LFC.pm LFC
+ 
+ clear:
 --- work/lfc-perl-1.3.7/lfc.i.ori	2005-08-31 16:31:59.000000000 +0200
 +++ work/lfc-perl-1.3.7/lfc.i	2005-08-31 16:42:04.000000000 +0200
 @@ -6,12 +6,20 @@
@@ -21,14 +32,3 @@
  typedef unsigned int gid_t;
  typedef unsigned int mode_t;
  typedef long int time_t;
---- work/lfc-perl-1.3.7/Makefile.am.ori	2005-08-31 16:37:15.000000000 +0200
-+++ work/lfc-perl-1.3.7/Makefile.am	2005-08-31 16:37:39.000000000 +0200
-@@ -19,7 +19,7 @@
- SWIG = @SWIGDIR@/bin/swig
- 
- lfc_wrap.c: lfc.i
--	${SWIG} ${INCLUDES} -perl5 $^
-+	${SWIG} -D$(shell uname -s) ${INCLUDES} -perl5 $^
- 	cp -f LFC.pm LFC
- 
- clear:
