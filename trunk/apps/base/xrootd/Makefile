@@ -1,12 +1,13 @@
 GARNAME = xrootd
-GARVERSION = 1.0.7
+GARVERSION = 20050728-0310x
 CATEGORIES = apps-libs
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = macos.diff
+DISTNAME  = $(GARNAME)newbuild-$(GARVERSION)
+DISTFILES = $(DISTNAME).tar.gz
+PATCHFILES = 
 
-MASTER_SITES =  
+MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
-LIBDEPS = apps/base/SealedEnvelope apps/base/AuthzXMLreader apps/base/ApMon-CPP
+LIBDEPS = apps/base/tokenauthz apps/base/ApMon-CPP
 
 DESCRIPTION = Xrootd
 
@@ -19,7 +20,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-krb5 --enable-perlint --enable-openssl --enable-gsi --enable-tokenauthz --with-base-directory=$(PREFIX)
 
 ifeq ($(shell uname -m),ia64)
 CONFIGURE_ARGS += --with-xccflavour=gcc
@@ -27,6 +28,6 @@ endif
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; libtoolize -c; automake -a; autoconf)
+#PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; libtoolize -c; automake -a; autoconf)
 
-
+POST_INSTALL = ( [ -d $(PREFIX)/opt/xrootd ] && rm -rf $(PREFIX)/opt )
