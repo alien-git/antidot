@@ -7,7 +7,7 @@ PATCHFILES =
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
-LIBDEPS = apps/base/tokenauthz apps/base/ApMon-CPP
+LIBDEPS = apps/base/tokenauthz apps/base/ApMon-CPP apps/base/perl
 
 DESCRIPTION = Xrootd
 
