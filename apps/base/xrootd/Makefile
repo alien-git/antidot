@@ -30,4 +30,4 @@ include ../category.mk
 
 #PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; libtoolize -c; automake -a; autoconf)
 
-POST_INSTALL = ( [ -d $(PREFIX)/opt/xrootd ] && rm -rf $(PREFIX)/opt )
+POST_INSTALL = ( rm -rf $(PREFIX)/bin/xrootdutils )
