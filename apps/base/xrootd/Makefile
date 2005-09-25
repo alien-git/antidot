@@ -20,7 +20,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-krb5 --enable-perlint --enable-openssl --enable-gsi --enable-tokenauthz --with-base-directory=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-krb5 --enable-perlint --enable-openssl --enable-gsi --enable-tokenauthz --disable-krb5 --with-base-directory=$(PREFIX)
 
 ifeq ($(shell uname -m),ia64)
 CONFIGURE_ARGS += --with-xccflavour=gcc
