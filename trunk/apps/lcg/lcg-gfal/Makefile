@@ -2,7 +2,7 @@ GARNAME = lcg-gfal
 GARVERSION = 1.7.3
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = 
+PATCHFILES = srm_ifce.c.diff
 
 MASTER_SITES =  
 
