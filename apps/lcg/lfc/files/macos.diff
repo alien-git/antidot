@@ -105,3 +105,14 @@
  SECFLG = -DGFAL_SECURE
  SECLIB = -lcgsi_plugin_gsoap_$(GSOAP_VERSION) $(GLOBUS_LIBS)
  RFIOFLG = -DGFAL_ENABLE_RFIO
+--- ./work/lfc-1.3.7/scripts/choose-module.ori	2005-09-24 21:15:59.000000000 +0200
++++ ./work/lfc-1.3.7/scripts/choose-module	2005-09-24 21:16:41.000000000 +0200
+@@ -37,7 +37,7 @@
+ 	`perl -ibak -npe "s#BuildSRMv1Server\tYES#BuildSRMv1Server\tNO#g" ../config/site.def`
+ 	`perl -ibak -npe "s#BuildSRMv2Server\tYES#BuildSRMv2Server\tNO#g" ../config/site.def`
+         `perl -ibak -npe "s#BuildTest\t\tYES#BuildTest\t\tNO#g" ../config/site.def`
+-	`perl -ibak -npe "s#BuildRfioClient\t\tYES#BuildRfioClient\t\tNO#g" ../config/site.def`
++#	`perl -ibak -npe "s#BuildRfioClient\t\tYES#BuildRfioClient\t\tNO#g" ../config/site.def`
+ 	`perl -ibak -npe "s#BuildRfioServer\t\tYES#BuildRfioServer\t\tNO#g" ../config/site.def`
+         `perl -ibak -npe "s#UseGSI\t\tNO#UseGSI\t\tYES#g" ../config/site.def`
+         `perl -ibak -npe "s#UseKRB5\t\tYES#UseKRB5\t\tNO#g" ../config/site.def`
