@@ -1,5 +1,5 @@
---- ./work/alien-apiservice-1.0.5/C2Perl/C2PERL.c.ori	2005-09-02 15:29:22.000000000 +0200
-+++ ./work/alien-apiservice-1.0.5/C2Perl/C2PERL.c	2005-09-02 15:29:41.000000000 +0200
+--- ./work/alien-apiservice-1.0.5a/C2Perl/C2PERL.c.ori	2005-09-02 15:29:22.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/C2Perl/C2PERL.c	2005-09-02 15:29:41.000000000 +0200
 @@ -6,6 +6,8 @@
  #include <stdarg.h>
  #include <string.h>
@@ -9,8 +9,8 @@
  static PerlInterpreter *my_perl;
  
  static void xs_init (void);
---- ./work/alien-apiservice-1.0.5/C2Perl/C2PERL.h.ori	2005-09-02 15:28:44.000000000 +0200
-+++ ./work/alien-apiservice-1.0.5/C2Perl/C2PERL.h	2005-09-02 15:28:56.000000000 +0200
+--- ./work/alien-apiservice-1.0.5a/C2Perl/C2PERL.h.ori	2005-09-02 15:28:44.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/C2Perl/C2PERL.h	2005-09-02 15:28:56.000000000 +0200
 @@ -12,7 +12,7 @@
  #endif
      
@@ -20,8 +20,8 @@
      
  /**************************************************************************
   * C2PERL API data types.
---- ./work/alien-apiservice-1.0.5/gclientlib/glite_dir_operations.cxx.ori	2005-09-02 15:35:27.000000000 +0200
-+++ ./work/alien-apiservice-1.0.5/gclientlib/glite_dir_operations.cxx	2005-09-02 15:40:56.000000000 +0200
+--- ./work/alien-apiservice-1.0.5a/gclientlib/glite_dir_operations.cxx.ori	2005-09-02 15:35:27.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/gclientlib/glite_dir_operations.cxx	2005-09-02 15:40:56.000000000 +0200
 @@ -58,7 +58,9 @@
      return 0;
    }
@@ -92,8 +92,8 @@
  }
  
  
---- ./work/alien-apiservice-1.0.5/clients/gsubmit.cxx.ori	2005-09-02 16:09:28.000000000 +0200
-+++ ./work/alien-apiservice-1.0.5/clients/gsubmit.cxx	2005-09-02 16:10:26.000000000 +0200
+--- ./work/alien-apiservice-1.0.5a/clients/gsubmit.cxx.ori	2005-09-02 16:09:28.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/clients/gsubmit.cxx	2005-09-02 16:10:26.000000000 +0200
 @@ -18,15 +18,15 @@
  
  using namespace std;

@@ -24,6 +24,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-docs=no --with-pic
+CONFIGURE_ENV = eval CFLAGS="-I$(PREFIX)/globus/include/gcc32 $(CFGLAGS)"
 
 include ../category.mk
 
