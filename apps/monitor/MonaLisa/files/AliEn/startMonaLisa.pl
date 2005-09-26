@@ -93,11 +93,35 @@ sub setupFile {
     }
 }
 
+# returns either undef either the value of the requested key of the 'key=value' pair from the given @$arrRef
+sub getValueForKey {
+    my $arrRef = shift;
+    my $key = shift;
+    
+    for my $other (@$arrRef){
+	return $1 if ($other =~ /^$key\s*=\s*(.*)$/);
+    }
+    return undef;
+}
+
+# The what is something like w_key=w_val
+# This function adds the 'what' to the end of @$arrRef if the w_key isn't already in the @$arrRef
+# The typical use of this is to set some default value for a property if the user hasn't already given one
+sub pushIfNoKey {
+    my $arrRef = shift;
+    my $what = shift;
+
+    my ($w_key, $w_val) = split(/\s*=\s*/, $what);    
+    my $prev_val = getValueForKey($arrRef, $w_key);
+    push(@$arrRef, $what) if(! defined($prev_val)) ;
+}
+
 # Setup configuration files for MonaLisa
 sub setupConfig {
+    my $farmHome = shift;
     my $user = $ENV{USER} || $ENV{LOGNAME};
     my $mlHome = "$ENV{ALIEN_ROOT}/java/MonaLisa";
-    my $farmHome = "$config->{LOG_DIR}/MonaLisa";
+    my $logDir = $farmHome; # by default, the logs are stored in the farmHome directory
 
     system("rm -rf $farmHome; mkdir -p $farmHome");
     
@@ -154,12 +178,12 @@ sub setupConfig {
     }
     my $storeType = ($config->{MONALISA_STORETYPE} or "mem");
     $add = ($config->{MONALISA_ADDPROPERTIES_LIST} or []);
-    push(@$add, "lia.Monitor.Store.FileLogger.maxDays=0");
-    push(@$add, "lia.Monitor.Filters.AliEnFilter=true");
-    push(@$add, "lia.Monitor.Filters.AliEnFilter.SLEEP_TIME=120");
-    push(@$add, "lia.Monitor.Filters.AliEnFilter.PARAM_EXPIRE=300");
-    push(@$add, "lia.Monitor.Filters.AliEnFilter.ZOMBIE_EXPIRE=7200");
-    push(@$add, "lia.Monitor.Filters.AliEnFilter.LDAP_QUERY_INTERVAL=7200");
+    pushIfNoKey($add, "lia.Monitor.Store.FileLogger.maxDays=0");
+    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter=true");
+    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.SLEEP_TIME=120");
+    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.PARAM_EXPIRE=900");
+    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.ZOMBIE_EXPIRE=14400");
+    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.LDAP_QUERY_INTERVAL=7200");
     
     $rmv = ($config->{MONALISA_REMOVEPROPERTIES_LIST} or []);
     $changes = {
@@ -195,13 +219,17 @@ sub setupConfig {
 	push(@$rmv, "lia.Monitor.jdbcDriverString\\s*=\\s*com.mysql.jdbc.Driver");
     }
     setupFile("$mlHome/AliEn/ml.properties", "$farmHome/ml.properties", $changes, $add, $rmv);
+    # from the @$add list, check if the user has changed the $logDir, i.e. the java.util.logging.FileHandler.pattern property
+    my $logFile = getValueForKey($add, "java.util.logging.FileHandler.pattern");
+    $logDir = $1 if (defined($logFile) && $logFile =~ /(.*)\/ML\%g.log/);
+    return $logDir;
 }
 
 # Setup crontab (if possible) so that ML will check for updates
 sub setupCrontab {
-    my $mlLogDir = shift;
+    my $farmHome = shift;
     
-    my $ml_line = "0,20,40 * * * * /bin/sh -c 'export PATH=/bin:\$PATH ; export CONFDIR=$mlLogDir ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE'";
+    my $ml_line = "0,20,40 * * * * /bin/sh -c 'export PATH=/bin:\$PATH ; export CONFDIR=$farmHome ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE'";
     my $lines = `env VISUAL=cat crontab -e 2>/dev/null | grep -v '/Service/CMD/CHECK_UPDATE'`;
     if(open(CRON, "| crontab - &>/dev/null")){
 	print CRON $lines;
@@ -217,15 +245,15 @@ sub setupCrontab {
 #print "========================\n";
 #dumpConfig();
 #print "Setting up ML config...\n";
-setupConfig();
-my $mlLogDir = "$config->{LOG_DIR}/MonaLisa";
-setupCrontab($mlLogDir);
+my $farmHome = "$config->{LOG_DIR}/MonaLisa";
+my $logDir = setupConfig($farmHome);
+setupCrontab($farmHome);
 #print "Starting ML...\n";
 
 # Start ML
-my $r = system("export CONFDIR=$mlLogDir ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER start");
-system("ln -sf $mlLogDir/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
-system("ln -sf $mlLogDir/ML0.log $config->{LOG_DIR}/MonaLisa.log");
+my $r = system("export CONFDIR=$farmHome ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER start");
+system("ln -sf $farmHome/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
+system("ln -sf $logDir/ML0.log $config->{LOG_DIR}/MonaLisa.log");
 
 exit $r;
 
