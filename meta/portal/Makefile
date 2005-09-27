@@ -20,8 +20,6 @@ apps/gui/glib \
 apps/gui/GD \
 apps/gui/Glade-Perl \
 apps/gui/Gtk-Perl \
-apps/gui/Imager \
-apps/gui/Image-WorldMap \
 apps/portal/apache \
 apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
