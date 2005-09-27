@@ -1,74 +1,11 @@
---- work/lcg-gfal-1.7.3/srm_ifce.c	Wed Jul 20 09:30:38 2005
-+++ work/lcg-gfal-1.7.3/srm_ifce.c.new	Mon Sep 26 20:02:25 2005
-@@ -40,6 +40,7 @@
- 	return (0);
- }
- 
-+int
- srm_deletesurl (const char *surl, char *errbuf, int errbufsz, int timeout)
- {
- 	struct ns5__advisoryDeleteResponse out;
-@@ -78,6 +79,7 @@
- 	return (0);
- }
- 
-+int
- srm_get (int nbfiles, char **surls, int nbprotocols, char **protocols,
- 	int *reqid, char **token, struct srm_filestatus **filestatuses, int timeout)
- {
-@@ -85,6 +87,7 @@
- 	    filestatuses, NULL, 0, timeout));
- }
- 
-+int
- srm_getx (int nbfiles, char **surls, int nbprotocols, char **protocols,
- 	int *reqid, char **token, struct srm_filestatus **filestatuses,
- 	char *errbuf, int errbufsz, int timeout)
-@@ -169,6 +172,7 @@
+--- work/lcg-gfal-1.7.3/srm_ifce.c	2005-07-20 09:30:38.000000000 +0200
++++ work/lcg-gfal-1.7.3/srm_ifce.c.new	2005-09-27 11:47:44.089134312 +0200
+@@ -245,7 +245,7 @@
  	return (n);
  }
  
-+int
- srm_getstatus (int nbfiles, char **surls, int reqid, char *token,
- 	struct srm_filestatus **filestatuses, int timeout)
- {
-@@ -176,6 +180,7 @@
- 	    NULL, 0, timeout));
- }
- 
-+int
- srm_getstatusx (int nbfiles, char **surls, int reqid, char *token,
-         struct srm_filestatus **filestatuses, char *errbuf, int errbufsz, int timeout)
- {
-@@ -245,6 +250,7 @@
- 	return (n);
- }
- 
-+int
- srm_turlsfromsurls (int nbfiles, const char **surls, LONG64 *filesizes, char **protocols, int oflag, int *reqid, 
+-srm_turlsfromsurls (int nbfiles, const char **surls, LONG64 *filesizes, char **protocols, int oflag, int *reqid, 
++srm_turlsfromsurls (int nbfiles, const char **surls, GFAL_LONG64 *filesizes, char **protocols, int oflag, int *reqid, 
  		    int **fileids, char **token, char ***turls, char *errbuf, int errbufsz, int timeout)
  {
-@@ -414,6 +420,7 @@
- 	return (p);
- }
- 
-+int
- srm_getfilemd (const char *surl, struct stat64 *statbuf, char *errbuf, int errbufsz, int timeout)
- {
- 	struct group *gr;
-@@ -483,6 +490,7 @@
- 	return (0);
- }
- 
-+int
- srm_set_xfer_done (const char *surl, int reqid, int fileid, char *token, int oflag, char *errbuf, int errbufsz, int timeout)
- {
- 	struct ns5__setFileStatusResponse out;
-@@ -515,6 +523,7 @@
- 	return (0);
- }
- 
-+int
- srm_set_xfer_running (const char *surl, int reqid, int fileid, char *token, char *errbuf, int errbufsz, int timeout)
- {
- 	struct ns5__setFileStatusResponse out;
+ 	int *f;
