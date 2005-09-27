@@ -1,0 +1,177 @@
+--- ./work/alien-classad-2.1.0/bootstrap.ori	2005-09-27 18:35:57.000000000 +0200
++++ ./work/alien-classad-2.1.0/bootstrap	2005-09-27 18:36:07.000000000 +0200
+@@ -9,5 +9,6 @@
+ done
+ 
+ aclocal
++libtoolize -c --force
+ automake -a -c >& /dev/null
+ autoconf
+--- ./work/alien-classad-2.1.0/configure.in.ori	2005-09-27 18:31:46.000000000 +0200
++++ ./work/alien-classad-2.1.0/configure.in	2005-09-27 18:32:31.000000000 +0200
+@@ -1,9 +1,87 @@
+ dnl Process this file with autoconf to produce a configure script.
+ AC_INIT(Makefile.in)
+ 
++AM_INIT_AUTOMAKE(Classad, 1.0)
++
++AC_PROG_MAKE_SET
++
++AC_PROG_CXX([CC g++])
++
++AC_PROG_LIBTOOL
++
+ AC_PREFIX_DEFAULT([/opt/alien])
+ 
+ AC_CONFIG_SUBDIRS(src)
+ 
+-AC_OUTPUT(Makefile)
++dnl Check that swig is there.
++AC_ARG_WITH(swig_dir,
++            [  --with-swig-dir=path		location of swig installation dir],
++            SWIGDIR=$with_swig_dir,
++            SWIGDIR=$prefix)
++
++AC_CHECK_FILE(${SWIGDIR}/bin/swig,,
++              AC_MSG_ERROR([can not find swig ! Use --with-swig=]))
++
++AC_SUBST(SWIGDIR) 
++
++#----------------------------------------------------------------
++# Look for Perl5 (picked up from swig configure.in
++#----------------------------------------------------------------
++
++PERLBIN=
++
++AC_ARG_WITH(perl5,[  --with-perl5=path	Set location of Perl5 executable],[
++ PERLBIN="$with_perl5"], [PERLBIN=$prefix/bin/perl])
+ 
++# First figure out what the name of Perl5 is
++
++if test -z "$PERLBIN"; then
++AC_CHECK_PROGS(PERL, perl perl5.6.1 perl5.6.0 perl5.004 perl5.003 perl5.002 perl5.001 perl5 perl)
++else
++PERL="$PERLBIN"
++fi
++
++AC_MSG_CHECKING(for Perl5 header files)
++if test -n "$PERL"; then
++        PERL5DIR=`($PERL -e 'use Config; print $Config{archlib};') 2>/dev/null`
++        if test "$PERL5DIR" != ""; then
++                dirs="$PERL5DIR $PERL5DIR/CORE"
++                PERL5EXT=none
++                for i in $dirs; do
++                        if test -r $i/perl.h; then
++                                AC_MSG_RESULT($i)
++                                PERL5EXT="$i"
++                                break;
++                        fi
++                done
++                if test "$PERL5EXT" = none; then
++                        PERL5EXT="$PERL5DIR/CORE"
++                        AC_MSG_RESULT(could not locate perl.h...using $PERL5EXT)
++                fi
++        else
++                AC_MSG_RESULT(unable to determine perl5 configuration)
++                PERL5EXT=$PERL5DIR
++        fi
++    else
++        AC_MSG_RESULT(could not figure out how to run perl5)
++fi
++
++dnl Check that classad library is there.
++AC_ARG_WITH(classads_dir,
++            [  --with-classads-dir		location of condor classads lib installation dir],
++            CLASSADSDIR=$with_classads_dir,
++            CLASSADSDIR=$prefix)
++
++AC_SUBST(CLASSADSDIR) 
++
++AC_ARG_WITH(classad_lib,
++            [  --with-classad-lib=name  classad shared library name],
++            [CLASSADSLIB=$with_classad_lib],
++            [CLASSADSLIB=classad])
++
++AC_SUBST(CLASSADSLIB) 
++
++AC_SUBST(PERL5EXT)
++AC_SUBST(PERLBIN)
++
++AC_OUTPUT(Makefile)
+--- ./work/alien-classad-2.1.0/Makefile.am.ori	2005-09-27 18:31:26.000000000 +0200
++++ ./work/alien-classad-2.1.0/Makefile.am	2005-09-27 18:31:17.000000000 +0200
+@@ -0,0 +1,37 @@
++#AUTOMAKE_OPTIONS = foreign
++
++EXTRA_DIST = src
++SWIG=@SWIGDIR@/bin/swig
++PERL=@PERLBIN@
++
++INCLUDES = -I. -I@CLASSADSDIR@/include/classads -I@CLASSADSDIR@/include -I@PERL5EXT@
++
++CXXFLAGS = @CXXFLAGS@ -DCLASSAD_DISTRIBUTION
++
++lib_LTLIBRARIES = libClassad.la
++
++libClassad_la_SOURCES = src/Classad.C 
++
++libClassad_la_LIBADD = -L$(CLASSADSDIR)/lib -l@CLASSADSLIB@  -L/usr/lib -lstdc++
++all-local: perlmodule
++install-exec-local: perlmodule-install
++
++## that does not yet work. perl clean is broken
++clean-local: perlmodule-clean
++
++perlmodule-all: perlmodule perlmodule-install
++
++perlmodule:     
++	cd src; $(SWIG) -DCLASSAD_DISTRIBUTION -perl5 -shadow -c++ Classad.i
++	cd src; ${PERL} Makefile.PL; make;
++
++perlmodule-install:     
++	cd src; make install;
++
++perlmodule-uninstall:
++	cd src; make uninstall;
++
++perlmodule-clean:
++	cd src; make clean; rm -f Classad_wrap.cxx Classad.pm
++
++distbin: 
+--- ./work/alien-classad-2.1.0/src/configure.in.ori	2005-09-27 18:35:17.000000000 +0200
++++ ./work/alien-classad-2.1.0/src/configure.in	2005-09-27 18:35:44.000000000 +0200
+@@ -1,4 +1,4 @@
+-AC_INIT(Makefile.am)
++AC_INIT(Makefile.PL.in)
+ 
+ AM_INIT_AUTOMAKE(Classad, 1.0)
+ 
+@@ -50,9 +50,6 @@
+             CLASSADSDIR=$with_classads_dir,
+             CLASSADSDIR=$prefix)
+ 
+-AC_CHECK_FILE(${CLASSADSDIR}/lib/libclassad.a,,
+-              AC_MSG_ERROR([can not find libclassad.a ! Use --with-classads=]))
+-
+ AC_SUBST(CLASSADSDIR) 
+ 
+ #----------------------------------------------------------------
+@@ -105,4 +102,4 @@
+ AC_SUBST(stagedir)
+ AC_SUBST(glite_prefix)
+ 
+-AC_OUTPUT(Makefile)
++AC_OUTPUT(Makefile.PL)
+--- ./work/alien-classad-2.1.0/src/Makefile.PL.in.ori	2005-09-27 18:33:55.000000000 +0200
++++ ./work/alien-classad-2.1.0/src/Makefile.PL.in	2005-09-27 18:34:53.000000000 +0200
+@@ -0,0 +1,10 @@
++use ExtUtils::MakeMaker;
++WriteMakefile(
++              'CC'                => 'g++',
++              'LD'                => 'g++',
++              'NAME'              => 'Classad',
++              'VERSION'           => '1.00',
++              'OBJECT'            => 'Classad_wrap.o ../.libs/libClassad.a',
++              'INC'               => '-I. -I@CLASSADSDIR@/include/classads -I@CLASSADSDIR@/include -I@PERL5EXT@ ',
++	      'LDLOADLIBS'	  => '-L@CLASSADSDIR@/lib -l@CLASSADSLIB@'
++              );
