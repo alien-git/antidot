@@ -16,7 +16,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) 
+CONFIGURE_ARGS = $(DIRPATHS) --with-vio  --with-openssl=$(PREFIX)
 CONFIGURE_ENV  = env LDFLAGS="-L$(PREFIX)/lib"
 
 include ../category.mk
