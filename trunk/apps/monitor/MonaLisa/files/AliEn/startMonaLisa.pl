@@ -7,11 +7,12 @@
 # 03/08/2005 - added an expiry timeout for zombie jobs in ml.properties
 # 19/07/2005 - try to add a crontab entry to check for updates
 # 18/07/2005 - added AliEnFilter configuration to ml.properties
-# 21/06/2005 - check if MONALISA_HOST from LDAP config == hostname -f
+# 21/06/2005 - check if MONALISA_HOST from LDAP config == hostname
 # 14/06/2005 - first useful release
 
 use strict;
 use AliEn::Config;
+use Net::Domain;
 
 my $config = new AliEn::Config({ "SILENT" => 1, "DEBUG" => 0 } );
 
@@ -130,8 +131,7 @@ sub setupConfig {
  
     # ml_env
     my $farmName = ($config->{MONALISA_NAME} or die("MonaLisa configuration not found in LDAP. Not starting it...\n"));
-    my $fqdn = `hostname -f`;
-    chomp $fqdn;
+    my $fqdn = Net::Domain::hostfqdn();
     if($config->{MONALISA_HOST} && ($fqdn ne $config->{MONALISA_HOST})){
 	die("MonaLisa hostname from LDAP config [".$config->{MONALISA_HOST}."] differs from local one [$fqdn]. Not starting it...\n");
     }
