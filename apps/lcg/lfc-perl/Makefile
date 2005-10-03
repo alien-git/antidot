@@ -1,5 +1,5 @@
 GARNAME = lfc-perl
-GARVERSION = 1.3.7
+GARVERSION = 1.3.7a
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 ifeq ($(shell uname),Darwin)
@@ -18,6 +18,7 @@ LICENSE =
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-lfc-dir=$(PREFIX) --with-swig-dir=$(PREFIX) --with-perl5=$(PREFIX)/bin/perl
 
