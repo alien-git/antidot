@@ -119,3 +119,14 @@
  
  void print_help() {
    fprintf (stderr, "\n");
+--- ./work/alien-apiservice-1.0.5a/clients/scripts/gprefix_VO.ori	2005-09-29 11:11:01.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/clients/scripts/gprefix_VO	2005-09-29 11:34:12.000000000 +0200
+@@ -67,7 +67,7 @@
+ 	GPREFIX_cd
+ 	GPREFIX_HOME=`GPREFIX_pwd`
+ 	GPREFIX_cd $GPREFIX_PWD
+-	export GPREFIX_CLIENT_HOST=`hostname -f`
++	export GPREFIX_CLIENT_HOST=`hostname`
+ 	mlconf=`$GSHELL_ROOT/bin/gbbox mlconfig $GPREFIX_CLIENT_HOST | grep -v	Unknown 2>/dev/null`
+ 	test -z "$mlconf" || export $mlconf;
+ fi;
