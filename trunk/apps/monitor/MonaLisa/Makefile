@@ -33,3 +33,12 @@ BUILD_ENV = env JAVA_PLATFORM=$(JAVA_PLATFORM) JAVA_VERSION=$(JAVA_VERSION) MAST
 INSTALL_ENV = env DISTNAME=$(DISTNAME) PREFIX=$(PREFIX)/java
 
 include ../category.mk
+
+ifeq ($(shell uname -s),Darwin)
+pre-configure:
+	@sed <files/AliEn/startMonaLisa.pl -e 's/hostname *-f/hostname/g' > files/Alien/startMonaLisa.mac ; mv files/AliEn/startMonaLisa{.mac,.pl}
+
+post-build:
+	@sed <work/MonaLisa.v1.2/MonaLisa.v1.2/Service/CMD/ML_SER -e 's/hostname *-f/hostname/g' > work/MonaLisa.v1.2/MonaLisa.v1.2/Service/CMD/ML_SER.mac ; \
+	mv work/MonaLisa.v1.2/MonaLisa.v1.2/Service/CMD/ML_SER{.mac,}
+endif
