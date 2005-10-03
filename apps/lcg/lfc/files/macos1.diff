@@ -1,0 +1,73 @@
+--- ./work/lfc-1.3.7/cvs2cl.ori	2005-09-29 11:17:15.000000000 +0200
++++ ./work/lfc-1.3.7/cvs2cl	2005-09-29 11:20:39.000000000 +0200
+@@ -2066,7 +2066,7 @@
+         chomp($Domain = slurp_file(MAILNAME));
+       } else {
+       MAILDOMAIN_CMD:
+-        for ([qw(hostname -d)], 'dnsdomainname', 'domainname') {
++        for ([qw(hostname | sed -e "s/$(hostname -s)\.//")], 'dnsdomainname', 'domainname') {
+           my ($text, $exit, $sig, $core) = run_ext($_);
+           if ( $exit == 0 && $sig == 0 && $core == 0 ) {
+             chomp $text;
+--- ./work/lfc-1.3.7/scripts/cvs2cl.ori	2005-09-29 11:17:15.000000000 +0200
++++ ./work/lfc-1.3.7/scripts/cvs2cl	2005-09-29 11:18:34.000000000 +0200
+@@ -2066,7 +2066,7 @@
+         chomp($Domain = slurp_file(MAILNAME));
+       } else {
+       MAILDOMAIN_CMD:
+-        for ([qw(hostname -d)], 'dnsdomainname', 'domainname') {
++        for ([qw(hostname | sed -e "s/$(hostname -s)\.//")], 'dnsdomainname', 'domainname') {
+           my ($text, $exit, $sig, $core) = run_ext($_);
+           if ( $exit == 0 && $sig == 0 && $core == 0 ) {
+             chomp $text;
+--- ./work/lfc-1.3.7/scripts/DPM-info-dynamic/lcg-info-dynamic-dpm.ori	2005-09-29 11:11:02.000000000 +0200
++++ ./work/lfc-1.3.7/scripts/DPM-info-dynamic/lcg-info-dynamic-dpm	2005-09-29 11:27:21.000000000 +0200
+@@ -12,7 +12,7 @@
+ 
+ &usage() if ($#ARGV < 0);
+ 
+-chomp(my $host=`hostname -f`);
++chomp(my $host=`hostname`);
+ my $GlueSEUniqueID = $host;
+ chomp(   $host=`hostname -s`);
+ 
+--- ./work/lfc-1.3.7/test/dpm/socketSuite.ori	2005-09-29 11:11:02.000000000 +0200
++++ ./work/lfc-1.3.7/test/dpm/socketSuite	2005-09-29 11:27:13.000000000 +0200
+@@ -76,7 +76,7 @@
+ my $tstNAME = shift;
+ $target =~ m/(\w*?)\.(.*)/;
+ my $site_domain = $2;
+-chomp(my $fullname = `hostname -f`);
++chomp(my $fullname = `hostname`);
+ if ( ! $target || ! $tstNAME || ! $site_domain ) {
+     print STDERR " Wrong ARGS ! \n";
+     print STDERR " Usage: $0 Target_FullNodeName UserName \n";
+@@ -119,7 +119,7 @@
+ } elsif ( -e "/boot/vmlinux-2.4.21-20.EL.cernsmp" ) {
+     ## This is SLC3
+ ##20if ( $ENV{HOST} eq "lxb1902" ) {
+-##21chomp(my $fullname = `hostname -f`);
++##21chomp(my $fullname = `hostname`);
+ ##21if ( "$fullname" eq "$SLhost" ) {
+     $struct->{$Lfile[1]}->{input} = "/boot/vmlinux-2.4.21-20.EL.cernsmp";
+     $struct->{$Lfile[2]}->{input} = "/boot/initrd-2.4.21-20.EL.cernsmp.img";
+--- ./work/lfc-1.3.7/test/srmv2/srmv2Suite.ori	2005-09-29 11:11:02.000000000 +0200
++++ ./work/lfc-1.3.7/test/srmv2/srmv2Suite	2005-09-29 11:27:02.000000000 +0200
+@@ -190,7 +190,7 @@
+ my $tstNAME = shift;
+ $target =~ m/(\w*?)\.(.*)/;
+ my $site_domain = $2;
+-chomp(my $fullname = `hostname -f`);
++chomp(my $fullname = `hostname`);
+ if ( ! $target || ! $tstNAME || ! $site_domain ) {
+     print STDERR " Wrong ARGS ! \n";
+     print STDERR " Usage: $0 Target_FullNodeName UserName \n";
+@@ -277,7 +277,7 @@
+ } elsif ( -e "/boot/vmlinux-2.4.21-20.EL.cernsmp" ) {
+     ## This is SLC3
+ ##19if ( $ENV{HOST} eq "lxb1902" ) {
+-##21chomp(my $fullname = `hostname -f`);
++##21chomp(my $fullname = `hostname`);
+ ##21if ( "$fullname" eq "$SLhost" ) {
+     $struct->{$Lfile[1]}->{input} = "/boot/vmlinux-2.4.21-20.EL.cernsmp";
+     $struct->{$Lfile[2]}->{input} = "/boot/initrd-2.4.21-20.EL.cernsmp.img";
