@@ -2,7 +2,9 @@ GARNAME = openldap
 GARVERSION = 2.0.27
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tgz
-PATCHFILES = macos.diff
+ifeq ($(shell uname),Darwin)
+PATCHFILES += macos.diff
+endif
 
 MASTER_SITES = ftp://sunsite.cnlab-switch.ch/mirror/OpenLDAP/openldap-release/
 
