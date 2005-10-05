@@ -1,10 +1,8 @@
 GARNAME = lfc-perl
-GARVERSION = 1.3.7a
+GARVERSION = 1.3.7b
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-ifeq ($(shell uname),Darwin)
-PATCHFILES += macos.diff
-endif
+PATCHFILES += 
 
 MASTER_SITES =  
 
