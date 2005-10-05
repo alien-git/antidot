@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.67  2005/09/07 09:50:42  buncic
+# Added lcg meta package.
+#
 # Revision 1.66  2005/09/07 09:36:00  buncic
 # Fixing update
 #
@@ -617,6 +620,7 @@ InstallerUI()
                   --radiolist 'PLEASE SELECT PLATFORM:' 0 0 0 \
                               'i686-pc-linux-gnu'         'Linux i686' on \
                               'ia64-unknown-linux-gnu'    'Linux ia64' 0  \
+                              'x86_64-unknown-linux-gnu'  'Linux Opteron' 0  \
                               'powerpc-apple-darwin8.1.0' 'MacOS X'    0  2>$dialog_file || Exit 1 
       prefix=`cat $dialog_file`
       cmd=$cmd"--with-platform=$platform "
