@@ -1,8 +1,8 @@
 GARNAME = tokenauthz
-GARVERSION = 1.0.9
+GARVERSION = 1.0.10
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = macos.diff
+PATCHFILES = 
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
@@ -23,5 +23,3 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --with-base-directory=$(PREFIX) --enable-per
 
 include ../category.mk
 
-#PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; automake -a; libtoolize -c; autoconf)
- 
