@@ -1,9 +1,10 @@
 GARNAME = xrootd
-GARVERSION = 20050728-0310x1
+GARVERSION = 20050728.0310x4
+
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)newbuild-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-PATCHFILES = macos1.diff
+PATCHFILES = 
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
@@ -27,7 +28,5 @@ CONFIGURE_ARGS += --with-xccflavour=gcc
 endif
 
 include ../category.mk
-
-#PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; libtoolize -c; automake -a; autoconf)
 
 POST_INSTALL = ( rm -rf $(PREFIX)/bin/xrootdutils )
