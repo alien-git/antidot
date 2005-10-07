@@ -37,3 +37,6 @@ ifeq ($(GLOBUS_FLAVOR),gcc64)
 CONFIGURE_ARGS += --enable-64bit 
 endif
 
+ifeq ($(PLATFORM),x86_64-unknown-linux-gnu)
+PATCHFILES += openssl.diff
+endif
