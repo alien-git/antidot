@@ -9,7 +9,7 @@ GARCVSVERSION = glite-alien-tests_branch_2_0_0
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 
-LIBDEPS = apps/alien/common apps/alien/admin apps/alien/gas apps/alien/gssapi 
+LIBDEPS = apps/alien/common apps/alien/admin apps/alien/gas apps/alien/gssapi apps/alien/lcg
 
 DESCRIPTION = AliEn tests
 URL = http://alien.cern.ch
