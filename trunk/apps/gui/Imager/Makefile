@@ -22,6 +22,12 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 AUTOTEST = testForAliEnPerlModule Imager $(GARVERSION)
 
 CONFIGURE_ENV = env IM_ENABLE="jpeg png gif T1-fonts freetype1" IM_INCPATH=$(PREFIX)/include/freetype:$(PREFIX)/include IM_LIBPATH=$(PREFIX)/lib IM_SUPPRESS_PROMPT=1 
+
+ifeq ($(shell uname -s),Darwin)
+CONFIGURE_ARGS = "INC=-I$(PREFIX)/include/freetype -I$(PREFIX)/include -I/sw/include"
+else
+CONFIGURE_ARGS = "INC=-I$(PREFIX)/include/freetype -I$(PREFIX)/include"
+endif
   
 BUILD_ARGS =  
 
