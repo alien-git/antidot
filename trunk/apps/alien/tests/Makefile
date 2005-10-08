@@ -3,6 +3,9 @@ GARVERSION = 2.2.1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
+ifeq ($(shell uname -s),Darwin)
+PATCHFILES = macos1.diff
+endif
 
 GARCVSNAME    = org.glite.alien.tests
 GARCVSVERSION = glite-alien-tests_branch_2_0_0
