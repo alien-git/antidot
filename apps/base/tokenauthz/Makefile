@@ -2,11 +2,11 @@ GARNAME = tokenauthz
 GARVERSION = 1.0.10
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = 
+PATCHFILES = macos.diff
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
-LIBDEPS = apps/base/perl apps/base/libxml2
+LIBDEPS = apps/base/perl apps/base/libxml2 apps/base/swig
 
 AUTHOR  = Andreas Peters and Derek Feichtinger
 LICENSE = 
