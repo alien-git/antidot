@@ -2,6 +2,9 @@ GARNAME = dialog
 GARVERSION = 1.0
 CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+ifeq ($(shell uname -s),Darwin)
+PATCHFILES = macos1.diff
+endif
 
 MASTER_SITES = 
 

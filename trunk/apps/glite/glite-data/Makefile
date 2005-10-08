@@ -2,6 +2,9 @@ GARNAME    = glite-data
 GARVERSION = 1.2.9
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
+ifeq ($(shell uname -s),Darwin)
+PATCHFILES = macos1.diff
+endif
 
 MASTER_SITES = 
 
