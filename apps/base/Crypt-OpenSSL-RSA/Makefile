@@ -20,7 +20,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = INC=-I/usr/kerberos/include CC=gcc LIBS="-L$(PREFIX) -lssl -lcrypto"
+CONFIGURE_ARGS = INC=-I/usr/kerberos/include CC=gcc LIBS="-L$(PREFIX)/lib -lssl -lcrypto"
 
 CONFIGURE_ENV = 
 
