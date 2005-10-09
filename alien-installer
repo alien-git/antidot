@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.68  2005/10/05 12:03:53  buncic
+# Adding x86_64-unknown-linux-gnu as supported platform
+#
 # Revision 1.67  2005/09/07 09:50:42  buncic
 # Added lcg meta package.
 #
@@ -500,6 +503,8 @@ InstallerUpdate()
  (cd $ALIEN_INSTALLER_HOME; ./alien-installer -p $ALIEN_INSTALLER_HOME -r $ALIEN_RELEASE configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
 
 
+  env GARAUTODETECT=true InstallerMakePkg $ALIEN_INSTALLER_METHOD apps/gcc/gcc
+
   for meta in $ALIEN_INSTALLER_TYPE
   do
     pkgdir=`echo $meta | sed 's/"//g'`
@@ -709,6 +714,8 @@ InstallerUI()
   (autoconf; $cmd ) >> install.log 2>&1
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
+
+  env GARAUTODETECT=true InstallerMakePkg $ALIEN_INSTALLER_METHOD apps/gcc/gcc >> $workspace/install.log
 
   for meta in $list
   do
