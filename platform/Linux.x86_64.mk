@@ -15,4 +15,4 @@ OWN_CFLAGS += -O2 -pipe
 export GARLIBEXT=so
 export GARSHARED=-shared
 
-export MASKED := apps/gui/qt-mac-opensource-src apps/gcc/gcc
+export MASKED := apps/gui/qt-mac-opensource-src apps/gcc/gcc apps/base/bash
