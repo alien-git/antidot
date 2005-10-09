@@ -127,3 +127,14 @@
  	@-rm -rf tmp
  
  dpm.dll lfc.dll:	$(LIBRARIES)
+--- ./work/lfc-1.3.7/config/darwin.cf.ori	2005-10-09 11:48:29.000000000 +0200
++++ ./work/lfc-1.3.7/config/darwin.cf	2005-10-09 11:48:42.000000000 +0200
+@@ -11,7 +11,7 @@
+ MTCCFLAGS = -DCTHREAD_POSIX -D_THREAD_SAFE -D_REENTRANT
+ MTLDLIBS =
+ MTLDFLAGS =
+-SHLIBLDFLAGS = -undefined dynamic_lookup -dylib -single_module
++SHLIBLDFLAGS = -undefined dynamic_lookup -dynamiclib -single_module
+ SHLIBREQLIBS = -lc
+ FC = g77
+ 
