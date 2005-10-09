@@ -1,5 +1,5 @@
 #!/bin/sh
-set -vx
+
 ###########################################################################
 STANDARD_DIRS="$prefix /opt/globus /opt/alien /opt/glite /opt/glite/externals /usr/local /usr/bin /usr/lib"
 ###########################################################################
@@ -225,7 +225,7 @@ case $arg in
      #########
      which openssl >& /dev/null || exit 1
      case `openssl version` in
-       *0.9.7e*)
+       *0.9.7g*)
          exit 0
          ;;
        *)
@@ -239,7 +239,7 @@ case $arg in
      #########
      which mysql >& /dev/null || exit 1
      case `mysql --version` in
-       *4.0.2*)
+       *4.1.13*)
          exit 0
          ;;
        *)
