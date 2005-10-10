@@ -1,7 +1,8 @@
 GARNAME = mysql
-GARVERSION = 4.1.13
+GARVERSION = 4.1.14
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = openssl.diff
 
 MASTER_SITES = ftp://mirror.switch.ch/mirror/mysql/Downloads/MySQL-4.1/ 
 
