@@ -10,7 +10,7 @@ endif
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
-LIBDEPS = apps/base/perl apps/base/libxml2 apps/base/swig
+LIBDEPS = apps/base/perl apps/base/libxml2 apps/base/swig apps/base/openssl
 
 AUTHOR  = Andreas Peters and Derek Feichtinger
 LICENSE = 
