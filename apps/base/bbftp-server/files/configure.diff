@@ -1,0 +1,322 @@
+--- work/bbftp-server-3.2.0/bbftpd/configure	Tue Mar 29 14:53:01 2005
++++ work/bbftp-server-3.2.0/bbftpd/configure.new	Fri Oct 14 16:33:16 2005
+@@ -8251,318 +8251,7 @@
+       GSI_FLAVOR="gcc32dbg"
+     fi
+ 
+-    echo "$as_me:8254: checking Globus toolkit version" >&5
+-echo $ECHO_N "checking Globus toolkit version... $ECHO_C" >&6
+-    OLDLDFLAGS=$LDFLAGS
+-    LDFLAGS="$LDFLAGS -L$with_gsi/lib"
+-    ls $with_gsi/lib/libglobus_ssl_utils* > /dev/null 2>&1
+-    if test $? -eq 0 ; then
+-        echo "$as_me:8260: result: 2.0" >&5
+-echo "${ECHO_T}2.0" >&6
+-        as_ac_Lib=`echo "ac_cv_lib_globus_gssapi_gsi_$GSI_FLAVOR''_gss_accept_sec_context" | $as_tr_sh`
+-echo "$as_me:8263: checking for gss_accept_sec_context in -lglobus_gssapi_gsi_$GSI_FLAVOR" >&5
+-echo $ECHO_N "checking for gss_accept_sec_context in -lglobus_gssapi_gsi_$GSI_FLAVOR... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_Lib+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lglobus_gssapi_gsi_$GSI_FLAVOR -lglobus_ssl_utils_$GSI_FLAVOR -lssl_$GSI_FLAVOR -lcrypto_$GSI_FLAVOR $LIBS"
+-cat >conftest.$ac_ext <<_ACEOF
+-#line 8271 "configure"
+-#include "confdefs.h"
+-
+-/* Override any gcc2 internal prototype to avoid an error.  */
+-#ifdef __cplusplus
+-extern "C"
+-#endif
+-/* We use char because int might match the return type of a gcc2
+-   builtin and then its argument prototype would still apply.  */
+-char gss_accept_sec_context ();
+-int
+-main ()
+-{
+-gss_accept_sec_context ();
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:8290: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8293: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:8296: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8299: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  eval "$as_ac_Lib=yes"
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-eval "$as_ac_Lib=no"
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-LIBS=$ac_check_lib_save_LIBS
+-fi
+-echo "$as_me:8310: result: `eval echo '${'$as_ac_Lib'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_Lib'}'`" >&6
+-if test `eval echo '${'$as_ac_Lib'}'` = yes; then
+-  result=yes
+-else
+-  result=no
+-fi
+-
+-        if test $result = no ; then
+-    	    GSI_FLAVOR="vendorcc32dbg"
+-            as_ac_Lib=`echo "ac_cv_lib_globus_gssapi_gsi_$GSI_FLAVOR''_gss_accept_sec_context" | $as_tr_sh`
+-echo "$as_me:8321: checking for gss_accept_sec_context in -lglobus_gssapi_gsi_$GSI_FLAVOR" >&5
+-echo $ECHO_N "checking for gss_accept_sec_context in -lglobus_gssapi_gsi_$GSI_FLAVOR... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_Lib+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lglobus_gssapi_gsi_$GSI_FLAVOR -lglobus_ssl_utils_$GSI_FLAVOR -lssl_$GSI_FLAVOR -lcrypto_$GSI_FLAVOR $LIBS"
+-cat >conftest.$ac_ext <<_ACEOF
+-#line 8329 "configure"
+-#include "confdefs.h"
+-
+-/* Override any gcc2 internal prototype to avoid an error.  */
+-#ifdef __cplusplus
+-extern "C"
+-#endif
+-/* We use char because int might match the return type of a gcc2
+-   builtin and then its argument prototype would still apply.  */
+-char gss_accept_sec_context ();
+-int
+-main ()
+-{
+-gss_accept_sec_context ();
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:8348: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8351: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:8354: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8357: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  eval "$as_ac_Lib=yes"
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-eval "$as_ac_Lib=no"
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-LIBS=$ac_check_lib_save_LIBS
+-fi
+-echo "$as_me:8368: result: `eval echo '${'$as_ac_Lib'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_Lib'}'`" >&6
+-if test `eval echo '${'$as_ac_Lib'}'` = yes; then
+-  result=yes
+-else
+-  { { echo "$as_me:8373: error: Cannot find GSI" >&5
+-echo "$as_me: error: Cannot find GSI" >&2;}
+-   { (exit 1); exit 1; }; }
+-fi
+-
+-        fi
+-        LIBS="$LIBS $with_gsi/lib/libglobus_gssapi_gsi_$GSI_FLAVOR.a $with_gsi/lib/libglobus_ssl_utils_$GSI_FLAVOR.a $with_gsi/lib/libssl_$GSI_FLAVOR.a $with_gsi/lib/libcrypto_$GSI_FLAVOR.a"
+-    else
+-        echo "$as_me:8381: result: >=2.2" >&5
+-echo "${ECHO_T}>=2.2" >&6
+-        as_ac_Lib=`echo "ac_cv_lib_globus_gssapi_gsi_$GSI_FLAVOR''_gss_init_sec_context" | $as_tr_sh`
+-echo "$as_me:8384: checking for gss_init_sec_context in -lglobus_gssapi_gsi_$GSI_FLAVOR" >&5
+-echo $ECHO_N "checking for gss_init_sec_context in -lglobus_gssapi_gsi_$GSI_FLAVOR... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_Lib+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lglobus_gssapi_gsi_$GSI_FLAVOR -lglobus_gsi_proxy_core_$GSI_FLAVOR -lglobus_gsi_credential_$GSI_FLAVOR -lglobus_gsi_callback_$GSI_FLAVOR -lglobus_oldgaa_$GSI_FLAVOR -lglobus_gsi_sysconfig_$GSI_FLAVOR -lglobus_gsi_cert_utils_$GSI_FLAVOR -lglobus_openssl_$GSI_FLAVOR -lglobus_openssl_error_$GSI_FLAVOR -lglobus_proxy_ssl_$GSI_FLAVOR -lglobus_common_$GSI_FLAVOR -lssl_$GSI_FLAVOR -lcrypto_$GSI_FLAVOR -lglobus_gss_assist_$GSI_FLAVOR $LIBS"
+-cat >conftest.$ac_ext <<_ACEOF
+-#line 8392 "configure"
+-#include "confdefs.h"
+-
+-/* Override any gcc2 internal prototype to avoid an error.  */
+-#ifdef __cplusplus
+-extern "C"
+-#endif
+-/* We use char because int might match the return type of a gcc2
+-   builtin and then its argument prototype would still apply.  */
+-char gss_init_sec_context ();
+-int
+-main ()
+-{
+-gss_init_sec_context ();
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:8411: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8414: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:8417: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8420: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  eval "$as_ac_Lib=yes"
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-eval "$as_ac_Lib=no"
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-LIBS=$ac_check_lib_save_LIBS
+-fi
+-echo "$as_me:8431: result: `eval echo '${'$as_ac_Lib'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_Lib'}'`" >&6
+-if test `eval echo '${'$as_ac_Lib'}'` = yes; then
+-  result=yes
+-else
+-  result=no
+-fi
+-
+-        if test $result = no ; then
+-    	    GSI_FLAVOR="vendorcc32dbg"
+-            as_ac_Lib=`echo "ac_cv_lib_globus_gssapi_gsi_$GSI_FLAVOR''_gss_init_sec_context" | $as_tr_sh`
+-echo "$as_me:8442: checking for gss_init_sec_context in -lglobus_gssapi_gsi_$GSI_FLAVOR" >&5
+-echo $ECHO_N "checking for gss_init_sec_context in -lglobus_gssapi_gsi_$GSI_FLAVOR... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_Lib+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lglobus_gssapi_gsi_$GSI_FLAVOR -lglobus_gsi_proxy_core_$GSI_FLAVOR -lglobus_gsi_credential_$GSI_FLAVOR -lglobus_gsi_callback_$GSI_FLAVOR -lglobus_oldgaa_$GSI_FLAVOR -lglobus_gsi_sysconfig_$GSI_FLAVOR -lglobus_gsi_cert_utils_$GSI_FLAVOR -lglobus_openssl_$GSI_FLAVOR -lglobus_openssl_error_$GSI_FLAVOR -lglobus_proxy_ssl_$GSI_FLAVOR -lglobus_common_$GSI_FLAVOR -lssl_$GSI_FLAVOR -lcrypto_$GSI_FLAVOR -lglobus_gss_assist_$GSI_FLAVOR $LIBS"
+-cat >conftest.$ac_ext <<_ACEOF
+-#line 8450 "configure"
+-#include "confdefs.h"
+-
+-/* Override any gcc2 internal prototype to avoid an error.  */
+-#ifdef __cplusplus
+-extern "C"
+-#endif
+-/* We use char because int might match the return type of a gcc2
+-   builtin and then its argument prototype would still apply.  */
+-char gss_init_sec_context ();
+-int
+-main ()
+-{
+-gss_init_sec_context ();
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:8469: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8472: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:8475: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8478: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  eval "$as_ac_Lib=yes"
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-eval "$as_ac_Lib=no"
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-LIBS=$ac_check_lib_save_LIBS
+-fi
+-echo "$as_me:8489: result: `eval echo '${'$as_ac_Lib'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_Lib'}'`" >&6
+-if test `eval echo '${'$as_ac_Lib'}'` = yes; then
+-  result=yes
+-else
+-  result=no
+-fi
+-
+-        fi
+-        LIBS="$LIBS $with_gsi/lib/libglobus_gssapi_gsi_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_proxy_core_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_credential_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_callback_$GSI_FLAVOR.a $with_gsi/lib/libglobus_oldgaa_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_sysconfig_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_cert_utils_$GSI_FLAVOR.a $with_gsi/lib/libglobus_openssl_$GSI_FLAVOR.a $with_gsi/lib/libglobus_openssl_error_$GSI_FLAVOR.a $with_gsi/lib/libglobus_proxy_ssl_$GSI_FLAVOR.a $with_gsi/lib/libglobus_common_$GSI_FLAVOR.a $with_gsi/lib/libssl_$GSI_FLAVOR.a $with_gsi/lib/libcrypto_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gss_assist_$GSI_FLAVOR.a"
+-    fi
+-
+-    if test "$GSI_FLAVOR" = "gcc32dbg" ; then
+-      case $host in
+-        *solaris2.*)
+-            GCCLIB=`gcc --print-libgcc-file-name`
+-            LIBS="$LIBS $GCCLIB"
+-            ;;
+-      esac
+-    fi
+-    as_ac_Lib=`echo "ac_cv_lib_globus_gss_assist_$GSI_FLAVOR''_globus_gss_assist_gridmap" | $as_tr_sh`
+-echo "$as_me:8510: checking for globus_gss_assist_gridmap in -lglobus_gss_assist_$GSI_FLAVOR" >&5
+-echo $ECHO_N "checking for globus_gss_assist_gridmap in -lglobus_gss_assist_$GSI_FLAVOR... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_Lib+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lglobus_gss_assist_$GSI_FLAVOR  $LIBS"
+-cat >conftest.$ac_ext <<_ACEOF
+-#line 8518 "configure"
+-#include "confdefs.h"
+-
+-/* Override any gcc2 internal prototype to avoid an error.  */
+-#ifdef __cplusplus
+-extern "C"
+-#endif
+-/* We use char because int might match the return type of a gcc2
+-   builtin and then its argument prototype would still apply.  */
+-char globus_gss_assist_gridmap ();
+-int
+-main ()
+-{
+-globus_gss_assist_gridmap ();
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:8537: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8540: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:8543: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:8546: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  eval "$as_ac_Lib=yes"
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-eval "$as_ac_Lib=no"
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-LIBS=$ac_check_lib_save_LIBS
+-fi
+-echo "$as_me:8557: result: `eval echo '${'$as_ac_Lib'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_Lib'}'`" >&6
+-if test `eval echo '${'$as_ac_Lib'}'` = yes; then
+-  LIBS="$LIBS $with_gsi/lib/libglobus_gss_assist_$GSI_FLAVOR.a"
+-else
+-  { { echo "$as_me:8562: error: Cannot find globus gss-assist" >&5
+-echo "$as_me: error: Cannot find globus gss-assist" >&2;}
+-   { (exit 1); exit 1; }; }
+-fi
++    LIBS="$LIBS $with_gsi/lib/libglobus_gssapi_gsi_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_proxy_core_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_credential_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_callback_$GSI_FLAVOR.a $with_gsi/lib/libglobus_oldgaa_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_sysconfig_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gsi_cert_utils_$GSI_FLAVOR.a $with_gsi/lib/libglobus_openssl_$GSI_FLAVOR.a $with_gsi/lib/libglobus_openssl_error_$GSI_FLAVOR.a $with_gsi/lib/libglobus_proxy_ssl_$GSI_FLAVOR.a $with_gsi/lib/libglobus_common_$GSI_FLAVOR.a $with_gsi/lib/libssl_$GSI_FLAVOR.a $with_gsi/lib/libcrypto_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gss_assist_$GSI_FLAVOR.a $with_gsi/lib/libglobus_callout_$GSI_FLAVOR.a $with_gsi/lib/libglobus_gssapi_gsi_$GSI_FLAVOR.a"
+ 
+     LDFLAGS=$OLDLDFLAGS
+     CPPFLAGS="$CPPFLAGS -I$with_gsi/include/$GSI_FLAVOR"

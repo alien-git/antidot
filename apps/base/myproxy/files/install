@@ -1,8 +1,0 @@
-#!/bin/sh
-$GPT_LOCATION/sbin/gpt-postinstall
-
-[ ! -d $GLOBUS_LOCATION/setup/globus ] && mkdir -p $GLOBUS_LOCATION/setup/globus
-
- [ -f $GLOBUS_LOCATION/GLOBUS_LICENSE ] && mv -f $GLOBUS_LOCATION/GLOBUS_LICENSE $GLOBUS_LOCATION/setup/globus
- [ -f $GLOBUS_LOCATION/COPYING ] && mv -f $GLOBUS_LOCATION/COPYING $GLOBUS_LOCATION/setup/globus
-
