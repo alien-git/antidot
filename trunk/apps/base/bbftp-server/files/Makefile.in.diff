@@ -1,0 +1,23 @@
+--- work/bbftp-server-3.2.0//bbftpd/Makefile.in	Tue May 25 17:32:14 2004
++++ work/bbftp-server-3.2.0//bbftpd/Makefile.in.new	Fri Oct 14 15:44:09 2005
+@@ -51,7 +51,7 @@
+ #
+ LDFLAGS = @LDFLAGS@
+ LIBS = @LIBS@
+-GFWLIB = @GFWLIB@
++GFWLIB = -lgfw -lltdl
+ 
+ CC = cc 
+ prefix = @prefix@
+@@ -63,10 +63,7 @@
+ 
+ ${OBJS} : ${HEAD}
+ 
+-../gfw/libgfw.a:
+-	(cd ../gfw; make clean; make)
+-
+-${PROG} : ${OBJS} ${GFWLIB}
++${PROG} : ${OBJS}
+ 	${CC} -o $@ ${OBJS} ${LDFLAGS} ${GFWLIB} ${LIBS}
+ 
+ clean:
