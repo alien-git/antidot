@@ -28,8 +28,8 @@ VPATH += $(COOKIEDIR)
 
 # convenience variable to make the cookie.
 
-PROVIDE_BEGIN = @$(GARDIR)/provides.sh $(PREFIX) $(COOKIEDIR) start
-PROVIDE_END   = @$(GARDIR)/provides.sh $(PREFIX) $(COOKIEDIR) stop
+PROVIDE_BEGIN = @$(GARDIR)/provides.sh $(PREFIX) $(COOKIEDIR) start $(GARNAME)
+PROVIDE_END   = @$(GARDIR)/provides.sh $(PREFIX) $(COOKIEDIR) stop $(GARNAME)
 
 MAKECOOKIE = mkdir -p $(COOKIEDIR)/$(@D) && date >> $(COOKIEDIR)/$@
 #################### FETCH RULES ####################
