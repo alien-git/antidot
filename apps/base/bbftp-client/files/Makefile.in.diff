@@ -5,7 +5,7 @@
  LDFLAGS = @LDFLAGS@
  LIBS = @LIBS@
 -GFWLIB = @GFWLIB@
-+GFWLIB = -lgfw -lltdl 
++GFWLIB = -L@prefix@/lib -lgfw -lltdl 
  prefix = @prefix@
  exec_prefix = @exec_prefix@
  bindir = @bindir@
