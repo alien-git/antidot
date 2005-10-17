@@ -5,7 +5,7 @@
  LDFLAGS = @LDFLAGS@
  LIBS = @LIBS@
 -GFWLIB = @GFWLIB@
-+GFWLIB = -lgfw -lltdl
++GFWLIB = -L@prefix@/lib -lgfw -lltdl
  
  CC = cc 
  prefix = @prefix@
