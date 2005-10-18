@@ -8,7 +8,7 @@ PATCHFILES = Makefile.patch
 
 MASTER_SITES =
 
-LIBDEPS = 
+LIBDEPS = apps/base/globus-toolkit
 
 DESCRIPTION =  European Policy Management Authority for Grid Authentication in e-Science - acredited CA certificates
 LICENSE =
