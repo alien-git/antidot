@@ -23,3 +23,6 @@ CONFIGURE_ARGS =
 
 include ../category.mk
 
+ifeq ($(shell uname -s),Darwin)
+PRE_CONFIGURE = (rm -f $(WORKSRC)/t/io.t )
+endif
