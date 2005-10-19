@@ -11,19 +11,15 @@ apps/base/eugridpma-carep \
 apps/glite/glite \
 apps/alien/admin \
 apps/alien/classad \
-apps/alien/srm \
-apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
-apps/alien/apiservice \
 apps/gui/glib \
 apps/gui/GD \
 apps/gui/Glade-Perl \
 apps/gui/Gtk-Perl \
-apps/portal/apache \
 apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
-apps/portal/gridport \
+apps/portal/gridsite \
 apps/monitor/monit \
 apps/base/Authen-PAM
 
