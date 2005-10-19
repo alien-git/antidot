@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl apps/portal/httpd
 DESCRIPTION = mod_perl is the marriage of Apache and Perl
 URL = http://perl.apache.org
 AUTHOR = 
-LICENCE = Apache
+LICENSE = Apache
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
