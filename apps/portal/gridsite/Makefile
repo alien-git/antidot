@@ -10,7 +10,7 @@ LIBDEPS = apps/base/gsoap apps/base/globus-toolkit apps/base/curl apps/base/libx
 DESCRIPTION = Grid Security for the Web
 URL = http://www.gridsite.org
 AUTHOR = Andrew McNab
-LICENCE = Apache
+LICENSE = Apache
 
 CONFIGURE_SCRIPTS = 
 BUILD_SCRIPTS = $(WORKSRC)/src/Makefile

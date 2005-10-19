@@ -10,7 +10,7 @@ LIBDEPS = apps/base/openssl
 DESCRIPTION = Apache Web Server
 URL = http://apache.org
 AUTHOR = Apache Project 
-LICENCE = Apache
+LICENSE = Apache
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
