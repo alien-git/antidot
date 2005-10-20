@@ -71,14 +71,3 @@
  chomp $hostName;
  
  my $mysqlHost=getParam("alien-mysql host",getDefaultMysql($orgName,$hostName));
---- ./work/alien-admin-2.1.1/src/scripts/CreateOrgServices.pl.ori	2005-09-29 11:11:01.000000000 +0200
-+++ ./work/alien-admin-2.1.1/src/scripts/CreateOrgServices.pl	2005-09-29 11:34:45.000000000 +0200
-@@ -32,7 +32,7 @@
- 
- $config or exit(-2);
- 
--my $hostname=`hostname -f`;
-+my $hostname=`hostname`;
- chomp $hostname;
- my $names={};
- $names->{AUTH}="Authen";
