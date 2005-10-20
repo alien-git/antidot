@@ -27,6 +27,5 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-dist-location=$(PREFIX)/api --sys
 include ../category.mk
 
 PRE_CONFIGURE = (cd $(WORKSRC); ([ -f bootstrap ] && sh bootstrap) || autoconf )
-
-
+PRE_INSTALL = (mkdir -p $(PREFIX)/api/etc)
 
