@@ -3,9 +3,8 @@ GARVERSION = 2.1.1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
-ifeq ($(shell uname -s),Darwin)
-PATCHFILES = macos.diff
-endif
+
+PATCHFILES = 
 
 GARCVSNAME    = org.glite.alien.admin
 GARCVSVERSION = glite-alien-admin_branch_2_0_0
