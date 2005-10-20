@@ -5,7 +5,9 @@ TARGET_PKG_CONFIG_PATH = /usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 
 # Compiler options (optional)
 
-OWN_CFLAGS = -O2 -pipe
+OWN_CFLAGS  = -O2 -pipe
+OWN_LDFLAGS =
+
 export GARLIBEXT=so
 export GARSHARED=-shared
 
