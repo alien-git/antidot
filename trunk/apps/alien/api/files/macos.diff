@@ -1,27 +1,26 @@
---- work/alien-api-1.0.5a/C2Perl/C2PERL.c.ori	2005-08-31 17:08:38.000000000 +0200
-+++ work/alien-api-1.0.5a/C2Perl/C2PERL.c	2005-08-31 17:09:15.000000000 +0200
-@@ -6,6 +6,8 @@
- #include <stdarg.h>
- #include <string.h>
- 
-+int g_init;
-+
- static PerlInterpreter *my_perl;
+--- ./work/alien-api-1.0.5b/C2Perl/C2PERL.c.ori	2005-10-20 18:22:09.000000000 +0200
++++ ./work/alien-api-1.0.5b/C2Perl/C2PERL.c	2005-10-20 18:22:34.000000000 +0200
+@@ -10,6 +10,7 @@
  
  static void xs_init (void);
---- work/alien-api-1.0.5a/C2Perl/C2PERL.h.ori	2005-08-31 17:09:25.000000000 +0200
-+++ work/alien-api-1.0.5a/C2Perl/C2PERL.h	2005-08-31 17:09:59.000000000 +0200
+ int g_connect=0;
++int g_init=0;
+ EXTERN_C void boot_DynaLoader (CV* cv);
+ 
+ /**
+--- ./work/alien-api-1.0.5b/C2Perl/C2PERL.h.ori	2005-10-20 18:22:54.000000000 +0200
++++ ./work/alien-api-1.0.5b/C2Perl/C2PERL.h	2005-10-20 18:23:04.000000000 +0200
 @@ -12,7 +12,7 @@
  #endif
      
      /* the initialization state of the perl module */
 -    int g_init;
-+    extern int g_init;
++extern    int g_init;
      
  /**************************************************************************
   * C2PERL API data types.
---- work/alien-api-1.0.5a/gclientlib/glite_dir_operations.cxx.ori	2005-08-31 17:21:47.000000000 +0200
-+++ work/alien-api-1.0.5a/gclientlib/glite_dir_operations.cxx	2005-08-31 17:33:31.000000000 +0200
+--- work/alien-api-1.0.5b/gclientlib/glite_dir_operations.cxx.ori	2005-08-31 17:21:47.000000000 +0200
++++ work/alien-api-1.0.5b/gclientlib/glite_dir_operations.cxx	2005-08-31 17:33:31.000000000 +0200
 @@ -57,8 +57,10 @@
      delete dir;
      return 0;
@@ -93,14 +92,3 @@
  }
  
  
---- ./work/alien-api-1.0.5a/clients/scripts/gprefix_VO.ori	2005-09-29 11:11:01.000000000 +0200
-+++ ./work/alien-api-1.0.5a/clients/scripts/gprefix_VO	2005-09-29 11:34:19.000000000 +0200
-@@ -67,7 +67,7 @@
- 	GPREFIX_cd
- 	GPREFIX_HOME=`GPREFIX_pwd`
- 	GPREFIX_cd $GPREFIX_PWD
--	export GPREFIX_CLIENT_HOST=`hostname -f`
-+	export GPREFIX_CLIENT_HOST=`hostname`
- 	mlconf=`$GSHELL_ROOT/bin/gbbox mlconfig $GPREFIX_CLIENT_HOST | grep -v	Unknown 2>/dev/null`
- 	test -z "$mlconf" || export $mlconf;
- fi;
