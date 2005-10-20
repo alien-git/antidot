@@ -2,7 +2,7 @@ GARNAME = bbftp-client
 GARVERSION = 3.2.0
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Makefile.in.diff
+PATCHFILES = Makefile.in.diff macos.diff
  
 MASTER_SITES = ftp://ftp.in2p3.fr/pub/bbftp/
 
