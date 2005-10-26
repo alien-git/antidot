@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.70  2005/10/26 11:49:53  buncic
+# Adding root meta package to installer, update API to new version from Andreas
+#
 # Revision 1.69  2005/10/09 20:02:46  buncic
 # Fix to installer, do not install gcc if suitable version is already found on
 # the system.
@@ -531,10 +534,9 @@ InstallerUpdate()
     fi 
   done
 
-  if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien-perl ]
+  if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien ]
   then
     echo 'Running post installation scripts...'
-    $ALIEN_INSTALLER_PREFIX/bin/alien-perl --bootstrap --prefix $ALIEN_INSTALLER_PREFIX
     $ALIEN_INSTALLER_PREFIX/bin/alien configure >> install.log
   fi
 
@@ -749,22 +751,6 @@ InstallerUI()
       done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
     fi 
   done
-
-  if [ -x $prefix/bin/alien-perl ]
-  then
-    $ALIEN_DIALOG $style --sleep 3 \
-                  --infobox 'Running post installation scripts...' $height $width
-    $prefix/bin/alien-perl --bootstrap --prefix $prefix >> install.log
- 
-    $ALIEN_DIALOG $style --sleep 3 \
-                --infobox 'Done.' $height $width
-  else
-    $ALIEN_DIALOG $style \
-            --msgbox 'Installation failed: alien-perl not found.' $height $width
-    $ALIEN_DIALOG $style \
-          --textbox install.log 0 0  
-    Exit 
-  fi
 
   InstallerSetup
 
