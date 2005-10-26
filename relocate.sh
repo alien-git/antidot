@@ -37,6 +37,13 @@ then
      echo Relocating $app
      (cd $prefix/api/bin; ./alien_apiservice-bootstrap)
      ;;
+   */apps/alien/perl)
+     echo Relocating $app
+     if [ -f $prefix/bin/alien-perl ]
+     then
+       $prefix/bin/alien-perl --bootstrap --prefix $prefix
+     fi
+     ;;
      *)
       ;;
   esac 
