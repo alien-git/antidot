@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.73  2005/10/26 12:43:00  buncic
+# Removing dependency on dialog
+#
 # Revision 1.72  2005/10/26 12:13:43  buncic
 # Splitting installation and setup phase
 #
@@ -755,6 +758,9 @@ InstallerUI()
   done
 
   rm -rf $release_file $dialog_file
+
+  $ALIEN_DIALOG $style --sleep 3 \
+                --infobox 'Done.' $height $width
 
   Exit
 }
