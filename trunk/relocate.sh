@@ -33,6 +33,10 @@ then
        env GLOBUS_LOCATION=$prefix/globus GPT_LOCATION=$prefix/globus PERL5LIB="$prefix/globus/lib/perl5:$prefix/lib/perl5" $prefix/bin/perl $prefix/globus/setup/globus/setup-globus-common.pl
      fi 
      ;;
+   */apps/alien/api)
+     echo Relocating $app
+     (cd $prefix/api/bin; ./alien_apiservice-bootstrap)
+     ;;
      *)
       ;;
   esac 
