@@ -1,4 +1,4 @@
-GARNAME = alien-meta-gshell
+GARNAME = alien-meta-root
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
@@ -7,11 +7,11 @@ FILTER     ?= %
  
 ALL=\
 apps/devel/dialog \
-apps/alien/api
+apps/root/root
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
-DESCRIPTION = AliEn Grid Shell
+DESCRIPTION = AliEn enabled ROOT 
 
 include ../category.mk
 
@@ -21,3 +21,4 @@ apps/install-%/Makefile:
 
 list_packages:
 	@echo $(LIBDEPS)
+
