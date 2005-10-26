@@ -5,6 +5,10 @@
 #
 # modification history
 # $Log$
+# Revision 1.69  2005/10/09 20:02:46  buncic
+# Fix to installer, do not install gcc if suitable version is already found on
+# the system.
+#
 # Revision 1.68  2005/10/05 12:03:53  buncic
 # Adding x86_64-unknown-linux-gnu as supported platform
 #
@@ -686,8 +690,9 @@ InstallerUI()
   $ALIEN_DIALOG $style \
                --checklist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
                            'all'     'All packages'             0  \
-                           'client'  'Client'                   0  \
-                           'gshell'  'gShell and ROOT'          0  \
+                           'client'  'Simple Client UI'         0  \
+                           'gshell'  'Grid Shell UI'            0  \
+                           'root'    'ROOT for AliEn'           0  \
                            'portal'  'Portal'                   0  \
                            'site'    'Site CE/SE services'      0  \
                            'lcg'     'LCG Components'           0  \
