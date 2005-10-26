@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.72  2005/10/26 12:13:43  buncic
+# Splitting installation and setup phase
+#
 # Revision 1.71  2005/10/26 12:09:04  buncic
 # Moving post -install scripts to relocate.sh
 #
@@ -226,7 +229,6 @@ ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME:=$HOME/.alien/cache}
 ALIEN_INSTALLER_URL=${ALIEN_INSTALLER_URL:=rsync://alien.cern.ch:8873/releases} 
 ALIEN_INSTALLER_CVS=${ALIEN_INSTALLER_CVS:=":pserver:cvs@alisoft.cern.ch:/soft/cvsroot"}
 ALIEN_INSTALLER_PREFIX=${ALIEN_INSTALLER_PREFIX:=/opt/alien}
-ALIEN_INSTALLER_METHOD=${ALIEN_INSTALLER_METHOD:=bininstall}
 ALIEN_INSTALLER_AUTODETECT=${ALIEN_INSTALLER_AUTODETECT:=false}
 ALIEN_INSTALLER_TYPE=${ALIEN_INSTALLER_TYPE:=all}
 ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
@@ -246,7 +248,6 @@ InstallerRcUpdate()
     echo "ALIEN_INSTALLER_URL=$ALIEN_INSTALLER_URL" 
     echo "ALIEN_INSTALLER_CVS=$ALIEN_INSTALLER_CVS" 
     echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
-    echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD" 
     echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
     echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
     echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
@@ -513,7 +514,7 @@ InstallerUpdate()
  (cd $ALIEN_INSTALLER_HOME; ./alien-installer -p $ALIEN_INSTALLER_HOME -r $ALIEN_RELEASE configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
 
 
-  env GARAUTODETECT=true InstallerMakePkg $ALIEN_INSTALLER_METHOD apps/gcc/gcc
+  env GARAUTODETECT=true InstallerMakePkg bininstall apps/gcc/gcc
 
   for meta in $ALIEN_INSTALLER_TYPE
   do
@@ -532,7 +533,7 @@ InstallerUpdate()
         g=$[$[i * 100]/$[npkgs + 1]];
         i=$[i + 1]
         echo "Updating $pkg..."
-        InstallerMakePkg $ALIEN_INSTALLER_METHOD $pkg 
+        InstallerMakePkg bininstall $pkg 
       done
     fi 
   done
@@ -577,8 +578,6 @@ InstallerUI()
   ALIEN_RELEASE=$release
 
   cmd=$cmd" --with-alien-release=$ALIEN_RELEASE "
-
-  ALIEN_INSTALLER_METHOD='bininstall'
 
   $ALIEN_DIALOG  $style --defaultno \
           --yesno "Would you like installer to autodetect and reuse already installed software components on your system?" 0 0 
@@ -725,7 +724,7 @@ InstallerUI()
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
-  env GARAUTODETECT=true InstallerMakePkg $ALIEN_INSTALLER_METHOD apps/gcc/gcc >> $workspace/install.log
+  env GARAUTODETECT=true InstallerMakePkg bininstall apps/gcc/gcc >> $workspace/install.log
 
   for meta in $list
   do
@@ -749,13 +748,15 @@ InstallerUI()
         echo XXX
         echo "Installing $pkg..."
         echo XXX
-        InstallerMakePkg $ALIEN_INSTALLER_METHOD $pkg >> $workspace/install.log
+        InstallerMakePkg bininstall $pkg >> $workspace/install.log
         echo $g
       done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
     fi 
   done
 
   rm -rf $release_file $dialog_file
+
+  Exit
 }
 
 ###########################################################################

@@ -6,7 +6,6 @@ FILTER_OUT ?=
 FILTER     ?= % 
  
 ALL=\
-apps/devel/dialog \
 apps/alien/api
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
