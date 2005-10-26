@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.71  2005/10/26 12:09:04  buncic
+# Moving post -install scripts to relocate.sh
+#
 # Revision 1.70  2005/10/26 11:49:53  buncic
 # Adding root meta package to installer, update API to new version from Andreas
 #
@@ -751,8 +754,6 @@ InstallerUI()
       done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
     fi 
   done
-
-  InstallerSetup
 
   rm -rf $release_file $dialog_file
 }
