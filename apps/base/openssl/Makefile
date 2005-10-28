@@ -1,9 +1,9 @@
 GARNAME = openssl
-GARVERSION = 0.9.7i
+GARVERSION = 0.9.7g
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 ifeq ($(shell uname),Darwin)
-#PATCHFILES = Makefile.org.diff
+PATCHFILES = Makefile.org.diff
 endif
 
 MASTER_SITES = http://www.openssl.org/source/ 
