@@ -25,7 +25,7 @@ my $success = 0;
 my $file_name = "j2sdk-$java_ver-$platform.bin";
 my $res;
 for my $base (@url_base){
-	my $url = "${base}${file_name}";
+	my $url = "${base}../java/${file_name}";
 	
 	my $req = HTTP::Request->new(GET => $url);
 	print "Getting $url ... ";

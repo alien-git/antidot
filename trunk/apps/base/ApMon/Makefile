@@ -1,9 +1,9 @@
-GARNAME = ApMon
-GARVERSION = 2.0.7
+GARNAME = ApMon_perl
+GARVERSION = 2.0.8
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = 
+MASTER_SITES = http://monalisa.cern.ch/download/apmon/ http://monalisa.cacr.caltech.edu/download/apmon/
 
 LIBDEPS = apps/base/libwww-perl
 

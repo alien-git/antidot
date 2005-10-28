@@ -1,10 +1,10 @@
-GARNAME = ApMon-CPP
-GARVERSION = 2.0.5
+GARNAME = ApMon_cpp
+GARVERSION = 2.0.6
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = macos.diff
+PATCHFILES = 
 
-MASTER_SITES = 
+MASTER_SITES = http://monalisa.cern.ch/download/apmon/ http://monalisa.cacr.caltech.edu/download/apmon/
 
 LIBDEPS = apps/gcc/gcc
 
@@ -23,5 +23,3 @@ AUTOTEST =
 CONFIGURE_ARGS = --prefix=$(PREFIX)
 
 include ../category.mk
-
-PRE_CONFIGURE = ( cd $(WORKSRC); aclocal; autoheader; libtoolize --force; automake -a; autoconf )
