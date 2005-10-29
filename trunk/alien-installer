@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.74  2005/10/26 13:50:42  buncic
+# Typo in autodetect...
+#
 # Revision 1.73  2005/10/26 12:43:00  buncic
 # Removing dependency on dialog
 #
@@ -264,7 +267,7 @@ InstallerRcUpdate()
 Exit()
 ###########################################################################
 {
-  [ $debug -eq 0 ] &&  clear
+  [ $debug -eq 0 ] &&  reset && clear
   InstallerRcUpdate
   rm -rf $release_file $dialog_file $cache_file
   exit $*
@@ -275,7 +278,7 @@ Error()
 ###########################################################################
 {
    dialog $style --msgbox "$1" $height $width 
-   [ $debug -eq 0 ] &&  clear
+   [ $debug -eq 0 ] && reset && clear
    [ -f install.log ] && cat install.log  
    exit 1
 }
@@ -516,8 +519,7 @@ InstallerUpdate()
 
  (cd $ALIEN_INSTALLER_HOME; ./alien-installer -p $ALIEN_INSTALLER_HOME -r $ALIEN_RELEASE configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
 
-
-  env GARAUTODETECT=true InstallerMakePkg bininstall apps/gcc/gcc
+  export GARAUTODETECT=true; InstallerMakePkg bininstall apps/gcc/gcc; export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
 
   for meta in $ALIEN_INSTALLER_TYPE
   do
