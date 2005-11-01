@@ -1,0 +1,20 @@
+--- ./work/xrootdnewbuild-20050728-0310x1/src/XrdSecpwd/Makefile.am.ori	2005-09-26 00:43:02.000000000 +0200
++++ ./work/xrootdnewbuild-20050728-0310x1/src/XrdSecpwd/Makefile.am	2005-09-26 00:43:10.000000000 +0200
+@@ -20,4 +20,4 @@
+ xrdpwdadmin_SOURCES = XrdSecpwdSrvAdmin.cc
+ xrdpwdadmin_LDADD =   ../XrdCrypto/libXrdCrypto.la \
+                       ../XrdOuc/libXrdOuc.la \
+-                      ../XrdNet/libXrdNet.la
++                      ../XrdNet/libXrdNet.la -lcrypto
+--- ./work/xrootdnewbuild-20050728-0310x1/src/XrdSecgsi/Makefile.am.ori	2005-09-26 08:23:29.000000000 +0200
++++ ./work/xrootdnewbuild-20050728-0310x1/src/XrdSecgsi/Makefile.am	2005-09-26 08:24:28.000000000 +0200
+@@ -25,7 +25,8 @@
+ xrdgsiproxy_LDADD = libXrdSecgsi.la \
+                     ../XrdSec/libXrdSec.la \
+                     ../XrdOuc/libXrdOuc.la \
+-                    ../XrdNet/libXrdNet.la
++                    ../XrdNet/libXrdNet.la \
++		    -lcrypto
+ 
+ xrdsecgsitest_SOURCES = XrdSecgsitest.cc
+ xrdsecgsitest_LDADD = libXrdSecgsi.la \

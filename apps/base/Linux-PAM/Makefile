@@ -2,7 +2,7 @@ GARNAME = Linux-PAM
 GARVERSION = 0.78
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.bz2
-PATCHFILES = makefile.diff configure.diff
+PATCHFILES = makefile.diff
 
 MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/pre/library/ 
 

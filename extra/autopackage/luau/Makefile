@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/ http://belnet.dl.sourceforge.net/sourceforge/luau/
 
-LIBDEPS =  apps/base/zlib apps/base/libxml2 apps/base/curl
+LIBDEPS =  apps/base/zlib apps/base/libxml2 extra/autopackage/curl
 
 DESCRIPTION = The Lib Update/AutoUpdate Suite
 URL = http://luau.sourceforge.net/

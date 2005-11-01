@@ -13,7 +13,7 @@ GARCVSNAME    = org.glite.security.voms
 GARCVSVERSION = glite-security-voms_R_1_6_3
 NOCHECKSUM    = $(DISTFILES)
 
-LIBDEPS = apps/glite/glite apps/base/globus-toolkit apps/base/openssl 
+LIBDEPS = apps/glite/glite apps/base/globus apps/base/openssl 
 
 DESCRIPTION = VOMS
 URL = http://www.glite.org

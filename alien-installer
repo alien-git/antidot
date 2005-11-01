@@ -5,25 +5,6 @@
 #
 # modification history
 # $Log$
-# Revision 1.74  2005/10/26 13:50:42  buncic
-# Typo in autodetect...
-#
-# Revision 1.73  2005/10/26 12:43:00  buncic
-# Removing dependency on dialog
-#
-# Revision 1.72  2005/10/26 12:13:43  buncic
-# Splitting installation and setup phase
-#
-# Revision 1.71  2005/10/26 12:09:04  buncic
-# Moving post -install scripts to relocate.sh
-#
-# Revision 1.70  2005/10/26 11:49:53  buncic
-# Adding root meta package to installer, update API to new version from Andreas
-#
-# Revision 1.69  2005/10/09 20:02:46  buncic
-# Fix to installer, do not install gcc if suitable version is already found on
-# the system.
-#
 # Revision 1.68  2005/10/05 12:03:53  buncic
 # Adding x86_64-unknown-linux-gnu as supported platform
 #
@@ -235,6 +216,7 @@ ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME:=$HOME/.alien/cache}
 ALIEN_INSTALLER_URL=${ALIEN_INSTALLER_URL:=rsync://alien.cern.ch:8873/releases} 
 ALIEN_INSTALLER_CVS=${ALIEN_INSTALLER_CVS:=":pserver:cvs@alisoft.cern.ch:/soft/cvsroot"}
 ALIEN_INSTALLER_PREFIX=${ALIEN_INSTALLER_PREFIX:=/opt/alien}
+ALIEN_INSTALLER_METHOD=${ALIEN_INSTALLER_METHOD:=bininstall}
 ALIEN_INSTALLER_AUTODETECT=${ALIEN_INSTALLER_AUTODETECT:=false}
 ALIEN_INSTALLER_TYPE=${ALIEN_INSTALLER_TYPE:=all}
 ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
@@ -254,6 +236,7 @@ InstallerRcUpdate()
     echo "ALIEN_INSTALLER_URL=$ALIEN_INSTALLER_URL" 
     echo "ALIEN_INSTALLER_CVS=$ALIEN_INSTALLER_CVS" 
     echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
+    echo "ALIEN_INSTALLER_METHOD=$ALIEN_INSTALLER_METHOD" 
     echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
     echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
     echo "ALIEN_INSTALLER_PLATFORM=$ALIEN_INSTALLER_PLATFORM" 
@@ -267,7 +250,7 @@ InstallerRcUpdate()
 Exit()
 ###########################################################################
 {
-  [ $debug -eq 0 ] &&  reset && clear
+  [ $debug -eq 0 ] &&  clear
   InstallerRcUpdate
   rm -rf $release_file $dialog_file $cache_file
   exit $*
@@ -278,7 +261,7 @@ Error()
 ###########################################################################
 {
    dialog $style --msgbox "$1" $height $width 
-   [ $debug -eq 0 ] && reset && clear
+   [ $debug -eq 0 ] &&  clear
    [ -f install.log ] && cat install.log  
    exit 1
 }
@@ -519,7 +502,8 @@ InstallerUpdate()
 
  (cd $ALIEN_INSTALLER_HOME; ./alien-installer -p $ALIEN_INSTALLER_HOME -r $ALIEN_RELEASE configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
 
-  export GARAUTODETECT=true; InstallerMakePkg bininstall apps/gcc/gcc; export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
+
+  env GARAUTODETECT=true InstallerMakePkg $ALIEN_INSTALLER_METHOD apps/gcc/gcc
 
   for meta in $ALIEN_INSTALLER_TYPE
   do
@@ -538,14 +522,15 @@ InstallerUpdate()
         g=$[$[i * 100]/$[npkgs + 1]];
         i=$[i + 1]
         echo "Updating $pkg..."
-        InstallerMakePkg bininstall $pkg 
+        InstallerMakePkg $ALIEN_INSTALLER_METHOD $pkg 
       done
     fi 
   done
 
-  if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien ]
+  if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien-perl ]
   then
     echo 'Running post installation scripts...'
+    $ALIEN_INSTALLER_PREFIX/bin/alien-perl --bootstrap --prefix $ALIEN_INSTALLER_PREFIX
     $ALIEN_INSTALLER_PREFIX/bin/alien configure >> install.log
   fi
 
@@ -583,6 +568,8 @@ InstallerUI()
   ALIEN_RELEASE=$release
 
   cmd=$cmd" --with-alien-release=$ALIEN_RELEASE "
+
+  ALIEN_INSTALLER_METHOD='bininstall'
 
   $ALIEN_DIALOG  $style --defaultno \
           --yesno "Would you like installer to autodetect and reuse already installed software components on your system?" 0 0 
@@ -699,9 +686,8 @@ InstallerUI()
   $ALIEN_DIALOG $style \
                --checklist 'PLEASE SELECT THE INSTALLATION TYPE' 0 0 0  \
                            'all'     'All packages'             0  \
-                           'client'  'Simple Client UI'         0  \
-                           'gshell'  'Grid Shell UI'            0  \
-                           'root'    'ROOT for AliEn'           0  \
+                           'client'  'Client'                   0  \
+                           'gshell'  'gShell and ROOT'          0  \
                            'portal'  'Portal'                   0  \
                            'site'    'Site CE/SE services'      0  \
                            'lcg'     'LCG Components'           0  \
@@ -729,7 +715,7 @@ InstallerUI()
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
-  env GARAUTODETECT=true InstallerMakePkg bininstall apps/gcc/gcc >> $workspace/install.log
+  env GARAUTODETECT=true InstallerMakePkg $ALIEN_INSTALLER_METHOD apps/gcc/gcc >> $workspace/install.log
 
   for meta in $list
   do
@@ -753,18 +739,31 @@ InstallerUI()
         echo XXX
         echo "Installing $pkg..."
         echo XXX
-        InstallerMakePkg bininstall $pkg >> $workspace/install.log
+        InstallerMakePkg $ALIEN_INSTALLER_METHOD $pkg >> $workspace/install.log
         echo $g
       done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
     fi 
   done
 
-  rm -rf $release_file $dialog_file
-
-  $ALIEN_DIALOG $style --sleep 3 \
+  if [ -x $prefix/bin/alien-perl ]
+  then
+    $ALIEN_DIALOG $style --sleep 3 \
+                  --infobox 'Running post installation scripts...' $height $width
+    $prefix/bin/alien-perl --bootstrap --prefix $prefix >> install.log
+ 
+    $ALIEN_DIALOG $style --sleep 3 \
                 --infobox 'Done.' $height $width
+  else
+    $ALIEN_DIALOG $style \
+            --msgbox 'Installation failed: alien-perl not found.' $height $width
+    $ALIEN_DIALOG $style \
+          --textbox install.log 0 0  
+    Exit 
+  fi
 
-  Exit
+  InstallerSetup
+
+  rm -rf $release_file $dialog_file
 }
 
 ###########################################################################

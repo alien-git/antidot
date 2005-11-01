@@ -1,15 +1,15 @@
 GARNAME = MonaLisa
-GARVERSION = 1.4.0
+GARVERSION = 1.2.52
 CATEGORIES = java
 DISTFILES = $(GARNAME).v$(GARVERSION).tar.gz
-DISTNAME  = $(GARNAME).v1.4
+DISTNAME  = $(GARNAME).v1.2
 
 PLATFORM = $(shell $(GARDIR)/platform.sh platform)
 
 BINDISTNAME = $(GARNAME)-$(GARVERSION)_$(PLATFORM)
 PATCHFILES = Makefile.patch
 
-MASTER_SITES = http://monalisa.cern.ch/download/monalisa/ http://monalisa.cacr.caltech.edu/download/monalisa/
+MASTER_SITES = http://monalisa.cern.ch/MONALISA/download/ http://monalisa.cacr.caltech.edu/download/
 
 LIBDEPS = apps/base/libwww-perl
 
@@ -35,7 +35,10 @@ INSTALL_ENV = env DISTNAME=$(DISTNAME) PREFIX=$(PREFIX)/java
 include ../category.mk
 
 ifeq ($(shell uname -s),Darwin)
+pre-configure:
+	@sed <files/AliEn/startMonaLisa.pl -e 's/hostname *-f/hostname/g' > files/Alien/startMonaLisa.mac ; mv files/AliEn/startMonaLisa{.mac,.pl}
+
 post-build:
-	@sed <work/MonaLisa.v1.4/MonaLisa.v1.4/Service/CMD/ML_SER -e 's/hostname *-f/hostname/g' > work/MonaLisa.v1.4/MonaLisa.v1.4/Service/CMD/ML_SER.mac ; \
-	mv work/MonaLisa.v1.4/MonaLisa.v1.4/Service/CMD/ML_SER{.mac,}
+	@sed <work/MonaLisa.v1.2/MonaLisa.v1.2/Service/CMD/ML_SER -e 's/hostname *-f/hostname/g' > work/MonaLisa.v1.2/MonaLisa.v1.2/Service/CMD/ML_SER.mac ; \
+	mv work/MonaLisa.v1.2/MonaLisa.v1.2/Service/CMD/ML_SER{.mac,}
 endif

@@ -1,8 +1,7 @@
 # Starting script for ML
-# v0.3.1
+# v0.3.0
 # Catalin.Cirstoiu@cern.ch
 
-# 23/10/2005 - take into account the location settings from the ML LDAP config
 # 08/09/2005 - search for java in $JAVA_HOME or path if not found in default location
 #            - install ml_env and site_env in $LOG_DIR to be sure we can write them
 # 03/08/2005 - added an expiry timeout for zombie jobs in ml.properties
@@ -14,7 +13,6 @@
 use strict;
 use AliEn::Config;
 use Net::Domain;
-
 
 my $config = new AliEn::Config({ "SILENT" => 1, "DEBUG" => 0 } );
 
@@ -156,9 +154,6 @@ sub setupConfig {
     $rmv = [];
     $changes = {};
     push(@$add, "export ALIEN_ROOT=$ENV{ALIEN_ROOT}");
-    push(@$add, "export ALIEN_ORGANISATION=$ENV{ALIEN_ORGANISATION}");
-    push(@$add, "export ALIEN_LDAP_DN=$ENV{ALIEN_LDAP_DN}");
-    push(@$add, "export ALIEN_HOSTNAME=$ENV{ALIEN_HOSTNAME}");
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
     # myFarm.conf
@@ -170,11 +165,11 @@ sub setupConfig {
     # ml.properties
     my $group = ($config->{MONALISA_GROUP} or "alice");
     my $lus = ($config->{MONALISA_LUS} or "monalisa.cacr.caltech.edu,monalisa.cern.ch");
-    my $location = ($config->{MONALISA_LOCATION} or $config->{SITE_LOCATION} or "");
-    my $country = ($config->{MONALISA_COUNTRY} or $config->{SITE_COUNTRY} or "");
-    my $long = ($config->{MONALISA_LONGITUDE} or $config->{SITE_LONGITUDE} or "N/A");
-    my $lat = ($config->{MONALISA_LATITUDE} or $config->{SITE_LATITUDE} or "N/A");
-    my $admin = ($config->{MONALISA_ADMINISTRATOR} or $config->{SITE_ADMINISTRATOR} or "");
+    my $location = ($config->{SITE_LOCATION} or "");
+    my $country = ($config->{SITE_COUNTRY} or "");
+    my $long = ($config->{SITE_LONGITUDE} or "N/A");
+    my $lat = ($config->{SITE_LATITUDE} or "N/A");
+    my $admin = ($config->{SITE_ADMINISTRATOR} or "");
     my $email = "";
     if($admin =~ /(.*)<(.*)>/){
 	$admin = $1;

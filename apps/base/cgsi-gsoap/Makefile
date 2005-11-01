@@ -8,7 +8,7 @@ endif
  
 MASTER_SITES = 
 
-LIBDEPS = apps/base/gsoap apps/base/globus-toolkit
+LIBDEPS = apps/base/gsoap apps/base/globus
 
 DESCRIPTION = gSOAP-based GSI authentication library
 AUTHOR = CERN

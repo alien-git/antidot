@@ -1,5 +1,5 @@
---- ./work/alien-apiservice-1.0.5b/C2Perl/C2PERL.c.ori	2005-09-02 15:29:22.000000000 +0200
-+++ ./work/alien-apiservice-1.0.5b/C2Perl/C2PERL.c	2005-09-02 15:29:41.000000000 +0200
+--- ./work/alien-apiservice-1.0.5a/C2Perl/C2PERL.c.ori	2005-09-02 15:29:22.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/C2Perl/C2PERL.c	2005-09-02 15:29:41.000000000 +0200
 @@ -6,6 +6,8 @@
  #include <stdarg.h>
  #include <string.h>
@@ -9,8 +9,8 @@
  static PerlInterpreter *my_perl;
  
  static void xs_init (void);
---- ./work/alien-apiservice-1.0.5b/C2Perl/C2PERL.h.ori	2005-09-02 15:28:44.000000000 +0200
-+++ ./work/alien-apiservice-1.0.5b/C2Perl/C2PERL.h	2005-09-02 15:28:56.000000000 +0200
+--- ./work/alien-apiservice-1.0.5a/C2Perl/C2PERL.h.ori	2005-09-02 15:28:44.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/C2Perl/C2PERL.h	2005-09-02 15:28:56.000000000 +0200
 @@ -12,7 +12,7 @@
  #endif
      
@@ -20,8 +20,8 @@
      
  /**************************************************************************
   * C2PERL API data types.
---- ./work/alien-apiservice-1.0.5b/gclientlib/glite_dir_operations.cxx.ori	2005-09-02 15:35:27.000000000 +0200
-+++ ./work/alien-apiservice-1.0.5b/gclientlib/glite_dir_operations.cxx	2005-09-02 15:40:56.000000000 +0200
+--- ./work/alien-apiservice-1.0.5a/gclientlib/glite_dir_operations.cxx.ori	2005-09-02 15:35:27.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/gclientlib/glite_dir_operations.cxx	2005-09-02 15:40:56.000000000 +0200
 @@ -58,7 +58,9 @@
      return 0;
    }
@@ -92,3 +92,41 @@
  }
  
  
+--- ./work/alien-apiservice-1.0.5a/clients/gsubmit.cxx.ori	2005-09-02 16:09:28.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/clients/gsubmit.cxx	2005-09-02 16:10:26.000000000 +0200
+@@ -18,15 +18,15 @@
+ 
+ using namespace std;
+ 
+-string textblack("\033[49;30m");
+-string textred("\033[49;31m");
+-string textrederror("\033[47;31m");
+-string textblueerror("\033[47;31m");
+-string textgreen("\033[49;32m");
+-string textyellow("\033[49;33m");
+-string textblue("\033[49;34m");
+-string textbold("\033[1m");
+-string textunbold("\033[0m");
++extern string textblack;
++extern string textred;
++extern string textrederror;
++extern string textblueerror;
++extern string textgreen;
++extern string textyellow;
++extern string textblue;
++extern string textbold;
++extern string textunbold;
+ 
+ void print_help() {
+   fprintf (stderr, "\n");
+--- ./work/alien-apiservice-1.0.5a/clients/scripts/gprefix_VO.ori	2005-09-29 11:11:01.000000000 +0200
++++ ./work/alien-apiservice-1.0.5a/clients/scripts/gprefix_VO	2005-09-29 11:34:12.000000000 +0200
+@@ -67,7 +67,7 @@
+ 	GPREFIX_cd
+ 	GPREFIX_HOME=`GPREFIX_pwd`
+ 	GPREFIX_cd $GPREFIX_PWD
+-	export GPREFIX_CLIENT_HOST=`hostname -f`
++	export GPREFIX_CLIENT_HOST=`hostname`
+ 	mlconf=`$GSHELL_ROOT/bin/gbbox mlconfig $GPREFIX_CLIENT_HOST | grep -v	Unknown 2>/dev/null`
+ 	test -z "$mlconf" || export $mlconf;
+ fi;

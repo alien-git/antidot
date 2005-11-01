@@ -9,12 +9,10 @@ OWN_CFLAGS = -m64 -fPIC
 # Compiler options (optional)
 OWN_CFLAGS += -O2 -pipe
 
-OWN_LDFLAGS = -L$(PREFIX)/lib64 -L$(PREFIX)/lib
-
 # Optional compiler options for gcc >= 3.4.0
 
 #  OWN_CFLAGS += -march=opteron -O3 -pipe
 export GARLIBEXT=so
 export GARSHARED=-shared
 
-export MASKED := apps/gui/qt-mac-opensource-src apps/gcc/gcc apps/base/bash apps/lcg/lcg-gfal apps/lcg/lcg-util
+export MASKED := apps/gui/qt-mac-opensource-src apps/gcc/gcc apps/base/bash

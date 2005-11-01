@@ -3,7 +3,7 @@ GARVERSION = 1.3.33-24
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 DISTNAME  = $(GARNAME)-$(GARVERSION)
-PATCHFILES = macos.diff modssl_gsi.diff
+PATCHFILES = macos.diff
 
 MASTER_SITES = 
 
