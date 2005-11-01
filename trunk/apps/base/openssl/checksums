@@ -1,4 +1,5 @@
 9da21071596a124acde6080552deac16  download/openssl-0.9.8.tar.gz
 583a4dd2905d1a8fc6953aefe0d9e439  download/macos.diff
 991615f73338a571b6a1be7d74906934  download/openssl-0.9.7g.tar.gz
-4315804dd6c355d11d5e1073c24c1fa5  download/Makefile.org.diff
+a8777164bca38d84e5eb2b1535223474  download/openssl-0.9.7e.tar.gz
+6c2fbf529baf797f62f1f518f82a82ec  download/Makefile.org.diff
