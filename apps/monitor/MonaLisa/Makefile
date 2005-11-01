@@ -1,5 +1,5 @@
 GARNAME = MonaLisa
-GARVERSION = 1.4.0
+GARVERSION = 1.4.2
 CATEGORIES = java
 DISTFILES = $(GARNAME).v$(GARVERSION).tar.gz
 DISTNAME  = $(GARNAME).v1.4
@@ -19,7 +19,7 @@ AUTHOR = Caltech
 URL = http://monalisa.cacr.caltech.edu
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
-JAVA_VERSION = 1_4_2_09
+JAVA_VERSION = 1_4_2_10
 
 CONFIGURE_SCRIPTS = 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
