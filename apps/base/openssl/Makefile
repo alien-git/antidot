@@ -1,5 +1,5 @@
 GARNAME = openssl
-GARVERSION = 0.9.7g
+GARVERSION = 0.9.7e
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 ifeq ($(shell uname),Darwin)
