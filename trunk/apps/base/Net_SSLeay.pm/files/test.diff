@@ -10,3 +10,19 @@
  #www.engelschall.com
  #www.openssl.org
  
+--- work/Net_SSLeay.pm-1.25/test.pl	Fri Oct 14 17:12:21 2005
++++ work/Net_SSLeay.pm-1.25/test.pl.new	Wed Nov  2 15:47:28 2005
+@@ -165,10 +165,10 @@
+ 
+ #app.iplanet.com
+ my @sites = qw(
+-www.cdw.com
+-banking.wellsfargo.com
+-secure.worldgaming.net
+ 	    );
++#www.cdw.com
++#banking.wellsfargo.com
++#secure.worldgaming.net
+ #www.ubs.com
+ #www.engelschall.com
+ #www.openssl.org
