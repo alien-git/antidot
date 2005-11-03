@@ -2,6 +2,7 @@
 # v0.3.1
 # Catalin.Cirstoiu@cern.ch
 
+# 02/11/2005 - don't be so sure that most ENV variables exist (like ALIEN_LDAP_DN)
 # 23/10/2005 - take into account the location settings from the ML LDAP config
 # 08/09/2005 - search for java in $JAVA_HOME or path if not found in default location
 #            - install ml_env and site_env in $LOG_DIR to be sure we can write them
@@ -155,10 +156,10 @@ sub setupConfig {
     $add = [];
     $rmv = [];
     $changes = {};
-    push(@$add, "export ALIEN_ROOT=$ENV{ALIEN_ROOT}");
-    push(@$add, "export ALIEN_ORGANISATION=$ENV{ALIEN_ORGANISATION}");
-    push(@$add, "export ALIEN_LDAP_DN=$ENV{ALIEN_LDAP_DN}");
-    push(@$add, "export ALIEN_HOSTNAME=$ENV{ALIEN_HOSTNAME}");
+    push(@$add, "export ALIEN_ROOT=$ENV{ALIEN_ROOT}") if $ENV{ALIEN_ROOT};
+    push(@$add, "export ALIEN_ORGANISATION=$ENV{ALIEN_ORGANISATION}") if $ENV{ALIEN_ORGANISATION};
+    push(@$add, "export ALIEN_LDAP_DN=$ENV{ALIEN_LDAP_DN}") if $ENV{ALIEN_LDAP_DN};
+    push(@$add, "export ALIEN_HOSTNAME=$ENV{ALIEN_HOSTNAME}") if $ENV{ALIEN_HOSTNAME};
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
     # myFarm.conf
