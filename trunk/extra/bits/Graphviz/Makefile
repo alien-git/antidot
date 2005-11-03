@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://graphviz.org/pub/graphviz/ARCHIVE/
 
-LIBDEPS = apps/gcc/gcc apps/base/zlib
+LIBDEPS = apps/gcc/gcc apps/base/zlib apps/gui/gdlib apps/gui/freetype2 apps/base/expat
 
 DESCRIPTION = Graph Visualization Software
 URL = http://graphviz.org/
