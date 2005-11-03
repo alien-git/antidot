@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.75  2005/10/29 12:22:07  buncic
+# Fix for gcc
+#
 # Revision 1.74  2005/10/26 13:50:42  buncic
 # Typo in autodetect...
 #
@@ -762,7 +765,7 @@ InstallerUI()
   rm -rf $release_file $dialog_file
 
   $ALIEN_DIALOG $style --sleep 3 \
-                --infobox 'Done.' $height $width
+          --infobox 'You have sucessfuly installed  AliEn gridware on your computer.' $height $width
 
   Exit
 }
