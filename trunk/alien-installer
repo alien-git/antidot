@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.76  2005/11/03 21:38:47  buncic
+# Print "done" at the end of install, update date of v2-4 release
+#
 # Revision 1.75  2005/10/29 12:22:07  buncic
 # Fix for gcc
 #
@@ -375,7 +378,7 @@ InstallerSetup()
 
   eval `$ALIEN_INSTALLER_PREFIX/bin/alien --printenv | grep -e ALIEN_ORGANISATION -e ALIEN_USER` || Exit 1
 
-  eval `$ALIEN_INSTALLER_PREFIX/bin/alien configure` || Exit 1
+  # eval `$ALIEN_INSTALLER_PREFIX/bin/alien configure` || Exit 1
 
   VARS="GLOBUS_LOCATION SWIG_LOCATION GSOAP_LOCATION CGSI_GSOAP_LOCATION CLASSAD_LOCATION MYPROXY_LOCATION"
 
@@ -549,7 +552,7 @@ InstallerUpdate()
   if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien ]
   then
     echo 'Running post installation scripts...'
-    $ALIEN_INSTALLER_PREFIX/bin/alien configure >> install.log
+    $ALIEN_INSTALLER_PREFIX/bin/alien configure common >> install.log
   fi
 
 }
