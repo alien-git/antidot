@@ -1,0 +1,29 @@
+--- work/classads-0.9.7/Makefile.am	Thu Mar 24 16:31:27 2005
++++ work/classads-0.9.7/Makefile.am.new	Thu Sep 22 16:22:26 2005
+@@ -13,7 +13,7 @@
+ 
+ AM_LDFLAGS				= $(PCRE_LDLAGS) 
+ 
+-LDADD					= $(PCRE_LIBS) libclassad.la 	\
++LDADD					= $(PCRE_LIBS) libaclassad.la 	\
+ 					  $(LIBLTDL) 
+ 
+ EXTRA_DIST				= win32 			\
+@@ -28,7 +28,7 @@
+ TESTS					= classad_unit_tester 		\
+ 					  extra_tests 			
+ 
+-lib_LTLIBRARIES				= libclassad.la
++lib_LTLIBRARIES				= libaclassad.la
+ 
+ noinst_LTLIBRARIES			= libshared.la
+ 
+@@ -74,7 +74,7 @@
+ 					  xmlSink.h			\
+ 					  xmlSource.h			
+ 
+-libclassad_la_SOURCES			= attrrefs.C			\
++libaclassad_la_SOURCES			= attrrefs.C			\
+ 					  classad.C			\
+ 					  collection.C			\
+ 					  collectionBase.C		\

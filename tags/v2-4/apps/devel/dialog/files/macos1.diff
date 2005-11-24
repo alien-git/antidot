@@ -1,0 +1,22 @@
+--- ./work/dialog-1.0/samples/copifuncs/copi.funcs.ori	2005-09-30 12:02:56.000000000 +0200
++++ ./work/dialog-1.0/samples/copifuncs/copi.funcs	2005-09-30 12:03:29.000000000 +0200
+@@ -20,8 +20,8 @@
+ #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ #
+ 
+-HOST=`hostname`
+-DOMAIN=`hostname -d`
++HOST=`hostname -s`
++DOMAIN=`hostname | sed -e "s/$HOST\.//"`
+ PKTNAME="ComeOn Point Installer!"
+ COMEONDIR=/usr/lib/ComeOn
+ 
+@@ -1042,7 +1042,7 @@
+ sysalias /etc/aliases
+ 
+ # This host fully qualified domain name to add to the alias above
+-myfqdn  `hostname -f`
++myfqdn  `hostname`
+ 
+ # Directory for incoming packets/files:
+ inbound  /var/spool/ifmail/inb

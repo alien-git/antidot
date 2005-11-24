@@ -1,0 +1,20 @@
+--- ./work/glib-2.6.1/configure.ori	2005-09-22 19:03:29.000000000 +0200
++++ ./work/glib-2.6.1/configure	2005-09-22 19:03:35.000000000 +0200
+@@ -76,6 +76,8 @@
+   	  /^X\/\(\/\).*/{ s//\1/; q; }
+   	  s/.*/./; q'`
+ 
++export CPPFLAGS="-I/sw/include"
++export LDFLAGS="-L/sw/lib"
+ 
+ # PATH needs CR, and LINENO needs CR and PATH.
+ # Avoid depending upon Character Ranges.
+@@ -13375,7 +13377,7 @@
+     # linker, instead of GNU ld.  If possible, this setting should
+     # overridden to take advantage of the native linker features on
+     # the platform it is being used on.
+-    archive_cmds_CXX='$CC -shared -nostdlib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags -o $lib'
++    archive_cmds_CXX='$CC -dynamiclib -nostdlib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags -o $lib'
+   fi
+ 
+   # Commands to make compiler produce verbose output that lists
