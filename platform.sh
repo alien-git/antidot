@@ -2,6 +2,7 @@
 
 mode=$1; shift
 dir=`dirname $0`
+unset TMPDIR
 
 case `$dir/config.guess` in
     i*86-*-linux-gnu)
