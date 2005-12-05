@@ -2,7 +2,6 @@ GARNAME = Filesys-DiskFree
 GARVERSION = 0.06
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = macos.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AB/ABARCLAY/ http://www.cpan.org/authors/id/A/AB/ABARCLAY/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/A/AB/ABARCLAY/
 
