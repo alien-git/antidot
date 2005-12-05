@@ -1,0 +1,64 @@
+--- work/classads-0.9.7/classad_stl.h.ori	2004-10-28 23:53:21.000000000 +0200
++++ work/classads-0.9.7/classad_stl.h	2005-08-23 13:57:50.000000000 +0200
+@@ -42,7 +42,7 @@
+ 	
+ 
+ #ifdef __GNUC__
+-  #if (__GNUC__ == 3 && __GNUC_MINOR__ > 0)
++  #if (__GNUC__ == 3 && __GNUC_MINOR__ > 0) || ( __GNUC__ >3 )
+     #define classad_hash_map __gnu_cxx::hash_map 
+     #define classad_slist    __gnu_cxx::slist
+   #else
+--- work/classads-0.9.7/common.h.ori	2005-08-23 14:19:22.000000000 +0200
++++ work/classads-0.9.7/common.h	2005-08-23 14:19:52.000000000 +0200
+@@ -42,9 +42,11 @@
+ #define __EXTENSIONS__ /* to get gmtime_r and localtime_r on Solaris */
+ #endif
+ 
++#ifndef __APPLE__
+ #ifndef _POSIX_C_SOURCE
+ #define _POSIX_C_SOURCE 199506L /* To get asctime_r */
+ #endif
++#endif
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+--- work/classads-0.9.7/instantiations.C.ori	2005-08-23 15:44:33.000000000 +0200
++++ work/classads-0.9.7/instantiations.C	2005-08-23 16:09:56.000000000 +0200
+@@ -32,7 +32,7 @@
+ 
+ BEGIN_NAMESPACE( classad )
+ //-------------classad templates --------------
+-
++#if ( __GNUC__ < 4 )
+ template map<string, bool>;
+ 
+ // function table
+@@ -59,14 +59,18 @@
+ template vector<ExprTree*>;
+ 
+ template map<const ClassAd*, References>;
+-
++#endif
+ #ifdef CLASSAD_DISTRIBUTION
+ END_NAMESPACE
++#if ( __GNUC__ < 4 )
+ template vector<string>;
++#endif
+ #include "transaction.h"
+ #include "view.h"
+ BEGIN_NAMESPACE(classad)
+ 
++#if ( __GNUC__ < 4 )
++
+ // view content
+ template multiset<ViewMember, ViewMemberLT>;
+ template multiset<ViewMember, ViewMemberLT>::iterator;
+@@ -101,6 +105,7 @@
+ template list<XactionRecord>;
+ 
+ #endif
++#endif
+ 
+ class _ClassAdInit 
+ {
