@@ -73,6 +73,13 @@ webcvs//%:
 	@(cd $(DOWNLOADDIR) && tar zcf $(GARNAME)-$(GARVERSION)_src.tar.gz $(GARNAME)-$(GARVERSION)) 
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARCVSNAME).tar.gz  ./$(GARNAME)-$(GARVERSION))
 
+# download file from a pserver cvs
+pserver//%:
+	@(cd $(DOWNLOADDIR) && cvs -d :pserver:`echo $(dir $*) | sed -e 's/\/$$//'` co -r $(GARCVSVERSION) $(GARCVSNAME))
+	@(cd $(DOWNLOADDIR) && mv $(GARCVSNAME) $(GARNAME)-$(GARVERSION))
+	@(cd $(DOWNLOADDIR) && tar zcf $(GARNAME)-$(GARVERSION)_src.tar.gz $(GARNAME)-$(GARVERSION))
+	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
+
 # download an ftp URL
 ftp//%:
 	@wget -c $(WGETOPTS) -P $(DOWNLOADDIR) ftp://$*
@@ -408,9 +415,21 @@ autopackage-%/skeleton:
 	@(env PREFIX="$(PREFIX)" INTERFACE_VERSION=$(INTERFACE_VERSION) COOKIEDIR="$(COOKIEDIR)" GARFNAME="$(GARFNAME)" GARVERSION="$(GARVERSION)" DESCRIPTION="$(DESCRIPTION)" GARNAME="$(GARNAME)" AUTHOR="$(AUTHOR)" URL="$(URL)" LICENSE="$(LICENSE)" COOKIEDIR="$(CURDIR)/$(COOKIEDIR)" LIBDEPS="$(LIBDEPS)" BINDISTFILES="$(BINDISTFILES)" $(GARDIR)/skeleton.sh "$(AUTOTEST)")
 	@$(MAKECOOKIE)
 
+#################### VARIABLES DUMP RULE ###########
 
-
-
+variables:
+	@echo "GARNAME = $(GARNAME)"
+	@echo "GARVERSION = $(GARVERSION)"
+	@echo "GARCVSNAME = $(GARCVSNAME)"
+	@echo "GARCVSVERSION = $(GARCVSVERSION)"
+	@echo "MASTER_SITES = $(MASTER_SITES)"
+	@echo "DESCRIPTION = $(DESCRIPTION)"
+	@echo "AUTHOR = $(AUTHOR)"
+	@echo "URL = $(URL)"
+	@echo "LICENSE = $(LICENSE)"
+	@echo "CATEGORIES = $(CATEGORIES)"
+	@echo "LIBDEPS = $(LIBDEPS)"
+	@echo "BUILDDEPS = $(BUILDDEPS)"
 
 #################### TEST RULES ####################
 
