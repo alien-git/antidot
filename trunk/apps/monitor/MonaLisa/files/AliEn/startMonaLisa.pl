@@ -1,7 +1,8 @@
 # Starting script for ML
-# v0.3.1
+# v0.3.2
 # Catalin.Cirstoiu@cern.ch
 
+# 13/12/2005 - added support for vobox_mon.pl to monitor the vo-box
 # 02/11/2005 - don't be so sure that most ENV variables exist (like ALIEN_LDAP_DN)
 # 23/10/2005 - take into account the location settings from the ML LDAP config
 # 08/09/2005 - search for java in $JAVA_HOME or path if not found in default location
@@ -120,6 +121,23 @@ sub pushIfNoKey {
     push(@$arrRef, $what) if(! defined($prev_val)) ;
 }
 
+# Stop services that are already running
+sub stopRunningServices {
+    my $farmHome = shift;
+
+    # stop vobox_mon.pl script
+    my $pidFile="$farmHome/vobox_mon.pid";
+    if(-e $pidFile){
+	if(open(PIDFILE, $pidFile)){
+	    my $pid = <PIDFILE>;
+	    chomp $pid;
+	    kill 15, $pid;
+	}else{
+	    die "Although it exists, could't read the vobox_mon pid file '$pidFile'.\n";
+	}
+    }
+}
+
 # Setup configuration files for MonaLisa
 sub setupConfig {
     my $farmHome = shift;
@@ -160,6 +178,8 @@ sub setupConfig {
     push(@$add, "export ALIEN_ORGANISATION=$ENV{ALIEN_ORGANISATION}") if $ENV{ALIEN_ORGANISATION};
     push(@$add, "export ALIEN_LDAP_DN=$ENV{ALIEN_LDAP_DN}") if $ENV{ALIEN_LDAP_DN};
     push(@$add, "export ALIEN_HOSTNAME=$ENV{ALIEN_HOSTNAME}") if $ENV{ALIEN_HOSTNAME};
+    push(@$add, "export FARM_HOME=$farmHome");
+    push(@$add, "$ENV{ALIEN_ROOT}/bin/alien-perl $mlHome/AliEn/vobox_mon.pl >$farmHome/vobox_mon.log 2>&1 &");
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
     # myFarm.conf
@@ -190,6 +210,7 @@ sub setupConfig {
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.PARAM_EXPIRE=900");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.ZOMBIE_EXPIRE=14400");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.LDAP_QUERY_INTERVAL=7200");
+#    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.level=FINEST");
     
     $rmv = ($config->{MONALISA_REMOVEPROPERTIES_LIST} or []);
     $changes = {
@@ -252,6 +273,7 @@ sub setupCrontab {
 #dumpConfig();
 #print "Setting up ML config...\n";
 my $farmHome = "$config->{LOG_DIR}/MonaLisa";
+stopRunningServices($farmHome);
 my $logDir = setupConfig($farmHome);
 setupCrontab($farmHome);
 #print "Starting ML...\n";
