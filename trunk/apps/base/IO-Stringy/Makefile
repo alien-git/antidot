@@ -1,9 +1,9 @@
 GARNAME = IO-stringy
-GARVERSION = 2.109
+GARVERSION = 2.110
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-CPAN_AUTHOR_ID="E/ER/ERYQ/"
+CPAN_AUTHOR_ID="D/DS/DSKOLL/"
 
 MASTER_SITES =$(CPAN_MIRROR)/authors/id/$(CPAN_AUTHOR_ID) http://www.cpan.org/authors/id/$(CPAN_AUTHOR_ID)/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/$(CPAN_AUTHOR_ID)/ 
 
