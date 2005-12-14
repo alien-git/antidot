@@ -1,5 +1,5 @@
 GARNAME = Curses
-GARVERSION = 1.12
+GARVERSION = 1.13
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tgz
 
@@ -24,6 +24,6 @@ CONFIGURE_ARGS =
 include ../category.mk
 
 pre-configure:
-	cp work/Curses-1.12/hints/c-darwin-thread-multi-2level.h work/Curses-1.12/hints/c-darwin.h
+	cp work/$(GARNAME)-$(GARVERSION)/hints/c-darwin-thread-multi-2level.h work/$(GARNAME)-$(GARVERSION)/hints/c-darwin.h
 
 
