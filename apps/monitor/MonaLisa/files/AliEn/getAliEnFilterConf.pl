@@ -6,8 +6,13 @@
 # and max_jobs for each defined CE.
 #
 # Catalin Cirstoiu <Catalin.Cirstoiu@cern.ch>
-# Version 0.3 
+# Version 0.4 
 #
+# 13/12/2005 - don't report sites that end in '-L'. Just remove the '-L' and combine the
+#              corresponding domains with the domains from the site without '-L', if exists.
+# 01/12/2005 - if site name's differs from ML name's, use the ML name as the site name.
+#              This way the ML AlienFilter should be able to identify traffic of local
+#              private IPs as belonging to the current site.
 # 03/11/2005 - for LCG sites' domain use the domain's entry form the ML properties page.
 #              Also, the domains defined on ML prop page are added to the site domains
 # 02/11/2005 - if $ALIEN_LDAP_DN is not defined, based on the current $ALIEN_ORGANISATION
@@ -41,8 +46,11 @@ my $verbose = 0;  # print the values on screen.
 
 my ($sites_domains, $ses_hosts, $ces_max_jobs) = getSitesAndDomains();
 
+#sleep(1);
 dumpConf("Sites_domains", $sites_domains);
+#sleep(1);
 dumpConf("SEs_hosts", $ses_hosts);
+#sleep(1);
 dumpConf("CEs_max_jobs", $ces_max_jobs);
 
 # return 3 hashes:
@@ -67,7 +75,7 @@ sub getSitesAndDomains {
 	}
 	
 	foreach my $site_entry ($mesg->entries){
-		my $site = $site_entry->get_value("ou");
+		my $site = $site_entry->get_value("ou") or next;
 		my @domains = $site_entry->get_value("domain");
 		if($site ne "LCG"){ # we don't care about this in case of LCG sites
 #			print "\nFarm: $site\nDomains: @domains\n" if $TESTING;
@@ -116,7 +124,13 @@ sub getSitesAndDomains {
 				     filter => "objectClass=AliEnMonaLisa");
 		foreach my $ml_entry ($msg->entries){
 			my $ml_name = $ml_entry->get_value("name");
+			$ml_name = $1 if $ml_name =~ /(.+)-L/;
 			my @ml_domains = $ml_entry->get_value("domain");
+			# rename the site name to the ML name, if site name isn't LCG
+			if($site ne $ml_name && $site ne "LCG"){
+				$sites_domains->{$ml_name} = $sites_domains->{$site};
+				delete $sites_domains->{$site};
+			}
 			if(! $sites_domains->{$ml_name}){
 				$sites_domains->{$ml_name} = \@ml_domains if(@ml_domains);
 			}else{
