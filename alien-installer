@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.77  2005/11/04 11:06:34  buncic
+# Configure common and not user Environemnt
+#
 # Revision 1.76  2005/11/03 21:38:47  buncic
 # Print "done" at the end of install, update date of v2-4 release
 #
@@ -238,8 +241,6 @@ VERSION=0.03
 [ -f $HOME/.alien/installer.rc ] && . $HOME/.alien/installer.rc
 ###########################################################################
 ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME:=$HOME/.alien/cache}
-ALIEN_INSTALLER_URL=${ALIEN_INSTALLER_URL:=rsync://alien.cern.ch:8873/releases} 
-ALIEN_INSTALLER_CVS=${ALIEN_INSTALLER_CVS:=":pserver:cvs@alisoft.cern.ch:/soft/cvsroot"}
 ALIEN_INSTALLER_PREFIX=${ALIEN_INSTALLER_PREFIX:=/opt/alien}
 ALIEN_INSTALLER_AUTODETECT=${ALIEN_INSTALLER_AUTODETECT:=false}
 ALIEN_INSTALLER_TYPE=${ALIEN_INSTALLER_TYPE:=all}
@@ -257,8 +258,6 @@ InstallerRcUpdate()
   (
     ALIEN_INSTALLER_TYPE=$(echo $ALIEN_INSTALLER_TYPE | sed 's/ /+/g')
     echo "ALIEN_INSTALLER_HOME=$ALIEN_INSTALLER_HOME" 
-    echo "ALIEN_INSTALLER_URL=$ALIEN_INSTALLER_URL" 
-    echo "ALIEN_INSTALLER_CVS=$ALIEN_INSTALLER_CVS" 
     echo "ALIEN_INSTALLER_PREFIX=$ALIEN_INSTALLER_PREFIX" 
     echo "ALIEN_INSTALLER_AUTODETECT=$ALIEN_INSTALLER_AUTODETECT" 
     echo "ALIEN_INSTALLER_TYPE=$ALIEN_INSTALLER_TYPE" 
@@ -273,7 +272,7 @@ InstallerRcUpdate()
 Exit()
 ###########################################################################
 {
-  [ $debug -eq 0 ] &&  reset && clear
+  [ $debug -eq 0 ] && clear
   InstallerRcUpdate
   rm -rf $release_file $dialog_file $cache_file
   exit $*
@@ -284,7 +283,7 @@ Error()
 ###########################################################################
 {
    dialog $style --msgbox "$1" $height $width 
-   [ $debug -eq 0 ] && reset && clear
+   [ $debug -eq 0 ] && clear
    [ -f install.log ] && cat install.log  
    exit 1
 }
@@ -336,24 +335,8 @@ InstallerSync()
  (
   mkdir -p $ALIEN_INSTALLER_HOME || Error "Error: Cannot create $ALIEN_INSTALLER_HOME directory"
   cd $ALIEN_INSTALLER_HOME
-  if [ ! -d CVS ]
-  then
-    rsync -acvz --exclude=alien.conf.mk $ALIEN_INSTALLER_URL/$ALIEN_RELEASE/ . 
-  fi
-  if [ ! -f $HOME/.cvspass ]
-  then 
-     touch $HOME/.cvspass
-  fi
-  if [ `cat $HOME/.cvspass | grep -c $ALIEN_INSTALLER_CVS` -eq 0 ]
-  then 
-     echo "$ALIEN_INSTALLER_CVS Ah<Z" >> $HOME/.cvspass
-  fi
-  if [ "$ALIEN_RELEASE" = "HEAD" ]
-  then
-      cvs -d $ALIEN_INSTALLER_CVS update -dPA || Error "Error: CVS update failed ($ALIEN_RELEASE)."
-  else
-      cvs -d $ALIEN_INSTALLER_CVS update -dP -r $ALIEN_RELEASE || Error "Error:CVS update failed ($ALIEN_RELEASE)."
-  fi
+  wget -O makefiles.tar.bz2 $ALIEN_BITS_URL/../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from $ALIEN_BITS_URL/../makefiles.tar.bz2"
+  tar jxf makefiles.tar.bz2 && rm makefiles.tar.bz2 
   ) >> install.log 2>&1
 }
 
@@ -378,7 +361,7 @@ InstallerSetup()
 
   eval `$ALIEN_INSTALLER_PREFIX/bin/alien --printenv | grep -e ALIEN_ORGANISATION -e ALIEN_USER` || Exit 1
 
-  # eval `$ALIEN_INSTALLER_PREFIX/bin/alien configure` || Exit 1
+  eval `$ALIEN_INSTALLER_PREFIX/bin/alien configure` || Exit 1
 
   VARS="GLOBUS_LOCATION SWIG_LOCATION GSOAP_LOCATION CGSI_GSOAP_LOCATION CLASSAD_LOCATION MYPROXY_LOCATION"
 
@@ -708,6 +691,7 @@ InstallerUI()
                            'client'  'Simple Client UI'         0  \
                            'gshell'  'Grid Shell UI'            0  \
                            'root'    'ROOT for AliEn'           0  \
+                           'xrootd'  'xrootd fr AliEn'          0  \
                            'portal'  'Portal'                   0  \
                            'site'    'Site CE/SE services'      0  \
                            'lcg'     'LCG Components'           0  \
@@ -792,11 +776,6 @@ do
             shift 1
             cp -f $0 $1
 	    exit
-           ;;
-        -u|--url)
-            shift 1
-	    ALIEN_INSTALLER_URL=$1
-            shift 1
            ;;
         -r|--release)
             shift 1
@@ -923,7 +902,6 @@ Common commmands:
 
 Options:
   -p, --build-prefix - installation directory
-  -u, --url          - cache url         
   -h, --help         - display this help text
   -q, --quiet        -  be less verbose, opposite of --verbose
   -V, --version      - display version information
@@ -934,7 +912,6 @@ Configuration:
  alien-installer <installer option> configure <configure options>
  
 Installer options:
-  --url <URL>                [rsync://alien.cern.ch:8873/releases]
   --release <RELEASE>        [HEAD] 
   --type <installation type> [all,client,portal,site,core,wn]
   --platform <platform>      [,i686-pc-linux-gnu,ia64-unknown-linux-gnu,powerpc-apple-darwin7.7.0]
