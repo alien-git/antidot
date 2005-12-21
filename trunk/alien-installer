@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.78  2005/12/21 09:05:14  buncic
+# Do not use rsync and CVS to synchronize makefiles, added xrootd meta package
+#
 # Revision 1.77  2005/11/04 11:06:34  buncic
 # Configure common and not user Environemnt
 #
@@ -236,7 +239,26 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.03
+VERSION=0.04
+###########################################################################
+Exit()
+###########################################################################
+{
+  [ $debug -eq 0 ] && clear
+  InstallerRcUpdate
+  rm -rf $release_file $dialog_file $cache_file
+  exit $*
+}
+
+###########################################################################
+Error()
+###########################################################################
+{
+   dialog $style --msgbox "$1" $height $width 
+   [ $debug -eq 0 ] && clear
+   [ -f install.log ] && cat install.log  
+   exit 1
+}
 ###########################################################################
 [ -f $HOME/.alien/installer.rc ] && . $HOME/.alien/installer.rc
 ###########################################################################
@@ -245,6 +267,19 @@ ALIEN_INSTALLER_PREFIX=${ALIEN_INSTALLER_PREFIX:=/opt/alien}
 ALIEN_INSTALLER_AUTODETECT=${ALIEN_INSTALLER_AUTODETECT:=false}
 ALIEN_INSTALLER_TYPE=${ALIEN_INSTALLER_TYPE:=all}
 ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
+unset TMPDIR
+if [ "x$ALIEN_INSTALLER_PLATFORM" = "x" ]
+then
+  for dir in /usr/share/libtool /usr/share/automake
+  do
+    ALIEN_INSTALLER_PLATFORM=`$dir/config.guess`
+    break
+  done
+fi
+if [ "x$ALIEN_INSTALLER_PLATFORM" = "x" ]
+then
+  Error "Could not guess your platform. Please set ALIEN_INSTALLER_PLATFORM variable"
+fi
 ALIEN_DIALOG=${ALIEN_DIALOG:=dialog}
 ALIEN_RELEASE=${ALIEN_RELEASE:=HEAD}
 ALIEN_BITS_URL=${ALIEN_BITS_URL:=http://alienbuild.cern.ch:8888/$ALIEN_INSTALLER_PLATFORM/$ALIEN_RELEASE/download/} 
@@ -267,25 +302,6 @@ InstallerRcUpdate()
     echo "ALIEN_BITS_URL=$ALIEN_BITS_URL" 
   ) > $HOME/.alien/installer.rc
 
-}
-###########################################################################
-Exit()
-###########################################################################
-{
-  [ $debug -eq 0 ] && clear
-  InstallerRcUpdate
-  rm -rf $release_file $dialog_file $cache_file
-  exit $*
-}
-
-###########################################################################
-Error()
-###########################################################################
-{
-   dialog $style --msgbox "$1" $height $width 
-   [ $debug -eq 0 ] && clear
-   [ -f install.log ] && cat install.log  
-   exit 1
 }
 ###########################################################################
 InstallerMake()
@@ -335,7 +351,7 @@ InstallerSync()
  (
   mkdir -p $ALIEN_INSTALLER_HOME || Error "Error: Cannot create $ALIEN_INSTALLER_HOME directory"
   cd $ALIEN_INSTALLER_HOME
-  wget -O makefiles.tar.bz2 $ALIEN_BITS_URL/../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from $ALIEN_BITS_URL/../makefiles.tar.bz2"
+  wget -O makefiles.tar.bz2 ${ALIEN_BITS_URL}../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from ${ALIEN_BITS_URL}../makefiles.tar.bz2"
   tar jxf makefiles.tar.bz2 && rm makefiles.tar.bz2 
   ) >> install.log 2>&1
 }
