@@ -15,7 +15,7 @@ apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
 apps/alien/perl \
-apps/alien/apiservice \
+apps/alien/api \
 apps/server/mysql \
 apps/server/DBD-mysql \
 apps/server/ejabberd \
