@@ -2,7 +2,7 @@ GARNAME = Log-Agent-Rotate
 GARVERSION = 0.104
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Rotate.pm.patch
+PATCHFILES =
 
 MASTER_SITES = 
 
