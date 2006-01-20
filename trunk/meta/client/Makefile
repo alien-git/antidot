@@ -11,7 +11,6 @@ apps/glite/glite \
 apps/base/eugridpma-carep \
 apps/alien/classad \
 apps/alien/srm \
-apps/alien/gas \
 apps/alien/common \
 apps/alien/gssapi \
 apps/alien/perl \
