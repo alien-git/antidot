@@ -1,0 +1,11 @@
+--- work/Log-Agent-Rotate-0.104/Rotate.pm	Tue May 14 07:16:51 2002
++++ work/Log-Agent-Rotate-0.104/Rotate.pm.new	Fri Jan 20 10:14:35 2006
+@@ -59,7 +59,7 @@
+ 
+ use vars qw($VERSION);
+ 
+-$VERSION = sprintf "%d.%01d%02d%s", '$Name$' =~ /(p?\d+)/g;
++$VERSION = '0.104';
+ 
+ BEGIN {
+     sub BACKLOG ()     {0}
