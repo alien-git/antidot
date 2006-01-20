@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = Rotate.pm.patch
 
-MASTER_SITES = http://www.cpan.org/authors/id/M/MR/MROGASKI/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MR/MROGASKI/ http://search.cpan.org/CPAN/authors/id/M/MR/MROGASKI/
+MASTER_SITES = 
 
 LIBDEPS = apps/base/Getargs-Long apps/base/Compress-Zlib apps/base/LockFile-Simple
 
