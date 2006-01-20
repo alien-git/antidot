@@ -1,0 +1,13 @@
+--- work/log4cpp-0.3.4b/Makefile.am	Wed Aug 14 10:07:42 2002
++++ work/log4cpp-0.3.4b/Makefile.am.new	Thu Feb  3 10:43:27 2005
+@@ -1,8 +1,4 @@
+-if DOC
+-SUBDIRS = debian msvc6 bcb5 config src include tests doc 
+-else
+-SUBDIRS = debian msvc6 bcb5 config src include tests
+-endif
++SUBDIRS = debian msvc6 bcb5 config src include
+ 
+ DIST_SUBDIRS = debian msvc6 bcb5 openvms config src include doc tests
+ 
+491a75029987be97acc5b8e7457efbc6  checksums
