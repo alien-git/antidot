@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = 
 
-LIBDEPS = apps/alien/api
+LIBDEPS = apps/alien/gapi
 
 DESCRIPTION = ROOT- An Object-Oriented Data Analysis Framework
 URL = http://root.cern.ch
