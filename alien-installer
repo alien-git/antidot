@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.80  2006/01/20 13:10:32  buncic
+# Fixing bug in the installer.
+#
 # Revision 1.79  2005/12/21 15:54:41  buncic
 # Typo
 #
@@ -623,10 +626,7 @@ InstallerUI()
 
   cmd=$cmd" -p $workspace "
 
-  $ALIEN_DIALOG $style --sleep 3 \
-                --infobox 'Synchronizing with the server.' $height $width
-
-  cmd=$cmd"configure "
+ cmd=$cmd"configure "
 
   platform=$ALIEN_INSTALLER_PLATFORM
 
@@ -660,7 +660,10 @@ InstallerUI()
   $ALIEN_DIALOG  $style --sleep 3 \
           --infobox "Using $caches repository..."
 
-  InstallerSync
+  $ALIEN_DIALOG $style --sleep 3 \
+                --infobox 'Synchronizing with the server.' $height $width
+
+   InstallerSync
 
   prefix=$ALIEN_INSTALLER_PREFIX
 
