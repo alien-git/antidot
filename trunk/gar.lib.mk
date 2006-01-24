@@ -430,6 +430,7 @@ variables:
 	@echo "CATEGORIES = $(CATEGORIES)"
 	@echo "LIBDEPS = $(LIBDEPS)"
 	@echo "BUILDDEPS = $(BUILDDEPS)"
+	@echo "DISTFILES = $(DISTFILES)"
 
 #################### TEST RULES ####################
 
