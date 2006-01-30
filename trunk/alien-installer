@@ -5,6 +5,10 @@
 #
 # modification history
 # $Log$
+# Revision 1.81  2006/01/24 13:39:58  buncic
+# Fix to installer and update to gar.lib.mk (avoid building from CVS if there
+# was no update).
+#
 # Revision 1.80  2006/01/20 13:10:32  buncic
 # Fixing bug in the installer.
 #
@@ -646,7 +650,7 @@ InstallerUI()
                               'ia64-unknown-linux-gnu'    'Linux ia64' 0  \
                               'x86_64-unknown-linux-gnu'  'Linux Opteron' 0  \
                               'powerpc-apple-darwin8.1.0' 'MacOS X'    0  2>$dialog_file || Exit 1 
-      prefix=`cat $dialog_file`
+      platform=`cat $dialog_file`
       cmd=$cmd"--with-platform=$platform "
   fi
 
