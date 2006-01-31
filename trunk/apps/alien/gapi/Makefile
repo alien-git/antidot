@@ -1,7 +1,7 @@
 GARNAME    = gapi-apiservice
 GARVERSION = 2.0.0
 CATEGORIES = apps-libs
-DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
+DISTFILES  = $(GARNAME)-$(GARVERSION)b.tar.gz
 PATCHFILES = 
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice/
@@ -22,6 +22,7 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-dist-location=$(PREFIX)/api --sys
 
 include ../category.mk
 
-#PRE_CONFIGURE = (cd $(WORKSRC); ([ -f bootstrap ] && sh bootstrap) || autoconf )
+#PRE_CONFIGURE = (cd $(WORKSRC); autoheader; aclocal; automake -c; autoconf)
+
 PRE_INSTALL = (mkdir -p $(PREFIX)/api/etc)
 
