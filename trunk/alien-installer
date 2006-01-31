@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.82  2006/01/30 21:36:12  buncic
+# platform fix from Jan-Fiete
+#
 # Revision 1.81  2006/01/24 13:39:58  buncic
 # Fix to installer and update to gar.lib.mk (avoid building from CVS if there
 # was no update).
@@ -704,8 +707,6 @@ InstallerUI()
   fi 
 
   ALIEN_INSTALLER_PREFIX=$prefix
-
-  #  [ -d $prefix ] &&  rm -rf $prefix/*  
 
   mkdir -p $prefix || Error "Cannot create $prefix directory"
 
