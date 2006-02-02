@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.83  2006/01/31 20:45:13  buncic
+# Fix to installer, removing psh
+#
 # Revision 1.82  2006/01/30 21:36:12  buncic
 # platform fix from Jan-Fiete
 #
@@ -252,7 +255,7 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.04
+VERSION=0.05
 ###########################################################################
 Exit()
 ###########################################################################
@@ -535,7 +538,7 @@ InstallerUpdate()
 
  (cd $ALIEN_INSTALLER_HOME/apps/alien; make clean)
 
- (cd $ALIEN_INSTALLER_HOME; ./alien-installer -p $ALIEN_INSTALLER_HOME -r $ALIEN_RELEASE configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
+ (cd $ALIEN_INSTALLER_HOME; ./configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
 
   export GARAUTODETECT=true; InstallerMakePkg bininstall apps/gcc/gcc; export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
 
@@ -576,7 +579,7 @@ InstallerUI()
 {
   height=8
   width=60
-  cmd="./alien-installer "
+  cmd="./configure "
 
   export TPUT=undef
 
@@ -615,14 +618,14 @@ InstallerUI()
   workspace=$ALIEN_INSTALLER_HOME
 
   $ALIEN_DIALOG  $style \
-          --yesno "Default workspace location for this installation is $workspace. Press YES if you want to keep it that way or press NO if you want to pick another location." 0 0 
+          --yesno "Default workspace location for this installation is\n\n$workspace\n\nPress YES if you want to keep it that way or press NO if you want to pick another location."  0 0 
 
   if [ $? -eq 1 ]
   then
-    $ALIEN_DIALOG $style \
-               --inputbox 'Please enter workspace directory:' $height $width \
-               $workspace 2>$dialog_file || Exit 1
-    workspace=`cat $dialog_file`
+     $ALIEN_DIALOG $style \
+                    --fselect $workspace/ $height $width  \
+                     2>$dialog_file || Exit 1
+     workspace=`cat $dialog_file`
   fi
 
   mkdir -p $workspace || Error "Cannot create $workspace directory."
@@ -631,19 +634,31 @@ InstallerUI()
 
   cd $workspace || ( Error  "Cannot change directory to $workspace" )
 
-  cmd=$cmd" -p $workspace "
-
- cmd=$cmd"configure "
+  cmd=$cmd" --with-cache-dir=$workspace "
 
   platform=$ALIEN_INSTALLER_PLATFORM
 
-  if [ "$ALIEN_INSTALLER_PLATFORM" == "" ]
-  then 
-      platform=i686-pc-linux-gnu
+  case $platform in
+   i*86-pc-linux-gnu)
+     platform=i686-pc-linux-gnu
+   ;; 
+   ia64-*-linux-gnu) 
+     platform=ia64-unknown-linux-gnu 
+   ;;
+   powerpc-apple-darwin8.1.0) 
+   ;;
+    x86_64-*-linux-gnu)
+    platform=x86_64-unknown-linux-gnu
+   ;;
+  esac
+
+  if [ `grep -v -e "^#" $cache_file | grep -c $platform` -eq 0 ]
+  then
+    platform="Unknown"
   fi
 
   $ALIEN_DIALOG  $style \
-            --yesno "Detected/configured platform setting for this machine is $platform. Press YES if you want to keep it that way or press NO if you want to select another supported platform." 0 0
+            --yesno "Detected/configured platform setting for this machine is:\n\n$platform\n\nPress YES if you want to keep it that way or press NO if you want to select another supported platform." 0 0 
 
   if [ $? -eq 1 ] 
   then 
@@ -664,13 +679,7 @@ InstallerUI()
 
   ALIEN_BITS_URL=$caches
 
-  $ALIEN_DIALOG  $style --sleep 3 \
-          --infobox "Using $caches repository..."
-
-  $ALIEN_DIALOG $style --sleep 3 \
-                --infobox 'Synchronizing with the server.' $height $width
-
-   InstallerSync
+  InstallerSync
 
   prefix=$ALIEN_INSTALLER_PREFIX
 
@@ -680,15 +689,16 @@ InstallerUI()
   fi
 
   $ALIEN_DIALOG $style \
-         --yesno "Default installation location location is $prefix. Press YES if you want to keep it that way or press NO if you want to select another location." $height $width
+         --yesno "Default installation location location is\n\n$prefix\n\nPress YES if you want to keep it that way or press NO if you want to select another location." 0  0
 
   if [ $? -eq 1 ]
   then
     while :
     do
      $ALIEN_DIALOG $style \
-                    --inputbox 'Please specify installation directory'  $height $width \
-                     $prefix 2>$dialog_file || Exit 1
+                    --fselect $HOME/ $height $width \
+                     2>$dialog_file || Exit 1
+
      prefix=`cat $dialog_file`
      if [ "$prefix" = "$workspace" ]
      then
@@ -742,7 +752,7 @@ InstallerUI()
  
   InstallerRcUpdate
 
-  (autoconf; $cmd ) >> install.log 2>&1
+  ( $cmd ) >> install.log 2>&1
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
@@ -884,7 +894,7 @@ do
            ;;
         configure)
             shift 1
-            cd $ALIEN_INSTALLER_HOME && autoconf && ./configure $*
+            cd $ALIEN_INSTALLER_HOME && ./configure $*
             exit
            ;;
         setup)
