@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.84  2006/02/02 17:08:20  buncic
+# Fixing amd platform issues
+#
 # Revision 1.83  2006/01/31 20:45:13  buncic
 # Fix to installer, removing psh
 #
@@ -271,8 +274,6 @@ Error()
 ###########################################################################
 {
    dialog $style --msgbox "$1" $height $width 
-   [ $debug -eq 0 ] && clear
-   [ -f install.log ] && cat install.log  
    exit 1
 }
 ###########################################################################
@@ -645,7 +646,8 @@ InstallerUI()
    ia64-*-linux-gnu) 
      platform=ia64-unknown-linux-gnu 
    ;;
-   powerpc-apple-darwin8.1.0) 
+   powerpc-apple-darwin8.*.*) 
+     platform=powerpc-apple-darwin8.1.0 
    ;;
     x86_64-*-linux-gnu)
     platform=x86_64-unknown-linux-gnu
