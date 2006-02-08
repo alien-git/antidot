@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.85  2006/02/06 16:02:41  buncic
+# Fix from Jan Fiete
+#
 # Revision 1.84  2006/02/02 17:08:20  buncic
 # Fixing amd platform issues
 #
@@ -258,7 +261,7 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.05
+VERSION=0.06
 ###########################################################################
 Exit()
 ###########################################################################
@@ -392,9 +395,13 @@ InstallerSetup()
      dialog_form=dialog
   fi
 
-  eval `$ALIEN_INSTALLER_PREFIX/bin/alien --printenv | grep -e ALIEN_ORGANISATION -e ALIEN_USER` || Exit 1
+  $ALIEN_DIALOG $style \
+                  --radiolist 'PLEASE SELECT SCOPE FOR THIS CONFIGURATION' 0 0 0 \
+                              'common'               'Common for all users' on \
+                              'user'                 'Individual user configuration' 0  2>$dialog_file || Exit 1 
+  config_scope=`cat $dialog_file`
 
-  eval `$ALIEN_INSTALLER_PREFIX/bin/alien configure` || Exit 1
+  eval `InstallerConfig`
 
   VARS="GLOBUS_LOCATION SWIG_LOCATION GSOAP_LOCATION CGSI_GSOAP_LOCATION CLASSAD_LOCATION MYPROXY_LOCATION"
 
@@ -489,7 +496,22 @@ InstallerSetup()
   echo $arg
 )` 
 
-  $ALIEN_INSTALLER_PREFIX/bin/alien configure common $arg1 $arg2 
+
+  case $config_scope in
+        user)
+            outfile=$HOME/.alien/Environment
+           ;;
+        common)
+            outfile=$ALIEN_ROOT/.Environment
+           ;;
+  esac
+
+  if [ -f $outfile ]
+  then
+    `mv -f $outfile $outfile.old`
+  fi
+
+  InstallerConfig $arg1 $arg2 
 
   if [ $? -eq 1 ]
   then
@@ -593,11 +615,11 @@ InstallerUI()
   wget -O $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
   wget -O $cache_file http://alien.cern.ch/BitServers > /dev/null 2>&1 
 
-  list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{printf("%s %s 0 ",$3,$4)}'`
+  list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{if (i==1) {on="on"} else {on="0"}; printf("%s %s %s ",$3,$4,on); i++}'`
 
   $ALIEN_DIALOG $style \
             --radiolist "PLEASE SELECT ALIEN RELEASE:" 0 0 0 \
-                        "HEAD" "Curent CVS HEAD (Warning: use at own risk!)" on \
+                        "HEAD" "Curent CVS HEAD (Warning: use at own risk!)" 0 \
                         $list 2>$dialog_file || Exit 1
 
   release=`cat $dialog_file`
@@ -791,10 +813,261 @@ InstallerUI()
   rm -rf $release_file $dialog_file
 
   $ALIEN_DIALOG $style --sleep 3 \
-          --infobox 'You have sucessfuly installed  AliEn gridware on your computer.' $height $width
+          --msgbox 'You have sucessfuly installed  AliEn gridware on your computer.' $height $width
 
   Exit
 }
+
+###########################################################################
+FindLocation()
+###########################################################################
+{
+  STANDARD_DIRS="$ALIEN_ROOT $ALIEN_ROOT/globus /opt/globus /usr/local /usr/bin /usr/lib /opt/glite /opt/glite/externals"
+  if [ "$2" != "" ]
+  then
+     echo $2
+  else
+     for dir in $STANDARD_DIRS
+     do
+       if [ -d $dir ]
+       then
+         if test "`uname -s`" = "Darwin" ; then
+           file=`find -L $dir -path $1 -type f -print -maxdepth 3 2>/dev/null`
+         else
+           file=`find $dir -path $1 -xtype f -print -maxdepth 3 2>/dev/null`
+         fi
+         if [ -f "$file" ]
+         then
+           bindir=`dirname $file`
+           dirname $bindir
+           break
+         fi
+       fi
+     done
+  fi
+}
+###########################################################################
+InstallerConfig()
+###########################################################################
+{
+  ALIEN_ROOT=$ALIEN_INSTALLER_PREFIX
+  ALIEN_PATH=""
+  ALIEN_LD_LIBRARY_PATH=$ALIEN_ROOT/lib
+  ALIEN_MYPROXY_SERVER=""
+  ALIEN_MYPROXY_DOMAIN=""
+  ALIEN_LDAP_DN=""
+  GLOBUS_LOCATION=""
+  SWIG_LOCATION=""
+  GSOAP_LOCATION=""
+  CGSI_GSOAP_LOCATION=""
+  CLASSAD_LOCATION=""
+  MYPROXY_LOCATION=""
+  ALIEN_VO=""
+  ALIEN_PROMPT=""
+  ALIEN_ORGANISATION=""
+  ALIEN_USER=""
+
+  if test "`uname -s`" = "Darwin" ; then DY_EXT=dylib ; else DY_EXT=so ; fi
+
+  while [ $# -gt 0 ]
+  do
+    case $1 in
+        --globus-location|-globus-location)
+            shift 1
+            GLOBUS_LOCATION=$1; shift 1
+           ;;
+        --swig-location|-swig-location)
+            shift 1
+            SWIG_LOCATION=$1; shift 1
+            ;;
+        --gsoap-location|-gsoap-location)
+            shift 1
+            GSOAP_LOCATION=$1; shift 1
+            ;;
+        --cgsi-gsoap-location|-cgsi-gsoap-location)
+            shift 1
+            CGSI_GSOAP_LOCATION=$1; shift 1
+            ;;
+        --myproxy-location|-myproxy-location)
+            shift 1
+            MYPROXY_LOCATION=$1; shift 1
+            ;;
+        --classad-location|-classad-location)
+            shift 1
+            CLASSAD_LOCATION=$1; shift 1
+            ;;
+        --myproxy-server|-myproxy-server)
+            shift 1
+            ALIEN_MYPROXY_SERVER=$1; shift 1
+            ;;
+        --myproxy-domain|-myproxy-domain)
+            shift 1
+            ALIEN_MYPROXY_DOMAIN=$1; shift 1
+            ;;
+        --ldap-dn|-ldap-dn)
+            shift 1
+            ALIEN_LDAP_DN=$1; shift 1
+            ;;
+        --VO|-VO)
+            shift 1
+            ALIEN_DEFAULT_VO=$1; shift 1
+            ;;
+        --user|-user)
+            shift 1
+            ALIEN_DEFAULT_USER=$1; shift 1
+            ;;
+        --prompt|-prompt)
+            shift 1
+            ALIEN_DEFAULT_PROMPT=$1; shift 1
+            ;;
+
+        --help|-help)
+            printf "Usage: %5s configure                       \n" $ALIEN_PROMPT
+            printf "             --globus-location     [path]  \n"
+            printf "             --swig-location       [path]  \n"
+            printf "             --gsoap-location      [path]  \n"
+            printf "             --cgsi-gsoap-location [path]  \n"
+            printf "             --classad-location    [path]  \n"
+            printf "             --myproxy-location    [path]  \n"
+            printf "             --myproxy-server      [host]  \n"
+            printf "             --myproxy-domain      [dn]    \n"
+            printf "             --ldap-dn             [url]   \n"
+            printf "             --VO                  [string]\n"
+            printf "             --user                [string]\n"
+            printf "             --prompt              [string]\n"
+            exit
+           ;;
+        *)
+           shift 1
+           ;;
+    esac
+  done
+
+
+  #########
+  # globus
+  #########
+  set -f
+  GLOBUS_LOCATION=`FindLocation "*/bin/grid-proxy-init" $GLOBUS_LOCATION`
+
+  if [ -f $GLOBUS_LOCATION/bin/grid-proxy-init ]
+  then
+    ALIEN_PATH=$GLOBUS_LOCATION/bin:$ALIEN_PATH
+    ALIEN_LD_LIBRARY_PATH=$GLOBUS_LOCATION/lib:$ALIEN_LD_LIBRARY_PATH
+  else
+     GLOBUS_LOCATION=''
+  fi
+
+  #########
+  # SWIG
+  #########
+
+  SWIG_LOCATION=`FindLocation "*/bin/swig" $SWIG_LOCATION`
+
+  if [ -f $SWIG_LOCATION/bin/swig ]
+  then
+    ALIEN_LD_LIBRARY_PATH=$SWIG_LOCATION/lib:$ALIEN_LD_LIBRARY_PATH
+  else
+     SWIG_LOCATION=''
+  fi
+
+  #########
+  # gsoap
+  #########
+
+  GSOAP_LOCATION=`FindLocation "*/bin/soapcpp2" $GSOAP_LOCATION`
+
+  if [ -f $GSOAP_LOCATION/bin/soapcpp2 ]
+  then
+    ALIEN_LD_LIBRARY_PATH=$GSOAP_LOCATION/lib:$ALIEN_LD_LIBRARY_PATH
+  else
+     GSOAP_LOCATION=''
+  fi
+
+  #########
+  # cgsi-gsoap
+  #########
+
+  CGSI_GSOAP_LOCATION=`FindLocation "*/lib/libcgsi_plugin_gsoap_2.6.${DY_EXT}" $CGSI_GSOAP_LOCATION`
+
+  if [ -f $CGSI_GSOAP_LOCATION/lib/libcgsi_plugin_gsoap_2.6.${DY_EXT} ]
+  then
+    ALIEN_LD_LIBRARY_PATH=$CGSI_GSOAP_LOCATION/lib:$ALIEN_LD_LIBRARY_PATH
+  else
+     CGSI_GSOAP_LOCATION=''
+  fi
+
+  #########
+  # classad
+  #########
+
+  CLASSAD_LOCATION=`FindLocation "*/lib/libaclassad.${DY_EXT}" $CLASSAD_LOCATION`
+
+  if [ -f $CLASSAD_LOCATION/lib/libaclassad.${DY_EXT} ]
+  then
+    ALIEN_LD_LIBRARY_PATH=$CLASSAD_LOCATION/lib:$ALIEN_LD_LIBRARY_PATH
+  else
+     CLASSAD_LOCATION=''
+  fi
+
+  #########
+  # myproxy
+  #########
+
+  MYPROXY_LOCATION=`FindLocation "*/bin/myproxy-init" $MYPROXY_LOCATION`
+
+  if [ -x $MYPROXY_LOCATION/bin/myproxy-init ]
+  then
+    ALIEN_PATH=$MYPROXY_LOCATION/bin:$ALIEN_PATH
+    ALIEN_LD_LIBRARY_PATH=$MYPROXY_LOCATION/lib:$ALIEN_LD_LIBRARY_PATH
+  else
+     MYPROXY_LOCATION=''
+  fi
+
+  ALIEN_PATH=`echo $ALIEN_PATH |awk  '{gsub(":", "\n" ); print $0 '} |sort -u |awk '{printf "%s:",$1}' | sed 's/:$//'`
+  ALIEN_LD_LIBRARY_PATH=`echo $ALIEN_LD_LIBRARY_PATH |awk  '{gsub(":", "\n" ); print $0 '} |sort -u | awk '{printf "%s:",$1}' | sed 's/:$//'`
+
+  echo "ALIEN_PATH=$ALIEN_PATH"
+  echo "ALIEN_LD_LIBRARY_PATH=$ALIEN_LD_LIBRARY_PATH"
+
+  if [ ! -z "$ALIEN_MYPROXY_SERVER" ]; then
+      echo "ALIEN_MYPROXY_SERVER=$ALIEN_MYPROXY_SERVER"
+  fi
+  if [ ! -z "$ALIEN_MYPROXY_DOMAIN" ]; then
+      echo "ALIEN_MYPROXY_DOMAIN=$ALIEN_MYPROXY_DOMAIN"
+  fi
+  if [ ! -z "$ALIEN_LDAP_DN" ]; then
+      echo "ALIEN_LDAP_DN=$ALIEN_LDAP_DN"
+  fi
+  if [ ! -z "$GLOBUS_LOCATION" ]; then
+      echo "GLOBUS_LOCATION=$GLOBUS_LOCATION"
+  fi
+  if [ ! -z "$SWIG_LOCATION" ]; then
+      echo "SWIG_LOCATION=$SWIG_LOCATION"
+  fi
+  if [ ! -z "$GSOAP_LOCATION" ]; then
+      echo "GSOAP_LOCATION=$GSOAP_LOCATION"
+  fi
+  if [ ! -z "$CGSI_GSOAP_LOCATION" ]; then
+      echo "CGSI_GSOAP_LOCATION=$CGSI_GSOAP_LOCATION"
+  fi
+  if [ ! -z "$CLASSAD_LOCATION" ]; then
+      echo "CLASSAD_LOCATION=$CLASSAD_LOCATION"
+  fi
+  if [ ! -z "$MYPROXY_LOCATION" ]; then
+      echo "MYPROXY_LOCATION=$MYPROXY_LOCATION"
+  fi
+  if [ ! -z "$ALIEN_PROMPT" ]; then
+      echo "ALIEN_PROMPT=$ALIEN_DEFAULT_PROMPT"
+  fi
+  if [ ! -z "$ALIEN_DEFAULT_VO" ]; then
+      echo "ALIEN_ORGANISATION=$ALIEN_DEFAULT_VO"
+  fi
+  if [ ! -z "$ALIEN_DEFAULT_USER" ]; then
+      echo "ALIEN_USER=$ALIEN_DEFAULT_USER"
+  fi
+}
+
 
 ###########################################################################
 ###########################################################################
