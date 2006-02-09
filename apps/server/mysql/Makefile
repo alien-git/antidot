@@ -1,5 +1,5 @@
 GARNAME = mysql
-GARVERSION = 5.0.15
+GARVERSION = 5.0.18
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -16,7 +16,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --with-vio  --with-openssl=$(PREFIX)
+CONFIGURE_ARGS = $(DIRPATHS) --with-vio  --with-openssl=$(PREFIX) --with-big-tables  --without-debug --enable-thread-safe-client
+
 CONFIGURE_ENV  = env LDFLAGS="-L$(PREFIX)/lib"
 
 include ../category.mk
