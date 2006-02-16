@@ -1,0 +1,12 @@
+--- work/pks-0.9.6/db2-sleepycat/dist/config.guess.ori	2005-09-06 19:15:10.000000000 +0200
++++ work/pks-0.9.6/db2-sleepycat/dist/config.guess	2005-09-06 19:15:14.000000000 +0200
+@@ -132,6 +132,9 @@
+     powerpc:machten:*:*)
+ 	echo powerpc-apple-machten${UNAME_RELEASE}
+ 	exit 0 ;;
++    *:Darwin:*:*)
++	echo darwin-powerpc${UNAME_RELEASE}
++	exit 0 ;;
+     RISC*:Mach:*:*)
+ 	echo mips-dec-mach_bsd4.3
+ 	exit 0 ;;

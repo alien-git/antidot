@@ -1,0 +1,28 @@
+GARNAME = lfc-perl
+GARVERSION = 1.3.7b
+CATEGORIES = apps-tools
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+ifeq ($(shell uname -s),Darwin)
+PATCHFILES = macos.diff
+endif
+
+MASTER_SITES =  
+
+LIBDEPS = apps/lcg/lfc apps/base/perl apps/base/swig
+
+DESCRIPTION = Perl interface to LFC
+URL = http://lcg.web.cern.ch/LCG
+AUTHOR = CERN LCG
+LICENSE =
+
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = $(WORKSRC)/Makefile
+
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-lfc-dir=$(PREFIX) --with-swig-dir=$(PREFIX) --with-perl5=$(PREFIX)/bin/perl
+
+include ../category.mk
+
+PRE_CONFIGURE = (cd $(WORKSRC);env PREFIX=$(PREFIX) sh bootstrap )
+

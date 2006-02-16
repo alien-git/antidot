@@ -1,0 +1,54 @@
+--- work/openssl-0.9.8/Makefile.org	Mon Sep 19 23:22:12 2005
++++ work/openssl-0.9.8/Makefile.org.new	Mon Sep 19 23:22:23 2005
+@@ -525,10 +525,7 @@
+ 		$(INSTALL_PREFIX)$(MANDIR)/man7
+ 	@pod2man="`cd util; ./pod2mantest $(PERL)`"; \
+ 	here="`pwd`"; \
+-	filecase=; \
+-	if [ "$(PLATFORM)" = "DJGPP" -o "$(PLATFORM)" = "Cygwin" -o "$(PLATFORM)" = "mingw" ]; then \
+-		filecase=-i; \
+-	fi; \
++	filecase=-i; \
+ 	set -e; for i in doc/apps/*.pod; do \
+ 		fn=`basename $$i .pod`; \
+ 		sec=`$(PERL) util/extract-section.pl 1 < $$i`; \
+--- work/openssl-0.9.8/Makefile.shared	Mon Sep 19 23:23:06 2005
++++ work/openssl-0.9.8/Makefile.shared.new	Mon Sep 19 23:23:24 2005
+@@ -221,7 +221,7 @@
+ 		SHAREDFLAGS="$$SHAREDFLAGS -current_version $(LIBVERSION)"; \
+ 	fi; \
+ 	if [ -n "$$SHLIB_SOVER_NODOT" ]; then \
+-		SHAREDFLAGS="$$SHAREDFLAGS -compatibility_version $$SHLIB_SOVER_NODOT"; \
++		SHAREDFLAGS="$$SHAREDFLAGS -compatibility_version $(LIBVERSION) -install_name $(LIBRPATH)/lib$(LIBNAME).$(LIBVERSION).dylib"; \
+ 	fi; \
+ 	$(LINK_SO_A)
+ link_app.darwin:	# is there run-path on darwin?
+--- work/openssl-0.9.8/Configure	Mon Sep 19 23:04:48 2005
++++ work/openssl-0.9.8/Configure.new	Mon Sep 19 23:19:56 2005
+@@ -500,7 +500,7 @@
+ ##### MacOS X (a.k.a. Rhapsody or Darwin) setup
+ "rhapsody-ppc-cc","cc:-O3 -DB_ENDIAN::(unknown):MACOSX_RHAPSODY::BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}::",
+ "darwin-ppc-cc","cc:-O3 -DB_ENDIAN::-D_REENTRANT:MACOSX:-Wl,-search_paths_first:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR::osx_ppc32.o:::::::::::darwin-shared:-fPIC -fno-common:-dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib",
+-"darwin-i386-cc","cc:-O3 -fomit-frame-pointer -fno-common -DB_ENDIAN::-D_REENTRANT:MACOSX::BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}::darwin-shared:-fPIC:-dunamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib",
++"darwin-i386-cc","cc:-O3 -fomit-frame-pointer -DL_ENDIAN::-D_REENTRANT:MACOSX:-Wl,-search_paths_first:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}::darwin-shared:-fPIC -fno-common:-dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib",
+ "debug-darwin-ppc-cc","cc:-DBN_DEBUG -DREF_CHECK -DCONF_DEBUG -DCRYPTO_MDEBUG -DB_ENDIAN -g -Wall -O::-D_REENTRANT:MACOSX::BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR::osx_ppc32.o:::::::::::darwin-shared:-fPIC:-dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib",
+ 
+ ##### A/UX
+--- work/openssl-0.9.8/engines/Makefile	Mon Sep 19 23:29:06 2005
++++ work/openssl-0.9.8/engines/Makefile.new	Mon Sep 19 23:30:08 2005
+@@ -91,12 +91,12 @@
+ 		for l in $(LIBNAMES); do \
+ 			( echo installing $$l; \
+ 			  if [ "$(PLATFORM)" != "Cygwin" ]; then \
+-				  cp lib$$l.so $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines/lib$$l.so.new; \
++				  cp lib$$l.dylib $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines/lib$$l.dylib.new; \
+ 			  else \
+ 				  cp cyg$$l.dll $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines/lib$$l.so.new; \
+ 			  fi; \
+-			  chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines/lib$$l.so.new; \
+-			  mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines/lib$$l.so.new $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines/lib$$l.so ); \
++			  chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines/lib$$l.dylib.new; \
++			  mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines/lib$$l.dylib.new $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines/lib$$l.dylib ); \
+ 		done; \
+ 	fi
+ 

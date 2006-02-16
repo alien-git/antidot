@@ -1,0 +1,31 @@
+--- work/classads-0.9.7/fnCall.h	Thu Oct 28 23:53:21 2004
++++ work/classads-0.9.7/fnCall.h.new	Sat Feb 12 16:42:20 2005
+@@ -195,7 +195,7 @@
+ 	
+ 	// math (floor, ceil, round)
+ 	static bool doMath(const char*,const ArgumentList&,EvalState&,Value&);
+-	static bool random(const char*,const ArgumentList&,EvalState&,Value&);
++	static bool doRandom(const char*,const ArgumentList&,EvalState&,Value&);
+ 	
+  	//static bool doReal(const char*,const ArgumentList&,EvalState&,Value&);
+ };
+--- work/classads-0.9.7/fnCall.C	Thu Oct 28 23:53:21 2004
++++ work/classads-0.9.7/fnCall.C.new	Sat Feb 12 16:41:43 2005
+@@ -144,7 +144,7 @@
+ 		functionTable["ceil"		] =	(void*)doMath;
+ 		functionTable["ceiling"		] =	(void*)doMath;
+ 		functionTable["round"		] =	(void*)doMath;
+-        functionTable["random"      ] = (void*)random;
++        functionTable["random"      ] = (void*)doRandom;
+ 
+ 		initialized = true;
+ 	}
+@@ -2085,7 +2085,7 @@
+ }
+ 
+ bool FunctionCall::
+-random( const char* name,const ArgumentList &argList,EvalState &state,
++doRandom( const char* name,const ArgumentList &argList,EvalState &state,
+ 	Value &result )
+ {
+ 	Value	arg;
