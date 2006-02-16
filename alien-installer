@@ -5,9 +5,6 @@
 #
 # modification history
 # $Log$
-# Revision 1.86  2006/02/08 11:25:35  buncic
-# Update to installer. Added dialog dependency to gshell. New version for common.
-#
 # Revision 1.85  2006/02/06 16:02:41  buncic
 # Fix from Jan Fiete
 #
@@ -649,7 +646,7 @@ InstallerUI()
   if [ $? -eq 1 ]
   then
      $ALIEN_DIALOG $style \
-                    --inputbox $workspace/ $height $width \
+                    --fselect $workspace/ $height $width  \
                      2>$dialog_file || Exit 1
      workspace=`cat $dialog_file`
   fi
@@ -723,7 +720,7 @@ InstallerUI()
     while :
     do
      $ALIEN_DIALOG $style \
-                    --inputbox $HOME/ $height $width \
+                    --fselect $HOME/ $height $width \
                      2>$dialog_file || Exit 1
 
      prefix=`cat $dialog_file`
