@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.87  2006/02/09 11:22:19  buncic
+# Reverting to --inputbox in place of --fselect widget
+#
 # Revision 1.86  2006/02/08 11:25:35  buncic
 # Update to installer. Added dialog dependency to gshell. New version for common.
 #
@@ -272,7 +275,11 @@ Exit()
   [ $debug -eq 0 ] && clear
   InstallerRcUpdate
   rm -rf $release_file $dialog_file $cache_file
-  exit $*
+  if [ ! -z "$2" ]
+  then
+     echo $2
+  fi
+  exit $1
 }
 
 ###########################################################################
@@ -623,7 +630,18 @@ InstallerUI()
   $ALIEN_DIALOG $style \
             --radiolist "PLEASE SELECT ALIEN RELEASE:" 0 0 0 \
                         "HEAD" "Curent CVS HEAD (Warning: use at own risk!)" 0 \
-                        $list 2>$dialog_file || Exit 1
+                        $list 2>$dialog_file
+
+  case $? in
+    127)
+       Exit 1 "ERROR: Dialog could not be invoked. Is dialog installed?"
+       ;;
+    1)
+       Exit 1
+       ;;
+    *) 
+       ;;
+  esac
 
   release=`cat $dialog_file`
 
