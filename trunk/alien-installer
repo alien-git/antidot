@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.88  2006/02/16 09:45:02  buncic
+# PRint message if dialog cannot be found...
+#
 # Revision 1.87  2006/02/09 11:22:19  buncic
 # Reverting to --inputbox in place of --fselect widget
 #
@@ -392,13 +395,12 @@ InstallerSetup()
 {
   height=8
   width=60
-  style="--title AliEn-Configuratior-v0.01 --clear  --stdout"
+  style="--title AliEn-Installer-v$VERSION --clear"
   dialog_file=`mktemp /tmp/dialog.XXXXXX`
 
   if [ -f $ALIEN_INSTALLER_PREFIX/bin/dialog ]
   then
      export LD_LIBRARY_PATH=$ALIEN_INSTALLER_PREFIX/lib:$LD_LIBRARY_PATH
-     export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
      dialog_form=$ALIEN_INSTALLER_PREFIX/bin/dialog
      export TERMINFO_DIRS=/usr/share/terminfo:$ALIEN_INSTALLER_PREFIX/share/terminfo
   else
@@ -424,11 +426,11 @@ InstallerSetup()
       form="$form $var  $i 1 ${!var}  $i 25 256 0"
       i=`expr $i + 1`
     else
-      $ALIEN_DIALOG $style \
-           --msgbox "Installation failed: $var undefined." $height $width
-      Exit 1
+      eval $var="Unknown"
     fi
   done
+
+  style="--title AliEn-Installer-v$VERSION --clear --stdout"
 
   $dialog_form $style --form 'This is your curent AliEn environment. Please edit.' 20 50 0  $form > $dialog_file 2>&1
 
@@ -508,20 +510,20 @@ InstallerSetup()
 
 
   case $config_scope in
-        user)
-            outfile=$HOME/.alien/Environment
-           ;;
         common)
             outfile=$ALIEN_ROOT/.Environment
+           ;;
+        *)
+            outfile=$HOME/.alien/Environment
            ;;
   esac
 
   if [ -f $outfile ]
   then
-    `mv -f $outfile $outfile.old`
+    cp $outfile $outfile.old
   fi
 
-  InstallerConfig $arg1 $arg2 
+  InstallerConfig $arg1 $arg2 > $outfile
 
   if [ $? -eq 1 ]
   then
@@ -878,11 +880,13 @@ InstallerConfig()
   ALIEN_MYPROXY_DOMAIN=""
   ALIEN_LDAP_DN=""
   GLOBUS_LOCATION=""
-  SWIG_LOCATION=""
-  GSOAP_LOCATION=""
-  CGSI_GSOAP_LOCATION=""
-  CLASSAD_LOCATION=""
-  MYPROXY_LOCATION=""
+
+  SWIG_LOCATION="$ALIEN_INSTALLER_PREFIX"
+  GSOAP_LOCATION="$ALIEN_INSTALLER_PREFIX"
+  CGSI_GSOAP_LOCATION="$ALIEN_INSTALLER_PREFIX"
+  CLASSAD_LOCATION="$ALIEN_INSTALLER_PREFIX"
+  MYPROXY_LOCATION="$ALIEN_INSTALLER_PREFIX"
+
   ALIEN_VO=""
   ALIEN_PROMPT=""
   ALIEN_ORGANISATION=""
