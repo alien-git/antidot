@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.89  2006/02/17 15:04:51  buncic
+# Fix for setup on MAcOS
+#
 # Revision 1.88  2006/02/16 09:45:02  buncic
 # PRint message if dialog cannot be found...
 #
@@ -781,7 +784,8 @@ InstallerUI()
                            'lcg'     'LCG Components'           0  \
                            'monitor' 'MonaLisa site monitor'    0  \
                            'core'    'Core VO services'         0  \
-                           'wn'      'Worker node'              0 2>$dialog_file || Exit 1
+                           'wn'      'Worker node'              0  \
+                           'tests'   'AliEn tests'              0 2>$dialog_file || Exit 1
 
   list=\"$(cat $dialog_file | sed 's/"//g' )\"
 
