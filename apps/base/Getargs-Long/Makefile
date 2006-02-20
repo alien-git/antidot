@@ -1,16 +1,15 @@
-GARNAME = Getopt-Declare
-GARVERSION = 1.11
-CATEGORIES = apps-perl
+GARNAME = Getargs-Long
+GARVERSION = 1.1001
+CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = usage.diff
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DC/DCONWAY/
+MASTER_SITES = http://www.cpan.org/authors/id/D/DC/DCOPPIT/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/D/DC/DCOPPIT/ http://search.cpan.org/CPAN/authors/id/D/DC/DCOPPIT/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/Log-Agent
 
-DESCRIPTION = Declaratively Expressed Command-Line Arguments via Regular Expressions
-AUTHOR = Damian Conway
-URL = http://search.cpan.org/~dconway/
+DESCRIPTION = Named subroutine arguments, with optional type checking
+AUTHOR = David Coppit
+URL = http://search.cpan.org/~dcoppit/
 LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
