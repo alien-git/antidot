@@ -1,8 +1,8 @@
 GARNAME = perl
-GARVERSION = 5.8.8
+GARVERSION = 5.8.7
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = # hints_darwin.sh.diff locale.t.diff
+PATCHFILES = hints_darwin.sh.diff locale.t.diff
 
 MASTER_SITES = http://ftp.funet.fi/pub/CPAN/src/ 
 
