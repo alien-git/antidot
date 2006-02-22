@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.90  2006/02/20 16:17:05  buncic
+# Adding 'tests' package.
+#
 # Revision 1.89  2006/02/17 15:04:51  buncic
 # Fix for setup on MAcOS
 #
@@ -536,8 +539,8 @@ InstallerSetup()
           --textbox install.log 0 0  
     Exit 
   else
-    $ALIEN_DIALOG $style --sleep 3 \
-              --infobox 'You have sucessfuly installed and configured  AliEn gridware on your computer. Enjoy!' $height $width  
+    $ALIEN_DIALOG $style \
+              --msgbox 'You have sucessfuly installed and configured  AliEn gridware on your computer. Enjoy!' $height $width  
  
     Exit
   fi
@@ -839,7 +842,7 @@ InstallerUI()
 
   rm -rf $release_file $dialog_file
 
-  $ALIEN_DIALOG $style --sleep 3 \
+  $ALIEN_DIALOG $style \
           --msgbox 'You have sucessfuly installed  AliEn gridware on your computer.' $height $width
 
   Exit
