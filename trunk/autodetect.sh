@@ -65,7 +65,7 @@ case $arg in
      test -x $EXPAT_LOCATION/lib/libexpat.so 
      exit $?
      ;;
-   */apps/base/gcc*)
+   */apps/gcc/gcc*)
      #########
      # gcc
      #########
