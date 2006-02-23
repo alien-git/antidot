@@ -67,6 +67,8 @@ include $(wildcard $(GARDIR)/platform/$(GARUNAME_S).mk $(GARDIR)/platform/$(GARU
 
 include $(GARDIR)/alien.conf.mk
 
+MASKED += $(shell $(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd)) 
+
 ifeq ($(GARFNAME),$(findstring $(GARFNAME),$(MASKED)))
 DISTFILES := 
 CONFIGURE_SCRIPTS :=
@@ -79,7 +81,6 @@ BINDISTFILES :=
 PATCHFILES :=
 ALLFILES := 
 endif
-
 
 INSTALL_DIRS = $(addprefix $(DESTDIR),$(BUILD_PREFIX) $(prefix) $(exec_prefix) $(bindir) $(sbindir) $(libexecdir) $(datadir) $(sysconfdir) $(sharedstatedir) $(localstatedir) $(libdir) $(infodir) $(lispdir) $(includedir) $(mandir) $(foreach NUM,1 2 3 4 5 6 7 8, $(mandir)/man$(NUM)) $(sourcedir))
 
@@ -287,7 +288,7 @@ ifeq ($(CATEGORIES),source-only)
 	@$(MAKE) reinstall
 else
   ifeq ($(GARAUTODETECT),true)
-	@($(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd) || env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL)) 
+	@env MASKED="$(MASKED) $(MYMASK)" BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL)
   else
 	@env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL) 
   endif

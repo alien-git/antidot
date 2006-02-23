@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.91  2006/02/22 09:42:28  buncic
+# Fixed typo in autodetect, gar.mk
+#
 # Revision 1.90  2006/02/20 16:17:05  buncic
 # Adding 'tests' package.
 #
@@ -421,7 +424,7 @@ InstallerSetup()
 
   eval `InstallerConfig`
 
-  VARS="GLOBUS_LOCATION SWIG_LOCATION GSOAP_LOCATION CGSI_GSOAP_LOCATION CLASSAD_LOCATION MYPROXY_LOCATION"
+  VARS="GLOBUS_LOCATION GAPI_LOCATION SWIG_LOCATION GSOAP_LOCATION CGSI_GSOAP_LOCATION CLASSAD_LOCATION MYPROXY_LOCATION"
 
   i=1
   form=""
@@ -443,6 +446,7 @@ InstallerSetup()
   arg1=`cat $dialog_file | \
 ( 
   read GLOBUS_LOCATION 
+  read GAPI_LOCATION 
   read SWIG_LOCATION 
   read GSOAP_LOCATION 
   read CGSI_GSOAP_LOCATION 
@@ -451,6 +455,8 @@ InstallerSetup()
 
   [ "$GLOBUS_LOCATION" != "" ] && \
                          arg=$arg" --globus-location $GLOBUS_LOCATION"
+  [ "$GAPI_LOCATION" != "" ] && \
+                         arg=$arg" --gapi-location $GAPI_LOCATION"
   [ "$SWIG_LOCATION" != "" ] && \
                          arg=$arg" --swig-location $SWIG_LOCATION"
   [ "$GSOAP_LOCATION" != "" ] && \
@@ -893,6 +899,7 @@ InstallerConfig()
   CGSI_GSOAP_LOCATION="$ALIEN_INSTALLER_PREFIX"
   CLASSAD_LOCATION="$ALIEN_INSTALLER_PREFIX"
   MYPROXY_LOCATION="$ALIEN_INSTALLER_PREFIX"
+  GAPI_LOCATION="$ALIEN_INSTALLER_PREFIX/api"
 
   ALIEN_VO=""
   ALIEN_PROMPT=""
@@ -904,6 +911,10 @@ InstallerConfig()
   while [ $# -gt 0 ]
   do
     case $1 in
+        --gapi-location|-gapi-location)
+            shift 1
+            GAPI_LOCATION=$1; shift 1
+           ;;
         --globus-location|-globus-location)
             shift 1
             GLOBUS_LOCATION=$1; shift 1
@@ -975,6 +986,19 @@ InstallerConfig()
     esac
   done
 
+
+  #########
+  # gapi
+  #########
+  GAPI_LOCATION=`FindLocation "*/bin/gbbox" $GAPI_LOCATION`
+
+  if [ -f $GAPI_LOCATION/bin/gbbox ]
+  then
+    ALIEN_PATH=$GAPI_LOCATION/bin:$ALIEN_PATH
+    ALIEN_LD_LIBRARY_PATH=$GAPI_LOCATION/lib:$ALIEN_LD_LIBRARY_PATH
+  else
+     GAPI_LOCATION=''
+  fi
 
   #########
   # globus
@@ -1062,6 +1086,9 @@ InstallerConfig()
   echo "ALIEN_PATH=$ALIEN_PATH"
   echo "ALIEN_LD_LIBRARY_PATH=$ALIEN_LD_LIBRARY_PATH"
 
+  if [ ! -z "$GAPI_LOCATION" ]; then
+      echo "GAPI_LOCATION=$GAPI_LOCATION"
+  fi
   if [ ! -z "$ALIEN_MYPROXY_SERVER" ]; then
       echo "ALIEN_MYPROXY_SERVER=$ALIEN_MYPROXY_SERVER"
   fi
