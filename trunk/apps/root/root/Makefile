@@ -19,7 +19,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ENV = env GLOBUS_LOCATION= 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/root --bindir=$(PREFIX)/root/bin --libdir=$(PREFIX)/root/lib --incdir=$(PREFIX)/root/include --etcdir=$(PREFIX)/etc --datadir=$(PREFIX)/root --mandir=$(PREFIX)/man/man1 --docdir=$(PREFIX)/root --incdir=$(PREFIX)/root/include --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --disable-xrootd --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib --with-monalisa-incdir=$(PREFIX)/include --with-monalisa-libdir=$(PREFIX)/lib
+CONFIGURE_ARGS = --prefix=$(PREFIX)/root --etcdir=$(PREFIX)/etc  --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --disable-xrootd --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib --with-monalisa-incdir=$(PREFIX)/include --with-monalisa-libdir=$(PREFIX)/lib
 
 include ../category.mk
 
