@@ -2,7 +2,7 @@ GARNAME    = gapi-apiservice
 GARVERSION = 2.0.1
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = gclient.cxx.diff
+PATCHFILES = # gclient.cxx.diff
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice/
 
