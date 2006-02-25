@@ -5,9 +5,9 @@ CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
 
-ifeq ($(shell uname),Darwin)
-PATCHFILES = macos.diff
-endif
+#ifeq ($(shell uname),Darwin)
+#PATCHFILES = macos.diff
+#endif
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
