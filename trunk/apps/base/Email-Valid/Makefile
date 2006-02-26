@@ -2,6 +2,7 @@ GARNAME = Email-Valid
 GARVERSION = 0.15
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES =   valid.t.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MA/MAURICE/ http://www.cpan.org/authors/id/M/MA/MAURICE/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MA/MAURICE/
 
