@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.92  2006/02/23 13:58:17  buncic
+# Trying to fix autodetect
+#
 # Revision 1.91  2006/02/22 09:42:28  buncic
 # Fixed typo in autodetect, gar.mk
 #
@@ -569,7 +572,6 @@ InstallerUpdate()
 
   InstallerRcUpdate
 
-  export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
   export TPUT=undef
 
   cd $ALIEN_INSTALLER_HOME
@@ -587,7 +589,9 @@ InstallerUpdate()
 
  (cd $ALIEN_INSTALLER_HOME; ./configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
 
-  export GARAUTODETECT=true; InstallerMakePkg bininstall apps/gcc/gcc; export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
+  export GARAUTODETECT="true"; 
+  InstallerMakePkg bininstall apps/gcc/gcc; 
+  export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
 
   for meta in $ALIEN_INSTALLER_TYPE
   do
@@ -670,8 +674,6 @@ InstallerUI()
   then
     ALIEN_INSTALLER_AUTODETECT="true"
   fi
-
-  export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
 
   workspace=$ALIEN_INSTALLER_HOME
 
@@ -816,7 +818,9 @@ InstallerUI()
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
-  env GARAUTODETECT=true InstallerMakePkg bininstall apps/gcc/gcc >> $workspace/install.log
+  export GARAUTODETECT="true";
+  InstallerMakePkg bininstall apps/gcc/gcc >> $workspace/install.log
+  export GARAUTODETECT="$ALIEN_INSTALLER_AUTODETECT"
 
   for meta in $list
   do
