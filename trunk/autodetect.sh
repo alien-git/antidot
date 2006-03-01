@@ -1,5 +1,4 @@
 #!/bin/sh
-
 ###########################################################################
 STANDARD_DIRS="$prefix /opt/globus /opt/alien /opt/glite /opt/glite/externals /usr/local /usr/bin /usr/lib"
 ###########################################################################
@@ -34,7 +33,7 @@ arg=$1; shift 1
 
 found=""
 
-if [ "$GARAUTODETECT" = "" ] 
+if [ "$GARAUTODETECT" != "true" ] 
 then
   echo ""
   exit 
