@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.93  2006/03/01 17:37:42  buncic
+# Again AUTODETECT
+#
 # Revision 1.92  2006/02/23 13:58:17  buncic
 # Trying to fix autodetect
 #
@@ -589,7 +592,7 @@ InstallerUpdate()
 
  (cd $ALIEN_INSTALLER_HOME; ./configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
 
-  export GARAUTODETECT="true"; 
+  export GARAUTODETECT="apps/gcc/gcc"; 
   InstallerMakePkg bininstall apps/gcc/gcc; 
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
 
@@ -818,7 +821,7 @@ InstallerUI()
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
-  export GARAUTODETECT="true";
+  export GARAUTODETECT="apps/gcc/gcc";
   InstallerMakePkg bininstall apps/gcc/gcc >> $workspace/install.log
   export GARAUTODETECT="$ALIEN_INSTALLER_AUTODETECT"
 
