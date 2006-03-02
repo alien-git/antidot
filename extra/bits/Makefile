@@ -1,5 +1,0 @@
-
-all:
-
-include ../../all.mk
-
