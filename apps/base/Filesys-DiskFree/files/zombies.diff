@@ -1,0 +1,13 @@
+--- work/Filesys-DiskFree-0.06/DiskFree.pm.orig	2006-03-06 15:13:23.000000000 +0100
++++ work/Filesys-DiskFree-0.06/DiskFree.pm	2006-03-06 15:27:26.000000000 +0100
+@@ -115,8 +115,9 @@
+     $cmd=$self->command() or
+     	croak "No df command known for format ".$self->{'FORMAT'};
+     open(HANDLE,"$cmd|") or croak("Cannot fork $!");
+-    return $self->load(\*HANDLE);
++    $self->load(\*HANDLE);
+     close(HANDLE) or croak("Cannot df $!");
++    return 'true';
+ }
+ 
+ sub load()  {
