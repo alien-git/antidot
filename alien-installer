@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.95  2006/03/02 10:15:11  buncic
+# Disabling autodetect for gcc
+#
 # Revision 1.94  2006/03/02 10:10:29  buncic
 # Autodetect for gcc does not work - leave it as it is for now.
 #
@@ -290,6 +293,8 @@
 #############################################################################
 VERSION=0.06
 ###########################################################################
+height=8; width=60
+###########################################################################
 Exit()
 ###########################################################################
 {
@@ -321,7 +326,7 @@ ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
 unset TMPDIR
 if [ "x$ALIEN_INSTALLER_PLATFORM" = "x" ]
 then
-  for dir in /usr/share/libtool /usr/share/automake
+  for dir in /usr/share/libtool /usr/share/automake /usr/lib/rpm
   do
     ALIEN_INSTALLER_PLATFORM=`$dir/config.guess`
     break
@@ -411,8 +416,6 @@ InstallerSync()
 InstallerSetup()
 ###########################################################################
 {
-  height=8
-  width=60
   style="--title AliEn-Installer-v$VERSION --clear"
   dialog_file=`mktemp /tmp/dialog.XXXXXX`
 
@@ -634,8 +637,6 @@ InstallerUpdate()
 InstallerUI()
 ###########################################################################
 {
-  height=8
-  width=60
   cmd="./configure "
 
   export TPUT=undef
