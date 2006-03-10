@@ -6,7 +6,7 @@ PATCHFILES = Makefile.in.diff
 
 MASTER_SITES = 
 
-LIBDEPS   = apps/gcc/gcc
+LIBDEPS   = apps/base/libxml2
 
 DESCRIPTION = Globus Toolkit
 URL = http://www.globus.org/
