@@ -1,5 +1,5 @@
 GARNAME    = gapi-apiservice
-GARVERSION = 2.0.1
+GARVERSION = 2.0.3
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = # gclient.cxx.diff
