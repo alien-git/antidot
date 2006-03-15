@@ -7,7 +7,8 @@ FILTER     ?= %
  
 ALL=\
 apps/devel/dialog \
-apps/alien/gapi
+apps/alien/gapi \
+apps/base/xrootd
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
