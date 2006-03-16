@@ -17,10 +17,14 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ENV = env GLOBUS_LOCATION= 
+CONFIGURE_ENV = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
+INSTALL_ENV   = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
+BUILD_ENV     = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/root --etcdir=$(PREFIX)/etc  --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --disable-xrootd --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib --with-monalisa-incdir=$(PREFIX)/include --with-monalisa-libdir=$(PREFIX)/lib
+CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --disable-xrootd --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib --with-monalisa-incdir=$(PREFIX)/include --with-monalisa-libdir=$(PREFIX)/lib
 
 include ../category.mk
 
 unexport prefix exec_prefix bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir infodir lispdir includedir mandir docdir sourcedir
+
+POST_INSTALL = (cd $(WORKSRC); make dist && cd .. && tar -C $(PREFIX) -zxf root_*.tar.gz && rm -rf root_*.tar.gz $(PREFIX)/root && mv $(PREFIX)/root-$(GARVERSION) $(PREFIX)/root)
