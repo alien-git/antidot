@@ -21,7 +21,7 @@ CONFIGURE_ENV = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 INSTALL_ENV   = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 BUILD_ENV     = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 
-CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --disable-xrootd --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib --with-monalisa-incdir=$(PREFIX)/include --with-monalisa-libdir=$(PREFIX)/lib
+CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --with-xrootd=$(PREFIX) --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib --with-monalisa-incdir=$(PREFIX)/include --with-monalisa-libdir=$(PREFIX)/lib
 
 include ../category.mk
 
