@@ -9,7 +9,7 @@ endif
 
 MASTER_SITES = 
 
-LIBDEPS = apps/gcc/gcc apps/server/mysql apps/base/cgsi-gsoap
+LIBDEPS = apps/gcc/gcc apps/server/mysql apps/base/cgsi-gsoap apps/base/zlib
 
 DESCRIPTION = LCG Data Management
 URL = http://lcg.web.cern.ch/LCG
