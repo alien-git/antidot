@@ -1,22 +1,23 @@
 GARNAME = cyrus-sasl
-GARVERSION = 2.1.20
+GARVERSION = 2.1.21a
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = gcc4.diff
+PATCHFILES = # gcc4.diff
 
 MASTER_SITES = http://ftp.andrew.cmu.edu/pub/cyrus-mail/
 
-LIBDEPS = apps/base/openssl
+LIBDEPS = apps/base/globus-toolkit
 
 DESCRIPTION = SASL is the Simple Authentication and Security Layer
 URL = http://asg.web.cmu.edu/sasl/
-AUTHOR =  Walter Wong 
+AUTHOR =  Walter Wong, adapted for AliEn by Artem Harutyunyan and Arsen Hayrapetyan 
+
 LICENSE = SASL 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --enable-gssapi --with-plugindir=$(PREFIX)/sasl --enable-krb4=no --enable-shared --with-dblib=none
+CONFIGURE_ARGS = $(DIRPATHS) --with-globus=$(PREFIX)/globus/ --enable-alientoken -enable-alienssh --enable-aliengssapi --enable-alienplain --disable-cram --disable-digest --disable-otp --disable-gss --disable-anon --enable-krb4=no --with-plugindir=$(PREFIX)/sasl --enable-shared --with-dblib=none --enable-plain
 
 include ../category.mk
