@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = macos.diff
 
-MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/pks/
+MASTER_SITES = http://switch.dl.sourceforge.net/sourceforge/pks/
 
 LIBDEPS = 
 
