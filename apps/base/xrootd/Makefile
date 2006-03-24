@@ -1,13 +1,8 @@
 GARNAME = xrootd
-GARVERSION = 20060105-0311x4
-
+GARVERSION = 20060307-0546
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-
-#ifeq ($(shell uname),Darwin)
-#PATCHFILES = macos.diff
-#endif
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
