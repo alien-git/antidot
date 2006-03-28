@@ -1,5 +1,5 @@
 --- work/MonaLisa.v1.4/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ work/MonaLisa.v1.4/Makefile.new	2005-10-27 15:06:51.555934779 +0200
++++ work/MonaLisa.v1.4/Makefile.new	2006-03-28 10:52:19.000000000 +0200
 @@ -0,0 +1,28 @@
 +build:
 +ifneq ($(shell uname -s),Darwin)
@@ -16,7 +16,7 @@
 +endif
 +
 +install:
-+	rm -rf $(PREFIX)/$(DISTNAME) ; rm -f MonaLisa ; \
++	rm -rf $(PREFIX)/$(DISTNAME) ; rm -f $(PREFIX)/MonaLisa ; \
 +	mkdir -p $(PREFIX); \
 +	find $(DISTNAME) -exec touch {} \; ; \
 +	cp -r $(DISTNAME) $(PREFIX)/ ; \

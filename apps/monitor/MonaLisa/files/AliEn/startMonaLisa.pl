@@ -145,7 +145,7 @@ sub setupConfig {
     my $mlHome = "$ENV{ALIEN_ROOT}/java/MonaLisa";
     my $logDir = $farmHome; # by default, the logs are stored in the farmHome directory
 
-    system("rm -rf $farmHome; mkdir -p $farmHome");
+    system("rm -rf $farmHome 2>/dev/null; mkdir -p $farmHome");
     
     # db.conf.embedded
     setupFile("$mlHome/AliEn/db.conf.embedded", "$farmHome/db.conf.embedded", {}, [], []); 
@@ -210,7 +210,9 @@ sub setupConfig {
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.PARAM_EXPIRE=900");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.ZOMBIE_EXPIRE=14400");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.LDAP_QUERY_INTERVAL=7200");
+    # TODO: Comment these:
 #    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.level=FINEST");
+#    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.RUN_JOB_SYNC_SCRIPT = true");
     
     $rmv = ($config->{MONALISA_REMOVEPROPERTIES_LIST} or []);
     $changes = {
