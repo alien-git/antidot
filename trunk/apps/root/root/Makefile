@@ -1,5 +1,5 @@
 GARNAME = root
-GARVERSION = 5.9.1
+GARVERSION = 5.11.1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
@@ -20,8 +20,6 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 CONFIGURE_ENV = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 INSTALL_ENV   = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 BUILD_ENV     = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
-
-#CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --with-xrootd=$(PREFIX) --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib --with-monalisa-incdir=$(PREFIX)/include --with-monalisa-libdir=$(PREFIX)/lib
 
 CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --enable-xrootd --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib --with-monalisa-incdir=$(PREFIX)/include --with-monalisa-libdir=$(PREFIX)/lib
 
