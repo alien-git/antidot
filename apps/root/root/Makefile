@@ -25,6 +25,9 @@ CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with
 
 include ../category.mk
 
-unexport prefix exec_prefix bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir infodir lispdir includedir mandir docdir sourcedir
+unexport prefix exec_prefix bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir infodir lispdir includedir mandir docdir sourcedir CFLAGS CPPFLAGS CXXFLAGS
 
 POST_INSTALL = (cd $(WORKSRC); make dist && cd .. && tar -C $(PREFIX) -zxf root_*.tar.gz && rm -rf root_*.tar.gz $(PREFIX)/root && mv $(PREFIX)/root-$(GARVERSION) $(PREFIX)/root)
+
+x:
+	printenv
