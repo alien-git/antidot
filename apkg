@@ -25,7 +25,16 @@ PREFIX=${APKG_PREFIX:=/opt/alien}
 PLATFORM=${APKG_PLATFORM:=}
 CONFIG_PLATFORM=${APKG_CONFIG_PLATFORM:=}
 ALIEN_VERSION=1
-AUTOPACKAGE_VERSION=1.05
+AUTOPACKAGE_VERSION=1.05  
+
+
+# release_file=`mktemp /tmp/release.XXXXXX`
+# cache_file=`mktemp /tmp/cache.XXXXXX`
+# dialog_file=`mktemp /tmp/dialog.XXXXXX`
+#wget -O $cache_file http://alien.cern.ch/BitServers > /dev/null 2>&1 
+#list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{if (i==1) {on="on"} else {on="0"}; printf("%s %s %s ",$3,$4,on); i++}'`
+#caches=`grep -v -e "^#" $cache_file | grep $platform | awk -v platform=$APKG_PLATFORM -v release=$ALIEN_RELEASE -F'|' '{printf("%s/%s/%s/download/",$2,platform,release)}' | sed 's/ *//'`
+
 
 ###########################################################################
 RcUpdate()
@@ -216,25 +225,22 @@ then
   done
 
   case $p in
-    i*86-*-linux-gnu)
-      platform=i686-pc-linux-gnu
+   i*86-pc-linux-gnu)
+     platform=i686-pc-linux-gnu
       autoplatform=x86
-      ;;
-    x86_64-*-linux-gnu)
-      platform=i686-pc-linux-gnu
+   ;; 
+   ia64-*-linux-gnu) 
+     platform=ia64-unknown-linux-gnu 
       autoplatform=x86_64
-      ;;
-    powerpc-apple-darwin7.*)
-      platform=powerpc-apple-darwin7.7.0
+   ;;
+   powerpc-apple-darwin8.*.*) 
+     platform=powerpc-apple-darwin8.1.0 
       autoplatform=ppc
-      ;;
-    ia64-*-linux-gnu)
-      platform=ia64-unknown-linux-gnu
+   ;;
+    x86_64-*-linux-gnu)
+    platform=x86_64-unknown-linux-gnu
       autoplatform=ia64
-      ;;
-     *)
-      Error "Unknown or unsupported platform: $platform"
-      ;;  
+   ;;
   esac
 
   PLATFORM=$autoplatform
@@ -318,5 +324,6 @@ do
            ;;
     esac
 done
+
 
 

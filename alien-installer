@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.96  2006/03/07 09:48:58  buncic
+# Adding /usr/lib/rpm to possible locations of config.guess
+#
 # Revision 1.95  2006/03/02 10:15:11  buncic
 # Disabling autodetect for gcc
 #
@@ -715,10 +718,14 @@ InstallerUI()
    powerpc-apple-darwin8.*.*) 
      platform=powerpc-apple-darwin8.1.0 
    ;;
+   i686-apple-darwin8.*)
+     platform=i686-apple-darwin8.6.1
+   ;;
     x86_64-*-linux-gnu)
     platform=x86_64-unknown-linux-gnu
    ;;
   esac
+
 
   if [ `grep -v -e "^#" $cache_file | grep -c $platform` -eq 0 ]
   then
@@ -735,10 +742,13 @@ InstallerUI()
                               'i686-pc-linux-gnu'         'Linux i686' on \
                               'ia64-unknown-linux-gnu'    'Linux ia64' 0  \
                               'x86_64-unknown-linux-gnu'  'Linux Opteron' 0  \
-                              'powerpc-apple-darwin8.1.0' 'MacOS X'    0  2>$dialog_file || Exit 1 
+                              'i686-apple-darwin8.6.1'    'MacOS X (Intel)' 0 \
+                              'powerpc-apple-darwin8.1.0' 'MacOS X (PPC)'    0  2>$dialog_file || Exit 1 
+
       platform=`cat $dialog_file`
       cmd=$cmd"--with-platform=$platform "
   fi
+
 
   ALIEN_INSTALLER_PLATFORM=$platform  
 
