@@ -7,7 +7,7 @@ endif
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 ifeq ($(shell uname),Darwin)
-PATCHFILES = Makefile.org.diff
+PATCHFILES = Makefile.org.diff Configure.diff
 endif
 
 MASTER_SITES = http://www.openssl.org/source/ 
