@@ -1,11 +1,11 @@
 GARNAME = ejabberd
-GARVERSION = 0.9.8
+GARVERSION = 1.0.0
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = Makefile.in.diff
-ifeq ($(shell uname),Darwin)
-PATCHFILES += macos.diff
-endif
+#ifeq ($(shell uname),Darwin)
+#PATCHFILES += macos.diff
+#endif
  
 MASTER_SITES = 
 
