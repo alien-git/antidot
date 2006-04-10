@@ -8,7 +8,7 @@
 +      if ($^O eq 'darwin') {
 +        # Darwin 8/Mac OS X 10.4 has bad Catalan locales: perl bug #35895,
 +        # Apple bug ID# 4139653. It also has a problem in Byelorussian.
-+          if ($Config{osvers} ge '8' and $Config{osvers} le '8.4.0') {
++          if ($Config{osvers} ge '8' and $Config{osvers} le '9') {
 + 	    if ($locale =~ m/.*eu_ES.*/ | $locale =~ m/.*be_BY.*/) {
 +                debug "# Skipping $locale -- buggy in Darwin\n";
 + 	       return;
