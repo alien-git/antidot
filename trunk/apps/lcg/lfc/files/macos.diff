@@ -138,3 +138,14 @@
  SHLIBREQLIBS = -lc
  FC = g77
  
+--- work/lfc-1.3.7/imake/imakemdep.h.ori  2006-04-11 18:03:14.000000000 +0200
++++ work/lfc-1.3.7/imake/imakemdep.h	2005-02-14 11:56:45.000000000 +0100
+@@ -148,7 +148,7 @@
+ #ifdef __ia64__
+ #define DEFAULT_CPP "/usr/bin/cpp"
+ #endif
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ #define DEFAULT_CPP "/usr/bin/cpp"
+ #endif
+ 
