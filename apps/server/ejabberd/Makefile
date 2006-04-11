@@ -3,9 +3,9 @@ GARVERSION = 1.0.0
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = Makefile.in.diff
-#ifeq ($(shell uname),Darwin)
-#PATCHFILES += macos.diff
-#endif
+ifeq ($(shell uname),Darwin)
+PATCHFILES += macos.diff
+endif
  
 MASTER_SITES = 
 
@@ -21,7 +21,7 @@ BUILD_SCRIPTS = $(WORKSRC)/src/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/src/Makefile
 INSTALL_ENV = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --localstatedir=/var/tmp  --with-erlang=$(PREFIX)   --with-expat=$(PREFIX)  --with-openssl=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --localstatedir=/var/tmp  --with-erlang=$(PREFIX)   --with-expat=$(PREFIX)  --with-openssl=$(PREFIX) 
 
 include ../category.mk
 
