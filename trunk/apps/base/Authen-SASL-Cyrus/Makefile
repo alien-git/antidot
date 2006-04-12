@@ -19,7 +19,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS =  LIBS="-L$(PREFIX)/lib -lsasl2" DEFINE="-DSASL2"
+CONFIGURE_ARGS =  INC="-I$(PREFIX)/include" LIBS="-L$(PREFIX)/lib -lsasl2" DEFINE="-DSASL2"
 BUILD_ARGS =  
 
 include ../category.mk
