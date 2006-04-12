@@ -1,11 +1,13 @@
---- work/xrootdnewbuild-20050728.0310x5/src/XrdSecgsi/Makefile.am.ori	2005-10-08 08:20:39.000000000 +0200
-+++ work/xrootdnewbuild-20050728.0310x5/src/XrdSecgsi/Makefile.am	2005-10-08 08:21:39.000000000 +0200
-@@ -18,7 +18,7 @@
+--- work.ori/xrootd-20060307-0546-r1/src/XrdOuc/XrdOucPlatform.cc	2006-01-28 13:13:39.000000000 +0100
++++ work/xrootd-20060307-0546-r1/src/XrdOuc/XrdOucPlatform.cc	2006-04-12 15:36:37.000000000 +0200
+@@ -37,6 +37,10 @@
  
- libXrdSecgsi_la_SOURCES = \
-         XrdSecProtocolgsi.cc XrdSecProtocolgsi.hh XrdSecgsiTrace.hh
--libXrdSecgsi_la_LIBADD = ../XrdCrypto/libXrdCrypto.la
-+libXrdSecgsi_la_LIBADD = ../XrdCrypto/libXrdCrypto.la -lcrypto
+ #endif
  
- 
- xrdgsiproxy_SOURCES = XrdSecgsiProxy.cc
++#if (defined(__i386__) && defined(__APPLE__))
++#define HAS_STRLCPY
++#endif
++
+ #ifndef HAS_STRLCPY
+ extern "C"
+ {
