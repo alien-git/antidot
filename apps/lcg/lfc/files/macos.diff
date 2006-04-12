@@ -149,3 +149,28 @@
  #define DEFAULT_CPP "/usr/bin/cpp"
  #endif
  
+--- work/lfc-1.3.7/config/Imake.tmpl	2005-02-14 11:36:57.000000000 +0100
++++ work/lfc-1.3.7/config/Imake.tmpl.new	2006-04-12 10:22:20.000000000 +0200
+@@ -16,6 +16,9 @@
+ #if __ppc__ && __APPLE__
+ #include <darwin.cf>
+ #endif
++#if __i386__ && __APPLE__
++#include <darwin.cf>
++#endif
+ #if hpux
+ #include <hp.cf>
+ #endif
+--- work/lfc-1.3.7/imake/imakemdep.h	2006-04-11 18:51:06.000000000 +0200
++++ work/lfc-1.3.7/imake/imakemdep.h.new	2006-04-12 10:21:30.000000000 +0200
+@@ -103,6 +103,10 @@
+ #define imake_ccflags "-DSYSV"
+ #endif
+ 
++#if defined( __i386__) && defined( __APPLE__)
++#define imake_ccflags "-DSYSV"
++#endif
++
+ #else /* not CCIMAKE */
+ #ifndef MAKEDEPEND
+ /*
