@@ -8,7 +8,7 @@ endif
 
 MASTER_SITES = ftp://sunsite.cnlab-switch.ch/mirror/OpenLDAP/openldap-release/
 
-LIBDEPS = apps/base/openssl apps/base/cyrus-sasl apps/base/db 
+LIBDEPS = apps/base/openssl apps/base/cyrus-sasl apps/base/db apps/base/gdbm
 
 DESCRIPTION = OpenLDAP
 URL = http://www.openldap.org/
