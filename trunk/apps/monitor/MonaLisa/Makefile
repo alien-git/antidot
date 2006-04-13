@@ -1,8 +1,8 @@
 GARNAME = MonaLisa
-GARVERSION = 1.4.14
+GARVERSION = 1.5.0
 CATEGORIES = java
 DISTFILES = $(GARNAME).v$(GARVERSION).tar.gz
-DISTNAME  = $(GARNAME).v1.4
+DISTNAME  = $(GARNAME).v1.5
 
 PLATFORM = $(shell $(GARDIR)/platform.sh platform)
 
@@ -36,6 +36,6 @@ include ../category.mk
 
 ifeq ($(shell uname -s),Darwin)
 post-build:
-	@sed <work/MonaLisa.v1.4/MonaLisa.v1.4/Service/CMD/ML_SER -e 's/hostname *-f/hostname/g' > work/MonaLisa.v1.4/MonaLisa.v1.4/Service/CMD/ML_SER.mac ; \
-	mv work/MonaLisa.v1.4/MonaLisa.v1.4/Service/CMD/ML_SER{.mac,}
+	@sed <work/MonaLisa.v1.5/MonaLisa.v1.5/Service/CMD/ML_SER -e 's/hostname *-f/hostname/g' > work/MonaLisa.v1.5/MonaLisa.v1.5/Service/CMD/ML_SER.mac ; \
+	mv work/MonaLisa.v1.5/MonaLisa.v1.5/Service/CMD/ML_SER{.mac,}
 endif

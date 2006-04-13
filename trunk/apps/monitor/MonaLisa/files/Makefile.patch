@@ -1,13 +1,13 @@
---- work/MonaLisa.v1.4/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ work/MonaLisa.v1.4/Makefile.new	2006-03-29 10:10:19.000000000 +0200
+--- work/MonaLisa.v1.5/Makefile	1970-01-01 01:00:00.000000000 +0100
++++ work/MonaLisa.v1.5/Makefile.new	2006-03-29 10:10:19.000000000 +0200
 @@ -0,0 +1,31 @@
 +build:
 +ifneq ($(shell uname -s),Darwin)
 +	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) $(JAVA_VERSION) $(MASTER_SITES) && \
 +	tar zxvf $(DISTNAME).tar.gz && \
-+	mv MonaLisa.v1.4/Service/CMD/ML_SER MonaLisa.v1.4/Service/CMD/ML_SER.orig && \
-+	cat MonaLisa.v1.4/Service/CMD/ML_SER.orig | sed -e "s/policy.all/policy.all -Djava.security.egd=file:\/dev\/urandom/" > MonaLisa.v1.4/Service/CMD/ML_SER && \
-+	rm -f MonaLisa.v1.4/Service/CMD/ML_SER.orig && \
++	mv MonaLisa.v1.5/Service/CMD/ML_SER MonaLisa.v1.5/Service/CMD/ML_SER.orig && \
++	cat MonaLisa.v1.5/Service/CMD/ML_SER.orig | sed -e "s/policy.all/policy.all -Djava.security.egd=file:\/dev\/urandom/" > MonaLisa.v1.5/Service/CMD/ML_SER && \
++	rm -f MonaLisa.v1.5/Service/CMD/ML_SER.orig && \
 +	(cd $(DISTNAME) ; \
 +	JAVA_BIN=`ls ../j2sdk*.bin` ; \
 +	echo "yes" | sh $$JAVA_BIN | tee /dev/null ; \
