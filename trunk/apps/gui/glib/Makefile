@@ -18,6 +18,6 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 # Add --with-libiconv=gnu on non-GNU based platforms
-CONFIGURE_ARGS = $(DIRPATHS)
+CONFIGURE_ARGS = $(DIRPATHS) --enable-static
 
 include ../category.mk
