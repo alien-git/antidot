@@ -9,7 +9,7 @@ ALL=\
 apps/devel/dialog \
 apps/alien/gapi   \
 apps/base/xrootd  \
-apps/alien/alien-gssapi \
+apps/alien/gssapi \
 apps/base/eugridpma-carep
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
