@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.97  2006/04/06 14:27:48  buncic
+# Adding Mac Intel platform
+#
 # Revision 1.96  2006/03/07 09:48:58  buncic
 # Adding /usr/lib/rpm to possible locations of config.guess
 #
@@ -294,8 +297,9 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.06
+VERSION=0.07
 ###########################################################################
+style="--title AliEn-Installer-v$VERSION --clear"
 height=8; width=60
 ###########################################################################
 Exit()
@@ -331,8 +335,11 @@ if [ "x$ALIEN_INSTALLER_PLATFORM" = "x" ]
 then
   for dir in /usr/share/libtool /usr/share/automake /usr/lib/rpm
   do
-    ALIEN_INSTALLER_PLATFORM=`$dir/config.guess`
-    break
+    if [ -f $dir/dir/config.guess ]  
+    then 
+       ALIEN_INSTALLER_PLATFORM=`$dir/config.guess`
+       break
+    fi 
   done
 fi
 if [ "x$ALIEN_INSTALLER_PLATFORM" = "x" ]
@@ -558,15 +565,15 @@ InstallerSetup()
           --msgbox 'Configuration failed: Please check the log file.' $height $width
     $ALIEN_DIALOG $style \
           --textbox install.log 0 0  
-    Exit 
+    Exit 1
   else
     $ALIEN_DIALOG $style \
               --msgbox 'You have sucessfuly installed and configured  AliEn gridware on your computer. Enjoy!' $height $width  
  
-    Exit
+    Exit 0
   fi
 
-  Exit
+  Exit 0
 }
 
 ###########################################################################
@@ -603,6 +610,7 @@ InstallerUpdate()
 
 #  export GARAUTODETECT="apps/gcc/gcc"; 
 #  InstallerMakePkg bininstall apps/gcc/gcc; 
+
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
 
   for meta in $ALIEN_INSTALLER_TYPE
@@ -656,8 +664,8 @@ InstallerUI()
   list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{if (i==1) {on="on"} else {on="0"}; printf("%s %s %s ",$3,$4,on); i++}'`
 
   $ALIEN_DIALOG $style \
-            --radiolist "PLEASE SELECT ALIEN RELEASE:" 0 0 0 \
-                        "HEAD" "Curent CVS HEAD (Warning: use at own risk!)" 0 \
+            --radiolist 'PLEASE SELECT ALIEN RELEASE:' 0 0 0 \
+                        'HEAD' 'Curent CVS HEAD (Warning: use at own risk!)' 0 \
                         $list 2>$dialog_file
 
   case $? in
@@ -872,7 +880,7 @@ InstallerUI()
   $ALIEN_DIALOG $style \
           --msgbox 'You have sucessfuly installed  AliEn gridware on your computer.' $height $width
 
-  Exit
+  Exit 0
 }
 
 ###########################################################################
