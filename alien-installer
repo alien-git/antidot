@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.98  2006/04/18 17:03:17  buncic
+# Updating version number
+#
 # Revision 1.97  2006/04/06 14:27:48  buncic
 # Adding Mac Intel platform
 #
@@ -717,7 +720,7 @@ InstallerUI()
   platform=$ALIEN_INSTALLER_PLATFORM
 
   case $platform in
-   i*86-pc-linux-gnu)
+   i*86-*-linux-gnu)
      platform=i686-pc-linux-gnu
    ;; 
    ia64-*-linux-gnu) 
