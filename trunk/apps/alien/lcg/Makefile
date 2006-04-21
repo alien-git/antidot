@@ -2,8 +2,12 @@ GARNAME    = AliEn-LCG
 GARVERSION = 2.06
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
+NOCHECKSUM = $(DISTFILES)
 
-MASTER_SITES = 
+GARCVSNAME = alien-lcg
+GARCVSVERSION = HEAD
+
+MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/ 
 
 LIBDEPS = apps/alien/common apps/lcg/lfc-perl apps/lcg/lcg-util apps/glite/data-transfer-api-perl
 
