@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.99  2006/04/19 07:13:59  buncic
+# Fixing platform
+#
 # Revision 1.98  2006/04/18 17:03:17  buncic
 # Updating version number
 #
@@ -338,7 +341,7 @@ if [ "x$ALIEN_INSTALLER_PLATFORM" = "x" ]
 then
   for dir in /usr/share/libtool /usr/share/automake /usr/lib/rpm
   do
-    if [ -f $dir/dir/config.guess ]  
+    if [ -f $dir/config.guess ]  
     then 
        ALIEN_INSTALLER_PLATFORM=`$dir/config.guess`
        break
