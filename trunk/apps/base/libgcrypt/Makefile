@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES =  ftp://ftp.gnupg.org/gcrypt/alpha/libksba/
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/base/libgpg-error
 
 AUTHOR  = Moritz Schulte
 LICENSE = LGPL
