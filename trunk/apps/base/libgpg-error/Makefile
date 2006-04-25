@@ -20,3 +20,5 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 CONFIGURE_ARGS = --prefix=$(PREFIX)
 
 include ../category.mk
+
+PRE_CONFIGURE = (cd $(WORKSRC)/src; rm  err-codes.h err-sources.h gpg-error.h)
