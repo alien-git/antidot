@@ -21,4 +21,4 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)  --disable-nls --with-gnu-ld --with-included
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC)/src; rm  err-codes.h err-sources.h gpg-error.h)
+PRE_CONFIGURE = (cd $(WORKSRC); rm -rf config.cache; cd src; rm  err-codes.h err-sources.h gpg-error.h)
