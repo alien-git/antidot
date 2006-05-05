@@ -44,6 +44,38 @@ then
        $prefix/bin/alien-perl --bootstrap --prefix $prefix
      fi
      ;;
+   */apps/base/curl)
+     echo Relocating $app
+     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/curl-config
+     ;;
+   */apps/base/libgpg-error)
+     echo Relocating $app
+     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/gpg-error-config
+     ;;
+   */apps/base/libgcrypt)
+     echo Relocating $app
+     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/libgcrypt-config
+     ;;
+   */apps/base/gnutls)
+     echo Relocating $app
+     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/libgnutls-config $prefix/bin/libgnutls-extra-config
+     ;;
+   */apps/base/uuid)
+     echo Relocating $app
+     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/uuid-config
+     ;;
+   */apps/base/libxml2)
+     echo Relocating $app
+     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/xml2-config
+     ;;
+   */apps/gui/freetype2)
+     echo Relocating $app
+     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/freetype-config
+     ;;
+   */apps/devel/pkgconfig)
+     echo Relocating $app
+     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/pkg-config
+     ;;
      *)
       ;;
   esac 
