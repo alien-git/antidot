@@ -1,15 +1,17 @@
 GARNAME = Archive-Zip
-GARVERSION = 1.14
+GARVERSION = 1.16
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/N/NE/NEDKONZ/ http://www.cpan.org/authors/id/N/NE/NEDKONZ/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/N/NE/NEDKONZ/
+
+
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SM/SMPETERS/ http://www.cpan.org/authors/id/S/SM/SMPETERS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/S/SM/SMPETERS/
 
 LIBDEPS = apps/base/Compress-Zlib
 
 DESCRIPTION = Provides an interface to ZIP archive files
-AUTHOR  = Ned Konz
-URL     = http://cpan.uwinnipeg.ca/~nedkonz 
+AUTHOR  = Steve Peters
+URL     = http://cpan.uwinnipeg.ca/~smpeters
 LICENSE = Perl
 
 AUTOTEST = testForAliEnPerlModule Archive::Zip $(GARVERSION)

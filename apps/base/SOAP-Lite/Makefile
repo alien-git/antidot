@@ -1,7 +1,7 @@
 GARNAME = SOAP-Lite
-GARVERSION = 0.60
+GARVERSION = 0.67
 CATEGORIES = perl
-DISTFILES = $(GARNAME)-$(GARVERSION)a.tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BY/BYRNE/SOAP/ http://www.cpan.org/authors/id/B/BY/BYRNE/SOAP/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/B/BY/BYRNE/SOAP/
 
