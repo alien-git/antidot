@@ -1,10 +1,10 @@
 GARNAME = Net_SSLeay.pm
-GARVERSION = 1.25
+GARVERSION = 1.30
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = test.diff
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SA/SAMPO/ http://www.cpan.org/authors/id/S/SA/SAMPO/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/S/SA/SAMPO/
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/F/FL/FLORA/ http://www.cpan.org/authors/id/F/FL/FLORA/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/F/FL/FLORA/
 
 LIBDEPS = apps/base/perl apps/base/openssl
 
