@@ -17,8 +17,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)  --disable-nls --with-gnu-ld --without-libiconv-prefix --without-libintl-prefix
+CONFIGURE_ARGS = --prefix=$(PREFIX) --disable-nls --with-gnu-ld --without-libiconv-prefix
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); rm -rf config.cache; cd src; rm  err-codes.h err-sources.h gpg-error.h)
+PRE_CONFIGURE = (cd $(WORKSRC); rm -rf config.cache; cd src; rm  err-codes.h err-sources.h gpg-error.h; cd ..; autoconf)
