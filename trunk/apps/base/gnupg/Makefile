@@ -6,7 +6,7 @@ PATCHFILES = fix.diff
 
 MASTER_SITES = ftp://ftp.gnupg.org/gcrypt/gnupg/ 
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/base/readline
 
 DESCRIPTION = The GNU Privacy Guard
 URL = http://www.gnupg.org/
