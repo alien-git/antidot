@@ -1,5 +1,5 @@
---- work.ori/xrootd-20060307-0546-r1/src/XrdOuc/XrdOucPlatform.cc	2006-01-28 13:13:39.000000000 +0100
-+++ work/xrootd-20060307-0546-r1/src/XrdOuc/XrdOucPlatform.cc	2006-04-12 15:36:37.000000000 +0200
+--- work.ori/xrootd-20060418-0404-r1/src/XrdOuc/XrdOucPlatform.cc	2006-01-28 13:13:39.000000000 +0100
++++ work/xrootd-20060418-0404-r1/src/XrdOuc/XrdOucPlatform.cc	2006-04-12 15:36:37.000000000 +0200
 @@ -37,6 +37,10 @@
  
  #endif
