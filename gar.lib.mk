@@ -70,14 +70,14 @@ http//%:
 webcvs//%:
 	@(cd $(DOWNLOADDIR) && wget $(WGETOPTS) -O $(GARCVSNAME).tar.gz http://$(dir $*)/$(GARCVSNAME)/$(GARCVSNAME).tar.gz?tarball=1\&only_with_tag=$(GARCVSVERSION))
 	@(cd $(DOWNLOADDIR) && tar zxf $(GARCVSNAME).tar.gz && mv $(GARCVSNAME) $(GARNAME)-$(GARVERSION))
-	@(cd $(DOWNLOADDIR) && tar zcf $(GARNAME)-$(GARVERSION)_src.tar.gz $(GARNAME)-$(GARVERSION)) 
+	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION)) 
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARCVSNAME).tar.gz  ./$(GARNAME)-$(GARVERSION))
 
 # download file from a pserver cvs
 pserver//%:
 	@(cd $(DOWNLOADDIR) && cvs -d :pserver:`echo $(dir $*) | sed -e 's/\/$$//'` co -r $(GARCVSVERSION) $(GARCVSNAME))
 	@(cd $(DOWNLOADDIR) && mv $(GARCVSNAME) $(GARNAME)-$(GARVERSION))
-	@(cd $(DOWNLOADDIR) && tar zcf $(GARNAME)-$(GARVERSION)_src.tar.gz $(GARNAME)-$(GARVERSION))
+	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
 
 # download an ftp URL
@@ -431,6 +431,10 @@ variables:
 	@echo "LIBDEPS = $(LIBDEPS)"
 	@echo "BUILDDEPS = $(BUILDDEPS)"
 	@echo "DISTFILES = $(DISTFILES)"
+	@echo "PKG_BUILD_NUMBER = $(PKG_BUILD_NUMBER)"
+	@echo "BINDISTFILES = $(BINDISTFILES)"
+	@echo "NEW_PKG_BUILD_NUMBER = $(NEW_PKG_BUILD_NUMBER)"
+	@echo "NEW_BINDISTFILES = $(NEW_BINDISTFILES)"
 
 #################### TEST RULES ####################
 
