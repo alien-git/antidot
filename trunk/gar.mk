@@ -18,23 +18,8 @@
 #endif
 
 DISTNAME    ?= $(GARNAME)-$(GARVERSION)
-BINDISTNAME ?= $(GARNAME)-$(GARVERSION)_$(PLATFORM)
   
-BINDISTFILES=$(BINDISTNAME).tar.bz2 
-
 INTERFACE_VERSION = $(shell echo $(subst _,.,$(GARVERSION)) | awk -F'.' '{printf("%0d.%0d.%0d\n",$$1,$$2,$$3)}')
-
-ifeq ($(CATEGORIES),meta)
-  BINDISTFILES=
-endif
-
-ifeq ($(CATEGORIES),source-only)
-  BINDISTFILES=
-endif
-
-ifneq ($(CATEGORIES),perl)
-  NORELOCATE=$(BINDISTFILES)
-endif
 
 GARDIR ?= ../..
 FILEDIR ?= files
@@ -55,6 +40,48 @@ ROOTFROMDEST = $(call DIRSTODOTS,$(DESTDIR))
 ALLFILES    = $(DISTFILES) $(PATCHFILES)
 
 GARFNAME=$(shell (echo $(CURDIR) | sed -e 's%.*/apps/%apps/%' -e 's%.*/meta/%meta/%'))
+
+# Current build number for the whole system
+BUILD_NUMBER=$(shell \
+	if [ ! -f $(GARDIR)/BUILD_NUMBERS ] ; then \
+		echo "BUILD_NUMBER=1" > $(GARDIR)/BUILD_NUMBERS ; \
+	fi ; \
+	grep BUILD_NUMBER $(GARDIR)/BUILD_NUMBERS | cut -f 2 -d= )
+
+ifeq ($(BUILD_NUMBER),)
+	BUILD_NUMBER=$(shell grep -v BUILD_NUMBER $(GARDIR)/BUILD_NUMBERS > $(GARDIR)/BUILD_NUMBERS.swp ; \
+		echo BUILD_NUMBER=1 >> $(GARDIR)/BUILD_NUMBERS.swp ; \
+		sort $(GARDIR)/BUILD_NUMBERS.swp > $(GARDIR)/BUILD_NUMBERS ; \
+		echo 1)
+endif
+
+# Current build number for this package
+PKG_BUILD_NUMBER=$(shell grep $(GARFNAME) $(GARDIR)/BUILD_NUMBERS | cut -f 2 -d= )
+
+# Current BINDIST-NAMES and -FILES
+BINDISTNAME=$(GARNAME)-$(GARVERSION)$(shell if [ -n "$(PKG_BUILD_NUMBER)" ] ; then echo "_" ; fi)$(PKG_BUILD_NUMBER)_$(PLATFORM)
+BINDISTFILES=$(BINDISTNAME).tar.bz2
+
+# These are used for make cache -> if the is rebuilt, the binary will have its build number increased by one
+ifeq ($(PKG_BUILD_NUMBER),)
+	NEW_PKG_BUILD_NUMBER=1
+else
+	NEW_PKG_BUILD_NUMBER=$(shell expr 1 + $(PKG_BUILD_NUMBER))
+endif
+NEW_BINDISTNAME=$(GARNAME)-$(GARVERSION)_$(NEW_PKG_BUILD_NUMBER)_$(PLATFORM)
+NEW_BINDISTFILES=$(NEW_BINDISTNAME).tar.bz2
+
+ifeq ($(CATEGORIES),meta)
+  BINDISTFILES=
+endif
+
+ifeq ($(CATEGORIES),source-only)
+  BINDISTFILES=
+endif
+
+ifneq ($(CATEGORIES),perl)
+  NORELOCATE=$(BINDISTFILES)
+endif
 
 MYNAME ?= $(shell basename $(GARFNAME))
 
@@ -420,19 +447,21 @@ provides: build
 	@[ -f $(COOKIEDIR)/provides ] && cat $(COOKIEDIR)/provides
 
 
-# bindist		- Create a package from an _installed_ port.
-# TODO: actually write it!
+# cache	 - Create a package from an _installed_ port.
+# remove previous binary package
+# don't distribute .la files in lib
+# create the archive with the current build number from the provided files
+# update the build number for this package
 cache: install
 	@mkdir -p $(CACHE_DIR)
-ifeq ($(wildcard $(COOKIEDIR)/provides), $(COOKIEDIR)/provides) 
-	@(grep -v -e '.*/lib.*\.la' $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%') > $(COOKIEDIR)/provides.swp 
-	@($(TAR) jcf $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 -C $(BUILD_PREFIX) -T $(COOKIEDIR)/provides.swp ) || touch $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 
+	@rm -f $(DOWNLOADDIR)/$(BINDISTFILES)
+	@(grep -v -e '.*/lib.*\.la' $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%') > $(COOKIEDIR)/provides.swp
+	@($(TAR) jcf $(DOWNLOADDIR)/$(NEW_BINDISTFILES) -C $(BUILD_PREFIX) -T $(COOKIEDIR)/provides.swp ) || touch $(DOWNLOADDIR)/$(NEW_BINDISTFILES)
 	@rm -f $(COOKIEDIR)/provides.swp
-	@grep -v  $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CHECKSUM_FILE) > $(CHECKSUM_FILE).swp
-	@cat $(CHECKSUM_FILE).swp | sort -u > $(CHECKSUM_FILE) 
-	@rm -f $(CHECKSUM_FILE).swp
-	@cp -f $(DOWNLOADDIR)/$(BINDISTNAME).tar.bz2 $(CACHE_DIR)
-endif
+	@(grep -v $(GARFNAME) $(GARDIR)/BUILD_NUMBERS ; echo $(GARFNAME)=$(NEW_PKG_BUILD_NUMBER)) | sort > $(GARDIR)/BUILD_NUMBERS.swp
+	@mv $(GARDIR)/BUILD_NUMBERS.swp $(GARDIR)/BUILD_NUMBERS
+	@cp -f $(DOWNLOADDIR)/$(NEW_BINDISTFILES) $(CACHE_DIR)
+	$(DONADA)
 	    
 # tarball		- Make a tarball from an install of the package into a scratch dir
 tarball: build
@@ -442,12 +471,11 @@ tarball: build
 	@$(TAR) czvf $(CURDIR)/$(WORKDIR)/$(DISTNAME)-install.tar.gz -C $(SCRATCHDIR) .
 	@$(MAKECOOKIE)
 
-
 # The clean rule.  It must be run if you want to re-download a
 # file after a successful checksum (or just remove the checksum
 # cookie, but that would be lame and unportable).
 clean:
-	@([ -f $(COOKIEDIR)/provides ] && cat $(COOKIEDIR)/provides | (while read file; do rm -f $$file; done)) || true
+	@([ -f $(COOKIEDIR)/provides.all ] && cat $(COOKIEDIR)/provides.all | (while read file; do rm -f $$file; done)) || true
 	@rm -rf $(DOWNLOADDIR) $(COOKIEDIR) $(COOKIEDIR)-* $(WORKSRC) $(WORKDIR) $(EXTRACTDIR) $(SCRATCHDIR) $(SCRATCHDIR)-$(COOKIEDIR) $(SCRATCHDIR)-build *~ autopackage
 
 buildclean:
