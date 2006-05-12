@@ -41,22 +41,8 @@ ALLFILES    = $(DISTFILES) $(PATCHFILES)
 
 GARFNAME=$(shell (echo $(CURDIR) | sed -e 's%.*/apps/%apps/%' -e 's%.*/meta/%meta/%'))
 
-# Current build number for the whole system
-BUILD_NUMBER=$(shell \
-	if [ ! -f $(GARDIR)/BUILD_NUMBERS ] ; then \
-		echo "BUILD_NUMBER=1" > $(GARDIR)/BUILD_NUMBERS ; \
-	fi ; \
-	grep BUILD_NUMBER $(GARDIR)/BUILD_NUMBERS | cut -f 2 -d= )
-
-ifeq ($(BUILD_NUMBER),)
-	BUILD_NUMBER=$(shell grep -v BUILD_NUMBER $(GARDIR)/BUILD_NUMBERS > $(GARDIR)/BUILD_NUMBERS.swp ; \
-		echo BUILD_NUMBER=1 >> $(GARDIR)/BUILD_NUMBERS.swp ; \
-		sort $(GARDIR)/BUILD_NUMBERS.swp > $(GARDIR)/BUILD_NUMBERS ; \
-		echo 1)
-endif
-
 # Current build number for this package
-PKG_BUILD_NUMBER=$(shell grep $(GARFNAME) $(GARDIR)/BUILD_NUMBERS | cut -f 2 -d= )
+PKG_BUILD_NUMBER=$(shell grep $(GARFNAME)= $(GARDIR)/BUILD_NUMBERS | cut -f 2 -d= )
 
 # Current BINDIST-NAMES and -FILES
 BINDISTNAME=$(GARNAME)-$(GARVERSION)$(shell if [ -n "$(PKG_BUILD_NUMBER)" ] ; then echo "_" ; fi)$(PKG_BUILD_NUMBER)_$(PLATFORM)
@@ -452,17 +438,23 @@ provides: build
 # don't distribute .la files in lib
 # create the archive with the current build number from the provided files
 # update the build number for this package
-cache: install
+cache: install create-tarball
+	$(DONADA)
+
+create-tarball:
 	@mkdir -p $(CACHE_DIR)
+ifeq ($(wildcard $(COOKIEDIR)/provides), $(COOKIEDIR)/provides)
 	@rm -f $(DOWNLOADDIR)/$(BINDISTFILES)
+	@rm -f $(CACHE_DIR)/$(BINDISTFILES)
 	@(grep -v -e '.*/lib.*\.la' $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%') > $(COOKIEDIR)/provides.swp
 	@($(TAR) jcf $(DOWNLOADDIR)/$(NEW_BINDISTFILES) -C $(BUILD_PREFIX) -T $(COOKIEDIR)/provides.swp ) || touch $(DOWNLOADDIR)/$(NEW_BINDISTFILES)
 	@rm -f $(COOKIEDIR)/provides.swp
 	@(grep -v $(GARFNAME) $(GARDIR)/BUILD_NUMBERS ; echo $(GARFNAME)=$(NEW_PKG_BUILD_NUMBER)) | sort > $(GARDIR)/BUILD_NUMBERS.swp
 	@mv $(GARDIR)/BUILD_NUMBERS.swp $(GARDIR)/BUILD_NUMBERS
 	@cp -f $(DOWNLOADDIR)/$(NEW_BINDISTFILES) $(CACHE_DIR)
-	$(DONADA)
-	    
+	@$(MAKECOOKIE)
+endif
+
 # tarball		- Make a tarball from an install of the package into a scratch dir
 tarball: build
 	@rm -rf $(COOKIEDIR)/install*
