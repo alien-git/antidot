@@ -1,5 +1,5 @@
 GARNAME = tokenauthz
-GARVERSION = 1.0.12
+GARVERSION = 1.0.13
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -23,7 +23,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-base-directory=$(PREFIX) --enable-perlint --with-xml2-incdir=$(PREFIX)/include/libxml2 --with-xml2-libdir=$(PREFIX)/lib --with-perl=$(PREFIX)/bin/perl
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-base-directory=$(PREFIX) --enable-perlint --with-xml2-incdir=$(PREFIX)/include/libxml2 --with-xml2-libdir=$(PREFIX)/lib --with-perl=$(PREFIX)/bin/perl
 
 include ../category.mk
 

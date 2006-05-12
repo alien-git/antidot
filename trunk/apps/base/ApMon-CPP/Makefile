@@ -20,6 +20,6 @@ TEST_SCRIPTS =
 
 AUTOTEST = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api
 
 include ../category.mk

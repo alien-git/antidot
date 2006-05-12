@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = 
 
-LIBDEPS = apps/alien/gapi apps/server/mysql
+LIBDEPS = apps/alien/gapi apps/server/mysql apps/base/ml-gsoapclient apps/base/ApMon-CPP
 
 DESCRIPTION = ROOT- An Object-Oriented Data Analysis Framework
 URL = http://root.cern.ch
@@ -21,7 +21,7 @@ CONFIGURE_ENV = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 INSTALL_ENV   = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 BUILD_ENV     = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 
-CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --enable-xrootd --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib  --with-mysql-incdir=$(PREFIX)/include/mysql --with-mysql-libdir=$(PREFIX)/lib/mysql --with-monalisa-incdir=$(PREFIX)/include --with-monalisa-libdir=$(PREFIX)/lib
+CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --enable-xrootd --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib  --with-mysql-incdir=$(PREFIX)/include/mysql --with-mysql-libdir=$(PREFIX)/lib/mysql --with-monalisa-incdir=$(PREFIX)/api/include --with-monalisa-libdir=$(PREFIX)/api/lib
 
 include ../category.mk
 
