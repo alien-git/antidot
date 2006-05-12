@@ -21,7 +21,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-perlint --enable-openssl --enable-gsi --enable-tokenauthz --with-base-directory=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint --enable-openssl --enable-gsi --enable-tokenauthz --with-base-directory=$(PREFIX)/api
 
 ifeq ($(shell uname -m),ia64)
 CONFIGURE_ARGS += --with-xccflavour=gcc
