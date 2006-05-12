@@ -433,8 +433,6 @@ variables:
 	@echo "DISTFILES = $(DISTFILES)"
 	@echo "PKG_BUILD_NUMBER = $(PKG_BUILD_NUMBER)"
 	@echo "BINDISTFILES = $(BINDISTFILES)"
-	@echo "NEW_PKG_BUILD_NUMBER = $(NEW_PKG_BUILD_NUMBER)"
-	@echo "NEW_BINDISTFILES = $(NEW_BINDISTFILES)"
 
 #################### TEST RULES ####################
 
