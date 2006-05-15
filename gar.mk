@@ -42,10 +42,10 @@ ALLFILES    = $(DISTFILES) $(PATCHFILES)
 GARFNAME=$(shell (echo $(CURDIR) | sed -e 's%.*/apps/%apps/%' -e 's%.*/meta/%meta/%'))
 
 # Current build number for this package
-PKG_BUILD_NUMBER=$(shell grep $(GARFNAME)= $(GARDIR)/BUILD_NUMBERS | cut -f 2 -d= )
+PKG_BUILD_NUMBER=$(shell if test ! -f $(GARDIR)/BUILD_NUMBERS ; then touch $(GARDIR)/BUILD_NUMBERS ; fi ; grep $(GARFNAME)= $(GARDIR)/BUILD_NUMBERS | cut -f 2 -d= )
 
 # Current BINDIST-NAMES and -FILES
-BINDISTNAME=$(GARNAME)-$(GARVERSION)$(shell if [ -n "$(PKG_BUILD_NUMBER)" ] ; then echo "_" ; fi)$(PKG_BUILD_NUMBER)_$(PLATFORM)
+BINDISTNAME=$(GARNAME)-$(GARVERSION)$(shell if test -n "$(PKG_BUILD_NUMBER)" ; then echo "_" ; fi)$(PKG_BUILD_NUMBER)_$(PLATFORM)
 BINDISTFILES=$(BINDISTNAME).tar.bz2
 
 # These are used for make cache -> if the is rebuilt, the binary will have its build number increased by one
@@ -449,7 +449,7 @@ ifeq ($(wildcard $(COOKIEDIR)/provides), $(COOKIEDIR)/provides)
 	@(grep -v -e '.*/lib.*\.la' $(COOKIEDIR)/provides | sed 's%$(BUILD_PREFIX)/%%') > $(COOKIEDIR)/provides.swp
 	@($(TAR) jcf $(DOWNLOADDIR)/$(NEW_BINDISTFILES) -C $(BUILD_PREFIX) -T $(COOKIEDIR)/provides.swp ) || touch $(DOWNLOADDIR)/$(NEW_BINDISTFILES)
 	@rm -f $(COOKIEDIR)/provides.swp
-	@(grep -v $(GARFNAME) $(GARDIR)/BUILD_NUMBERS ; echo $(GARFNAME)=$(NEW_PKG_BUILD_NUMBER)) | sort > $(GARDIR)/BUILD_NUMBERS.swp
+	@(grep -v $(GARFNAME)= $(GARDIR)/BUILD_NUMBERS ; echo $(GARFNAME)=$(NEW_PKG_BUILD_NUMBER)) | sort > $(GARDIR)/BUILD_NUMBERS.swp
 	@mv $(GARDIR)/BUILD_NUMBERS.swp $(GARDIR)/BUILD_NUMBERS
 	@cp -f $(DOWNLOADDIR)/$(NEW_BINDISTFILES) $(CACHE_DIR)
 	@$(MAKECOOKIE)
