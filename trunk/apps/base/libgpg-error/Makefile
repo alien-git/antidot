@@ -17,7 +17,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-included-gettext 
+CONFIGURE_ARGS = --prefix=$(PREFIX) --disable-nls --with-included-gettext 
 
 include ../category.mk
 
