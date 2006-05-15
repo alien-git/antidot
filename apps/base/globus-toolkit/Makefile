@@ -6,7 +6,8 @@ PATCHFILES = Makefile.in.diff
 
 MASTER_SITES = 
 
-LIBDEPS   = apps/base/libxml2
+LIBDEPS   = apps/base/libxml2 
+BUILDDEPS = apps/base/perl
 
 DESCRIPTION = Globus Toolkit
 URL = http://www.globus.org/
