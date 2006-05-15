@@ -1,5 +1,5 @@
---- work/tokenauthz-1.0.12/Makefile.am.ori	2005-10-07 09:38:01.000000000 +0200
-+++ work/tokenauthz-1.0.12/Makefile.am	2005-10-07 09:38:21.000000000 +0200
+--- work/tokenauthz-1.0.13/Makefile.am.ori	2005-10-07 09:38:01.000000000 +0200
++++ work/tokenauthz-1.0.13/Makefile.am	2005-10-07 09:38:21.000000000 +0200
 @@ -23,7 +23,7 @@
  
  bin_PROGRAMS = tokenauthztest
