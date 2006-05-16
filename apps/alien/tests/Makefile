@@ -6,10 +6,10 @@ NOCHECKSUM = $(DISTFILES)
 
 PATCHFILES = 
 
-GARCVSNAME    = org.glite.alien.tests
-GARCVSVERSION = glite-alien-tests_branch_2_0_0
+GARCVSNAME    = alien-tests
+GARCVSVERSION = HEAD
 
-MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
+MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/
 
 LIBDEPS = apps/alien/common apps/alien/admin apps/alien/gssapi apps/alien/lcg
 
