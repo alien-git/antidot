@@ -132,7 +132,7 @@ sub stopRunningServices {
 	if(open(PIDFILE, $pidFile)){
 	    my $pid = <PIDFILE>;
 	    chomp $pid;
-	    kill 15, $pid;
+	    kill(15, $pid) if($pid ne 'stopped');
 	}else{
 	    die "Although it exists, could't read the vobox_mon pid file '$pidFile'.\n";
 	}
