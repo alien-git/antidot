@@ -26,3 +26,11 @@ if(-e $pidFile){
         }
 }
 
+# put 'stopped' in the current pid file
+if(open(PIDFILE, ">$pidFile")){
+        print PIDFILE "stopped\n";
+        close PIDFILE;
+}else{
+        die "vobox_mon: Couldn't create the pid file '$pidFile'.\n"
+}
+
