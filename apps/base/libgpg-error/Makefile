@@ -3,6 +3,8 @@ GARVERSION = 1.3
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+PATCHFILES = macosx.diff
+
 MASTER_SITES =  ftp://ftp.gnupg.org/gcrypt/libgpg-error/
 
 LIBDEPS = apps/gcc/gcc
@@ -17,7 +19,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --disable-nls --with-included-gettext 
+CONFIGURE_ARGS = --prefix=$(PREFIX)
 
 include ../category.mk
 
