@@ -10,6 +10,12 @@ PREFIX=$prefix
 
 PLATFORM=$(./platform.sh platform)
 
+GCC_VERSION=$(cd apps/gcc/gcc; make version | awk '{print $2}')
+GCC_PREFIX=$PREFIX/$PLATFORM/$GCC_VERSION
+GCC_INC_DIR=$GCC_PREFIX/include
+GCC_LIB_DIR=$GCC_PREFIX/lib
+GCC_BIN_DIR=$GCC_PREFIX/bin
+
 GLOBUS_FLAVOR=$(./platform.sh flavor)
 
 AC_ARG_WITH(globus_location,
@@ -57,6 +63,20 @@ AC_ARG_WITH(masked,
             [MASKED=$masked],
             [MASKED= ])
 
+AC_ARG_WITH(gcc_path,
+            [  --with-gcc-path=string     full path to gcc],
+            [GCC_PATH=$with_gcc_path;
+            libgcca=`$GCC_PATH -print-libgcc-file-name`;
+            GCC_LIB_DIR=`dirname $libgcca`;
+            GCC_BIN_DIR=`dirname $GCC_PATH`;
+            GCC_PREFIX=`dirname $GCC_BIN_DIR`;
+            GCC_INC_DIR="$GCC_PREFIX/include";
+            GCC_MASKED="apps/gcc/gcc";
+            GCC_VERSION=`$GCC_PATH -dumpversion`],
+            [GCC_MASKED=])
+
+MASKED="$GCC_MASKED $MASKED"
+
 AC_SUBST(MASKED)
 AC_SUBST(CACHE_DIR)
 AC_SUBST(CACHE_URL)
@@ -68,6 +88,11 @@ AC_SUBST(GPT_LOCATION)
 AC_SUBST(GLOBUS_LOCATION)
 AC_SUBST(GLOBUS_FLAVOR)
 AC_SUBST(RELEASE)
+AC_SUBST(GCC_VERSION)
+AC_SUBST(GCC_PREFIX)
+AC_SUBST(GCC_INC_DIR)
+AC_SUBST(GCC_LIB_DIR)
+AC_SUBST(GCC_BIN_DIR)
 
 AC_OUTPUT(alien.conf.mk)
 
