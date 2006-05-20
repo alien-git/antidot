@@ -1,0 +1,132 @@
+--- ./work/alien-tests-2.2.1/src/test/alien/03-createorgdb.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/03-createorgdb.t	2005-09-30 12:08:58.000000000 +0200
+@@ -57,7 +57,7 @@
+ 
+ print "Checking that the databases are there...";
+ 
+-my $hostName=`hostname -f`;
++my $hostName=`hostname`;
+ chomp $hostName;
+ my $portNumber="3307";
+ my $mysqlPasswd="pass";
+--- ./work/alien-tests-2.2.1/src/test/alien/04-createorgldap.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/04-createorgldap.t	2005-09-30 12:08:48.000000000 +0200
+@@ -23,7 +23,7 @@
+ $< and $user="Y\n";
+ my $org=`hostname -s`;
+ chomp $org;
+-my $fqd=`hostname -f`;
++my $fqd=`hostname`;
+ chomp $fqd;
+ open (FILE, "|$ENV{ALIEN_ROOT}/bin/alien -x $ENV{ALIEN_ROOT}/scripts/CreateOrgLDAP.pl");
+ 
+--- ./work/alien-tests-2.2.1/src/test/alien/08-createKeys.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/08-createKeys.t	2005-09-30 12:08:42.000000000 +0200
+@@ -35,7 +35,7 @@
+ 
+ sub uploadKey {
+   my $c=AliEn::Config->new();
+-  my $host=`hostname -f `;
++  my $host=`hostname`;
+   chomp $host;
+   print "Uploading the public key to ldap...";
+   my $ldap = Net::LDAP->new("$host:8389", "onerror" => "warn") 
+--- ./work/alien-tests-2.2.1/src/test/alien/122-MonaLisaStart.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/122-MonaLisaStart.t	2005-09-30 12:08:34.000000000 +0200
+@@ -19,7 +19,7 @@
+ 
+   my $host=`hostname -s`;
+   chomp $host;
+-  my $fqdn=`hostname -f`;
++  my $fqdn=`hostname`;
+   chomp $fqdn;
+   
+   my $config=new AliEn::Config;
+--- ./work/alien-tests-2.2.1/src/test/alien/25-webpages.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/25-webpages.t	2005-09-30 12:08:27.000000000 +0200
+@@ -11,7 +11,7 @@
+ system(" lynx -version > /dev/null") and print "Error! lynx is not in the path\n$! $?\n" and exit(-2);
+ 
+ print "ok\nGetting the default page...";
+-my $host=`hostname -f `;
++my $host=`hostname`;
+ chomp $host;
+ open (FILE, "lynx -dump http://$host/$config->{ORG_NAME} |") 
+   or print "Error doing lynx!!\n$! $?\n" and exit(-2);
+--- ./work/alien-tests-2.2.1/src/test/alien/26-ProcessMonitorOutput.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/26-ProcessMonitorOutput.t	2005-09-30 12:08:22.000000000 +0200
+@@ -38,7 +38,7 @@
+ 
+ 	
+   waitForStatus($cat, $id, "RUNNING") or exit(-2);
+-  my $host=`hostname -f`;
++  my $host=`hostname`;
+   chomp $host;
+ 
+   print "The father asks http://$host:$cat->{CONFIG}->{CLUSTERMONITOR_PORT} for the output of the job $id\n";
+--- ./work/alien-tests-2.2.1/src/test/alien/39-Jobwebpage.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/39-Jobwebpage.t	2005-09-30 12:08:17.000000000 +0200
+@@ -23,7 +23,7 @@
+ 	print "Checking if lynx exists...";
+ 	system(" lynx -version > /dev/null") and print "Error! lynx is not in the path\n$! $?\n" and exit(-2);
+ 
+-	my $host=`hostname -f `;
++	my $host=`hostname`;
+ 	chomp $host;
+ 	
+ 	my $page="http://$host/$config->{ORG_NAME}/main?task=job&jobID=$id";
+--- ./work/alien-tests-2.2.1/src/test/alien/68-dbthreads.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/68-dbthreads.t	2005-09-30 12:08:01.000000000 +0200
+@@ -3,7 +3,7 @@
+ 
+ my $checkProcess=createCheckProcess(10);
+ 
+-my $host=`hostname -f`;
++my $host=`hostname`;
+ chomp $host;
+ my $connect={DRIVER=>"mysql", HOST=>"$host:3307", DB=>"alien_system"};
+ my $cdirect={DRIVER=>"mysql", HOST=>"$host:3307", DB=>"alien_system",
+--- ./work/alien-tests-2.2.1/src/test/alien/73-updateCE.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/73-updateCE.t	2005-09-30 12:07:56.000000000 +0200
+@@ -2,7 +2,7 @@
+ use AliEn::Database::TaskQueue;
+ 
+ print "Connecting to ldap...";
+-my $host=`hostname -f `;
++my $host=`hostname`;
+ chomp $host;
+ my $d=AliEn::Database::TaskQueue->new({DRIVER=>"mysql", HOST=>"$host:3307", DB=>"processes", "ROLE", "admin"}) or print "Error connecting to the database\n" and exit(-2);
+ my $number=$d->queryValue("SELECT maxjobs FROM HOSTS where hostName='$d->{CONFIG}->{HOST}'");
+--- ./work/alien-tests-2.2.1/src/test/alien/75-PackMan.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/75-PackMan.t	2005-09-30 12:07:29.000000000 +0200
+@@ -14,7 +14,7 @@
+ my $config=new AliEn::Config;
+ 
+ my $key="name=testP,ou=PackMan,ou=Services,$config->{FULLLDAPDN}";
+-my $host=`hostname -f`;
++my $host=`hostname`;
+ chomp $host;
+ 
+ print "Putting host to '$host'\n";
+--- ./work/alien-tests-2.2.1/src/test/alien/76-jobWithPackage.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/76-jobWithPackage.t	2005-09-30 12:07:24.000000000 +0200
+@@ -111,7 +111,7 @@
+ ";
+   chmod 0755, "$dir/.alienEnvironment";
+   system ("tar zcvf MyTar.tar .alienEnvironment $package") and print "Error doing the tar file " and return;
+-  my $host=`hostname -f`;
++  my $host=`hostname`;
+   chomp $host;
+   my $done=$cat->execute("add", $lfn, "file://$host$dir/MyTar.tar");
+   system("rm", "-rf", $dir);
+--- ./work/alien-tests-2.2.1/src/test/alien/94-inputpfn.t.ori	2005-09-30 12:06:54.000000000 +0200
++++ ./work/alien-tests-2.2.1/src/test/alien/94-inputpfn.t	2005-09-30 12:07:18.000000000 +0200
+@@ -25,7 +25,7 @@
+   
+   $cat->execute("mkdir", "-p","bin", "jdl") or exit(-2);
+   my $content="blablabla.".time;
+-  my $hostname=`hostname -f`;
++  my $hostname=`hostname`;
+   chomp $hostname;
+   addFile($cat, "bin/CheckPFN.sh","#!/bin/bash
+ date
