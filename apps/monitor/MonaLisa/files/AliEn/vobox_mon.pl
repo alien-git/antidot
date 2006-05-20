@@ -3,10 +3,10 @@
 # Monitor the VOBOX host and the services running on it.
 # The data is sent to the local ML on site, using ApMon.
 #
+# Stefano Bagnasco, <bagnasco@to.infn.it>
 # Catalin Cirstoiu, <Catalin.Cirstoiu@cern.ch>
 #
 # Changelog
-# 2006-06-16 - If in the pidfile we find 'stopped', we don't start anymore.
 # 2005-12-06 - Host monitoring is provided by ApMon.
 
 use strict;
@@ -23,7 +23,6 @@ if(-e $pidFile){
 	if(open(PIDFILE, $pidFile)){
 		my $oldPid = <PIDFILE>;
 		chomp $oldPid;
-		exit(0) if($oldPid eq "stopped");
 		kill 15, $oldPid;
 	}else{
 		die "vobox_mon: Although it exists, could't read the vobox_mon pid file '$pidFile'.\n";

@@ -1,5 +1,5 @@
 GARNAME = Term-ReadLine-Gnu
-GARVERSION = 1.16
+GARVERSION = 1.15
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -21,7 +21,7 @@ ifeq ($(ALICBS),)
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 endif
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)
+CONFIGURE_ARGS = --includedir=$(PREFIX)/include --libdir=$(PREFIX)/lib  
 
 include ../category.mk
 

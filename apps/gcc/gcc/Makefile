@@ -18,8 +18,8 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 AUTOTEST=locateCommand gcc -dumpversion
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/$(PLATFORM)/$(GARVERSION) --enable-threads=posix --enable-clocale=gnu --enable-__cxa_atexit --enable-languages=c,c++,f77 --enable-shared --disable-checking
+CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-threads=posix --enable-clocale=gnu --enable-__cxa_atexit --enable-languages=c,c++,f77 --enable-shared --disable-checking
 
 include ../category.mk
 
-POST_INSTALL = (cd $(GCC_BIN_DIR); rm -rf cc; ln -s gcc cc )
+POST_INSTALL = (cd $(PREFIX)/bin; rm -rf cc; ln -s gcc cc ) 

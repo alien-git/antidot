@@ -1,8 +1,7 @@
 # Starting script for ML
-# v0.3.3
+# v0.3.2
 # Catalin.Cirstoiu@cern.ch
 
-# 05/05/2006 - if site is LCG, then also monitor the lcg services status
 # 13/12/2005 - added support for vobox_mon.pl to monitor the vo-box
 # 02/11/2005 - don't be so sure that most ENV variables exist (like ALIEN_LDAP_DN)
 # 23/10/2005 - take into account the location settings from the ML LDAP config
@@ -132,7 +131,7 @@ sub stopRunningServices {
 	if(open(PIDFILE, $pidFile)){
 	    my $pid = <PIDFILE>;
 	    chomp $pid;
-	    kill(15, $pid) if($pid ne 'stopped');
+	    kill 15, $pid;
 	}else{
 	    die "Although it exists, could't read the vobox_mon pid file '$pidFile'.\n";
 	}
@@ -186,11 +185,6 @@ sub setupConfig {
     # myFarm.conf
     $add = ($config->{MONALISA_ADDMODULES_LIST} or []);
     $rmv = ($config->{MONALISA_REMOVEMODULES_LIST} or []);
-    
-    if($config->{SITE} eq "LCG"){
-    	# for LCG sites, also run this
-	push(@$add, '*LCGServicesStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/lcg_vobox_services"}%900');
-    }
     $changes = {};
     setupFile("$mlHome/AliEn/myFarm.conf", "$farmHome/myFarm.conf", $changes, $add, $rmv);
     
@@ -264,9 +258,9 @@ sub setupConfig {
 sub setupCrontab {
     my $farmHome = shift;
     
-    my $ml_line = "0,20,40 * * * * /bin/sh -c 'export PATH=/bin:\$PATH ; export CONFDIR=$farmHome ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE'\n";
-    my $lines = `env VISUAL=cat crontab -l | grep -v '/Service/CMD/CHECK_UPDATE'`;
-    if(open(CRON, "| crontab -")){
+    my $ml_line = "0,20,40 * * * * /bin/sh -c 'export PATH=/bin:\$PATH ; export CONFDIR=$farmHome ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE'";
+    my $lines = `env VISUAL=cat crontab -e 2>/dev/null | grep -v '/Service/CMD/CHECK_UPDATE'`;
+    if(open(CRON, "| crontab - &>/dev/null")){
 	print CRON $lines;
 	print CRON $ml_line;
 	close(CRON);
