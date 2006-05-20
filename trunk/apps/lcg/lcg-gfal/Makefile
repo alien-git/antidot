@@ -3,9 +3,9 @@ GARVERSION = 1.7.3
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)p2.tar.gz
 PATCHFILES = srm_ifce.c.diff
-ifeq ($(shell uname -s),Darwin)
+#ifeq ($(shell uname -s),Darwin)
 PATCHFILES += macos.diff
-endif
+#endif
 MASTER_SITES =  
 
 LIBDEPS = apps/lcg/lfc apps/server/openldap
