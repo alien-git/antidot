@@ -1,5 +1,5 @@
 GARNAME    = gapi-apiservice
-GARVERSION = 2.0.4
+GARVERSION = 2.0.5
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
@@ -22,5 +22,6 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-dist-location=$(PREFIX)/api --sys
 
 include ../category.mk
 
-PRE_INSTALL = (mkdir -p $(PREFIX)/api/etc)
+PRE_INSTALL = (mkdir -p $(PREFIX)/api/etc; cd $(WORKSRC); make clientsrc)
+POST_INSTALL = ( cd $(WORKSRC); make install-clientsrc)
 
