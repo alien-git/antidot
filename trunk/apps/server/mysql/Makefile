@@ -20,6 +20,3 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio  --with-openssl=$(PREFIX) --with-
 
 CONFIGURE_ENV  = env LDFLAGS="-L$(PREFIX)/lib" CPPFLAGS="-I$(PREFIX)/include"
 
-include ../category.mk
-
-PRE_INSTALL = (strip $(WORKSRC)/sql/mysqld)
