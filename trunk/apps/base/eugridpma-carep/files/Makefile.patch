@@ -7,5 +7,6 @@
 +	mkdir -p $(GLOBUS_LOCATION)/share/certificates
 +	for dir in `awk '{print $$1}' accredited.in` ; do \
 +		cp -f $$dir/* $(GLOBUS_LOCATION)/share/certificates; \
++		rm  -f $(GLOBUS_LOCATION)/share/certificates/*.r0; \
 +	done
 +
