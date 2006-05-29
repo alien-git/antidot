@@ -76,6 +76,16 @@ then
      echo Relocating $app
      perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/pkg-config
      ;;
+   */apps/base/eugridpma-carep)
+     echo Relocating $app
+     if [ -d /etc/grid-security/certificates ]
+     then 
+       cd $prefix; 
+       rm `grep -v /share/alien $prefix/share/alien/packages/eugridpma-carep*`
+       cd globus/globus/share/certificates
+       ln -s /etc/grid-security/certificates/* .
+     fi
+     ;;
      *)
       ;;
   esac 
