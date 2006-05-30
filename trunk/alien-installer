@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.100  2006/04/24 09:23:09  buncic
+# Fixed bug in guessing the platform
+#
 # Revision 1.99  2006/04/19 07:13:59  buncic
 # Fixing platform
 #
@@ -303,10 +306,11 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.07
+VERSION=0.08
 ###########################################################################
 style="--title AliEn-Installer-v$VERSION --clear"
 height=8; width=60
+wget="env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= wget"
 ###########################################################################
 Exit()
 ###########################################################################
@@ -423,7 +427,7 @@ InstallerSync()
  (
   mkdir -p $ALIEN_INSTALLER_HOME || Error "Error: Cannot create $ALIEN_INSTALLER_HOME directory"
   cd $ALIEN_INSTALLER_HOME
-  wget -O makefiles.tar.bz2 ${ALIEN_BITS_URL}../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from ${ALIEN_BITS_URL}../makefiles.tar.bz2"
+  $wget -O makefiles.tar.bz2 ${ALIEN_BITS_URL}../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from ${ALIEN_BITS_URL}../makefiles.tar.bz2"
   tar jxf makefiles.tar.bz2 && rm makefiles.tar.bz2 
   ) >> install.log 2>&1
 }
@@ -664,8 +668,8 @@ InstallerUI()
   cache_file=`mktemp /tmp/cache.XXXXXX`
   dialog_file=`mktemp /tmp/dialog.XXXXXX`
 
-  wget -O $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
-  wget -O $cache_file http://alien.cern.ch/BitServers > /dev/null 2>&1 
+  $wget -O $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
+  $wget -O $cache_file http://alien.cern.ch/BitServers > /dev/null 2>&1 
 
   list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{if (i==1) {on="on"} else {on="0"}; printf("%s %s %s ",$3,$4,on); i++}'`
 

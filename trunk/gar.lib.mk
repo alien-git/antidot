@@ -64,11 +64,11 @@ $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 
 # download an http URL
 http//%:
-	@wget -c $(WGETOPTS) -P $(DOWNLOADDIR) http://$*
+	@$(WGET) -c $(WGETOPTS) -P $(DOWNLOADDIR) http://$*
 
 # download file from cvsweb
 webcvs//%:
-	@(cd $(DOWNLOADDIR) && wget $(WGETOPTS) -O $(GARCVSNAME).tar.gz http://$(dir $*)/$(GARCVSNAME)/$(GARCVSNAME).tar.gz?tarball=1\&only_with_tag=$(GARCVSVERSION))
+	@(cd $(DOWNLOADDIR) && $(WGET) $(WGETOPTS) -O $(GARCVSNAME).tar.gz http://$(dir $*)/$(GARCVSNAME)/$(GARCVSNAME).tar.gz?tarball=1\&only_with_tag=$(GARCVSVERSION))
 	@(cd $(DOWNLOADDIR) && tar zxf $(GARCVSNAME).tar.gz && mv $(GARCVSNAME) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION)) 
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARCVSNAME).tar.gz  ./$(GARNAME)-$(GARVERSION))
@@ -82,7 +82,7 @@ pserver//%:
 
 # download an ftp URL
 ftp//%:
-	@wget -c $(WGETOPTS) -P $(DOWNLOADDIR) ftp://$*
+	@$(WGET) -c $(WGETOPTS) -P $(DOWNLOADDIR) ftp://$*
 
 # link to a local copy of the file
 # (absolute path)
