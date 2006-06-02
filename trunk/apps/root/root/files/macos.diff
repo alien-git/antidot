@@ -1,5 +1,5 @@
---- work/root-5.11.4/alien/src/TAlienSystem.cxx	2006-05-30 17:34:17.000000000 +0200
-+++ work/root-5.11.4/alien/src/TAlienSystem.cxx.new	2006-06-01 15:41:21.000000000 +0200
+--- work/root-5.11.6/alien/src/TAlienSystem.cxx	2006-05-30 17:34:17.000000000 +0200
++++ work/root-5.11.6/alien/src/TAlienSystem.cxx.new	2006-06-01 15:41:21.000000000 +0200
 @@ -315,10 +315,10 @@
     }
  #if defined(R__SEEK64)
