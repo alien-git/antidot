@@ -3,6 +3,20 @@
 prefix=$1; shift 1
 app=$1; shift 1
 
+case $app in 
+   */apps/base/eugridpma-carep)
+     echo Relocating $app
+     if [ -d /etc/grid-security/certificates ]
+     then 
+       cd $prefix; 
+       rm `grep -v /share/alien $prefix/share/alien/packages/eugridpma-carep*`
+       cd globus/share/certificates && ln -s /etc/grid-security/certificates/* .
+     fi
+     ;;
+    *)
+     ;;
+esac
+
 build_prefix=/opt/alien
 if [ "$prefix" != "$build_prefix" ]
 then
@@ -75,15 +89,6 @@ then
    */apps/devel/pkgconfig)
      echo Relocating $app
      perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/pkg-config
-     ;;
-   */apps/base/eugridpma-carep)
-     echo Relocating $app
-     if [ -d /etc/grid-security/certificates ]
-     then 
-       cd $prefix; 
-       rm `grep -v /share/alien $prefix/share/alien/packages/eugridpma-carep*`
-       cd globus/share/certificates && ln -s /etc/grid-security/certificates/* .
-     fi
      ;;
      *)
       ;;
