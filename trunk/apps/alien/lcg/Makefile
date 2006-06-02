@@ -1,11 +1,11 @@
 GARNAME    = AliEn-LCG
-GARVERSION = 2.07
+GARVERSION = 2.10
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
 
 GARCVSNAME = alien-lcg
-GARCVSVERSION = HEAD
+GARCVSVERSION = v2-10
 
 MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/ 
 
