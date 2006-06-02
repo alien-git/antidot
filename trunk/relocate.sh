@@ -6,11 +6,17 @@ app=$1; shift 1
 case $app in 
    */apps/base/eugridpma-carep)
      echo Relocating $app
-     if [ -d /etc/grid-security/certificates ]
-     then 
-       cd $prefix; 
-       rm `grep -v /share/alien $prefix/share/alien/packages/eugridpma-carep*`
-       cd globus/share/certificates && ln -s /etc/grid-security/certificates/* .
+     if [ -d $prefix/globus/share/certificates ] 
+     then
+       for dir in $X509_CERT_DIR /etc/grid-security/certificates
+       do
+         if [ -d $dir ]
+         then 
+           (cd $prefix; rm `grep -v /share/alien $prefix/share/alien/packages/eugridpma-carep*`)
+           cd $prefix/globus/share/certificates && ln -s $dir/* .
+           break
+         fi
+       done
      fi
      ;;
     *)
