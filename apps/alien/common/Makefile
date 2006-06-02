@@ -1,5 +1,5 @@
 GARNAME    = alien-common
-GARVERSION = 2.2.9
+GARVERSION = 2.2.10
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
