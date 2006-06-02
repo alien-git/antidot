@@ -45,11 +45,11 @@ ProvidesStop()
         done
       fi
       sort -u $COOKIEDIR/provides.all | grep -v /.packlist > $COOKIEDIR/provides 
-      echo $PREFIX/share/alien/packages/$1-$2 >> $COOKIEDIR/provides 
+      echo $PREFIX/share/alien/packages/$1-${2}_${3} >> $COOKIEDIR/provides 
     fi
     ;;
   esac
-  sed -e "s%^/opt/alien%\.%g"  $COOKIEDIR/provides > $PREFIX/share/alien/packages/$1-$2
+  sed -e "s%^/opt/alien%\.%g"  $COOKIEDIR/provides > $PREFIX/share/alien/packages/$1-${2}_${3}
 }
 
 
@@ -65,7 +65,7 @@ case $1 in
        exit
        ;;
   *) 
-       echo "Usage: provides.sh <PREFIX> <COOKIEDIR> <start|stop>"
+       echo "Usage: provides.sh <PREFIX> <COOKIEDIR> <start | stop GAR_NAME GAR_VERSION BUILD_NUMBER>"
        exit 1
        ;;
 esac
