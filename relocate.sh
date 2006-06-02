@@ -82,8 +82,7 @@ then
      then 
        cd $prefix; 
        rm `grep -v /share/alien $prefix/share/alien/packages/eugridpma-carep*`
-       cd globus/globus/share/certificates
-       ln -s /etc/grid-security/certificates/* .
+       cd globus/share/certificates && ln -s /etc/grid-security/certificates/* .
      fi
      ;;
      *)
