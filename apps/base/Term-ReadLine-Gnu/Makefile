@@ -21,7 +21,7 @@ ifeq ($(ALICBS),)
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 endif
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)
+CONFIGURE_ARGS = --includedir=$(PREFIX)/include --libdir=$(PREFIX)/lib
 
 include ../category.mk
 
