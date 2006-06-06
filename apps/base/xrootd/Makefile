@@ -4,7 +4,7 @@ GARVERSION = 20060418-0404-r1
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-PATCHFILES = macos.diff
+PATCHFILES = macos.diff apmon.diff
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
@@ -29,4 +29,5 @@ endif
 
 include ../category.mk
 
+PRE_CONFIGURE = ( echo "PRE CONFIGURE" && cd $(WORKSRC) && $(PREFIX)/bin/aclocal && $(PREFIX)/bin/automake -a && $(PREFIX)/bin/autoconf )
 POST_INSTALL = ( rm -rf $(PREFIX)/bin/xrootdutils )
