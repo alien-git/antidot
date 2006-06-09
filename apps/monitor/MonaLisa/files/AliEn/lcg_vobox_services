@@ -349,38 +349,7 @@ sub test9 {
 	}
 }
 
-###################################################################
-# 11th TEST
-# Performing some Alien tests
-###################################################################
-sub test10 {
-	open TMP4, ">/tmp/myAtest$$";
-	print TMP4 "Testing String\n";
-	close TMP4;
-    
-	my $err = "Execution problems";
-
-	my @test_cmd = (
-		"alien -exec add test" 		=> "alien -exec add myTestFile$$ /tmp/myAtest$$ > /dev/null 2> /dev/null",
-		"alien -exec whereis test" 	=> "alien -exec whereis myTestFile$$ > /dev/null 2> /dev/null",
-		"alien -exec get test"		=> "alien -exec get myTestFile$$ > /dev/null 2> /dev/null",
-		"alien -exec rm test"		=> "alien -exec rm myTestFile$$  > /dev/null 2> /dev/null",
-	);
-
-	for(my $i = 0; $i < @test_cmd; $i+=2){
-		my ($test, $cmd) = ($test_cmd[$i], $test_cmd[$i+1]);
-		system($cmd);
-		if($?){
-			dumpStatus($test, 1, $err);
-		}else{
-			dumpStatus($test, 0);
-		}
-	}
-  	
-	system "rm /tmp/myAtest$$";
-}
-
-for(my $i = 1; $i < 11; $i++){
+for(my $i = 1; $i < 10; $i++){
 #	print "Doing test $i...\n";
 	eval "test$i()";
 }
