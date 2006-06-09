@@ -9,8 +9,7 @@ GARCVSVERSION = glite-alien-srm_branch_2_0_0
 
 MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/
 
-LIBDEPS = apps/base/perl apps/base/cgsi-gsoap
-BUILDDEPS = apps/glite/glite
+LIBDEPS = apps/base/perl apps/base/cgsi-gsoap 
 
 DESCRIPTION = AliEn interface to SRM
 URL = http://alien.cern.ch

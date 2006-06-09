@@ -5,7 +5,7 @@ DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
 
 GARCVSNAME = alien-lcg
-GARCVSVERSION = HEAD
+GARCVSVERSION = v2-10
 
 MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/ 
 
