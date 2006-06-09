@@ -1,0 +1,25 @@
+--- work/gfw-0.1.1/Makefile.in	Fri Oct 14 15:15:04 2005
++++ work/gfw-0.1.1/Makefile.in.new	Fri Oct 14 15:17:00 2005
+@@ -35,7 +35,7 @@
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -c gfw-server.c
+ 
+ test:
+-	
++
+ install: $(LIB_NAME) gfw.h
+ 	rm -f $(INSTALL_DIR)/lib/$(LIB_NAME).$(VERSION)
+ 	mkdir -p $(INSTALL_DIR)/lib
+@@ -44,10 +44,13 @@
+ 	rm -f $(INSTALL_DIR)/include/gfw.h.$(VERSION)
+ 	mkdir -p $(INSTALL_DIR)/include
+ 	cp gfw.h $(INSTALL_DIR)/include/gfw.h.$(VERSION)
++	cp gfw-config.h $(INSTALL_DIR)/include/gfw-config.h.$(VERSION)
+ 	rm -f $(INSTALL_DIR)/include/gfw.h
++	rm -f $(INSTALL_DIR)/include/gfw-config.h
+ 	cd $(INSTALL_DIR)
+ 	$(LN_S) $(INSTALL_DIR)/lib/$(LIB_NAME).$(VERSION) $(INSTALL_DIR)/lib/$(LIB_NAME)
+ 	$(LN_S) $(INSTALL_DIR)/include/gfw.h.$(VERSION) $(INSTALL_DIR)/include/gfw.h
++	$(LN_S) $(INSTALL_DIR)/include/gfw-config.h.$(VERSION) $(INSTALL_DIR)/include/gfw-config.h
+ 
+ clean:
+ 	rm -f *.o
