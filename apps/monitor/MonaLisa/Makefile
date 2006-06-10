@@ -19,7 +19,7 @@ AUTHOR = Caltech
 URL = http://monalisa.cacr.caltech.edu
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
-JAVA_VERSION = 1_4_2_11
+JAVA_VERSION = 1_4_2_12
 
 CONFIGURE_SCRIPTS = 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
