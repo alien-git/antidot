@@ -131,8 +131,14 @@ sub stopRunningServices {
     if(-e $pidFile){
 	if(open(PIDFILE, $pidFile)){
 	    my $pid = <PIDFILE>;
-	    chomp $pid;
-	    kill(15, $pid) if($pid ne 'stopped');
+	    if($pid){
+		chomp $pid;
+		kill(15, $pid) if($pid ne 'stopped');
+	    }else{
+	        die "vobox_mon pid file exists, but it's empty '$pidFile'.\n" .
+		    "Please cleanup $farmHome, kill all processes and try again.\n";
+	    }
+	    close PIDFILE;
 	}else{
 	    die "Although it exists, could't read the vobox_mon pid file '$pidFile'.\n";
 	}
