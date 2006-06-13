@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.101  2006/05/30 10:13:55  buncic
+# Unset LD_LIBRARY_PATH before wget
+#
 # Revision 1.100  2006/04/24 09:23:09  buncic
 # Fixed bug in guessing the platform
 #
@@ -306,7 +309,7 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.08
+VERSION=0.09
 ###########################################################################
 style="--title AliEn-Installer-v$VERSION --clear"
 height=8; width=60
@@ -416,7 +419,8 @@ InstallerMakePkg()
     then
       Error "No such package: $dir"
     fi
-    $ECHO make -C $dir $cmd >> install.log 2>&1 || Exit 1
+    $ECHO make -C $dir $cmd >> install.log 2>&1
+    [ $? -ne 0 ] && return 1
   done
 }
 
@@ -857,6 +861,8 @@ InstallerUI()
 #  InstallerMakePkg bininstall apps/gcc/gcc >> $workspace/install.log
   export GARAUTODETECT="$ALIEN_INSTALLER_AUTODETECT"
 
+  err=0
+
   for meta in $list
   do
     pkgdir=`echo $meta | sed 's/"//g'`
@@ -880,15 +886,31 @@ InstallerUI()
         echo "Installing $pkg..."
         echo XXX
         InstallerMakePkg bininstall $pkg >> $workspace/install.log
+        err=$?
+        [ $err -ne 0 ] && break
         echo $g
       done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
     fi 
+    [ $err -ne 0 ] && break
   done
 
   rm -rf $release_file $dialog_file
 
-  $ALIEN_DIALOG $style \
+  if [ $err -ne 0 ]
+  then
+    Error "Failed to install. Please check $workspace/install.log" 
+    $ALIEN_DIALOG $style \
+                     --textbox $workspace/install.log 40 60
+  else
+    if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien ]
+    then
+      $ALIEN_DIALOG $style --sleep 3 \
+              --infobox 'Running post installation scripts...' $height $width
+      $ALIEN_INSTALLER_PREFIX/bin/alien configure common >> install.log
+    fi
+    $ALIEN_DIALOG $style \
           --msgbox 'You have sucessfuly installed  AliEn gridware on your computer.' $height $width
+  fi
 
   Exit 0
 }
@@ -1005,6 +1027,7 @@ InstallerConfig()
 
         --help|-help)
             printf "Usage: %5s configure                       \n" $ALIEN_PROMPT
+            printf "             --gapi-location       [path]  \n"
             printf "             --globus-location     [path]  \n"
             printf "             --swig-location       [path]  \n"
             printf "             --gsoap-location      [path]  \n"
