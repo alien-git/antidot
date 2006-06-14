@@ -30,5 +30,5 @@
 +	find Service ! -path \*/CVS* -type d -exec mkdir -p $(PREFIX)/$(DISTNAME)/{} \; ; \
 +	find Service ! -path \*/CVS* -type f -exec cp {} $(PREFIX)/$(DISTNAME)/{} \; ) ; \
 +	cd $(PREFIX)/ ; ln -sf $(DISTNAME) MonaLisa ; \
-+	cd MonaLisa/Service/CMD/ ; chmod a+rx common.sh CHECK_UPDATE ML_SER
++	cd MonaLisa/Service/CMD/ ; chmod a+rx common.sh CHECK_UPDATE ML_SER cmd_run.sh
 +
