@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.102  2006/06/13 10:00:17  buncic
+# Fix to update Environment file in interactive session
+#
 # Revision 1.101  2006/05/30 10:13:55  buncic
 # Unset LD_LIBRARY_PATH before wget
 #
@@ -309,7 +312,7 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.09
+VERSION=0.10
 ###########################################################################
 style="--title AliEn-Installer-v$VERSION --clear"
 height=8; width=60
@@ -420,7 +423,12 @@ InstallerMakePkg()
       Error "No such package: $dir"
     fi
     $ECHO make -C $dir $cmd >> install.log 2>&1
-    [ $? -ne 0 ] && return 1
+    if [ $? -ne 0 ] 
+    then 
+      return 1
+    else
+      return 0
+    fi
   done
 }
 
