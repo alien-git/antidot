@@ -1,5 +1,7 @@
+CVS_TAG = $(shell echo '$$Name$$' | awk '{print $$2}' | sed -e 's/^\$$$$/HEAD/' )
+
 GARNAME = alien-tests
-GARVERSION = 2.2.1
+GARVERSION = $(CVS_TAG)
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
@@ -7,7 +9,7 @@ NOCHECKSUM = $(DISTFILES)
 PATCHFILES = 
 
 GARCVSNAME    = alien-tests
-GARCVSVERSION = HEAD
+GARCVSVERSION = $(CVS_TAG)
 
 MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/
 
