@@ -110,17 +110,14 @@ sub test4 {
 		    
 		    $test_hash{$elemento1[$t]} = $elemento2[$t];
 		}
-		
-		my $flag = 1;
-		
+				
 		foreach (sort keys %test_hash){
 		    if (/$host/){
 			dumpStatus($regSer, 0);
-			$flag = 0;
 		    }
-		}
-		if ($flag != 0){
-		    dumpStatus($regSer, 1, "This node is not registered in the myproxy server");
+		    else {
+			dumpStatus($regSer, 1, "This node is not registered in the myproxy server");
+		    }
 		}
 	    }else{
 		dumpStatus($connSer, 1, "BDII server [ $query ] does not respond to the connection");
