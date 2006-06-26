@@ -181,10 +181,14 @@ sub setupConfig {
     $add = [];
     $rmv = [];
     $changes = {};
-    push(@$add, "export ALIEN_ROOT=$ENV{ALIEN_ROOT}") if $ENV{ALIEN_ROOT};
-    push(@$add, "export ALIEN_ORGANISATION=$ENV{ALIEN_ORGANISATION}") if $ENV{ALIEN_ORGANISATION};
-    push(@$add, "export ALIEN_LDAP_DN=$ENV{ALIEN_LDAP_DN}") if $ENV{ALIEN_LDAP_DN};
-    push(@$add, "export ALIEN_HOSTNAME=$ENV{ALIEN_HOSTNAME}") if $ENV{ALIEN_HOSTNAME};
+    # first, populate the environment with all known env variables
+    for my $key (sort keys %ENV){
+        if($key =~ /ALIEN|VO|LCG|GLITE|GLOBUS|LD_LIBRARY|CERN|EDG|MYPROXY|X509|SITE/){
+            push(@$add, "export $key=\"$ENV{$key}\"");
+	}elsif($key eq "PATH"){
+            push(@$add, "export $key=\"\$PATH:$ENV{$key}\"");
+        }
+    }
     push(@$add, "export FARM_HOME=$farmHome");
     push(@$add, "$ENV{ALIEN_ROOT}/bin/alien-perl $mlHome/AliEn/vobox_mon.pl >$farmHome/vobox_mon.log 2>&1 &");
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
