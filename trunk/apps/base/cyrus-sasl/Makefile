@@ -20,6 +20,6 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --enable-alientoken -enable-alienssh --enable-aliengssapi --enable-alienplain --disable-cram --disable-digest --disable-otp --disable-gss --disable-anon --enable-krb4=no --with-plugindir=$(PREFIX)/sasl --enable-shared --with-dblib=none --enable-plain
+CONFIGURE_ARGS = $(DIRPATHS) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --enable-alientoken -enable-alienssh --enable-aliengssapi --enable-alienplain --disable-cram --disable-digest --disable-otp --disable-gss --disable-anon --enable-krb4=no --with-plugindir=$(PREFIX)/sasl --enable-shared --with-dblib=none --disable-plain
 
 include ../category.mk
