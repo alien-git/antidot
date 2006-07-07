@@ -1,15 +1,17 @@
 GARNAME = Authen-SASL-Cyrus
-GARVERSION = 0.13.1-server
+GARVERSION = 0.13-server
 CATEGORIES = perl
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = 
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/P/PB/PBOETTCH/
 
 LIBDEPS = apps/base/perl apps/base/cyrus-sasl apps/base/Authen-SASL
 
+PATCHFILES = Authen-SASL-Cyrus-0.13.1-server.patch
+
 DESCRIPTION = SASL authentication framework
-AUTHOR = Mark Adamson
-URL = http://search.cpan.org/~adamson/
+AUTHOR = Patrick  Boettcher 
+URL = http://search.cpan.org/~PBOETTCH/
 LICENSE = Perl
 
 AUTOTEST = testForAliEnPerlModule Authen::SASL::Cyrus $(GARVERSION)
