@@ -1,11 +1,13 @@
 GARNAME = cyrus-sasl
-GARVERSION = 2.1.21
+GARVERSION = 2.1.21a
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-PATCHFILES = cyrus-sasl-2.1.21b.patch
+#PATCHFILES = cyrus-sasl-2.1.21b.patch
+
 ifeq ($(shell uname),Darwin)
-PATCHFILES = gcc4.diff cyrus-sasl-2.1.21b.patch
+#PATCHFILES = gcc4.diff cyrus-sasl-2.1.21b.patch
+PATCHFILES = gcc4.diff
 endif
 
 
