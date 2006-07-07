@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GB/GBARR/ http://www.cpan.org/authors/id/G/GB/GBARR/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/G/GB/GBARR/
 
-LIBDEPS = apps/base/perl 
+LIBDEPS = apps/base/perl apps/base/cyrus-sasl
 
 DESCRIPTION = SASL authentication framework
 AUTHOR = Graham Barr 
