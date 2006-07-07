@@ -11,7 +11,7 @@ endif
 
 MASTER_SITES = http://ftp.andrew.cmu.edu/pub/cyrus-mail/
 
-LIBDEPS = apps/base/globus-toolkit
+LIBDEPS = apps/base/globus-toolkit apps/base/openssl
 
 DESCRIPTION = SASL is the Simple Authentication and Security Layer
 URL = http://asg.web.cmu.edu/sasl/

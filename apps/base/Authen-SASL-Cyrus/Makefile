@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/P/PB/PBOETTCH/
 
-LIBDEPS = apps/base/perl apps/base/cyrus-sasl apps/base/Authen-SASL
+LIBDEPS = apps/base/Authen-SASL
 
 PATCHFILES = Authen-SASL-Cyrus-0.13.1-server.patch
 
