@@ -1,10 +1,13 @@
 GARNAME = cyrus-sasl
-GARVERSION = 2.1.21a
+GARVERSION = 2.1.21
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+PATCHFILES = cyrus-sasl-2.1.21b.patch
 ifeq ($(shell uname),Darwin)
-PATCHFILES = gcc4.diff
+PATCHFILES = gcc4.diff cyrus-sasl-2.1.21b.patch
 endif
+
 
 MASTER_SITES = http://ftp.andrew.cmu.edu/pub/cyrus-mail/
 
@@ -20,6 +23,6 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --enable-alientoken -enable-alienssh --enable-aliengssapi --enable-alienplain --disable-cram --disable-digest --disable-otp --disable-gss --disable-anon --enable-krb4=no --with-plugindir=$(PREFIX)/sasl --enable-shared --with-dblib=none --disable-plain
+CONFIGURE_ARGS = $(DIRPATHS) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --enable-alientoken -enable-alienssh --enable-aliengssapi --disable-cram --disable-digest --disable-otp --disable-gssapi --disable-anon --enable-krb4=no --with-plugindir=$(PREFIX)/sasl --enable-shared --with-dblib=none --disable-plain
 
 include ../category.mk
