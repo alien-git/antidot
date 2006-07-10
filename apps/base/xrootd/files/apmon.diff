@@ -1,5 +1,5 @@
---- work/xrootd-20060418-0404-r1/configure.ac	2006-06-06 11:35:29.000000000 +0200
-+++ work/xrootd-20060418-0404-r1/configure.ac.new	2006-06-06 11:35:32.000000000 +0200
+--- work/xrootd-20060418-0404-r1/configure.ac	2006-04-19 09:40:34.000000000 +0200
++++ work/xrootd-20060418-0404-r1/configure.ac.new	2006-07-10 10:19:05.000000000 +0200
 @@ -585,14 +585,13 @@
  AC_CHECK_LIB([rt],[aio_fsync],
               [AC_SUBST(LIBRT,[-lrt])])
@@ -21,8 +21,22 @@
  
  #################################################################
  # Checks for header files.
+--- work/xrootd-20060418-0404-r1/src/XrdClient/Makefile.am	2006-03-08 14:03:49.000000000 +0100
++++ work/xrootd-20060418-0404-r1/src/XrdClient/Makefile.am.new	2006-07-10 10:19:37.000000000 +0200
+@@ -74,7 +74,11 @@
+               -ldl
+ 
+ xrdcp_SOURCES = Xrdcp.cc
++if ENABLE_APMON
++xrdcp_LDADD = $(clientlibs) -lapmoncpp
++else
+ xrdcp_LDADD = $(clientlibs)
++endif
+ 
+ xrd_SOURCES = XrdCommandLine.cc
+ xrd_LDADD = $(clientlibs)
 --- work/xrootd-20060418-0404-r1/src/XrdClient/Xrdcp.cc	2006-04-14 03:54:54.000000000 +0200
-+++ work/xrootd-20060418-0404-r1/src/XrdClient/Xrdcp.cc.apmon	2006-06-06 11:27:34.000000000 +0200
++++ work/xrootd-20060418-0404-r1/src/XrdClient/Xrdcp.cc.new	2006-07-10 10:19:58.000000000 +0200
 @@ -19,6 +19,10 @@
  #include "XrdClient/XrdClientEnv.hh"
  #include "XrdSys/XrdSysPlatform.hh"
@@ -34,7 +48,7 @@
  #include <sys/types.h>
  #include <sys/stat.h>
  #include <fcntl.h>
-@@ -80,6 +84,23 @@
+@@ -80,6 +84,25 @@
  
  bool summary=false;            // print summary
  bool progbar=true;             // print progbar
@@ -53,52 +67,148 @@
 +bool    is_dst_remote;
 +double  src_IP;
 +double  dst_IP;
++struct timeval last_send_time;
++#define MIN_SEND_INTERVAL 10.0		// don't send data more often that this
 +#endif
 +
  char *srcopaque=0,
     *dstopaque=0;   // opaque info to be added to urls
  // Default open flags for opening a file (xrd)
-@@ -132,6 +153,39 @@
-    float abs_time=((float)((abs_stop_time.tv_sec - abs_start_time.tv_sec) *1000 +
- 			   (abs_stop_time.tv_usec - abs_start_time.tv_usec) / 1000));
+@@ -134,8 +157,48 @@
     CERR(("| %.02f %% [%.01f Mb/s]\r",100.0*bytesread/size,bytesread/abs_time/1000.0));
-+
-+#ifdef HAVE_LIBAPMONCPP
-+   if(use_apmon){
-+      try{
-+         double total_size = size;
-+         double moved_bytes = bytesread;
-+         double read_bytes = is_src_remote ? bytesread : 0;
-+         double written_bytes = is_dst_remote ? bytesread : 0;
-+         double speed = bytesread/abs_time/1000.0;
-+         double elapsed_time = abs_time;
-+         double percent = 100.0*bytesread/size;
-+
-+         apmon_values[0] = (char *)&total_size;   // total size of this transfer, in bytes
-+         apmon_values[1] = (char *)&moved_bytes;  // number of bytes moved so far
-+         apmon_values[2] = (char *)&read_bytes;   // number of read bytes
-+         apmon_values[3] = (char *)&written_bytes;// number of written bytes
-+         apmon_values[4] = (char *)&speed;        // transfer speed, in Mb/s
-+         apmon_values[5] = (char *)&elapsed_time; // elapsed time, in milliseconds, since start of this transfer
-+         apmon_values[6] = (char *)&percent;      // percent of the completed transfer
-+         apmon_values[7] = (char *)&src_IP;       // source IP, as a double value
-+         apmon_values[8] = (char *)&dst_IP;       // destination IP, as a double value
-+
-+         if(job_id == NULL)
-+            apmon->sendParameters("Other_XRD_Transfers", host_name, apmon_nparams,
-+                                    apmon_params, apmon_types, apmon_values);
-+         else
-+            apmon->sendParameters("Job_XRD_Transfers", job_id, apmon_nparams,
-+                                    apmon_params, apmon_types, apmon_values);
-+      }catch(runtime_error &e){
-+         cerr << "[ApMon] Error sending parameters" << endl;
-+      }
-+   }
-+#endif
  }
  
+-
+-
++#ifdef HAVE_LIBAPMONCPP
++void send_to_ml(unsigned long long bytesread, unsigned long long size, bool last) {
++   if(! last){
++      gettimeofday (&abs_stop_time, &tz);
++      float abs_time=((float)((abs_stop_time.tv_sec - last_send_time.tv_sec) +
++                              (abs_stop_time.tv_usec - last_send_time.tv_usec) / 1000000));
++      if(abs_time < MIN_SEND_INTERVAL)
++         return;
++      last_send_time = abs_stop_time;
++   }
++   float abs_time=((float)((abs_stop_time.tv_sec - abs_start_time.tv_sec) *1000 +
++                           (abs_stop_time.tv_usec - abs_start_time.tv_usec) / 1000));
++   try{
++      double total_size = size;
++      double moved_bytes = bytesread;
++      double read_bytes = is_src_remote ? bytesread : 0;
++      double written_bytes = is_dst_remote ? bytesread : 0;
++      double speed = bytesread/abs_time/1000.0;
++      double elapsed_time = abs_time;
++      double percent = 100.0*bytesread/size;
++
++      apmon_values[0] = (char *)&total_size;   // total size of this transfer, in bytes
++      apmon_values[1] = (char *)&moved_bytes;  // number of bytes moved so far
++      apmon_values[2] = (char *)&read_bytes;   // number of read bytes
++      apmon_values[3] = (char *)&written_bytes;// number of written bytes
++      apmon_values[4] = (char *)&speed;        // transfer speed, in Mb/s
++      apmon_values[5] = (char *)&elapsed_time; // elapsed time, in milliseconds, since start of this transfer
++      apmon_values[6] = (char *)&percent;      // percent of the completed transfer
++      apmon_values[7] = (char *)&src_IP;       // source IP, as a double value
++      apmon_values[8] = (char *)&dst_IP;       // destination IP, as a double value
++
++      if(job_id == NULL)
++         apmon->sendParameters("Other_XRD_Transfers", host_name, apmon_nparams,
++                                 apmon_params, apmon_types, apmon_values);
++      else
++         apmon->sendParameters("Job_XRD_Transfers", job_id, apmon_nparams,
++                                 apmon_params, apmon_types, apmon_values);
++   }catch(runtime_error &e){
++      cerr << "[ApMon] Error sending parameters" << endl;
++   }
++}
++#endif
  
-@@ -669,8 +723,15 @@
+ // The body of a thread which reads from the global
+ //  XrdClient and keeps the queue filled
+@@ -397,7 +460,11 @@
+ 		 gettimeofday(&abs_stop_time,&tz);
+ 		 print_progbar(bytesread,size);
+ 	       }
+-
++#ifdef HAVE_LIBAPMONCPP 
++	       if(use_apmon){
++	         send_to_ml(bytesread, size, false);
++	       }
++#endif
+ 	       if (!(*xrddest)->Write(buf, offs, len)) {
+ 		  cerr << "Error writing to output server." << endl;
+ 		  retvalue = 11;
+@@ -425,7 +492,11 @@
+       if(progbar) {
+ 	cout << endl;
+       }
+-      
++#ifdef HAVE_LIBAPMONCPP
++      if(use_apmon){
++         send_to_ml(bytesread, size, true);
++      }
++#endif
+       if (summary) {        
+ 	print_summary(src,dst,bytesread);
+       }
+@@ -513,7 +584,11 @@
+ 	       gettimeofday(&abs_stop_time,&tz);
+ 	       print_progbar(bytesread,size);
+ 	    }
+-
++#ifdef HAVE_LIBAPMONCPP 
++            if(use_apmon){
++	       send_to_ml(bytesread, size, false);
++	    }
++#endif
+ 	    if (write(f, buf, len) <= 0) {
+ 	       cerr << "Error " << strerror(errno) <<
+ 		  " writing to " << dst << endl;
+@@ -542,7 +617,11 @@
+    if(progbar) {
+       cout << endl;
+    }
+-      
++#ifdef HAVE_LIBAPMONCPP 
++   if(use_apmon){
++      send_to_ml(bytesread, size, true);
++   }
++#endif
+    if (summary) {        
+       print_summary(src,dst,bytesread);
+    }      
+@@ -622,7 +701,11 @@
+ 	      gettimeofday(&abs_stop_time,&tz);
+ 	      print_progbar(bytesread,size);
+ 	    }
+-
++#ifdef HAVE_LIBAPMONCPP 
++            if(use_apmon){
++	      send_to_ml(bytesread, size, false);
++	    }
++#endif
+ 	    if (!(*xrddest)->Write(buf, offs, len)) {
+ 	       cerr << "Error writing to output server." << endl;
+ 	       retvalue = 12;
+@@ -650,10 +733,14 @@
+    if(progbar) {
+      cout << endl;
+    }
+-   
+-   if (summary) {        
++#ifdef HAVE_LIBAPMONCPP 
++   if(use_apmon){
++     send_to_ml(bytesread, size, true);
++   }
++#endif
++   if (summary) {
+      print_summary(src,dst,bytesread);
+-   }	 
++   }
+ 
+    pthread_cancel(myTID);
+    pthread_join(myTID, &thret);
+@@ -669,8 +756,15 @@
  
  
  void PrintUsage() {
@@ -114,7 +224,7 @@
     cerr << " -d lvl :         debug level: 1 (low), 2 (medium), 3 (high)" << endl;
     cerr << " -s     :         silent mode, no summary output, no progress bar" << endl;
     cerr << " -np    :         no progress bar" << endl;
-@@ -686,6 +747,102 @@
+@@ -686,6 +780,102 @@
     cerr << "   intvalue     is an int to be assigned to an internal parameter" << endl;
  }
  
@@ -217,7 +327,7 @@
  
  // Main program
  int main(int argc, char**argv) {
-@@ -730,6 +887,13 @@
+@@ -730,6 +920,13 @@
  	continue;
        }
  
@@ -231,7 +341,7 @@
        if ( (strstr(argv[i], "-v") == argv[i])) {
  	summary=true;
  	continue;
-@@ -834,6 +998,10 @@
+@@ -834,6 +1031,10 @@
        exit(1);
     }
  
@@ -242,17 +352,3 @@
     int retval = 0;
     while (!retval && wklst->GetCpJob(src, dest)) {
        Info(XrdClientDebug::kUSERDEBUG, "main", src << " --> " << dest);
---- work/xrootd-20060418-0404-r1/src/XrdClient/Makefile.am	2006-06-06 12:49:00.000000000 +0200
-+++ work/xrootd-20060418-0404-r1/src/XrdClient/Makefile.am.new	2006-06-06 12:49:07.000000000 +0200
-@@ -74,7 +74,11 @@
-               -ldl
- 
- xrdcp_SOURCES = Xrdcp.cc
-+if ENABLE_APMON
-+xrdcp_LDADD = $(clientlibs) -lapmoncpp
-+else
- xrdcp_LDADD = $(clientlibs)
-+endif
- 
- xrd_SOURCES = XrdCommandLine.cc
- xrd_LDADD = $(clientlibs)
