@@ -29,6 +29,7 @@ my $currentpath = $ENV{PWD};
 # Performing some Alien tests
 ###################################################################
 sub test1 {
+	system("rm -f /tmp/myAtest*");
 	open TMP4, ">/tmp/myAtest$$";
 	print TMP4 "Testing String\n";
 	close TMP4;
@@ -51,7 +52,7 @@ sub test1 {
 		}
 	}
   	
-	system "rm /tmp/myAtest$$";
+	system("rm -f /tmp/myAtest$$");
 }
 
 for(my $i = 1; $i < 2; $i++){
