@@ -188,6 +188,7 @@ sub test7 {
     }
     
     #Creating a jdl
+    system("rm -f test*.jdl");
     open VOBOX, ">>test$$.jdl" or die "Cannot open the jdl file\n";
     print VOBOX "Executable = \"/bin/hostname\";\n";
     print VOBOX "StdOutput = \"std.out\";\n";
@@ -229,7 +230,7 @@ sub test7 {
     }
     
     # removing the jdl
-    system "rm test$$.jdl";
+    system "rm -f test$$.jdl";
 }
 
 #############################################
