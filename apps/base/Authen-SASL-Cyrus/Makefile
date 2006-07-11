@@ -26,3 +26,4 @@ BUILD_ARGS =
 
 include ../category.mk
 
+PRE_CONFIGURE = (chmod +w $(WORKSRC)/Cyrus.pod $(WORKSRC)/t/*) 
