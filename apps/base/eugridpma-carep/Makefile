@@ -1,12 +1,12 @@
 GARNAME = eugridpma-carep
-GARVERSION = 0.32
+GARVERSION = 1.6
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-DISTNAME  = carep
-BINDISTNAME = $(GARNAME)-$(GARVERSION)
-PATCHFILES = Makefile.patch
+DISTFILES   = igtf-policy-installation-bundle-$(GARVERSION).tar.gz
+DISTNAME    = igtf-policy-installation-bundle-$(GARVERSION)
+BINDISTNAME = igtf-policy-installation-bundle-$(GARVERSION)
+PATCHFILES = 
 
-MASTER_SITES =
+MASTER_SITES = http://www.eugridpma.org/distribution/igtf/$(GARVERSION)/accredited/
 
 LIBDEPS = apps/base/globus-toolkit
 
@@ -16,11 +16,11 @@ AUTHOR =
 URL = http://www.eugridpma.org
  
 
-CONFIGURE_SCRIPTS =
-BUILD_SCRIPTS =  
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = 
+CONFIGURE_ARGS = --prefix=$(PREFIX)/globus/share/certificates --with-profile=classic
 BUILD_ARGS   = 
 INSTALL_ARGS = 
 
