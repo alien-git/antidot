@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.103  2006/06/15 08:49:59  buncic
+# Fixed return value in InstallerMakePkg()
+#
 # Revision 1.102  2006/06/13 10:00:17  buncic
 # Fix to update Environment file in interactive session
 #
@@ -426,10 +429,9 @@ InstallerMakePkg()
     if [ $? -ne 0 ] 
     then 
       return 1
-    else
-      return 0
     fi
   done
+  return 0
 }
 
 ###########################################################################

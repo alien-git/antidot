@@ -2,7 +2,7 @@ GARNAME = cctools
 GARVERSION = 2.0.14
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = 
+PATCHFILES = # configure.diff
 
 MASTER_SITES =  
 AUTHOR = Douglas Thain
