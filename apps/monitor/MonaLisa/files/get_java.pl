@@ -1,5 +1,5 @@
 #!/usr/local/bin/perl
-# This will attempt to download the 1.4.2 java virtual machine for a given
+# This will attempt to download the 1.5.x java virtual machine for a given
 # platform on linux.
 
 use strict;
@@ -22,7 +22,7 @@ $ua->agent("get_java.pl/1.0 ");
 $ua->env_proxy();
 
 my $success = 0;
-my $file_name = "j2sdk-$java_ver-$platform.bin";
+my $file_name = "jdk-$java_ver-$platform.bin";
 my $res;
 for my $base (@url_base){
 	my $url = "${base}../java/${file_name}";

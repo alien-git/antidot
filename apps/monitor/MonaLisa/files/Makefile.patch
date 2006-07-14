@@ -9,10 +9,10 @@
 +	cat MonaLisa.v1.5/Service/CMD/ML_SER.orig | sed -e "s/policy.all/policy.all -Djava.security.egd=file:\/dev\/urandom/" > MonaLisa.v1.5/Service/CMD/ML_SER && \
 +	rm -f MonaLisa.v1.5/Service/CMD/ML_SER.orig && \
 +	(cd $(DISTNAME) ; \
-+	JAVA_BIN=`ls ../j2sdk*.bin` ; \
++	JAVA_BIN=`ls ../jdk*.bin` ; \
 +	echo "yes" | sh $$JAVA_BIN | tee /dev/null ; \
-+	JAVA_HOME=j2sdk* ; ln -sf $$JAVA_HOME java ; cd $$JAVA_HOME ; \
-+	rm -rf demo man src.zip jre/plugin jre/javaws)
++	JAVA_HOME=jdk1* ; ln -sf $$JAVA_HOME java ; cd $$JAVA_HOME ; \
++	rm -rf demo man sample src.zip jre/plugin jre/javaws)
 +else
 +	echo Java is already installed on Darwin
 +	tar zxvf $(DISTNAME).tar.gz
