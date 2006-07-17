@@ -17,4 +17,5 @@ OWN_LDFLAGS = -L$(PREFIX)/lib64 -L$(PREFIX)/lib
 export GARLIBEXT=so
 export GARSHARED=-shared
 
-export MASKED := apps/gui/qt-mac-opensource-src apps/gcc/gcc apps/base/bash apps/lcg/lcg-gfal apps/lcg/lcg-util
+export MASKED := apps/gui/qt-mac-opensource-src apps/gcc/gcc apps/base/bash apps/lcg/lcg-gfal apps/lcg/lcg-util apps/base/cctools
+
