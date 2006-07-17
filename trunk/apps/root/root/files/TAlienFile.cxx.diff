@@ -1,11 +1,5 @@
 --- work/root-5.12.0/alien/src/TAlienFile.cxx	2006-07-17 18:26:48.000000000 +0200
 +++ work/root-5.12.0/alien/src/TAlienFile.cxx.new	2006-07-17 18:53:40.000000000 +0200
-@@ -1,4 +1,4 @@
--// @(#)root/alien:$Name$:$Id$
-+// @(#)root/alien:$Name$:$Id$
- // Author: Andreas Peters 11/09/2003
- 
- /*************************************************************************
 @@ -132,7 +132,7 @@
  
     nUrl.SetOptions("");
