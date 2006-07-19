@@ -1,5 +1,5 @@
---- work/xrootd-20060418-0404-r1/configure.ac	2006-04-19 09:40:34.000000000 +0200
-+++ work/xrootd-20060418-0404-r1/configure.ac.new	2006-07-10 10:19:05.000000000 +0200
+--- work/xrootd-20060523-1741/configure.ac	2006-04-19 09:40:34.000000000 +0200
++++ work/xrootd-20060523-1741/configure.ac.new	2006-07-10 10:19:05.000000000 +0200
 @@ -585,14 +585,13 @@
  AC_CHECK_LIB([rt],[aio_fsync],
               [AC_SUBST(LIBRT,[-lrt])])
@@ -21,8 +21,8 @@
  
  #################################################################
  # Checks for header files.
---- work/xrootd-20060418-0404-r1/src/XrdClient/Makefile.am	2006-03-08 14:03:49.000000000 +0100
-+++ work/xrootd-20060418-0404-r1/src/XrdClient/Makefile.am.new	2006-07-10 10:19:37.000000000 +0200
+--- work/xrootd-20060523-1741/src/XrdClient/Makefile.am	2006-03-08 14:03:49.000000000 +0100
++++ work/xrootd-20060523-1741/src/XrdClient/Makefile.am.new	2006-07-10 10:19:37.000000000 +0200
 @@ -74,7 +74,11 @@
                -ldl
  
@@ -35,8 +35,8 @@
  
  xrd_SOURCES = XrdCommandLine.cc
  xrd_LDADD = $(clientlibs)
---- work/xrootd-20060418-0404-r1/src/XrdClient/Xrdcp.cc	2006-04-14 03:54:54.000000000 +0200
-+++ work/xrootd-20060418-0404-r1/src/XrdClient/Xrdcp.cc.new	2006-07-10 10:19:58.000000000 +0200
+--- work/xrootd-20060523-1741/src/XrdClient/Xrdcp.cc	2006-04-14 03:54:54.000000000 +0200
++++ work/xrootd-20060523-1741/src/XrdClient/Xrdcp.cc.new	2006-07-10 10:19:58.000000000 +0200
 @@ -19,6 +19,10 @@
  #include "XrdClient/XrdClientEnv.hh"
  #include "XrdSys/XrdSysPlatform.hh"
