@@ -55,7 +55,18 @@ sub test1 {
 	system("rm -f /tmp/myAtest$$");
 }
 
-for(my $i = 1; $i < 2; $i++){
+# 2nd test - Determine the AliEn version
+sub test2 {
+	my $aVersion = `export PATH=\$PATH:$ENV{ALIEN_ROOT}/bin ; alien -v 2>&1`;
+	my $exit_value = $? >> 8;
+	my $test = "alien version";
+	my $ver = $1 if $aVersion =~ /Version: (.*)/;
+	$ver = $aVersion if ! $ver;
+	$ver = "No output" if ! $ver;
+	dumpStatus($test, $exit_value, $exit_value ? "Exit value $exit_value" : $ver);
+}
+
+for(my $i = 1; $i < 3; $i++){
 #	print "Doing test $i...\n";
 	eval "test$i()";
 }
