@@ -2,7 +2,8 @@
 # v0.3
 
 # Catalin.Cirstoiu@cern.ch
-# 08/09/2005
+# 2006-07-27 - Changed the way vobox_mon.pl is stopped
+# 2005-09-08 - first version
 
 use strict;
 use AliEn::Config;
@@ -15,28 +16,15 @@ system("export CONFDIR=$config->{LOG_DIR}/MonaLisa ; $ENV{ALIEN_ROOT}/java/MonaL
 system("rm -f $config->{LOG_DIR}/MonaLisa.pid");
 
 # also stop the vobox_mon script
-my $pidFile="$config->{LOG_DIR}/MonaLisa/vobox_mon.pid";
-if(-e $pidFile){
-        if(open(PIDFILE, $pidFile)){
-                my $pid = <PIDFILE>;
-                if($pid){
-                	chomp $pid;
-                	kill(15, $pid) if($pid ne 'stopped');
-            	}else{
-                	die "vobox_mon pid file exists, but it's empty '$pidFile'.\n" .
-                    	    "Please cleanup $config->{LOG_DIR}/MonaLisa, kill all processes and try again.\n";
-            	}
-            	close PIDFILE;
-        }else{
-                die "Although it exists, could't read the vobox_mon pid file '$pidFile'.\n";
-        }
-}
-
-# put 'stopped' in the current pid file
-if(open(PIDFILE, ">$pidFile")){
-        print PIDFILE "stopped\n";
-        close PIDFILE;
-}else{
-        die "vobox_mon: Couldn't create the pid file '$pidFile'.\n"
+if(open(PS, "env COLUMNS=300 ps -eo 'pid,command' |")){
+	while(my $line = <PS>){
+		next if ! ($line =~ /vobox_mon.pl/ && $line =~ /perl/);
+		my $pid = $1 if $line =~ /^\s*(\d+)/;
+		chomp($pid);
+		next if $pid == $$;
+		print "Killing vobox_mon instance with PID=$pid\n";
+		kill(15, $pid);
+	}
+	close(PS);
 }
 
