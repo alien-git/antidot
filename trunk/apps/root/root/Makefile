@@ -21,7 +21,7 @@ CONFIGURE_ENV = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 INSTALL_ENV   = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 BUILD_ENV     = env GLOBUS_LOCATION= ROOTSYS=$(WORKSRC)
 
-CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --enable-xrootd --with-xrootd=$(PREFIX)/api --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib  --with-mysql-incdir=$(PREFIX)/include/mysql --with-mysql-libdir=$(PREFIX)/lib/mysql --with-monalisa-incdir=$(PREFIX)/api/include --with-monalisa-libdir=$(PREFIX)/api/lib --with-pythia6-uscore=SINGLE --enable-cern --enable-mathmore --enable-mathcore --enable-roofit --enable-asimage --enable-minuit2  --disable-rfio --enable-fftw3 --with-fftw3-incdir=$(PREFIX)/include --with-fftw3-libdir=$(PREFIX)/lib
+CONFIGURE_ARGS = --enable-alien --with-alien-incdir=$(PREFIX)/api/include --with-alien-libdir=$(PREFIX)/api/lib --enable-xrootd --with-xrootd=$(PREFIX)/api --with-ssl-incdir=$(PREFIX)/include --with-ssl-libdir=$(PREFIX)/lib  --with-mysql-incdir=$(PREFIX)/include/mysql --with-mysql-libdir=$(PREFIX)/lib/mysql --with-monalisa-incdir=$(PREFIX)/api/include --with-monalisa-libdir=$(PREFIX)/api/lib --with-pythia6-uscore=SINGLE --enable-cern --enable-mathmore --enable-mathcore --enable-roofit --enable-asimage --enable-minuit2  --disable-rfio --enable-fftw3 --with-fftw3-incdir=$(PREFIX)/include --with-fftw3-libdir=$(PREFIX)/lib --disable-mathmore
 
 include ../category.mk
 
