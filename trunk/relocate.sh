@@ -3,26 +3,6 @@
 prefix=$1; shift 1
 app=$1; shift 1
 
-case $app in 
-   */apps/base/eugridpma-carep)
-     echo Relocating $app
-     if [ -d $prefix/globus/share/certificates ] 
-     then
-       for dir in $X509_CERT_DIR /etc/grid-security/certificates
-       do
-         if [ -d $dir ]
-         then 
-           (cd $prefix; rm `grep -v /share/alien $prefix/share/alien/packages/eugridpma-carep*`)
-           cd $prefix/globus/share/certificates && ln -s $dir/* .
-           break
-         fi
-       done
-     fi
-     ;;
-    *)
-     ;;
-esac
-
 build_prefix=/opt/alien
 if [ "$prefix" != "$build_prefix" ]
 then
