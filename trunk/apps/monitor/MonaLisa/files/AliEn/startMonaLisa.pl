@@ -2,6 +2,7 @@
 # v0.3.3
 # Catalin.Cirstoiu@cern.ch
 
+# 27/07/2006 - changed the way vobox_mon.pl is started
 # 05/05/2006 - if site is LCG, then also monitor the lcg services status
 # 13/12/2005 - added support for vobox_mon.pl to monitor the vo-box
 # 02/11/2005 - don't be so sure that most ENV variables exist (like ALIEN_LDAP_DN)
@@ -122,27 +123,13 @@ sub pushIfNoKey {
     push(@$arrRef, $what) if(! defined($prev_val)) ;
 }
 
-# Stop services that are already running
-sub stopRunningServices {
+# Start services that are supposed to be running
+sub startAdditionalServices {
     my $farmHome = shift;
+    my $mlHome = shift;
 
-    # stop vobox_mon.pl script
-    my $pidFile="$farmHome/vobox_mon.pid";
-    if(-e $pidFile){
-	if(open(PIDFILE, $pidFile)){
-	    my $pid = <PIDFILE>;
-	    if($pid){
-		chomp $pid;
-		kill(15, $pid) if($pid ne 'stopped');
-	    }else{
-	        die "vobox_mon pid file exists, but it's empty '$pidFile'.\n" .
-		    "Please cleanup $farmHome, kill all processes and try again.\n";
-	    }
-	    close PIDFILE;
-	}else{
-	    die "Although it exists, could't read the vobox_mon pid file '$pidFile'.\n";
-	}
-    }
+    # start vobox_mon.pl script
+    system("env FARM_HOME=$farmHome $ENV{ALIEN_ROOT}/bin/alien-perl $mlHome/AliEn/vobox_mon.pl > $farmHome/vobox_mon.log 2>&1 &");
 }
 
 # Setup configuration files for MonaLisa
@@ -190,7 +177,6 @@ sub setupConfig {
         }
     }
     push(@$add, "export FARM_HOME=$farmHome");
-    push(@$add, "$ENV{ALIEN_ROOT}/bin/alien-perl $mlHome/AliEn/vobox_mon.pl >$farmHome/vobox_mon.log 2>&1 &");
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
     # myFarm.conf
@@ -220,15 +206,20 @@ sub setupConfig {
     }
     my $storeType = ($config->{MONALISA_STORETYPE} or "mem");
     $add = ($config->{MONALISA_ADDPROPERTIES_LIST} or []);
+    
+    # logging properties
+    pushIfNoKey($add, "lia.Monitor.Farm.Conf.ConfVerifier.level=WARNING");
+#    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.level=FINEST");
+    
+    # AliEnFilter properties
     pushIfNoKey($add, "lia.Monitor.Store.FileLogger.maxDays=0");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter=true");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.SLEEP_TIME=120");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.PARAM_EXPIRE=900");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.ZOMBIE_EXPIRE=14400");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.LDAP_QUERY_INTERVAL=7200");
-    # TODO: Comment these:
-#    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.level=FINEST");
-#    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.RUN_JOB_SYNC_SCRIPT = true");
+    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.RUN_JOB_SYNC_SCRIPT=false");
+    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.JOB_SYNC_RUN_INTERVAL=7200");
     
     $rmv = ($config->{MONALISA_REMOVEPROPERTIES_LIST} or []);
     $changes = {
@@ -291,7 +282,6 @@ sub setupCrontab {
 #dumpConfig();
 #print "Setting up ML config...\n";
 my $farmHome = "$config->{LOG_DIR}/MonaLisa";
-stopRunningServices($farmHome);
 my $logDir = setupConfig($farmHome);
 setupCrontab($farmHome);
 #print "Starting ML...\n";
@@ -300,6 +290,8 @@ setupCrontab($farmHome);
 my $r = system("export CONFDIR=$farmHome ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/ML_SER start");
 system("ln -sf $farmHome/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
 system("ln -sf $logDir/ML0.log $config->{LOG_DIR}/MonaLisa.log");
+
+startAdditionalServices($farmHome, "$ENV{ALIEN_ROOT}/java/MonaLisa");
 
 exit $r;
 
