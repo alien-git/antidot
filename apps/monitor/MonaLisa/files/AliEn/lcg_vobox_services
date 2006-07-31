@@ -8,7 +8,7 @@
 use strict;
 use warnings;
 
-use Sys::Hostname;
+use Net::Domain qw(hostname hostfqdn hostdomain);
 use Net::LDAP;
 use Net::LDAP::Entry;
 
@@ -62,7 +62,7 @@ sub test2 {
 ######################################################
 sub test3 {
     my $service = "gsiscp";
-    my $host = hostname();
+    my $host = hostfqdn();
     my $gsissh_service=`gsiscp -P 1975 /etc/group $host:/tmp/$host$$ > /dev/null 2> /dev/null`;
     if($?){
 	dumpStatus($service, 1, "Failed to execute gsiscp. Probably the service is down");
@@ -83,7 +83,7 @@ sub test4 {
 	dumpStatus($service, 1, "The myproxy server is not defined");
     }else{
 	my $query = "prod-bdii.cern.ch:2170";
-	my $host = hostname();
+	my $host = hostfqdn();
 	my $base="o=grid";
 	my (%test_hash, @elemento1, @elemento2);
 	my $querySer = "Query to the proxy server";
@@ -358,7 +358,88 @@ sub test9 {
 	}
 }
 
-for(my $i = 1; $i < 10; $i++){
+##################################################
+# Test 10: 
+# Test the FTS services inside the VOBOX
+##################################################
+sub test10 {
+	my $service = "FTS local prerequisites";
+	my $cat=AliEn::UI::Catalogue::LCM->new({silent=>1}) or
+		dumpStatus($service, 1, "Error initializing AliEn Catalogue instance") and
+		return;
+	# get the sites that support FTD
+	my @sitesWithFTD = ();
+	if(open(LDAPSEARCH, "$ENV{ALIEN_ROOT}/bin/ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b 'ou=FTD,ou=Services,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch' name 2>/dev/null | grep name: | awk '{print \$2}' |")){
+		while(my $FTDsite=<LDAPSEARCH>){
+			chomp($FTDsite);
+			push(@sitesWithFTD, $FTDsite);
+		}
+		close(LDAPSEARCH);
+	}
+	if(! @sitesWithFTD){
+		dumpStatus($service, 1, "Cannot find any FTDs in LDAP!");
+		return;
+	}
+	
+	# get my site's FTD name
+	my $myFTDname;
+	my $myFQDN = hostfqdn();
+	if(open(LDAPSEARCH, "$ENV{ALIEN_ROOT}/bin/ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b 'host=$myFQDN,ou=Config,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch' ftd 2>/dev/null | grep ftd: | awk '{print \$2}' |")){
+		$myFTDname = <LDAPSEARCH>;
+		chomp($myFTDname);
+		close(LDAPSEARCH);
+	}
+	if(! $myFTDname){
+		dumpStatus($service, 2, "FTD is not supported for this site!");
+		return;
+	}
+	
+	# get the locations (SEs) where this file is mirrored
+	my @file_locations = $cat->execute("whereis", "-l", "FTS-test-$myFTDname");
+	if(! grep /::$myFTDname$/, @file_locations){
+		system("echo 'File to test FTS transfers from $myFTDname\n' > /tmp/FTS-test-$myFTDname");
+		$cat->execute("add", "FTS-test-$myFTDname", "/tmp/FTS-test-$myFTDname") or
+			dumpStatus($service, 1, "Cannot register my test file (FTS-test-$myFTDname) in AliEn central catalogue") and
+			return;
+	}
+	
+	# if we got this far it means that local prerequisites are ok
+	dumpStatus($service, 0);
+
+	# try doing some transfers
+	for my $otherSite (@sitesWithFTD){
+		next if $otherSite == $myFTDname;
+		$service = "Last FTS from $otherSite";
+		@file_locations = $cat->execute("whereis", "-l", "FTS-test-$otherSite");
+		if(grep /::$myFTDname$/, @file_locations){
+			if(! $cat->execute("deleteMirror", "FTS-test-$otherSite", "Alice::LCG::$myFTDname")){
+				dumpStatus($service, 1, "Failed to delete the file mirrored to this site.");
+			}else{
+				dumpStatus($service, 0);
+			}
+		}else{
+			dumpStatus($service, 1, "Mirrored file was not found on this site.");
+		}
+		$service = "Next FTS from $otherSite";
+		my ($status, $transferId) = $cat->execute("mirror", "-t", "FTS-test-$otherSite", "Alice::LCG::$myFTDname");
+		if (! $status){
+			dumpStatus($service, 1, "Error issuing mirror command.");
+			next;
+		}
+		if (! $transferId){
+			dumpStatus($service, 1, "Got an invalid transferID from the mirror command.");
+			next;
+		}
+		my $site_status = $cat->execute("listTransfer", "-id", $transferId);
+		if(! $site_status){
+			dumpStatus($service, 1, "Failed checking transfer status with listTransfer.");
+			next;
+		}
+		dumpStatus($service, 0);#, ${$site_status}[0]->{status});
+	}
+}
+
+for(my $i = 1; $i < 11; $i++){
 #	print "Doing test $i...\n";
     eval "test$i()";
 }
