@@ -128,8 +128,8 @@ sub startAdditionalServices {
     my $farmHome = shift;
     my $mlHome = shift;
 
-    # start vobox_mon.pl script
-    system("env FARM_HOME=$farmHome $ENV{ALIEN_ROOT}/bin/alien-perl $mlHome/AliEn/vobox_mon.pl > $farmHome/vobox_mon.log 2>&1 &");
+    # start vobox_mon.pl script - commented since it will be (re)started from ML.
+#    system("env FARM_HOME=$farmHome $ENV{ALIEN_ROOT}/bin/alien-perl $mlHome/AliEn/vobox_mon.pl > $farmHome/vobox_mon.log 2>&1 &");
 }
 
 # Setup configuration files for MonaLisa
