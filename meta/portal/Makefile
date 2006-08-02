@@ -21,7 +21,8 @@ apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
 apps/portal/gridsite \
 apps/monitor/monit \
-apps/base/Authen-PAM
+apps/base/Authen-PAM \
+apps/base/POE
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 

@@ -9,7 +9,8 @@ ALL=\
 apps/devel/dialog \
 apps/alien/admin \
 apps/alien/common \
-apps/monitor/MonaLisa
+apps/monitor/MonaLisa \
+apps/base/POE
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
