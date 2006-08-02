@@ -21,7 +21,8 @@ apps/server/ejabberd \
 apps/server/openldap \
 apps/base/Authen-PAM \
 apps/monitor/monit \
-apps/monitor/MonaLisa 
+apps/monitor/MonaLisa \
+apps/base/POE
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
