@@ -9,10 +9,13 @@
 use strict;
 use warnings;
 
-use Sys::Hostname;
-use Net::LDAP;
-use Net::LDAP::Entry;
+use POE;
+use POE::Filter::Line;
+use POE::Wheel::Run;
 
+my $MAX_STATUS_LINES = 4;
+my $MAX_RUN_TIME = 60;
+my $ML_CMD_RUN = "$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/cmd_run.sh";
 
 sub dumpStatus {
 	my $service = shift;
@@ -22,54 +25,93 @@ sub dumpStatus {
 	print "$service\tStatus\t$status".($message ? "\tMessage\t$message" : "")."\n";
 }
 
-my $currentpath = $ENV{PWD};
+# create the test file
+system("rm -f /tmp/myAtest* ; echo 'My test file for pid $$' > /tmp/myAtest$$");
 
-###################################################################
-# 1st TEST
-# Performing some Alien tests
-###################################################################
-sub test1 {
-	system("rm -f /tmp/myAtest*");
-	open TMP4, ">/tmp/myAtest$$";
-	print TMP4 "Testing String\n";
-	close TMP4;
-    
-	my @test_cmd = (
-		"alien -exec add test" 		=> "alien -exec add myTestFile$$ /tmp/myAtest$$ > /dev/null 2> /dev/null",
-		"alien -exec whereis test" 	=> "alien -exec whereis myTestFile$$ > /dev/null 2> /dev/null",
-		"alien -exec get test"		=> "alien -exec get myTestFile$$ > /dev/null 2> /dev/null",
-		"alien -exec rm test"		=> "alien -exec rm myTestFile$$  > /dev/null 2> /dev/null",
+my @tests = (
+	"alien -exec add test"          => "alien -exec add myTestFile$$ /tmp/myAtest$$",
+	"alien -exec whereis test"      => "alien -exec whereis myTestFile$$",
+	"alien -exec get test"          => "alien -exec get myTestFile$$",
+	"alien -exec rm test"           => "alien -exec rm myTestFile$$",
+	"alien version"			=> "alien -v",
 	);
 
-	for(my $i = 0; $i < @test_cmd; $i+=2){
-		my ($test, $cmd) = ($test_cmd[$i], $test_cmd[$i+1]);
-		system("export PATH=\$PATH:$ENV{ALIEN_ROOT}/bin ; $cmd");
-		my $exit_value  = $? >> 8;
-		if($exit_value){
-			dumpStatus($test, 1, "Exit value $exit_value");
-		}else{
-			dumpStatus($test, 0);
-		}
+POE::Session->create(
+	inline_states => {
+		_start => \&start,
+		tick => \&tick,
+		got_cmd_event => \&got_cmd_event,
+		got_err_event => \&got_err_event,
+		cmd_finished => \&cmd_finished,
+		sig_chld => \&sig_chld,
+	});
+$poe_kernel->run();
+exit 0;
+
+sub start {
+	my $heap = $_[HEAP];
+
+	$heap->{test_name} = shift @tests;
+	$heap->{test_cmd} = shift @tests;
+	if((! $heap->{test_name}) || (! $heap->{test_cmd})){
+		dumpStatus("SCRIPTRESULT", 0);
+		exit 0;
 	}
-  	
-	system("rm -f /tmp/myAtest$$");
+	$heap->{start_time} = time;
+	$heap->{status_lines} = [];
+	undef $heap->{cmd_killed};
+	undef $heap->{exit_code};
+	$poe_kernel->sig(CHLD => "sig_chld");
+	$heap->{wheel} = POE::Wheel::Run->new(
+		Program      => "$ML_CMD_RUN $heap->{test_cmd}",
+		StdioFilter  => POE::Filter::Line->new(),
+		StderrFilter => POE::Filter::Line->new(),
+		StdoutEvent  => "got_cmd_event",
+		StderrEvent  => "got_cmd_event");
+	$poe_kernel->delay(tick => 1);
 }
 
-# 2nd test - Determine the AliEn version
-sub test2 {
-	my $aVersion = `export PATH=\$PATH:$ENV{ALIEN_ROOT}/bin ; alien -v 2>&1`;
-	my $exit_value = $? >> 8;
-	my $test = "alien version";
-	my $ver = $1 if $aVersion =~ /Version: (.*)/;
-	$ver = $aVersion if ! $ver;
-	$ver = "No output" if ! $ver;
-	dumpStatus($test, $exit_value, $exit_value ? "Exit value $exit_value" : $ver);
+sub tick {
+	my $heap = $_[HEAP];
+
+	my $now = time;
+	my $run_time = $now - $heap->{start_time};
+	if($run_time >=$MAX_RUN_TIME){
+		$heap->{cmd_killed} = 1;
+		$heap->{wheel}->kill();
+	}else{
+		$poe_kernel->delay(tick => 1);
+	}
 }
 
-for(my $i = 1; $i < 3; $i++){
-#	print "Doing test $i...\n";
-	eval "test$i()";
+sub got_cmd_event {
+	my ($heap, $line) = @_[HEAP, ARG0];
+
+	return if($heap->{cmd_killed});
+	shift(@{$heap->{status_lines}}) if(@{$heap->{status_lines}} >= $MAX_STATUS_LINES);
+	push(@{$heap->{status_lines}}, $line); 
 }
 
-dumpStatus("SCRIPTRESULT", 0);
+sub sig_chld {
+	my ($heap, $sig, $pid, $exit_code) = @_[HEAP, ARG0, ARG1, ARG2];
+	
+	$exit_code >>= 8;
+	my $message = join(" ", @{$heap->{status_lines}});
+	$message =~ s/\t/  /g;
+	if($exit_code == 0){
+		if($heap->{test_name} eq "alien version"){
+			my $ver = $1 if $message =~ /Version: (.*)/;
+			$ver = $message if ! $ver;
+			$ver = "No output" if ! $ver;
+			dumpStatus($heap->{test_name}, 0, $ver);
+		}else{
+			dumpStatus($heap->{test_name}, 0, $message);
+		}
+	}else{
+		dumpStatus($heap->{test_name}, 1,
+			($heap->{cmd_killed} ? "Timeout after $MAX_RUN_TIME sec. " : "Failed with exit code: $exit_code. ").
+			"Last lines were: $message");
+	}
+	$poe_kernel->yield("_start");
+}
 
