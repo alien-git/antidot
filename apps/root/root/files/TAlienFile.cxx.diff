@@ -29,7 +29,7 @@
 -      gROOT->GetListOfFiles()->Remove(fSubFile);
 -      gROOT->GetUUIDs()->RemoveUUID(fSubFile->GetUniqueID());
 -      SafeDelete(fSubFile);
-+     SafeDelete(fSubFile);
++     // SafeDelete(fSubFile);
     }
 -   //   gROOT->GetListOfFiles()->Remove(this);
 -   //   gROOT->GetUUIDs()->RemoveUUID(this->GetUniqueID());
