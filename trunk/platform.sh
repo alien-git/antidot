@@ -30,7 +30,7 @@ case `$dir/config.guess` in
     ia64-*-linux-gnu)
       platform=ia64-unknown-linux-gnu
       autoplatform=ia64
-      javaplatform=linux-i586
+      javaplatform=linux-ia64
       flavor=gcc64
       ;;
      *)

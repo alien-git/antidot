@@ -8,10 +8,10 @@
 +	mv $(DISTNAME)/Service/CMD/ML_SER $(DISTNAME)/Service/CMD/ML_SER.orig && \
 +	cat $(DISTNAME)/Service/CMD/ML_SER.orig | sed -e "s/policy.all/policy.all -Djava.security.egd=file:\/dev\/urandom/" > $(DISTNAME)/Service/CMD/ML_SER && \
 +	rm -f $(DISTNAME)/Service/CMD/ML_SER.orig && \
-+	(cd $(DISTNAME) ; \
-+	JAVA_BIN=`ls ../jdk*.bin` ; \
-+	echo "yes" | sh $$JAVA_BIN | tee /dev/null ; \
-+	JAVA_HOME=jdk1* ; ln -sf $$JAVA_HOME java ; cd $$JAVA_HOME ; \
++	(cd $(DISTNAME) &&  \
++	JAVA_BIN=`ls ../j*.bin` && \
++	echo "yes" | sh $$JAVA_BIN | tee /dev/null && \
++	JAVA_HOME=j* && ln -sf $$JAVA_HOME java && cd $$JAVA_HOME && \
 +	rm -rf demo man sample src.zip jre/plugin jre/javaws)
 +else
 +	echo Java is already installed on Darwin

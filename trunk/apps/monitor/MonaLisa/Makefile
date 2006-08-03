@@ -18,9 +18,6 @@ LICENSE = CIT
 AUTHOR = Caltech
 URL = http://monalisa.cacr.caltech.edu
 
-JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
-JAVA_VERSION = 1_5_0_07
-
 CONFIGURE_SCRIPTS = 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile 
@@ -29,10 +26,17 @@ CONFIGURE_ARGS =
 BUILD_ARGS   = build 
 INSTALL_ARGS = install
 
+include ../category.mk
+
+JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
+ifeq ($(JAVA_PLATFORM),linux-ia64)
+	JAVA_VERSION = 1_4_2_12
+else
+	JAVA_VERSION = 1_5_0_07
+endif
+
 BUILD_ENV = env JAVA_PLATFORM=$(JAVA_PLATFORM) JAVA_VERSION=$(JAVA_VERSION) MASTER_SITES="$(MASTER_SITES)" DISTNAME=$(DISTNAME)
 INSTALL_ENV = env DISTNAME=$(DISTNAME) PREFIX=$(PREFIX)/java
-
-include ../category.mk
 
 ifeq ($(shell uname -s),Darwin)
 post-build:
