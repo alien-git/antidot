@@ -1,0 +1,86 @@
+--- work/root-5.12.0/alien/src/TAlienFile.cxx	2006-07-17 18:26:48.000000000 +0200
++++ work/root-5.12.0/alien/src/TAlienFile.cxx.new	2006-07-17 18:53:40.000000000 +0200
+@@ -132,7 +132,7 @@
+ 
+    nUrl.SetOptions("");
+    fSubFile->SetName(nUrl.GetUrl());
+-   fSubFile->SetTitle(name);
++   fSubFile->SetTitle(nUrl.GetUrl());
+ 
+    Init(kFALSE);
+    return;
+@@ -350,10 +350,6 @@
+          newurl += "#";
+          newurl += anchor;
+       }
+-      //=======
+-      //      newurl += "#";
+-      //      newurl += purl.GetAnchor();
+-      //>>>>>>> 1.17
+    }
+    return newurl;
+ 
+@@ -369,14 +365,8 @@
+ 
+    R__LOCKGUARD2(gROOTMutex);
+    if (fSubFile) {
+-      Close();
+-
+-      gROOT->GetListOfFiles()->Remove(fSubFile);
+-      gROOT->GetUUIDs()->RemoveUUID(fSubFile->GetUniqueID());
+-      SafeDelete(fSubFile);
++     // SafeDelete(fSubFile);
+    }
+-   //   gROOT->GetListOfFiles()->Remove(this);
+-   //   gROOT->GetUUIDs()->RemoveUUID(this->GetUniqueID());
+ 
+    fSubFile = 0;
+    gFile = 0;
+@@ -423,8 +413,12 @@
+ {
+    // Close file.
+ 
+-   if (fOption == "READ")
+-      return;
++   if (fOption == "READ") {
++     if (fSubFile) {
++       fSubFile->Close(option);
++     }
++     return;
++   }
+ 
+    // set GCLIENT_EXTRA_ARG environment
+    gSystem->Setenv("GCLIENT_EXTRA_ARG",fAuthz.Data());
+@@ -436,10 +430,6 @@
+    command += " ";
+    command += fLfn;
+ 
+-   if (fSubFile) {
+-     fSubFile->Close(option);
+-   }
+-
+    TGridResult* result = gGrid->Command(command, kFALSE,TAlien::kOUTPUT);
+    TAlienResult* alienResult = dynamic_cast<TAlienResult*>(result);
+    TList* list = dynamic_cast<TList*>(alienResult);
+@@ -472,6 +462,9 @@
+    }
+ 
+    gSystem->Unsetenv("GCLIENT_EXTRA_ARG");
++   if (fSubFile) {
++     fSubFile->Close(option);
++   }
+ }
+ 
+ //______________________________________________________________________________
+@@ -491,11 +484,4 @@
+          return;
+       }
+    }
+-   {
+-      R__LOCKGUARD2(gROOTMutex);
+-      //     gROOT->GetListOfFiles()->Remove(fSubFile);
+-      //     gROOT->GetUUIDs()->RemoveUUID(fSubFile->GetUniqueID());
+-      //     gROOT->GetListOfFiles()->Add(this);
+-      //     gROOT->GetUUIDs()->AddUUID(fUUID,this);
+-   }
+ }

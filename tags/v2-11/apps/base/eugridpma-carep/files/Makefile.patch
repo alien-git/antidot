@@ -1,0 +1,12 @@
+--- work/carep/Makefile	Mon Feb  7 11:32:33 2005
++++ work/carep/Makefile.new	Mon Feb  7 11:32:49 2005
+@@ -0,0 +1,8 @@
++all:
++
++install:
++	mkdir -p $(GLOBUS_LOCATION)/share/certificates
++	for dir in `awk '{print $$1}' accredited.in` ; do \
++		cp -f $$dir/* $(GLOBUS_LOCATION)/share/certificates; \
++		rm  -f $(GLOBUS_LOCATION)/share/certificates/*.r0; \
++	done
++

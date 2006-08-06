@@ -1,0 +1,11 @@
+--- ./work/lcg-gfal-1.7.3/Makefile.in.ori	2005-09-26 17:47:52.000000000 +0200
++++ ./work/lcg-gfal-1.7.3/Makefile.in	2005-09-26 17:49:21.000000000 +0200
+@@ -18,7 +18,7 @@
+ 
+ # To enable RFIO support, uncomment the next 2 lines
+ RFIOFLG = -DGFAL_ENABLE_RFIO
+-RFIOINC = -I/usr/include/shift -I/usr/local/include/shift -I$(prefix)/include/dpm
++RFIOINC = $(LFCINC) -I$(prefix)/include/dpm
+ 
+ # To enable DCAP support, uncomment the next 2 lines
+ #DCAPFLG = -DGFAL_ENABLE_DCAP

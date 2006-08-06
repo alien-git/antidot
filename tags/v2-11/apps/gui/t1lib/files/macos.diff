@@ -1,0 +1,20 @@
+--- work/t1lib-5.1.0/lib/Makefile.in.ori	2005-08-25 16:17:08.000000000 +0200
++++ work/t1lib-5.1.0/lib/Makefile.in	2005-08-25 16:17:24.000000000 +0200
+@@ -129,7 +129,7 @@
+ 	$(LIBTOOL) --mode=link \
+ 		$(CC) -o $@ $(TYPE1_OBJS) $(T1LIB_OBJS) \
+ 	         -version-info @T1LIB_LT_CURRENT@:@T1LIB_LT_REVISION@:@T1LIB_LT_AGE@ \
+-		 -no-undefined -rpath $(libdir)
++		 -rpath $(libdir)
+ 	cp t1lib/t1lib.h .
+ 
+ 
+@@ -137,7 +137,7 @@
+ 	$(LIBTOOL) --mode=link \
+ 		$(CC) -o $@ $(T1LIBX_OBJS) \
+ 	         -version-info @T1LIB_LT_CURRENT@:@T1LIB_LT_REVISION@:@T1LIB_LT_AGE@ \
+-		 -no-undefined -rpath $(libdir)
++		 -rpath $(libdir)
+ 	cp t1lib/t1libx.h .
+ 
+ 
