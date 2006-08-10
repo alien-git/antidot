@@ -1,5 +1,5 @@
 GARNAME = Net-Jabber
-GARVERSION = 1.29
+GARVERSION = 1.30
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -24,4 +24,4 @@ BUILD_ARGS =
 
 include ../category.mk
 
-PRE_CONFIGURE = (rm -rf $(WORKSRC)/t/2_client.t) 
+PRE_CONFIGURE = (rm -rf $(WORKSRC)/t/2_client.t)
