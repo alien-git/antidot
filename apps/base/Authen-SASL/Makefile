@@ -3,6 +3,8 @@ GARVERSION = 2.09
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+PATCHFILES = sasl.diff
+
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GB/GBARR/ http://www.cpan.org/authors/id/G/GB/GBARR/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/G/GB/GBARR/
 
 LIBDEPS = apps/base/perl apps/base/cyrus-sasl
