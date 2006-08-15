@@ -28,3 +28,6 @@ CONFIGURE_ARGS = -L$(PREFIX)/lib --openssldir=$(PREFIX) zlib no-asm no-krb5 shar
 
 include ../category.mk
 
+ifeq ($(shell uname -s),Linux)
+PRE_CONFIGURE = (cp $(WORKSRC)/../../files/atasi.h $(PREFIX)/include)
+endif
