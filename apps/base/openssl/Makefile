@@ -24,7 +24,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = -L$(PREFIX)/lib --openssldir=$(PREFIX) zlib no-asm no-krb5 shared 
+CONFIGURE_ARGS = -L$(PREFIX)/lib --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing 
 
 include ../category.mk
 
