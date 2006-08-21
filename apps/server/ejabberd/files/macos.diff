@@ -1,5 +1,5 @@
---- work/ejabberd-1.0.0/src/Makefile.in	2006-04-11 15:48:24.000000000 +0200
-+++ work.new2/ejabberd-1.0.0/src/Makefile.in	2006-04-11 15:32:44.000000000 +0200
+--- work/ejabberd-1.1.1/src/Makefile.in	2006-04-11 15:48:24.000000000 +0200
++++ work.new2/ejabberd-1.1.1/src/Makefile.in	2006-04-11 15:32:44.000000000 +0200
 @@ -1,7 +1,7 @@
  # $Id$
  
@@ -9,8 +9,8 @@
  CPPFLAGS = @CPPFLAGS@
  LDFLAGS = @LDFLAGS@
  LIBS = @LIBS@
---- work.ori/ejabberd-1.0.0/src/mod_irc/Makefile.in	2005-05-25 15:31:59.000000000 +0200
-+++ work/ejabberd-1.0.0/src/mod_irc/Makefile.in	2006-04-11 15:34:39.000000000 +0200
+--- work.ori/ejabberd-1.1.1/src/mod_irc/Makefile.in	2005-05-25 15:31:59.000000000 +0200
++++ work/ejabberd-1.1.1/src/mod_irc/Makefile.in	2006-04-11 15:34:39.000000000 +0200
 @@ -1,7 +1,7 @@
  # $Id$
  
@@ -20,8 +20,8 @@
  CPPFLAGS = @CPPFLAGS@
  LDFLAGS = @LDFLAGS@
  LIBS = @LIBS@ @ERLANG_LIBS@ @LIBICONV@
---- work.ori/ejabberd-1.0.0/src/stringprep/Makefile.in	2005-05-25 15:31:59.000000000 +0200
-+++ work/ejabberd-1.0.0/src/stringprep/Makefile.in	2006-04-11 15:36:07.000000000 +0200
+--- work.ori/ejabberd-1.1.1/src/stringprep/Makefile.in	2005-05-25 15:31:59.000000000 +0200
++++ work/ejabberd-1.1.1/src/stringprep/Makefile.in	2006-04-11 15:36:07.000000000 +0200
 @@ -1,7 +1,7 @@
  # $Id$
  
@@ -31,8 +31,8 @@
  CPPFLAGS = @CPPFLAGS@
  LDFLAGS = @LDFLAGS@
  LIBS = @LIBS@ @ERLANG_LIBS@
---- work.ori/ejabberd-1.0.0/src/tls/Makefile.in	2005-11-19 18:25:36.000000000 +0100
-+++ work/ejabberd-1.0.0/src/tls/Makefile.in	2006-04-11 15:36:24.000000000 +0200
+--- work.ori/ejabberd-1.1.1/src/tls/Makefile.in	2005-11-19 18:25:36.000000000 +0100
++++ work/ejabberd-1.1.1/src/tls/Makefile.in	2006-04-11 15:36:24.000000000 +0200
 @@ -1,7 +1,7 @@
  # $Id$
  
