@@ -1,5 +1,5 @@
---- work/ejabberd-1.0.0/src/Makefile.in	Tue Aug  2 00:16:58 2005
-+++ work/ejabberd-1.0.0/src/Makefile.in.new	Thu Sep 15 13:56:29 2005
+--- work/ejabberd-1.1.1/src/Makefile.in	Tue Aug  2 00:16:58 2005
++++ work/ejabberd-1.1.1/src/Makefile.in.new	Thu Sep 15 13:56:29 2005
 @@ -19,13 +19,13 @@
  
  DESTDIR =
