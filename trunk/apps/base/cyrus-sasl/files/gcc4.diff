@@ -10,34 +10,3 @@
  
  static int _sasl_client_active = 0;
  
---- work/cyrus-sasl-2.1.21a/configure.ori	2006-03-21 12:30:00.000000000 +0100
-+++ work/cyrus-sasl-2.1.21a/configure	2006-06-01 15:06:48.000000000 +0200
-@@ -4011,7 +4011,7 @@
-      s/^\([^=]*\)=\(.*[{}].*\)$/test "${\1+set}" = set || &/
-      t end
-      /^ac_cv_env/!s/^\([^=]*\)=\(.*\)$/\1=${\1=\2}/
--     : end' >>confcache
-+     : end' | sed -e 's/  */ /g' >>confcache
- if diff $cache_file confcache >/dev/null 2>&1; then :; else
-   if test -w $cache_file; then
-     test "x$cache_file" != "x/dev/null" && echo "updating cache $cache_file"
-@@ -16812,7 +16812,7 @@
-      s/^\([^=]*\)=\(.*[{}].*\)$/test "${\1+set}" = set || &/
-      t end
-      /^ac_cv_env/!s/^\([^=]*\)=\(.*\)$/\1=${\1=\2}/
--     : end' >>confcache
-+     : end' | sed -e 's/  */ /g' >>confcache
- if diff $cache_file confcache >/dev/null 2>&1; then :; else
-   if test -w $cache_file; then
-     test "x$cache_file" != "x/dev/null" && echo "updating cache $cache_file"
---- work/cyrus-sasl-2.1.21a/saslauthd/configure.ori	2006-02-23 14:43:30.000000000 +0100
-+++ work/cyrus-sasl-2.1.21a/saslauthd/configure	2006-06-01 15:07:10.000000000 +0200
-@@ -11729,7 +11729,7 @@
-      s/^\([^=]*\)=\(.*[{}].*\)$/test "${\1+set}" = set || &/
-      t end
-      /^ac_cv_env/!s/^\([^=]*\)=\(.*\)$/\1=${\1=\2}/
--     : end' >>confcache
-+     : end' | sed -e 's/  */ /g' >>confcache
- if diff $cache_file confcache >/dev/null 2>&1; then :; else
-   if test -w $cache_file; then
-     test "x$cache_file" != "x/dev/null" && echo "updating cache $cache_file"
