@@ -24,7 +24,13 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-docs=no --with-pic
+ifeq ($(shell uname -s),Darwin)
+OS_MAJ := $(strip $(shell sw_vers | sed -n 's/ProductVersion://p' | cut -d . -f 1))
+OS_MIN := $(strip $(shell sw_vers | sed -n 's/ProductVersion://p' | cut -d . -f 2))
+CONFIGURE_ENV = eval CFLAGS="-I$(PREFIX)/globus/include/gcc32 $(CFGLAGS)" MACOSX_DEPLOYMENT_TARGET=$(OS_MAJ).$(OS_MIN)
+else
 CONFIGURE_ENV = eval CFLAGS="-I$(PREFIX)/globus/include/gcc32 $(CFGLAGS)"
+endif
 
 include ../category.mk
 
