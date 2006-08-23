@@ -9,3 +9,22 @@
  BEGIN_NAMESPACE( classad )
  
  #ifdef WIN32
+--- ./work/classads-0.9.7/util.C	2006-08-18 08:53:53.000000000 +0200
++++ ./work/classads-0.9.7/util.C.ori	2006-08-18 08:51:57.000000000 +0200
+@@ -353,16 +353,9 @@
+ }
+ #endif 
+ 
+-#ifdef  __APPLE_CC__
+-int classad_isnan(double x)
+-{
+-    return __isnan(x);
+-}
+-#else
+ int classad_isnan(double x)
+ {
+     return isnan(x);
+ }
+-#endif
+ 
+ END_NAMESPACE // classad
