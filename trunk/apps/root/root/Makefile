@@ -2,7 +2,7 @@ GARNAME = root
 GARVERSION = 5.12.0
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES =  TAlienFile.cxx.diff # macos.diff 
+PATCHFILES =  TAlienFile.cxx.diff macos.diff 
 
 MASTER_SITES = 
 

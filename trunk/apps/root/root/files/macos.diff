@@ -1,15 +1,16 @@
---- work/root-5.11.6/alien/src/TAlienSystem.cxx	2006-05-30 17:34:17.000000000 +0200
-+++ work/root-5.11.6/alien/src/TAlienSystem.cxx.new	2006-06-01 15:41:21.000000000 +0200
-@@ -315,10 +315,10 @@
-    }
- #if defined(R__SEEK64)
-    struct stat64 sbuf;
--   if ((gapi_lstat(url.GetUrl(), (struct GAPI_STAT*)(&sbuf))) == 0) {
-+   if ((gapi_lstat(url.GetUrl(), (GAPI_STAT*)(&sbuf))) == 0) {
- #else
-    struct stat sbuf;
--   if ((gapi_lstat(url.GetUrl(), (struct GAPI_STAT*)(&sbuf))) == 0) {
-+   if ((gapi_lstat(url.GetUrl(), (GAPI_STAT*)(&sbuf))) == 0) {
- #endif
-       buf.fIsLink = S_ISLNK(sbuf.st_mode);
-       buf.fDev   = sbuf.st_dev;
+--- ./work/root-5.12.0/config/Makefile.macosx.ori	2006-08-18 16:34:09.000000000 +0200
++++ ./work/root-5.12.0/config/Makefile.macosx	2006-08-18 16:34:30.000000000 +0200
+@@ -80,11 +80,11 @@
+ ifeq (g95,$(findstring g95,$(ROOTBUILD)))
+ F77           = g95
+ F77LIBS       = -L`$(F77) -print-search-dirs | awk '/^install:/{print $$2}'` \
+-                -lf95 -L$(FINK_DIR)/lib -lg2c
++                -lf95 -L$(FINK_DIR)/lib
+ else
+ F77           = gfortran
+ F77LIBS       = -L$(FINK_DIR)/lib/gcc4/lib -lgfortran -lgfortranbegin \
+-                -L$(FINK_DIR)/lib -lg2c
++                -L$(FINK_DIR)/lib
+ endif
+ else
+ F77           = g77
