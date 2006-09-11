@@ -1,5 +1,5 @@
 GARNAME = globus-toolkit
-GARVERSION = 4.0.2
+GARVERSION = 4.0.3
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = Makefile.in.diff
