@@ -1,3 +1,4 @@
-7484fc0cef35abb6d3dca449b70c1516  download/hints_darwin.sh.diff
 dacefa1fe3c5b6d7bbc334ad94826131  download/perl-5.8.7.tar.gz
-b8a353b9bc111455dbbc24145698846a  download/locale.t.diff
+b8c118d4360846829beb30b02a6b91a7  download/perl-5.8.8.tar.gz
+1478419a7d8c9efb9655750c44982b7f  download/locale.t.diff
+b6707a424923dc51e688cec22250478d  download/hints_darwin.sh.diff
