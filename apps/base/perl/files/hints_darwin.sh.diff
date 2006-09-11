@@ -1,5 +1,5 @@
---- work/perl-5.8.7/hints/darwin.sh	Thu May 12 19:03:57 2005
-+++ work/perl-5.8.7/hints/darwin.sh.new	Mon Sep 19 23:57:43 2005
+--- work/perl-5.8.8/hints/darwin.sh	Thu May 12 19:03:57 2005
++++ work/perl-5.8.8/hints/darwin.sh.new	Mon Sep 19 23:57:43 2005
 @@ -239,6 +239,10 @@
  # really need ODBM_FIle, though, so let's just hint ODBM away.
  i_dbm=undef;
