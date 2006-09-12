@@ -1,12 +1,7 @@
 GARNAME = tokenauthz
-GARVERSION = 1.0.14
+GARVERSION = 1.1.0
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-
-#ifeq ($(shell uname),Darwin)
-#PATCHFILES = macos.diff
-#endif
-
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
