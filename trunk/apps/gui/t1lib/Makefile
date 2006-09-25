@@ -4,7 +4,9 @@ CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = macos.diff
 
+
 LIBDEPS = apps/gcc/gcc
+
 
 MASTER_SITES = ftp://sunsite.unc.edu/pub/Linux/libs/graphics/ 
 
