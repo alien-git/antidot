@@ -272,6 +272,12 @@ normal-patch-%:
 	@patch -p0 < $(DOWNLOADDIR)/$*
 	@$(MAKECOOKIE)
 
+# apply normal p1 patches
+normal-patch1-%:
+	@echo ' $(call TMSG_LIB,Applying patch (-p1),$(DOWNLOADDIR)/$*)'
+	@(cd $(WORKSRC) && patch -p1 < ../../$(DOWNLOADDIR)/$*)
+	@$(MAKECOOKIE)
+
 # This is used by makepatch
 %/gar-base.diff:
 	@echo ' $(call TMSG_LIB,Creating patch,$@)'
@@ -312,7 +318,7 @@ patch-%.patch.Z: gz-patch-%.patch.Z
 patch-%.diff: normal-patch-%.diff
 	@$(MAKECOOKIE)
 
-patch-%.patch: normal-patch-%.patch
+patch-%.patch: normal-patch$(PATCHLEVEL)-%.patch
 	@$(MAKECOOKIE)
 
 #################### CONFIGURE RULES ####################

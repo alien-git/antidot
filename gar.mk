@@ -78,7 +78,9 @@ GARUNAME_M=$(shell uname -m | sed -e 's/ *//g')
 
 include $(wildcard $(GARDIR)/platform/$(GARUNAME_S).mk $(GARDIR)/platform/$(GARUNAME_S).$(GARUNAME_M).mk $(GARDIR)/platform/$(shell $(GARDIR)/config.guess).mk)
 
-include $(GARDIR)/alien.conf.mk
+ifneq ($(wildcard $(GARDIR)/alien.conf.mk),)
+  include $(GARDIR)/alien.conf.mk
+endif
 
 MASKED += $(shell $(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd)) 
 
