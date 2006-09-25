@@ -1,5 +1,5 @@
 GARNAME = libtool
-GARVERSION = 1.5.8
+GARVERSION = 1.5.22
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
