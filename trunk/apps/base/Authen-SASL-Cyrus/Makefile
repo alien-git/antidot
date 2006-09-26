@@ -17,7 +17,7 @@ AUTOTEST = testForAliEnPerlModule Authen::SASL::Cyrus $(GARVERSION)
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-TEST_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = # $(WORKSRC)/Makefile
 
 AUTOTEST = testForAliEnPerlModule Authen-SASL-Cyrus $(GARVERSION)
 
