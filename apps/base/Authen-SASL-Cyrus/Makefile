@@ -2,7 +2,7 @@ GARNAME = Authen-SASL-Cyrus
 GARVERSION = 0.13-server
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Authen-SASL-Cyrus-0.13b-server.patch
+PATCHFILES = Cyrus.xs.patch
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/P/PB/PBOETTCH/ 
 
 LIBDEPS = apps/base/perl apps/base/Authen-SASL
