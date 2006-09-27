@@ -17,9 +17,9 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ENV = env DB_FILE_INCLUDE=$(PREFIX)/include DB_FILE_LIB=$(PREFIX)/lib
-
 BUILD_ARGS =  
 
 include ../category.mk
 
+export DB_FILE_INCLUDE=$(PREFIX)/include
+export DB_FILE_LIB=$(PREFIX)/lib
