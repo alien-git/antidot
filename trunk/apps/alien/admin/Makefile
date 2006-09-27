@@ -1,15 +1,11 @@
 GARNAME = alien-admin
-GARVERSION = 2.1.1
+GARVERSION = 2.1.2
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
-NOCHECKSUM = $(DISTFILES)
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 PATCHFILES = 
 
-GARCVSNAME    = org.glite.alien.admin
-GARCVSVERSION = glite-alien-admin_branch_2_0_0
-
-MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
+MASTER_SITES = 
 
 LIBDEPS = apps/alien/common apps/server/DBD-mysql apps/server/openldap apps/server/ejabberd
 
