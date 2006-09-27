@@ -1,13 +1,9 @@
 GARNAME = alien-gssapi
-GARVERSION = 2.1.1
+GARVERSION = 2.1.2
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
-NOCHECKSUM = $(DISTFILES)
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-GARCVSNAME    = org.glite.alien.gssapi
-GARCVSVERSION = glite-alien-gssapi_branch_2_0_0
-
-MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
+MASTER_SITES =
 
 LIBDEPS = apps/base/globus-toolkit apps/glite/glite apps/base/eugridpma-carep
 

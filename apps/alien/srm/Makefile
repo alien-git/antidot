@@ -1,13 +1,9 @@
 GARNAME = alien-srm
-GARVERSION = 2.1.0
+GARVERSION = 2.1.2
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
-NOCHECKSUM = $(DISTFILES)
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-GARCVSNAME    = org.glite.alien.srm
-GARCVSVERSION = glite-alien-srm_branch_2_0_0
-
-MASTER_SITES = webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/
+MASTER_SITES =
 
 LIBDEPS = apps/base/perl apps/base/cgsi-gsoap
 BUILDDEPS = apps/glite/glite
