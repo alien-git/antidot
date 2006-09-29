@@ -29,10 +29,11 @@ sub dumpStatus {
 system("rm -f /tmp/myAtest* ; echo 'My test file for pid $$' > /tmp/myAtest$$");
 
 my @tests = (
-	"alien -exec add test"          => "alien -exec add myTestFile$$ /tmp/myAtest$$",
-	"alien -exec whereis test"      => "alien -exec whereis myTestFile$$",
-	"alien -exec get test"          => "alien -exec get myTestFile$$",
-	"alien -exec rm test"           => "alien -exec rm myTestFile$$",
+	"alien -exec mkdir"		=> "alien -exec mkdir -p alien-tests",
+	"alien -exec rm test"           => "alien -exec rm 'myTestFile*' 'alien-tests/myTestFile*'",
+	"alien -exec add test"          => "alien -exec add alien-tests/myTestFile$$ /tmp/myAtest$$",
+	"alien -exec whereis test"      => "alien -exec whereis alien-tests/myTestFile$$",
+	"alien -exec get test"          => "alien -exec get alien-tests/myTestFile$$",
 	"alien version"			=> "alien -v",
 	);
 

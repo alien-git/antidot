@@ -182,7 +182,7 @@ sub setupConfig {
     # myFarm.conf
     $add = ($config->{MONALISA_ADDMODULES_LIST} or []);
     $rmv = ($config->{MONALISA_REMOVEMODULES_LIST} or []);
-    
+   
     if($config->{SITE} eq "LCG"){
     	# for LCG sites, also run this
 	push(@$add, '*LCGServicesStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/lcg_vobox_services,timeout=800"}%900');
@@ -220,6 +220,7 @@ sub setupConfig {
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.LDAP_QUERY_INTERVAL=7200");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.RUN_JOB_SYNC_SCRIPT=false");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.JOB_SYNC_RUN_INTERVAL=7200");
+    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.JOB_SYNC_SCRIPT_TIMEOUT=1200");
     
     $rmv = ($config->{MONALISA_REMOVEPROPERTIES_LIST} or []);
     $changes = {

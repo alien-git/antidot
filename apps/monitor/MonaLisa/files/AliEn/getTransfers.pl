@@ -22,6 +22,9 @@ use strict;
 
 my $cat=AliEn::UI::Catalogue::LCM->new({silent=>1}) or exit(-2);
 my @data = $cat->execute("listTransfer", "-all_status") or exit(-3);
+
+die "Failed to execute top!" if(! @data);
+
 #use Data::Dumper;
 #print Dumper(@data);
 for my $job (@{$data[0]}){
@@ -29,7 +32,7 @@ for my $job (@{$data[0]}){
 #	print Dumper($job);
 	my $status = AliEn::Util::transferStatusForML($job->{status});
 	# we don't want finished transfers (successfull or not)
-	next if(($job->{status} eq "FAILED") || ($job->{status} eq "KILLED") || ($job->{status} eq "DONE"));
+	next if(($job->{status} eq "FAILED") || ($job->{status} eq "KILLED") || ($job->{status} eq "DONE") || ($job->{status} eq "EXPIRED"));
 	my $sourceSE = $job->{SE} || 'NO_SE';
 	my $destinationSE = $job->{destination} || 'NO_SE';
 	my $size = $job->{size} || 0;
