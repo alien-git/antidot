@@ -26,6 +26,9 @@ use strict;
 
 my $cat=AliEn::UI::Catalogue::LCM::Computer->new({silent=>1}) or exit(-2);
 my @data = $cat->execute("top", "-all_status -all");
+
+die "Failed to execute top!" if(! @data);
+
 #use Data::Dumper;
 #print Dumper(@data);
 for my $job (@data){
