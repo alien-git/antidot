@@ -34,7 +34,7 @@ die "Failed to execute top!" if(! @data);
 for my $job (@data){
 	my $status = AliEn::Util::statusForML($job->{status});
 	# we don't want finished jobs (successfull or not)
-	next if(($job->{status} eq "FAILED") || ($job->{status} eq "KILLED") || ($job->{status} eq "DONE"));
+	next if(($job->{status} eq "FAILED") || ($job->{status} eq "KILLED") || ($job->{status} eq "DONE") || ($job->{status} eq 'DONE_WARNING'));
 	my $execSite = $job->{execHost} || 'NO_SITE';
 	my $received = $job->{received} || 0;
 	my $started = $job->{started} || 0;
