@@ -1,11 +1,15 @@
+CVS_TAG = $(shell echo '$$Name$$' | awk '{print $$2}' | sed -e 's/^\$$$$/HEAD/' )
+
 GARNAME = alien-admin
-GARVERSION = 2.1.2
+GARVERSION = $(CVS_TAG)
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
+NOCHECKSUM = $(DISTFILES)
 
-PATCHFILES = 
+GARCVSNAME = alien-admin
+GARCVSVERSION = $(CVS_TAG)
 
-MASTER_SITES = 
+MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/ 
 
 LIBDEPS = apps/alien/common apps/server/DBD-mysql apps/server/openldap apps/server/ejabberd
 
