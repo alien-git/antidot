@@ -210,7 +210,12 @@ sub setupConfig {
     # logging properties
     pushIfNoKey($add, "lia.Monitor.Farm.Conf.ConfVerifier.level=WARNING");
 #    pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter.level=FINEST");
-    
+
+    # monXDRUDP properties
+    pushIfNoKey($add, "lia.Monitor.modules.GenericUDPListener.SO_RCVBUF_SIZE=2097152");
+    pushIfNoKey($add, "lia.Monitor.modules.monXDRUDP.MONITOR_SENDERS=false");
+    pushIfNoKey($add, "lia.Monitor.modules.monXDRUDP.SENDER_EXPIRE_TIME=600");
+
     # AliEnFilter properties
     pushIfNoKey($add, "lia.Monitor.Store.FileLogger.maxDays=0");
     pushIfNoKey($add, "lia.Monitor.Filters.AliEnFilter=true");
