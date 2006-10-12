@@ -1,6 +1,7 @@
 GARNAME = xrootd
+#GARVERSION = 20060928-1600
 GARVERSION = 20060928-1600-poll16
-
+#GARVERSION= 20060523-1741-p1
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
@@ -21,7 +22,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint --enable-openssl --enable-gsi --enable-tokenauthz --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint --enable-openssl --enable-gsi --enable-tokenauthz --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --with-openssl-libdir=$(PREFIX)/lib --with-openssl-incdir=$(PREFIX)/include
 
 ifeq ($(shell uname -m),ia64)
 CONFIGURE_ARGS += --with-xccflavour=gcc
