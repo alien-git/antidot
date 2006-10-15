@@ -27,3 +27,4 @@ include ../category.mk
 
 PRE_CONFIGURE = (cd $(WORKSRC); find . -name bootstrap -exec chmod +x {} \; ; ./bootstrap )
 
+
