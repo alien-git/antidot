@@ -3,7 +3,7 @@ GARVERSION = 20060928-1600-poll16
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-PATCHFILES = # macos.diff apmon.diff
+PATCHFILES = macos.diff apmon.diff
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
