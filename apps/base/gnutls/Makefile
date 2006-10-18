@@ -1,11 +1,11 @@
 GARNAME = gnutls
-GARVERSION = 1.0.25
+GARVERSION = 1.5.2
 CATEGORIES = apps-libs
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
-MASTER_SITES =  
+MASTER_SITES =  http://josefsson.org/gnutls/releases/
 
-LIBDEPS = apps/base/libgcrypt
+LIBDEPS = apps/base/opencdk
 
 AUTHOR  = GNU
 LICENSE = LGPL
