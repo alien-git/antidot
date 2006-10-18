@@ -1,9 +1,9 @@
---- work/xrootd-20060928-1600-poll16/configure.ac.orig  2006-10-11 17:41:00.000000000 +0200
-+++ work/xrootd-20060928-1600-poll16/configure.ac       2006-10-16 13:56:07.000000000 +0200
-@@ -600,14 +600,13 @@
+--- work/xrootd-20060523-1741/configure.ac	2006-04-19 09:40:34.000000000 +0200
++++ work/xrootd-20060523-1741/configure.ac.new	2006-07-10 10:19:05.000000000 +0200
+@@ -585,14 +585,13 @@
  AC_CHECK_LIB([rt],[aio_fsync],
               [AC_SUBST(LIBRT,[-lrt])])
-
+ 
 -##  ---- DISABLED FOR NOW ----
  ## check for the MonALISA client cpp library
 -##AC_CHECK_LIB([apmoncpp],[main],
@@ -18,29 +18,28 @@
 +              AC_MSG_WARN([libapmoncpp not found. ApMon support will be disabled!])
 +             ])
 +AM_CONDITIONAL(ENABLE_APMON, test x"$have_apmon" != xno)
-
+ 
  #################################################################
  # Checks for header files.
---- work/xrootd-20060928-1600-poll16/src/XrdClient/Makefile.am.orig     2006-10-13 08:30:58.000000000 +0200
-+++ work/xrootd-20060928-1600-poll16/src/XrdClient/Makefile.am  2006-10-16 13:56:07.000000000 +0200
-@@ -79,7 +79,11 @@
+--- work/xrootd-20060523-1741/src/XrdClient/Makefile.am	2006-03-08 14:03:49.000000000 +0100
++++ work/xrootd-20060523-1741/src/XrdClient/Makefile.am.new	2006-07-10 10:19:37.000000000 +0200
+@@ -74,7 +74,11 @@
                -ldl
-
+ 
  xrdcp_SOURCES = Xrdcp.cc
 +if ENABLE_APMON
 +xrdcp_LDADD = $(clientlibs) -lapmoncpp
 +else
  xrdcp_LDADD = $(clientlibs)
 +endif
-
+ 
  xrd_SOURCES = XrdCommandLine.cc
- xrd_LDADD = $(clientlibs) $(READLINE_LIBS)
-
---- work/xrootd-20060928-1600-poll16/src/XrdClient/Xrdcp.cc.orig	2006-09-29 00:39:50.000000000 +0200
-+++ work/xrootd-20060928-1600-poll16/src/XrdClient/Xrdcp.cc	2006-10-16 13:30:16.000000000 +0200
-@@ -22,6 +22,10 @@
- #include <XrdCrypto/XrdCryptoFactory.hh>
- #include <XrdCrypto/XrdCryptoMsgDigest.hh>
+ xrd_LDADD = $(clientlibs)
+--- work/xrootd-20060523-1741/src/XrdClient/Xrdcp.cc	2006-04-14 03:54:54.000000000 +0200
++++ work/xrootd-20060523-1741/src/XrdClient/Xrdcp.cc.new	2006-07-10 10:19:58.000000000 +0200
+@@ -19,6 +19,10 @@
+ #include "XrdClient/XrdClientEnv.hh"
+ #include "XrdSys/XrdSysPlatform.hh"
  
 +#ifdef HAVE_LIBAPMONCPP
 +#include "ApMon.h"
@@ -49,10 +48,11 @@
  #include <sys/types.h>
  #include <sys/stat.h>
  #include <fcntl.h>
-@@ -101,6 +105,24 @@
- XrdCryptoMsgDigest *MD_5=0;    // md5 computation
- XrdCryptoFactory *gCryptoFactory = 0;
+@@ -80,6 +84,25 @@
  
+ bool summary=false;            // print summary
+ bool progbar=true;             // print progbar
++
 +#ifdef HAVE_LIBAPMONCPP
 +// ApMon Monitoring
 +bool    use_apmon=true;
@@ -68,14 +68,14 @@
 +double  src_IP;
 +double  dst_IP;
 +struct timeval last_send_time;
-+#define MIN_SEND_INTERVAL 10.0                // don't send data more often that this
++#define MIN_SEND_INTERVAL 10.0		// don't send data more often that this
 +#endif
 +
- 
- void print_summary(const char* src, const char* dst, unsigned long long bytesread, XrdCryptoMsgDigest* _MD_5) {
-    gettimeofday (&abs_stop_time, &tz);
-@@ -208,8 +230,48 @@
-    return 0;
+ char *srcopaque=0,
+    *dstopaque=0;   // opaque info to be added to urls
+ // Default open flags for opening a file (xrd)
+@@ -134,8 +157,48 @@
+    CERR(("| %.02f %% [%.01f Mb/s]\r",100.0*bytesread/size,bytesread/abs_time/1000.0));
  }
  
 -
@@ -123,11 +123,11 @@
 +}
 +#endif
  
- // The body of a thread which reads from the global filehandle
- //  and keeps the queue filled
-@@ -421,7 +483,11 @@
- 	       if (md5) {
- 		 MD_5->Update((const char*)buf,len);
+ // The body of a thread which reads from the global
+ //  XrdClient and keeps the queue filled
+@@ -397,7 +460,11 @@
+ 		 gettimeofday(&abs_stop_time,&tz);
+ 		 print_progbar(bytesread,size);
  	       }
 -
 +#ifdef HAVE_LIBAPMONCPP 
@@ -138,9 +138,9 @@
  	       if (!(*xrddest)->Write(buf, offs, len)) {
  		  cerr << "Error writing to output server." << endl;
  		  retvalue = 11;
-@@ -454,7 +520,11 @@
- 	MD_5->Final();
- 	print_md5(src,bytesread,MD_5);
+@@ -425,7 +492,11 @@
+       if(progbar) {
+ 	cout << endl;
        }
 -      
 +#ifdef HAVE_LIBAPMONCPP
@@ -149,11 +149,11 @@
 +      }
 +#endif
        if (summary) {        
- 	print_summary(src,dst,bytesread,MD_5);
+ 	print_summary(src,dst,bytesread);
        }
-@@ -546,7 +616,11 @@
- 	    if (md5) {
- 	      MD_5->Update((const char*)buf,len);
+@@ -513,7 +584,11 @@
+ 	       gettimeofday(&abs_stop_time,&tz);
+ 	       print_progbar(bytesread,size);
  	    }
 -
 +#ifdef HAVE_LIBAPMONCPP 
@@ -164,9 +164,9 @@
  	    if (write(f, buf, len) <= 0) {
  	       cerr << "Error " << strerror(errno) <<
  		  " writing to " << dst << endl;
-@@ -580,7 +654,11 @@
-      MD_5->Final();
-      print_md5(src,bytesread,MD_5);
+@@ -542,7 +617,11 @@
+    if(progbar) {
+       cout << endl;
     }
 -      
 +#ifdef HAVE_LIBAPMONCPP 
@@ -175,11 +175,11 @@
 +   }
 +#endif
     if (summary) {        
-       print_summary(src,dst,bytesread,MD_5);
+       print_summary(src,dst,bytesread);
     }      
-@@ -664,7 +742,11 @@
- 	    if (md5) {
- 	      MD_5->Update((const char*)buf,len);
+@@ -622,7 +701,11 @@
+ 	      gettimeofday(&abs_stop_time,&tz);
+ 	      print_progbar(bytesread,size);
  	    }
 -
 +#ifdef HAVE_LIBAPMONCPP 
@@ -190,35 +190,41 @@
  	    if (!(*xrddest)->Write(buf, offs, len)) {
  	       cerr << "Error writing to output server." << endl;
  	       retvalue = 12;
-@@ -697,7 +779,11 @@
-      MD_5->Final();
-      print_md5(src,bytesread,MD_5);
+@@ -650,10 +733,14 @@
+    if(progbar) {
+      cout << endl;
     }
 -   
-+#ifdef HAVE_LIBAPMONCPP
+-   if (summary) {        
++#ifdef HAVE_LIBAPMONCPP 
 +   if(use_apmon){
 +     send_to_ml(bytesread, size, true);
 +   }
 +#endif
-    if (summary) {        
-      print_summary(src,dst,bytesread,MD_5);
-    }	 
-@@ -716,8 +802,14 @@
++   if (summary) {
+      print_summary(src,dst,bytesread);
+-   }	 
++   }
+ 
+    pthread_cancel(myTID);
+    pthread_join(myTID, &thret);
+@@ -669,8 +756,15 @@
  
  
  void PrintUsage() {
 +#ifdef HAVE_LIBAPMONCPP
 +   cerr << "usage: xrdcp <source> <dest> "
-+     "[-d lvl] [-DSparmname stringvalue] ... [-DIparmname intvalue] [-s] [-ns] [-v] [-noapmon] [-OS<opaque info>] [-OD<opaque info>] [-force] [-md5]" << endl;
++     "[-d lvl] [-DSparmname stringvalue] ... [-DIparmname intvalue] [-s] [-ns] [-v] [-noapmon] [-OS<opaque info>] [-OD<opaque info>] [-force]" << endl;
 +   cerr << " -noapmon:        don't send monitoring info using ApMon " << endl;
 +#else
     cerr << "usage: xrdcp <source> <dest> "
-      "[-d lvl] [-DSparmname stringvalue] ... [-DIparmname intvalue] [-s] [-ns] [-v] [-OS<opaque info>] [-OD<opaque info>] [-force] [-md5]" << endl;
+      "[-d lvl] [-DSparmname stringvalue] ... [-DIparmname intvalue] [-s] [-ns] [-v] [-OS<opaque info>] [-OD<opaque info>] [-force]" << endl;
 +#endif
++  
     cerr << " -d lvl :         debug level: 1 (low), 2 (medium), 3 (high)" << endl;
-    cerr << " -DSparmname stringvalue" << endl <<
- 	   "        :         set the internal parm <parmname> with the string value <stringvalue>" << endl <<
-@@ -741,6 +833,102 @@
+    cerr << " -s     :         silent mode, no summary output, no progress bar" << endl;
+    cerr << " -np    :         no progress bar" << endl;
+@@ -686,6 +780,102 @@
     cerr << "   intvalue     is an int to be assigned to an internal parameter" << endl;
  }
  
@@ -321,7 +327,7 @@
  
  // Main program
  int main(int argc, char**argv) {
-@@ -785,6 +973,13 @@
+@@ -730,6 +920,13 @@
  	continue;
        }
  
@@ -335,7 +341,7 @@
        if ( (strstr(argv[i], "-v") == argv[i])) {
  	summary=true;
  	continue;
-@@ -907,6 +1102,10 @@
+@@ -834,6 +1031,10 @@
        exit(1);
     }
  
