@@ -1,5 +1,5 @@
 GARNAME = libgpg-error
-GARVERSION = 1.3
+GARVERSION = 1.4
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
