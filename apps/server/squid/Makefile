@@ -8,7 +8,7 @@ MASTER_SITES =
 
 LIBDEPS = apps/base/openssl
 
-DESCRIPTION = MySQL database
+DESCRIPTION = Squid Web Cache
 URL = http://www.squid-cache.org/
 LICENSE = GPL
 AUTHOR = Squid Team
