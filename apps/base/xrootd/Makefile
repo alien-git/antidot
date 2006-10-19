@@ -28,5 +28,5 @@ endif
 
 include ../category.mk
 
-PRE_CONFIGURE = ( echo "PRE CONFIGURE" && cd $(WORKSRC) && $(PREFIX)/bin/aclocal && $(PREFIX)/bin/automake -a && $(PREFIX)/bin/autoconf )
+#PRE_CONFIGURE = ( echo "PRE CONFIGURE" && cd $(WORKSRC) && $(PREFIX)/bin/aclocal && $(PREFIX)/bin/automake -a && $(PREFIX)/bin/autoconf )
 POST_INSTALL = ( rm -rf $(PREFIX)/bin/xrootdutils; cp -f $(WORKSRC)/src/XrdOuc/XrdOucRash.icc $(PREFIX)/api/include/xrootd/XrdOuc )
