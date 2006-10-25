@@ -8,7 +8,7 @@ PATCHFILES =
 
 MASTER_SITES = http://www.eugridpma.org/distribution/igtf/$(GARVERSION)/accredited/
 
-LIBDEPS = apps/base/globus-toolkit
+LIBDEPS = 
 
 DESCRIPTION =  European Policy Management Authority for Grid Authentication in e-Science - acredited CA certificates
 LICENSE =
