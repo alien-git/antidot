@@ -6,7 +6,8 @@ PATCHFILES = Makefile.in.diff
 
 MASTER_SITES = 
 
-LIBDEPS   = apps/base/libxml2 
+LIBDEPS   = apps/base/libxml2 apps/base/eugridpma-carep
+
 BUILDDEPS = apps/base/perl
 
 DESCRIPTION = Globus Toolkit
