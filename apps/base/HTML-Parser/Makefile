@@ -1,5 +1,5 @@
 GARNAME = HTML-Parser
-GARVERSION = 3.45
+GARVERSION = 3.55
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -10,6 +10,9 @@ LIBDEPS = apps/base/HTML-Tagset
 DESCRIPTION =  Parse HEAD section of HTML documents
 
 AUTOTEST = testForAliEnPerlModule HTML::Parser $(GARVERSION )
+AUTHOR = Gisle Aas
+URL = http://search.cpan.org/~gaas/
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

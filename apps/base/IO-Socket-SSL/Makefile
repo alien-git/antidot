@@ -10,7 +10,7 @@ LIBDEPS = apps/base/Net_SSLeay.pm
 DESCRIPTION = Nearly transparent SSL encapsulation for IO-Socket-INET
 AUTHOR =  Peter Behroozi
 URL = http://cpan.uwinnipeg.ca/~behroozi
-LICENSE = 
+LICENSE = Perl
 
 AUTOTEST = testForAliEnPerlModule IO::Socket::SSL $(GARVERSION )
 
