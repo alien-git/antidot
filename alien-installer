@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.106  2006/09/11 14:12:48  buncic
+# Removing obsolete environemnt variables
+#
 # Revision 1.105  2006/08/08 11:08:56  buncic
 # Adding sanity check and ALIEN_VERSION
 #
@@ -631,6 +634,9 @@ InstallerUpdate()
 
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
 
+
+#cat `find /opt/alien/share/alien/packages -name "zlib-*"` | (while read file; do echo $$file; done)
+
   for meta in $ALIEN_INSTALLER_TYPE
   do
     pkgdir=`echo $meta | sed 's/"//g'`
@@ -844,6 +850,7 @@ InstallerUI()
                            'monitor' 'MonaLisa site monitor'    0  \
                            'core'    'Core VO services'         0  \
                            'wn'      'Worker node'              0  \
+                           'panda'   'PANDA CA'                 0  \
                            'tests'   'AliEn tests'              0 2>$dialog_file || Exit 1
 
   list=\"$(cat $dialog_file | sed 's/"//g' )\"
