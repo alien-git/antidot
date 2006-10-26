@@ -10,7 +10,7 @@ LIBDEPS = apps/base/Crypt-DES
 DESCRIPTION = Triple-DES EDE encryption/decryption
 AUTHOR =  Benjamin Trott
 URL = http://cpan.uwinnipeg.ca/~btrott
-LICENSE = 
+LICENSE = Perl
 
 AUTOTEST = testForAliEnPerlModule Crypt::DES_EDE3 $(GARVERSION)
 

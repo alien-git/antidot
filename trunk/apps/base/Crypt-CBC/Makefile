@@ -1,5 +1,5 @@
 GARNAME = Crypt-CBC
-GARVERSION = 2.17
+GARVERSION = 2.21
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -10,7 +10,7 @@ LIBDEPS = apps/base/perl
 DESCRIPTION = Cipherblock chaining for Crypt-DES/IDEA
 AUTHOR =   Lincoln D. Stein 
 URL = http://cpan.uwinnipeg.ca/~lds
-LICENSE = 
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

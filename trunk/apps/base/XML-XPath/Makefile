@@ -10,7 +10,7 @@ LIBDEPS = apps/base/XML-Parser
 DESCRIPTION = A set of modules for parsing and evaluating
 AUTHOR = Matt Sergeant
 URL = http://cpan.uwinnipeg.ca/~msergeant
-LICENSE =
+LICENSE = Perl
 
 AUTOTEST = testForAliEnPerlModule XML::XPath $(GARVERSION)
 

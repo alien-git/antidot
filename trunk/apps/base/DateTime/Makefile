@@ -1,5 +1,5 @@
 GARNAME = DateTime
-GARVERSION = 0.30
+GARVERSION = 0.35
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -12,6 +12,7 @@ BUILDDEPS = apps/base/Module-Build
 DESCRIPTION = A complete, easy to use date and time object
 URL = http://cpan.uwinnipeg.ca/~drolsky
 AUTHOR = Dave Rolsky
+LICENSE = Perl
 
 AUTOTEST = testForAliEnPerlModule DateTime $(GARVERSION )
 

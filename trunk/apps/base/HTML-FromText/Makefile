@@ -8,7 +8,10 @@ MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CW/CWEST/ http://www.cpan.org/authors
 LIBDEPS = apps/base/Email-Find apps/base/Exporter-Lite apps/base/HTML-Parser
 
 DESCRIPTION = Mark up text as HTML
-
+LICENSE  = Perl
+AUTHOR   = Casey West and Gareth Rees
+URL = http://search.cpan.org/~cwest/
+ 
 AUTOTEST = testForAliEnPerlModule HTML::FromText $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL

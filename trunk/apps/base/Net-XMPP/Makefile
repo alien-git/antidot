@@ -10,7 +10,7 @@ LIBDEPS = apps/base/XML-Stream
 DESCRIPTION = XMPP Perl Library
 AUTHOR = Ryan Eatmon 
 URL = http://cpan.uwinnipeg.ca/~reatmon
-LICENSE = 
+LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

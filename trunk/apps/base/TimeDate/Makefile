@@ -10,6 +10,7 @@ LIBDEPS = apps/base/perl
 DESCRIPTION = A complete, easy to use date and time object
 AUTHOR = Graham Barr
 URL = http://search.cpan.org/~gbarr
+LICENSE = Perl
 
 AUTOTEST = testForAliEnPerlModule TimeDate $(GARVERSION )
 
