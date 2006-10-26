@@ -10,7 +10,7 @@ LIBDEPS = apps/gcc/gcc
 DESCRIPTION = SWIG
 URL = http://www.swig.org/
 AUTHOR = Dave Beazley et al.
-LICENSE = as-is
+LICENSE = swig
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
