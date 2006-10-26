@@ -10,7 +10,7 @@ LIBDEPS = apps/gcc/gcc
 DESCRIPTION = The XML C parser and toolkit of Gnome
 URL = http://xmlsoft.org/
 AUTHOR = Daniel Veillard
-LICENSE = libxml2
+LICENSE = MIT
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

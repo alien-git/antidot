@@ -10,7 +10,7 @@ LIBDEPS = apps/gcc/gcc
 DESCRIPTION = Internationalized Domain Names implementation
 URL = http://www.gnu.org/software/libidn/
 AUTHOR = gnu.org
-LCIENSE = LGPL2.1
+LCIENSE = LGPL
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
