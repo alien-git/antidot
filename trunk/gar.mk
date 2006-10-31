@@ -292,11 +292,12 @@ BINEXTRACT_TARGETS = $(addprefix binextract-,$(filter-out $(NOEXTRACT),$(BINDIST
 
 RELOCATE_TARGETS = $(addprefix relocate-,$(filter-out $(NOEXTRACT),$(BINDISTFILES))) 
 
-install-bin: fetch-bin $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS))  pre-extract $(BINEXTRACT_TARGETS) $(RELOCATE_TARGETS) post-extract
+install-bin: fetch-bin $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS))  binclean pre-extract $(BINEXTRACT_TARGETS) $(RELOCATE_TARGETS) post-extract
 	$(DONADA)
 
 binclean:
-	rm -rf $(COOKIEDIR)/*binextract*
+	@$(GARDIR)/clean.sh $(BUILD_PREFIX) $(GARNAME)  
+	@rm -rf $(COOKIEDIR)/*binextract*
 
 bininstall: 
 ifeq ($(CATEGORIES),source-only)
@@ -482,4 +483,5 @@ buildclean:
 # but the actual builds of the packages will be, according to
 # jdub.
 .NOTPARALLEL:
+
 
