@@ -1,5 +1,5 @@
 GARNAME = mysql
-GARVERSION = 5.0.26
+GARVERSION = 5.0.27
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz 
 PATCHFILES = # openssl.diff
