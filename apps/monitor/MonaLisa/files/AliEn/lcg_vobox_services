@@ -12,14 +12,48 @@ use Net::Domain qw(hostname hostfqdn hostdomain);
 use Net::LDAP;
 use Net::LDAP::Entry;
 
+### helper functions ################################
 
 sub dumpStatus {
     my $service = shift;
     my $status = shift;
-    my $message = shift || "";
-    
-    print "$service\tStatus\t$status".($message ? "\tMessage\t$message" : "")."\n";
+    my $message = shift;
+    my %others = @_;
+    $others{"Message"} = $message if($message);
+    my $extra = "";
+    while(my ($key, $value) = each(%others)){
+        $extra .= "\t$key\t$value";
+    }
+    print "$service\tStatus\t$status".$extra."\n";
 }
+
+sub parse_proxy_timeleft {
+    my $proxy_file = shift;
+    my $command = shift;
+    my $proxy_type = shift;
+
+    my $proxy_out = `$command`;
+    return (1, "Failed to execute '$command'.", 0) if ($?);
+    
+    my $leftt = $1 if $proxy_out =~ /timeleft\s*:\s*([0-9:]*)/g;
+    my $timeleft = 0;
+    my $err = 0;
+    my $msg = undef;
+    if($leftt){
+            my @leftl = reverse(split(/:/, $leftt));
+            $timeleft = ($leftl[0] || 0) + 60 * ($leftl[1] || 0) + 3600 * ($leftl[2] || 0);
+    }else{
+            $msg = ($proxy_file ?
+                    (-r $proxy_file ?
+                            "$proxy_type doesn't point to a readable file."
+                            :
+                            "Failed checking the proxy for $proxy_type.")
+                    :
+                    "Undefined proxy file for $proxy_type.");
+            $err = 1;
+    }
+    return ($err, $msg, $timeleft);
+} 
 
 my $currentpath = $ENV{PWD};
 #####################################################
@@ -125,8 +159,14 @@ sub test4 {
 	}else{
 	    dumpStatus($querySer, 1, "BDII server [ $query ] does not respond");
 	}
+	
+	# check the timeleft of the MyProxy
+	my $command = "env X509_USER_CERT=$ENV{X509_USER_PROXY} X509_USER_KEY=$ENV{X509_USER_PROXY} myproxy-info -d 2>/dev/null";
+	my ($err, $msg, $timeleft) = parse_proxy_timeleft($ENV{X509_USER_PROXY}, $command, "X509_USER_CERT/KEY/PROXY for MyProxy");
+	dumpStatus($service, $err, $msg, 'timeleft' => $timeleft);
     }
 }
+
 ##################################################
 # 5th TEST:
 # is the machine running its proxy?
@@ -136,19 +176,11 @@ sub test5 {
     if(! -d "/opt/vobox/alice"){
 	dumpStatus($service, 1, "Directory /opt/vobox/alice does not exist");
     }else{
-	chdir "/opt/vobox/alice";
-	my $proxy_node=`grid-proxy-info -f renewal-proxy.pem 2>/dev/null`;
-	if($?){
-	    dumpStatus($service, 1, "Failed to execute grid-proxy-info. Not running a proxy");
-	}else{
-	    if($proxy_node =~ /00:00:00/){
-		dumpStatus($service, 1, "The proxy of the machine is over");
-	    }else{
-		dumpStatus($service, 0);
-	    }
-	}
+	my $proxy_file = "/opt/vobox/alice/renewal-proxy.pem";
+	my $command = "grid-proxy-info -f $proxy_file 2>/dev/null";
+	my ($err, $msg, $timeleft) = parse_proxy_timeleft($proxy_file, $command, "renewal-proxy.pem");
+	dumpStatus($service, $err, $msg, 'timeleft' => $timeleft);
     }
-    chdir $currentpath;
 }
 
 ################################################################
@@ -359,10 +391,21 @@ sub test9 {
 }
 
 ##################################################
-# Test 10: 
-# Test the FTS services inside the VOBOX
+# Test 10:
+# Check the timeleft for the FTS proxy
 ##################################################
 sub test10 {
+    my $service = "FTS Proxy";
+    my $command = "myproxy-info -d -s myproxy-fts.cern.ch 2>/dev/null";
+    my ($err, $msg, $timeleft) = parse_proxy_timeleft($ENV{X509_USER_PROXY}, $command, "myproxy-fts.cern.ch");
+    dumpStatus($service, $err, $msg, 'timeleft' => $timeleft);
+}
+
+##################################################
+# Test 11: 
+# Test the FTS services inside the VOBOX
+##################################################
+sub test11 {
 	my $service = "FTS local prerequisites";
 	require AliEn::UI::Catalogue::LCM;
 	my $cat=AliEn::UI::Catalogue::LCM->new({silent=>1}) or
@@ -440,7 +483,7 @@ sub test10 {
 	}
 }
 
-for(my $i = 1; $i < 11; $i++){
+for(my $i = 1; $i < 12; $i++){
 #	print "Doing test $i...\n";
     eval "test$i()";
 }
