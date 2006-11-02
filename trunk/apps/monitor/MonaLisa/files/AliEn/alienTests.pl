@@ -20,9 +20,14 @@ my $ML_CMD_RUN = "$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/cmd_run.sh";
 sub dumpStatus {
 	my $service = shift;
 	my $status = shift;
-	my $message = shift || "";
-
-	print "$service\tStatus\t$status".($message ? "\tMessage\t$message" : "")."\n";
+	my $message = shift;
+	my %others = @_;
+	$others{"Message"} = $message if($message);
+	my $extra = "";
+	while(my ($key, $value) = each(%others)){
+		$extra .= "\t$key\t$value";
+	}
+	print "$service\tStatus\t$status".$extra."\n";
 }
 
 # create the test file
@@ -35,6 +40,7 @@ my @tests = (
 	"alien -exec whereis test"      => "alien -exec whereis alien-tests/myTestFile$$",
 	"alien -exec get test"          => "alien -exec get alien-tests/myTestFile$$",
 	"alien version"			=> "alien -v",
+	"alien proxy"			=> "grid-proxy-info -f $ENV{X509_USER_PROXY} 2>/dev/null",
 	);
 
 POE::Session->create(
@@ -105,6 +111,25 @@ sub sig_chld {
 			$ver = $message if ! $ver;
 			$ver = "No output" if ! $ver;
 			dumpStatus($heap->{test_name}, 0, $ver);
+		}elsif($heap->{test_name} eq "alien proxy"){
+			my $leftt = $1 if $message =~ /timeleft\s*:\s*([0-9:]*)/;
+			my $timeleft = 0;
+			my $err = 0;
+			my $msg = undef;
+			if($leftt){
+				my @leftl = reverse(split(/:/, $leftt));
+				$timeleft = ($leftl[0] || 0) + 60 * ($leftl[1] || 0) + 3600 * ($leftl[2] || 0);
+			}else{
+				$msg = ($ENV{X509_USER_PROXY} ? 
+					(-r $ENV{X509_USER_PROXY} ?
+						"X509_USER_PROXY doesn't point to a readable file."
+						:
+						'Failed running grid-proxy-info -f $X509_USER_PROXY')
+					:
+					"Undefined X509_USER_PROXY.");
+				$err = 1;
+			}
+			dumpStatus($heap->{test_name}, $err, $msg, "timeleft" => $timeleft);
 		}else{
 			dumpStatus($heap->{test_name}, 0, $message);
 		}
