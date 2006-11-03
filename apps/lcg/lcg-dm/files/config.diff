@@ -1,0 +1,219 @@
+diff -Nuar work.orig/lcg-dm-1.5.10/config/site.def work/lcg-dm-1.5.10/config/site.def
+--- work.orig/lcg-dm-1.5.10/config/site.def	2006-11-03 17:46:21.000000000 +0100
++++ work/lcg-dm-1.5.10/config/site.def	2006-11-03 19:02:56.000000000 +0100
+@@ -13,21 +13,21 @@
+ 
+ 
+ /* Prefix by default */
+-prefix = /opt/lcg
++prefix = $(PREFIX)
+ 
+ /* First define the flavour of Name Server to be built */
+ #define BuildNameServerAsLFC	NO
+ #define BuildNameServerAsDPNS	YES
+ 
+-#define CgsiGsoapLocation	/usr
++#define CgsiGsoapLocation	$(prefix)
+ #if defined(_WIN32)
+ #define CupvConfigFile	%%SystemRoot%%\\system32\\drivers\\etc\\CUPVCONFIG
+ #else
+-#define CupvConfigFile	/etc/CUPVCONFIG
++#define CupvConfigFile	$(prefix)/etc/CUPVCONFIG
+ #endif
+ #define CupvHost	"UNUSED"
+-#define CupvSpool	/usr/spool/upv
+-#define DliSpool	/var/log/dli
++#define CupvSpool	$(prefix)/usr/spool/upv
++#define DliSpool	$(prefix)/var/log/dli
+ #define DomainName	cern.ch
+ #if defined(_WIN32)
+ #define DpmConfigFile	%%SystemRoot%%\\system32\\drivers\\etc\\DPMCONFIG
+@@ -35,16 +35,16 @@
+ #define DpmConfigFile	$(prefix)/etc/DPMCONFIG
+ #endif
+ #define DpmHost	"UNUSED"
+-#define DpmSpool	/var/log/dpm
++#define DpmSpool	$(prefix)/var/log/dpm
+ #define FilManDir       $(prefix)/man/man4
+ #define FilManSuffix    4
+-#define GlobusLocation	/opt/globus
++#define GlobusLocation	$(prefix)/globus
+ #if defined(__ia64__) || defined(__x86_64)
+-#define GlobusFlavour	gcc64dbg
++#define GlobusFlavour	gcc64
+ #else
+-#define GlobusFlavour	gcc32dbg
++#define GlobusFlavour	gcc32
+ #endif
+-#define GsoapLocation	/usr/local
++#define GsoapLocation	$(prefix)
+ #define GsoapVersion	2.6
+ #define IdMapFile	$(prefix)/etc/lcgdm-mapfile
+ #if defined(_WIN32)
+@@ -77,11 +77,11 @@
+ #if defined(_WIN32)
+ #define LocalHostsList	%%SystemRoot%%\\system32\\drivers\\etc\\shift.localhosts
+ #else
+-#define LocalHostsList	/etc/shift.localhosts
++#define LocalHostsList	$(prefix)/etc/shift.localhosts
+ #endif
+ #define ManDir  $(prefix)/man/man1
+ #define ManSuffix       1
+-#define MySQLLocation	/usr
++#define MySQLLocation	$(prefix)
+ #define NfsRoot	/shift
+ #if defined(_WIN32)
+ #define NsConfigFile	%%SystemRoot%%\\system32\\drivers\\etc\\NSCONFIG
+@@ -91,32 +91,32 @@
+ #define NsHost	"UNUSED"
+ #if BuildNameServerAsLFC
+ #define NsHostPfx	lfc
+-#define NsSpool	/var/log/lfc
++#define NsSpool	$(prefix)/var/log/lfc
+ #define NsRoot  "/grid"
+ #else
+ #if BuildNameServerAsDPNS
+ #define NsHostPfx	dpns
+-#define NsSpool	/var/log/dpns
++#define NsSpool	$(prefix)/var/log/dpns
+ #define NsRoot  "/dpm"
+ #endif
+ #endif
+ #if defined(_WIN32)
+ #define OperatorDir	%%SystemRoot%%
+ #else
+-#define OperatorDir	/etc/operator
++#define OperatorDir	$(prefix)/etc/operator
+ #endif
+-#define RfioSpool	/var/log/rfio
+-#define SacctDir	/usr/spool/sacct
++#define RfioSpool	$(prefix)/var/log/rfio
++#define SacctDir	$(prefix)/usr/spool/sacct
+ #if defined(_WIN32)
+ #define ShiftConfigFile	%%SystemRoot%%\\system32\\drivers\\etc\\shift.conf
+ #else
+-#define ShiftConfigFile	/etc/shift.conf
++#define ShiftConfigFile	$(prefix)/etc/shift.conf
+ #endif
+-#define Srmv1Spool /var/log/srmv1
+-#define Srmv2Spool /var/log/srmv2
++#define Srmv1Spool $(prefix)/var/log/srmv1
++#define Srmv2Spool $(prefix)/var/log/srmv2
+ #define StagerSuperGroup	dpmmgr
+ #define StagerSuperUser		dpmmgr
+-#define SwigLocation	/opt/lcg
++#define SwigLocation	$(prefix)
+ #if BuildNameServerAsLFC
+ #define TopLibraryName		lfc
+ #else
+@@ -126,12 +126,12 @@
+ #define TopLibraryName		lcg-dm-common
+ #endif
+ #endif
+-#define VomsLocation	/opt/glite
++#define VomsLocation	$(prefix)
+ 
+ #define BuildDLI		NO
+ #define BuildDPMClient		YES
+ #define BuildDPMServer		YES
+-#define BuildInterfaces		YES
++#define BuildInterfaces		NO
+ #define BuildNameServerClient	YES
+ #define BuildNameServerDaemon	YES
+ #define BuildNameServerLibrary	YES
+@@ -151,7 +151,7 @@
+ #define UseMySQL		YES
+ #define UseOracle		NO
+ #define UseVirtualIds		YES
+-#define UseVOMS			YES
++#define UseVOMS			NO
+ 
+ #if BuildSecurity
+ #define SecMakeStaticLibrary	NO
+diff -Nuar work.orig/lcg-dm-1.5.10/dpm/Imakefile work/lcg-dm-1.5.10/dpm/Imakefile
+--- work.orig/lcg-dm-1.5.10/dpm/Imakefile	2006-11-03 17:46:21.000000000 +0100
++++ work/lcg-dm-1.5.10/dpm/Imakefile	2006-11-03 19:04:39.000000000 +0100
+@@ -13,7 +13,7 @@
+ INCLUDE_PERL=-I$(shell perl -MConfig -e 'print $$Config{archlibexp}, "/CORE";')
+ SWIG_LOCATION = SwigLocation
+ SWIG_LIB=$(shell dirname SwigLocation/lib/swig*/perl5/perl5.swg)/.. 
+-SWIG = SWIG_LIB=$(SWIG_LIB) $(SWIG_LOCATION)/bin/swig
++SWIG = $(SWIG_LOCATION)/bin/swig
+ 
+ DPMCONFIG = DpmConfigFile
+ #if UseGSI
+@@ -166,7 +166,7 @@
+ 	   FileName($(BIN),ProgramTargetName(dpm-shutdown))
+ #endif
+ 
+-#if BuildInterfaces
++#if BuildInterfaces_
+ DPM_IFCE = dpm.so \
+            dpm.pm \
+            _dpm.so \
+@@ -248,9 +248,9 @@
+ 
+ #if UseOracle && !defined(_WIN32)
+ dpm: $(SRV_OBJS) $(DEPLIB)
+-	$(MAKE) -f oralink.mk dpm SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(SECLIB) $(LIBS) $(MTLDLIBS) -luuid"
++	$(MAKE) -f oralink.mk dpm SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(SECLIB) $(LIBS) $(MTLDLIBS)  /usr/lib/libuuid.a"
+ #else
+-NormalProgramTarget(dpm,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(SECLIB) $(LIBS) $(MTLDLIBS) $(LIBORA) $(LIBMYS) -luuid)
++NormalProgramTarget(dpm,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(SECLIB) $(LIBS) $(MTLDLIBS) $(LIBORA) $(LIBMYS)  /usr/lib/libuuid.a)
+ #endif
+ 
+ NormalLibraryTarget(dpm,$(DPMLIB_OBJS))
+@@ -285,11 +285,6 @@
+ 	$(CC) -c $(MTCCFLAGS) -I$(INCLUDES) $(INCLUDE_PYTHON) dpm_wrap.c
+ 	$(LD) $(SHLIBLDFLAGS) -o _dpm.so dpm_wrap.o $(LIBS) -ldpm
+ 
+-InstallTarget(dpm.so,root,root,0755,$(PERLDIR))
+-InstallTarget(dpm.pm,root,root,0644,$(PERLDIR))
+-InstallTarget(_dpm.so,root,root,0755,$(PYTHONDIR))
+-InstallTarget(dpm.py,root,root,0644,$(PYTHONDIR))
+-
+ MakeDir($(BIN),root,bin,0755)
+ MakeDir($(SPOOL),root,bin,0755)
+ 
+diff -Nuar work.orig/lcg-dm-1.5.10/ns/Imakefile work/lcg-dm-1.5.10/ns/Imakefile
+--- work.orig/lcg-dm-1.5.10/ns/Imakefile	2006-11-03 17:46:21.000000000 +0100
++++ work/lcg-dm-1.5.10/ns/Imakefile	2006-11-03 19:02:56.000000000 +0100
+@@ -45,7 +45,7 @@
+ LIBS = -L../lib -l$(TOPLIBRARYNAME)
+ #else
+ #if linux
+-LIBS = -L../lib -l$(TOPLIBRARYNAME) $(LIBCSEC) -lnsl -luuid
++LIBS = -L../lib -l$(TOPLIBRARYNAME) $(LIBCSEC) -lnsl  /usr/lib/libuuid.a
+ #else
+ #if sgi
+ LIBS = -L../lib -l$(TOPLIBRARYNAME)
+diff -Nuar work.orig/lcg-dm-1.5.10/srmv1/Imakefile work/lcg-dm-1.5.10/srmv1/Imakefile
+--- work.orig/lcg-dm-1.5.10/srmv1/Imakefile	2006-11-03 17:46:22.000000000 +0100
++++ work/lcg-dm-1.5.10/srmv1/Imakefile	2006-11-03 19:02:56.000000000 +0100
+@@ -92,9 +92,9 @@
+ 
+ #if UseOracle && !defined(_WIN32)
+ srmv1: $(SRV_OBJS) $(DEPLIB)
+-	$(MAKE) -f oralink.mk srmv1 SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) -luuid"
++	$(MAKE) -f oralink.mk srmv1 SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS)  /usr/lib/libuuid.a"
+ #else
+-NormalProgramTarget(srmv1,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) $(LIBORA) $(LIBMYS) -luuid)
++NormalProgramTarget(srmv1,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) $(LIBORA) $(LIBMYS)  /usr/lib/libuuid.a)
+ #endif
+ 
+ install: $(BIN) $(IPROGS_D) $(SPOOL)
+diff -Nuar work.orig/lcg-dm-1.5.10/srmv2/Imakefile work/lcg-dm-1.5.10/srmv2/Imakefile
+--- work.orig/lcg-dm-1.5.10/srmv2/Imakefile	2006-11-03 17:46:22.000000000 +0100
++++ work/lcg-dm-1.5.10/srmv2/Imakefile	2006-11-03 19:02:56.000000000 +0100
+@@ -96,9 +96,9 @@
+ 
+ #if UseOracle && !defined(_WIN32)
+ srmv2: $(SRV_OBJS) $(DEPLIB)
+-	$(MAKE) -f oralink.mk srmv2 SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) -luuid"
++	$(MAKE) -f oralink.mk srmv2 SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS)  /usr/lib/libuuid.a"
+ #else
+-NormalProgramTarget(srmv2,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) $(LIBORA) $(LIBMYS) -luuid)
++NormalProgramTarget(srmv2,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) $(LIBORA) $(LIBMYS)  /usr/lib/libuuid.a)
+ #endif
+ 
+ install: $(BIN) $(IPROGS_D) $(SPOOL)
