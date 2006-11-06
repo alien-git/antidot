@@ -151,18 +151,6 @@ diff -Nuar work.orig/lcg-dm-1.5.10/dpm/Imakefile work/lcg-dm-1.5.10/dpm/Imakefil
  DPM_IFCE = dpm.so \
             dpm.pm \
             _dpm.so \
-@@ -248,9 +248,9 @@
- 
- #if UseOracle && !defined(_WIN32)
- dpm: $(SRV_OBJS) $(DEPLIB)
--	$(MAKE) -f oralink.mk dpm SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(SECLIB) $(LIBS) $(MTLDLIBS) -luuid"
-+	$(MAKE) -f oralink.mk dpm SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(SECLIB) $(LIBS) $(MTLDLIBS)  /usr/lib/libuuid.a"
- #else
--NormalProgramTarget(dpm,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(SECLIB) $(LIBS) $(MTLDLIBS) $(LIBORA) $(LIBMYS) -luuid)
-+NormalProgramTarget(dpm,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(SECLIB) $(LIBS) $(MTLDLIBS) $(LIBORA) $(LIBMYS)  /usr/lib/libuuid.a)
- #endif
- 
- NormalLibraryTarget(dpm,$(DPMLIB_OBJS))
 @@ -285,11 +285,6 @@
  	$(CC) -c $(MTCCFLAGS) -I$(INCLUDES) $(INCLUDE_PYTHON) dpm_wrap.c
  	$(LD) $(SHLIBLDFLAGS) -o _dpm.so dpm_wrap.o $(LIBS) -ldpm
@@ -175,45 +163,3 @@ diff -Nuar work.orig/lcg-dm-1.5.10/dpm/Imakefile work/lcg-dm-1.5.10/dpm/Imakefil
  MakeDir($(BIN),root,bin,0755)
  MakeDir($(SPOOL),root,bin,0755)
  
-diff -Nuar work.orig/lcg-dm-1.5.10/ns/Imakefile work/lcg-dm-1.5.10/ns/Imakefile
---- work.orig/lcg-dm-1.5.10/ns/Imakefile	2006-11-03 17:46:21.000000000 +0100
-+++ work/lcg-dm-1.5.10/ns/Imakefile	2006-11-03 19:02:56.000000000 +0100
-@@ -45,7 +45,7 @@
- LIBS = -L../lib -l$(TOPLIBRARYNAME)
- #else
- #if linux
--LIBS = -L../lib -l$(TOPLIBRARYNAME) $(LIBCSEC) -lnsl -luuid
-+LIBS = -L../lib -l$(TOPLIBRARYNAME) $(LIBCSEC) -lnsl  /usr/lib/libuuid.a
- #else
- #if sgi
- LIBS = -L../lib -l$(TOPLIBRARYNAME)
-diff -Nuar work.orig/lcg-dm-1.5.10/srmv1/Imakefile work/lcg-dm-1.5.10/srmv1/Imakefile
---- work.orig/lcg-dm-1.5.10/srmv1/Imakefile	2006-11-03 17:46:22.000000000 +0100
-+++ work/lcg-dm-1.5.10/srmv1/Imakefile	2006-11-03 19:02:56.000000000 +0100
-@@ -92,9 +92,9 @@
- 
- #if UseOracle && !defined(_WIN32)
- srmv1: $(SRV_OBJS) $(DEPLIB)
--	$(MAKE) -f oralink.mk srmv1 SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) -luuid"
-+	$(MAKE) -f oralink.mk srmv1 SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS)  /usr/lib/libuuid.a"
- #else
--NormalProgramTarget(srmv1,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) $(LIBORA) $(LIBMYS) -luuid)
-+NormalProgramTarget(srmv1,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) $(LIBORA) $(LIBMYS)  /usr/lib/libuuid.a)
- #endif
- 
- install: $(BIN) $(IPROGS_D) $(SPOOL)
-diff -Nuar work.orig/lcg-dm-1.5.10/srmv2/Imakefile work/lcg-dm-1.5.10/srmv2/Imakefile
---- work.orig/lcg-dm-1.5.10/srmv2/Imakefile	2006-11-03 17:46:22.000000000 +0100
-+++ work/lcg-dm-1.5.10/srmv2/Imakefile	2006-11-03 19:02:56.000000000 +0100
-@@ -96,9 +96,9 @@
- 
- #if UseOracle && !defined(_WIN32)
- srmv2: $(SRV_OBJS) $(DEPLIB)
--	$(MAKE) -f oralink.mk srmv2 SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) -luuid"
-+	$(MAKE) -f oralink.mk srmv2 SRV_OBJS="$(SRV_OBJS)" CLDFLAGS=$(MTLDFLAGS) LIBS="$(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS)  /usr/lib/libuuid.a"
- #else
--NormalProgramTarget(srmv2,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) $(LIBORA) $(LIBMYS) -luuid)
-+NormalProgramTarget(srmv2,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(LIBS) $(SECLIB) $(SOAPLIB) $(MTLDLIBS) $(LIBORA) $(LIBMYS)  /usr/lib/libuuid.a)
- #endif
- 
- install: $(BIN) $(IPROGS_D) $(SPOOL)
