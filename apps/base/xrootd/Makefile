@@ -3,11 +3,11 @@ GARVERSION = 20060928-1600-poll16
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-PATCHFILES = macos.diff apmon.diff
+PATCHFILES = 
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
 
-LIBDEPS = apps/base/tokenauthz apps/base/ApMon-CPP apps/base/perl
+LIBDEPS = apps/base/tokenauthz apps/base/ApMon-CPP apps/base/perl apps/base/libxml2
 
 DESCRIPTION = Xrootd
 
@@ -28,5 +28,5 @@ endif
 
 include ../category.mk
 
-#PRE_CONFIGURE = ( echo "PRE CONFIGURE" && cd $(WORKSRC) && $(PREFIX)/bin/aclocal && $(PREFIX)/bin/automake -a && $(PREFIX)/bin/autoconf )
-POST_INSTALL = ( rm -rf $(PREFIX)/bin/xrootdutils; cp -f $(WORKSRC)/src/XrdOuc/XrdOucRash.icc $(PREFIX)/api/include/xrootd/XrdOuc )
+PRE_CONFIGURE = ( echo "PRE CONFIGURE" && cd $(WORKSRC) && sh bootstrap.sh )
+POST_INSTALL = ( rm -rf $(PREFIX)/bin/xrootdutils; cp -f $(WORKSRC)/src/XrdOuc/*.icc $(WORKSRC)/src/XrdOuc/*.hh $(PREFIX)/api/include/xrootd/XrdOuc )
