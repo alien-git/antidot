@@ -1,10 +1,12 @@
 GARNAME = uuid
-GARVERSION = 1.1.2
+GARVERSION = 1.5.1
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-ifeq ($(shell uname -s),Darwin)
-PATCHFILES = macos.diff
-endif
+#ifeq ($(shell uname -s),Darwin)
+#PATCHFILES = macos.diff
+#endif
+
+PATCHFILES = osspuuid.diff
 
 MASTER_SITES = ftp://ftp.ossp.org/pkg/lib/uuid/
 
@@ -21,7 +23,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/perl/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-perl
+CONFIGURE_ARGS = --prefix=$(PREFIX) --includedir=$(PREFIX)/include/ossp --with-perl
 
 include ../category.mk
 
