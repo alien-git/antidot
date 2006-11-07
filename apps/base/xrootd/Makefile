@@ -28,5 +28,3 @@ endif
 
 include ../category.mk
 
-PRE_CONFIGURE = ( echo "PRE CONFIGURE" && cd $(WORKSRC) && sh bootstrap.sh )
-POST_INSTALL = ( rm -rf $(PREFIX)/bin/xrootdutils; cp -f $(WORKSRC)/src/XrdOuc/*.icc $(WORKSRC)/src/XrdOuc/*.hh $(PREFIX)/api/include/xrootd/XrdOuc )
