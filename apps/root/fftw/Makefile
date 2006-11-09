@@ -19,7 +19,7 @@ TEST_SCRIPTS =
 
 AUTOTEST = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --disable-fortran
 
 include ../category.mk
 
