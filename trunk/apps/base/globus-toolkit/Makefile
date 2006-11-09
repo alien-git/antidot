@@ -4,7 +4,9 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = Makefile.in.diff
 
-MASTER_SITES = 
+ifeq ($(shell uname -s),Darwin)
+PATCHFILES += openssl.patch
+endif
 
 LIBDEPS   = apps/base/libxml2 apps/base/eugridpma-carep
 

@@ -1,2 +1,3 @@
 673220f6e28635f79fff2545a16e9042  download/globus-toolkit-4.0.3.tar.gz
 47108038fbf2782ebd337b4738ed4a21  download/Makefile.in.diff
+f998985a7f665cfe755f54937463064f  download/openssl.patch
