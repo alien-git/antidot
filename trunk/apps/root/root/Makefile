@@ -2,7 +2,10 @@ GARNAME = root
 GARVERSION = 5.13.4
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = mysql.diff  # TAlienFile.cxx.diff macos.diff 
+
+ifeq ($(shell uname -s),Darwin)
+PATCHFILES = openssl.patch
+endif
 
 MASTER_SITES = 
 
