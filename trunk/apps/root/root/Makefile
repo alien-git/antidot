@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 ifeq ($(shell uname -s),Darwin)
-PATCHFILES = openssl.patch
+PATCHFILES = mysql.diff
 endif
 
 MASTER_SITES = 
