@@ -1,12 +1,14 @@
 GARNAME = globus-toolkit
-GARVERSION = 4.0.3
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = Makefile.in.diff
 
-ifeq ($(shell uname -s),Darwin)
-PATCHFILES += openssl.patch
+ifeq ($(shell uname),Darwin)
+GARVERSION = 4.0.3p1
+else
+GARVERSION = 4.0.3
 endif
+
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 LIBDEPS   = apps/base/libxml2 apps/base/eugridpma-carep
 
