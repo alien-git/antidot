@@ -12,10 +12,10 @@ URL = http://gcc.gnu.org/
 AUTHOR = GCC Team
 LICENSE = GPL2
 
-ifneq ($(shell uname -s),Darwin)
-CONFIGURE_SCRIPTS = $(WORKSRC)/configure 
-BUILD_SCRIPTS = $(WORKSRC)/Makefile
-INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+ifeq ($(shell uname -s),Darwin)
+CONFIGURE_SCRIPTS =
+BUILD_SCRIPTS =
+INSTALL_SCRIPTS =
 endif
 
 AUTOTEST=locateCommand gcc -dumpversion
