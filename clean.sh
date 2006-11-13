@@ -3,9 +3,9 @@
 PREFIX=$1; shift
 PACKAGE=$1; shift
 
-if [ -d $PREFIX/share/alien/packages -a -f $PREFIX/share/alien/packages/$PACKAGE* ] 
+if [ -d $PREFIX/share/alien/packages ] 
 then
-  for file in `ls $PREFIX/share/alien/packages/$PACKAGE*`
+  for file in `ls $PREFIX/share/alien/packages/$PACKAGE\-* 2>/dev/null`
   do
      cat $file
   done | while read file
