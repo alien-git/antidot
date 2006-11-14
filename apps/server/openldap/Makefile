@@ -2,6 +2,7 @@ GARNAME = openldap
 GARVERSION = 2.0.27
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tgz
+PATCHFILES = install.diff
 ifeq ($(shell uname),Darwin)
 PATCHFILES += macos.diff
 endif
