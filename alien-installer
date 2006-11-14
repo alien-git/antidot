@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.107  2006/10/26 09:06:27  buncic
+# Adding option to install PANDA CA
+#
 # Revision 1.106  2006/09/11 14:12:48  buncic
 # Removing obsolete environemnt variables
 #
@@ -427,6 +430,10 @@ InstallerMakePkg()
 ###########################################################################
 {
   cmd=$1; shift 1
+  if [ "$cmd" = "bininstall" ]
+  then
+    cmdargs="LIBDEPS= BUILDDEPS="
+  fi 
   list=$*
   for dir in $list
   do
@@ -434,7 +441,7 @@ InstallerMakePkg()
     then
       Error "No such package: $dir"
     fi
-    $ECHO make -C $dir $cmd >> install.log 2>&1
+    $ECHO make -C $dir $cmd $cmdargs >> install.log 2>&1
     if [ $? -ne 0 ] 
     then 
       return 1
@@ -451,7 +458,7 @@ InstallerSync()
   mkdir -p $ALIEN_INSTALLER_HOME || Error "Error: Cannot create $ALIEN_INSTALLER_HOME directory"
   cd $ALIEN_INSTALLER_HOME
   $wget -O makefiles.tar.bz2 ${ALIEN_BITS_URL}../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from ${ALIEN_BITS_URL}../makefiles.tar.bz2"
-  tar jxf makefiles.tar.bz2 && rm makefiles.tar.bz2 
+  tar jxf makefiles.tar.bz2 && rm makefiles.tar.bz2
   ) >> install.log 2>&1
 }
 
@@ -629,34 +636,37 @@ InstallerUpdate()
 
  (cd $ALIEN_INSTALLER_HOME; ./configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
 
-#  export GARAUTODETECT="apps/gcc/gcc"; 
-#  InstallerMakePkg bininstall apps/gcc/gcc; 
-
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
 
+  ALIEN_INSTALLER_TYPE=`echo $ALIEN_INSTALLER_TYPE | sed -e 's/"//g' -e 's/\+/ /g'`
 
-#cat `find /opt/alien/share/alien/packages -name "zlib-*"` | (while read file; do echo $$file; done)
+  all=""
 
   for meta in $ALIEN_INSTALLER_TYPE
   do
-    pkgdir=`echo $meta | sed 's/"//g'`
-    if [ "$pkgdir" = "" ]
+    if [ -d $ALIEN_INSTALLER_HOME/meta/$meta ]
     then
-      continue
+      all=$all" "`cd $ALIEN_INSTALLER_HOME/meta/$meta; make show-unique-deps`
     fi 
-    if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
-    then
-      packages=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make list_packages`
-      npkgs=`echo $packages | wc -w`
-      i=0
-      for pkg in $packages
-      do
-        g=$[$[i * 100]/$[npkgs + 1]];
-        i=$[i + 1]
-        echo "Updating $pkg..."
-        InstallerMakePkg bininstall $pkg 
-      done
-    fi 
+  done 
+
+  packages=`for file in $all
+  do
+    printf "%s\n" $file
+  done | sort -u | while read file
+  do
+    printf "%s " $file
+  done`
+
+  npkgs=`echo $packages | wc -w`
+
+  i=0
+  for pkg in $packages
+  do
+    g=$[$[i * 100]/$[npkgs + 1]];
+    i=$[i + 1]
+    echo "Updating $pkg..."
+    InstallerMakePkg bininstall $pkg 
   done
  
   if [ -f $ALIEN_INSTALLER_HOME/ALIEN_VERSION ]
@@ -873,42 +883,50 @@ InstallerUI()
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
-#  export GARAUTODETECT="apps/gcc/gcc";
-#  InstallerMakePkg bininstall apps/gcc/gcc >> $workspace/install.log
   export GARAUTODETECT="$ALIEN_INSTALLER_AUTODETECT"
 
   err=0
 
-  for meta in $list
+  ALIEN_INSTALLER_TYPE=`echo $ALIEN_INSTALLER_TYPE | sed -e 's/"//g'`
+
+  $ALIEN_DIALOG $style --sleep 3 \
+          --infobox "Please wait, getting the list of packages to install for $ALIEN_INSTALLER_TYPE. This can take couple of minutes..." $height $width
+
+  ALIEN_INSTALLER_TYPE=`echo $ALIEN_INSTALLER_TYPE | sed -e 's/+/ /g'`
+
+  all=""
+
+  for meta in $ALIEN_INSTALLER_TYPE
   do
-    pkgdir=`echo $meta | sed 's/"//g'`
-    if [ "$pkgdir" = "" ]
+    if [ -d $ALIEN_INSTALLER_HOME/meta/$meta ]
     then
-      continue
+      all=$all" "`cd $ALIEN_INSTALLER_HOME/meta/$meta; make show-unique-deps`
     fi 
-    $ALIEN_DIALOG $style --sleep 3 \
-                  --infobox "Getting the list of packages to install for $pkgdir..." $height $width
-    if [ -d $workspace/meta/$pkgdir ]
-    then
-      packages=`cd $workspace/meta/$pkgdir; make list_packages`
-      npkgs=`echo $packages | wc -w`
-      cd $workspace
-      i=0
-      for pkg in $packages
-      do
-        g=$[$[i * 100]/$[npkgs + 1]];
-        i=$[i + 1]
-        echo XXX
-        echo "Installing $pkg..."
-        echo XXX
-        InstallerMakePkg bininstall $pkg >> $workspace/install.log
-        err=$?
-        [ $err -ne 0 ] && break
-        echo $g
-      done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
-    fi 
-    [ $err -ne 0 ] && break
-  done
+  done 
+
+  packages=`for file in $all
+  do
+    printf "%s\n" $file
+  done | sort -u | while read file
+  do
+    printf "%s " $file
+  done`
+
+  npkgs=`echo $packages | wc -w`
+
+  i=0
+  for pkg in $packages
+  do
+     g=$[$[i * 100]/$[npkgs + 1]];
+     i=$[i + 1]
+     echo XXX
+     echo "Installing $pkg..."
+     echo XXX
+     InstallerMakePkg bininstall $pkg >> $workspace/install.log
+     err=$?
+     [ $err -ne 0 ] && break
+     echo $g
+  done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
 
   if [ -f $ALIEN_INSTALLER_HOME/ALIEN_VERSION ]
   then
