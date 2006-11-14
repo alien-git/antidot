@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.108  2006/11/14 11:03:28  buncic
+# Using show-unique-deps target
+#
 # Revision 1.107  2006/10/26 09:06:27  buncic
 # Adding option to install PANDA CA
 #
@@ -327,7 +330,7 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.11
+VERSION=0.12
 ###########################################################################
 style="--title AliEn-Installer-v$VERSION --clear"
 height=8; width=60
