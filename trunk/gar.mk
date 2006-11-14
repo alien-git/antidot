@@ -165,6 +165,18 @@ deep-%: %
 		$(MAKE) -C $(GARDIR)/$$i $@; \
 	done
 
+show-unique-deps:
+	@myseen="$(SEEN)" ; \
+	for pack in $(LIBDEPS) $(BUILDDEPS); do \
+	  if test -z "`echo \" $$myseen \" | grep \" $$pack \"`" ; then \
+	     myseen="`$(MAKE) -s -C $(GARDIR)/$$pack SEEN=\"$$myseen\" show-unique-deps`" ; \
+	  fi ; \
+	done ; \
+	echo -n "$$myseen " ; \
+	if test -n "`echo $(GARFNAME) | grep -E -e ^apps/`" ; then \
+	   echo $(GARFNAME) ; \
+	fi 
+
 # ========================= MAIN RULES =========================
 # The main rules are the ones that the user can specify as a
 # target on the "make" command-line.  Currently, they are:
