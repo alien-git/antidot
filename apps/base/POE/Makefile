@@ -1,9 +1,9 @@
 GARNAME = POE
-GARVERSION = 0.3401
+GARVERSION = 0.9500
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://cpan.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/
 
 LIBDEPS  = apps/base/Socket6 apps/base/Event apps/base/Curses
 
