@@ -1,8 +1,8 @@
 GARNAME = monit
-GARVERSION = 4.5.1
+GARVERSION = 4.8.2
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = macos.diff
+#PATCHFILES = macos.diff
 
 MASTER_SITES =  http://www.tildeslash.com/monit/dist/
 
