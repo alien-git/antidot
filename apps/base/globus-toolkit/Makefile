@@ -32,4 +32,4 @@ CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR)
 
 include ../category.mk
 
-PRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
+#xsPRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
