@@ -27,13 +27,24 @@ sub dumpStatus {
     print "$service\tStatus\t$status".$extra."\n";
 }
 
+# take only the last 5 lines of the given string and concatenate them;
+# remove any tabs
+sub filter_out {
+    my $text = shift;
+    
+    $text =~ s/\t/ /g;
+    my @lines=split(/\n/, $text);
+    @lines = @lines[@lines-5 .. @lines-1] if(@lines > 5);
+    return join(" ", @lines);
+}
+
 sub parse_proxy_timeleft {
     my $proxy_file = shift;
     my $command = shift;
     my $proxy_type = shift;
 
-    my $proxy_out = `$command`;
-    return (1, "Failed to execute '$command'.", 0) if ($?);
+    my $proxy_out = `$command 2>&1`;
+    return (1, "Failed to execute '$command': ".filter_out($proxy_out), 0) if ($?);
     
     my $leftt = $1 if $proxy_out =~ /timeleft\s*:\s*([0-9:]*)/g;
     my $timeleft = 0;
@@ -183,11 +194,62 @@ sub test5 {
     }
 }
 
-################################################################
+##################################################
 # 6th TEST:
+# what is the duration of delegation proxy we can get
+##################################################
+sub test6 {
+   my $service = "Delegated proxy";
+   
+   my $renewalProxy = "/opt/vobox/alice/renewal-proxy.pem";
+   my $currentProxy = $ENV{X509_USER_PROXY};
+   my $duration = 259_200;	# 3 days
+   my $delegatedFile = "/tmp/tmpfile.$$";
+ 
+   if(-r $renewalProxy){
+      if(-r $currentProxy){
+	 $ENV{X509_USER_PROXY} = $renewalProxy;
+	 my @command = ( 'myproxy-get-delegation',
+                   "-a", "$currentProxy",
+                   "-d",
+                   "-t",int($duration/3600), #in hours
+                   "-o", $delegatedFile);
+	 my $out=`@command`;
+	 if($?){
+	    dumpStatus($service, 1, "Unable to get delegation ".filter_out($out), 'timeleft' => 0);
+	 }else{
+	    $ENV{X509_USER_PROXY} = $delegatedFile;
+	    @command = ('vobox-proxy',
+		  "--vo", "alice",
+		  "query-proxy-timeleft");
+	    $out = `@command`;
+	    if($?){
+	       dumpStatus($service, 1, "Failed to check proxy timeleft ".filter_out($out), 'timeleft' => 0);
+	    }else{
+	       if($out =~ /\s*(\d+)\s*/){
+		  dumpStatus($service, 0, '', 'timeleft' => $1);
+	       }else{
+		  dumpStatus($service, 1, "Failed to parse timeleft ".filter_out($out), 'timeleft' => 0);
+	       }
+	    }
+	 }
+	 unlink($delegatedFile);
+	 $ENV{X509_USER_PROXY} = $currentProxy;
+      }else{
+	 dumpStatus($service, 1, 'Cannot read USER_PROXY', 'timeleft' => 0);
+      }
+   }else{
+      dumpStatus($service, 1, 'Cannot read renewal_proxy.pem', 'timeleft' => 0);
+   }
+}
+
+
+
+################################################################
+# 7th TEST:
 # Check if the access to the software area is properly defined for alicesgm persons
 ################################################################
-sub test6 {
+sub test7 {
     my $service = "Software area";
     if (! $ENV{VO_ALICE_SW_DIR}){
 	dumpStatus($service, 1, "VO_ALICE_SW_DIR is not defined");
@@ -202,10 +264,10 @@ sub test6 {
 }
 
 ################################################################
-# 7th TEST:
+# 8th TEST:
 # is the catalog properly defined in the environment?
 ################################################################
-sub test7 {
+sub test8 {
         
     my $service = "Local catalog";
     if(! $ENV{LFC_HOST}){
@@ -266,11 +328,11 @@ sub test7 {
 }
 
 #############################################
-# 8th TEST:
+# 9th TEST:
 # Checking the access to the local BDII
 # and the SE appears there
 #############################################
-sub test8 {
+sub test9 {
     my $site_name;
     
     if (!$ENV{SITE_NAME} && !$ENV{GLITE_SD_SITE}){
@@ -335,13 +397,13 @@ sub test8 {
 }
 
 #############################################
-# 9th TEST:
+# 10th TEST:
 # Checking if the Site appears in
 # the LDAP AliEn servier
 # 10th TEST:
 # Are you using the LFC?
 #############################################
-sub test9 {
+sub test10 {
 	my $site_name2;
     
 	if(open (FILE, "$ENV{HOME}/.alien/alice.conf")){
@@ -391,10 +453,10 @@ sub test9 {
 }
 
 ##################################################
-# Test 10:
+# Test 11:
 # Check the timeleft for the FTS proxy
 ##################################################
-sub test10 {
+sub test11 {
     my $service = "FTS Proxy";
     my $command = "myproxy-info -d -s myproxy-fts.cern.ch 2>/dev/null";
     my ($err, $msg, $timeleft) = parse_proxy_timeleft($ENV{X509_USER_PROXY}, $command, "myproxy-fts.cern.ch");
@@ -402,10 +464,10 @@ sub test10 {
 }
 
 ##################################################
-# Test 11: 
+# Test 12: 
 # Test the FTS services inside the VOBOX
 ##################################################
-sub test11 {
+sub test12 {
 	my $service = "FTS local prerequisites";
 	require AliEn::UI::Catalogue::LCM;
 	my $cat=AliEn::UI::Catalogue::LCM->new({silent=>1}) or
@@ -426,11 +488,11 @@ sub test11 {
 	}
 	
 	# get my site's FTD name
-	my $myFTDname;
+	my $myFTDname='';
 	my $myFQDN = hostfqdn();
 	if(open(LDAPSEARCH, "$ENV{ALIEN_ROOT}/bin/ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b 'host=$myFQDN,ou=Config,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch' ftd 2>/dev/null | grep ftd: | awk '{print \$2}' |")){
 		$myFTDname = <LDAPSEARCH>;
-		chomp($myFTDname);
+		chomp($myFTDname) if($myFTDname);
 		close(LDAPSEARCH);
 	}
 	if(! $myFTDname){
@@ -483,7 +545,7 @@ sub test11 {
 	}
 }
 
-for(my $i = 1; $i < 12; $i++){
+for(my $i = 1; $i < 13; $i++){
 #	print "Doing test $i...\n";
     eval "test$i()";
 }
