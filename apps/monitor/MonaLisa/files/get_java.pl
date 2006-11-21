@@ -1,8 +1,9 @@
 #!/usr/local/bin/perl
-# This will attempt to download the 1.4.2/1.5.0 java virtual machine for a given
+# This will attempt to download the 1.5.0 java virtual machine for a given
 # platform on linux.
 
-# If it's ia64, it will expect it's a 1.4.2 version (j2sdk-...) other a 1.5 version (jdk-...)
+# If it's ia64, it will get a tar.bz2 file (repackaged from the jrockit JVM), otherwise
+# it will take the default sun JVM.
 
 use strict;
 use warnings;
@@ -24,7 +25,7 @@ $ua->agent("get_java.pl/1.0 ");
 $ua->env_proxy();
 
 my $success = 0;
-my $file_name = "j".($platform =~ /ia64/ ? "2s" : "")."dk-$java_ver-$platform.bin";
+my $file_name = "jdk-$java_ver-$platform.".($platform =~ /ia64/ ? "tar.bz2" : "bin");
 my $res;
 for my $base (@url_base){
 	my $url = "${base}../java/${file_name}";
