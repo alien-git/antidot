@@ -1,7 +1,8 @@
 # Starting script for ML
-# v0.3.3
+# v0.3.4
 # Catalin.Cirstoiu@cern.ch
 
+# 21/11/2006 - configuring >localhost => >fqdn for Master cluster
 # 27/07/2006 - changed the way vobox_mon.pl is started
 # 05/05/2006 - if site is LCG, then also monitor the lcg services status
 # 13/12/2005 - added support for vobox_mon.pl to monitor the vo-box
@@ -151,7 +152,7 @@ sub setupConfig {
 	die("MonaLisa hostname from LDAP config [".$config->{MONALISA_HOST}."] differs from local one [$fqdn]. Not starting it...\n");
     }
     my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "false");
-    my $javaOpts = ($config->{MONALISA_JAVAOPTS} or "");
+    my $javaOpts = ($config->{MONALISA_JAVAOPTS} or "-Xms96m -Xmx96m");
     my $add = [];
     my $rmv = [];
     my $changes = {
@@ -187,7 +188,9 @@ sub setupConfig {
     	# for LCG sites, also run this
 	push(@$add, '*LCGServicesStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/lcg_vobox_services,timeout=800"}%900');
     }
-    $changes = {};
+    $changes = {
+    	"^>localhost" => ">$fqdn",
+    };
     setupFile("$mlHome/AliEn/myFarm.conf", "$farmHome/myFarm.conf", $changes, $add, $rmv);
     
     # ml.properties
@@ -213,7 +216,7 @@ sub setupConfig {
 
     # monXDRUDP properties
     pushIfNoKey($add, "lia.Monitor.modules.GenericUDPListener.SO_RCVBUF_SIZE=2097152");
-    pushIfNoKey($add, "lia.Monitor.modules.monXDRUDP.MONITOR_SENDERS=false");
+    pushIfNoKey($add, "lia.Monitor.modules.monXDRUDP.MONITOR_SENDERS=true");
     pushIfNoKey($add, "lia.Monitor.modules.monXDRUDP.SENDER_EXPIRE_TIME=600");
 
     # AliEnFilter properties

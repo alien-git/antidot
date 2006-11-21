@@ -1,5 +1,5 @@
 GARNAME = MonaLisa
-GARVERSION = 1.6.4
+GARVERSION = 1.6.6
 CATEGORIES = java
 DISTFILES = $(GARNAME).v$(GARVERSION).tar.gz
 DISTNAME  = $(GARNAME).v1.6
@@ -30,7 +30,7 @@ include ../category.mk
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
 ifeq ($(JAVA_PLATFORM),linux-ia64)
-	JAVA_VERSION = 1_4_2_12
+	JAVA_VERSION = 1_5_0_06
 else
 	JAVA_VERSION = 1_5_0_09
 endif
