@@ -458,7 +458,7 @@ sub test10 {
 ##################################################
 sub test11 {
     my $service = "FTS Proxy";
-    my $command = "myproxy-info -d -s myproxy-fts.cern.ch 2>/dev/null";
+    my $command = "source $ENV{ALIEN_LOGDIR} ; myproxy-info -d -s myproxy-fts.cern.ch";
     my ($err, $msg, $timeleft) = parse_proxy_timeleft($ENV{X509_USER_PROXY}, $command, "myproxy-fts.cern.ch");
     dumpStatus($service, $err, $msg, 'timeleft' => $timeleft);
 }
