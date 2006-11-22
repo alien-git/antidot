@@ -40,7 +40,7 @@ my @tests = (
 	"alien -exec whereis test"      => "alien -exec whereis alien-tests/myTestFile$$",
 	"alien -exec get test"          => "alien -exec get alien-tests/myTestFile$$",
 	"alien version"			=> "alien -v",
-	"alien proxy"			=> "grid-proxy-info -f $ENV{X509_USER_PROXY} 2>/dev/null",
+	"alien proxy"			=> "grid-proxy-info",
 	);
 
 POE::Session->create(
@@ -124,7 +124,7 @@ sub sig_chld {
 					(-r $ENV{X509_USER_PROXY} ?
 						"X509_USER_PROXY doesn't point to a readable file."
 						:
-						'Failed running grid-proxy-info -f $X509_USER_PROXY')
+						'Failed running grid-proxy-info')
 					:
 					"Undefined X509_USER_PROXY.");
 				$err = 1;

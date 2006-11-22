@@ -178,6 +178,7 @@ sub setupConfig {
         }
     }
     push(@$add, "export FARM_HOME=$farmHome");
+    push(@$add, "export ALIEN_LOGDIR=$config->{LOG_DIR}");
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
     # myFarm.conf
