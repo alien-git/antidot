@@ -21,7 +21,7 @@
 +endif
 +	(cd $(DISTNAME)/Service/lib && \
 +	for site in $(MASTER_SITES) ; do \
-+	   wget -nv --waitretry=10 --tries=3 $${site}/../fdt/fdt.jar -O fdt.jar && break ; \
++	   wget -nv --waitretry=10 --tries=3 $${site}../fdt/fdt.jar -O fdt.jar && break ; \
 +	done ; test -s fdt.jar)
 +
 +install:
