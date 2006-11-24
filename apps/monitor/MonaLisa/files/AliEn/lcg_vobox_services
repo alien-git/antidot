@@ -458,8 +458,13 @@ sub test10 {
 ##################################################
 sub test11 {
     my $service = "FTS Proxy";
-    my $command = "source $ENV{ALIEN_LOGDIR} ; myproxy-info -d -s myproxy-fts.cern.ch";
-    my ($err, $msg, $timeleft) = parse_proxy_timeleft($ENV{X509_USER_PROXY}, $command, "myproxy-fts.cern.ch");
+    my ($err, $msg, $timeleft);
+    if(-r "$ENV{ALIEN_LOGDIR}/FTD.env"){
+        my $command = "source $ENV{ALIEN_LOGDIR}/FTD.env ; myproxy-info -d -s myproxy-fts.cern.ch";
+        ($err, $msg, $timeleft) = parse_proxy_timeleft($ENV{X509_USER_PROXY}, $command, "myproxy-fts.cern.ch");
+    }else{
+        ($err, $msg, $timeleft) = (2, "FTD.env not found in ALIEN_LOGDIR.", 0);
+    }
     dumpStatus($service, $err, $msg, 'timeleft' => $timeleft);
 }
 
