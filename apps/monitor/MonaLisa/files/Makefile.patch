@@ -2,7 +2,8 @@
 +++ work/MonaLisa.v1.6/Makefile	2006-11-21 22:40:19.000000000 +0100
 @@ -0,0 +1,37 @@
 +build:
-+	tar zxvf $(DISTNAME).tar.gz 
++	tar zxvf $(DISTNAME).tar.gz
++	#patch -p0 < ml_scripts.patch
 +ifneq ($(shell uname -s),Darwin)
 +	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) $(JAVA_VERSION) $(MASTER_SITES) && \
 +	(cd $(DISTNAME) &&  \

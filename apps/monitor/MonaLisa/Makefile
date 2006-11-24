@@ -1,5 +1,5 @@
 GARNAME = MonaLisa
-GARVERSION = 1.6.6
+GARVERSION = 1.6.8
 CATEGORIES = java
 DISTFILES = $(GARNAME).v$(GARVERSION).tar.gz
 DISTNAME  = $(GARNAME).v1.6
@@ -7,7 +7,7 @@ DISTNAME  = $(GARNAME).v1.6
 PLATFORM = $(shell $(GARDIR)/platform.sh platform)
 
 BINDISTNAME = $(GARNAME)-$(GARVERSION)_$(PLATFORM)
-PATCHFILES = Makefile.patch
+PATCHFILES = Makefile.patch # ML.patch
 
 MASTER_SITES = http://monalisa.cern.ch/download/monalisa/ http://monalisa.cacr.caltech.edu/download/monalisa/
 
