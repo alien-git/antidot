@@ -86,6 +86,7 @@ sub getSitesAndDomains {
 		my $fullLDAPdn = "ou=$site_name,ou=Sites,$ldap_dn";
 
 #		print "SITE $site_name\n";
+		next if $site_name eq "LCG";
 		# Get ML services defined for this Site
 		$mesg = $ldap->search(base   => "ou=MonaLisa,ou=Services,$fullLDAPdn",
 				     filter => "objectClass=AliEnMonaLisa");
@@ -98,6 +99,7 @@ sub getSitesAndDomains {
 		}
 		foreach my $ml_entry ($mesg->entries){
 			my $ml_name = $ml_entry->get_value("name");
+			$ml_name = ($ml_name =~ /^LCG(.*)/ ? $site_name.$1 : $ml_name);
 			my $ml_host = $ml_entry->get_value("host");
 			my @ml_doms = $ml_entry->get_value("domain");
 			push(@ml_doms, @site_doms) if($ml_count == 1); # if site has more MLs, take in account only properties from ML pages
@@ -118,7 +120,7 @@ sub getSitesAndDomains {
 		$mesg = $ldap->search(base   => "ou=SE,ou=Services,$fullLDAPdn",
 					filter => "(|(objectClass=AliEnMSS)(objectClass=AliEnSE))");
 		foreach my $se_entry ($mesg->entries){
-			my $se_name = $se_entry->get_value("name");
+			my $se_name = $se_entry->get_value("name") or next;
 			my $se_fullName = ucfirst($ORG)."::".$site_name."::".$se_name;
 			my @se_hosts = ();
 			my $se_host = $se_entry->get_value("host");
@@ -169,6 +171,7 @@ sub getSitesAndDomains {
 		foreach my $conf_entry ($mesg->entries){
 			my $ce_name = $conf_entry->get_value("ce") || $ce_default;
 			my $ml_name = $conf_entry->get_value("monalisa") || $ml_default;
+			$ml_name = ($ml_name =~ /^LCG(.*)/ ? $site_name.$1 : $ml_name);
 			next if (! $ce_name) || (! $local_ces->{$ce_name});
 			$sites_ce_hosts->{$ml_name} = [] if ! $sites_ce_hosts->{$ml_name};
 #			print "CONNECT $ml_name -> @{$local_ces->{$ce_name}->{HOSTS}}\n";
