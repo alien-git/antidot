@@ -55,7 +55,7 @@ if(open(PIDFILE, ">$pidFile")){
 }
 
 # Initialize ApMon
-my $hostName = Net::Domain::hostfqdn();
+my $hostName = $ENV{ALIEN_HOSTNAME} || Net::Domain::hostfqdn();
 my $apm = new ApMon(0);
 $apm->setDestinations(['localhost:8884']);
 $apm->setMonitorClusterNode("Master", $hostName);  # background host monitoring
