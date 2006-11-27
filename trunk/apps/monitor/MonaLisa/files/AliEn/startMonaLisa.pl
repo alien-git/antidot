@@ -139,6 +139,7 @@ sub setupConfig {
     my $user = $ENV{USER} || $ENV{LOGNAME};
     my $mlHome = "$ENV{ALIEN_ROOT}/java/MonaLisa";
     my $logDir = $farmHome; # by default, the logs are stored in the farmHome directory
+    my $lcgSite = 0;
 
     system("rm -rf $farmHome 2>/dev/null; mkdir -p $farmHome");
     
@@ -148,7 +149,10 @@ sub setupConfig {
     # ml_env
     my $farmName = ($config->{MONALISA_NAME} or die("MonaLisa configuration not found in LDAP. Not starting it...\n"));
     my $siteName = ($config->{SITE} or die("Site name not found in LDAP.\n"));
-    $farmName = ($farmName =~ /^LCG(.*)/ ? $siteName.$1 : $farmName);
+    if($farmName =~ /^LCG(.*)/){
+        $farmName = $siteName.$1;
+        $lcgSite = 1;
+    }
     
     my $fqdn = $ENV{ALIEN_HOSTNAME} || Net::Domain::hostfqdn();
     if($config->{MONALISA_HOST} && ($fqdn ne $config->{MONALISA_HOST})){
@@ -188,7 +192,7 @@ sub setupConfig {
     $add = ($config->{MONALISA_ADDMODULES_LIST} or []);
     $rmv = ($config->{MONALISA_REMOVEMODULES_LIST} or []);
    
-    if($config->{SITE} eq "LCG"){
+    if($lcgSite){
     	# for LCG sites, also run this
 	push(@$add, '*LCGServicesStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/lcg_vobox_services,timeout=800"}%900');
     }
