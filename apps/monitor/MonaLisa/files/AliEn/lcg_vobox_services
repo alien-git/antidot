@@ -424,9 +424,9 @@ sub test10 {
 	if(! $site_name2){
 	    dumpStatus($service, 1, "Site name cannot be taken from CE entry in ~/.alien/.alice.conf");
 	}else{
-	    my $ldap_search = `ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b \"name=$site_name2,ou=SE,ou=Services,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch\" name 2>/dev/null`;
+	    my $ldap_search = `ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" name 2>/dev/null`;
 	    if($?){
-		dumpStatus($service, 1, "Failed to run ldapsearch -h aliendb5.cern.ch -p 8389 -x -b \"name=$site_name2,ou=SE,...\" name");
+		dumpStatus($service, 1, "Failed to run ldapsearch -h aliendb5.cern.ch -p 8389 -x -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" name");
 	    }else{
 		if ($ldap_search =~ /name/){
 		    dumpStatus($service, 0);
@@ -440,9 +440,9 @@ sub test10 {
 	if(! $site_name2){
 	    dumpStatus($service, 1, "Site name cannot be taken from CE entry in ~/.alien/.alice.conf");
 	}else{
-	    my $lfc_use = `ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b \"name=$site_name2,ou=SE,ou=Services,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch\" lvmdatabase 2>/dev/null`;
+	    my $lfc_use = `ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" lvmdatabase 2>/dev/null`;
 	    if($?){
-		dumpStatus($service, 1, "Failed to run ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b \"name=$site_name2,ou=SE,...\" lvmdatabase");
+		dumpStatus($service, 1, "Failed to run ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" lvmdatabase");
 		if($lfc_use =~ /lvmdatabase/){
 		    dumpStatus($service, 0);
 		}else{
@@ -494,7 +494,7 @@ sub test12 {
 	
 	# get my site's FTD name
 	my $myFTDname='';
-	my $myFQDN = hostfqdn();
+	my $myFQDN = $ENV{ALIEN_HOSTNAME} || hostfqdn();
 	if(open(LDAPSEARCH, "$ENV{ALIEN_ROOT}/bin/ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b 'host=$myFQDN,ou=Config,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch' ftd 2>/dev/null | grep ftd: | awk '{print \$2}' |")){
 		$myFTDname = <LDAPSEARCH>;
 		chomp($myFTDname) if($myFTDname);
