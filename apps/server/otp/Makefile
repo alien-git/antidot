@@ -1,8 +1,11 @@
 GARNAME = otp
-GARVERSION = 11.0
+GARVERSION = 10.10
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-#PATCHFILES = macos.diff
+
+ifeq ($(shell uname),Darwin)
+PATCHFILES = macos.diff
+endif
 
 MASTER_SITES = 
 
