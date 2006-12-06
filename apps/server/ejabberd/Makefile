@@ -1,5 +1,5 @@
 GARNAME = ejabberd
-GARVERSION = 1.1.1
+GARVERSION = 1.1.2
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = # Makefile.in.diff
