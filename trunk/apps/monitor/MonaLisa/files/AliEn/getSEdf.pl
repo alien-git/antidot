@@ -45,7 +45,7 @@ for my $s (@SEs){
 		my $size_gb = ($se->{size} == -1 ? -1 : $se->{size} / 1024.0 / 1024.0);
 		my $used_gb = ($se->{used} == -1 ? -1 : $se->{used} / 1024.0 / 1024.0);
 		my $avail_gb= ($se->{available} == -1 ? -1 : $se->{available} / 1024.0 / 1024.0);
-		my $usage_p = ($size_gb == -1 ? -1 : $used_gb * 100.0 / $size_gb);
+		my $usage_p = ($size_gb == -1 ? -1 : ($size_gb == 0 ? 0 : $used_gb * 100.0 / $size_gb));
 		my $n_files = $se->{files};
 		my $type    = $se->{type};
 		print "$se->{name}\t".
