@@ -24,8 +24,8 @@ use AliEn::Util;
 use AliEn::UI::Catalogue::LCM::Computer;
 use strict;
 
-my $cat=AliEn::UI::Catalogue::LCM::Computer->new({silent=>1}) or exit(-2);
-my @data = $cat->execute("top", "-all_status -all");
+my $cat=AliEn::UI::Catalogue::LCM::Computer->new({silent=>1, debug=>0}) or exit(-2);
+my @data = $cat->execute("top", "-all");
 
 die "Failed to execute top!" if(! @data);
 
@@ -34,7 +34,7 @@ die "Failed to execute top!" if(! @data);
 for my $job (@data){
 	my $status = AliEn::Util::statusForML($job->{status});
 	# we don't want finished jobs (successfull or not)
-	next if(($job->{status} eq "FAILED") || ($job->{status} eq "KILLED") || ($job->{status} eq "DONE") || ($job->{status} eq 'DONE_WARNING'));
+#	next if(($job->{status} eq "FAILED") || ($job->{status} eq "KILLED") || ($job->{status} eq "DONE") || ($job->{status} eq 'DONE_WARNING'));
 	my $execSite = $job->{execHost} || 'NO_SITE';
 	my $received = $job->{received} || 0;
 	my $started = $job->{started} || 0;

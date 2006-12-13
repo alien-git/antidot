@@ -48,7 +48,9 @@ for my $s (@SEs){
 		my $usage_p = ($size_gb == -1 ? -1 : ($size_gb == 0 ? 0 : $used_gb * 100.0 / $size_gb));
 		my $n_files = $se->{files};
 		my $type    = $se->{type};
-		print "$se->{name}\t".
+		my $se_name = $se->{name};
+		my @l_se_name = split("::", $se_name); $l_se_name[0]=uc($l_se_name[0]); $se_name=join("::", @l_se_name);
+		print "$se_name\t".
 			"size_gb\t$size_gb\tused_gb\t$used_gb\tavail_gb\t$avail_gb\t".
 			"usage\t$usage_p\tn_files\t$n_files\ttype\t$type\tStatus\tOK\n";
 	}else{
