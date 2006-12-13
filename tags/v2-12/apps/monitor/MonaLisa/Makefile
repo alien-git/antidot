@@ -1,0 +1,46 @@
+GARNAME = MonaLisa
+GARVERSION = 1.6.10
+CATEGORIES = java
+DISTFILES = $(GARNAME).v$(GARVERSION).tar.gz
+DISTNAME  = $(GARNAME).v1.6
+
+PLATFORM = $(shell $(GARDIR)/platform.sh platform)
+
+BINDISTNAME = $(GARNAME)-$(GARVERSION)_$(PLATFORM)
+PATCHFILES = Makefile.patch ML.patch
+
+MASTER_SITES = http://monalisa.cern.ch/download/monalisa/ http://monalisa.cacr.caltech.edu/download/monalisa/
+
+LIBDEPS = apps/base/libwww-perl
+
+DESCRIPTION = MonALISA Monitoring Framework
+LICENSE = CIT
+AUTHOR = Caltech
+URL = http://monalisa.cacr.caltech.edu
+
+CONFIGURE_SCRIPTS = 
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile 
+
+CONFIGURE_ARGS =
+BUILD_ARGS   = build 
+INSTALL_ARGS = install
+
+include ../category.mk
+
+JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
+ifeq ($(JAVA_PLATFORM),linux-ia64)
+	JAVA_VERSION = 1_5_0_06
+else
+	JAVA_VERSION = 1_5_0_10
+endif
+
+BUILD_ENV = env JAVA_PLATFORM=$(JAVA_PLATFORM) JAVA_VERSION=$(JAVA_VERSION) MASTER_SITES="$(MASTER_SITES)" DISTNAME=$(DISTNAME)
+INSTALL_ENV = env DISTNAME=$(DISTNAME) PREFIX=$(PREFIX)/java
+
+ifeq ($(shell uname -s),Darwin)
+post-build:
+	@sed <work/$(DISTNAME)/$(DISTNAME)/Service/CMD/ML_SER -e 's/hostname *-f/hostname/g' > work/$(DISTNAME)/$(DISTNAME)/Service/CMD/ML_SER.mac ; \
+	mv work/$(DISTNAME)/$(DISTNAME)/Service/CMD/ML_SER{.mac,}
+endif
+

@@ -1,0 +1,66 @@
+--- ./work/otp-10.7/lib/odbc/configure.in.ori	2005-09-20 10:48:34.000000000 +0200
++++ ./work/otp-10.7/lib/odbc/configure.in	2005-09-20 10:52:56.000000000 +0200
+@@ -46,7 +46,13 @@
+ # ODBC 
+ /bin/rm -f $ERL_TOP/lib/odbc/SKIP
+ 
+-AC_CHECK_LIB(odbc, SQLAllocHandle)
++case $host_os in
++     darwin*)
++	AC_CHECK_LIB(iodbc, SQLAllocHandle);;
++     *)
++	AC_CHECK_LIB(odbc, SQLAllocHandle);;
++esac
++
+ AC_CHECK_LIB(odbc32, main)
+ 
+ AC_SUBST(TARGET_FLAGS)
+--- ./work/otp-10.7/lib/odbc/configure.ori	2005-09-20 14:15:50.000000000 +0200
++++ ./work/otp-10.7/lib/odbc/configure	2005-09-20 14:14:56.000000000 +0200
+@@ -897,14 +897,21 @@
+ # ODBC 
+ /bin/rm -f $ERL_TOP/lib/odbc/SKIP
+ 
+-echo $ac_n "checking for SQLAllocHandle in -lodbc""... $ac_c" 1>&6
+-echo "configure:902: checking for SQLAllocHandle in -lodbc" >&5
++case $host_os in
++	darwin*)
++		odbc=iodbc ;;
++	*)
++		odbc=odbc ;;
++esac
++
++echo $ac_n "checking for SQLAllocHandle in -l${odbc}""... $ac_c" 1>&6
++echo "configure:902: checking for SQLAllocHandle in -l${odbc}" >&5
+ ac_lib_var=`echo odbc'_'SQLAllocHandle | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   ac_save_LIBS="$LIBS"
+-LIBS="-lodbc  $LIBS"
++LIBS="-l${odbc}  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+ #line 910 "configure"
+ #include "confdefs.h"
+@@ -938,7 +945,7 @@
+ #define $ac_tr_lib 1
+ EOF
+ 
+-  LIBS="-lodbc $LIBS"
++  LIBS="-l${odbc} $LIBS"
+ 
+ else
+   echo "$ac_t""no" 1>&6
+--- ./work/otp-10.10/lib/os_mon/c_src/memsup.c.ori	2006-06-04 20:34:10.000000000 +0200
++++ ./work/otp-10.10/lib/os_mon/c_src/memsup.c	2006-06-04 20:36:15.000000000 +0200
+@@ -70,6 +70,10 @@
+ #include <stddef.h>
+ #include <stdlib.h>
+ 
++#ifdef __APPLE__
++#define BSD4_4
++#endif
++
+ #ifndef VXWORKS
+ #include <unistd.h>
+ #endif

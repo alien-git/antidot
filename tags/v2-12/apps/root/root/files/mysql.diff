@@ -1,0 +1,12 @@
+--- work/root-5.13.4/mysql/inc/TMySQLServer.h	2006-07-17 10:42:39.000000000 +0200
++++ work/root-5.13.4/mysql/inc/TMySQLServer.h.new	2006-11-09 19:30:22.000000000 +0100
+@@ -20,6 +20,9 @@
+ #ifndef R__WIN32
+ #include <sys/time.h>
+ #endif
++#ifdef __APPLE__
++#define ulong unsigned long
++#endif
+ #include <mysql.h>
+ #else
+ struct MYSQL;

@@ -1,0 +1,114 @@
+--- ./work/lfc-1.3.7/cvs2cl.ori	2005-09-29 11:17:15.000000000 +0200
++++ ./work/lfc-1.3.7/cvs2cl	2005-09-29 11:20:39.000000000 +0200
+@@ -2066,7 +2066,7 @@
+         chomp($Domain = slurp_file(MAILNAME));
+       } else {
+       MAILDOMAIN_CMD:
+-        for ([qw(hostname -d)], 'dnsdomainname', 'domainname') {
++        for ([qw(hostname | sed -e "s/$(hostname -s)\.//")], 'dnsdomainname', 'domainname') {
+           my ($text, $exit, $sig, $core) = run_ext($_);
+           if ( $exit == 0 && $sig == 0 && $core == 0 ) {
+             chomp $text;
+--- ./work/lfc-1.3.7/scripts/cvs2cl.ori	2005-09-29 11:17:15.000000000 +0200
++++ ./work/lfc-1.3.7/scripts/cvs2cl	2005-09-29 11:18:34.000000000 +0200
+@@ -2066,7 +2066,7 @@
+         chomp($Domain = slurp_file(MAILNAME));
+       } else {
+       MAILDOMAIN_CMD:
+-        for ([qw(hostname -d)], 'dnsdomainname', 'domainname') {
++        for ([qw(hostname | sed -e "s/$(hostname -s)\.//")], 'dnsdomainname', 'domainname') {
+           my ($text, $exit, $sig, $core) = run_ext($_);
+           if ( $exit == 0 && $sig == 0 && $core == 0 ) {
+             chomp $text;
+--- ./work/lfc-1.3.7/scripts/DPM-info-dynamic/lcg-info-dynamic-dpm.ori	2005-09-29 11:11:02.000000000 +0200
++++ ./work/lfc-1.3.7/scripts/DPM-info-dynamic/lcg-info-dynamic-dpm	2005-09-29 11:27:21.000000000 +0200
+@@ -12,7 +12,7 @@
+ 
+ &usage() if ($#ARGV < 0);
+ 
+-chomp(my $host=`hostname -f`);
++chomp(my $host=`hostname`);
+ my $GlueSEUniqueID = $host;
+ chomp(   $host=`hostname -s`);
+ 
+--- ./work/lfc-1.3.7/test/dpm/socketSuite.ori	2005-09-29 11:11:02.000000000 +0200
++++ ./work/lfc-1.3.7/test/dpm/socketSuite	2005-09-29 11:27:13.000000000 +0200
+@@ -76,7 +76,7 @@
+ my $tstNAME = shift;
+ $target =~ m/(\w*?)\.(.*)/;
+ my $site_domain = $2;
+-chomp(my $fullname = `hostname -f`);
++chomp(my $fullname = `hostname`);
+ if ( ! $target || ! $tstNAME || ! $site_domain ) {
+     print STDERR " Wrong ARGS ! \n";
+     print STDERR " Usage: $0 Target_FullNodeName UserName \n";
+@@ -119,7 +119,7 @@
+ } elsif ( -e "/boot/vmlinux-2.4.21-20.EL.cernsmp" ) {
+     ## This is SLC3
+ ##20if ( $ENV{HOST} eq "lxb1902" ) {
+-##21chomp(my $fullname = `hostname -f`);
++##21chomp(my $fullname = `hostname`);
+ ##21if ( "$fullname" eq "$SLhost" ) {
+     $struct->{$Lfile[1]}->{input} = "/boot/vmlinux-2.4.21-20.EL.cernsmp";
+     $struct->{$Lfile[2]}->{input} = "/boot/initrd-2.4.21-20.EL.cernsmp.img";
+--- ./work/lfc-1.3.7/test/srmv2/srmv2Suite.ori	2005-09-29 11:11:02.000000000 +0200
++++ ./work/lfc-1.3.7/test/srmv2/srmv2Suite	2005-09-29 11:27:02.000000000 +0200
+@@ -190,7 +190,7 @@
+ my $tstNAME = shift;
+ $target =~ m/(\w*?)\.(.*)/;
+ my $site_domain = $2;
+-chomp(my $fullname = `hostname -f`);
++chomp(my $fullname = `hostname`);
+ if ( ! $target || ! $tstNAME || ! $site_domain ) {
+     print STDERR " Wrong ARGS ! \n";
+     print STDERR " Usage: $0 Target_FullNodeName UserName \n";
+@@ -277,7 +277,7 @@
+ } elsif ( -e "/boot/vmlinux-2.4.21-20.EL.cernsmp" ) {
+     ## This is SLC3
+ ##19if ( $ENV{HOST} eq "lxb1902" ) {
+-##21chomp(my $fullname = `hostname -f`);
++##21chomp(my $fullname = `hostname`);
+ ##21if ( "$fullname" eq "$SLhost" ) {
+     $struct->{$Lfile[1]}->{input} = "/boot/vmlinux-2.4.21-20.EL.cernsmp";
+     $struct->{$Lfile[2]}->{input} = "/boot/initrd-2.4.21-20.EL.cernsmp.img";
+--- ./work/lfc-1.3.7/security/Imakefile.ori	2005-10-09 11:46:27.000000000 +0200
++++ ./work/lfc-1.3.7/security/Imakefile	2005-10-09 11:46:59.000000000 +0200
+@@ -155,10 +155,10 @@
+ 
+ #if UseGSI
+ SharedLibraryTargetName(Csec_plugin_GSI_thread): Csec_plugin_GSI_pthr.Osuf Csec_plugin_GSI_pthr_mapper.Osuf
+-	ld  $(SHLIBLDFLAGS) -o $@ Csec_plugin_GSI_pthr.Osuf Csec_plugin_GSI_pthr_mapper.Osuf SecLibsGSIpthr $(SHLIBREQLIBS)
++	g++  $(SHLIBLDFLAGS) -o $@ Csec_plugin_GSI_pthr.Osuf Csec_plugin_GSI_pthr_mapper.Osuf SecLibsGSIpthr $(SHLIBREQLIBS)
+ 
+ SharedLibraryTargetName(Csec_plugin_GSI): Csec_plugin_GSI.Osuf Csec_plugin_GSI_mapper.Osuf
+-	ld  $(SHLIBLDFLAGS) -o $@ Csec_plugin_GSI.Osuf Csec_plugin_GSI_mapper.Osuf SecLibsGSI $(SHLIBREQLIBS)
++	g++  $(SHLIBLDFLAGS) -o $@ Csec_plugin_GSI.Osuf Csec_plugin_GSI_mapper.Osuf SecLibsGSI $(SHLIBREQLIBS)
+ 
+ Csec_plugin_GSI.Osuf: Csec_plugin_GSS.c
+ 	$(CC) $(CFLAGS) SecAuthMechGSI SecIncludeDirGSI	-o $@ -c Csec_plugin_GSS.c
+@@ -175,7 +175,7 @@
+ 
+ #if UseKRB5
+ SharedLibraryTargetName(Csec_plugin_KRB5): Csec_plugin_KRB5.Osuf Csec_plugin_KRB5_mapper.Osuf
+-	ld  $(SHLIBLDFLAGS) -o $@ Csec_plugin_KRB5.Osuf Csec_plugin_KRB5_mapper.Osuf SecLibsKRB5 $(SHLIBREQLIBS)
++	g++  $(SHLIBLDFLAGS) -o $@ Csec_plugin_KRB5.Osuf Csec_plugin_KRB5_mapper.Osuf SecLibsKRB5 $(SHLIBREQLIBS)
+ 
+ Csec_plugin_KRB5.Osuf: Csec_plugin_GSS.c
+ 	$(CC) $(CFLAGS) SecAuthMechKRB5 SecIncludeDirKRB5	-o $@ -c Csec_plugin_GSS.c
+@@ -186,14 +186,14 @@
+ 
+ #if UseKRB4
+ SharedLibraryTargetName(Csec_plugin_KRB4): Csec_plugin_KRB4.Osuf
+-	ld  $(SHLIBLDFLAGS) -o $@ Csec_plugin_KRB4.Osuf SecLibsKRB4 $(SHLIBREQLIBS)
++	g++  $(SHLIBLDFLAGS) -o $@ Csec_plugin_KRB4.Osuf SecLibsKRB4 $(SHLIBREQLIBS)
+ 
+ Csec_plugin_KRB4.Osuf: Csec_plugin_KRB4.c 
+ 	$(CC) $(CFLAGS) SecIncludeDirKRB4	-o $@ -c Csec_plugin_KRB4.c
+ #endif
+ 
+ SharedLibraryTargetName(Csec_plugin_ID): Csec_plugin_ID.Osuf
+-	ld  $(SHLIBLDFLAGS) -o $@ Csec_plugin_ID.Osuf $(SHLIBREQLIBS)
++	g++  $(SHLIBLDFLAGS) -o $@ Csec_plugin_ID.Osuf $(SHLIBREQLIBS)
+ 
+ Csec_plugin_ID.Osuf: Csec_plugin_ID.c
+ 	$(CC) $(CFLAGS) -o $@ -c Csec_plugin_ID.c
