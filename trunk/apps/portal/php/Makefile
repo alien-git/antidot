@@ -24,7 +24,7 @@ CONFIGURE_ARGS = --with-apxs2=$(PREFIX)/httpd/bin/apxs \
 	--enable-force-cgi-redirect \
 	--disable-cgi \
 	--with-zlib=$(PREFIX) \
-	--with-gettext \
+	--without-gettext \
 	--with-gdbm=$(PREFIX) \
 	--with-libxml-dir=$(PREFIX) \
 	--with-openssl-dir=$(PREFIX) \
