@@ -3,6 +3,7 @@ GARVERSION = 2.0.55
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+
 MASTER_SITES = 
 
 LIBDEPS = apps/base/openssl
@@ -18,7 +19,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX)/httpd --with-mpm=prefork --enable-ssl --enable-so  --enable-rewrite --enable-dav 
 
-CONFIGURE_ENV  = env CFLAGS=-DSSL_EXPERIMENTAL_ENGINE
+CONFIGURE_ENV  =  env CFLAGS=-DSSL_EXPERIMENTAL_ENGINE
 
 include ../category.mk
 
