@@ -10,7 +10,7 @@ LIBDEPS = apps/gcc/gcc
 DESCRIPTION = A set of tools that provides a framework to help other GNU packages produce multi-lingual messages
 URL = http://www.gnu.org/software/gettext
 AUTHOR = gnu.org
-LCIENSE = LGPL
+LCIENSE = GPL2
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
