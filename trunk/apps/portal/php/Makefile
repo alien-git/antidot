@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES =
 
-LIBDEPS = apps/portal/httpd apps/base/zlib apps/base/gdbm apps/base/ncurses apps/server/mysql apps/base/libxml2 apps/server/openldap
+LIBDEPS = apps/portal/httpd apps/base/zlib apps/base/gdbm apps/base/ncurses apps/server/mysql apps/base/libxml2 apps/server/openldap apps/base/gettext
 
 DESCRIPTION = PHP server-side HTML embedded scripting language.
 
@@ -24,7 +24,7 @@ CONFIGURE_ARGS = --with-apxs2=$(PREFIX)/httpd/bin/apxs \
 	--enable-force-cgi-redirect \
 	--disable-cgi \
 	--with-zlib=$(PREFIX) \
-	--without-gettext \
+	--with-gettext=$(PREFIX) \
 	--with-gdbm=$(PREFIX) \
 	--with-libxml-dir=$(PREFIX) \
 	--with-openssl-dir=$(PREFIX) \
