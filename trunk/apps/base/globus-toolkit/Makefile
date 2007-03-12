@@ -2,7 +2,7 @@ GARNAME = globus-toolkit
 CATEGORIES = apps-tools
 
 ifeq ($(shell uname),Darwin)
-GARVERSION = 4.0.3p1
+GARVERSION = 4.0.4
 PATCHFILES =
 else
 GARVERSION = 4.0.3
@@ -32,4 +32,4 @@ CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR)
 
 include ../category.mk
 
-#xsPRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
+#PRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
