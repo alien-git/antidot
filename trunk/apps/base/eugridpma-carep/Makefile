@@ -1,12 +1,12 @@
 GARNAME = eugridpma-carep
-GARVERSION = 1.10
+GARVERSION = 1.13
 CATEGORIES = apps-tools
 DISTFILES   = igtf-policy-installation-bundle-$(GARVERSION).tar.gz
 DISTNAME    = igtf-policy-installation-bundle-$(GARVERSION)
 BINDISTNAME = igtf-policy-installation-bundle-$(GARVERSION)
 PATCHFILES = 
 
-MASTER_SITES = http://www.eugridpma.org/distribution/igtf/$(GARVERSION)/accredited/
+MASTER_SITES = http://dist.eugridpma.info/distribution/current/accredited/
 
 LIBDEPS = 
 
