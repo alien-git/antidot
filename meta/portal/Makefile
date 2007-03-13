@@ -10,6 +10,7 @@ apps/devel/dialog \
 apps/base/eugridpma-carep \
 apps/glite/glite \
 apps/alien/admin \
+apps/server/DBD-mysql \
 apps/alien/classad \
 apps/alien/common \
 apps/alien/gssapi \

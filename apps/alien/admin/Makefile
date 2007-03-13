@@ -11,7 +11,7 @@ GARCVSVERSION = $(CVS_TAG)
 
 MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/ 
 
-LIBDEPS = apps/alien/common apps/server/DBD-mysql apps/server/openldap apps/server/ejabberd
+LIBDEPS = apps/alien/common
 
 DESCRIPTION = AliEn admin component
 URL = http://alien.cern.ch
