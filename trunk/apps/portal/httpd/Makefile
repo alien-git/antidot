@@ -3,7 +3,6 @@ GARVERSION = 2.0.55
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-
 MASTER_SITES = 
 
 LIBDEPS = apps/base/openssl
