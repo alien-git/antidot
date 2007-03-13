@@ -15,6 +15,7 @@ apps/alien/common \
 apps/alien/gssapi \
 apps/alien/perl \
 apps/alien/gapi \
+apps/alien/admin \
 apps/server/mysql \
 apps/server/DBD-mysql \
 apps/server/ejabberd \
