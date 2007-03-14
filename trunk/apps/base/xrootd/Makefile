@@ -28,3 +28,4 @@ endif
 
 include ../category.mk
 
+POST_INSTALL = ( cd $(WORKSRC); make install-source)
