@@ -20,7 +20,11 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
+ifeq ($(shell uname -s),Darwin)
+CONFIGURE_ARGS =
+else
 CONFIGURE_ARGS = $(PREFIX)
+endif
 
 BUILD_ARGS =  
 
