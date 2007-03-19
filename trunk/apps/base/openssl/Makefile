@@ -22,7 +22,12 @@ LICENSE = Apache
 CONFIGURE_SCRIPTS = $(WORKSRC)/config
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+
+ifeq ($(shell uname -s),Darwin)
+TEST_SCRIPTS =
+else
 TEST_SCRIPTS = $(WORKSRC)/Makefile
+endif
 
 CONFIGURE_ARGS = -L$(PREFIX)/lib --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing 
 
