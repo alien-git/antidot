@@ -22,7 +22,11 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 BUILD_ARGS =  
 
+ifeq ($(shell uname -s),Darwin)
+CONFIGURE_ARGS = -default /usr
+else
 CONFIGURE_ARGS = -default $(PREFIX)  
+endif
 
 CONFIGURE_ENV  =  
 
