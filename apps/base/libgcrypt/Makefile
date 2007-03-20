@@ -1,5 +1,5 @@
 GARNAME = libgcrypt
-GARVERSION = 1.2.3
+GARVERSION = 1.2.4
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
