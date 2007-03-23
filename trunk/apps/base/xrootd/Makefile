@@ -1,5 +1,5 @@
 GARNAME = xrootd
-GARVERSION = 20070219-p4
+GARVERSION = 20070323-0300-alice
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
@@ -12,7 +12,7 @@ LIBDEPS = apps/base/tokenauthz apps/base/ApMon-CPP apps/base/perl apps/base/libx
 DESCRIPTION = Xrootd
 
 URL = http://xrootd.slac.stanford.edu
-AUTHOR = Peter Elmer
+AUTHOR = Andy Hanushevsky
 LICENSE = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
