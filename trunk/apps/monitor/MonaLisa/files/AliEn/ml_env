@@ -52,7 +52,7 @@ FARM_CONF_FILE="${FARM_HOME}/myFarm.conf"
 #Please DO NOT bellow this line EDIT THIS! 
 # **** Next parameters should be left as they are!!! ********
 export MonaLisa_HOME FARM_HOME FARM_CONF_FILE JAVA_HOME
-URL_LIST_UPDATE="http://monalisa.cacr.caltech.edu/FARM_ML,http://monalisa.cern.ch/MONALISA/FARM_ML"
+URL_LIST_UPDATE="http://monalisa.cern.ch/MONALISA/FARM_ML,http://monalisa.cacr.caltech.edu/FARM_ML"
 PATH=.:${JAVA_HOME}/bin:/sbin:/usr/sbin:/usr/bin:/bin
 CACHE_DIR="${MonaLisa_HOME}/Service/TMP_UPDATE"
 DEST_DIR="${MonaLisa_HOME}"

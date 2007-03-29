@@ -2,6 +2,7 @@
 # v0.3.4
 # Catalin.Cirstoiu@cern.ch
 
+# 14/03/2007 - adding support for tail-ing AliEn Services log files
 # 21/11/2006 - configuring >localhost => >fqdn for Master cluster
 # 27/07/2006 - changed the way vobox_mon.pl is started
 # 05/05/2006 - if site is LCG, then also monitor the lcg services status
@@ -133,6 +134,91 @@ sub startAdditionalServices {
 #    system("env FARM_HOME=$farmHome $ENV{ALIEN_ROOT}/bin/alien-perl $mlHome/AliEn/vobox_mon.pl > $farmHome/vobox_mon.log 2>&1 &");
 }
 
+# Source the given file and import in my environment the given variables
+sub getEnvVarsFromFile {
+    my $file = shift;
+    my @vars = @_;
+
+    if(open(OUT, "(source $file ; for k in @vars ; ".'do echo "$k=${!k}"; done) 2>/dev/null |')){
+	my $line;
+	while($line = <OUT>){
+	    if($line && $line =~ /\s*(.*)\s*=\s*(.*)\s*$/ && $2){
+		$ENV{$1} = $2;
+	    }
+	}
+	close(OUT);
+    }else{
+	print "Failed opening $file to get '@vars' variables. Using defaults...\n";
+    }
+}
+
+# Get the list of services that have to run on this host and the path to their log files
+# As a side effect, it adds to the environment the variables in $org/startup.conf
+sub getAliEnServicesLogs {
+    my $lcgSite = shift;
+   
+    getEnvVarsFromFile("$ENV{ALIEN_HOME}/etc/aliend/startup.conf", "ALIEN_ORGANISATIONS");
+    $ENV{ALIEN_ORGANISATIONS} or $ENV{ALIEN_ORGANISATIONS} = "ALICE";
+    my $srvConf  = "$ENV{ALIEN_HOME}/etc/aliend/$ENV{ALIEN_ORGANISATIONS}/startup.conf";
+    my $csLogDir = "$ENV{ALIEN_HOME}/var/log/AliEn/$ENV{ALIEN_ORGANISATIONS}";
+    my $ssLogDir = $config->{LOG_DIR};
+    my @csList = qw(Proxy IS Authen Server Logger TransferManager Broker TransferBroker TransferOptimizer JobOptimizer CatalogueOptimizer);
+    my @ssList = qw(Monitor SE PackMan CE MonaLisa FTD);
+    
+    my $serv2log = {
+	"Proxy"		    => "ProxyServer",
+	"Broker"	    => "Broker::Job",
+	"TransferBroker"    => "Broker::Transfer",
+	"Server"	    => "Manager::Job",
+	"TransferManager"   => "Manager::Transfer",
+	"TransferOptimizer" => "Optimizer::Transfer",
+	"JobOptimizer"	    => "Optimizer::Job",
+	"CatalogueOptimizer"=> "Optimizer::Catalogue",
+	"Monitor"	    => "ClusterMonitor"
+    };
+    
+    my $subLogs = {
+	"Monitor"   => {
+	    "subdir"	=> "ClusterMonitor",
+	    "logs"	=> [qw(ProcInfo)]},
+	"SE" => {
+	    "subdir"    => ".",
+	    "logs"      => [qw(xrootd.default)]},
+	"JobOptimizer" => {
+	    "subdir"	=> "JobOptimizer",
+	    "logs"	=> [qw(Charge HeartBeat Inserting Merging Priority Saved Zombies Expired Hosts Killed MonALISA Resubmit Splitting)]},
+	"CatalogueOptimizer" => {
+	    "subdir"	=> "CatalogueOptimizer",
+	    "logs"	=> [qw(Expired Packages Trigger)]
+	}
+    };
+    
+    getEnvVarsFromFile($srvConf, "AliEnCommand", "AliEnUserP", "AliEnLDAPP", "AliEnServices");
+    $ENV{AliEnCommand} or $ENV{AliEnCommand} = ($lcgSite ? "$ENV{ALIEN_ROOT}/scripts/lcg/lcgAlien.sh" : "$ENV{ALIEN_ROOT}/bin/alien");
+    $ENV{AliEnServices} or $ENV{AliEnServices} = "Monitor CE SE PackMan MonaLisa";
+    
+    my @crtSrvList = split(/\s+/, $ENV{AliEnServices});
+    my $servicesLogs = {};
+    for my $srv (@crtSrvList){
+	my $basePath = "";
+	if(grep($_ eq $srv, @csList)){
+	    $basePath = $csLogDir;
+	}elsif(grep($_ eq $srv, @ssList)){
+	    $basePath = $ssLogDir;
+	}else{
+	    die("Trying to monitor logs for unknown service: '$srv' - nor central or site service!");
+	}
+	$servicesLogs->{$srv} = $basePath.'/'.($serv2log->{$srv} ? $serv2log->{$srv} : $srv).'.log';
+	if($subLogs->{$srv}){
+	    for my $subLog (@{$subLogs->{$srv}->{logs}}){
+		$servicesLogs->{"${srv}_${subLog}"} = $basePath.'/'.$subLogs->{$srv}->{"subdir"}.'/'.$subLog.'.log';
+	    }
+	}
+    }
+    return $servicesLogs;
+}
+
+
 # Setup configuration files for MonaLisa
 sub setupConfig {
     my $farmHome = shift;
@@ -141,11 +227,9 @@ sub setupConfig {
     my $logDir = $farmHome; # by default, the logs are stored in the farmHome directory
     my $lcgSite = 0;
 
-    system("rm -rf $farmHome 2>/dev/null; mkdir -p $farmHome");
+#   system("rm -rf $farmHome 2>/dev/null; mkdir -p $farmHome");
+    system("mkdir -p $farmHome");
     
-    # db.conf.embedded
-    setupFile("$mlHome/AliEn/db.conf.embedded", "$farmHome/db.conf.embedded", {}, [], []); 
- 
     # ml_env
     my $farmName = ($config->{MONALISA_NAME} or die("MonaLisa configuration not found in LDAP. Not starting it...\n"));
     my $siteName = ($config->{SITE} or die("Site name not found in LDAP.\n"));
@@ -153,12 +237,15 @@ sub setupConfig {
         $farmName = $siteName.$1;
         $lcgSite = 1;
     }
+ 
+    # get the list of AliEn services and the path to their log files
+    my $servicesLogs = getAliEnServicesLogs($lcgSite);
     
     my $fqdn = $ENV{ALIEN_HOSTNAME} || Net::Domain::hostfqdn();
     if($config->{MONALISA_HOST} && ($fqdn ne $config->{MONALISA_HOST})){
 	die("MonaLisa hostname from LDAP config [".$config->{MONALISA_HOST}."] differs from local one [$fqdn]. Not starting it...\n");
     }
-    my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "false");
+    my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "true");
     my $javaOpts = ($config->{MONALISA_JAVAOPTS} or "-Xms96m -Xmx96m");
     my $add = [];
     my $rmv = [];
@@ -178,14 +265,18 @@ sub setupConfig {
     $changes = {};
     # first, populate the environment with all known env variables
     for my $key (sort keys %ENV){
-        if($key =~ /ALIEN|VO|LCG|GLITE|GLOBUS|LD_LIBRARY|CERN|EDG|MYPROXY|X509|SITE/){
+        if($key =~ /ALIEN|AliEn|VO|LCG|GLITE|GLOBUS|LD_LIBRARY|CERN|EDG|MYPROXY|X509|SITE/){
             push(@$add, "export $key=\"$ENV{$key}\"");
 	}elsif($key eq "PATH"){
             push(@$add, "export $key=\"\$PATH:$ENV{$key}\"");
         }
     }
+    getEnvVarsFromFile("$farmHome/ml_env", "URL_LIST_UPDATE");
+    push(@$add, "export URL_LIST_UPDATE=$ENV{URL_LIST_UPDATE}");
+    push(@$add, "export MonaLisa_HOME=$mlHome");
     push(@$add, "export FARM_HOME=$farmHome");
     push(@$add, "export ALIEN_LOGDIR=$config->{LOG_DIR}");
+    push(@$add, "export LCG_SITE=\"".($lcgSite ? "/bin/true" : "/bin/false")."\"");
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
     # myFarm.conf
@@ -194,8 +285,17 @@ sub setupConfig {
    
     if($lcgSite){
     	# for LCG sites, also run this
+	push(@$add, "#Status of the LCG services");
 	push(@$add, '*LCGServicesStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/lcg_vobox_services,timeout=800"}%900');
     }
+
+    # setup the config for monitoring the log files of the configured services for this machine
+    push(@$add, "#AliEn Services logs") if(keys(%$servicesLogs));
+    for my $service (sort(keys(%$servicesLogs))){
+	my $path = $servicesLogs->{$service};
+	push(@$add, "^monLogTail{Cluster=AliEnServicesLogs,Node=$service,command=tail -n 15 -F $path 2>&1}%3");
+    }
+    
     $changes = {
     	"^>localhost" => ">$fqdn",
     };
@@ -272,6 +372,10 @@ sub setupConfig {
 	push(@$rmv, "lia.Monitor.jdbcDriverString\\s*=\\s*com.mysql.jdbc.Driver");
     }
     setupFile("$mlHome/AliEn/ml.properties", "$farmHome/ml.properties", $changes, $add, $rmv);
+
+    # db.conf.embedded
+    setupFile("$mlHome/AliEn/db.conf.embedded", "$farmHome/db.conf.embedded", {}, [], []); 
+ 
     # from the @$add list, check if the user has changed the $logDir, i.e. the java.util.logging.FileHandler.pattern property
     my $logFile = getValueForKey($add, "java.util.logging.FileHandler.pattern");
     $logDir = $1 if (defined($logFile) && $logFile =~ /(.*)\/ML\%g.log/);

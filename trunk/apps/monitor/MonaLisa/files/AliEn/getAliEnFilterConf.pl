@@ -36,22 +36,23 @@ use Net::Domain;
 my $TESTING=0;  # Set to 0 to take the ENV variables; set to 1 to go to central LDAP
 
 my $ORG    = lc($ENV{ALIEN_ORGANISATION} || "Alice");  #in lowercase;
-my $LDAPDN = getLDAP_DN() || "aliendb5.cern.ch:8389/o=$ORG,dc=cern,dc=ch";
+my $LDAPDN = getLDAP_DN() || "aliendb06a.cern.ch:8389/o=$ORG,dc=cern,dc=ch";
 my $HOST   = shift || $ENV{ALIEN_HOSTNAME} || $ENV{HOSTNAME} || $ENV{HOST};
 
 if($TESTING){
 	$ORG    = lc("Alice");  #in lowercase;
-	$LDAPDN = "aliendb5.cern.ch:8389/o=$ORG,dc=cern,dc=ch";
+	$LDAPDN = "aliendb06a.cern.ch:8389/o=$ORG,dc=cern,dc=ch";
 	$HOST   = shift || $ENV{ALIEN_HOSTNAME} || $ENV{HOSTNAME} || $ENV{HOST};
 }
 
-my $DEFAULT_APMON_CONFIG = "aliendb5.cern.ch";
+my $DEFAULT_APMON_CONFIG = "aliendb06a.cern.ch";
 my $verbose = 0;  # print the values on screen.
 
 my ($sites_domains, $ses_hosts, $ces_max_jobs, $sites_ce_hosts) = getSitesAndDomains();
 
 #sleep(1);
 dumpConf("Sites_domains", $sites_domains);
+print "AliEn2-TEST-pcardaab = >CERN\n" if $TESTING;
 #sleep(1);
 dumpConf("SEs_hosts", $ses_hosts);
 #sleep(1);
