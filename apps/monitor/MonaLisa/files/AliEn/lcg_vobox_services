@@ -424,9 +424,9 @@ sub test10 {
 	if(! $site_name2){
 	    dumpStatus($service, 1, "Site name cannot be taken from CE entry in ~/.alien/.alice.conf");
 	}else{
-	    my $ldap_search = `ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" name 2>/dev/null`;
+	    my $ldap_search = `ldapsearch -h aliendb06a.cern.ch -p 8389 -x -LLL -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" name 2>/dev/null`;
 	    if($?){
-		dumpStatus($service, 1, "Failed to run ldapsearch -h aliendb5.cern.ch -p 8389 -x -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" name");
+		dumpStatus($service, 1, "Failed to run ldapsearch -h aliendb06a.cern.ch -p 8389 -x -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" name");
 	    }else{
 		if ($ldap_search =~ /name/){
 		    dumpStatus($service, 0);
@@ -440,9 +440,9 @@ sub test10 {
 	if(! $site_name2){
 	    dumpStatus($service, 1, "Site name cannot be taken from CE entry in ~/.alien/.alice.conf");
 	}else{
-	    my $lfc_use = `ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" lvmdatabase 2>/dev/null`;
+	    my $lfc_use = `ldapsearch -h aliendb06a.cern.ch -p 8389 -x -LLL -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" lvmdatabase 2>/dev/null`;
 	    if($?){
-		dumpStatus($service, 1, "Failed to run ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" lvmdatabase");
+		dumpStatus($service, 1, "Failed to run ldapsearch -h aliendb06a.cern.ch -p 8389 -x -LLL -b \"ou=SE,ou=Services,ou=$site_name2,ou=Sites,o=alice,dc=cern,dc=ch\" lvmdatabase");
 		if($lfc_use =~ /lvmdatabase/){
 		    dumpStatus($service, 0);
 		}else{
@@ -459,11 +459,15 @@ sub test10 {
 sub test11 {
     my $service = "FTS Proxy";
     my ($err, $msg, $timeleft);
-    if(-r "$ENV{ALIEN_LOGDIR}/FTD.env"){
-        my $command = "source $ENV{ALIEN_LOGDIR}/FTD.env ; myproxy-info -d -s myproxy-fts.cern.ch";
-        ($err, $msg, $timeleft) = parse_proxy_timeleft($ENV{X509_USER_PROXY}, $command, "myproxy-fts.cern.ch");
+    if($ENV{ALIEN_LOGDIR}){
+        if(-r "$ENV{ALIEN_LOGDIR}/FTD.env"){
+            my $command = "source $ENV{ALIEN_LOGDIR}/FTD.env 2>/dev/null ; myproxy-info -d -s myproxy-fts.cern.ch";
+            ($err, $msg, $timeleft) = parse_proxy_timeleft($ENV{X509_USER_PROXY}, $command, "myproxy-fts.cern.ch");
+        }else{
+            ($err, $msg, $timeleft) = (2, "FTD.env not found in ALIEN_LOGDIR.", 0);
+        }
     }else{
-        ($err, $msg, $timeleft) = (2, "FTD.env not found in ALIEN_LOGDIR.", 0);
+        ($err, $msg, $timeleft) = (1, "Env. var. ALIEN_LOGDIR is not defined!", 0);
     }
     dumpStatus($service, $err, $msg, 'timeleft' => $timeleft);
 }
@@ -480,7 +484,7 @@ sub test12 {
 		return;
 	# get the sites that support FTD
 	my @sitesWithFTD = ();
-	if(open(LDAPSEARCH, "$ENV{ALIEN_ROOT}/bin/ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b 'ou=FTD,ou=Services,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch' name 2>/dev/null | grep name: | awk '{print \$2}' |")){
+	if(open(LDAPSEARCH, "$ENV{ALIEN_ROOT}/bin/ldapsearch -h aliendb06a.cern.ch -p 8389 -x -LLL -b 'ou=FTD,ou=Services,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch' name 2>/dev/null | grep name: | awk '{print \$2}' |")){
 		while(my $FTDsite=<LDAPSEARCH>){
 			chomp($FTDsite);
 			push(@sitesWithFTD, $FTDsite);
@@ -495,7 +499,7 @@ sub test12 {
 	# get my site's FTD name
 	my $myFTDname='';
 	my $myFQDN = $ENV{ALIEN_HOSTNAME} || hostfqdn();
-	if(open(LDAPSEARCH, "$ENV{ALIEN_ROOT}/bin/ldapsearch -h aliendb5.cern.ch -p 8389 -x -LLL -b 'host=$myFQDN,ou=Config,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch' ftd 2>/dev/null | grep ftd: | awk '{print \$2}' |")){
+	if(open(LDAPSEARCH, "$ENV{ALIEN_ROOT}/bin/ldapsearch -h aliendb06a.cern.ch -p 8389 -x -LLL -b 'host=$myFQDN,ou=Config,ou=LCG,ou=sites,o=alice,dc=cern,dc=ch' ftd 2>/dev/null | grep ftd: | awk '{print \$2}' |")){
 		$myFTDname = <LDAPSEARCH>;
 		chomp($myFTDname) if($myFTDname);
 		close(LDAPSEARCH);
@@ -550,11 +554,35 @@ sub test12 {
 	}
 }
 
-for(my $i = 1; $i < 13; $i++){
+##################################################
+# Test 13: 
+# Get the last known good RB
+##################################################
+sub test13 {
+	my $service = "Last good RB";
+
+	if($ENV{ALIEN_HOME}){
+		if(open(FILE, "$ENV{ALIEN_HOME}/.lastGoodRB")){
+			my $line = <FILE>;
+			chomp $line;
+			close(FILE);
+			if($line){
+				dumpStatus($service, 0, $line);
+			}else{
+				dumpStatus($service, 2, "File $ENV{ALIEN_HOME}/.lastGoodRB is empty!");
+			}
+		}else{
+			dumpStatus($service, 1, "Failed to open $ENV{ALIEN_HOME}/.lastGoodRB");
+		}
+	}else{
+		dumpStatus($service, 1, "Env. var. ALIEN_HOME is not defined!");
+	}
+}
+
+for(my $i = 1; $i < 14; $i++){
 #	print "Doing test $i...\n";
     eval "test$i()";
 }
 
 dumpStatus("SCRIPTRESULT", 0);
-
 
