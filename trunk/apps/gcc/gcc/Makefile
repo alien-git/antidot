@@ -1,5 +1,5 @@
 GARNAME = gcc
-GARVERSION = 3.2.3
+GARVERSION = 3.2.3-20040701
 CATEGORIES = apps-gcc
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
@@ -12,13 +12,13 @@ URL = http://gcc.gnu.org/
 AUTHOR = GCC Team
 LICENSE = GPL2
 
-CONFIGURE_SCRIPTS = $(WORKSRC)/configure 
-BUILD_SCRIPTS = $(WORKSRC)/Makefile
-INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+CONFIGURE_SCRIPTS = $(WORKSRC)/BUILD/configure 
+BUILD_SCRIPTS = $(WORKSRC)/BUILD/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/BUILD/Makefile
 
 AUTOTEST=locateCommand gcc -dumpversion
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/$(PLATFORM)/$(GARVERSION) --enable-threads=posix --enable-clocale=gnu --enable-__cxa_atexit --enable-languages=c,c++,f77 --enable-shared --disable-checking
+CONFIGURE_ARGS = --prefix=$(PREFIX)/$(PLATFORM)/$(GARVERSION) --enable-threads=posix --enable-clocale=gnu --enable-__cxa_atexit --enable-languages=c,c++,f77 --enable-shared --disable-checking --disable-multilib --srcdir=..
 
 include ../category.mk
 
