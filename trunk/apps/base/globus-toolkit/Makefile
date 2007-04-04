@@ -1,13 +1,7 @@
 GARNAME = globus-toolkit
 CATEGORIES = apps-tools
 
-ifeq ($(shell uname),Darwin)
 GARVERSION = 4.0.4
-PATCHFILES =
-else
-GARVERSION = 4.0.3
-PATCHFILES = Makefile.in.diff
-endif
 
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
