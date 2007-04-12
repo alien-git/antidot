@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #ifeq ($(shell uname -s),Darwin)
 #PATCHFILES = mysql.diff
 #endif
-
+PATCHFILES = netx-Module.mk.diff
 MASTER_SITES = 
 
 LIBDEPS = apps/alien/gapi apps/server/mysql apps/base/ml-gsoapclient apps/base/ApMon-CPP apps/root/fftw
