@@ -1,0 +1,29 @@
+--- work/root-5.15.4/netx/Module.mk	2007-04-12 22:46:31.000000000 +0200
++++ work/root-5.15.4/netx/Module.mk.new	2007-04-12 22:44:58.000000000 +0200
+@@ -42,6 +42,7 @@
+ XROOTDDIRI   := $(XROOTDDIR)/src
+ endif
+ XROOTDDIRL   := $(XROOTDDIR)/lib
++XROOTDDIRP   := $(XROOTDDIRL)
+ endif
+ endif
+ 
+@@ -52,15 +53,15 @@
+ ifeq ($(PLATFORM),win32)
+ NETXLIBEXTRA += $(XROOTDDIRL)/libXrdClient.lib
+ else
+-NETXLIBEXTRA += $(XROOTDDIRL)/libXrdClient.a $(XROOTDDIRL)/libXrdOuc.a \
+-		$(XROOTDDIRL)/libXrdNet.a $(XROOTDDIRL)/libXrdSys.a
++NETXLIBEXTRA += -L$(XROOTDDIRP) -lXrdPosix
+ endif
+ 
+ ##### local rules #####
+ include/%.h:    $(NETXDIRI)/%.h $(XROOTDETAG)
+ 		cp $< $@
+ 
+-$(NETXLIB):     $(NETXO) $(NETXDO) $(XRDPLUGINS) $(ORDER_) $(MAINLIBS) $(NETXLIBDEP)
++$(NETXLIB):     $(NETXO) $(NETXDO) $(ORDER_) $(MAINLIBS) $(NETXLIBDEP) \
++                $(XRDPLUGINS)
+ 		@$(MAKELIB) $(PLATFORM) $(LD) "$(LDFLAGS)" \
+ 		   "$(SOFLAGS)" libNetx.$(SOEXT) $@ "$(NETXO) $(NETXDO)" \
+ 		   "$(NETXLIBEXTRA)"
