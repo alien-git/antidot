@@ -1,5 +1,5 @@
 GARNAME    = gapi-apiservice
-GARVERSION = 2.1.7
+GARVERSION = 2.1.8
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
