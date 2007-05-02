@@ -9,6 +9,7 @@ ALL=\
 apps/devel/dialog \
 apps/alien/gapi   \
 apps/base/xrootd  \
+apps/base/ml-gsoapclient \
 apps/alien/gssapi \
 apps/base/eugridpma-carep
 
