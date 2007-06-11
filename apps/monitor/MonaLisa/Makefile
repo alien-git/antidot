@@ -30,9 +30,9 @@ include ../category.mk
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
 ifeq ($(JAVA_PLATFORM),linux-ia64)
-	JAVA_VERSION = 1_5_0_08
+	JAVA_VERSION = 1_5_0_10
 else
-	JAVA_VERSION = 1_5_0_11
+	JAVA_VERSION = 1_5_0_12
 endif
 
 BUILD_ENV = env JAVA_PLATFORM=$(JAVA_PLATFORM) JAVA_VERSION=$(JAVA_VERSION) MASTER_SITES="$(MASTER_SITES)" DISTNAME=$(DISTNAME)

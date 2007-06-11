@@ -1,7 +1,8 @@
 # Starting script for ML
-# v0.3.4
+# v0.3.5
 # Catalin.Cirstoiu@cern.ch
 
+# 11/06/2007 - supporting multiple admin (contact<email>) lines for a site
 # 14/03/2007 - adding support for tail-ing AliEn Services log files
 # 21/11/2006 - configuring >localhost => >fqdn for Master cluster
 # 27/07/2006 - changed the way vobox_mon.pl is started
@@ -308,12 +309,21 @@ sub setupConfig {
     my $country = ($config->{MONALISA_COUNTRY} or $config->{SITE_COUNTRY} or "");
     my $long = ($config->{MONALISA_LONGITUDE} or $config->{SITE_LONGITUDE} or "N/A");
     my $lat = ($config->{MONALISA_LATITUDE} or $config->{SITE_LATITUDE} or "N/A");
-    my $admin = ($config->{MONALISA_ADMINISTRATOR} or $config->{SITE_ADMINISTRATOR} or "");
-    my $email = "";
-    if($admin =~ /(.*)<(.*)>/){
-	$admin = $1;
-	$email = $2;
-	$admin =~ s/\s+$//;
+    my $admin = ($config->{MONALISA_ADMINISTRATOR_LIST} or $config->{SITE_ADMINISTRATOR_LIST} or []);
+    my @contact = ();
+    my @email = ();
+    for my $line (@$admin){
+        if($line =~ /(.*)<(.*)>/){
+	    my $contact = $1;
+	    my $email = $2; 
+	    $contact =~ s/^\s*//; $contact =~ s/\s*$//;
+            push(@contact, $contact);
+	    $email =~ s/\s+//g;
+            push(@email, $email);
+	}else{
+	    $line =~ s/\s+//g;
+            push(@email, $line);
+	}
     }
     my $storeType = ($config->{MONALISA_STORETYPE} or "mem");
     $add = ($config->{MONALISA_ADDPROPERTIES_LIST} or []);
@@ -340,8 +350,8 @@ sub setupConfig {
     
     $rmv = ($config->{MONALISA_REMOVEPROPERTIES_LIST} or []);
     $changes = {
-	"^MonaLisa.ContactName.*" => "MonaLisa.ContactName=$admin",
-	"^MonaLisa.ContactEmail.*" => "MonaLisa.ContactEmail=$email",
+	"^MonaLisa.ContactName.*" => "MonaLisa.ContactName=".join(",", @contact),
+	"^MonaLisa.ContactEmail.*" => "MonaLisa.ContactEmail=".join(",", @email),
 	"^MonaLisa.Location.*" => "MonaLisa.Location=$location",
 	"^MonaLisa.Country.*" => "MonaLisa.Country=$country",
 	"^MonaLisa.LAT.*" => "MonaLisa.LAT=$lat",
