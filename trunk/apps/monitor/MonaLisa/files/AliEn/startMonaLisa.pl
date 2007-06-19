@@ -1,7 +1,8 @@
 # Starting script for ML
-# v0.3.5
+# v0.3.6
 # Catalin.Cirstoiu@cern.ch
 
+# 19/06/2007 - adding support for running the checkLocalDB.pl script from Stefano
 # 11/06/2007 - supporting multiple admin (contact<email>) lines for a site
 # 14/03/2007 - adding support for tail-ing AliEn Services log files
 # 21/11/2006 - configuring >localhost => >fqdn for Master cluster
@@ -288,6 +289,9 @@ sub setupConfig {
     	# for LCG sites, also run this
 	push(@$add, "#Status of the LCG services");
 	push(@$add, '*LCGServicesStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/lcg_vobox_services,timeout=800"}%900');
+	
+	push(@$add, "#JobAgent LCG Status - from Stefano - reports using ApMon; output discarded");
+	push(@$add, '*JA_LCGStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/checkLocalDB.pl -s 10 >/dev/null 2>&1,timeout=800"}%900');
     }
 
     # setup the config for monitoring the log files of the configured services for this machine
