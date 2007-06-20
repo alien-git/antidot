@@ -290,8 +290,8 @@ sub setupConfig {
 	push(@$add, "#Status of the LCG services");
 	push(@$add, '*LCGServicesStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/lcg_vobox_services,timeout=800"}%900');
 	
-	push(@$add, "#JobAgent LCG Status - from Stefano - reports using ApMon; output discarded");
-	push(@$add, '*JA_LCGStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/checkLocalDB.pl -s 10 >/dev/null 2>&1,timeout=800"}%900');
+	push(@$add, "#JobAgent LCG Status - from Stefano - reports using ApMon; output of last run in checkLocalDB.log");
+	push(@$add, '*JA_LCGStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/checkLocalDB.pl -s 0 >checkLocalDB.log 2>&1,timeout=250"}%300');
     }
 
     # setup the config for monitoring the log files of the configured services for this machine
