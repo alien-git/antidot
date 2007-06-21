@@ -11,6 +11,7 @@ apps/alien/gapi   \
 apps/base/xrootd  \
 apps/base/ml-gsoapclient \
 apps/alien/gssapi \
+apps/base/ml-gsoapclient \
 apps/base/eugridpma-carep
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
