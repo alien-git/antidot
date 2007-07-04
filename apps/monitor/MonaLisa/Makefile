@@ -7,7 +7,7 @@ DISTNAME  = $(GARNAME).v1.6
 PLATFORM = $(shell $(GARDIR)/platform.sh platform)
 
 BINDISTNAME = $(GARNAME)-$(GARVERSION)_$(PLATFORM)
-PATCHFILES = Makefile.patch ML.patch
+PATCHFILES = Makefile.patch
 
 MASTER_SITES = http://monalisa.cern.ch/download/monalisa/ http://monalisa.cacr.caltech.edu/download/monalisa/
 
