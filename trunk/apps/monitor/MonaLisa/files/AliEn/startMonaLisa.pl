@@ -1,7 +1,8 @@
 # Starting script for ML
-# v0.3.6
+# v0.3.7
 # Catalin.Cirstoiu@cern.ch
 
+# 04/07/2007 - replacing checkLocalDB.pl with checkJAStatus.pl which also provides output for SAM
 # 19/06/2007 - adding support for running the checkLocalDB.pl script from Stefano
 # 11/06/2007 - supporting multiple admin (contact<email>) lines for a site
 # 14/03/2007 - adding support for tail-ing AliEn Services log files
@@ -247,7 +248,7 @@ sub setupConfig {
     if($config->{MONALISA_HOST} && ($fqdn ne $config->{MONALISA_HOST})){
 	die("MonaLisa hostname from LDAP config [".$config->{MONALISA_HOST}."] differs from local one [$fqdn]. Not starting it...\n");
     }
-    my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "true");
+    my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "false");
     my $javaOpts = ($config->{MONALISA_JAVAOPTS} or "-Xms96m -Xmx96m");
     my $add = [];
     my $rmv = [];
@@ -290,8 +291,8 @@ sub setupConfig {
 	push(@$add, "#Status of the LCG services");
 	push(@$add, '*LCGServicesStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/lcg_vobox_services,timeout=800"}%900');
 	
-	push(@$add, "#JobAgent LCG Status - from Stefano - reports using ApMon; output of last run in checkLocalDB.log");
-	push(@$add, '*JA_LCGStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/checkLocalDB.pl -s 0 >checkLocalDB.log 2>&1,timeout=250"}%300');
+	push(@$add, "#JobAgent LCG Status - from Stefano - reports using ApMon; output of last run in checkJAStatus.log");
+	push(@$add, '*JA_LCGStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/scripts/lcg/checkJAStatus.pl -s 0 >checkJAStatus.log 2>&1,timeout=270"}%300');
     }
 
     # setup the config for monitoring the log files of the configured services for this machine
@@ -400,7 +401,7 @@ sub setupConfig {
 sub setupCrontab {
     my $farmHome = shift;
     
-    my $ml_line = "0,20,40 * * * * /bin/sh -c 'export PATH=/bin:\$PATH ; export CONFDIR=$farmHome ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE'\n";
+    my $ml_line = "0,5,10,15,20,25,30,35,40,45,50,55 * * * * /bin/sh -c 'export PATH=/bin:\$PATH ; export CONFDIR=$farmHome ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE'\n";
     my $lines = `env VISUAL=cat crontab -l | grep -v '/Service/CMD/CHECK_UPDATE'`;
     if(open(CRON, "| crontab -")){
 	print CRON $lines;
