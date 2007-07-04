@@ -3,7 +3,7 @@
 @@ -0,0 +1,37 @@
 +build:
 +	tar zxvf $(DISTNAME).tar.gz
-+	patch -p0 < ml_scripts.patch
++	patch -p0 < ../../files/ML.patch
 +ifneq ($(shell uname -s),Darwin)
 +	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) $(JAVA_VERSION) $(MASTER_SITES) && \
 +	(cd $(DISTNAME) &&  \
