@@ -248,7 +248,7 @@ sub setupConfig {
     if($config->{MONALISA_HOST} && ($fqdn ne $config->{MONALISA_HOST})){
 	die("MonaLisa hostname from LDAP config [".$config->{MONALISA_HOST}."] differs from local one [$fqdn]. Not starting it...\n");
     }
-    my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "false");
+    my $shouldUpdate = ($config->{MONALISA_SHOULDUPDATE} or "true");
     my $javaOpts = ($config->{MONALISA_JAVAOPTS} or "-Xms96m -Xmx96m");
     my $add = [];
     my $rmv = [];

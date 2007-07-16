@@ -1,6 +1,6 @@
---- MonaLisa.v1.6/Service/CMD/ML_SER	2006-10-06 18:12:12.000000000 +0200
-+++ MonaLisa.v1.6/Service/CMD/ML_SER.new	2007-07-04 17:42:13.000000000 +0200
-@@ -19,6 +19,7 @@
+--- MonaLisa.v1.6/Service/CMD/ML_SER	2007-07-16 10:08:24.000000000 +0200
++++ MonaLisa.v1.6/Service/CMD/ML_SER.new	2007-07-16 10:08:24.000000000 +0200
+@@ -39,6 +39,7 @@
  PRGDIR=`dirname "$PRG"`
  CONFDIR=${CONFDIR:=$PRGDIR}
  COMMON_SH="${PRGDIR}/common.sh"
@@ -8,7 +8,7 @@
  if [ ! -z "$2" ]; then
   if [ "$2" == "from_su" ]; then
     FROM_SU="$2"
-@@ -55,11 +56,11 @@
+@@ -75,11 +76,11 @@
  
  if [ -z "${MONALISA_USER}" ]; then
       echo "Please set MONALISA_USER in ${ML_ENV_FILE}"
@@ -22,16 +22,16 @@
  if [ "${cuser}" != "${MONALISA_USER}" ]; then
          if [ "$FROM_SU" != "from_su" ]; then
            echo "The current user ( ${cuser} ) != MONALISA_USER ( ${MONALISA_USER} ) (as set in ${ML_ENV_FILE} ) will try to su in ${MONALISA_USER}."
-@@ -263,7 +264,7 @@
+@@ -283,7 +284,7 @@
  start() {
  	common
  
 -	c_uid="`id -u -r`"
 +	c_uid="`$ID_CMD -u -r`"
  	pid_cmd=`get_pid_cmd "$cmd_RE_update" $c_uid ""`
- 	pupdate_pid=`/bin/sh -c "$pid_cmd"`
+ 	pupdate_pid=`$MLSER_SHELL -c "$pid_cmd"`
  	if [ ! -z "${pupdate_pid}" ]; then
-@@ -291,7 +292,8 @@
+@@ -311,7 +312,8 @@
  	   exit 1
  	fi
      fi
@@ -41,16 +41,16 @@
      if [ "${SHOULD_UPDATE}" = "true" ]; then 
          ml_update
      fi 
-@@ -346,7 +348,7 @@
+@@ -366,7 +368,7 @@
  checkedStopEDB() {
          common
  
 -        c_uid="`id -u -r`"
 +        c_uid="`$ID_CMD -u -r`"
          pid_cmd=`get_pid_cmd "$cmd_RE" $c_uid ""`
-         pupdate_pid=`/bin/sh -c "$pid_cmd"`
+         pupdate_pid=`$MLSER_SHELL -c "$pid_cmd"`
          if [ -z "${pupdate_pid}" ]; then
-@@ -380,7 +382,7 @@
+@@ -400,7 +402,7 @@
  }
  
  stop_mljvm() {
@@ -58,22 +58,22 @@
 +	c_uid="`$ID_CMD -u -r`"
  	ppid_cmd=`get_pid_cmd "${cmd_RE}" $c_uid 1`
  	pid_cmd=`get_pid_cmd "${cmd_RE}" $c_uid ""`
- 	ppid=`/bin/sh -c "$ppid_cmd"`
-@@ -397,7 +399,7 @@
+ 	ppid=`$MLSER_SHELL -c "$ppid_cmd"`
+@@ -417,7 +419,7 @@
      common; 
      rm -f "${ML_PID_FILE}"
  	
 -	c_uid="`id -u -r`"
 +	c_uid="`$ID_CMD -u -r`"
  	pupdate_pid_cmd=`get_pid_cmd "$cmd_RE_update" $c_uid ""`
- 	pupdate_pid=`/bin/sh -c "$pupdate_pid_cmd"`
+ 	pupdate_pid=`$MLSER_SHELL -c "$pupdate_pid_cmd"`
  	if [ ! -z "${pupdate_pid}" ]; then
-@@ -530,7 +532,7 @@
+@@ -550,7 +552,7 @@
  
  update(){
      common
 -    c_uid="`id -u -r`"
 +    c_uid="`$ID_CMD -u -r`"
      pupdate_pid_cmd=`get_pid_cmd "$cmd_RE_update" $c_uid ""`
-     pupdate_pid=`/bin/sh -c "${pupdate_pid_cmd}"`
+     pupdate_pid=`$MLSER_SHELL -c "${pupdate_pid_cmd}"`
                                                                                                                                                 

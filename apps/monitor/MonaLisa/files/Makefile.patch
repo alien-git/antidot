@@ -34,7 +34,7 @@
 +	(cd ../../files ; \
 +	find bin AliEn Control Service ! -path \*/CVS* -type d -exec mkdir -p $(PREFIX)/$(DISTNAME)/{} \; ; \
 +	find bin AliEn Control Service ! -path \*/CVS* -type f -exec cp {} $(PREFIX)/$(DISTNAME)/{} \; ) ; \
-+	cd $(PREFIX)/ ; ln -sf $(DISTNAME) MonaLisa ; \
++	cd $(PREFIX)/ ; ln -sf $(DISTNAME) MonaLisa ; chmod -R a+r MonaLisa ; \
 +	cd MonaLisa/bin ; chmod a+rx update_scripts.sh ; \
 +	cd ../Service/CMD/ ; chmod a+rx common.sh CHECK_UPDATE ML_SER cmd_run.sh
 +
