@@ -13,7 +13,7 @@ GARCVSVERSION = $(CVS_TAG)
 
 MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/
 
-LIBDEPS = apps/alien/common apps/alien/admin apps/alien/gssapi apps/alien/lcg apps/server/DBD-mysql apps/server/openldap apps/server/ejabberd
+LIBDEPS = apps/alien/common apps/alien/admin apps/alien/gssapi apps/alien/lcg apps/server/DBD-mysql apps/server/openldap apps/server/ejabberd apps/base/Expect
 
 DESCRIPTION = AliEn tests
 URL = http://alien.cern.ch
