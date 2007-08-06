@@ -282,6 +282,19 @@ sub setupConfig {
     push(@$add, "export LCG_SITE=\"".($lcgSite ? "/bin/true" : "/bin/false")."\"");
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
+    # Control/conf/transfer.conf
+    my $transferConfFile = "$mlHome/Control/conf/transfer.conf";
+    my $linkLines = `cat $transferConfFile | grep -v 'link.default'`;
+    if(open(CONF, ">$transferConfFile")){
+    	my $eth=`/sbin/route -n | grep -E -e "^0.0.0.0" | awk '{print \$8}'`;
+   	print CONF "$linkLines
+link.default.srcNode=$farmName
+link.default.dstNode=Internet
+link.default.phys=$eth
+";
+	close(CONF);
+    }# else, we don't complain.
+
     # myFarm.conf
     $add = ($config->{MONALISA_ADDMODULES_LIST} or []);
     $rmv = ($config->{MONALISA_REMOVEMODULES_LIST} or []);
