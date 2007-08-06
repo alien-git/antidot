@@ -75,7 +75,7 @@ webcvs//%:
 
 # download file from ViewVC (a newer cvsweb clone)
 viewvc//%:
-	@(cd $(DOWNLOADDIR) && $(WGET) $(WGETOPTS) -O $(GARCVSNAME).tar.gz http://$(dir $*)/$(GARCVSNAME).tar.gz?view=tar)
+	@(cd $(DOWNLOADDIR) && $(WGET) $(WGETOPTS) -O $(GARCVSNAME).tar.gz http://$(dir $*)/$(GARCVSNAME).tar.gz?view=tar\&pathrev=$(GARCVSVERSION))
 	@(cd $(DOWNLOADDIR) && tar zxf $(GARCVSNAME).tar.gz && mv $(GARCVSNAME) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION)) 
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARCVSNAME).tar.gz  ./$(GARNAME)-$(GARVERSION))
