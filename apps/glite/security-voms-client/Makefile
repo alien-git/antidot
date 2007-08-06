@@ -8,7 +8,7 @@ else
 PATCHFILES = Makefile.am.diff
 endif
 
-MASTER_SITES += webcvs://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
+MASTER_SITES += viewvc://jra1mw.cvs.cern.ch:8180/cgi-bin/jra1mw.cgi/ 
 GARCVSNAME    = org.glite.security.voms
 GARCVSVERSION = glite-security-voms_R_1_6_3
 NOCHECKSUM    = $(DISTFILES)
