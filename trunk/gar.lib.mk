@@ -73,6 +73,13 @@ webcvs//%:
 	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION)) 
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARCVSNAME).tar.gz  ./$(GARNAME)-$(GARVERSION))
 
+# download file from ViewVC (a newer cvsweb clone)
+viewvc//%:
+	@(cd $(DOWNLOADDIR) && $(WGET) $(WGETOPTS) -O $(GARCVSNAME).tar.gz http://$(dir $*)/$(GARCVSNAME).tar.gz?view=tar)
+	@(cd $(DOWNLOADDIR) && tar zxf $(GARCVSNAME).tar.gz && mv $(GARCVSNAME) $(GARNAME)-$(GARVERSION))
+	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION)) 
+	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARCVSNAME).tar.gz  ./$(GARNAME)-$(GARVERSION))
+
 # download file from a pserver cvs
 pserver//%:
 	@(cd $(DOWNLOADDIR) && cvs -d :pserver:`echo $(dir $*) | sed -e 's/\/$$//'` co -r $(GARCVSVERSION) $(GARCVSNAME))
