@@ -6,7 +6,7 @@ PATCHFILES = # openssl.diff
 
 MASTER_SITES = 
 
-LIBDEPS = apps/base/openssl
+LIBDEPS = apps/base/globus-toolkit
 
 DESCRIPTION = MySQL database
 URL = http://dev.mysql.com/
@@ -20,7 +20,9 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 ifeq ($(shell uname -s),Darwin)
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio --with-big-tables  --without-debug --enable-thread-safe-client 
 else
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio --with-openssl=yes --with-openssl-libs=$(PREFIX)/lib --with-openssl-includes=$(PREFIX)/include --with-big-tables  --without-debug --enable-thread-safe-client 
+
+#CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio --with-openssl=yes --with-openssl-libs=$(GLOBUS_LOCATION)/lib --with-openssl-includes=$(GLOBUS_LOCATION)/include/$(GLOBUS_FLAVOR) --with-big-tables  --without-debug --enable-thread-safe-client 
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio --with-yassl --with-big-tables  --without-debug --enable-thread-safe-client 
 endif
 
 CONFIGURE_ENV  = env LDFLAGS="-L$(PREFIX)/lib" CFLAGS="-fPIC" CPPFLAGS="-I$(PREFIX)/include"
