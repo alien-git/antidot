@@ -6,7 +6,7 @@ PATCHFILES = test.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/F/FL/FLORA/ http://www.cpan.org/authors/id/F/FL/FLORA/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/F/FL/FLORA/
 
-LIBDEPS = apps/base/perl apps/base/openssl
+LIBDEPS = apps/base/perl apps/base/globus-toolkit
 
 DESCRIPTION = Perl extension for using OpenSSL
 AUTHOR = Sampo Kellomaki
@@ -23,7 +23,7 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 ifeq ($(shell uname -s),Darwin)
 CONFIGURE_ARGS =
 else
-CONFIGURE_ARGS = $(PREFIX)
+CONFIGURE_ARGS = $(PREFIX)/globus -- LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)"
 endif
 
 BUILD_ARGS =  
