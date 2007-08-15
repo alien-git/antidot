@@ -21,6 +21,7 @@ apps/gui/Gtk-Perl \
 apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
 apps/portal/gridsite \
+apps/portal/mod_perl \
 apps/base/Authen-PAM \
 apps/base/POE
 
