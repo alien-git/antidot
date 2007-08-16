@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.110  2007/03/09 17:09:54  buncic
+# Preparing new release
+#
 # Revision 1.107  2006/10/26 09:06:27  buncic
 # Adding option to install PANDA CA
 #
@@ -983,9 +986,12 @@ FindLocation()
 InstallerConfig()
 ###########################################################################
 {
+  if [ "$ALIEN_INSTALLER_PLATFORM" = "x86_64-unknown-linux-gnu" -o "$ALIEN_INSTALLER_PLATFORM" = "ia64-unknown-linux-gnu" ] ; then
+    BIT64_LIBS=":$ALIEN_ROOT/lib64"
+  fi
   ALIEN_ROOT=$ALIEN_INSTALLER_PREFIX
   ALIEN_PATH=""
-  ALIEN_LD_LIBRARY_PATH=$ALIEN_ROOT/lib
+  ALIEN_LD_LIBRARY_PATH="$ALIEN_ROOT/lib$BIT64_LIBS"
   ALIEN_MYPROXY_SERVER=""
   ALIEN_MYPROXY_DOMAIN=""
   ALIEN_LDAP_DN=""
