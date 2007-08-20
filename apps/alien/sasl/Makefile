@@ -24,9 +24,6 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEAST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --with-sasl-dir=$(PREFIX) --enable-alientoken  --enable-aliengssapi --enable-alienjobtoken
 
 include ../category.mk
-
-#PRE_CONFIGURE = (cd $(WORKSRC) ; /bin/sh -c ../../files/build; cd plugins; chmod +x ./makeinit.sh ; /bin/sh -c ./makeinit.sh ; )
-
