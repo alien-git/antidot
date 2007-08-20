@@ -308,7 +308,7 @@ install-bin: fetch-bin $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)
 	$(DONADA)
 
 binclean:
-	@$(GARDIR)/clean.sh $(BUILD_PREFIX) $(GARNAME)  
+	@$(GARDIR)/clean.sh $(BUILD_PREFIX) $(GARNAME) $(GARVERSION)_$(PKG_BUILD_NUMBER) 
 	@rm -rf $(COOKIEDIR)/*binextract*
 
 bininstall: 
