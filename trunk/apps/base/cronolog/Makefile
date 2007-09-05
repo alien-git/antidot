@@ -7,7 +7,7 @@ MASTER_SITES =  http://cronolog.org/download/
 
 LIBDEPS = apps/gcc/gcc
 
-DESCRIPTION = Lossless data-compression library 
+DESCRIPTION = Flexible web log rotation
 URL = http://cronolog.org
 AUTHOR = Andrew Ford
 LICENSE = zlib
