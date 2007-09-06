@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/O/OL/OLAF/
 
-LIBDEPS = apps/base/perl apps/base/Digest-HMAC apps/base/Socket6
+LIBDEPS = apps/base/perl apps/base/Net-IP apps/base/Digest-HMAC apps/base/Socket6
 
 DESCRIPTION = Perl interface to the DNS resolver  
 AUTHOR = Olaf Kolkman
