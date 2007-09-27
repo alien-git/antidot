@@ -5,7 +5,7 @@ dir=`dirname $0`
 unset TMPDIR
 
 case `$dir/config.guess` in
-    i*86-*-linux-gnu)
+    i*86-*-linux-gnu*)
       platform=i686-pc-linux-gnu
       autoplatform=x86
       javaplatform=linux-i586
