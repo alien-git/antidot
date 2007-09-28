@@ -6,8 +6,11 @@
 # and max_jobs for each defined CE.
 #
 # Catalin Cirstoiu <Catalin.Cirstoiu@cern.ch>
-# Version 0.6
+# Version 0.7
 #
+# 28/09/2007 - support CE on the same machine with a ML, but which is seen as contributing
+#              to jobs for another ML. In order for this to fully work, apmonConfig property
+#              must be also configured to point to the other ML
 # 10/02/2006 - support multiple MLs for a site
 #            - the conf retrieval was rewritten to be more flexible and less hacky
 # 18/01/2006 - added the mapping between CE host names and the corresponding Sites (ML names).
@@ -105,6 +108,9 @@ sub getSitesAndDomains {
 			my @ml_doms = $ml_entry->get_value("domain");
 			push(@ml_doms, @site_doms) if($ml_count == 1); # if site has more MLs, take in account only properties from ML pages
 			$local_mls->{$ml_name}->{DOMAINS} = \@ml_doms;
+			my @add_props = $ml_entry->get_value("addProperties");
+			$local_mls->{$ml_name}->{ADD_PROPERTIES} = \@add_props;
+#			print "properties: @add_props\n" if @add_props;
 			$ml_default = $ml_name if ! defined($ml_default);
 		}
 		# report domains
@@ -175,7 +181,14 @@ sub getSitesAndDomains {
 			$ml_name = ($ml_name =~ /^LCG(.*)/ ? $site_name.$1 : $ml_name);
 			next if (! $ce_name) || (! $local_ces->{$ce_name});
 			$sites_ce_hosts->{$ml_name} = [] if ! $sites_ce_hosts->{$ml_name};
-#			print "CONNECT $ml_name -> @{$local_ces->{$ce_name}->{HOSTS}}\n";
+			for my $prop (@{$local_mls->{$ml_name}->{ADD_PROPERTIES}}){
+				if($prop =~ /\#CE for (.*)/){
+#					print "CE $ce_name reports to $1 instead of $ml_name\n";
+					$ml_name = $1;
+					last;
+				}
+			}
+#			print "For host ".$conf_entry->get_value("host")." ML $ml_name --CE--> @{$local_ces->{$ce_name}->{HOSTS}}\n";
 			for my $ce_h (@{$local_ces->{$ce_name}->{HOSTS}}){
 				push(@{$sites_ce_hosts->{$ml_name}}, $ce_h) if ! contains($ce_h, @{$sites_ce_hosts->{$ml_name}});
 			}
