@@ -7,14 +7,11 @@ FILTER     ?= %
  
 ALL=\
 apps/devel/dialog \
-apps/base/eugridpma-carep \
-apps/server/DBD-mysql \
-apps/alien/common \
-apps/portal/CGI-Session
+apps/base/gold
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
-DESCRIPTION = AliEn - Portal components
+DESCRIPTION = AliEn - Bank components
 
 include ../category.mk
 
