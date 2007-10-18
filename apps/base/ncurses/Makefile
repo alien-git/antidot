@@ -23,4 +23,4 @@ AUTOTEST = testForLib -i libncurses.so.$(GARVERSION)
 
 include ../category.mk
 
-POST_INSTALL = (cd $(PREFIX)/lib; rm -rf libtermcap.so.2; ln -s libncurses.so libtermcap.so.2 ) 
+POST_INSTALL = (cd $(PREFIX)/$(TARGET_LIBNAME); rm -rf libtermcap.so.2; ln -s libncurses.so libtermcap.so.2 ) 
