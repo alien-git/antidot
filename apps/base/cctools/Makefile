@@ -1,5 +1,5 @@
 GARNAME = cctools
-GARVERSION = 2.2.3
+GARVERSION = 2.3.2
 #GARVERSION = 2.0.14
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
@@ -21,7 +21,7 @@ TEST_SCRIPTS =
 
 CONFIGURE_ENV  = # GLOBUS_LOCATION= 
 
-CONFIGURE_ARGS = --prefix $(PREFIX) --with-gdbm-path $(PREFIX) --with-readline-path $(PREFIX)  --with-globus-path $(GLOBUS_LOCATION)
+CONFIGURE_ARGS = --prefix $(PREFIX) --with-gdbm-path $(PREFIX) --with-readline-path $(PREFIX) #  --with-globus-path $(GLOBUS_LOCATION) --globus-flavor $(GLOBUS_FLAVOR)pthr
 
 include ../category.mk
 
