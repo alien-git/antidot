@@ -8,7 +8,9 @@ PATCHFILES =
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/client/
 
-LIBDEPS = apps/base/xrootd apps/base/ApMon-CPP
+BUILDLIBDEPS = apps/base/xrootd
+
+LIBDEPS = apps/base/ApMon-CPP
 
 DESCRIPTION = Xrootd copy command
 
