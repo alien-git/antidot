@@ -10,7 +10,7 @@ AUTHOR = Douglas Thain
 URL = http://www.cse.nd.edu/~ccl
 LICENSE = BSD
 
-LIBDEPS = apps/base/gdbm apps/base/readline apps/base/globus-toolkit
+LIBDEPS = apps/base/gdbm apps/base/readline
 
 DESCRIPTION = Cooperative Computing Tools
 
@@ -19,9 +19,9 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS =
 
-CONFIGURE_ENV  = # GLOBUS_LOCATION= 
+CONFIGURE_ENV  =
 
-CONFIGURE_ARGS = --prefix $(PREFIX) --with-gdbm-path $(PREFIX) --with-readline-path $(PREFIX) #  --with-globus-path $(GLOBUS_LOCATION) --globus-flavor $(GLOBUS_FLAVOR)pthr
+CONFIGURE_ARGS = --prefix $(PREFIX) --with-gdbm-path $(PREFIX) --with-readline-path $(PREFIX)
 
 include ../category.mk
 
