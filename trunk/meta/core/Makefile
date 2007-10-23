@@ -17,7 +17,6 @@ apps/alien/gapi \
 apps/alien/admin \
 apps/server/mysql \
 apps/server/DBD-mysql \
-apps/server/ejabberd \
 apps/server/openldap \
 apps/base/Authen-PAM \
 apps/monitor/MonaLisa
