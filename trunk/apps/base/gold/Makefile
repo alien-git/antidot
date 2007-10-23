@@ -2,6 +2,7 @@ GARNAME = gold
 GARVERSION = 2.1.4.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = goldd.in.diff
 
 MASTER_SITES = http://www.clusterresources.com/downloads/gold/
 
