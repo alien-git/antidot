@@ -1,11 +1,11 @@
 GARNAME = alien-gssapi
-GARVERSION = 2.1.3
+GARVERSION = 2.1.4
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES =
 
-LIBDEPS = apps/base/globus-toolkit apps/glite/glite apps/base/eugridpma-carep
+LIBDEPS = apps/base/globus-toolkit apps/base/eugridpma-carep
 
 DESCRIPTION = AliEn GSSAPI component
 URL = http://alien.cern.ch
