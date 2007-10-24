@@ -6,6 +6,7 @@
 # Catalin Cirstoiu, <Catalin.Cirstoiu@cern.ch>
 #
 # Changelog
+# 2007-10-24 - Added support for monitoring the ALIEN_*DIR (CACHE, LOG, TMP)
 # 2006-07-27 - Changed the way this script works. Now it only checks for a running
 #              instance and if it already exists, it will just exit. This way the
 #              presence of the running script can be checked from inside ML on a
@@ -54,17 +55,47 @@ if(open(PIDFILE, ">$pidFile")){
 	die "vobox_mon: Couldn't create the pid file '$pidFile'. Please check access rights!\n"
 }
 
+# Get the disk usage for the given set of paths
+sub get_disk_usage {
+	my $map = shift;
+	my $result = {};
+	while(my($name, $path) = each(%$map)){
+		my @df = ();
+		if((-r $path) && open(DF, "df -k $path | tail -1 |")){
+			my $line = <DF>;
+			if($line && $line =~ /\S+\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)%/){
+				push(@df, $1 / 1024.0, $2 / 1024.0, $3 / 1024.0, $4);
+			}
+			close DF;
+		}else{
+			push(@df, -1, -1, -1, -1);
+		}
+		$result->{$name."_total"} = $df[0];
+		$result->{$name."_used"} = $df[1];
+		$result->{$name."_free"} = $df[2];
+		$result->{$name."_usage"} = $df[3];
+	}
+	return $result;
+}
+
 # Initialize ApMon
 my $hostName = $ENV{ALIEN_HOSTNAME} || Net::Domain::hostfqdn();
 my $apm = new ApMon(0);
 $apm->setDestinations(['localhost:8884']);
 $apm->setMonitorClusterNode("Master", $hostName);  # background host monitoring
+my $alien_dirs = {
+	LOG_DIR   => $ENV{ALIEN_LOGDIR},
+	TMP_DIR   => $ENV{ALIEN_TMPDIR},
+	CACHE_DIR => $ENV{ALIEN_CACHEDIR},
+};
+
 sleep 1;
 
 # Do forever host and services monitoring
 print "vobox_mon: ApMon initialized. Starting system background monitoring...\n";
 while(1){
 	$apm->sendBgMonitoring();
+	$apm->sendParameters("Master", $hostName, get_disk_usage($alien_dirs));
 	sleep 60;
 }
 
