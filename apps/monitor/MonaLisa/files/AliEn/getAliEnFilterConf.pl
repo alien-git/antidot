@@ -201,14 +201,14 @@ sub getSitesAndDomains {
 		$ces_max_jobs->{"alienbuild::CERN::testCE"} = [6];
 		$ces_max_jobs->{"oplapro12::CERN::testCE"} = [6];
 		$ces_max_jobs->{"alimacx08::CERN::testCE"} = [6];
-		$ces_max_jobs->{"pcaliceamd01::CERN::testCE"} = [6];
+		$ces_max_jobs->{"pcalibuildamd::CERN::testCE"} = [6];
 		$ces_max_jobs->{"lxb2075::CERN::testCE"} = [6];
 
 		$sites_ce_hosts->{"AliEn2-TEST-pcardaab"} = ['pcardaab.cern.ch'];
 		$sites_ce_hosts->{"AliEn2-TEST-alienbuild"} = ['alienbuild.cern.ch'];
 		$sites_ce_hosts->{"AliEn2-TEST-oplapro12"} = ['oplapro12.cern.ch'];
 		$sites_ce_hosts->{"AliEn2-TEST-alimacx08"} = ['alimacx08.cern.ch'];
-		$sites_ce_hosts->{"AliEn2-TEST-pcaliceamd01"} = ['pcaliceamd01.cern.ch'];
+		$sites_ce_hosts->{"AliEn2-TEST-pcalibuildamd"} = ['pcalibuildamd.cern.ch'];
 		$sites_ce_hosts->{"AliEn2-TEST-lxb2075"} = ['lxb2075.cern.ch'];
 	}
 	$mesg = $ldap->unbind;

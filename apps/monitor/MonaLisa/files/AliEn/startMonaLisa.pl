@@ -1,7 +1,11 @@
 # Starting script for ML
-# v0.3.7
+# v0.3.9
 # Catalin.Cirstoiu@cern.ch
 
+# 24/10/2007 - run the checkJAStatus script less often (once each 30 minutes)
+#            - adding the ALIEN_*DIR (LOG, TMP, CACHE) directories to env for monitoring
+# 10/10/2007 - do not filter env variables - just take all defined when starting ML
+# 04/10/2007 - supporting several AliEn services with name like BaseService_SpecificName for logs monitoring
 # 04/07/2007 - replacing checkLocalDB.pl with checkJAStatus.pl which also provides output for SAM
 # 19/06/2007 - adding support for running the checkLocalDB.pl script from Stefano
 # 11/06/2007 - supporting multiple admin (contact<email>) lines for a site
@@ -206,7 +210,7 @@ sub getAliEnServicesLogs {
 	my $basePath = "";
 	if(grep($_ eq $srv, @csList)){
 	    $basePath = $csLogDir;
-	}elsif(grep($_ eq $srv, @ssList)){
+	}elsif(grep($_ eq $srv || $srv =~ /^${_}_/, @ssList)){
 	    $basePath = $ssLogDir;
 	}else{
 	    die("Trying to monitor logs for unknown service: '$srv' - nor central or site service!");
@@ -268,23 +272,21 @@ sub setupConfig {
     $changes = {};
     # first, populate the environment with all known env variables
     for my $key (sort keys %ENV){
-        if($key =~ /ALIEN|AliEn|VO|LCG|GLITE|GLOBUS|LD_LIBRARY|CERN|EDG|MYPROXY|X509|SITE/){
-            push(@$add, "export $key=\"$ENV{$key}\"");
-	}elsif($key eq "PATH"){
-            push(@$add, "export $key=\"\$PATH:$ENV{$key}\"");
-        }
+	push(@$add, "export $key=\"$ENV{$key}\"");
     }
     getEnvVarsFromFile("$farmHome/ml_env", "URL_LIST_UPDATE");
     push(@$add, "export URL_LIST_UPDATE=$ENV{URL_LIST_UPDATE}");
     push(@$add, "export MonaLisa_HOME=$mlHome");
     push(@$add, "export FARM_HOME=$farmHome");
     push(@$add, "export ALIEN_LOGDIR=$config->{LOG_DIR}");
+    push(@$add, "export ALIEN_TMPDIR=$config->{TMP_DIR}");
+    push(@$add, "export ALIEN_CACHEDIR=$config->{CACHE_DIR}");
     push(@$add, "export LCG_SITE=\"".($lcgSite ? "/bin/true" : "/bin/false")."\"");
     setupFile("$mlHome/AliEn/site_env", "$farmHome/site_env", $changes, $add, $rmv);
 
     # Control/conf/transfer.conf
     my $transferConfFile = "$mlHome/Control/conf/transfer.conf";
-    my $linkLines = `cat $transferConfFile | grep -v 'link.default'`;
+    my $linkLines = `cat $transferConfFile | grep -v -E -e 'link.default|^\$'`;
     if(open(CONF, ">$transferConfFile")){
     	my $eth=`/sbin/route -n | grep -E -e "^0.0.0.0" | awk '{print \$8}'`;
    	print CONF "$linkLines
@@ -305,7 +307,7 @@ link.default.phys=$eth
 	push(@$add, '*LCGServicesStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/java/MonaLisa/AliEn/lcg_vobox_services,timeout=800"}%900');
 	
 	push(@$add, "#JobAgent LCG Status - from Stefano - reports using ApMon; output of last run in checkJAStatus.log");
-	push(@$add, '*JA_LCGStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/scripts/lcg/checkJAStatus.pl -s 0 >checkJAStatus.log 2>&1,timeout=270"}%300');
+	push(@$add, '*JA_LCGStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/scripts/lcg/checkJAStatus.pl -s 0 >checkJAStatus.log 2>&1,timeout=800"}%1800');
     }
 
     # setup the config for monitoring the log files of the configured services for this machine
