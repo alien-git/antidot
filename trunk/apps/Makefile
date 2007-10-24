@@ -1,6 +1,6 @@
 all:
 
-DIRS=gcc devel base gui portal server glite alien monitor
+DIRS=gcc devel base portal server glite alien monitor
 
 %:
 	@for i in $(DIRS); do \
