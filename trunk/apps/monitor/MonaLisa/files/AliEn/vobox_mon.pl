@@ -62,7 +62,7 @@ sub get_disk_usage {
 	while(my($name, $path) = each(%$map)){
 		my @df = ();
 		my $msg = "ok";
-		if(open(DF, "df -k $path 2>&1 | tail -1 |")){
+		if(open(DF, "df -P -k $path 2>&1 | tail -1 |")){
 			my $line = <DF>;
 			chomp $line;
 			if($line && $line =~ /\S+\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)%/){
