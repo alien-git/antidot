@@ -61,19 +61,26 @@ sub get_disk_usage {
 	my $result = {};
 	while(my($name, $path) = each(%$map)){
 		my @df = ();
-		if((-r $path) && open(DF, "df -k $path | tail -1 |")){
+		my $msg = "ok";
+		if(open(DF, "df -k $path 2>&1 | tail -1 |")){
 			my $line = <DF>;
+			chomp $line;
 			if($line && $line =~ /\S+\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)%/){
 				push(@df, $1 / 1024.0, $2 / 1024.0, $3 / 1024.0, $4);
+			}else{
+				$msg = $line;
 			}
 			close DF;
 		}else{
-			push(@df, -1, -1, -1, -1);
+			$msg = "Failed running df";
 		}
+		push(@df, -1, -1, -1, -1) if(! @df);
 		$result->{$name."_total"} = $df[0];
 		$result->{$name."_used"} = $df[1];
 		$result->{$name."_free"} = $df[2];
 		$result->{$name."_usage"} = $df[3];
+		$result->{$name."_path"} = $path;
+		$result->{$name."_msg"} = $msg;
 	}
 	return $result;
 }
@@ -81,6 +88,7 @@ sub get_disk_usage {
 # Initialize ApMon
 my $hostName = $ENV{ALIEN_HOSTNAME} || Net::Domain::hostfqdn();
 my $apm = new ApMon(0);
+#$apm->setLogLevel("NOTICE");
 $apm->setDestinations(['localhost:8884']);
 $apm->setMonitorClusterNode("Master", $hostName);  # background host monitoring
 my $alien_dirs = {
