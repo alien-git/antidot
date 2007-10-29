@@ -1,0 +1,72 @@
+diff -Naur work/Authen-SASL-Cyrus-0.13-server/Cyrus.xs work/Authen-SASL-Cyrus-0.13.1-server/Cyrus.xs
+--- work/Authen-SASL-Cyrus-0.13-server/Cyrus.xs	2005-06-30 11:45:01.000000000 +0200
++++ work/Authen-SASL-Cyrus-0.13.1-server/Cyrus.xs	2006-02-18 17:22:23.000000000 +0100
+@@ -1301,9 +1301,10 @@
+ =cut
+ 
+ char *
+-server_start(sasl,instring=NULL)
++server_start(sasl,instring=NULL,inmech=NULL)
+ 	Authen_SASL_Cyrus sasl;
+ 	const char *instring;
++	      char *inmech;
+ 	PREINIT:
+ 		int rc;
+ 		unsigned outlen,inlen;
+@@ -1315,7 +1316,10 @@
+ #endif
+ 
+ 	PPCODE:
+-		_DEBUG("serverstart mech: %s",sasl->mech);
++		if (inmech == NULL)
++			inmech = strdup(sasl->mech);
++//		_DEBUG("serverstart mech: %s",sasl->mech);
++		_DEBUG("serverstart mech: %s",inmech);
+ 
+ 		if (sasl->error_code)
+ 			XSRETURN_UNDEF;
+@@ -1325,13 +1329,17 @@
+ 		else
+ 			inlen = 0;
+ 
++		if (inlen == 0)	instring = NULL;
++
+ 		_DEBUG("serverstart len: %d",inlen);
+ 
+ 		_DEBUG("Server step: %s %d", instring,inlen);
+ #ifdef SASL2
+-		rc = sasl_server_start(sasl->conn,sasl->mech, instring, inlen, &outstring, &outlen);
++//		rc = sasl_server_start(sasl->conn,sasl->mech, instring, inlen, &outstring, &outlen);
++		rc = sasl_server_start(sasl->conn,inmech, instring, inlen, &outstring, &outlen);
+ #else
+-		rc = sasl_server_start(sasl->conn,sasl->mech, instring, inlen, &outstring, &outlen, &error);
++//		rc = sasl_server_start(sasl->conn,sasl->mech, instring, inlen, &outstring, &outlen, &error);
++		rc = sasl_server_start(sasl->conn,inmech, instring, inlen, &outstring, &outlen, &error);
+ #endif
+ 		SetSaslError(sasl,rc,"server_start error."); // SASL_CONTINUE has to be set
+ 
+@@ -1350,7 +1358,7 @@
+ 
+ =cut
+ 
+-char *
++void 
+ client_start(sasl)
+     Authen_SASL_Cyrus sasl
+   PREINIT:
+@@ -1378,7 +1386,14 @@
+       if (rc != SASL_OK && rc != SASL_CONTINUE)
+ 		XSRETURN_UNDEF;
+ 	  else
+-	    XPUSHp(outstring, outlen);
++	  {
++
++	   	XPUSHs(newSVpvn(mech,strlen(mech)) ) ;
++	   	XPUSHs(newSVpvn(outstring, outlen) ) ;
++
++	  }
++
++	    
+ 
+ =pod
+ 

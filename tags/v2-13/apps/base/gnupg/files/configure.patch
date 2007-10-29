@@ -1,0 +1,11 @@
+--- work/gnupg-1.4.7/configure	2007-03-05 10:40:02.000000000 +0100
++++ work/gnupg-1.4.7/configure.new	2007-03-22 10:10:41.000000000 +0100
+@@ -5663,7 +5663,7 @@
+         { echo "$as_me:$LINENO: checking whether $_mytar speaks USTAR" >&5
+ echo $ECHO_N "checking whether $_mytar speaks USTAR... $ECHO_C" >&6; }
+         echo hithere > conftest.txt
+-        $_mytar -cf - conftest.txt | (dd skip=257 bs=1 count=5 2>/dev/null || cat) | grep ustar > /dev/null
++#        $_mytar -cf - conftest.txt | (dd skip=257 bs=1 count=5 2>/dev/null || cat) | grep ustar > /dev/null
+         _tar_bad=$?
+         rm conftest.txt
+ 

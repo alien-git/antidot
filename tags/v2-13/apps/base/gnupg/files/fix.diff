@@ -1,0 +1,52 @@
+--- work/gnupg-1.4.3/configure	2005-06-23 11:55:00.000000000 +0200
++++ work/gnupg-1.4.3/configure.new	2005-06-23 11:56:45.000000000 +0200
+@@ -4944,6 +4944,14 @@
+         ;;
+     m68k-atari-mint)
+         ;;
++    *-apple-darwin*)
++        if test -n "`which fink`" ; then
++	   # If fink exists we look for readline there
++	   # otherwise the build will fail as the standard
++	   # libreadline does not contain some of the functions used
++	    with_readline=`which fink | sed -e 'sQ/bin/finkQQ'`
++	fi
++	;;
+     *)
+        ;;
+ esac
+@@ -21879,6 +21887,7 @@
+ 
+ add_history("foobar");
+ rl_catch_signals=0;
++rl_cleanup_after_signal();
+ 
+   ;
+   return 0;
+--- work/gnupg-1.4.3/configure.ac	2005-03-15 16:51:52.000000000 +0100
++++ work/gnupg-1.4.3/configure.ac.new	2005-06-23 11:56:33.000000000 +0200
+@@ -519,6 +519,14 @@
+         ;;
+     m68k-atari-mint)
+         ;;
++    *-apple-darwin*)
++        if test -n "`which fink`" ; then
++	   # If fink exists we look for readline there
++	   # otherwise the build will fail as the standard
++	   # libreadline does not contain some of the functions used
++	    with_readline=`which fink | sed -e 'sQ/bin/finkQQ'`
++	fi
++	;;
+     *)
+        ;;
+ esac
+--- work/gnupg-1.4.3/m4/readline.m4	2004-12-23 17:12:13.000000000 +0100
++++ work/gnupg-1.4.3/m4/readline.m4.new	2005-06-23 11:57:00.000000000 +0200
+@@ -37,6 +37,7 @@
+ ],[
+ add_history("foobar");
+ rl_catch_signals=0;
++rl_cleanup_after_signal();
+ ]),_found_readline=yes,_found_readline=no)
+ 
+         AC_MSG_RESULT([$_found_readline])

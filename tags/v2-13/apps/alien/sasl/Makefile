@@ -1,0 +1,32 @@
+GARNAME = cyrus-sasl-alien
+GARVERSION = 2.1.21
+CATEGORIES = apps-tools
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
+
+PATCHFILES = 
+
+ifeq ($(shell uname),Darwin)
+PATCHFILES = 
+endif
+
+MASTER_SITES = 
+
+LIBDEPS = apps/base/cyrus-sasl apps/base/globus-toolkit
+
+DESCRIPTION = SASL is the Simple Authentication and Security Layer
+URL = http://asg.web.cmu.edu/sasl/
+AUTHOR =  Artem HARUTYUNYAN, Arsen HAYRAPETYAN
+
+LICENSE = 
+
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEAST_SCRIPTS = $(WORKSRC)/Makefile
+
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION)
+
+include ../category.mk
+
+#PRE_CONFIGURE = (cd $(WORKSRC) ; /bin/sh -c ../../files/build; cd plugins; chmod +x ./makeinit.sh ; /bin/sh -c ./makeinit.sh ; )
+

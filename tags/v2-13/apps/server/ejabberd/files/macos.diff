@@ -1,0 +1,139 @@
+--- ./work/ejabberd-1.1.1/src/Makefile.in.ori	2006-08-22 11:30:36.000000000 +0200
++++ ./work/ejabberd-1.1.1/src/Makefile.in	2006-08-22 11:31:04.000000000 +0200
+@@ -28,7 +28,7 @@
+ prefix = @prefix@
+ 
+ SUBDIRS = @mod_irc@ @mod_pubsub@ @mod_muc@ @eldap@ @web@ stringprep @tls@ @odbc@ @ejabberd_zlib@
+-ERLSHLIBS = expat_erl.so
++ERLSHLIBS = expat_erl.dylib
+ SOURCES = $(wildcard *.erl)
+ BEAMS = $(SOURCES:.erl=.beam)
+ 
+@@ -65,12 +65,13 @@
+ %.hrl: %.asn1
+ 	@ERLC@ $(ASN_FLAGS) $<
+ 
+-$(ERLSHLIBS):	%.so:	%.c
+-			gcc -Wall $(CFLAGS) $(LDFLAGS) $(LIBS) \
+-			$(subst ../,,$(subst .so,.c,$@)) \
++$(ERLSHLIBS):	%.dylib:	%.c
++			MACOSX_DEPLOYMENT_TARGET=10.4 gcc -Wall $(CFLAGS) $(LDFLAGS) $(LIBS) \
++			$(subst ../,,$(subst .dylib,.c,$@)) \
+ 			$(EXPAT_LIBS) $(EXPAT_CFLAGS) \
+ 			$(ERLANG_LIBS) $(ERLANG_CFLAGS) \
+-			-o $@ -fpic -shared
++			-o $@ -dynamiclib -undefined dynamic_lookup -single_module
++
+ 
+ install: all
+ 	install -d $(BEAMDIR)
+@@ -78,7 +79,7 @@
+ 	rm -f $(BEAMDIR)/configure.beam
+ 	install -m 644 *.app $(BEAMDIR)
+ 	install -d $(SODIR)
+-	install -m 644 *.so $(SODIR)
++	install -m 644 *.dylib $(SODIR)
+ 	install -d $(MSGSDIR)
+ 	install -m 644 msgs/*.msg $(MSGSDIR)
+ 	install -d $(ETCDIR)
+--- ./work/ejabberd-1.1.1/src/mod_irc/Makefile.in.ori	2006-08-22 11:35:59.000000000 +0200
++++ ./work/ejabberd-1.1.1/src/mod_irc/Makefile.in	2006-08-22 11:36:40.000000000 +0200
+@@ -8,7 +8,7 @@
+ 
+ SUBDIRS = 
+ 
+-ERLSHLIBS = ../iconv_erl.so
++ERLSHLIBS = ../iconv_erl.dylib
+ 
+ OUTDIR = ..
+ EFLAGS = -I .. -pz ..
+@@ -25,10 +25,11 @@
+ #all:	$(ERLSHLIBS)
+ #	erl -s make all report "{outdir, \"..\"}" -noinput -s erlang halt
+ 
+-$(ERLSHLIBS):	../%.so:	%.c
++$(ERLSHLIBS):	../%.dylib:	%.c
+ 			$(CC) -Wall $(INCLUDES) $(CFLAGS) $(LDFLAGS) \
+-			$(subst ../,,$(subst .so,.c,$@)) $(LIBS) \
+-			-o $@ -fpic -shared
++			$(subst ../,,$(subst .dylib,.c,$@)) $(LIBS) \
++			-o $@ -dynamiclib -undefined dynamic_lookup -single_module
++
+ 
+ clean:
+ 	rm -f $(OBJS) $(ERLSHLIBS)
+--- ./work/ejabberd-1.1.1/src/stringprep/Makefile.in.ori	2006-08-22 11:42:11.000000000 +0200
++++ ./work/ejabberd-1.1.1/src/stringprep/Makefile.in	2006-08-22 11:42:38.000000000 +0200
+@@ -8,7 +8,7 @@
+ 
+ SUBDIRS = 
+ 
+-ERLSHLIBS = ../stringprep_drv.so
++ERLSHLIBS = ../stringprep_drv.dylib
+ 
+ OUTDIR = ..
+ EFLAGS = -I .. -pz ..
+@@ -23,10 +23,10 @@
+ #all:	$(ERLSHLIBS)
+ #	erl -s make all report "{outdir, \"..\"}" -noinput -s erlang halt
+ 
+-$(ERLSHLIBS):	../%.so:	%.c uni_data.c uni_norm.c
++$(ERLSHLIBS):	../%.dylib:	%.c uni_data.c uni_norm.c
+ 			gcc -Wall -O2 $(CFLAGS) $(LDFLAGS) $(INCLUDES) \
+-			$(subst ../,,$(subst .so,.c,$@)) $(LIBS) \
+-			-o $@ -fpic -shared
++			$(subst ../,,$(subst .dylib,.c,$@)) $(LIBS) \
++			-o $@ -dynamiclib -undefined dynamic_lookup -single_module
+ 
+ clean:
+ 	rm -f $(OBJS) $(ERLSHLIBS)
+--- ./work/ejabberd-1.1.1/src/tls/Makefile.in.ori	2006-08-22 11:46:01.000000000 +0200
++++ ./work/ejabberd-1.1.1/src/tls/Makefile.in	2006-08-22 11:46:25.000000000 +0200
+@@ -8,7 +8,7 @@
+ 
+ SUBDIRS = 
+ 
+-ERLSHLIBS = ../tls_drv.so
++ERLSHLIBS = ../tls_drv.dylib
+ 
+ OUTDIR = ..
+ EFLAGS = -I .. -pz ..
+@@ -23,10 +23,10 @@
+ #all:	$(ERLSHLIBS)
+ #	erl -s make all report "{outdir, \"..\"}" -noinput -s erlang halt
+ 
+-$(ERLSHLIBS):	../%.so:	%.c
++$(ERLSHLIBS):	../%.dylib:	%.c
+ 			$(CC) -Wall $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) \
+-			$(subst ../,,$(subst .so,.c,$@)) $(LIBS) \
+-			-o $@ -fpic -shared
++			$(subst ../,,$(subst .dylib,.c,$@)) $(LIBS) \
++			-o $@ -dynamiclib -undefined dynamic_lookup -single_module
+ 
+ clean:
+ 	rm -f $(OBJS) $(ERLSHLIBS)
+--- ./work/ejabberd-1.1.1/src/ejabberd_zlib/Makefile.in.ori	2006-08-22 11:49:13.000000000 +0200
++++ ./work/ejabberd-1.1.1/src/ejabberd_zlib/Makefile.in	2006-08-22 11:49:34.000000000 +0200
+@@ -8,7 +8,7 @@
+ 
+ SUBDIRS = 
+ 
+-ERLSHLIBS = ../ejabberd_zlib_drv.so
++ERLSHLIBS = ../ejabberd_zlib_drv.dylib
+ 
+ OUTDIR = ..
+ EFLAGS = -I .. -pz ..
+@@ -23,10 +23,10 @@
+ #all:	$(ERLSHLIBS)
+ #	erl -s make all report "{outdir, \"..\"}" -noinput -s erlang halt
+ 
+-$(ERLSHLIBS):	../%.so:	%.c
++$(ERLSHLIBS):	../%.dylib:	%.c
+ 			$(CC) -Wall $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) \
+-			$(subst ../,,$(subst .so,.c,$@)) $(LIBS) \
+-			-o $@ -fpic -shared
++			$(subst ../,,$(subst .dylib,.c,$@)) $(LIBS) \
++			-o $@ -dynamiclib -undefined dynamic_lookup -single_module
+ 
+ clean:
+ 	rm -f $(OBJS) $(ERLSHLIBS)

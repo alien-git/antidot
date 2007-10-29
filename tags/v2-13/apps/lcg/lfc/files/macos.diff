@@ -1,0 +1,525 @@
+--- work/lfc-1.3.7/common/Cuuid.c.ori	2005-08-30 11:39:21.000000000 +0200
++++ work/lfc-1.3.7/common/Cuuid.c	2005-08-30 11:41:43.000000000 +0200
+@@ -36,7 +36,7 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <fcntl.h>
+-#ifndef _WIN32
++#if (!defined(_WIN32) && !defined(__APPLE__))
+ #include <sys/sysinfo.h>
+ #endif
+ #if (defined(aix) || defined(hpux))
+@@ -775,7 +775,9 @@
+ {
+     MD5_CTX c;
+     typedef struct {
++#ifndef __APPLE__
+         struct sysinfo s;
++#endif
+         struct timeval t;
+         char hostname[257];
+     } randomness;
+@@ -806,8 +808,10 @@
+ 	}
+ #endif
+ #else /* aix || hpux */
++#ifndef __APPLE__
+     sysinfo(&r.s);
+ #endif
++#endif
+     gettimeofday(&r.t, (struct timezone *)0);
+     gethostname(r.hostname, 256);
+     _Cuuid_MD5Update(&c, (unsigned char *) &r, sizeof(randomness));
+--- work/lfc-1.3.7/dli/Imakefile.ori	2005-08-31 14:36:50.000000000 +0200
++++ work/lfc-1.3.7/dli/Imakefile	2005-08-31 14:37:04.000000000 +0200
+@@ -46,9 +46,9 @@
+ 	$(CC) -c $(GSOAP)/stdsoap2.c
+ 
+ dliH.h dliStub.h dliC.c dliClient.c dliServer.c DataLocationInterface.nsmap: DataLocationInterface.h
+-	$(GSOAP)/soapcpp2 -c -p dli DataLocationInterface.h
++	soapcpp2 -c -p dli DataLocationInterface.h
+ DataLocationInterface.h: DataLocationInterface.wsdl
+-	$(GSOAP)/wsdl2h -c DataLocationInterface.wsdl
++	wsdl2h -c DataLocationInterface.wsdl
+ 
+ NormalProgramTarget(lfc-dli,$(SRV_OBJS), $(DEPLIB), $(MTLDFLAGS) $(LIBS) $(SECLIB) $(MTLDLIBS))
+ NormalProgramTarget(dli_testlistReplicas,dli_testlistReplicas.Osuf dliC.Osuf dliClient.Osuf stdsoap2.Osuf,$(DEPLIB),$(SECLIB))
+--- work/lfc-1.3.7/test/srmv1/Imakefile.ori	2005-08-31 14:36:29.000000000 +0200
++++ work/lfc-1.3.7/test/srmv1/Imakefile	2005-08-31 14:36:41.000000000 +0200
+@@ -52,9 +52,9 @@
+ 	$(CC) -c $(GSOAP)/stdsoap2.c
+ 
+ srmv1H.h srmv1Stub.h srmv1C.c srmv1Client.c ISRM.nsmap: srm.v1.1.h
+-	$(GSOAP)/soapcpp2 -c -p srmv1 srm.v1.1.h
++	soapcpp2 -c -p srmv1 srm.v1.1.h
+ srm.v1.1.h: srm.v1.1.wsdl
+-	$(GSOAP)/wsdl2h -c -t typemap.dat srm.v1.1.wsdl
++	wsdl2h -c -t typemap.dat srm.v1.1.wsdl
+ 
+ NormalProgramTarget(srm_testadvisoryDelete,srm_testadvisoryDelete.Osuf $(SOAP_OBJS),$(DEPLIBS),$(LIBS) $(SECLIB))
+ NormalProgramTarget(srm_testget,srm_testget.Osuf $(SOAP_OBJS),$(DEPLIBS),$(LIBS) $(SECLIB))
+--- work/lfc-1.3.7/test/srmv2/Imakefile.ori	2005-08-31 14:35:57.000000000 +0200
++++ work/lfc-1.3.7/test/srmv2/Imakefile	2005-08-31 14:35:49.000000000 +0200
+@@ -75,9 +75,9 @@
+ 	$(CC) -c $(GSOAP)/stdsoap2.c
+ 
+ srmv2H.h srmv2Stub.h srmv2C.c srmv2Client.c srmSoapBinding.nsmap: srm.v2.1.1.h
+-	$(GSOAP)/soapcpp2 -c -p srmv2 srm.v2.1.1.h
++	soapcpp2 -c -p srmv2 srm.v2.1.1.h
+ srm.v2.1.1.h: srm.v2.1.1.wsdl
+-	$(GSOAP)/wsdl2h -c -t typemap.dat srm.v2.1.1.wsdl
++	wsdl2h -c -t typemap.dat srm.v2.1.1.wsdl
+ 
+ NormalProgramTarget(srm2_testGet,srm2_testGet.Osuf $(SOAP_OBJS),$(DEPLIBS),$(LIBS) $(SECLIB))
+ NormalProgramTarget(srm2_testPut,srm2_testPut.Osuf $(SOAP_OBJS),$(DEPLIBS),$(LIBS) $(SECLIB))
+--- work/lfc-1.3.7/dli/Imakefile.ori	2005-08-31 14:41:08.000000000 +0200
++++ work/lfc-1.3.7/dli/Imakefile	2005-08-31 14:52:20.000000000 +0200
+@@ -15,7 +15,7 @@
+ GLOBUS_LIBS=-L$(GLOBUS_LOCATION)/lib -lglobus_gssapi_gsi_$(GLOBUS_FLAVOUR) -lglobus_gss_assist_$(GLOBUS_FLAVOUR)
+ GSOAP_LOCATION=GsoapLocation
+ GSOAP_VERSION=GsoapVersion
+-GSOAP = FileName($(GSOAP_LOCATION),gsoap-$(GSOAP_PLATFORM)-$(GSOAP_VERSION))
++GSOAP = $(GSOAP_LOCATION)/share/soapcpp2
+ SECLIB = -lcgsi_plugin_gsoap_$(GSOAP_VERSION) $(GLOBUS_LIBS)
+ INCLUDES = FileName(..,h)
+ LIBS = -L../lib -llfc -ldl
+--- work/lfc-1.3.7/test/srmv1/Imakefile.ori	2005-08-31 14:49:07.000000000 +0200
++++ work/lfc-1.3.7/test/srmv1/Imakefile	2005-08-31 14:51:00.000000000 +0200
+@@ -16,7 +16,7 @@
+ GLOBUS_LIBS=-L$(GLOBUS_LOCATION)/lib -lglobus_gssapi_gsi_$(GLOBUS_FLAVOUR) -lglobus_gss_assist_$(GLOBUS_FLAVOUR)
+ GSOAP_LOCATION=GsoapLocation
+ GSOAP_VERSION=GsoapVersion
+-GSOAP = FileName($(GSOAP_LOCATION),gsoap-$(GSOAP_PLATFORM)-$(GSOAP_VERSION))
++GSOAP = $(GSOAP_LOCATION)/share/soapcpp2
+ SECFLG = -DGFAL_SECURE
+ SECLIB = -lcgsi_plugin_gsoap_$(GSOAP_VERSION) $(GLOBUS_LIBS)
+ RFIOFLG = -DGFAL_ENABLE_RFIO
+--- work/lfc-1.3.7/test/srmv2/Imakefile.ori	2005-08-31 14:47:24.000000000 +0200
++++ work/lfc-1.3.7/test/srmv2/Imakefile	2005-08-31 14:50:36.000000000 +0200
+@@ -16,7 +16,7 @@
+ GLOBUS_LIBS=-L$(GLOBUS_LOCATION)/lib -lglobus_gssapi_gsi_$(GLOBUS_FLAVOUR) -lglobus_gss_assist_$(GLOBUS_FLAVOUR)
+ GSOAP_LOCATION=GsoapLocation
+ GSOAP_VERSION=GsoapVersion
+-GSOAP = FileName($(GSOAP_LOCATION),gsoap-$(GSOAP_PLATFORM)-$(GSOAP_VERSION))
++GSOAP = $(GSOAP_LOCATION)/share/soapcpp2
+ SECFLG = -DGFAL_SECURE
+ SECLIB = -lcgsi_plugin_gsoap_$(GSOAP_VERSION) $(GLOBUS_LIBS)
+ RFIOFLG = -DGFAL_ENABLE_RFIO
+--- ./work/lfc-1.3.7/scripts/choose-module.ori	2005-09-24 21:15:59.000000000 +0200
++++ ./work/lfc-1.3.7/scripts/choose-module	2005-09-24 21:16:41.000000000 +0200
+@@ -37,7 +37,7 @@
+ 	`perl -ibak -npe "s#BuildSRMv1Server\tYES#BuildSRMv1Server\tNO#g" ../config/site.def`
+ 	`perl -ibak -npe "s#BuildSRMv2Server\tYES#BuildSRMv2Server\tNO#g" ../config/site.def`
+         `perl -ibak -npe "s#BuildTest\t\tYES#BuildTest\t\tNO#g" ../config/site.def`
+-	`perl -ibak -npe "s#BuildRfioClient\t\tYES#BuildRfioClient\t\tNO#g" ../config/site.def`
++#	`perl -ibak -npe "s#BuildRfioClient\t\tYES#BuildRfioClient\t\tNO#g" ../config/site.def`
+ 	`perl -ibak -npe "s#BuildRfioServer\t\tYES#BuildRfioServer\t\tNO#g" ../config/site.def`
+         `perl -ibak -npe "s#UseGSI\t\tNO#UseGSI\t\tYES#g" ../config/site.def`
+         `perl -ibak -npe "s#UseKRB5\t\tYES#UseKRB5\t\tNO#g" ../config/site.def`
+--- ./work/lfc-1.3.7/shlib/Imakefile.ori	2005-09-30 15:29:53.000000000 +0200
++++ ./work/lfc-1.3.7/shlib/Imakefile	2005-09-30 15:30:08.000000000 +0200
+@@ -50,7 +50,7 @@
+ 	@mkdir tmp
+ 	@for i in $(LIBRARIES) ;\
+ 	do (cd tmp; $(AR) x ../$$i; rm -f $(SYMTABNAM)) done
+-	@(cd tmp; ld $(SHLIBLDFLAGS) -o ../$@ *.o $(SHLIBREQLIBS) $(LIBCSEC))
++	@(cd tmp; g++ $(SHLIBLDFLAGS) -o ../$@ *.o $(SHLIBREQLIBS) $(LIBCSEC))
+ 	@-rm -rf tmp
+ 
+ dpm.dll lfc.dll:	$(LIBRARIES)
+--- ./work/lfc-1.3.7/config/darwin.cf.ori	2005-10-09 11:48:29.000000000 +0200
++++ ./work/lfc-1.3.7/config/darwin.cf	2005-10-09 11:48:42.000000000 +0200
+@@ -11,7 +11,7 @@
+ MTCCFLAGS = -DCTHREAD_POSIX -D_THREAD_SAFE -D_REENTRANT
+ MTLDLIBS =
+ MTLDFLAGS =
+-SHLIBLDFLAGS = -undefined dynamic_lookup -dylib -single_module
++SHLIBLDFLAGS = -undefined dynamic_lookup -dynamiclib -single_module
+ SHLIBREQLIBS = -lc
+ FC = g77
+ 
+--- work/lfc-1.3.7/imake/imakemdep.h.ori  2006-04-11 18:03:14.000000000 +0200
++++ work/lfc-1.3.7/imake/imakemdep.h	2005-02-14 11:56:45.000000000 +0100
+@@ -148,7 +148,7 @@
+ #ifdef __ia64__
+ #define DEFAULT_CPP "/usr/bin/cpp"
+ #endif
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ #define DEFAULT_CPP "/usr/bin/cpp"
+ #endif
+ 
+--- work/lfc-1.3.7/config/Imake.tmpl	2005-02-14 11:36:57.000000000 +0100
++++ work/lfc-1.3.7/config/Imake.tmpl.new	2006-04-12 10:22:20.000000000 +0200
+@@ -16,6 +16,9 @@
+ #if __ppc__ && __APPLE__
+ #include <darwin.cf>
+ #endif
++#if __i386__ && __APPLE__
++#include <darwin.cf>
++#endif
+ #if hpux
+ #include <hp.cf>
+ #endif
+--- work/lfc-1.3.7/imake/imakemdep.h	2006-04-11 18:51:06.000000000 +0200
++++ work/lfc-1.3.7/imake/imakemdep.h.new	2006-04-12 10:21:30.000000000 +0200
+@@ -103,6 +103,10 @@
+ #define imake_ccflags "-DSYSV"
+ #endif
+ 
++#if defined( __i386__) && defined( __APPLE__)
++#define imake_ccflags "-DSYSV"
++#endif
++
+ #else /* not CCIMAKE */
+ #ifndef MAKEDEPEND
+ /*
+--- work/lfc-1.3.7/common/Cgrp.c	2005-04-06 07:31:12.000000000 +0200
++++ work/lfc-1.3.7/common/Cgrp.c.new	2006-04-12 12:00:16.000000000 +0200
+@@ -35,7 +35,8 @@
+ #elif defined(linux) || (defined(__osf__) && defined(__alpha)) || \
+       (defined(SOLARIS) && defined(_POSIX_PTHREAD_SEMANTICS)) || \
+       defined(AIX42) || defined(IRIX6) || defined(HPUX11) || \
+-      (defined( __ppc__) && defined( __APPLE__))
++      (defined( __ppc__) && defined( __APPLE__)) || \
++      (defined( __i386__) && defined( __APPLE__))
+     /*
+      * The final POSIX.1c standard: the return value is int and
+      * buffer pointer is returned as last argument
+@@ -113,7 +114,8 @@
+ #elif defined(linux) || (defined(__osf__) && defined(__alpha)) || \
+       (defined(SOLARIS) && defined(_POSIX_PTHREAD_SEMANTICS)) || \
+       defined(AIX42) || defined(IRIX6) || defined(HPUX11) || \
+-      (defined( __ppc__) && defined( __APPLE__))
++      (defined( __ppc__) && defined( __APPLE__)) || \
++      (defined( __i386__) && defined( __APPLE__))
+     /*
+      * The final POSIX.1c standard: the return value is int and
+      * buffer pointer is returned as last argument
+--- work/lfc-1.3.7/common/Cinitdaemon.c	2005-04-06 07:31:12.000000000 +0200
++++ work/lfc-1.3.7/common/Cinitdaemon.c.new	2006-04-12 12:02:20.000000000 +0200
+@@ -28,7 +28,7 @@
+         int maxfds;
+         struct sigaction sa;
+ 
+-#if defined(SOLARIS) || (defined(__osf__) && defined(__alpha)) || defined(linux) || defined(sgi) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(SOLARIS) || (defined(__osf__) && defined(__alpha)) || defined(linux) || defined(sgi) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+         maxfds = getdtablesize();
+ #else
+         maxfds = _NFILE;
+@@ -39,7 +39,7 @@
+                 exit(1);
+         } else
+                 if (c > 0) exit (0);
+-#if (defined(__osf__) && defined(__alpha)) || defined(linux) || (defined( __ppc__) && defined( __APPLE__))
++#if (defined(__osf__) && defined(__alpha)) || defined(linux) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+         c = setsid();
+ #else
+ #if hpux
+--- work/lfc-1.3.7/common/Cpwd.c	2005-04-06 07:31:12.000000000 +0200
++++ work/lfc-1.3.7/common/Cpwd.c.new	2006-04-12 12:03:10.000000000 +0200
+@@ -35,7 +35,8 @@
+ #elif defined(linux) || (defined(__osf__) && defined(__alpha)) || \
+       (defined(SOLARIS) && defined(_POSIX_PTHREAD_SEMANTICS)) || \
+       defined(AIX42) || defined(IRIX6) || defined(HPUX11) || \
+-      (defined( __ppc__) && defined( __APPLE__))
++      (defined( __ppc__) && defined( __APPLE__)) || \
++      (defined( __i386__) && defined( __APPLE__))
+     /*
+      * The final POSIX.1c standard: the return value is int and
+      * buffer pointer is returned as last argument
+--- work/lfc-1.3.7/common/log.c	2005-04-06 07:31:12.000000000 +0200
++++ work/lfc-1.3.7/common/log.c.new	2006-04-12 12:04:48.000000000 +0200
+@@ -44,7 +44,9 @@
+ static int logfd ;              /* logging file descriptor              */
+ #if !defined(SOLARIS) && !defined(IRIX5) && !defined(hpux) && \
+     !defined(linux) && !defined(AIX42) && !defined(__Lynx__) && \
+-    !defined(_WIN32) && !(defined( __ppc__) && defined( __APPLE__))
++    !defined(_WIN32) && \
++    !(defined( __ppc__)  && defined( __APPLE__)) && \
++    !(defined( __i386__) && defined( __APPLE__))
+ extern int syslog();
+ #endif /* !SOLARIS && !IRIX5 && ... */
+ 
+--- work/lfc-1.3.7/h/osdep.h	2005-04-07 12:03:26.000000000 +0200
++++ work/lfc-1.3.7/h/osdep.h.new	2006-04-12 12:05:34.000000000 +0200
+@@ -146,7 +146,7 @@
+ #endif
+ #endif
+ 
+-#if (defined(__alpha) && defined(__osf__)) || (defined( __ppc__) && defined( __APPLE__))
++#if (defined(__alpha) && defined(__osf__)) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+ #define off64_t off_t
+ #endif
+ #if defined(_WIN32)
+--- work/lfc-1.3.7/h/rfcntl.h	2005-04-08 07:17:44.000000000 +0200
++++ work/lfc-1.3.7/h/rfcntl.h.new	2006-04-12 12:08:58.000000000 +0200
+@@ -31,14 +31,14 @@
+  * O_EXCL	002000		004000	!	000200  !	000040 !
+  */
+ 
+-#if defined(sun) || defined(ultrix) || defined(sgi) || defined(CRAY) || defined(apollo) || defined(hpux) || defined(_AIX) || (defined(__osf__) && defined(__alpha)) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(sun) || defined(ultrix) || defined(sgi) || defined(CRAY) || defined(apollo) || defined(hpux) || defined(_AIX) || (defined(__osf__) && defined(__alpha)) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+ 
+ #if defined(sgi) || defined(CRAY) || defined(apollo) || defined(hpux) || (defined(_AIX) && defined(_IBMR2))  || defined(SOLARIS) || defined(_WIN32) 
+ #define htonopnflg(A)		(A)
+ #define ntohopnflg(A)		(A)
+ #endif	/* sgi || CRAY || apollo || hpux || AIX */
+ 
+-#if (defined(sun) && !defined(SOLARIS)) || defined(ultrix) || (defined(_AIX) && defined(_IBMESA)) || (defined(__osf__) && defined(__alpha)) || (defined( __ppc__) && defined( __APPLE__))
++#if (defined(sun) && !defined(SOLARIS)) || defined(ultrix) || (defined(_AIX) && defined(_IBMESA)) || (defined(__osf__) && defined(__alpha)) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+ #define htonopnflg(A)		(((A) & ~(007000)) | (((A) & 007000) >> 1)) 
+ #define ntohopnflg(A)		(((A) & ~(003400)) | (((A) & 003400) << 1))
+ #endif	/* sun || ultrix || AIXESA || alpha-osf || Darwin */
+--- work/lfc-1.3.7/rfio/popen.c	2005-04-06 07:32:22.000000000 +0200
++++ work/lfc-1.3.7/rfio/popen.c.new	2006-04-12 12:10:07.000000000 +0200
+@@ -29,7 +29,7 @@
+ #include "rfio.h"
+ #include "rfio_rfilefdt.h"
+ extern RFILE *rfilefdt[MAXRFD] ;
+-#if (defined(_AIX) && defined(_IBMESA)) || (defined(__osf__) && defined(__alpha)) || defined(_WIN32) || defined(linux) || (defined( __ppc__) && defined( __APPLE__))
++#if (defined(_AIX) && defined(_IBMESA)) || (defined(__osf__) && defined(__alpha)) || defined(_WIN32) || defined(linux) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+ extern char *cuserid();
+ #endif
+ 
+--- work/lfc-1.3.7/rfio/rfstatfs.c	2005-04-07 18:30:53.000000000 +0200
++++ work/lfc-1.3.7/rfio/rfstatfs.c.new	2006-04-12 12:11:38.000000000 +0200
+@@ -24,7 +24,7 @@
+ #if defined(sgi) || (defined( _AIX ) && defined( _IBMR2) ) || defined(__Lynx__)
+ #include <sys/statfs.h>
+ #endif
+-#if (defined(_AIX) && defined(_IBMESA)) || (defined(__osf__) && defined(__alpha)) || (defined( __ppc__) && defined( __APPLE__))
++#if (defined(_AIX) && defined(_IBMESA)) || (defined(__osf__) && defined(__alpha)) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+ #include <sys/mount.h>
+ #endif
+ #if (defined( sun ) && !defined(SOLARIS)) || defined( hpux ) || defined(linux)
+@@ -69,7 +69,7 @@
+                 status = -1;
+             }
+ #endif
+-#if ( defined( sun ) && !defined(SOLARIS) ) || defined( _AIX ) || defined( hpux ) || defined(linux) || (defined( __ppc__) && defined( __APPLE__))
++#if ( defined( sun ) && !defined(SOLARIS) ) || defined( _AIX ) || defined( hpux ) || defined(linux) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+             if ( statfs(path,&fsbuffer) < 0 ) {
+                 status = -1;
+             }
+@@ -139,7 +139,7 @@
+            statfsbuf->totnods = (long)fsbuffer.f_files ;
+            statfsbuf->freenods = (long)fsbuffer.f_ffree ;
+ #endif
+-#if (defined( sun ) && !defined(SOLARIS) ) || defined( hpux ) || defined( _AIX ) || defined(linux) || (defined( __ppc__) && defined( __APPLE__))
++#if (defined( sun ) && !defined(SOLARIS) ) || defined( hpux ) || defined( _AIX ) || defined(linux) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+            statfsbuf->totblks = (long)fsbuffer.f_blocks;
+            statfsbuf->freeblks = (long)fsbuffer.f_bavail;
+            statfsbuf->totnods = (long)fsbuffer.f_files ;
+--- work/lfc-1.3.7/rfio/switch_req.c	2005-04-08 07:06:51.000000000 +0200
++++ work/lfc-1.3.7/rfio/switch_req.c.new	2006-04-12 12:14:48.000000000 +0200
+@@ -51,7 +51,7 @@
+ 				else 
+ 					TRACE(2, "rfio",  "rfio_xyopen(%s) SEQUENTIAL (local)",filename);
+ 
+-#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+ 
+                                 status=usf_open(lun, filename, append,trunc);
+ #else
+@@ -65,7 +65,7 @@
+ 					TRACE(2, "rfio",  "rfio_xyopen(%s) DIRECT (local)",filename);
+ 				}
+ 
+-#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+                                 status=udf_open(lun, filename, lrecl,trunc);
+ #else
+                                 (void) fopn_ud_(lun, filename, filen, lrecl, &status);
+@@ -100,7 +100,7 @@
+ 				TRACE(2, "rfio",  "rfio_xywrit(%d) SEQUENTIAL",*lun);
+ 			 }
+ 
+-#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+                         status=usf_write(lun, ptr, nwrit);
+ #else
+                         (void) fwr_us_(lun, ptr, nwrit, &status);
+@@ -112,7 +112,7 @@
+ 			else
+ 				TRACE(2, "rfio",  "rfio_xywrit(%d) DIRECT",*lun);
+ 
+-#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) )|| ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) )|| ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+                         status=udf_write(lun, ptr, nrec, nwrit);
+ #else
+                         (void) fwr_ud_(lun, ptr, nrec, nwrit, &status);
+@@ -149,7 +149,7 @@
+ 				TRACE(2, "rfio", "rfio_xyread(%d) SPECIAL",*ptlun);
+ 			}
+ 
+-#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+                                 (void) uf_cread(ptlun, buffer1, nrec, nwant, ngot, &status);
+ #else
+                                 (void) frdc_(ptlun, buffer1, nwant, ngot, &status);
+@@ -163,7 +163,7 @@
+                                 	log(LOG_DEBUG, "rxyread(%d) SEQUENTIAL\n",*ptlun);
+ 				else
+ 					TRACE(2, "rfio", "rfio_xyread(%d) SEQUENTIAL",*ptlun);
+-#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+                                 status=usf_read(ptlun, buffer1, nwant);
+ #else
+                                 (void) frd_us_(ptlun, buffer1, nwant, &status);
+@@ -176,7 +176,7 @@
+                                 	log(LOG_DEBUG, "rxyread(%d) DIRECT\n",*ptlun);
+ 				else
+ 					TRACE(2, "rfio", "rfio_xyread(%d) DIRECT",*ptlun);
+-#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+                                 status =udf_read(ptlun, buffer1, nrec, nwant);
+ #else
+                                 (void) frd_ud_(ptlun, buffer1, nrec, nwant, &status);
+@@ -201,7 +201,7 @@
+ int	*lun;
+ {
+ 	int irc;
+-#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__))
++#if defined(sun) || defined(apollo) || defined(sgi) || defined(hpux) || defined(_AIX) || (defined(ultrix) && defined(mips) ) || ( defined(__osf__) && defined(__alpha) ) || defined(linux) || defined(_WIN32) || defined(__Lynx__) || (defined( __ppc__) && defined( __APPLE__)) || (defined( __i386__) && defined( __APPLE__))
+         irc=uf_close(lun);
+ #else
+         (void) fcls_f_ (lun , &irc) ;
+--- work/lfc-1.3.7/common/serror.c	2005-04-06 07:31:12.000000000 +0200
++++ work.new/lfc-1.3.7/common/serror.c	2006-04-12 16:35:04.000000000 +0200
+@@ -17,7 +17,7 @@
+ #include <Cglobals.h>
+ #include <string.h>
+ 
+-#if ! defined(linux) && ! (defined( __ppc__) && defined( __APPLE__))
++#if ! defined(linux) && ! (defined( __ppc__) && defined( __APPLE__)) && ! (defined( __i386__) && defined( __APPLE__))
+ extern int      sys_nerr;       /* number of system error messages      */
+ #endif
+ 
+--- work/lfc-1.3.7/common/Cpwd.c	2006-04-12 17:08:46.000000000 +0200
++++ work.new/lfc-1.3.7/common/Cpwd.c	2006-04-12 16:40:01.000000000 +0200
+@@ -114,7 +114,8 @@
+ #elif defined(linux) || (defined(__osf__) && defined(__alpha)) || \
+       (defined(SOLARIS) && defined(_POSIX_PTHREAD_SEMANTICS)) || \
+       defined(AIX42) || defined(IRIX6) || defined(HPUX11) || \
+-      (defined( __ppc__) && defined( __APPLE__))
++      (defined( __ppc__) && defined( __APPLE__)) || \
++      (defined( __i386__) && defined( __APPLE__))
+     /*
+      * The final POSIX.1c standard: the return value is int and
+      * buffer pointer is returned as last argument
+--- work/lfc-1.3.7/h/rfio_api.h	2005-05-20 16:43:47.000000000 +0200
++++ work.new/lfc-1.3.7/h/rfio_api.h	2006-04-12 16:46:44.000000000 +0200
+@@ -145,7 +145,7 @@
+ #define open64 open
+ #define stat64 stat
+ #endif
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ #define fseeko64 fseeko
+ #define fstat64 fstat
+ #define ftello64 ftello
+--- work/lfc-1.3.7/rfio/feof.c	2005-04-06 07:32:22.000000000 +0200
++++ work.new/lfc-1.3.7/rfio/feof.c	2006-04-12 16:48:50.000000000 +0200
+@@ -64,7 +64,7 @@
+ #ifdef linux
+ 	if ( ((RFILE *)fp)->eof & _IO_EOF_SEEN ) 
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ 	if ( ((RFILE *)fp)->eof & __SEOF ) 
+ #else
+ #ifdef __Lynx__
+--- work/lfc-1.3.7/rfio/ferror.c	2005-04-06 07:32:22.000000000 +0200
++++ work.new/lfc-1.3.7/rfio/ferror.c	2006-04-12 16:49:25.000000000 +0200
+@@ -61,7 +61,7 @@
+ #ifdef linux
+ 	if ( ((RFILE *)fp)->eof & _IO_ERR_SEEN ) 
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ 	if ( ((RFILE *)fp)->eof & __SERR ) 
+ #else
+ #ifdef __Lynx__
+--- work/lfc-1.3.7/rfio/fread.c	2005-04-06 07:32:22.000000000 +0200
++++ work.new/lfc-1.3.7/rfio/fread.c	2006-04-12 16:50:08.000000000 +0200
+@@ -76,7 +76,7 @@
+ #ifdef linux
+ 			((RFILE *)fp)->eof |= _IO_ERR_SEEN ;
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ 			((RFILE *)fp)->eof |= __SERR ;
+ #else
+ #ifdef __Lynx__
+@@ -92,7 +92,7 @@
+ #ifdef linux
+ 			((RFILE *)fp)->eof |= _IO_EOF_SEEN ; 
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ 			((RFILE *)fp)->eof |= __SEOF ; 
+ #else
+ #ifdef __Lynx__
+--- work/lfc-1.3.7/rfio/fseek.c	2005-04-06 07:32:22.000000000 +0200
++++ work.new/lfc-1.3.7/rfio/fseek.c	2006-04-12 16:50:30.000000000 +0200
+@@ -77,7 +77,7 @@
+ #ifdef linux
+       ((RFILE *)fp)->eof |= _IO_ERR_SEEN;
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+       ((RFILE *)fp)->eof |= __SERR;
+ #else
+ #ifdef __Lynx__
+--- work/lfc-1.3.7/rfio/fseeko64.c	2005-04-06 07:32:22.000000000 +0200
++++ work.new/lfc-1.3.7/rfio/fseeko64.c	2006-04-12 16:50:45.000000000 +0200
+@@ -79,7 +79,7 @@
+ #ifdef linux
+     ((RFILE *)fp)->eof |= _IO_ERR_SEEN;
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+     ((RFILE *)fp)->eof |= __SERR;
+ #else
+ #ifdef __Lynx__
+--- work/lfc-1.3.7/rfio/getc.c	2005-04-06 07:32:22.000000000 +0200
++++ work.new/lfc-1.3.7/rfio/getc.c	2006-04-12 16:51:37.000000000 +0200
+@@ -75,7 +75,7 @@
+ #ifdef linux
+ 			((RFILE *)fp)->eof |= _IO_ERR_SEEN ;
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ 			((RFILE *)fp)->eof |= __SERR ;
+ #else
+ #ifdef __Lynx__
+@@ -91,7 +91,7 @@
+ #ifdef linux
+ 			((RFILE *)fp)->eof |= _IO_EOF_SEEN ; 
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ 			((RFILE *)fp)->eof |= __SEOF ; 
+ #else
+ #ifdef __Lynx__
+--- work/lfc-1.3.7/rfio/fwrite.c	2005-04-06 07:32:22.000000000 +0200
++++ work.new/lfc-1.3.7/rfio/fwrite.c	2006-04-12 16:51:13.000000000 +0200
+@@ -68,7 +68,7 @@
+ #ifdef linux
+ 			((RFILE *)fp)->eof |= _IO_ERR_SEEN ;
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ 			((RFILE *)fp)->eof |= __SERR ;
+ #else
+ #ifdef __Lynx__
+@@ -84,7 +84,7 @@
+ #ifdef linux
+ 			((RFILE *)fp)->eof |= _IO_EOF_SEEN ;
+ #else
+-#if defined( __ppc__) && defined( __APPLE__)
++#if (defined( __ppc__) || defined( __i386__)) && defined( __APPLE__)
+ 			((RFILE *)fp)->eof |= __SEOF ;
+ #else
+ #ifdef __Lynx__
