@@ -6,10 +6,7 @@ FILTER_OUT ?=
 FILTER     ?= % 
  
 ALL=\
-apps/base/xrootd \
-apps/base/xrootd-startscript \
-apps/base/xrootd-tokenauthzofs \
-apps/base/xrootd-shellcmds
+apps/base/xrootd
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 

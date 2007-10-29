@@ -27,60 +27,23 @@ CONFIG_SITEVARS="ALIEN_ORGANISATION ALIEN_ROOT ALIEN_LOGDIR ALIEN_CS_LOGDIR ALIE
 amonModules() {
 #############################################################################
     cat<<EOF
-9208a1a9ddecab3152e00b72569f1793  libxml2-2.6.27.tar.gz
-1d1b1d5c0245b1c00aff92da751e9aa1  gdbm-1.8.3.tar.gz
-b8c118d4360846829beb30b02a6b91a7  perl-5.8.8.tar.gz
-bcbaab776a54d1e34e3a057c925de9ca  monit-4.9.tar.gz
-8b3d9cf3eadebdfbe5847d80ed3a2d0b  Module-Build-0.28.tar.gz
-9c84640123eea12cfc58c6b5e7060ad8  Storable-2.15.tar.gz
-1a933b1114c41a25587ee59ba8376f7c  URI-1.35.tar.gz
-2e6a976cfa5521e815c1fdf4006982de  IO-stringy-2.110.tar.gz
-3c986323dd4f3160187905d57cb660f0  Log-TraceMessages-1.1.tar.gz
-8b6ed8da4fc0f50b84da8d862dfd4a8e  Log-Log4perl-1.11.tar.gz
+2f4a1fec9a1082ad9c81d4c0ba947928  amon-i686-pc-linux-gnu.tar.gz
 5051d6743d96781c677bd6ffeae5e0e9  Digest-SHA1-2.02.tar.gz
-32dc54c765100c638b5d7f7ff4c5c626  Digest-HMAC-1.01.tar.gz
-041ce912640c5dff626a91435a359b88  Authen-SASL-2.10.tar.gz
+a116d7a205fa0dcf969ac8e0bd78d4ff  Authen-SASL-2.08.tar.gz
 29a89f3e46cbb3fc2c24507f91a0a843  Time-HiRes-1.94.tar.gz
 fc1b182880d74d82938e1210923cb6c5  MIME-Base64-2.16.tar.gz
 db2b3b2e608df569a925986b04182ea2  PathTools-3.23.tar.gz
-20b5a6894762d9eda7ba631515f8bbb3  File-Spec-0.88.tar.gz
-b0cd6c1681bbc0695d81be5cd852d1d0  Net_SSLeay.pm-1.30.tar.gz
-34562e9475de132faa0f14ca2be053a5  IO-Socket-SSL-0.97.tar.gz
+6b7b044f553d089a1bce9fa0ef4c6615  Net_SSLeay.pm-1.26.tar.gz
+4eaf9bc8a44a3e98132f2c551b17f95d  IO-Socket-SSL-0.95.tar.gz
 b0867d7b599d8a63ba630fa6227936fe  XML-NamespaceSupport-1.09.tar.gz
-84d9e0001fe01c14867256c3fe115899  XML-Parser-2.34.tar.gz
 4b2276bafedc5a41cf50fea2296e31c4  XML-SAX-0.15.tar.gz
 80c0980ff63d77b871de41acc7175df7  XML-Simple-2.16.tar.gz
-a31400a29eae0eec74650bd06dbc823f  XML-SAX-Expat-0.39.tar.gz
-073448591f374103a124a4a2b26992a5  XML-SAX-Expat-Incremental-0.04.tar.gz
-13b6d93f53375d15fd11922216249659  XML-LibXML-Common-0.13.tar.gz
-750e296f57a6e245caf4829a25440cef  XML-LibXML-1.63.tar.gz
+20b5a6894762d9eda7ba631515f8bbb3  File-Spec-0.88.tar.gz
 ceb711a723464b6132fec8ee58a393f0  Net-DNS-0.42.tar.gz
-90298105cd17a5c2a4059297e09f1546  Net-Netmask-1.9015.tar.gz
+9c84640123eea12cfc58c6b5e7060ad8  Storable-2.15.tar.gz
 b3107452e2bb4d74d4b9892d61d50137  perl-ldap-0.31.tar.gz
 c2ac1379ac5848dd32e24347cd679391  HTML-Parser-3.45.tar.gz
 db1eb693eee45d251966ad2bab49dbbf  libwww-perl-5.805.tar.gz
-b5e76be5dfb90d8c8fdb8c28b2f9a427  Convert-ASN1-0.17.tar.gz
-1a52e65a9459e4deafd5b2fdf932d0ba  Convert-UU-0.52.tar.gz
-d87b05143c6c2bc9464758e68e9c6e25  libevent-1.3.tar.gz
-9b241bc4a482a3aa59fbb1429bc30546  String-CRC32-1.4.tar.gz
-6ff64fb974d131fdb7f9d5fdf955dc9a  memcached-1.2.1.tar.gz
-e416057d3b1273e6d2a0ac465fb0e3bd  Cache-Memcached-1.14.tar.gz
-a29b1ddd6fea9f7e11f0f82534d4204c  Sys-Syscall-0.22.tar.gz
-094386c6ada4d8f4be40691897061f79  Danga-Socket-1.57.tar.gz
-33632a41f7560801ca57802fe1f44667  Gearman-1.07.tar.gz
-2fcd67f8fec8f011d30c0a956667cdc3  Gearman-Server-1.08.tar.gz
-dfa9b5435c2d0539aa023fed7dde9122  Gearman-Client-Async-0.93.tar.gz
-6ba7fe0745242c33dfb8860e8fee222e  IO-AIO-2.33.tar.gz
-cd577c43ecc30b7cbb5b46ead97bb6bc  Perlbal-1.57.tar.gz
-12d60ac4c4732361e2ca363a67a74a08  mogilefs-server-2.15.tar.gz
-e53f76c7db26c7f8ac0628d3e35de1b2  MogileFS-Client-1.07.tar.gz
-57208ef6dccb3e72cf2df665983ce313  DBI-1.52.tar.gz
-7f22d8789245047343e114e655571022  DBD-SQLite-1.11.tar.gz
-ce449b6ef429eb65ec03be4c8d19b1aa  DJabberd-0.83.tar.gz
-6b8e666ab55e1e2bc455bdce5e6f4e42  DJabberd-RosterStorage-SQLite-1.00.tar.gz
-cb586eee8afc8618636e8cac19d73456  DJabberd-Authen-LDAP-0.01.tar.gz
-3b6034c977565504a8429f6d7b56a20e  DJabberd-Authen-SiteToken-0.01.tar.gz
-15aa7b46d94c2dcd9fe0acc8914943df  Filter-Template-1.02.tar.gz
 a1d67de6baa4afe4def3ea847da71755  POE-0.9917.tar.gz
 fab1ddd3e307b4ce3890a4708cfd04de  POE-Component-Client-Keepalive-0.0901.tar.gz
 3cafec48ed997ecb97cb980ef82732b8  POE-Component-Client-DNS-1.00.tar.gz
@@ -88,93 +51,22 @@ d0bcb39e2eee75200da2e622b4f2bb69  POE-Component-Client-HTTP-0.81.tar.gz
 afd22e2e247c9c1be63c57caef4d6be9  POE-Component-Server-PreforkTCP-0.11.tar.gz
 20bda6f76eacf1d1d4ecb02f922c99f7  POE-Component-SSLify-0.06.tar.gz
 35827260ad62e9d1bcbf74ada943deb9  POE-Component-Child-1.39.tar.gz
-f7e5c55808be528db02753f037c858d4  POE-Filter-XML-0.33.tar.gz
-fb855be29a8a2ca2626f7eb7640a1d05  POE-Component-Jabber-2.01.tar.gz
+be78c7a9f0235bcd7d3d1391c8900cf6  GPG-0.06.tar.gz
+bcbaab776a54d1e34e3a057c925de9ca  monit-4.9.tar.gz
+3c986323dd4f3160187905d57cb660f0  Log-TraceMessages-1.1.tar.gz
+b5e76be5dfb90d8c8fdb8c28b2f9a427  Convert-ASN1-0.17.tar.gz
+d87b05143c6c2bc9464758e68e9c6e25  libevent-1.3.tar.gz
+9b241bc4a482a3aa59fbb1429bc30546  String-CRC32-1.4.tar.gz
+6ff64fb974d131fdb7f9d5fdf955dc9a  memcached-1.2.1.tar.gz
+e416057d3b1273e6d2a0ac465fb0e3bd  Cache-Memcached-1.14.tar.gz
+ce449b6ef429eb65ec03be4c8d19b1aa  DJabberd-0.83.tar.gz
 EOF
-}
-#############################################################################
-buildOptions() {
-#############################################################################
-    export PREFIX=$AMON_HOME
-    CONFIGURE_CMD="$PREFIX/bin/perl Makefile.PL" 
-    CONFIGURE_ARG="PREFIX=$PREFIX"
-    CONFIGURE_ENV=""
-    CONFIGURE_INPUT=""
-    CONFIGURE_ENV="PERL_MM_USE_DEFAULT=1"
-    BUILD_CMD="make"
-    BUILD_ARG=""
-    INSTALL_CMD="make"
-    INSTALL_ARG="install"
-  
-    case $1 in
-      GPG*)
-        ;;
-      perl-ldap-*)
-        ;;
-      perl-*)
-        CONFIGURE_CMD="./Configure"
-        CONFIGURE_ARG="-d -des -Dinstalldirs=perl  -Doptimize=-O -Dccflags=-fPIC -Dinstallprefix=$PREFIX -Dprefix=$PREFIX -Dd_semctl_semun -Di_db -Di_syslog -Dudsedl=yes -Dman3ext=3 -Dusemymalloc=no -DDEBUGGING -Dplibpth=$PREFIX/lib -Dldflags=-L$PREFIX/lib -A append:libswanted= pthread"
-        ;;
-      monit*|libevent-*|memcached-*|gdbm-*)
-        CONFIGURE_CMD="./configure"
-        CONFIGURE_ARG="--prefix=$PREFIX"
-        ;;
-      libxml2-*)
-        CONFIGURE_CMD="./configure"
-        CONFIGURE_ARG="--prefix=$PREFIX --without-python"
-        ;;
-      libxslt-*)
-        CONFIGURE_CMD="./configure"
-        CONFIGURE_ARG="--prefix=$PREFIX --with-libxml-prefix=$PREFIX --without-crypto"
-        ;;
-      expat-*)
-        CONFIGURE_CMD="./configure"
-        CONFIGURE_ARG="--prefix=$PREFIX --mandir=$(PREFIX)/man"
-        ;;
-      Module-Build-*)
-        CONFIGURE_CMD="$PREFIX/bin/perl Build.PL"
-        BUILD_CMD="./Build"
-        INSTALL_CMD="./Build"
-        ;;
-      XML-SAX-[0-9]*)
-        CONFIGURE_INPUT="n" 
-        CONFIGURE_ENV="PERL_MM_USE_DEFAULT=0"
-        ;;
-      XML-LibXML-*)
-        CONFIGURE_ENV="XMLPREFIX=$PREFIX"
-        BUILD_ARG="LD_RUN_PATH="
-        ;;
-      XML-Parser*)
-        CONFIGURE_ARG="EXPATLIBPATH=$PREFIX/lib EXPATINCPATH=$PREFIX/include"
-        ;;
-      Net_SSLeay.pm*)
-        CONFIGURE_ARG="-- PREFIX=$PREFIX"
-        ;;
-      POE-Filter-XML-*|POE-Component-Jabber-*)
-        CONFIGURE_CMD="$PREFIX/bin/perl Build.PL"
-        BUILD_CMD="./Build"
-        INSTALL_CMD="./Build"
-        ;;
-      POE-[0-9]*)
-        CONFIGURE_ARG="PREFIX=$PREFIX --default"
-        ;; 
-      libwww-perl*)
-        CONFIGURE_ARG="PREFIX=$PREFIX -n"
-        ;; 
-      Time-HiRes-*)
-        export LC_ALL="C"
-        ;; 
-      *)
-      ;;
-    esac
 }
 #############################################################################
 configPlatform() {
 #############################################################################
-
-   if [ "x$ALIEN_PLATFORM" = "x" ]
+    if [ "x$ALIEN_PLATFORM" = "x" ]
    then
-      TMPDIR=`mktemp -d -q /tmp/amon.XXXXXX`
       for dir in /usr/share/libtool /usr/share/automake /usr/lib/rpm
       do
         if [ -x $dir/config.guess ]
@@ -208,6 +100,23 @@ configPlatform() {
 }
 
 
+#############################################################################
+configSiteKey() {
+#############################################################################
+    if [   -x /usr/bin/gpg ]
+    then
+      gpg="gpg -q --no-secmem-warning"
+      ( 
+         $gpg --fingerprint amon
+         if [ $? -ne 0 ]
+         then
+           printf "1\n2048\n0\ny\n$HOSTNAME\namon@$HOSTNAME\n$ALIEN_ORGANISATION\nO\n\n\n" | $gpg --gen-key --command-fd 0 > /dev/null 2>&1
+         fi
+       ) > /dev/null 2>&1
+       $gpg --export --armor amon@$HOSTNAME
+    fi
+} 
+ 
 #############################################################################
 configSiteToken() {
 #############################################################################
@@ -272,11 +181,12 @@ configGuess() {
     then
       . $HOME/.alien/Environment
     fi
+    
+    AMON_SITE_KEY=`configSiteKey`; export AMON_SITE_KEY
 
     if [ ! -r $AMON_HOME/default.conf ]
     then
-      wget -O -  "http://$ALIEN_CONFIG_SERVER/bin/alien-config?platform=$ALIEN_PLATFORM&organisation=$ALIEN_ORGANISATION&id=$ALIEN_USER" > \
-                 $AMON_HOME/default.conf 2> /dev/null
+      wget -O -  "http://$ALIEN_CONFIG_SERVER/bin/alien-config?platform=$ALIEN_PLATFORM&organisation=$ALIEN_ORGANISATION&id=$ALIEN_USER" > $AMON_HOME/default.conf 2> /dev/null
       chmod 600 $AMON_HOME/default.conf   
     fi
     
@@ -334,7 +244,7 @@ configEnv() {
       . $AMON_HOME/$custom.conf
     fi
     
-    for file in default site keys
+    for file in default site
     do 
       if [ -f $AMON_HOME/$file.conf ]
       then
@@ -393,6 +303,43 @@ installCrontab() {
 }
 
 #############################################################################
+buildOptions() {
+#############################################################################
+    export PREFIX=$AMON_HOME
+  
+    CONFIGURE_CMD="perl Makefile.PL" 
+    CONFIGURE_ARG="PREFIX=$PREFIX"
+    CONFIGURE_ENV=""
+    CONFIGURE_INPUT=""
+    CONFIGURE_ENV="PERL_MM_USE_DEFAULT=1"
+  
+    case $1 in
+      GPG*)
+        ;;
+      monit*|libevent-*|memcached-*)
+        CONFIGURE_CMD="./configure"
+        CONFIGURE_ARG="--prefix=$PREFIX"
+        ;;
+      Net_SSLeay.pm*)
+        CONFIGURE_ARG="-- PREFIX=$PREFIX"
+        ;;
+      POE-[0-9]*)
+        CONFIGURE_CMD="perl Makefile.PL PREFIX=$PREFIX"
+        CONFIGURE_ARG="--default"
+        ;; 
+      libwww-perl*)
+        CONFIGURE_CMD="perl Makefile.PL PREFIX=$PREFIX"
+        CONFIGURE_ARG="-n"
+        ;; 
+    Time-HiRes-*)
+        export LC_ALL="C"
+        ;; 
+      *)
+      ;;
+    esac
+}
+
+#############################################################################
 buildLog () {
 #############################################################################
     if [ $1 -eq 0 ]
@@ -413,10 +360,10 @@ buildLog () {
 buildModules() {
 #############################################################################
     AMON_HOME=$HOME/.alien/amon
-    BUILD_ENV="PERL5LIB=$AMON_HOME/lib/perl5:$AMON_HOME/lib/perl5/site_perl"
-    RUN_ENV="LD_LIBRARY_PATH=$AMON_HOME/lib DYLD_LIBRARY_PATH=$AMON_HOME/lib"
+    BUILD_ENV=PERL5LIB=$AMON_HOME/lib/perl5:$AMON_HOME/lib/perl5/site_perl
+    RUN_ENV=LD_LIBRARY_PATH=$AMON_HOME/lib DYLD_LIBRARY_PATH=$AMON_HOME/lib
     platform=`configPlatform`
-    BINMODULES="amon-$platform"
+    BINMODULES=`amonModules | awk '{print $2}' | grep amon-$platform | awk -F'.tar.gz' '{print $1}'`
     MODULES=`amonModules | awk '{print $2}' | awk -F'.tar.gz' '{print $1}'`
     TEST=0
     
@@ -426,11 +373,9 @@ buildModules() {
     
     TMPDIR=`mktemp -d -q /tmp/amon.XXXXXX`
     
-    mkdir -p $TMPDIR
-     
     if [ $? -ne 0 ]; 
     then
-        echo "$AMON: Cannot create temp file, exiting..."
+        echo "$0: Cannot create temp file, exiting..."
         exit 1
     fi
     
@@ -439,9 +384,7 @@ buildModules() {
     
     printf "Downloading components...."
     
-    PERL=$AMON_HOME/bin/perl
-
-    for module in $MODULES
+    for module in $BINMODULES $MODULES
     do
       wget $WGETOPTS -P . $URL/$module.tar.gz
       rc=$?
@@ -451,43 +394,40 @@ buildModules() {
       fi 
     done > $TMPDIR/amon.log 2>&1          
     
-#    buildLog $rc $module 
+    buildLog $rc $module 
     
     printf "Verifying checksums...."
     
     amonModules | md5sum -c - >> $TMPDIR/amon.log 2>&1 || exit 1 
     
-#    buildLog $? $module 
+    buildLog $? $module 
     
+    PERL=perl
+
     for module in $BINMODULES
     do
-      wget $WGETOPTS -P . $URL/$module.tar.gz
-      rc=$?
-      if [ $rc -ne 0 ] 
-      then
-         break
-      fi 
       printf "Building binary $module...."
-      (dir=`dirname $AMON_HOME`; tar zxf $module.tar.gz -C  $dir)  >> $TMPDIR/amon.log 2>&1
+      (dir=`dirname $AMON_HOME`; tar zxf $module.tar.gz -C  $dir)  > $TMPDIR/amon.log 2>&1
       if [ $? -eq 0 ] 
       then
-        exit 0 
+        buildLog $? $module
+        PERL=$AMON_HOME/bin/perl
       fi
-    done >> $TMPDIR/amon.log 2>&1          
+    done
 
-    for module in $MODULES
-    do
+    if [ "$PERL" = "perl" ]
+    then
+      for module in $MODULES
+      do
         printf "Building $module...."
         ( buildOptions $module;  tar zxvf $module.tar.gz && \
           cd $module &&  \
-          echo $CONFIGURE_INPUT | \
-          env $CONFIGURE_ENV $RUN_ENV $CONFIGURE_CMD $CONFIGURE_ARG && \
-          env $BUILD_ENV $RUN_ENV $BUILD_CMD $BUILD_ARG && \
-          env $BUILD_ENV $RUN_ENV $INSTALL_ENV $INSTALL_CMD $INSTALL_ARG
+          $CONFIGURE_INPUT env $BUILD_ENV $CONFIGURE_ENV $CONFIGURE_CMD $CONFIGURE_ARG && \
+          env $BUILD_ENV make &&  env $BUILD_ENV make install 
         )  > $TMPDIR/amon.log 2>&1
         buildLog $? $module
-    done 
-
+      done 
+    fi
     )
     
     if [ $? -eq 0 ]
@@ -1090,6 +1030,8 @@ amonUsage() {
  printf "\n"
  printf "       amon [--server <server>]                \n"
  printf "            [--port <port>]                    \n"
+ printf "            [--info_server <server>            \n"
+ printf "            [--info_port <port>]               \n"
  printf "            [--trace]                          \n"
  exit
 }
@@ -1174,6 +1116,11 @@ amonUsage() {
                 reConfigure $AMON $args
                 exit
               ;;
+            key)
+                shift 1
+                configSiteKey
+                exit
+              ;;
             token)
                 shift 1
                 configSiteToken
@@ -1207,12 +1154,20 @@ amonUsage() {
       touch $file
     done
     
+    if [ -f $AMON_HOME/amon.pid ]
+    then
+      kill `cat $AMON_HOME/amon.pid` > /dev/null 2>&1
+    fi
+
     reStart $AMON $args
 
-    cd $AMON_HOME
+    while [ true ]
+    do
+      $PERL -x -- $0 $* && exit
+      sleep 15
+    done
 
-#   exec $PERL -x -- $0 $* 
-    exec $PERL -x -- $AMON $* 
+    exit   
  
 #############################################################################
 #!perl
@@ -1221,10 +1176,6 @@ use warnings;
 use strict;
 
 $SIG{PIPE} = 'IGNORE';    # otherwise, SIGPIPE terminates the proxy.
-
-use Filter::Template;     #this is only a shortcut
-
-const XNode POE::Filter::XML::Node
 
 use POE;
 use POE::Component::Server::TCP;
@@ -1237,1221 +1188,895 @@ use HTTP::Response;
 use HTTP::Request;
 use Socket;
 use Getopt::Long;
-#use XML::Simple;
-
 use Net::LDAP;
-use Net::DNS;
+use XML::Simple;
 
-use Storable qw(freeze thaw);
-
-use POE::Component::Jabber;                   #include PCJ
-use POE::Component::Jabber::Error;            #include error constants
-use POE::Component::Jabber::Status;           #include status constants
-use POE::Component::Jabber::ProtocolFactory;  #include connection type constants
-use POE::Filter::XML::Node;                   #include to build nodes
-use POE::Filter::XML::NS qw/ :JABBER :IQ /;   #include namespace constants
-use POE::Filter::XML::Utils;
-
-use Cache::Memcached;  
-use MIME::Base64;
+use Cache::Memcached;
 
 my $AMON_HTTP_SERVER = "localhost";
 my $AMON_HTTP_PORT   = 8000;
-my $AMON_SERVER      = `hostname`; chomp($AMON_SERVER);
-my $AMON_PORT         = 8001;
+my $AMON_SERVER      = `hostname`; chomp ($AMON_SERVER);
+my $AMON_PORT        = 8001;
+my $AMON_INFO_SERVER = "";
+my $AMON_INFO_PORT   = 0;
 my $AMON_CACHE_SERVER = "localhost";
 my $AMON_CACHE_PORT   = 8003;
 my $AMON_AUTHZ_TOKEN  = $ENV{ALIEN_UUID};
 
 my $MEMD = new Cache::Memcached {
-    'servers'            => ["$AMON_CACHE_SERVER:$AMON_CACHE_PORT"],
-    'debug'              => 0,
+    'servers' => [ "$AMON_CACHE_SERVER:$AMON_CACHE_PORT" ],
+    'debug' => 0,
     'compress_threshold' => 10_000,
 };
 
 # use Config::ApacheFormat;
 
-use Log::TraceMessages qw(t d);
+use Log::TraceMessages qw(t d);;
 
 $Log::TraceMessages::On = 0;
 
-my $MONIT_PORT = 2812;
-
-my $AUTHORIZED_HOSTS = {
-      "sites" => { "CERN" => ["pcalijabber1.cern.ch",
-                              "pcalicepb.cern.ch",
-                              "alien.cern.ch",
-                              "pcalienx.cern.ch"]
-                 }
-};
-
-
+my $AUTHORIZED_HOSTS = { "CERN" => {
+                       "pcalijabber1.cern.ch" => { 
+                               "session" => 0 , 
+                               "port" => 2812 },
+                       "pcalicepb.cern.ch" => { 
+                               "session" => 0 , 
+                               "port" => 2812 },
+                        "alien.cern.ch"    => { 
+                               "session" => 0 , 
+                               "port" => 2812},
+                        "pcalienx.cern.ch"    => { 
+                               "session" => 0 , 
+                               "port" => 2812},
+                                   },
+                       };
 my %SITE;
 
+my $MONIT_PORT = 2812;
+
 my $LogToName = {
-    "ProxyServer"          => "Proxy",
-    "Manager::Transfer"    => "TransferManager",
-    "Manager::Job"         => "Server",
-    "Broker::Job"          => "Broker",
-    "Broker::Transfer"     => "TransferBroker",
-    "Optimizer::Transfer"  => "TransferOptimizer",
-    "Optimizer::Job"       => "JobOptimizer",
-    "Optimizer::Catalogue" => "CatalogueOptimizer",
-    "ClusterMonitor"       => "Monitor",
-};
+          "ProxyServer" => "Proxy",
+          "Manager::Transfer" => "TransferManager",
+          "Manager::Job" => "Server",
+          "Broker::Job" => "Broker",
+          "Broker::Transfer" => "TransferBroker",
+          "Optimizer::Transfer" => "TransferOptimizer",
+          "Optimizer::Job" => "JobOptimizer",
+          "Optimizer::Catalogue" => "CatalogueOptimizer",
+          "ClusterMonitor" => "Monitor",
+      };
 
-my $MASTER_ID  = $ENV{MASTER_ID} ;       
-my $MASTER_KEY = $ENV{MASTER_KEY};       
-my $UID        = $ENV{SITE_ID};          
-my $UKEY       = $ENV{SITE_KEY};         
-my $REALM      = $ENV{ALIEN_SITE_REALM}; 
-
-my $COMPONENT = 'JabberServer';
-
+#############################################################################
 #############################################################################
 sub logevent {
 #############################################################################
 
-    my ( $state, $arg ) = @_;
-    t "####################################################################";
-    t "$state: ";
-    defined($arg) && t d($arg);
-    t "####################################################################";
+   my ( $state, $arg ) = @_;
+   t "####################################################################";
+   t "$state: "; defined ($arg) && t d($arg);
+   t "####################################################################";
 }
 
 #############################################################################
 sub getConfig {
 #############################################################################
 
-    my $organisation = "Alice";
-    my $LdapDN       = "aliendb06a.cern.ch:8389/o=alice,dc=cern,dc=ch";
+  my $organisation = "Alice";
+  my $LdapDN = "aliendb06a.cern.ch:8389/o=alice,dc=cern,dc=ch";
 
-    my ( $ldaphost, $base ) = split( '/', $LdapDN );
-    my $ldap = Net::LDAP->new($ldaphost) or die "$@";
-    $ldap->bind();
+  my ($ldaphost,$base) = split('/',$LdapDN);
+  my $ldap = Net::LDAP->new($ldaphost) or die "$@";
+  $ldap->bind();
 
-    my $result = $ldap->search(
-        base   => "ou=Sites,$base",
-        scope  => "sub",
-        filter => "(host=*)",
-        attrs  => ['host'],
-    );
+  my $result = $ldap->search ( base    => "ou=Sites,$base",
+                               scope   => "sub",
+                               filter  => "(host=*)",
+                               attrs   =>  ['host'],
+                              );
 
-    my @entries = $result->entries;
-    my @hosts;
-    my $entry;
-    my $site;
-    my $host;
-
-    foreach $entry (@entries) {
-      my @object = split( /,/, $entry->asn->{objectName} );
-        if (   $object[2] eq "ou=Services"
-            or $object[2] eq "ou=services" ){
-            shift @object;
-        }
-
-      my @val  = split( /=/, $object[2] );
-      $site = $val[1];
-      $host = $entry->get_value("host");
-      if ( $site ne "Sites" ) {
-        if (!defined($AUTHORIZED_HOSTS->{sites}->{$site})) {
-          push @{$AUTHORIZED_HOSTS->{sites}->{$site}}, $host;
-        } else {
-          if ( ! grep {/$host/} @{$AUTHORIZED_HOSTS->{sites}->{$site}}) {
-              push @{$AUTHORIZED_HOSTS->{sites}->{$site}}, $host;
-          }
-        }
+  my @entries = $result->entries;
+  my @hosts;
+  my $entry;
+  foreach $entry ( @entries ) {
+      my @object=split(/,/,$entry->asn->{objectName});
+      if ( $object[2] eq "ou=Services" or
+         $object[2] eq "ou=services" ) {
+         shift @object;
       }
+      my @val=split(/=/,$object[2]);
+      my $site = $val[1];
+      my $host=$entry->get_value("host");
+      if ( $site ne "Sites" ) { 
+         $AUTHORIZED_HOSTS->{$site}->{$host}->{session} = 0;
+         $AUTHORIZED_HOSTS->{$site}->{$host}->{port} = $MONIT_PORT;
+      } 
+  }
+
+  foreach my $site (keys %{$AUTHORIZED_HOSTS}) {
+    foreach my $host (keys %{$AUTHORIZED_HOSTS->{$site}}) {
+      $SITE{$host} = $site;
     }
+  }
 
-
-    my $res = Net::DNS::Resolver->new;
-
-    foreach $site ( keys %{$AUTHORIZED_HOSTS->{sites}} ) {
-      foreach $host ( @{$AUTHORIZED_HOSTS->{sites}->{$site}}) {
-        $AUTHORIZED_HOSTS->{hosts}->{$host}->{session} = 0;
-        $AUTHORIZED_HOSTS->{hosts}->{$host}->{port} = $MONIT_PORT;
-        my $query = $res->search("$host");
-        if ($query) {
-              my $r;
-              foreach ($query->answer) {
-                 next unless $_->type eq "A";
-                 $r = $_;
-              }
-              $AUTHORIZED_HOSTS->{dns}->{$r->address} = $host;
-        }
-      }
-    }
-    $MEMD->set( "AUTHORIZED_HOSTS", $AUTHORIZED_HOSTS );
+  $MEMD->set("AUTHORIZED_HOSTS", $AUTHORIZED_HOSTS );
 }
-
-#############################################################################
-sub pcjStatus {
-#############################################################################
-
-    # The status event receives all of the various bits of status from PCJ. PCJ
-    # sends out numerous statuses to inform the consumer of events of what it is
-    # currently doing (ie. connecting, negotiating TLS or SASL, etc). A list of
-    # these events can be found in PCJ::Status.
-
-    my ( $kernel, $sender, $heap, $state ) =  @_[ KERNEL, SENDER, HEAP, ARG0 ];
-    if ( $state == +PCJ_INIT_FINISHED ) {
-          my $jid = $heap->{$COMPONENT}->jid();
-          $heap->{'jid'} = $jid;
-          $heap->{'sid'} = $sender->ID();
-          $kernel->post( $COMPONENT, 'output_handler',XNode->new('presence') );
-
-          # And here is the purge_queue. This is to make sure we haven't sent
-          # nodes while something catastrophic has happened (like reconnecting).
-
-          $kernel->post( $COMPONENT, 'purge_queue' );
-    }
-}
-
- # This is the error event. Any error conditions that arise from any point
- # during connection or negotiation to any time during normal operation will be
- # send to this event from PCJ. For a list of possible error events and exported
- # constants, please see PCJ::Error
-
-#############################################################################
-sub pcjError {
-#############################################################################
-     my ( $kernel, $sender, $heap, $error ) = @_[ KERNEL, SENDER, HEAP, ARG0 ];
-     if ( $error == +PCJ_SOCKETFAIL ) {
-                    my ( $call, $code, $err ) = @_[ ARG1 .. ARG3 ];
-                    print "Socket error: $call, $code, $err\n";
-                    $kernel->delay( 'reconnect', 1);
-                }
-                elsif ( $error == +PCJ_SOCKETDISCONNECT ) {
-                    print "We got disconneted\n";
-                    $kernel->delay( 'reconnect', 10);
-                }
-                elsif ( $error == +PCJ_CONNECTFAIL ) {
-                    print "Connect failed\n";
-                    $kernel->delay( 'reconnect', 1);
-                }
-                elsif ( $error == +PCJ_SSLFAIL ) {
-                    print "TLS/SSL negotiation failed\n";
-                }
-                elsif ( $error == +PCJ_AUTHFAIL ) {
-                    print "Failed to authenticate\n";
-                }
-                elsif ( $error == +PCJ_BINDFAIL ) {
-                    print "Failed to bind a resource\n";
-                }
-                elsif ( $error == +PCJ_SESSIONFAIL ) {
-                    print "Failed to establish a session\n";
-     }
-}
-
-#############################################################################
-sub  pcjOutput {
-#############################################################################
-
-    # This is our own output_event that is a simple passthrough on the way to
-    # post()ing to PCJ's output_handler so it can then send the Node on to the
-    # server
-    my ( $kernel, $heap, $node, $sid ) =  @_[ KERNEL, HEAP, ARG0, ARG1 ];
-    t d($node);
-    $kernel->post( $sid, 'output_handler', $node );
-}
-
-#############################################################################
-sub createJabberServer {
-#############################################################################
-
-    use DJabberd;
-    use DJabberd::Delivery::Local;
-    use DJabberd::PresenceChecker::Local;
-    use DJabberd::RosterStorage::SQLite;
-
-    &getConfig;
-
-    $0 = "djabberd";
-
-    for my $key ('MASTER_AUTHORIZATION_KEY') {
-      defined ($ENV{$key})  or die("ERROR: Please define $key  in $ENV{AMON_HOME}/key.conf file");
-    }
-
-    my $rs = DJabberd::RosterStorage::SQLite->new;
-    $rs->set_config_database("$ENV{AMON_HOME}/etc/djabberd/jabber.sqlite");
-    $rs->finalize;
-
-    my $token = DJabberd::Authen::MySiteToken->new;
-
-    $token->set_config_realm($ENV{ALIEN_SITE_REALM});
-
-    $token->set_config_key($ENV{MASTER_AUTHORIZATION_KEY});
-
-    $token->finalize;
-
-    my $vhost = DJabberd::VHost->new(
-                                 server_name => $ENV{ALIEN_SITE_REALM},
-                                 require_ssl => 1,
-                                 s2s         => 0,
-                                 plugins   => [
-                                               $token,
-                                               $rs,
-                                               DJabberd::Delivery::Local->new,
-                                               ],
-                                 );
-
-    my $update_cache = sub {
-      my $connection = shift;
-      my $socks =  $connection->{'jid2sock'};
-
-      foreach my $site ( keys %{$AUTHORIZED_HOSTS->{sites}} ) {
-         foreach my $host ( @{$AUTHORIZED_HOSTS->{sites}->{$site}}) {
-            $AUTHORIZED_HOSTS->{hosts}->{$host}->{"session"} = undef ;
-        }
-      }
-      for my $socket (keys %$socks) {
-        my $peer_jid  = $socks->{$socket}->{bound_jid}->as_bare_string();
-        my $master_jid = "$MASTER_ID".'@'.$REALM;
-        if ( $peer_jid ne $master_jid ) {
-          my $peer_ip   = $socks->{$socket}->{peer_ip};
-          if ( defined($AUTHORIZED_HOSTS->{dns}->{$peer_ip}) ) {
-            $AUTHORIZED_HOSTS->{hosts}->{$AUTHORIZED_HOSTS->{dns}->{$peer_ip}}->{"session"} = $peer_jid;
-          }
-        }
-      }
-      $MEMD->set( "AUTHORIZED_HOSTS", $AUTHORIZED_HOSTS );
-    };
-
-    $vhost->register_hook("ConnectionClosing",$update_cache);
-    $vhost->register_hook("OnInitialPresence",$update_cache);
-
-    my $server = DJabberd->new(
-                           daemonize => 0,
-                           );
-
-    $server->set_config_sslcertificatefile("$ENV{AMON_HOME}/etc/djabberd/server-cert.pem");
-    $server->set_config_sslcertificatekeyfile("$ENV{AMON_HOME}/etc/djabberd/server-key.pem");
-    $server->set_config_oldssl(0);
-    $server->set_config_clientport($AMON_PORT);
-    $server->set_config_pidfile("$ENV{AMON_HOME}/etc/djabberd.pid");
-    $server->add_vhost($vhost);
-    $server->run;
-}
-
 
 #############################################################################
 sub createServer {
 #############################################################################
 
-    for my $key ('MASTER_ID','MASTER_KEY') {
-      defined ($ENV{$key})  or die("ERROR: Please define $key  in $ENV{AMON_HOME}/key.conf file");
-    }
-    # Create jabber server
-   
-    POE::Session->create(
-        inline_states => {
-            _start => sub {
-                my ( $kernel, $self, $args ) = @_[ KERNEL, ARG0 .. $#_ ];
-                $kernel->alias_set("jabber");
-            },
-            _stop  => sub { },
-            stdout => sub {
-                my ( $kernel, $heap, $self, $args ) = @_[ KERNEL, HEAP, ARG0 .. $#_ ];
-                push( @{$heap->{output} }, $args->{out});
-                ( @{ $heap->{output} } > 1000 ) && shift @{ $heap->{output} };
-            },
-            stderr => sub {
-                my ( $kernel, $heap, $self, $args ) = @_[ KERNEL, HEAP, ARG0 .. $#_ ];
-                push( @{$heap->{output} }, $args->{out});
-                ( @{ $heap->{output} } > 1000 ) && shift @{ $heap->{output} };
-            },
-            done => sub {
-                my ( $kernel, $self, $args ) = @_[ KERNEL, ARG0 .. $#_ ];
-            },
-            died => sub {
-                my ( $kernel, $heap, $self, $args ) = @_[ KERNEL, HEAP, ARG0 .. $#_ ];
-                print join("", @{$heap->{output}});
-            },
-            error => sub {
-                my ( $kernel, $self, $args ) = @_[ KERNEL, ARG0 .. $#_ ];
-            },
-       },
-    );
+  &getConfig;
 
-    my $jabber = POE::Component::Child->new( alias => "jabber", );
+  # Create proxy server
 
-    $jabber->{StdioFilter} = POE::Filter::Line->new( OutputLiteral => '\n' );
+  my $proxy = POE::Component::Server::TCP->new (  
+      Alias => "proxy",
+      Hostname => $AMON_SERVER,
+      Port     => $AMON_PORT,
+      ClientFilter => 'POE::Filter::Stream',
 
-    $jabber->run("$ENV{AMON}", "--jabber");
+      ClientConnected => sub {
+        my ( $kernel, $heap, $session ) = @_[ KERNEL, HEAP, SESSION ];
+        logevent( 'proxy got connection');
+        my $remote_ip = $heap->{remote_ip};
+        my $hostname = gethostbyaddr(inet_aton ($heap->{remote_ip} ), AF_INET);
+        if ( defined($hostname) && defined($SITE{$hostname}) ) {
+  	  $heap->{hostname} = $hostname;
+       	  $AUTHORIZED_HOSTS->{$SITE{$hostname}}->{$hostname}->{"session"} = $session->ID;
+          $MEMD->set("AUTHORIZED_HOSTS", $AUTHORIZED_HOSTS );
+        } else {
+          logevent( "unauthorized attempt to access to proxy server from host $remote_ip");
+          $kernel->yield("shutdown");
+        } 
+      },
 
-    # First we create our own session within POE to interact with PCJ
-    my $server = POE::Session->create(
-        options       => { debug => 0, trace => 0 },
-        inline_states => {
-            _start => sub {
-                my ( $kernel, $heap ) = @_[ KERNEL, HEAP ];
-                $kernel->alias_set('Jabber');
-                $heap->{$COMPONENT} = POE::Component::Jabber->new(
-                    IP             => $AMON_SERVER,
-                    Port           => $AMON_PORT,
-                    Hostname       => $REALM,
-                    Username       => "$MASTER_ID",
-                    Password       => "$MASTER_KEY",
-                    Alias          => $COMPONENT,
-                    ConnectionType => +LEGACY,
-                    Debug          => '0',
-                    States         => {
-                        StatusEvent => "StatusEvent",
-                        InputEvent  => "InputEvent",
-                        ErrorEvent  => "ErrorEvent",
-                    }
-                );
-                $kernel->delay( 'reconnect', 5);
-            },
-
-            _stop => sub {
-                my $kernel = $_[KERNEL];
-                $kernel->alias_remove();
-                my $pidfile = "$ENV{AMON_HOME}/etc/djabberd.pid";
-                open F, "$pidfile" or die "Can't open $pidfile : $!";
-                my $pid = <F>; chomp $pid;
-                close F;
-                kill 1, $pid;                
-            },
-
-            StatusEvent => \&pcjStatus,
-            ErrorEvent  => \&pcjError,
-            OutputEvent => \&pcjOutput,
-
-            InputEvent => sub {
-
-     # This is the input event. We receive all data from the server through this
-     # event. ARG0 will a POE::Filter::XML::Node object.
-
-                my ( $kernel, $heap, $node ) = @_[ KERNEL, HEAP, ARG0 ];
-
-                my $msg = $node->attr('msg');
-
-                foreach ($msg) {
-                    /REPLY/ && do {
-                        my $sid  = $node->attr('sid');
-                        my $body = decode_base64($node->get_tag('body')->data());
-                        $kernel->post($sid => "got_response", $body);
-                        last;
-                    };
-                    /INFO/ && do {
-                        my $hostname = $node->attr('hostname');
-                        my $input = decode_base64($node->get_tag('body')->data());
-                        my $status = thaw ($input);
-                        $MEMD->set( "stat_".$hostname, $status );
-                        last;
-                    };
-                }
-            },
-
-           ClientInput => sub {
-               my ( $kernel, $session, $heap, $input ) = @_[ KERNEL, SESSION, HEAP, ARG0 ];
-               logevent('info server got input');
-            },
-
-            reconnect => sub {
-                my ( $kernel, $heap ) = @_[ KERNEL, HEAP ];
-                $kernel->post($COMPONENT,'reconnect');
-            },
-
-            request => sub {
-                my ( $kernel, $heap, $reply, $input, $hostname, $jid ) = @_[ KERNEL, HEAP, ARG0, ARG1, ARG2, ARG3 ];
-                logevent("http request accepted by proxy");
-                my $node = XNode->new('message');
-                $node->attr( 'from', get_bare_jid( $heap->{'jid'} ) );
-                $node->attr('to',$jid); 
-                $node->attr( 'sid', $reply );
-                $node->insert_tag('body')->data( $input );
-                $kernel->yield( 'OutputEvent', $node, $heap->{'sid'} );
-            },
+      ClientInput => sub {
+        my ( $kernel, $session, $heap, $input ) = @_[ KERNEL, SESSION, HEAP, ARG0 ];
+        logevent( 'proxy server got input');
+        t d($input);
+        if ( $input  =~ /\%\%\%EOF\%\%\%/s ) {
+          $input =~ s/\%\%\%EOF\%\%\%//s;
+          push (@{$heap->{reply}->{buffer}},$input);
+          $kernel->post($heap->{reply}->{session}=>"got_response", 
+                        join("",@{$heap->{reply}->{buffer}}));
+          delete $heap->{reply};
+        } else {       
+          push (@{$heap->{reply}->{buffer}},$input)
         }
-    );
+      },
 
-    my $http = POE::Component::Server::TCP->new(
-        Alias        => "http_server",
-        Hostname     => $AMON_HTTP_SERVER,
-        Port         => $AMON_HTTP_PORT,
-        ClientFilter => 'POE::Filter::HTTPD',
+      ClientDisconnected => sub {
+        my ( $kernel, $session, $heap ) = @_[ KERNEL, SESSION, HEAP ];
+        logevent( 'proxy server got disconnect');
+        my $hostname = $heap->{hostname}; 
+ 	$AUTHORIZED_HOSTS->{$SITE{$hostname}}->{$hostname}->{"session"} = 0;
+        $MEMD->set("AUTHORIZED_HOSTS", $AUTHORIZED_HOSTS );
+      },
+      
+      ClientError => sub {
+        my ( $kernel, $session, $heap ) = @_[ KERNEL, SESSION, HEAP ];
+        logevent( 'proxy server got error');
+        $kernel->yield("shutdown");
+      },
 
-        ClientInput => sub {
-            my ( $kernel, $session, $heap, $input ) =  @_[ KERNEL, SESSION, HEAP, ARG0 ];
-            logevent('http server got input');
-            my $uri = $input->uri;
-            my @path = split( "/", $uri );
-            my $response;
-            if ( @path > 2 ) {
-                shift @path;
-                my $rhost = shift @path;
-                my $rport = shift @path;
+      InlineStates => {
+         request => sub {
+		my ( $heap, $reply, $input ) = @_[ HEAP, ARG0, ARG1 ];
+		logevent( "http request accepted by proxy");
+		$heap->{reply}->{session}=$reply;
+		$heap->{client}->put($input->as_string());
+           },
+       }
+  );
 
-                $AUTHORIZED_HOSTS = $MEMD->get("AUTHORIZED_HOSTS");
+  my $info = POE::Component::Server::TCP->new (  
+      Alias => "info",
+      Hostname => $AMON_INFO_SERVER,
+      Port     => $AMON_INFO_PORT,
+      ClientFilter => 'POE::Filter::Stream',
 
-                my $jid =  $AUTHORIZED_HOSTS->{hosts}->{$rhost}->{"session"};
+      ClientConnected => sub {
+        my ( $kernel, $heap, $session ) = @_[ KERNEL, HEAP, SESSION ];
+        logevent( 'info  got connection');
+        my $remote_ip = $heap->{remote_ip};
+        my $hostname = gethostbyaddr(inet_aton ($heap->{remote_ip} ), AF_INET);
+        if (defined($hostname) && defined($SITE{$hostname})) {
+  	  $heap->{hostname} = $hostname;
+        } else {
+          logevent( "unauthorized attempt to access to info server from host $remote_ip");
+          $kernel->yield("shutdown");
+        } 
+      },
 
-                if ( defined ($jid) ) {
-                    $heap->{rhost} = $rhost;
-                    $heap->{rport} = $rport;
-                    $input->header( "extrapath", "$rhost:$rport" );
-                    $uri = "http://localhost:$rport/" . join( "/", @path );
-                    $input->uri($uri);
-                    logevent("http server forwarding request to $heap->{rhost}", $uri );
-                    $kernel->post( $server => "request", $session->ID, $input->as_string(), $rhost, $jid );
-                }
-                else {
-                    logevent("Client not connected");
-                    $response = HTTP::Response->new( 404,"ERROR: Client not connected." );
-                    $heap->{client}->put($response);
-                    $kernel->yield("shutdown");
-                }
-            }
-            else {
-                logevent("Misformed URL");
-                $response = HTTP::Response->new( 404, "ERROR: Misformed URL." );
-                $heap->{client}->put($response);
-                $kernel->yield("shutdown");
-            }
-        },
+      ClientInput => sub {
+        my ( $kernel, $session, $heap, $input ) = @_[ KERNEL, SESSION, HEAP, ARG0 ];
+        logevent( 'info server got input');
+        my $xs = XML::Simple->new(ForceArray => 0);
+        my $status = $xs->XMLin($input);
+        t d($status); 
+        $MEMD->set("stat_".$heap->{hostname},$xs->XMLin($input));
+      },
 
-        ClientDisconnected => sub {
-            my ( $kernel, $session, $heap ) = @_[ KERNEL, SESSION, HEAP ];
-            logevent('http server got disconnect');
-        },
+  );
 
-        ClientError => sub {
-            my ( $kernel, $session, $heap ) = @_[ KERNEL, SESSION, HEAP ];
-            $kernel->yield("shutdown");
-        },
+  
+  my $http = POE::Component::Server::TCP->new (
+      Alias        => "http_server",
+      Hostname     => $AMON_HTTP_SERVER,
+      Port         => $AMON_HTTP_PORT,
+      ClientFilter => 'POE::Filter::HTTPD',
+      
+       ClientInput => sub {
+        my ( $kernel, $session, $heap, $input ) = @_[ KERNEL, SESSION, HEAP, ARG0 ];
+        logevent( 'http server got input');
+	my $uri = $input->uri;
+	my @path = split("/",$uri);
+	if (@path > 2) {
+ 	   shift @path;	   
+	   my $rhost = shift @path;
+	   my $rport = shift @path;
+       	   if ($AUTHORIZED_HOSTS->{$SITE{$rhost}}->{$rhost}->{"session"} > 0) {
+	      $heap->{rhost} = $rhost;
+	      $heap->{rport} = $rport;
+	      $input->header( "extrapath", "$rhost:$rport" );
+	      $uri = "http://localhost:$rport/".join("/",@path);
+	      $input->uri($uri);
+	      logevent( "http server forwarding request to $heap->{rhost}",$uri);
+              $kernel->post($AUTHORIZED_HOSTS->{$SITE{$rhost}}->{$rhost}->{"session"} => "request", $session->ID, $input);
+	   } else {	   
+               logevent("Client not connected");
+               my $response = HTTP::Response->new(404,"ERROR: Client not connected.");
+               $heap->{client}->put($response);
+               $kernel->yield("shutdown");
+	   }
+	} else {
+               logevent("Misformed URL.");
+               my $response = HTTP::Response->new(404,"ERROR: Misformed URL.");
+               $heap->{client}->put($response);
+               $kernel->yield("shutdown");
+        }
+      },
 
-        # InlineStates let us attach our own events and handlers to a TCP
-        # server.  Here we attach a handler for the got_response event, which
-        # will be sent to us by proxy server when it has recieved reply from
-        # remote server.
+      ClientDisconnected => sub {
+        my ( $kernel, $session, $heap ) = @_[ KERNEL, SESSION, HEAP ];
+        logevent( 'http server got disconnect');
+      },
 
-        InlineStates => {
-            got_response => sub {
-                my ( $kernel, $heap, $input ) = @_[ KERNEL, HEAP, ARG0 ];
-                logevent('http server got response');
-                my $response = HTTP::Response->parse($input);
-                $heap->{client}->put($response) if defined( $heap->{client} );
-                $kernel->yield("shutdown");
-            },
-        },
-    );
+      ClientError => sub {
+        my ( $kernel, $session, $heap ) = @_[ KERNEL, SESSION, HEAP ];
+        $kernel->yield("shutdown");
+      },
 
+      # InlineStates let us attach our own events and handlers to a TCP
+      # server.  Here we attach a handler for the got_response event, which
+      # will be sent to us by proxy server when it has recieved reply from 
+      # remote server.
 
+      InlineStates => {
+  	   got_response => sub {
+		my ( $kernel, $heap, $input) = @_[ KERNEL, HEAP, ARG0];
+                logevent( 'http server got response');
+                my $response = HTTP::Response->parse( $input );
+ 	        $heap->{client}->put($response) if defined($heap->{client});
+	        $kernel->yield("shutdown");
+   	   },
+	},
+   );
 }
 
 #############################################################################
-sub createAgent {
+sub createAgent { 
 #############################################################################
-    use POE qw(Wheel::FollowTail Wheel::Run Filter::Line Component::Child);
+  use POE qw(Wheel::FollowTail Wheel::Run Filter::Line Component::Child);
 
-    system(
-        "$ENV{AMON_HOME}/bin/monit",              "-c",
-        "$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", "quit"
-    );
-    sleep(1);
-    system( "$ENV{AMON_HOME}/bin/monit", "-c",
-        "$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc" );
-    sleep(1);
-    system(
-        "$ENV{AMON_HOME}/bin/monit",              "-c",
-        "$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", "monitor",
-        "all"
-    );
+  system("$ENV{AMON_HOME}/bin/monit",
+         "-c","$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc",
+         "quit");
+  sleep(1); 
+  system("$ENV{AMON_HOME}/bin/monit",
+         "-c","$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc");
+  sleep(1); 
+  system("$ENV{AMON_HOME}/bin/monit",
+         "-c","$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc",
+         "monitor","all"); 
 
-    my $AMON          = $ENV{AMON};
-    my $ALIEN_RELEASE = $ENV{ALIEN_RELEASE};
-    my @ALIEN_COMPONENTS =
-      split( " ",
-        defined( $ENV{ALIEN_COMPONENTS} ) ? $ENV{ALIEN_COMPONENTS} : "" );
+  my $AMON = $ENV{AMON};
+  my $ALIEN_RELEASE = $ENV{ALIEN_RELEASE};
+  my @ALIEN_COMPONENTS = split(" ",
+                         defined($ENV{ALIEN_COMPONENTS}) ? 
+                         $ENV{ALIEN_COMPONENTS} : "");
 
-    my @ALIEN_SERVICES =
-      split( " ", defined( $ENV{ALIEN_SERVICES} ) ? $ENV{ALIEN_SERVICES} : "" );
-    my @ALIEN_INSTALLED_SERVICES = split(
-        " ",
-        defined( $ENV{ALIEN_INSTALLED_SERVICES} )
-        ? $ENV{ALIEN_INSTALLED_SERVICES}
-        : ""
-    );
+  my @ALIEN_SERVICES = split(" ",
+                         defined($ENV{ALIEN_SERVICES}) ? 
+                         $ENV{ALIEN_SERVICES} : "");
+  my @ALIEN_INSTALLED_SERVICES = split(" ",
+                         defined($ENV{ALIEN_INSTALLED_SERVICES}) ? 
+                         $ENV{ALIEN_INSTALLED_SERVICES} : "");
 
-    my $INSTALLER_STATUS = "Idle";
+  my $INSTALLER_STATUS = "Idle";
 
-    my $has_logfile;
-    my $saved_status = "";
-    my $saved_key    = "";
+  my $has_logfile;
+  my $saved_status = "";
+  my $saved_key    = "";
+ 
+  POE::Component::Client::HTTP->spawn( 
+    Alias => 'ua',
+    Timeout => 180,
+  );
 
-    POE::Component::Client::HTTP->spawn(
-        Alias   => 'ua',
-        Timeout => 180,
-    );
 
-    POE::Session->create(
-        inline_states => {
-            _start => sub {
-                my ( $kernel, $self, $args ) = @_[ KERNEL, ARG0 .. $#_ ];
-                $kernel->alias_set("installer");
-            },
-            _stop  => sub { },
-            stdout => sub {
-                my ( $kernel, $self, $args ) = @_[ KERNEL, ARG0 .. $#_ ];
-                my $stdout = $args->{out};
-                logevent("Agent got stdout: $stdout");
-                $kernel->post(
-                    Jabber => "installer_response",
-                    "$stdout"
-                );
-            },
-            stderr => sub {
-                my ( $kernel, $self, $args ) = @_[ KERNEL, ARG0 .. $#_ ];
-                my $stderr = $args->{out};
-                logevent("Agent got stderr: $stderr");
-                $kernel->post(
-                    Jabber => "installer_response",
-                    "$stderr"
-                );
-            },
-            done => sub {
-                my ( $kernel, $self, $args ) = @_[ KERNEL, ARG0 .. $#_ ];
-                logevent("Agent got done");
-                $kernel->post( Jabber => "installer_done" );
-            },
-            died => sub {
-                my ( $kernel, $self, $args ) = @_[ KERNEL, ARG0 .. $#_ ];
-                logevent("Agent got done");
-                $kernel->post(
-                    Jabber => "installer_status",
-                    "Died"
-                );
-            },
-            error => sub {
-                my ( $kernel, $self, $args ) = @_[ KERNEL, ARG0 .. $#_ ];
-                logevent("Agent got done");
-                my $error = $args->{error};
-                $kernel->post(
-                    Jabber => "installer_status",
-                    "Error: $error"
-                );
-            },
-        }
-    );
+  POE::Session->create(
+    inline_states => {
+        _start => sub { 
+               my ( $kernel, $self, $args ) = @_[KERNEL, ARG0 .. $#_ ];
+                 $kernel->alias_set("installer"); 
+               },
+         _stop  => sub { },
+         stdout => sub {
+               my ( $kernel, $self, $args ) = @_[KERNEL, ARG0 .. $#_ ];
+               my $stdout = $args->{out};
+               logevent( "Agent got stdout: $stdout");
+               $kernel->post(client=>"installer_response", 
+                                      "$stdout");   
+              },
+         stderr => sub {
+              my ( $kernel, $self, $args ) = @_[KERNEL, ARG0 .. $#_ ];
+              my $stderr = $args->{out};
+              logevent( "Agent got stderr: $stderr");
+              $kernel->post(client=>"installer_response", 
+                                      "$stderr");   
+              },
+         done => sub {
+              my ( $kernel, $self, $args ) = @_[KERNEL, ARG0 .. $#_ ];
+              logevent( "Agent got done");
+              $kernel->post(client=>"installer_done");
+         },
+         died => sub {
+              my ( $kernel, $self, $args ) = @_[KERNEL, ARG0 .. $#_ ];
+              logevent( "Agent got done");
+              $kernel->post(client=>"installer_status", 
+                                     "Died");   
+         },
+         error => sub {
+              my ( $kernel, $self, $args ) = @_[KERNEL, ARG0 .. $#_ ];
+              logevent( "Agent got done");
+              my $error = $args->{error};
+              $kernel->post(client=>"installer_status", 
+                                     "Error: $error");   
+         },
+      }
+  );
 
-    my $installer = POE::Component::Child->new( alias => "installer", );
+   my $installer = POE::Component::Child->new(
+     alias => "installer",
+  ); 
+       
+   $installer->{StdioFilter} = 
+                POE::Filter::Line->new(OutputLiteral =>'\n');
+   
+   POE::Component::Client::TCP->new(    
+        Alias         =>  "client",
+        RemoteAddress => "$AMON_SERVER",
+        RemotePort    =>  $AMON_PORT,
+        Filter        => "POE::Filter::Stream",
 
-    $installer->{StdioFilter} = POE::Filter::Line->new( OutputLiteral => '\n' );
+        ConnectTimeout => 5,
 
-    POE::Session->create(
-        options       => { debug => 0, trace => 0 },
-        inline_states => {
-            _start => sub {
-                my ( $kernel, $heap ) = @_[ KERNEL, HEAP ];
-                for my $filename ( split( / /, $ENV{AMON_LOGFILES} ) ) {
-                    next if $filename eq "";
-                    my @path = split( "/", $filename );
-                    my $logname = pop @path;
-                    $logname =~ s%\.log%%;
-                    my $name =
-                      defined( $LogToName->{$logname} )
-                      ? $LogToName->{$logname}
-                      : $logname;
-                    $heap->{$name}->{logfile} = $filename;
-                    $has_logfile->{$name} = 1;
-                }
-                $kernel->alias_set('Jabber');
-                $heap->{$COMPONENT} = POE::Component::Jabber->new(
-                    IP             => $AMON_SERVER,
-                    Port           => $AMON_PORT,
-                    Hostname       => $REALM,
-                    Username       => "$UID",
-                    Password       => "$UKEY",
-                    Alias          => $COMPONENT,
-                    ConnectionType => +LEGACY,
-                    Debug          => '0',
-                    States         => {
-                        StatusEvent => "StatusEvent",
-                        InputEvent  => "InputEvent",
-                        ErrorEvent  => "ErrorEvent",
-                    }
-                );
-                $kernel->delay( 'reconnect', 1);
-            },
+        Started    => sub {
+           my ($heap,@args) = @_[HEAP, ARG0..$#_];
+           for my $filename (split(/ /,$ENV{AMON_LOGFILES})) {
+             next if $filename eq "";
+             my @path = split("/",$filename);
+             my $logname = pop @path;
+             $logname =~ s%\.log%%;
+             my $name = defined($LogToName->{$logname}) ? 
+                        $LogToName->{$logname} : $logname;
+             $heap->{$name}->{logfile} = $filename; 
+             $has_logfile->{$name} = 1;
+          }
+        },
 
-            _stop => sub {
-                my $kernel = $_[KERNEL];
-                $kernel->alias_remove();
-            },
+        # The client has connected.  Display some status and prepare to
+        # gather information.
+        Connected => sub {
+           my ($socket, $peer_address, $peer_port) = @_[ARG0, ARG1, ARG2];
+	   logevent( "Agent connnected to $AMON_SERVER:$AMON_PORT");
+        },
 
-            StatusEvent => sub {        
-               my ( $kernel, $sender, $heap, $state ) =  @_[ KERNEL, SENDER, HEAP, ARG0 ];
-               if ( $state == +PCJ_INIT_FINISHED ) {
-                  my $jid = $heap->{$COMPONENT}->jid();
-                  $heap->{'jid'} = $jid;
-                  $heap->{'sid'} = $sender->ID();
-                  $kernel->post( $COMPONENT, 'output_handler',XNode->new('presence') );
-                  # And here is the purge_queue. This is to make sure we haven't sent
-                  # nodes while something catastrophic has happened (like reconnecting).
-                  $kernel->yield( $COMPONENT, 'purge_queue' );
-                  $kernel->yield( 'get_status' );
-               }
-            },
+        # The connection failed.
+        ConnectError => sub {
+            my ($syscall_name, $error_number, $error_string) = @_[ARG0, ARG1, ARG2];
+	    logevent( "Agent failed to connnect to $AMON_SERVER:$AMON_PORT. Retry in 60 seconds.");
+	    $_[KERNEL]->delay( reconnect => 60 );
+        },
+           
+        Disconnected => sub {},
 
-            ErrorEvent  => \&pcjError,
-            OutputEvent => \&pcjOutput,
+        ServerError => sub {
+            my ($syscall_name, $error_number, $error_string) = @_[ARG0, ARG1, ARG2];
+ 	    logevent( "Server error.  Reconnnecting to $AMON_SERVER:$AMON_PORT in 60 seconds.");
 
-            InputEvent => sub {
-#
-# This is the input event. We receive all data from the server through this
-# event. ARG0 will a POE::Filter::XML::Node object.
-#
-                my ( $kernel, $heap, $node ) = @_[ KERNEL, HEAP, ARG0 ];
+	    delete $_[HEAP]->{extrapath};
+            delete $_[HEAP]->{uri};
+	    $_[KERNEL]->delay( reconnect => 60 );
+       },
 
-                my $from = $node->attr('from');
-                my $sid  = $node->attr('sid');
-                my $input = $node->get_tag('body')->data();
-
-                my $r = HTTP::Request->parse($input);
-                $heap->{extrapath} = $r->header("extrapath");
-                $heap->{extrasid} = $sid;
-                $heap->{extrafrom} = $from;
-                $heap->{uri}       = $r->uri;
-                my @path = split( '/', $r->uri );
-                my $mode = pop @path;
-                my $page = pop @path;
-                for ($page) {
-                    /logs/ && do {
-                           logevent("Agent got request for log files: $mode");
-                           my $response = HTTP::Response->new( 200, "OK" );
-                           $response->header( "content-type", "text/html" );
-                           my @log;
-                           open( LOG, "tail -1000 $heap->{$mode}->{logfile}|" )
-                           and @log = <LOG>
-                           and close LOG;
-                           my $content = qq{<pre>};
-                           $content .= join( "", @log );
-                           $content .= qq{</pre></html>};
-                           $response->content($content);
-                           my $node = XNode->new('message');
-                           $node->attr( 'to', $from );
-                           $node->attr( 'sid', $sid );
-                           $node->attr('msg','REPLY');
-                           $node->insert_tag('body')->data(encode_base64($response->as_string()));
-                           $kernel->yield( 'OutputEvent', $node, $heap->{'sid'} );
-                           last;
-                        };
-                    /installer/ && do {
-                        logevent("Agent sending message to installer: $mode");
-                        if ( $mode eq "_done" ) {
-                            $INSTALLER_STATUS = "Idle";
-                            &installerStatus($kernel,$INSTALLER_STATUS,
-                                             $from,$sid,$heap->{'sid'});
-                            delete $heap->{installer};
-                            last;
-                        }
-                        if ( $mode eq "_amon" ) {
-                            if ( !defined( $heap->{installer} ) ) {
-                               &installerStatus($kernel,"Autoupdate",
-                                                $from,$sid,$heap->{'sid'});
-                                exec( $AMON, "--autoupdate" )
-   				      or warn("Could not autoupdate!");
-                            }
-                            last;
-                        }
-                        if ( $mode eq "_stop" ) {
-                            if ( defined($installer) ) {
-                                eval { $installer->kill( HARD => 1 ); };
-                            }
-                            &installerStatus($kernel,"Killed",
-                                              $from,$sid,$heap->{'sid'});
-                            last;
-                        }
-                        if ( $mode eq "_output" ) {
-                            my $output = defined( $heap->{output} ) ?
-                                         join( "\n", @{ $heap->{output} } ) : "n/a";
-                            &installerStatus($kernel,$output,
-                                              $from,$sid,$heap->{'sid'});
-                            last;
-                        }
-                        if ( !defined( $heap->{installer} ) ) {
+        # The server has sent us something.  Save the information.
+        ServerInput => sub {
+ 	    my ( $kernel, $session, $heap, $input ) = @_[ KERNEL, SESSION, HEAP, ARG0, ARG1 ];
+            my $r = HTTP::Request->parse( $input );
+	    $heap->{extrapath} = $r->header("extrapath");
+            $heap->{uri} = $r->uri;
+            my @path = split ('/',$r->uri);
+            my $mode = pop @path;
+            my $page = pop @path;
+            for ($page) {
+                /logs/ && do {
+                          $kernel->post($session => "show_logs", $mode); 
+                          last; 
+                         };
+                /installer/ && do {
+                          logevent( "Agent sending message to installer: $mode");
+                          t d($r);
+                          if ($mode eq "_done") {
+                              $INSTALLER_STATUS = "Idle";
+                              $heap->{server}
+                                      ->put(&installerStatus("Idle"),
+                                            '%%%EOF%%%');
+                              delete $heap->{installer};
+                              last;
+                          }
+                          if ($mode eq "_amon") {
+                             if (! defined ($heap->{installer})) {  
+                               $heap->{server}
+                                    ->put(&installerStatus("AutoUpdate"),
+                                          '%%%EOF%%%');
+                                exec ($AMON,"--autoupdate") or 
+                                      warn("Could not autoupdate!");
+                             }
+                             last;
+                          }
+                          if ($mode eq "_stop") {
+                             if (defined($installer)) { 
+                                 eval { $installer->kill(HARD=>1);};  
+                             }
+                             $heap->{server}
+                               ->put(&installerStatus("Killed"),
+                                     '%%%EOF%%%');
+                             last; 
+                          }
+                          if ($mode eq "_output") {
+                             defined($heap->{output}) or last; 
+                             my $output = join("\n",
+#                                               "<pre>",
+                                               @{$heap->{output}});
+                             $heap->{server}
+                                  ->put(&installerStatus($output),
+                                        '%%%EOF%%%');
+                             last;
+                          }
+                          if (! defined($heap->{installer})) {
                             $heap->{installer} = "Running";
-                            $INSTALLER_STATUS = "Running";
-                            $kernel->post(Jabber => "installer_response","BEGIN");
+                            $INSTALLER_STATUS ="Running";
+                            $kernel->post(info => "installer_response", 
+                                          "BEGIN");
                             my $version = $mode;
-                            t "============ calling installer run","\n";
-                            $kernel->post( Jabber => "installer_run", $version );
-                        }
-                        &installerStatus($kernel,$heap->{installer},
-                                         $from,$sid,$heap->{'sid'});
-                         last;
-                    };
-                    if ( defined($AMON_AUTHZ_TOKEN) ) {
-                        $r->authorization_basic( 'admin', $AMON_AUTHZ_TOKEN );
-                    }
-                    $kernel->post( ua => request => got_response => $r );
-                }
-            },
+                            $kernel->post($session => "installer_run", 
+                                          $version);
+                          } 
+                          $heap->{server}
+                               ->put(&installerStatus($heap->{installer}),
+                                    '%%%EOF%%%');
+                           last; 
+                       };
+                if (defined($AMON_AUTHZ_TOKEN)) {
+                    $r->authorization_basic('admin', $AMON_AUTHZ_TOKEN);
+                } 
+                $kernel->post( ua => request => got_response => $r);
+            }
+        },
 
+        # These are handlers for additional events not included in the
+        # default Server::TCP module.
+        InlineStates => {
             installer_response => sub {
-                my ( $kernel, $heap, $response ) = @_[ KERNEL, HEAP, ARG0 ];
-                logevent("Agent got reply from installer: $response");
+		my ( $kernel, $heap, $response) = @_[ KERNEL, HEAP, ARG0 ];
+                logevent( "Agent got reply from installer: $response");
                 delete $heap->{output} if $response eq "BEGIN";
-                push( @{ $heap->{output} }, $response );
-                ( @{ $heap->{output} } > 1000 ) && shift @{ $heap->{output} };
-            },
-             installer_run => sub {
-                my ( $kernel, $heap, $session ) = @_[ KERNEL, HEAP, SESSION ];
-                my $version = $_[ARG0];
-                t "============ got installer run","\n";
-                logevent("Agent running $AMON installer for version $version");
-                $installer->run( $AMON, "--alien-release", $version,
-                    "install" );
-            },
+                push (@{$heap->{output}},$response);
+                (@{$heap->{output}} > 1000 ) && shift @{$heap->{output}}; 
+             },
+            installer_run => sub {
+		my ( $kernel,$heap,$session) = @_[ KERNEL, HEAP, SESSION ];
+		my $version = $_[ ARG0 ];
+                logevent( "Agent running $AMON installer for version $version");
+                $installer->run($AMON,
+                                "--alien-release",$version,
+                                "install"); 
+             },
 
             installer_done => sub {
-                my ( $kernel, $heap, $session ) = @_[ KERNEL, HEAP, SESSION ];
-                my $version = $_[ARG0];
-                logevent("Installer done");
-                system(
-                    "$ENV{AMON_HOME}/bin/monit",              "-c",
-                    "$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", "stop",
-                    "all"
-                );
+		my ( $kernel,$heap,$session) = @_[ KERNEL, HEAP, SESSION ];
+		my $version = $_[ ARG0 ];
+                logevent( "Installer done");
+                system("$ENV{AMON_HOME}/bin/monit",
+                       "-c","$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", 
+                       "stop",
+                       "all");
                 sleep(60);
-                system(
-                    "$ENV{AMON_HOME}/bin/monit",              "-c",
-                    "$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", "reload"
-                );
+                system("$ENV{AMON_HOME}/bin/monit",
+                       "-c","$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", 
+                       "reload");
                 sleep(5);
-                system( "$ENV{AMON_HOME}/bin/monit", "-c",
-                    "$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc" );
+                system("$ENV{AMON_HOME}/bin/monit",
+                       "-c","$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc");
                 sleep(5);
-                system(
-                    "$ENV{AMON_HOME}/bin/monit",              "-c",
-                    "$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", "monitor",
-                    "all"
-                );
-                system(
-                    "$ENV{AMON_HOME}/bin/monit",              "-c",
-                    "$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", "validate"
-                );
+                system("$ENV{AMON_HOME}/bin/monit",
+                       "-c","$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", 
+                       "monitor",
+                       "all");
+                system("$ENV{AMON_HOME}/bin/monit",
+                       "-c","$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc", 
+                       "validate");
                 $heap->{installer} = "Done";
                 $INSTALLER_STATUS = "Done";
-            },
+             },
 
             installer_status => sub {
-                my ( $kernel, $heap, $session ) = @_[ KERNEL, HEAP, SESSION ];
-                my $status = $_[ARG0];
+		my ( $kernel,$heap,$session) = @_[ KERNEL, HEAP, SESSION ];
+		my $status = $_[ ARG0 ];
+                t d($status);
                 $heap->{installer} = $status;
                 $INSTALLER_STATUS = $status;
-            },
+             },
 
-            get_status => sub {
-              my ( $kernel, $heap ) = @_[ KERNEL, HEAP ];
-              logevent("Agent connnected");
-              my $r = HTTP::Request->new( GET => 'http://localhost:2812/_status' );
-              if ( defined($AMON_AUTHZ_TOKEN) ) {
-                  $r->authorization_basic( 'admin', $AMON_AUTHZ_TOKEN );
-               }
-               $kernel->post( ua => request => send_status => $r );
-            },
+            show_logs => sub {
+		my ( $kernel, $heap, $name ) = @_[ KERNEL, HEAP, ARG0 ];
+		my ( $host, $port ) = split ( /:/, $heap->{extrapath});
+                logevent( "Agent got request for log files: $name");
+                my $response = HTTP::Response->new(200,"OK");
+		$response->header("content-type","text/html");   
+                my @log;
+                open(LOG, "tail -1000 $heap->{$name}->{logfile}|") and 
+                @log = <LOG> and
+                close LOG;
+                my $content = qq{<pre>};
+                $content .= join("",@log);
+                $content .= qq{</pre></html>};
+                $response->content($content);
+                $heap->{server}->put($response->as_string(),'%%%EOF%%%');
+             },
 
-            send_status => sub {
-                my ( $kernel, $heap, $request, $response_packet ) =
-                  @_[ KERNEL, HEAP, ARG0, ARG1 ];
-                logevent('Agent sending status info');
+            # We got response from http server. Send it to http client on the other end .
+            got_response => sub {
+		my ( $kernel, $heap, $request, $response_packet ) = @_[ KERNEL, HEAP, ARG0, ARG1 ];
+		my ( $host, $port ) = split ( /:/, $heap->{extrapath});
+                logevent( 'Agent got response');
                 my $r = $response_packet->[0];
-                if ( $r->code == 500 ) {
-                    system( "$ENV{AMON_HOME}/bin/monit", "-c",
-                        "$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc" );
+                $heap->{server}->put($r->as_string(),'%%%EOF%%%');
+            },
+          },
+      );
+
+
+  POE::Component::Client::TCP->new(    
+        Alias         =>  "info",
+        RemoteAddress => "$AMON_INFO_SERVER",
+        RemotePort    =>  $AMON_INFO_PORT,
+        Filter        => "POE::Filter::Stream",
+        ConnectTimeout => 5,
+
+        Started    => sub {my @args = @_[ARG0..$#_];},
+
+        # The client has connected.  Display some status and prepare to
+        # gather information.
+        Connected => sub {
+           my ($socket, $peer_address, $peer_port) = @_[ARG0, ARG1, ARG2];
+	   logevent( "Agent connnected to $AMON_INFO_SERVER:$AMON_INFO_PORT");
+           my $r = HTTP::Request->new(GET => 'http://localhost:2812/_status');
+           if (defined($AMON_AUTHZ_TOKEN)) {
+              $r->authorization_basic('admin', $AMON_AUTHZ_TOKEN);
+           } 
+           $_[KERNEL]->post( ua => request => send_status => $r);
+        },
+
+        ServerInput => sub {
+           my ( $kernel, $session, $heap, $request ) = @_[ KERNEL, SESSION, HEAP, ARG0, ARG1 ];
+        },
+
+        # The connection failed.
+        ConnectError => sub {
+            my ($syscall_name, $error_number, $error_string) = @_[ARG0, ARG1, ARG2];
+	    logevent( "Agent failed to connnect to $AMON_INFO_SERVER:$AMON_INFO_PORT. Retry in 60 seconds.");
+	    $_[KERNEL]->delay( reconnect => 60 );
+        },
+           
+        Disconnected => sub {},
+
+        ServerError => sub {
+            my ($syscall_name, $error_number, $error_string) = @_[ARG0, ARG1, ARG2];
+ 	    logevent( "Server error.  Reconnnecting to $AMON_INFO_SERVER:$AMON_INFO_PORT in 60 seconds.");
+	    $_[KERNEL]->delay( reconnect => 60 );
+       },
+
+        # These are handlers for additional events not included in the
+        # default Server::TCP module.
+        InlineStates =>
+          {    
+            send_status => sub {
+		my ( $kernel, $heap, $request, $response_packet ) =  
+                                  @_[ KERNEL, HEAP, ARG0, ARG1 ];
+                logevent( 'Agent sending status info');
+                t d($response_packet);
+                my $r = $response_packet->[0];
+                if ($r->code == 500) {
+                  system("$ENV{AMON_HOME}/bin/monit",
+                         "-c","$ENV{AMON_HOME}/$ENV{HOSTNAME}.monitrc");
                 }
-                my $status = &parseStatus( $r->content );
-                if ( -e "$ENV{AMON_HOME}/NoAutoInstall" ) {
-                    $status->{installer}->{autoupdate} = 0;
-                }
-                else {
-                    $status->{installer}->{autoupdate} = 1;
+                my $status  = &parseStatus($r->content);
+                if (-e "$ENV{AMON_HOME}/NoAutoInstall") {
+                  $status->{installer}->{autoupdate} = 0;
+                } else {
+                  $status->{installer}->{autoupdate} = 1;
                 }
                 $status->{installer}->{status} = $INSTALLER_STATUS;
-                $status->{alien}               = {};
-                $status->{alien}               = {
-                    root               => $ENV{ALIEN_ROOT},
-                    components         => [@ALIEN_COMPONENTS],
-                    services           => [@ALIEN_SERVICES],
-                    installed_services => [@ALIEN_INSTALLED_SERVICES],
-                    version => $status->{installer}->{status} eq "Running"
-                    ? "Updating..."
-                    : &alienVersion,
-                    logdir => $ENV{ALIEN_LOGDIR}
-                };
-                foreach my $p ( keys %{ $status->{process} } ) {
-                    defined($has_logfile)
-                      and $status->{process}->{$p}->{has_logfile} =
-                      $has_logfile->{$p};
+                $status->{alien} = {};
+                $status->{alien} = {root => $ENV{ALIEN_ROOT},
+                                    components => [@ALIEN_COMPONENTS],
+                                    services  => [@ALIEN_SERVICES],
+                                    installed_services  => [@ALIEN_INSTALLED_SERVICES],
+                                    version => $status->{installer}->{status} eq "Running" ? "Updating..." : &alienVersion,
+                                    logdir => $ENV{ALIEN_LOGDIR}};
+                foreach my $p (keys %{$status->{process}}) {
+                   defined ($has_logfile) and  
+                   $status->{process}->{$p}
+                          ->{has_logfile} = $has_logfile->{$p};
                 }
-                my $str = freeze ($status);
-                if ( $str ne $saved_status ) {
-                        my $node = XNode->new('message');
-                        $node->attr( 'to', "master\@$REALM" );
-                        $node->attr('msg',"INFO");
-                        my $hostname = `hostname -f`; chomp $hostname;
-                        $node->attr('hostname',$hostname);
-                        $node->insert_tag('body')->data(encode_base64($str));
-                        $kernel->yield( 'OutputEvent', $node, $heap->{'sid'} );
-                        $saved_status = $str;
-                }
-                else {
-                    logevent('Nothing changed');
-                }
-                $kernel->delay( get_status => 15 );
-            },
+                my $xs   = XML::Simple->new();
+                my $str  = $xs->XMLout($status);
+                if ( $str ne $saved_status) {
+                  if ( defined $heap->{server} ) { 
+                    $heap->{server}->put($str); 
+                    $saved_status = $str;
+                  } 
+                } else {
+                   logevent( 'Nothing changed');
+                }   
+  	        $kernel->delay( reconnect => 15 );
+                $kernel->yield("shutdown");
+              },
+          },
+  );
 
-# We got response from http server. Send it to http client on the other end .
-
-            got_response => sub {
-                my ( $kernel, $heap, $request, $response_packet ) =
-                  @_[ KERNEL, HEAP, ARG0, ARG1 ];
-                my ( $host, $port ) = split( /:/, $heap->{extrapath} );
-                logevent('Agent got response');
-                my $r = $response_packet->[0];
-
-                my $node = XNode->new('message');
-                $node->attr('to', $heap->{extrafrom});
-                $node->attr('sid',$heap->{extrasid});
-                $node->attr('msg',"REPLY");
-                $node->insert_tag('body')->data(encode_base64($r->as_string()));
-                $kernel->yield( 'OutputEvent', $node, $heap->{'sid'} );
-            },
-
-            reconnect => sub {
-                my ( $kernel, $heap ) = @_[ KERNEL, HEAP ];
-                $kernel->post($COMPONENT,'reconnect');
-            },
-        }
-    );
-}
+} 
 
 #############################################################################
 sub reDirect {
 #############################################################################
-    my ( $r, $page ) = @_;
-    my $organisation = $r->header("organisation");
-    my $home         = $r->header("home");
-    my $host         = $r->header("host");
-    my $port         = $r->header("port");
-    my $url          = "$home/$organisation/$page/$host/$port/&page=$page";
-    my $response     = HTTP::Response->new( 302, "Moved" );
-    $response->header( "Location", $url );
-    return $response->as_string();
+  my ($r,$page) = @_;
+  my $organisation = $r->header("organisation");
+  my $home = $r->header("home");
+  my $host = $r->header("host");
+  my $port = $r->header("port");
+  my $url = "$home/$organisation/$page/$host/$port/&page=$page";
+  my $response = HTTP::Response->new(302,"Moved");
+  $response->header("Location",$url);   
+  return $response->as_string();
 }
 
 #############################################################################
 sub installerStatus {
 #############################################################################
-    my ($kernel,$msg,$to,$session,$sid) = @_;
-    t "msg=",d($msg);
-    t "to=",d($to);
-    t "session=",d($session);
-    t "sid=",d($sid);
-    my $response = HTTP::Response->new( 200, "OK" );
-    $response->header( "content-type", "text/html" );
-    my $content = qq {$msg};
-    $response->content($content);
-    my $node = XNode->new('message');
-    $node->attr('to', $to);
-    $node->attr('sid',$session);
-    $node->attr('msg',"REPLY");
-    $node->insert_tag('body')->data(encode_base64($response->as_string()));
-    t d($node);
-    $kernel->yield( 'OutputEvent', $node, $sid);
+  my $msg = shift;
+  my $response = HTTP::Response->new(200,"OK");
+  $response->header("content-type","text/html");   
+  my $content = qq {$msg};
+  $response->content($content);
+  return $response->as_string();
 }
 
 #############################################################################
 sub alienVersion {
 #############################################################################
-    my $version = "n/a";
+  my $version = "n/a";
 
-    open( INPUT, "$ENV{ALIEN_ROOT}/share/alien/ALIEN_VERSION" ) && do {
-        my $line = <INPUT>;
-        close INPUT;
-        $line =~ s/,//g;
-        $line =~ s/AliEn //g;
-        $line =~ s/build//g;
-        $line =~ s/ *://g;
-        my ( $v, $b ) = split( / /, $line );
-        $version = "$v-$b";
-    };
+  open(INPUT, "$ENV{ALIEN_ROOT}/share/alien/ALIEN_VERSION") && do {
+    my $line = <INPUT>;
+    close INPUT;
+    $line =~ s/,//g;
+    $line =~ s/AliEn //g;
+    $line =~ s/build//g;
+    $line =~ s/ *://g;
+    my ($v,$b) = split (/ /,$line);
+    $version = "$v-$b"; 
+  };
 
-    return $version;
+  return $version;
 
-}
+} 
 #############################################################################
 sub parseStatus {
 #############################################################################
-    my $content = shift;
+  my $content = shift;
 
-    my $status;
-    my $process;
-    my $system;
-    my $tag;
-    my $file;
-    my $tagname;
+my $status;
+my $process;
+my $system;
+my $tag;
+my $file;
+my $tagname;
 
-    $status->{monit} = {};
+$status->{monit} = {};
 
-    $status->{process}->{amon}->{status} = "running";
+$status->{process}->{amon}->{status} = "running";
 
-    foreach ( split( /\n/, $content ) ) {
-        $_ eq "" and next;
-        /^The monit daemon .*:/ and do {
-            my ( $dummy, $uptime ) = split( /:/, $_ );
-            $status->{monit}->{uptime} = $uptime;
-            next;
-        };
-        /^File/ and do {
-            my ( $dummy, $name ) = split( /\'/, $_ );
-            $file    = $name;
-            $tag     = "file";
-            $tagname = $name;
-            next;
-        };
-        /^Process/ and do {
-            my ( $dummy, $name ) = split( /\'/, $_ );
-            $process = $name;
-            $tag     = "process";
-            $tagname = $name;
-            next;
-        };
-        /^System/ and do {
-            my ( $dummy, $name ) = split( /\'/, $_ );
-            $process = $name;
-            $tag     = "system";
-            $tagname = $name;
-            next;
-        };
-        /^ *status/ and do {
-            my ( $dummy, $value ) = split( /status */, $_ );
-            $status->{$tag}->{$tagname}->{status} = $value;
-            next;
-        };
-        /^ *monitoring status/ and do {
-            my ( $dummy, $value ) = split( /monitoring status */, $_ );
-            $status->{$tag}->{$tagname}->{mon_status} = $value;
-            next;
-        };
-        /^ *permission/ and do {
-            my ( $dummy, $value ) = split( /permission */, $_ );
-            $status->{$tag}->{$file}->{permission} = $value;
-            next;
-        };
-        /^ *uid/ and do {
-            my ( $dummy, $value ) = split( /uid */, $_ );
-            $status->{$tag}->{$file}->{uid} = $value;
-            next;
-        };
-        /^ *gid/ and do {
-            my ( $dummy, $value ) = split( /gid */, $_ );
-            $status->{$tag}->{$file}->{gid} = $value;
-            next;
-        };
-        /^ *timestamp/ and do {
-            my ( $dummy, $value ) = split( /timestamp */, $_ );
-            $status->{$tag}->{$file}->{timestamp} = $value;
-            next;
-        };
-        /^ *size/ and do {
-            my ( $dummy, $value ) = split( /size */, $_ );
-            $status->{$tag}->{$file}->{size} = $value;
-            next;
-        };
-        /^ *pid/ and do {
-            my ( $dummy, $value ) = split( /pid */, $_ );
-            $status->{$tag}->{$process}->{pid} = $value;
-            next;
-        };
-        /^ *parent pid/ and do {
-            my ( $dummy, $value ) = split( /parent pid */, $_ );
-            $status->{$tag}->{$process}->{parent_pid} = $value;
-            next;
-        };
-        /^ *uptime/ and do {
-            my ( $dummy, $value ) = split( /uptime */, $_ );
-            $status->{$tag}->{$process}->{uptime} = $value;
-            next;
-        };
-        /^ *childrens/ and do {
-            my ( $dummy, $value ) = split( /childrens */, $_ );
-            $status->{$tag}->{$process}->{childrens} = $value;
-            next;
-        };
-        /^ *memory kilobytes total/ and do {
-            my ( $dummy, $value ) = split( /memory kilobytes total */, $_ );
-            $status->{$tag}->{$process}->{memory_total} = $value;
-            next;
-        };
-        /^ *memory kilobytes/ and do {
-            my ( $dummy, $value ) = split( /memory kilobytes */, $_ );
-            $status->{$tag}->{$process}->{memory} = $value;
-            next;
-        };
-        /^ *memory percent total/ and do {
-            my ( $dummy, $value ) = split( /memory percent total */, $_ );
-            $status->{$tag}->{$process}->{memory_percent_total} = $value;
-            next;
-        };
-        /^ *memory percent/ and do {
-            my ( $dummy, $value ) = split( /memory percent */, $_ );
-            $status->{$tag}->{$process}->{memory_percent} = $value;
-            next;
-        };
-        /^ *cpu percent total/ and do {
-            my ( $dummy, $value ) = split( /cpu percent total */, $_ );
-            $status->{$tag}->{$process}->{cpu_percent_total} = $value;
-            next;
-        };
-        /^ *cpu percent/ and do {
-            my ( $dummy, $value ) = split( /cpu percent */, $_ );
-            $status->{$tag}->{$process}->{cpu_percent} = $value;
-            next;
-        };
-        /^ *cpu data collected/ and do {
-            my ( $dummy, $value ) = split( /data collected */, $_ );
-            $status->{$tag}->{$process}->{data_collected} = $value;
-            next;
-        };
-        /^ *load average/ and do {
-            my ( $dummy, $value ) = split( /load average */, $_ );
-            $status->{$tag}->{$process}->{load_average} = $value;
-            next;
-        };
-        /^ *memory usage/ and do {
-            my ( $dummy, $value ) = split( /memory usage */, $_ );
-            $status->{$tag}->{$process}->{memory_usage} = $value;
-            next;
-        };
-    }
-
-    return $status;
+foreach (split(/\n/,$content)) {
+    $_ eq "" and next;
+    /^The monit daemon .*:/ and do {
+                   my ($dummy, $uptime) = split (/:/,$_); 
+                   $status->{monit}->{uptime} = $uptime;
+                   next;
+	       };
+    /^File/ and do {
+                   my ($dummy, $name) = split (/\'/,$_); 
+                   $file = $name;
+                   $tag = "file";
+                   $tagname = $name;
+                   next;
+	       };
+    /^Process/ and do {
+                   my ($dummy, $name) = split (/\'/,$_); 
+                   $process = $name;
+                   $tag = "process";
+                   $tagname = $name;
+                   next;
+	       };
+    /^System/ and do {
+                   my ($dummy, $name) = split (/\'/,$_); 
+                   $process = $name;
+                   $tag = "system";
+                   $tagname = $name;
+                   next;
+	       };
+    /^ *status/ and do {
+                   my ($dummy, $value) = split (/status */,$_); 
+                   $status->{$tag}->{$tagname}->{status} = $value;
+                   next;
+	       };
+    /^ *monitoring status/ and do {
+                   my ($dummy, $value) = split (/monitoring status */,$_); 
+                   $status->{$tag}->{$tagname}->{mon_status} = $value;
+                   next;
+	       };
+    /^ *permission/ and do {
+                   my ($dummy, $value) = split (/permission */,$_); 
+                   $status->{$tag}->{$file}->{permission} = $value;
+                   next;
+	       };
+    /^ *uid/ and do {
+                   my ($dummy, $value) = split (/uid */,$_); 
+                   $status->{$tag}->{$file}->{uid} = $value;
+                   next;
+	       };
+    /^ *gid/ and do {
+                   my ($dummy, $value) = split (/gid */,$_); 
+                   $status->{$tag}->{$file}->{gid} = $value;
+                   next;
+	       };
+    /^ *timestamp/ and do {
+                   my ($dummy, $value) = split (/timestamp */,$_); 
+                   $status->{$tag}->{$file}->{timestamp} = $value;
+                   next;
+	       };
+    /^ *size/ and do {
+                   my ($dummy, $value) = split (/size */,$_); 
+                   $status->{$tag}->{$file}->{size} = $value;
+                   next;
+	       };
+    /^ *pid/ and do {
+                   my ($dummy, $value) = split (/pid */,$_); 
+                   $status->{$tag}->{$process}->{pid} = $value;
+                   next;
+	       };
+    /^ *parent pid/ and do {
+                   my ($dummy, $value) = split (/parent pid */,$_); 
+                   $status->{$tag}->{$process}->{parent_pid} = $value;
+                   next;
+	       };
+    /^ *uptime/ and do {
+                   my ($dummy, $value) = split (/uptime */,$_); 
+                   $status->{$tag}->{$process}->{uptime} = $value;
+                   next;
+	       };
+    /^ *childrens/ and do {
+                   my ($dummy, $value) = split (/childrens */,$_); 
+                   $status->{$tag}->{$process}->{childrens} = $value;
+                   next;
+	       };
+    /^ *memory kilobytes total/ and do {
+                   my ($dummy, $value) = split (/memory kilobytes total */,$_); 
+                   $status->{$tag}->{$process}->{memory_total} = $value;
+                   next;
+	       };
+    /^ *memory kilobytes/ and do {
+                   my ($dummy, $value) = split (/memory kilobytes */,$_); 
+                   $status->{$tag}->{$process}->{memory} = $value;
+                   next;
+	       };
+    /^ *memory percent total/ and do {
+                   my ($dummy, $value) = split (/memory percent total */,$_); 
+                   $status->{$tag}->{$process}->{memory_percent_total} = $value;
+                   next;
+	       };
+    /^ *memory percent/ and do {
+                   my ($dummy, $value) = split (/memory percent */,$_); 
+                   $status->{$tag}->{$process}->{memory_percent} = $value;
+                   next;
+	       };
+    /^ *cpu percent total/ and do {
+                   my ($dummy, $value) = split (/cpu percent total */,$_); 
+                   $status->{$tag}->{$process}->{cpu_percent_total} = $value;
+                   next;
+	       };
+    /^ *cpu percent/ and do {
+                   my ($dummy, $value) = split (/cpu percent */,$_); 
+                   $status->{$tag}->{$process}->{cpu_percent} = $value;
+                   next;
+	       };
+    /^ *cpu data collected/ and do {
+                   my ($dummy, $value) = split (/data collected */,$_); 
+                   $status->{$tag}->{$process}->{data_collected} = $value;
+                   next;
+	       };
+    /^ *load average/ and do {
+                   my ($dummy, $value) = split (/load average */,$_); 
+                   $status->{$tag}->{$process}->{load_average} = $value;
+                   next;
+	       };
+    /^ *memory usage/ and do {
+                   my ($dummy, $value) = split (/memory usage */,$_); 
+                   $status->{$tag}->{$process}->{memory_usage} = $value;
+                   next;
+	       };
+   }
+ 
+   return $status;
 }
+
 
 #############################################################################
 #############################################################################
 
-Log::TraceMessages::check_argv();
+  Log::TraceMessages::check_argv();
 
-my $pidfile = $ENV{AMON_HOME} . "/amon.pid";
-open F, "> $pidfile" or die "Can't open $pidfile : $!";
-print F $$;
-close F;
+  my $pidfile = $ENV{AMON_HOME}."/amon.pid";
+  open F, "> $pidfile" or die "Can't open $pidfile : $!";
+  print F $$;
+  close F;
 
-my $AMON = $0; $0 = "amon";
+  my $AMON = $0; $0 = "amon";
 
-my $is_master = 0;
-my $is_jabber = 0;
+  my $is_master = 0;
 
-GetOptions(
-    'master'         => \$is_master,
-    'jabber'         => \$is_jabber,
-    'server=s'       => \$AMON_SERVER,
-    'port=i'         => \$AMON_PORT,
-    'cache_server=s' => \$AMON_CACHE_SERVER,
-    'cache_port=i'   => \$AMON_CACHE_PORT,
-    'http_server=s'  => \$AMON_HTTP_SERVER,
-    'http_port=i'    => \$AMON_HTTP_PORT
-);
+  GetOptions ('master'   => \$is_master,
+              'server=s' => \$AMON_SERVER,
+	      'port=i'   => \$AMON_PORT,
+              'info_server=s'  => \$AMON_INFO_SERVER,
+              'info_port=i'    => \$AMON_INFO_PORT,
+              'cache_server=s' => \$AMON_CACHE_SERVER,
+              'cache_port=i'   => \$AMON_CACHE_PORT,
+              'http_server=s'  => \$AMON_HTTP_SERVER,
+              'http_port=i'    => \$AMON_HTTP_PORT);
 
-if ( $is_jabber ) {  
-    &createJabberServer();
-    exit 0;
-}
-
-( $is_master ? &createServer() : &createAgent() );
+  $AMON_INFO_SERVER = ($AMON_INFO_SERVER eq "" ) ? $AMON_SERVER :
+                                                   $AMON_INFO_SERVER;
+  $AMON_INFO_PORT   = ($AMON_INFO_PORT == 0) ? $AMON_PORT+1 :
+                                               $AMON_INFO_PORT;
 
 # Run POE
 
-POE::Kernel->run();
+ ( $is_master ?  &createServer() :  &createAgent() ); 
+ 
+  POE::Kernel->run();
 
-exit 0;
-
-#############################################################################
-package DJabberd::Authen::MySiteToken;
-#############################################################################
-
-use strict;
-use base 'DJabberd::Authen';
-
-use DJabberd::Log;
-
-our $logger = DJabberd::Log->get_logger;
-
-use Digest::HMAC_SHA1;
-
-sub log {
-    $logger;
-}
-
-sub set_config_key {
-    my ($self, $key) = @_;
-    $self->{key} = $key;
-}
-
-sub set_config_realm {
-    my ($self, $realm) = @_;
-    $self->{realm} = $realm;
-}
-
-sub finalize {
-    my $self = shift;
-}
-
-sub can_retrieve_cleartext { 1 }
-
-sub get_password {
-    my ($self, $cb, %args) = @_;
-    my $uid   = $args{username};
-    my $digest = Digest::HMAC_SHA1->new($self->{key});
-    $digest->add($uid.$self->{realm});
-    my $password = $digest->b64digest;
-    $cb->set($password);
-}
-
-sub check_cleartext {
-    my ($self, $cb, %args) = @_;
-    my $uid   = $args{username};
-    if ($args{password} eq $self->{password}) {
-        $cb->accept;
-        return;
-    }
-    $cb->reject;
-}
-
-#############################################################################
-package DB;
-#############################################################################
-no strict 'refs';
-no utf8;
-
-sub DB{};
-
-sub sub {
-    # localize CALL_DEPTH so that we don't need to decrement it after the sub
-    # is called
-    local $DB::CALL_DEPTH = $DB::CALL_DEPTH+1;
-    #my @foo = @_;
-    my $fileline = "";
-    if (ref $DB::sub eq "CODE") {
-        my @caller = caller;
-        my $pkg = $caller[0];
-        my $line = $caller[2];
-        $fileline = " called from $pkg, line $line";
-    }
-    warn ("." x $DB::CALL_DEPTH . " ($DB::CALL_DEPTH) $DB::sub$fileline\n");
-
-    # Call our subroutine. @_ gets passed on for us.
-    # by calling it last, we don't need to worry about "wantarray", etc
-    # by returning it like this, the caller's expectations are conveyed to
-    # the called routine
-    &{$DB::sub};
-}
-
-1;
-
+  exit 0;

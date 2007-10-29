@@ -1,0 +1,19 @@
+--- work/ejabberd-1.1.1/src/Makefile.in	Tue Aug  2 00:16:58 2005
++++ work/ejabberd-1.1.1/src/Makefile.in.new	Thu Sep 15 13:56:29 2005
+@@ -19,13 +19,13 @@
+ 
+ DESTDIR =
+ 
+-EJABBERDDIR = $(DESTDIR)/var/lib/ejabberd
++EJABBERDDIR = @prefix@/var/lib/ejabberd
+ BEAMDIR = $(EJABBERDDIR)/ebin
+ PRIVDIR = $(EJABBERDDIR)/priv
+ SODIR = $(PRIVDIR)/lib
+ MSGSDIR = $(PRIVDIR)/msgs
+-LOGDIR = $(DESTDIR)/var/log/ejabberd
+-ETCDIR = $(DESTDIR)/etc/ejabberd
++LOGDIR = @prefix@/var/log/ejabberd
++ETCDIR = @prefix@/etc/ejabberd
+ 
+ all: $(ERLSHLIBS) compile-beam all-recursive
+ 

@@ -1,16 +1,16 @@
 GARNAME = Email-Valid
-GARVERSION = 0.179
+GARVERSION = 0.15
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = #  valid.t.diff
+PATCHFILES =   valid.t.diff
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RJ/RJBS/
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MA/MAURICE/ http://www.cpan.org/authors/id/M/MA/MAURICE/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MA/MAURICE/
 
 LIBDEPS = apps/base/MailTools
 
 DESCRIPTION = Check validity of Internet email addresses
-AUTHOR = Ricardo Signes 
-URL = http://search.cpan.org/~rjbs/
+AUTHOR = Maurice Aubrey
+URL = http://cpan.uwinnipeg.ca/~maurice
 LICENSE = Perl
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
@@ -18,7 +18,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-AUTOTEST = 
+AUTOTEST = testForAliEnPerlModule Email::Valid $(GARVERSION)
 
 CONFIGURE_ARGS =  
 BUILD_ARGS =  

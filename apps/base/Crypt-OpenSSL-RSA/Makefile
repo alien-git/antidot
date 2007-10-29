@@ -20,7 +20,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = CC=gcc LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)" INC="-I$(PREFIX)/globus/include/$(GLOBUS_FLAVOR)/openssl -I/usr/kerberos/include/"
+CONFIGURE_ARGS = INC=-I/usr/kerberos/include CC=gcc LIBS="-L$(PREFIX)/lib -lssl -lcrypto"
 
 CONFIGURE_ENV = 
 

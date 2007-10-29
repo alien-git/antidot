@@ -6,7 +6,7 @@ PATCHFILES = 01.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CH/CHAMAS/ http://www.cpan.org/authors/id/C/CH/CHAMAS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/C/CH/CHAMAS/
 
-LIBDEPS = apps/base/globus-toolkit apps/base/perl
+LIBDEPS = apps/base/openssl apps/base/perl
 
 DESCRIPTION = OpenSSL glue that provides LWP https support
 AUTHOR = Joshua Chamas
@@ -25,7 +25,7 @@ BUILD_ARGS =
 ifeq ($(shell uname -s),Darwin)
 CONFIGURE_ARGS = -default /usr
 else
-CONFIGURE_ARGS = -default $(PREFIX)/globus -- LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)" INC="-I$(PREFIX)/globus/include/$(GLOBUS_FLAVOR)/openssl -I/usr/kerberos/include/"
+CONFIGURE_ARGS = -default $(PREFIX)  
 endif
 
 CONFIGURE_ENV  =  

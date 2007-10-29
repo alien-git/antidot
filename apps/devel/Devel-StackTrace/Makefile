@@ -1,5 +1,5 @@
 GARNAME = Devel-StackTrace
-GARVERSION = 1.15
+GARVERSION = 1.11
 CATEGORIES = perl-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 

@@ -3,9 +3,8 @@ CATEGORIES = apps-tools
 
 GARVERSION = 4.0.4
 
-DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = gssapi.diff
- 
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
 LIBDEPS   = apps/base/libxml2 apps/base/eugridpma-carep
 
 BUILDDEPS = apps/base/perl

@@ -1,11 +1,11 @@
 GARNAME = POE
-GARVERSION = 0.9999
+GARVERSION = 0.9500
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/
 
-LIBDEPS  = apps/base/Socket6 apps/base/Event apps/base/Curses apps/base/Filter-Template apps/base/libwww-perl
+LIBDEPS  = apps/base/Socket6 apps/base/Event apps/base/Curses
 
 DESCRIPTION = Portable multitasking and networking framework for Perl 
 AUTHOR = Rocco Caputo 

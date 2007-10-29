@@ -5,9 +5,6 @@
 #
 # modification history
 # $Log$
-# Revision 1.111  2007/08/16 14:20:24  catalin
-# if on a 64bit platform, also add ALIEN_ROOT/lib64 to the ALIEN_LD_LIBRARY_PATH
-#
 # Revision 1.110  2007/03/09 17:09:54  buncic
 # Preparing new release
 #
@@ -854,7 +851,6 @@ InstallerUI()
                            'root'    'ROOT for AliEn'           0  \
                            'xrootd'  'xrootd fr AliEn'          0  \
                            'portal'  'Portal'                   0  \
-                           'bank'    'Bank'                     0  \
                            'site'    'Site CE/SE services'      0  \
                            'lcg'     'LCG Components'           0  \
                            'monitor' 'MonaLisa site monitor'    0  \
