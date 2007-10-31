@@ -10,7 +10,6 @@ apps/devel/dialog \
 apps/base/eugridpma-carep \
 apps/alien/admin \
 apps/alien/classad \
-apps/alien/srm \
 apps/alien/common \
 apps/alien/gssapi \
 apps/alien/perl \
