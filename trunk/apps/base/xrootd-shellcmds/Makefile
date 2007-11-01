@@ -8,7 +8,8 @@ PATCHFILES =
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/shell/
 
-LIBDEPS = apps/base/xrootd
+BUILDDEPS = apps/base/xrootd
+LIBDEPS   = apps/gcc/gcc 
 
 DESCRIPTION = Xrootd shell commands
 
