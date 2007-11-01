@@ -1,5 +1,5 @@
 GARNAME = eugridpma-carep
-GARVERSION = 1.16
+GARVERSION = 1.17
 CATEGORIES = apps-tools
 DISTFILES   = igtf-policy-installation-bundle-$(GARVERSION).tar.gz
 DISTNAME    = igtf-policy-installation-bundle-$(GARVERSION)
