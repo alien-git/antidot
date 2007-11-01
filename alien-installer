@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.112  2007/09/05 10:47:16  buncic
+# Adding meta package for AliEn Bank, update of amon to use jabber transport
+#
 # Revision 1.111  2007/08/16 14:20:24  catalin
 # if on a 64bit platform, also add ALIEN_ROOT/lib64 to the ALIEN_LD_LIBRARY_PATH
 #
@@ -333,7 +336,7 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.11
+VERSION=0.12
 ###########################################################################
 style="--title AliEn-Installer-v$VERSION --clear"
 height=8; width=60
@@ -342,7 +345,7 @@ wget="env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= wget"
 Exit()
 ###########################################################################
 {
-  [ $debug -eq 0 ] && clear
+#  [ $debug -eq 0 ] && clear
   InstallerRcUpdate
   rm -rf $release_file $dialog_file $cache_file
   if [ ! -z "$2" ]
@@ -634,38 +637,62 @@ InstallerUpdate()
     rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
   fi
 
- (cd $ALIEN_INSTALLER_HOME/apps/alien; make clean)
+ (cd $ALIEN_INSTALLER_HOME/apps/alien; make -s clean)
 
- (cd $ALIEN_INSTALLER_HOME; ./configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX > install.log 2>&1 ) 
+ (cd $ALIEN_INSTALLER_HOME; ./configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX >> install.log 2>&1 ) 
 
 #  export GARAUTODETECT="apps/gcc/gcc"; 
 #  InstallerMakePkg bininstall apps/gcc/gcc; 
 
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
 
+  packages=""
 
-#cat `find /opt/alien/share/alien/packages -name "zlib-*"` | (while read file; do echo $$file; done)
+  rm -rf packages.list
 
-  for meta in $ALIEN_INSTALLER_TYPE
+  list=`echo $ALIEN_INSTALLER_TYPE | sed 's/"//g'`
+
+  npkgs=`echo $list | wc -w`;  i=0
+
+  for meta in $list
   do
-    pkgdir=`echo $meta | sed 's/"//g'`
-    if [ "$pkgdir" = "" ]
-    then
-      continue
-    fi 
-    if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
-    then
-      packages=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make list_packages`
-      npkgs=`echo $packages | wc -w`
-      i=0
-      for pkg in $packages
-      do
-        g=$[$[i * 100]/$[npkgs + 1]];
-        i=$[i + 1]
+     i=$[i + 1]
+     g=$[$[i * 100]/$[npkgs]];
+     pkgdir=`echo $meta | sed 's/"//g'`
+     if [ "$pkgdir" = "" ]
+     then
+       continue
+     fi
+     if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
+     then
+       echo "Calculating dependencies for  $meta..."
+       plist=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make -s show-unique-deps`
+       for pkg in $plist
+       do
+         echo $pkg >> packages.list
+       done
+     fi
+  done
+
+  if [ -s packages.list ] 
+  then 
+    packages=`cat packages.list | sort -u`
+  fi
+
+  npkgs=`echo $packages | wc -w`;  i=0
+
+  for pkg in $packages
+  do
+     i=$[i + 1]
+     p=$[$[i * 100]/$[npkgs]];
+     if [ ! -d $pkg ]
+     then
+        echo "No such package: $dir"
+        exit 1
+     fi
         echo "Updating $pkg..."
-        InstallerMakePkg bininstall $pkg 
-      done
-    fi 
+        make -s -C $pkg bininstall LIBDEPS= BUILDDEPS= > package.log 2>&1 || exit 1
+        cat package.log >> $ALIEN_INSTALLER_HOME/install.log
   done
  
   if [ -f $ALIEN_INSTALLER_HOME/ALIEN_VERSION ]
@@ -851,8 +878,7 @@ InstallerUI()
                            'all'     'All packages'             0  \
                            'client'  'Simple Client UI'         0  \
                            'gshell'  'Grid Shell UI'            0  \
-                           'root'    'ROOT for AliEn'           0  \
-                           'xrootd'  'xrootd fr AliEn'          0  \
+                           'xrootd'  'xrootd for AliEn'         0  \
                            'portal'  'Portal'                   0  \
                            'bank'    'Bank'                     0  \
                            'site'    'Site CE/SE services'      0  \
@@ -884,42 +910,66 @@ InstallerUI()
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
-#  export GARAUTODETECT="apps/gcc/gcc";
-#  InstallerMakePkg bininstall apps/gcc/gcc >> $workspace/install.log
   export GARAUTODETECT="$ALIEN_INSTALLER_AUTODETECT"
 
   err=0
 
+  packages=""
+
+  rm -rf packages.list
+
+  list=`echo $list | sed 's/"//g'`
+
+  npkgs=`echo $list | wc -w`;  i=0
+
   for meta in $list
   do
-    pkgdir=`echo $meta | sed 's/"//g'`
-    if [ "$pkgdir" = "" ]
-    then
-      continue
-    fi 
-    $ALIEN_DIALOG $style --sleep 3 \
-                  --infobox "Getting the list of packages to install for $pkgdir..." $height $width
-    if [ -d $workspace/meta/$pkgdir ]
-    then
-      packages=`cd $workspace/meta/$pkgdir; make list_packages`
-      npkgs=`echo $packages | wc -w`
-      cd $workspace
-      i=0
-      for pkg in $packages
-      do
-        g=$[$[i * 100]/$[npkgs + 1]];
-        i=$[i + 1]
-        echo XXX
-        echo "Installing $pkg..."
-        echo XXX
-        InstallerMakePkg bininstall $pkg >> $workspace/install.log
-        err=$?
-        [ $err -ne 0 ] && break
-        echo $g
-      done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
-    fi 
-    [ $err -ne 0 ] && break
-  done
+     i=$[i + 1]
+     g=$[$[i * 100]/$[npkgs]];
+     pkgdir=`echo $meta | sed 's/"//g'`
+     if [ "$pkgdir" = "" ]
+     then
+       continue
+     fi
+     echo XXX
+     echo "Evaluating dependencies for $meta. Please wait...."
+     echo XXX
+     if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
+     then
+       plist=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make show-unique-deps`
+       for pkg in $plist
+       do
+         echo $pkg >> packages.list
+       done
+     fi
+     echo $g
+  done | $ALIEN_DIALOG $style --gauge "Checking dependencies"  $height $width
+
+  if [ -s packages.list ] 
+  then 
+    packages=`cat packages.list | sort -u`
+  fi
+
+  npkgs=`echo $packages | wc -w`;  i=0
+
+  for pkg in $packages
+  do
+     i=$[i + 1]
+     p=$[$[i * 100]/$[npkgs]];
+     echo XXX
+     echo "Installing $pkg..."
+     if [ ! -d $pkg ]
+     then
+        echo "No such package: $dir"
+        exit 1
+     fi
+     make -s -C $pkg bininstall LIBDEPS= BUILDDEPS= > package.log 2>&1 || echo "Failed"
+     cat package.log >> $ALIEN_INSTALLER_HOME/install.log
+     echo XXX
+     echo $p
+  done | $ALIEN_DIALOG $style --gauge "Installing $pkg..."  $height $width
+
+  err=$?
 
   if [ -f $ALIEN_INSTALLER_HOME/ALIEN_VERSION ]
   then
@@ -932,9 +982,12 @@ InstallerUI()
 
   if [ $err -ne 0 -o $sc -ne 0 ]
   then
-    Error "Failed to install. Please check $workspace/install.log" 
+    $ALIEN_DIALOG $style \
+          --msgbox "Errors were reported during installation. Please check $workspace/install.log"  $height $width
+    Error 
     $ALIEN_DIALOG $style \
                      --textbox $workspace/install.log 40 60
+    Exit 1 
   else
     if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien ]
     then
