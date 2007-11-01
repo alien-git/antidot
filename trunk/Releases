@@ -1,4 +1,5 @@
 HEAD  : --/--/---- : HEAD    : Current CVS head  : i686-pc-linux-gnu ia64-unknown-linux-gnu powerpc-apple-darwin8.1.0 x86_64-unknown-linux-gnu i686-apple-darwin8.6.1
+2.14  : 31/10/2007 : v2-14   : Stable            : i686-pc-linux-gnu ia64-unknown-linux-gnu powerpc-apple-darwin8.1.0 x86_64-unknown-linux-gnu i686-apple-darwin8.6.1
 2.13  : 23/04/2007 : v2-13   : Stable            : i686-pc-linux-gnu ia64-unknown-linux-gnu powerpc-apple-darwin8.1.0 x86_64-unknown-linux-gnu i686-apple-darwin8.6.1
 2.12  : 29/11/2006 : v2-12   : Stable            : i686-pc-linux-gnu ia64-unknown-linux-gnu powerpc-apple-darwin8.1.0 x86_64-unknown-linux-gnu i686-apple-darwin8.6.1
 2.11  : 07/09/2006 : v2-11   : Stable            : i686-pc-linux-gnu ia64-unknown-linux-gnu powerpc-apple-darwin8.1.0 x86_64-unknown-linux-gnu i686-apple-darwin8.6.1
