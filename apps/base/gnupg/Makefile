@@ -2,7 +2,7 @@ GARNAME = gnupg
 GARVERSION = 1.4.7
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
-PATCHFILES = # fix.diff
+PATCHFILES = configure.patch
 
 MASTER_SITES = ftp://ftp.gnupg.org/gcrypt/gnupg/ 
 
