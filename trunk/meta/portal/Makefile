@@ -13,10 +13,6 @@ apps/server/DBD-mysql \
 apps/alien/classad \
 apps/alien/common \
 apps/alien/gssapi \
-apps/gui/glib \
-apps/gui/gdlib \
-apps/gui/Glade-Perl \
-apps/gui/Gtk-Perl \
 apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
 apps/portal/gridsite \

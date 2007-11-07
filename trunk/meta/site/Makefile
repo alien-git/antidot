@@ -14,7 +14,7 @@ apps/alien/common \
 apps/alien/gssapi \
 apps/alien/perl \
 apps/alien/gapi \
-apps/base/mod_perl
+apps/portal/mod_perl
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
