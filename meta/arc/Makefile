@@ -5,7 +5,7 @@ DISTFILES  =
 FILTER_OUT ?= 
 FILTER     ?= % 
  
-ALL=apps/alien/alien-arc
+ALL=apps/alien/arc
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
