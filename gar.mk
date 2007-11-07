@@ -304,7 +304,10 @@ BINEXTRACT_TARGETS = $(addprefix binextract-,$(filter-out $(NOEXTRACT),$(BINDIST
 
 RELOCATE_TARGETS = $(addprefix relocate-,$(filter-out $(NOEXTRACT),$(BINDISTFILES))) 
 
-install-bin: fetch-bin $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS))  binclean pre-extract $(BINEXTRACT_TARGETS) $(RELOCATE_TARGETS) post-extract
+relocate: install-bin $(RELOCATE_TARGETS)
+	    $(DONADA)
+
+install-bin: fetch-bin $(BUILD_PREFIX) $(COOKIEDIR) $(addprefix bindep-$(GARDIR)/,$(LIBDEPS))  binclean pre-extract $(BINEXTRACT_TARGETS) post-extract
 	$(DONADA)
 
 binclean:
