@@ -289,11 +289,13 @@ sub setupConfig {
     # Control/conf/transfer.conf
     my $transferConfFile = "$mlHome/Control/conf/transfer.conf";
     my $linkLines = `cat $transferConfFile | grep -v -E -e 'link.default|^\$'`;
+    my $fdtBaseDir = `echo "$linkLines" | grep basedir | cut -d = -f 2`;
+    system("(cd $farmHome ; mkdir -p $fdtBaseDir)");
     if(open(CONF, ">$transferConfFile")){
     	my $eth=`/sbin/route -n | grep -E -e "^0.0.0.0" | awk '{print \$8}'`;
    	print CONF "$linkLines
 link.default.srcNode=$farmName
-link.default.dstNode=Internet
+link.default.dstNode=Net
 link.default.phys=$eth
 ";
 	close(CONF);
