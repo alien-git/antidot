@@ -31,6 +31,7 @@ sub dumpStatus {
 }
 
 # create the test file
+umask 0027;
 system("rm -f /tmp/myAtest* ; echo 'My test file for pid $$' > /tmp/myAtest$$");
 
 my @tests = (
