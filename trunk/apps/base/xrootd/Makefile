@@ -21,7 +21,10 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint --enable-openssl --enable-gsi --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --with-globus-location=$(PREFIX)/globus --with-globus-flavor=$(GLOBUS_FLAVOR) --enable-globusssl
+#CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint --enable-openssl --enable-gsi --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --with-globus-location=$(PREFIX)/globus --with-globus-flavor=$(GLOBUS_FLAVOR) --enable-globusssl
+
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api
+
 
 ifeq ($(shell uname -m),ia64)
 CONFIGURE_ARGS += --with-xccflavour=gcc
