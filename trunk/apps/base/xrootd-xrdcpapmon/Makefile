@@ -1,5 +1,5 @@
 GARNAME = xrootd-xrdcpapmon
-GARVERSION = 1.0.4
+GARVERSION = 1.0.5
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
