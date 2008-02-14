@@ -10,7 +10,7 @@ MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarb
 
 BUILDDEPS = apps/base/xrootd
 
-LIBDEPS = apps/base/ApMon-CPP apps/base/globus-toolkit
+LIBDEPS = apps/base/ApMon-CPP apps/base/globus-toolkit apps/base/openssl
 
 DESCRIPTION = Xrootd copy command
 
