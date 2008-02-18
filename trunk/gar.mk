@@ -84,14 +84,14 @@ endif
 
 MASKED += $(shell $(GARDIR)/autodetect.sh $(PREFIX) $(shell pwd)) 
 
-ifeq ($(GARFNAME),$(findstring $(GARFNAME),$(MASKED)))
+ifeq ($(GARFNAME)=,$(findstring $(GARFNAME)=,$(MASKED)))
 DISTFILES := 
 CONFIGURE_SCRIPTS :=
 BUILD_SCRIPTS :=
 INSTALL_SCRIPTS :=
-LIBDEPS :=
-BUILDDEPS :=
-SOURCEDEPS :=
+#LIBDEPS :=
+#BUILDDEPS :=
+#SOURCEDEPS :=
 BINDISTFILES :=
 PATCHFILES :=
 ALLFILES := 

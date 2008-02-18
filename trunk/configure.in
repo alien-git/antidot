@@ -71,7 +71,7 @@ AC_ARG_WITH(gcc_path,
             GCC_BIN_DIR=`dirname $GCC_PATH`;
             GCC_PREFIX=`dirname $GCC_BIN_DIR`;
             GCC_INC_DIR="$GCC_PREFIX/include";
-            GCC_MASKED="apps/gcc/gcc";
+            GCC_MASKED="apps/gcc/gcc=";
             GCC_VERSION=`$GCC_PATH -dumpversion`],
             [GCC_MASKED=])
 
