@@ -1,10 +1,12 @@
 GARNAME = openssl
 ifeq ($(shell uname),Darwin)
-GARVERSION = 0.9.7j
+GARVERSION = 0.9.7m
 else
 GARVERSION = 0.9.7e
 endif
+
 CATEGORIES = apps-tools
+
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 ifeq ($(shell uname),Darwin)
 PATCHFILES = Makefile.org.diff
