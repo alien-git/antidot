@@ -208,15 +208,29 @@ sub test6 {
  
    if(-r $renewalProxy){
       if(-r $currentProxy){
+	 my $info = "";
 	 $ENV{X509_USER_PROXY} = $renewalProxy;
-	 my @command = ( 'myproxy-get-delegation',
+	 my @command;
+	 if(-x "$ENV{LCG_LOCATION}/bin/lcg-proxy-renew"){
+	   $info = "with VOMS extensions";
+	   @command = ( "$ENV{LCG_LOCATION}/bin/lcg-proxy-renew",
+		   "-a",    $currentProxy,
+		   "-d",
+		   "-o",    $delegatedFile,
+		   "-voms", "alice:/alice/Role=lcgadmin",
+		   "-cert", $renewalProxy,
+		   "-key",  $renewalProxy,
+		   "2>/dev/null");
+         }else{
+	   @command = ( 'myproxy-get-delegation',
                    "-a", "$currentProxy",
                    "-d",
-                   "-t",int($duration/3600), #in hours
+                   "-t", int($duration/3600), #in hours
                    "-o", $delegatedFile);
+	 }
 	 my $out=`@command`;
 	 if($?){
-	    dumpStatus($service, 1, "Unable to get delegation ".filter_out($out), 'timeleft' => 0);
+	    dumpStatus($service, 1, "Unable to get delegation $info ".filter_out($out), 'timeleft' => 0);
 	 }else{
 	    $ENV{X509_USER_PROXY} = $delegatedFile;
 	    @command = ('vobox-proxy',
@@ -224,12 +238,12 @@ sub test6 {
 		  "query-proxy-timeleft");
 	    $out = `@command`;
 	    if($?){
-	       dumpStatus($service, 1, "Failed to check proxy timeleft ".filter_out($out), 'timeleft' => 0);
+	       dumpStatus($service, 1, "Failed to check proxy timeleft $info ".filter_out($out), 'timeleft' => 0);
 	    }else{
 	       if($out =~ /\s*(\d+)\s*/){
-		  dumpStatus($service, 0, '', 'timeleft' => $1);
+		  dumpStatus($service, 0, $info, 'timeleft' => $1);
 	       }else{
-		  dumpStatus($service, 1, "Failed to parse timeleft ".filter_out($out), 'timeleft' => 0);
+		  dumpStatus($service, 1, "Failed to parse timeleft $info ".filter_out($out), 'timeleft' => 0);
 	       }
 	    }
 	 }
