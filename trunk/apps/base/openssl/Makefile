@@ -1,6 +1,6 @@
 GARNAME = openssl
 ifeq ($(shell uname),Darwin)
-GARVERSION = 0.9.7m
+GARVERSION = 0.9.7j
 else
 GARVERSION = 0.9.7e
 endif
