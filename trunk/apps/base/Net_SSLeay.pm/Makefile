@@ -20,11 +20,11 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = # $(WORKSRC)/Makefile
 
-ifeq ($(shell uname -s),Darwin)
-CONFIGURE_ARGS =
-else
+#ifeq ($(shell uname -s),Darwin)
+#CONFIGURE_ARGS =
+#else
 CONFIGURE_ARGS = $(PREFIX)/globus -- LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)"
-endif
+#endif
 
 BUILD_ARGS =  
 
