@@ -22,11 +22,11 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 BUILD_ARGS =  
 
-ifeq ($(shell uname -s),Darwin)
-CONFIGURE_ARGS = -default /usr
-else
+#ifeq ($(shell uname -s),Darwin)
+#CONFIGURE_ARGS = -default /usr
+#else
 CONFIGURE_ARGS = -default $(PREFIX)/globus -- LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)" INC="-I$(PREFIX)/globus/include/$(GLOBUS_FLAVOR)/openssl -I/usr/kerberos/include/"
-endif
+#endif
 
 CONFIGURE_ENV  =  
 
