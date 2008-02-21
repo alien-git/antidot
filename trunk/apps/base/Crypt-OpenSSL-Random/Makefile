@@ -19,11 +19,11 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 AUTOTEST = testForAliEnPerlModule Crypt::OpenSSL::Random $(GARVERSION)
 
-ifeq ($(shell uname),Darwin)
-CONFIGURE_ARGS = INC=-I/usr/kerberos/include 
-else
+#ifeq ($(shell uname),Darwin)
+#CONFIGURE_ARGS = INC=-I/usr/kerberos/include 
+#else
 CONFIGURE_ARGS = LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)" INC="-I$(PREFIX)/globus/include/$(GLOBUS_FLAVOR)/openssl -I/usr/kerberos/include/"
-endif
+#endif
 
 BUILD_ARGS =  
 
