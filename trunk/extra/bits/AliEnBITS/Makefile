@@ -1,11 +1,11 @@
 GARNAME = AliEnBITS
-GARVERSION = 1.0
+GARVERSION = 1.4.23
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://monalisa2.cern.ch/~catac/AliEnBITS/
 
-LIBDEPS = extra/bits/Template extra/bits/Graphviz-perl extra/bits/SLOCcount apps/portal/apache apps/base/ApMon extra/autopackage/autopackage
+LIBDEPS = extra/bits/Template extra/bits/Graphviz-perl extra/bits/SLOCcount apps/portal/httpd apps/base/ApMon
 
 DESCRIPTION = AliEn Build Integration and Testing System
 AUTHOR = Catalin Cirstoiu
