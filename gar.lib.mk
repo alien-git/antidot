@@ -82,7 +82,7 @@ viewvc//%:
 
 # download file from a pserver cvs
 pserver//%:
-	@(cd $(DOWNLOADDIR) && cvs -d :pserver:`echo $(dir $*) | sed -e 's/\/$$//'` co -r $(GARCVSVERSION) $(GARCVSNAME))
+	@(cd $(DOWNLOADDIR) && $(CVS) -d :pserver:`echo $(dir $*) | sed -e 's/\/$$//'` co -r $(GARCVSVERSION) $(GARCVSNAME))
 	@(cd $(DOWNLOADDIR) && mv $(GARCVSNAME) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
