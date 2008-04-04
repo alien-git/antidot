@@ -8,11 +8,11 @@ FILTER     ?= %
 ALL=\
 apps/devel/dialog \
 apps/base/eugridpma-carep \
-apps/alien/alien-ca \
 apps/alien/admin \
 apps/server/DBD-mysql \
 apps/alien/classad \
 apps/alien/common \
+apps/alien/gssapi \
 apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
 apps/portal/gridsite \

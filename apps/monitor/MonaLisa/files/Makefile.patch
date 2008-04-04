@@ -22,7 +22,7 @@
 +endif
 +	(cd $(DISTNAME)/Service/lib && \
 +	for site in $(MASTER_SITES) ; do \
-+	   env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= wget -nv --waitretry=10 --tries=3 $${site}../fdt/fdt.jar -O fdt.jar && break ; \
++	   wget -nv --waitretry=10 --tries=3 $${site}../fdt/fdt.jar -O fdt.jar && break ; \
 +	done ; test -s fdt.jar)
 +
 +install:

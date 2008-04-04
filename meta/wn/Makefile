@@ -8,9 +8,9 @@ FILTER     ?= %
 ALL=\
 apps/devel/dialog \
 apps/base/eugridpma-carep \
-apps/alien/alien-ca \
 apps/alien/classad \
 apps/alien/common \
+apps/alien/gssapi \
 apps/alien/perl \
 apps/alien/gapi
 
