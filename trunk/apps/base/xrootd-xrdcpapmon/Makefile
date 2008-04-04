@@ -27,4 +27,4 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api --w
 
 include ../category.mk
 
-POST_INSTALL = (cd $(PREFIX)/api/lib; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
+POST_INSTALL = (cd $(PREFIX)/api/lib; ln -s ../../lib/libcrypto.* ../../lib/libssl.* ../../lib/libzlib.* .)
