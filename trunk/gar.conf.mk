@@ -66,6 +66,7 @@ CXXFLAGS := $(CFLAGS)
 TAR  = tar
 MD5  = $(GARDIR)/checksum.sh
 WGET = env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= wget
+CVS = env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= cvs 
 
 # make these variables available to configure and build scripts
 # outside of make's realm.
