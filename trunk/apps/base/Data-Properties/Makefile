@@ -3,8 +3,7 @@ GARVERSION = 0.02
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/I/IX/IX/
-
+MASTER_SITES =  http://mirror.switch.ch/ftp/mirror/CPAN/authors/id/I/IX/IX/
 LIBDEPS = apps/base/perl
 
 DESCRIPTION = Persistent properties

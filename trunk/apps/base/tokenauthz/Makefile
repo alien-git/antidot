@@ -1,9 +1,9 @@
 GARNAME = tokenauthz
-GARVERSION = 1.1.3
+GARVERSION = 1.1.5
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/
+MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/tkauthz/
 
 LIBDEPS = apps/base/perl apps/base/libxml2 apps/base/swig apps/base/openssl apps/base/globus-toolkit
 
