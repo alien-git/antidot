@@ -2,7 +2,7 @@
 
 case `uname` in
     Darwin)
-      MD5="md5sum -v"
+      MD5="md5sum"
       ;;
     *)       
       MD5="md5sum"
