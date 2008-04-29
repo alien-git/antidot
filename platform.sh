@@ -25,7 +25,14 @@ case `$dir/config.guess` in
     i686-apple-darwin8.*|i686-apple-darwin9.*)
       platform=i686-apple-darwin8.6.1
       javaplatform=linux-i586
-      flavor=gcc32
+      case `sysctl machdep.cpu.extfeatures` in
+        *EM64T)
+          flavor=gcc64
+        ;;
+        *)    
+          flavor=gcc32
+        ;;
+      esac  
       ;;
     ia64-*-linux-gnu)
       platform=ia64-unknown-linux-gnu
