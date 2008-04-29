@@ -65,7 +65,7 @@ CXXFLAGS := $(CFLAGS)
 # If you have no following GNU tools installed change these lines
 TAR  = tar
 MD5  = $(GARDIR)/checksum.sh
-WGET = env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= wget
+WGET = env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= $(GARDIR)/wget.sh
 CVS = env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= cvs 
 
 # make these variables available to configure and build scripts
