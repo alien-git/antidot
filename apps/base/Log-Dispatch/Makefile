@@ -1,9 +1,9 @@
 GARNAME = Log-Dispatch
-GARVERSION = 2.18
+GARVERSION = 2.21
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/
+MASTER_SITES = http://cpan.mirror.solnet.ch/authors/id/D/DR/DROLSKY/
 
 LIBDEPS = apps/base/perl
 

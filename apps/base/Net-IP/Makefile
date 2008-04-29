@@ -4,7 +4,7 @@ CATEGORIES = apps-perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MA/MANU/
+MASTER_SITES =   http://cpan.mirror.solnet.ch/authors/id/M/MA/MANU/
 
 LIBDEPS = apps/base/perl
 
