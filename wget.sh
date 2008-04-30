@@ -16,6 +16,9 @@ do
   --waitretry=*)
     shift 1
     ;;
+  --retry=*)
+    shift 1
+    ;;
   --tries=*)
     shift 1
     ;;
@@ -49,4 +52,4 @@ then
    outfile=`basename $1`
 fi 
 
-curl --retry 3 -f -L -o $outfile $1
+curl -f -L -o $outfile $1
