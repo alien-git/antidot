@@ -6,3 +6,5 @@ c6e9cff4190a5f6046f368a9fe06e56a  download/instantiations.diff
 e43a7dfdba88f16c090716542495d36f  download/limits.diff
 1ccd37d38e6288a589eecfb650bee23d  download/ostream.diff
 d23f327a2b36d3c08fbfcbe829cef97e  download/util.diff
+33e0be9d26bf4820a6eddd1f9ec1bec9  download/classads-0.9.9.tar.gz
+93933c99119797e34ad8fe3cb89c3390  download/Makefile.diff
