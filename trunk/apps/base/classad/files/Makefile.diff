@@ -15,7 +15,7 @@
  LIB_INSTALL = $(DESTDIR)/lib
  BIN_INSTALL = $(DESTDIR)/bin
 -INCLUDE_INSTALL = $(DESTDIR)/include
-+INCLUDE_INSTALL = $(DESTDIR)/include/classad
++INCLUDE_INSTALL = $(DESTDIR)/include/classads
  
  CPlusPlus = g++
  BASE_C_PLUS_FLAGS = $(STLPORT_FLAGS) $(EXTRA_C_PLUS_FLAGS) -Wall -Wuninitialized -O -g -DCLASSAD_DISTRIBUTION 
