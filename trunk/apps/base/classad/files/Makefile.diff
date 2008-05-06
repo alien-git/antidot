@@ -1,6 +1,6 @@
 --- work/classads-0.9.9/Makefile	2007-06-15 20:39:15.000000000 +0200
-+++ work/classads-0.9.9/Makefile.new	2008-05-06 12:19:29.000000000 +0200
-@@ -1,15 +1,15 @@
++++ work/classads-0.9.9/Makefile.new	2008-05-06 16:15:08.000000000 +0200
+@@ -1,18 +1,18 @@
 -DESTDIR = /usr/include
 +DESTDIR = $(PREFIX)
  
@@ -15,10 +15,14 @@
  LIB_INSTALL = $(DESTDIR)/lib
  BIN_INSTALL = $(DESTDIR)/bin
 -INCLUDE_INSTALL = $(DESTDIR)/include
-+INCLUDE_INSTALL = $(DESTDIR)/include/classads
++INCLUDE_INSTALL = $(DESTDIR)/include/classad
  
  CPlusPlus = g++
- BASE_C_PLUS_FLAGS = $(STLPORT_FLAGS) $(EXTRA_C_PLUS_FLAGS) -Wall -Wuninitialized -O -g -DCLASSAD_DISTRIBUTION 
+-BASE_C_PLUS_FLAGS = $(STLPORT_FLAGS) $(EXTRA_C_PLUS_FLAGS) -Wall -Wuninitialized -O -g -DCLASSAD_DISTRIBUTION 
++BASE_C_PLUS_FLAGS = $(STLPORT_FLAGS) $(EXTRA_C_PLUS_FLAGS) -Wall -Wuninitialized -O -g -DCLASSAD_DISTRIBUTION -fPIC
+ INST_C_PLUS_FLAGS = $(BASE_C_PLUS_FLAGS) -w
+ C_PLUS_FLAGS = $(TEMPLATE_FLAGS) $(BASE_C_PLUS_FLAGS)
+ PURIFY = purify -g++=yes -chain-length=35 $(CPlusPlus)
 @@ -43,7 +43,11 @@
  	rm -f  $(LIB_NAME)
  	ar vrs $(LIB_NAME)  $(LIB_OBJ)
@@ -49,7 +53,7 @@
  	rm -f classad_functional_tester classad_unit_tester classad_version
  	rm -f test_xml cxi sample $(LIB_NAME)
 --- work/classads-0.9.9/configure	2007-06-15 20:39:15.000000000 +0200
-+++ work/classads-0.9.9/configure.new	2008-05-06 12:19:36.000000000 +0200
++++ work/classads-0.9.9/configure.new	2008-05-06 16:15:20.000000000 +0200
 @@ -164,6 +164,8 @@
  fi
  echo "LIB_NAME = lib${lib_name}.a" >> Makefile.config
