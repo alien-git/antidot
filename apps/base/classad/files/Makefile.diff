@@ -1,0 +1,61 @@
+--- work/classads-0.9.9/Makefile	2007-06-15 20:39:15.000000000 +0200
++++ work/classads-0.9.9/Makefile.new	2008-05-06 12:19:29.000000000 +0200
+@@ -1,15 +1,15 @@
+-DESTDIR = /usr/include
++DESTDIR = $(PREFIX)
+ 
+ # This include will redefine DESTDIR, if Makefile.config exists
+ include Makefile.config
+ 
+ LD_FLAGS = $(EXTRA_LD_FLAGS) -L. -l$(LIB_LINK_NAME) $(STLPORT_LIB)
+ 
+-all:: $(LIB_NAME) classad_functional_tester classad_unit_tester classad_version cxi extra_tests test_xml sample
++all:: $(LIB_NAME) $(LIB_NAME_SHARED) classad_functional_tester classad_unit_tester classad_version cxi extra_tests test_xml sample
+ 
+ LIB_INSTALL = $(DESTDIR)/lib
+ BIN_INSTALL = $(DESTDIR)/bin
+-INCLUDE_INSTALL = $(DESTDIR)/include
++INCLUDE_INSTALL = $(DESTDIR)/include/classad
+ 
+ CPlusPlus = g++
+ BASE_C_PLUS_FLAGS = $(STLPORT_FLAGS) $(EXTRA_C_PLUS_FLAGS) -Wall -Wuninitialized -O -g -DCLASSAD_DISTRIBUTION 
+@@ -43,7 +43,11 @@
+ 	rm -f  $(LIB_NAME)
+ 	ar vrs $(LIB_NAME)  $(LIB_OBJ)
+ 
+-instantiations.o:   instantiations.C
++$(LIB_NAME_SHARED):  $(LIB_NAME)
++	rm -f  $(LIB_NAME_SHARED)
++	g++ $(LD_FLAGS_SHARED) $(LIB_OBJ) -o $(LIB_NAME_SHARED)  
++
++iinstantiations.o:   instantiations.C
+ 	$(CPlusPlus) $(INST_C_PLUS_FLAGS) -c instantiations.C -o instantiations.o
+ 
+ test_instantiations.o:   test_instantiations.C
+@@ -81,11 +85,15 @@
+ 	mkdir -p $(BIN_INSTALL)
+ 	mkdir -p $(INCLUDE_INSTALL)
+ 	cp $(LIB_NAME)  $(LIB_INSTALL)
++	cp $(LIB_NAME_SHARED)  $(LIB_INSTALL)
+ 	cp classad_functional_tester $(BIN_INSTALL)
+ 	cp classad_unit_tester $(BIN_INSTALL)
+ 	cp classad_version $(BIN_INSTALL)
+ 	cp $(HEADER_FILES) $(INCLUDE_INSTALL)
+ 
++test: install
++	$(BIN_INSTALL)/classad_unit_tester
++
+ clean: tidy
+ 	rm -f classad_functional_tester classad_unit_tester classad_version
+ 	rm -f test_xml cxi sample $(LIB_NAME)
+--- work/classads-0.9.9/configure	2007-06-15 20:39:15.000000000 +0200
++++ work/classads-0.9.9/configure.new	2008-05-06 12:19:36.000000000 +0200
+@@ -164,6 +164,8 @@
+ fi
+ echo "LIB_NAME = lib${lib_name}.a" >> Makefile.config
+ echo "LIB_LINK_NAME = ${lib_name}" >> Makefile.config
++echo "LIB_NAME_SHARED = lib${lib_name}.$GARLIBEXT" >> Makefile.config
++echo "LD_FLAGS_SHARED = $GARSHARED" >> Makefile.config
+ 
+ echo "Creating classad_features.h..."
+ rm -f classad_features.h
