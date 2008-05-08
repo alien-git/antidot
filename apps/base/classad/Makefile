@@ -2,7 +2,7 @@ GARNAME = classads
 GARVERSION = 0.9.9
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = Makefile.diff ostream.diff limits.diff fnCall.diff util.diff  instantiations.diff gcc4.diff Makefile.am.diff
+PATCHFILES = Makefile.diff # ostream.diff limits.diff fnCall.diff util.diff  instantiations.diff gcc4.diff Makefile.am.diff
 
 MASTER_SITES = ftp://ftp.cs.wisc.edu/condor/classad/c++/
 AUTHOR = Condor Project 
