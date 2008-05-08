@@ -18,7 +18,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS =  --prefix $(PREFIX) --enable-namespace --enable-flexible-member --lib-name aclassad --enable-shlib
+CONFIGURE_ARGS =  --prefix $(PREFIX) --enable-namespace --enable-flexible-member --lib-name aclassad
 
 include ../category.mk
 
