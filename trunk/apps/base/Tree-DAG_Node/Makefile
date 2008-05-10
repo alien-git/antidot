@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/C/CO/COGENT/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/Array-Compare 
 
 DESCRIPTION = Class for representing nodes in a tree 
 AUTHOR = David Hand

@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/Tree-DAG_Node
 
 DESCRIPTION = Perl extension to test methods for warnings
 AUTHOR = Alexandr Ciornii
