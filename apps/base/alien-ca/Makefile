@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = 
 
-LIBDEPS = 
+LIBDEPS = apps/base/globus-toolkit
 
 DESCRIPTION = AliEn CA certificate
 URL = 
