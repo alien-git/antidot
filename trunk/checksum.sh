@@ -1,13 +1,26 @@
 #!/bin/sh
 
-case `uname` in
-    Darwin)
-      MD5="md5sum"
-      ;;
-    *)       
-      MD5="md5sum"
-      ;;
-esac
+unset DYLD_LIBRARY_PATH
+
+MD5=""
+
+which md5sum > /dev/null 2>&1 
+
+if [ $? -eq 0 ] 
+then
+  MD5="md5sum"
+else
+  which md5 > /dev/null 2>&1 
+  if [ $? -eq 0 ] 
+  then
+    MD5="md5 -r"
+  fi
+fi
+
+if [ "x$MD5" = "x" ]
+then
+  exit 1
+fi
 
 ChecksumPrint()
 {
@@ -20,8 +33,14 @@ CheckFile()
    then
      exit 1
    fi
-   env LC_ALL="C" LANG="C" $MD5 -c $checksums 2>&1 | grep "$1.*OK" || exit 1 
-   exit 0
+   s1=`grep "$1\$" $checksums | awk '{print $1}'` 
+   s2=`$MD5 $1 | awk '{print $1}'`
+   if [ "x$s1" == "x$s2" ]
+   then
+     exit 0
+   else
+     exit 1 
+   fi
 }
 
 case $1 in
