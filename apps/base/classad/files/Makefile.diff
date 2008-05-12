@@ -1,5 +1,5 @@
 --- work/classads-0.9.9/Makefile	2007-06-15 20:39:15.000000000 +0200
-+++ work/classads-0.9.9.new/Makefile	2008-05-12 12:25:51.000000000 +0200
++++ work/classads-0.9.9/Makefile.new	2008-05-12 21:19:08.000000000 +0200
 @@ -1,18 +1,18 @@
 -DESTDIR = /usr/include
 +DESTDIR = $(PREFIX)
@@ -23,7 +23,7 @@
  INST_C_PLUS_FLAGS = $(BASE_C_PLUS_FLAGS) -w
  C_PLUS_FLAGS = $(TEMPLATE_FLAGS) $(BASE_C_PLUS_FLAGS)
  PURIFY = purify -g++=yes -chain-length=35 $(CPlusPlus)
-@@ -43,7 +43,13 @@
+@@ -43,7 +43,11 @@
  	rm -f  $(LIB_NAME)
  	ar vrs $(LIB_NAME)  $(LIB_OBJ)
  
@@ -31,14 +31,12 @@
 +$(LIB_NAME_SHARED):  $(LIB_NAME)
 +	rm -f  $(LIB_NAME_SHARED)
 +	g++ $(LD_FLAGS_SHARED) $(LIB_OBJ) -o $(LIB_NAME_SHARED)  
-+	g++ -dynamiclib -single_module  -dynamic_lookup -o libaclassad.dylib  attrrefs.o classad.o collection.o collectionBase.o debug.o exprList.o exprTree.o fnCall.o indexfile.o lexer.o lexerSource.o literals.o matchClassad.o operators.o query.o sink.o source.o transaction.o util.o value.o view.o xmlLexer.o xmlSink.o xmlSource.o cclassad.o 
-+
 +
 +iinstantiations.o:   instantiations.C
  	$(CPlusPlus) $(INST_C_PLUS_FLAGS) -c instantiations.C -o instantiations.o
  
  test_instantiations.o:   test_instantiations.C
-@@ -81,11 +87,15 @@
+@@ -81,11 +85,15 @@
  	mkdir -p $(BIN_INSTALL)
  	mkdir -p $(INCLUDE_INSTALL)
  	cp $(LIB_NAME)  $(LIB_INSTALL)
