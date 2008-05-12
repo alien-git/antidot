@@ -1,5 +1,5 @@
 --- work/classads-0.9.9/Makefile	2007-06-15 20:39:15.000000000 +0200
-+++ work/classads-0.9.9/Makefile.new	2008-05-06 16:15:08.000000000 +0200
++++ work/classads-0.9.9.new/Makefile	2008-05-12 12:25:51.000000000 +0200
 @@ -1,18 +1,18 @@
 -DESTDIR = /usr/include
 +DESTDIR = $(PREFIX)
@@ -23,7 +23,7 @@
  INST_C_PLUS_FLAGS = $(BASE_C_PLUS_FLAGS) -w
  C_PLUS_FLAGS = $(TEMPLATE_FLAGS) $(BASE_C_PLUS_FLAGS)
  PURIFY = purify -g++=yes -chain-length=35 $(CPlusPlus)
-@@ -43,7 +43,11 @@
+@@ -43,7 +43,13 @@
  	rm -f  $(LIB_NAME)
  	ar vrs $(LIB_NAME)  $(LIB_OBJ)
  
@@ -31,12 +31,14 @@
 +$(LIB_NAME_SHARED):  $(LIB_NAME)
 +	rm -f  $(LIB_NAME_SHARED)
 +	g++ $(LD_FLAGS_SHARED) $(LIB_OBJ) -o $(LIB_NAME_SHARED)  
++	g++ -dynamiclib -single_module  -dynamic_lookup -o libaclassad.dylib  attrrefs.o classad.o collection.o collectionBase.o debug.o exprList.o exprTree.o fnCall.o indexfile.o lexer.o lexerSource.o literals.o matchClassad.o operators.o query.o sink.o source.o transaction.o util.o value.o view.o xmlLexer.o xmlSink.o xmlSource.o cclassad.o 
++
 +
 +iinstantiations.o:   instantiations.C
  	$(CPlusPlus) $(INST_C_PLUS_FLAGS) -c instantiations.C -o instantiations.o
  
  test_instantiations.o:   test_instantiations.C
-@@ -81,11 +85,15 @@
+@@ -81,11 +87,15 @@
  	mkdir -p $(BIN_INSTALL)
  	mkdir -p $(INCLUDE_INSTALL)
  	cp $(LIB_NAME)  $(LIB_INSTALL)
@@ -53,13 +55,72 @@
  	rm -f classad_functional_tester classad_unit_tester classad_version
  	rm -f test_xml cxi sample $(LIB_NAME)
 --- work/classads-0.9.9/configure	2007-06-15 20:39:15.000000000 +0200
-+++ work/classads-0.9.9/configure.new	2008-05-06 16:15:20.000000000 +0200
++++ work/classads-0.9.9.new/configure	2008-05-12 12:30:18.000000000 +0200
 @@ -164,6 +164,8 @@
  fi
  echo "LIB_NAME = lib${lib_name}.a" >> Makefile.config
  echo "LIB_LINK_NAME = ${lib_name}" >> Makefile.config
 +echo "LIB_NAME_SHARED = lib${lib_name}.$GARLIBEXT" >> Makefile.config
-+echo "LD_FLAGS_SHARED = $GARSHARED" >> Makefile.config
++echo "LD_FLAGS_SHARED = $OWN_CXXLDFLAGS" >> Makefile.config
  
  echo "Creating classad_features.h..."
  rm -f classad_features.h
+--- work/classads-0.9.9/common.h	2007-06-15 20:39:15.000000000 +0200
++++ work/classads-0.9.9.new/common.h	2008-05-12 12:06:35.000000000 +0200
+@@ -114,6 +114,9 @@
+ 
+ #ifdef __cplusplus
+ #include <string>
++#ifdef __APPLE_CC__
++#include <strings.h>
++#endif
+ #endif
+ 
+ BEGIN_NAMESPACE( classad )
+--- work/classads-0.9.9/util.C	2007-06-15 20:39:15.000000000 +0200
++++ work/classads-0.9.9.new/util.C	2008-05-12 12:14:48.000000000 +0200
+@@ -25,9 +25,13 @@
+ #include "util.h"
+ #include "limits.h"
+ 
++#ifdef __APPLE_CC__
++#include <math.h>
++#endif
++
+ using namespace std;
+ 
+-#if !defined(__APPLE_CC__) && !defined(WIN32)
++#if !defined(WIN32)
+ extern DLL_IMPORT_MAGIC long timezone;
+ #endif
+ 
+@@ -384,10 +388,8 @@
+ 		return 0;
+ 	}
+ }
+-#elif (defined (__SVR4) && defined (__sun)) || defined(__APPLE_CC__)
+-#ifndef __APPLE_CC__
++#elif (defined (__SVR4) && defined (__sun))
+ #include <ieeefp.h>
+-#endif
+ int classad_isinf(double x) 
+ { 
+     if (finite(x) || x != x) {
+@@ -405,17 +407,10 @@
+ }
+ #endif 
+ 
+-#ifdef  __APPLE_CC__
+-int classad_isnan(double x)
+-{
+-    return __isnan(x);
+-}
+-#else
+ int classad_isnan(double x)
+ {
+     return isnan(x);
+ }
+-#endif
+ 
+ END_NAMESPACE // classad
+ 
