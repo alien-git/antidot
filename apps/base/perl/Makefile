@@ -1,10 +1,10 @@
 GARNAME = perl
-GARVERSION = 5.8.8
+GARVERSION = 5.10.0
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = locale.t.diff swig.diff
+PATCHFILES = # locale.t.diff swig.diff
 
-MASTER_SITES = http://ftp.funet.fi/pub/CPAN/src/ 
+MASTER_SITES = http://ftp.funet.fi/pub/CPAN/src/  http://www.cpan.org/src/
 
 LIBDEPS = apps/base/gdbm
 
