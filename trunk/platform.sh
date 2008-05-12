@@ -27,7 +27,7 @@ case `$dir/config.guess` in
       javaplatform=linux-i586
       case `sysctl machdep.cpu.extfeatures` in
         *EM64T)
-          flavor=gcc64
+          flavor=gcc32 # gcc64
         ;;
         *)    
           flavor=gcc32
