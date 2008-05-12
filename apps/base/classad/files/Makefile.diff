@@ -61,7 +61,7 @@
  echo "LIB_NAME = lib${lib_name}.a" >> Makefile.config
  echo "LIB_LINK_NAME = ${lib_name}" >> Makefile.config
 +echo "LIB_NAME_SHARED = lib${lib_name}.$GARLIBEXT" >> Makefile.config
-+echo "LD_FLAGS_SHARED = $OWN_CXXLDFLAGS" >> Makefile.config
++echo "LD_FLAGS_SHARED = $GARSHARED $OWN_CXXLDFLAGS" >> Makefile.config
  
  echo "Creating classad_features.h..."
  rm -f classad_features.h
