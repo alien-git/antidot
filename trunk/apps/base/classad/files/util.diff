@@ -1,5 +1,5 @@
---- work/classads-0.9.7/util.C	Tue Feb 22 18:04:48 2005
-+++ work/classads-0.9.7/util.C.new	Tue Feb 22 18:05:01 2005
+--- work/classads-0.9.9/util.C	Tue Feb 22 18:04:48 2005
++++ work/classads-0.9.9/util.C.new	Tue Feb 22 18:05:01 2005
 @@ -27,8 +27,6 @@
  
  using namespace std;
@@ -9,8 +9,8 @@
  BEGIN_NAMESPACE( classad )
  
  #ifdef WIN32
---- ./work/classads-0.9.7/util.C	2006-08-18 08:53:53.000000000 +0200
-+++ ./work/classads-0.9.7/util.C.ori	2006-08-18 08:51:57.000000000 +0200
+--- ./work/classads-0.9.9/util.C	2006-08-18 08:53:53.000000000 +0200
++++ ./work/classads-0.9.9/util.C.ori	2006-08-18 08:51:57.000000000 +0200
 @@ -353,16 +353,9 @@
  }
  #endif 
