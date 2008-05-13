@@ -6,9 +6,7 @@ GARVERSION = 4.0.4
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = #  gssapi.diff
  
-LIBDEPS   = apps/base/libxml2 apps/base/eugridpma-carep
-
-BUILDDEPS = apps/base/perl
+LIBDEPS   = apps/base/libxml2 apps/base/eugridpma-carep apps/base/perl
 
 DESCRIPTION = Globus Toolkit
 URL = http://www.globus.org/
@@ -27,4 +25,4 @@ CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR)
 
 include ../category.mk
 
-# PRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
+PRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
