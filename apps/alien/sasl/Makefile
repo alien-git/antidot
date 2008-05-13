@@ -5,10 +5,6 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 PATCHFILES = 
 
-ifeq ($(shell uname),Darwin)
-PATCHFILES = 
-endif
-
 MASTER_SITES = 
 
 LIBDEPS = apps/base/cyrus-sasl apps/base/globus-toolkit apps/base/Authen-SASL-Cyrus apps/base/eugridpma-carep
