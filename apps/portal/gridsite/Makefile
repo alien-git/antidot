@@ -1,5 +1,5 @@
 GARNAME = gridsite
-GARVERSION = 1.1.14
+GARVERSION = 1.5.8
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
