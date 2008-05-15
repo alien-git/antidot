@@ -28,3 +28,6 @@ endif
 
 include ../category.mk
 
+
+POST_INSTALL = (cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* libzlib.*; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .; cd ../bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon)
+
