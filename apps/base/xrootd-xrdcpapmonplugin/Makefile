@@ -8,9 +8,7 @@ PATCHFILES =
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/xrdcpapmonplugin/
 
-BUILDDEPS = apps/base/xrootd
-
-LIBDEPS = apps/base/ApMon-CPP apps/base/xrootd
+LIBDEPS = apps/base/ApMon-CPP apps/base/xrootd apps/base/xrootd
 
 DESCRIPTION = xrdcp plugin for ApMon
 
