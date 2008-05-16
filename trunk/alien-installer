@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.116  2008/02/22 11:15:50  buncic
+# Updating platform for Leopard
+#
 # Revision 1.115  2008/02/18 10:31:15  buncic
 # Adding '=' at the end of MASKED package names
 #
@@ -345,7 +348,7 @@
 # CREATION DATE:
 #C<
 #############################################################################
-VERSION=0.14
+VERSION=0.15
 ###########################################################################
 style="--title AliEn-Installer-v$VERSION --clear"
 height=8; width=60
@@ -931,93 +934,62 @@ InstallerUI()
 
   npkgs=`echo $list | wc -w`;  i=0
 
-  if [ $ALIEN_RELEASE = "v2-14" -o $ALIEN_RELEASE = "HEAD" ]
-  then
-        for meta in $list
-        do
-            i=$[i + 1]
-            g=$[$[i * 100]/$[npkgs]]
-            pkgdir=`echo $meta | sed 's/"//g'`
-            if [ "$pkgdir" = "" ] 
+  for meta in $list
+  do
+      i=$[i + 1]
+      g=$[$[i * 100]/$[npkgs]]
+      pkgdir=`echo $meta | sed 's/"//g'`
+      if [ "$pkgdir" = "" ] 
+      then
+           continue
+      fi
+      echo XXX
+      echo "Evaluating dependencies for $meta. Please wait...."
+      echo XXX
+      if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
+      then
+            if [ -f $ALIEN_INSTALLER_HOME/meta/$pkgdir/.metadeps ] 
             then
-                continue
+               plist=`cat $ALIEN_INSTALLER_HOME/meta/$pkgdir/.metadeps`
+            else 
+               plist=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make show-unique-deps`
             fi
-            echo XXX
-            echo "Evaluating dependencies for $meta. Please wait...."
-            echo XXX
-            if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
-            then
-                if [ -f $ALIEN_INSTALLER_HOME/meta/$pkgdir/.metadeps ] 
-                then
-                  plist=`cat $ALIEN_INSTALLER_HOME/meta/$pkgdir/.metadeps`
-                else 
-                  plist=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make show-unique-deps`
-                fi
-                for pkg in $plist;
-                do
-                    echo $pkg >>packages.list;
-                done;
-            fi;
-            echo $g;
-        done | $ALIEN_DIALOG $style --gauge "Checking dependencies" $height $width;
-        if [ -s packages.list ] 
-        then
-            packages=`cat packages.list | sort -u`;
-        fi;
-        npkgs=`echo $packages | wc -w`;
-        for target in bininstall relocate;
-        do
-            i=0;
-            for pkg in $packages;
+            for pkg in $plist;
             do
-                if [ $target = "bininstall" ]; then
-                    msg="Installing";
-                else
-                    msg="Relocating";
-                fi;
-                i=$[i + 1];
-                p=$[$[i * 100]/$[npkgs]];
-                echo XXX;
-                echo "$msg $pkg...";
-                if [ ! -d $pkg ]; then
-                    echo "No such package: $dir";
-                    exit 1;
-                fi;
-                make -s -C $pkg $target LIBDEPS= BUILDDEPS= >package.log 2>&1 || echo "Failed";
-                cat package.log >>$ALIEN_INSTALLER_HOME/install.log;
-                echo XXX;
-                echo $p;
-            done | $ALIEN_DIALOG $style --gauge "Processing $pkg..." $height $width;
-        done;
-    else
-        for meta in $list;
-        do
-            pkgdir=`echo $meta | sed 's/"//g'`;
-            if [ "$pkgdir" = "" ]; then
-                continue;
-            fi;
-            $ALIEN_DIALOG $style --sleep 3 --infobox "Getting the list of packages to install for $pkgdir..." $height $width;
-            if [ -d $workspace/meta/$pkgdir ]; then
-                packages=`cd $workspace/meta/$pkgdir; make list_packages`;
-                npkgs=`echo $packages | wc -w`;
-                cd $workspace;
-                i=0;
-                for pkg in $packages;
-                do
-                    g=$[$[i * 100]/$[npkgs + 1]];
-                    i=$[i + 1];
-                    echo XXX;
-                    echo "Installing $pkg...";
-                    echo XXX;
-                    InstallerMakePkg bininstall $pkg >>$workspace/install.log;
-                    err=$?;
-                    [ $err -ne 0 ] && break;
-                    echo $g;
-                done | $ALIEN_DIALOG $style --gauge "Installing $pkg..." $height $width;
-            fi;
-            [ $err -ne 0 ] && break;
-        done;
+                echo $pkg >>packages.list;
+            done;
+        fi;
+        echo $g;
+  done | $ALIEN_DIALOG $style --gauge "Checking dependencies" $height $width;
+  if [ -s packages.list ] 
+  then
+        packages=`cat packages.list | sort -u`;
   fi;
+  npkgs=`echo $packages | wc -w`;
+  for target in bininstall relocate;
+  do
+        i=0;
+        for pkg in $packages;
+        do
+            if [ $target = "bininstall" ]; then
+                msg="Installing";
+            else
+                msg="Relocating";
+            fi;
+            i=$[i + 1];
+            p=$[$[i * 100]/$[npkgs]];
+            echo XXX;
+            echo "$msg $pkg...";
+            if [ ! -d $pkg ]; then
+                echo "No such package: $dir";
+                exit 1;
+            fi;
+            make -s -C $pkg $target LIBDEPS= BUILDDEPS= >package.log 2>&1 || echo "Failed";
+            cat package.log >>$ALIEN_INSTALLER_HOME/install.log;
+            echo XXX;
+            echo $p;
+        done | $ALIEN_DIALOG $style --gauge "Processing $pkg..." $height $width;
+  done;
 
   err=$?
 
