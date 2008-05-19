@@ -8,7 +8,7 @@ FILTER     ?= %
 ALL=\
 apps/devel/dialog \
 apps/base/eugridpma-carep \
-apps/alien/alien-ca \
+apps/base/alien-ca \
 apps/alien/admin \
 apps/server/DBD-mysql \
 apps/alien/classad \
