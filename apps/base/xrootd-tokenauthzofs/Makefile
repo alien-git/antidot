@@ -1,5 +1,5 @@
 GARNAME = xrootd-tokenauthzofs
-GARVERSION = 1.1.9
+GARVERSION = 1.1.8c
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
