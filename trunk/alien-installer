@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.117  2008/05/16 10:12:28  buncic
+# Removing legacy installation procedure
+#
 # Revision 1.116  2008/02/22 11:15:50  buncic
 # Updating platform for Leopard
 #
@@ -352,7 +355,7 @@ VERSION=0.15
 ###########################################################################
 style="--title AliEn-Installer-v$VERSION --clear"
 height=8; width=60
-wget="env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= wget"
+wget="env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= curl -f -L " 
 ###########################################################################
 Exit()
 ###########################################################################
@@ -474,7 +477,7 @@ InstallerSync()
  (
   mkdir -p $ALIEN_INSTALLER_HOME || Error "Error: Cannot create $ALIEN_INSTALLER_HOME directory"
   cd $ALIEN_INSTALLER_HOME
-  $wget -O makefiles.tar.bz2 ${ALIEN_BITS_URL}../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from ${ALIEN_BITS_URL}../makefiles.tar.bz2"
+  $wget -o makefiles.tar.bz2 ${ALIEN_BITS_URL}../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from ${ALIEN_BITS_URL}../makefiles.tar.bz2"
   tar jxf makefiles.tar.bz2 && rm makefiles.tar.bz2 
   ) >> install.log 2>&1
 }
@@ -735,8 +738,8 @@ InstallerUI()
   cache_file=`mktemp /tmp/cache.XXXXXX`
   dialog_file=`mktemp /tmp/dialog.XXXXXX`
 
-  $wget -O $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
-  $wget -O $cache_file http://alien.cern.ch/BitServers > /dev/null 2>&1 
+  $wget -o $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
+  $wget -o $cache_file http://alien.cern.ch/BitServers > /dev/null 2>&1 
 
   list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{if (i==0 && index($4,"Stable")) {on="on"; i=1 } else {on="0"}; printf("%s %s %s ",$3,$4,on);}'`
 
@@ -1423,3 +1426,4 @@ EOF
 done
 
 InstallerUI $*
+
