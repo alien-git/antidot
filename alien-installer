@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.118  2008/05/26 12:22:52  buncic
+# Using curl instead of wget
+#
 # Revision 1.117  2008/05/16 10:12:28  buncic
 # Removing legacy installation procedure
 #
@@ -641,25 +644,29 @@ InstallerUpdate()
 
   export TPUT=undef
 
+  workspace=$ALIEN_INSTALLER_HOME
+
   cd $ALIEN_INSTALLER_HOME
 
-  if [ "$ALIEN_FORCE" = "1" ]
+  if [ -f $ALIEN_INSTALLER_PREFIX/bin/alien-perl ] 
   then
-    if [ -f $ALIEN_INSTALLER_PREFIX/bin/alien-perl ] 
-    then
-       rm -rf $ALIEN_INSTALLER_PREFIX/*
-    fi 
-    rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
-  fi
-
- (cd $ALIEN_INSTALLER_HOME/apps/alien; make -s clean)
+     if [ -f $ALIEN_INSTALLER_PREFIX/.Environment ] 
+     then
+       cp $ALIEN_INSTALLER_PREFIX/.Environment /tmp/.Environment.$$
+     fi 
+     rm -rf $ALIEN_INSTALLER_PREFIX/* 
+     if [ -f /tmp/.Environment.$$ ] 
+     then
+       cp /tmp/.Environment.$$ $ALIEN_INSTALLER_PREFIX/.Environment 
+     fi 
+  fi 
+  rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
 
  (cd $ALIEN_INSTALLER_HOME; ./configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX >> install.log 2>&1 ) 
 
-#  export GARAUTODETECT="apps/gcc/gcc"; 
-#  InstallerMakePkg bininstall apps/gcc/gcc; 
-
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
+
+  err=0
 
   packages=""
 
@@ -671,55 +678,66 @@ InstallerUpdate()
 
   for meta in $list
   do
-     i=$[i + 1]
-     g=$[$[i * 100]/$[npkgs]];
-     pkgdir=`echo $meta | sed 's/"//g'`
-     if [ "$pkgdir" = "" ]
-     then
-       continue
-     fi
-     if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
-     then
-       echo "Calculating dependencies for  $meta..."
-       plist=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make -s show-unique-deps`
-       for pkg in $plist
-       do
-         echo $pkg >> packages.list
-       done
-     fi
+      pkgdir=`echo $meta | sed 's/"//g'`
+      if [ "$pkgdir" = "" ] 
+      then
+           continue
+      fi
+      if [ -d $ALIEN_INSTALLER_HOME/meta/$pkgdir ]
+      then
+            if [ -f $ALIEN_INSTALLER_HOME/meta/$pkgdir/.metadeps ] 
+            then
+               plist=`cat $ALIEN_INSTALLER_HOME/meta/$pkgdir/.metadeps`
+            else 
+               plist=`cd $ALIEN_INSTALLER_HOME/meta/$pkgdir; make show-unique-deps`
+            fi
+            for pkg in $plist;
+            do
+                echo $pkg >>packages.list;
+            done;
+        fi;
   done
-
   if [ -s packages.list ] 
-  then 
-    packages=`cat packages.list | sort -u`
-  fi
-
-  npkgs=`echo $packages | wc -w`;  i=0
-
-  for pkg in $packages
+  then
+        packages=`cat packages.list | sort -u`;
+  fi;
+  for target in bininstall relocate;
   do
-     i=$[i + 1]
-     p=$[$[i * 100]/$[npkgs]];
-     if [ ! -d $pkg ]
-     then
-        echo "No such package: $dir"
-        exit 1
-     fi
-        echo "Updating $pkg..."
-        make -s -C $pkg bininstall LIBDEPS= BUILDDEPS= > package.log 2>&1 || exit 1
-        cat package.log >> $ALIEN_INSTALLER_HOME/install.log
-  done
- 
+        for pkg in $packages;
+        do
+            if [ $target = "bininstall" ]; then
+                msg="Installing";
+            else
+                msg="Relocating";
+            fi;
+            echo "$msg $pkg...";
+            if [ ! -d $pkg ]; then
+                echo "No such package: $dir";
+                exit 1;
+            fi;
+            make -s -C $pkg $target LIBDEPS= BUILDDEPS= >package.log 2>&1 || echo "Failed";
+            cat package.log >>$ALIEN_INSTALLER_HOME/install.log;
+        done
+  done;
+
   if [ -f $ALIEN_INSTALLER_HOME/ALIEN_VERSION ]
   then
     cp -f $ALIEN_INSTALLER_HOME/ALIEN_VERSION $ALIEN_INSTALLER_PREFIX/share/alien 
   fi
 
-  if [ -x  $ALIEN_INSTALLER_PREFIX/bin/alien ]
+  rm -rf $release_file $dialog_file
+
+  sc=`SanityCheck`
+
+  if [ $sc != 0 ]
   then
-    echo 'Running post installation scripts...'
-    $ALIEN_INSTALLER_PREFIX/bin/alien configure common >> install.log
+    echo "Errors were reported during installation. Please check $workspace/install.log"
+    exit 1
+  else
+    echo "You have sucessfuly installed  AliEn gridware on your computer."
   fi
+
+  exit 0
 
 }
 
@@ -886,6 +904,19 @@ InstallerUI()
 
   mkdir -p $prefix || Error "Cannot create $prefix directory"
 
+  if [ -f $ALIEN_INSTALLER_PREFIX/bin/alien-perl ] 
+  then
+     if [ -f $ALIEN_INSTALLER_PREFIX/.Environment ] 
+     then
+       cp $ALIEN_INSTALLER_PREFIX/.Environment /tmp/.Environment.$$
+     fi 
+     rm -rf $ALIEN_INSTALLER_PREFIX/* 
+     if [ -f /tmp/.Environment.$$ ] 
+     then
+       cp /tmp/.Environment.$$ $ALIEN_INSTALLER_PREFIX/.Environment 
+     fi 
+  fi 
+
   cmd=$cmd"--prefix=$prefix"
 
   $ALIEN_DIALOG $style \
@@ -926,8 +957,6 @@ InstallerUI()
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
   export GARAUTODETECT="$ALIEN_INSTALLER_AUTODETECT"
-
-  err=0
 
   packages=""
 
@@ -994,8 +1023,6 @@ InstallerUI()
         done | $ALIEN_DIALOG $style --gauge "Processing $pkg..." $height $width;
   done;
 
-  err=$?
-
   if [ -f $ALIEN_INSTALLER_HOME/ALIEN_VERSION ]
   then
     cp -f $ALIEN_INSTALLER_HOME/ALIEN_VERSION $ALIEN_INSTALLER_PREFIX/share/alien 
@@ -1005,7 +1032,7 @@ InstallerUI()
 
   sc=`SanityCheck`
 
-  if [ $err -ne 0 -o $sc -ne 0 ]
+  if [ $sc != 0 ]
   then
     $ALIEN_DIALOG $style \
           --msgbox "Errors were reported during installation. Please check $workspace/install.log"  $height $width
@@ -1018,7 +1045,7 @@ InstallerUI()
     then
       $ALIEN_DIALOG $style --sleep 3 \
               --infobox 'Running post installation scripts...' $height $width
-      $ALIEN_INSTALLER_PREFIX/bin/alien configure common >> install.log
+      $ALIEN_INSTALLER_PREFIX/bin/alien setup common >> install.log
     fi
     $ALIEN_DIALOG $style \
           --msgbox 'You have sucessfuly installed  AliEn gridware on your computer.' $height $width
