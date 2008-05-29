@@ -29,7 +29,6 @@ endif
 
 include ../category.mk
 
-
-PRE_CONFIGURE = (cd  $(WORKSRC); sh bootstrap.sh)
-POST_INSTALL  = (cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* libzlib.*; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .; cd ../bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon)
+PRE_CONFIGURE = (cd  $(WORKSRC); sh bootstrap.sh; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* libzlib.*; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
+POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon)
 
