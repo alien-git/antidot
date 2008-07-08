@@ -1,5 +1,5 @@
 GARNAME = alien-ca
-GARVERSION = 1.0
+GARVERSION = 1.1
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
