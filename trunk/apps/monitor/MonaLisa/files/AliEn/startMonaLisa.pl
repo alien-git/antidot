@@ -2,6 +2,7 @@
 # v0.3.9
 # Catalin.Cirstoiu@cern.ch
 
+# 14/07/2008 - adding 2 new central services,PackManMaster and MessagesMaster
 # 24/10/2007 - run the checkJAStatus script less often (once each 30 minutes)
 #            - adding the ALIEN_*DIR (LOG, TMP, CACHE) directories to env for monitoring
 # 10/10/2007 - do not filter env variables - just take all defined when starting ML
@@ -169,7 +170,7 @@ sub getAliEnServicesLogs {
     my $srvConf  = "$ENV{ALIEN_HOME}/etc/aliend/$ENV{ALIEN_ORGANISATIONS}/startup.conf";
     my $csLogDir = "$ENV{ALIEN_HOME}/var/log/AliEn/$ENV{ALIEN_ORGANISATIONS}";
     my $ssLogDir = $config->{LOG_DIR};
-    my @csList = qw(Proxy IS Authen Server Logger TransferManager Broker TransferBroker TransferOptimizer JobOptimizer CatalogueOptimizer);
+    my @csList = qw(Proxy IS Authen Server Logger TransferManager Broker TransferBroker TransferOptimizer JobOptimizer CatalogueOptimizer PackManMaster MessagesMaster);
     my @ssList = qw(Monitor SE PackMan CE MonaLisa FTD);
     
     my $serv2log = {
