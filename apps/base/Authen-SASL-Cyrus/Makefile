@@ -21,7 +21,7 @@ TEST_SCRIPTS = # $(WORKSRC)/Makefile
 
 AUTOTEST = testForAliEnPerlModule Authen-SASL-Cyrus $(GARVERSION)
 
-CONFIGURE_ARGS =  INC="-I$(PREFIX)/include" LIBS="-L$(PREFIX)/lib -lsasl2" DEFINE="-DSASL2"
+CONFIGURE_ARGS =  INC="-I$(PREFIX)/include" LIBS="-L$(PREFIX)/lib  -L$(PREFIX)/lib64 -lsasl2" DEFINE="-DSASL2"
 BUILD_ARGS =  
 
 include ../category.mk
