@@ -1,0 +1,11 @@
+--- work/classads-0.9.7/exprTree.h	Thu Oct  7 21:03:58 2004
++++ work/classads-0.9.7/exprTree.h.new	Mon Jan 24 15:08:01 2005
+@@ -27,7 +27,7 @@
+ #include "classad_stl.h"
+ #include "common.h"
+ #include "value.h"
+-#include <ostream>
++#include <iostream>
+ 
+ BEGIN_NAMESPACE( classad )
+ 
