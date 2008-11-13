@@ -358,12 +358,13 @@ VERSION=0.15
 ###########################################################################
 style="--title AliEn-Installer-v$VERSION --clear"
 height=8; width=60
-wget="env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= curl -f -L " 
+which wget > /dev/null 2>&1 &&  wget="env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= wget -O" 
+which curl > /dev/null 2>&1 && wget="env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= curl -f -L -o" 
+[ "x$wget" = x ] &&  Error "Please install wget or curl before running the installer"
 ###########################################################################
 Exit()
 ###########################################################################
 {
-#  [ $debug -eq 0 ] && clear
   InstallerRcUpdate
   rm -rf $release_file $dialog_file $cache_file
   if [ ! -z "$2" ]
@@ -377,7 +378,14 @@ Exit()
 Error()
 ###########################################################################
 {
-   dialog $style --msgbox "$1" $height $width 
+   which dialog > /dev/null 2>&1
+   if [ $? -ne 0 ] 
+   then
+     echo "Error: dialog not found." $1
+     echo "Error:" $1
+   else
+     dialog $style --msgbox "$1" $height $width
+   fi
    exit 1
 }
 ###########################################################################
@@ -391,22 +399,49 @@ ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
 unset TMPDIR
 if [ "x$ALIEN_INSTALLER_PLATFORM" = "x" ]
 then
-  for dir in /usr/share/libtool /usr/share/automake /usr/lib/rpm
+  for guess in /usr/share/libtool/config.guess /usr/share/automake/config.guess /usr/lib/rpm/config.guess `locate config.guess 2> /dev/null`
   do
-    if [ -f $dir/config.guess ]  
+    if [ -f $guess ]  
     then 
-       ALIEN_INSTALLER_PLATFORM=`$dir/config.guess`
+       ALIEN_INSTALLER_PLATFORM=`$guess`
        break
     fi 
   done
+  case $ALIEN_INSTALLER_PLATFORM in
+     i*86-*-linux-gnu)
+       ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu
+       ;; 
+     ia64-*-linux-gnu) 
+       ALIEN_INSTALLER_PLATFORM=ia64-unknown-linux-gnu 
+       ;;
+     powerpc-apple-darwin8.*.*) 
+       ALIEN_INSTALLER_PLATFORM=powerpc-apple-darwin8.1.0 
+       ;;
+     i686-apple-darwin8.*|i686-apple-darwin9.*)
+        case `sysctl machdep.cpu.extfeatures` in
+          *EM64T)
+            ALIEN_INSTALLER_PLATFORM=x86_64-apple-darwin8.6.1
+          ;;
+          *)    
+            ALIEN_INSTALLER_PLATFORM=i686-apple-darwin8.6.1
+          ;;
+         esac
+       ;;
+      x86_64-*-linux-gnu)
+       ALIEN_INSTALLER_PLATFORM=x86_64-unknown-linux-gnu
+       ;;
+      *)
+       ;;
+  esac
 fi
+
 if [ "x$ALIEN_INSTALLER_PLATFORM" = "x" ]
 then
   Error "Could not guess your platform. Please set ALIEN_INSTALLER_PLATFORM variable"
 fi
+
 ALIEN_DIALOG=${ALIEN_DIALOG:=dialog}
 ALIEN_RELEASE=${ALIEN_RELEASE:=HEAD}
-ALIEN_BITS_URL=${ALIEN_BITS_URL:=http://alienbuild.cern.ch:8888/$ALIEN_INSTALLER_PLATFORM/$ALIEN_RELEASE/download/} 
 ALIEN_INSTALLER_TYPE=$(echo $ALIEN_INSTALLER_TYPE | sed 's/+/ /g')
 ECHO=""
 ###########################################################################
@@ -480,8 +515,17 @@ InstallerSync()
  (
   mkdir -p $ALIEN_INSTALLER_HOME || Error "Error: Cannot create $ALIEN_INSTALLER_HOME directory"
   cd $ALIEN_INSTALLER_HOME
-  $wget -o makefiles.tar.bz2 ${ALIEN_BITS_URL}../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from ${ALIEN_BITS_URL}../makefiles.tar.bz2"
+  $wget makefiles.tar.bz2 ${ALIEN_BITS_URL}../makefiles.tar.bz2 > /dev/null 2>&1 || Error "Error: Cannot fetch makefiles from ${ALIEN_BITS_URL}../makefiles.tar.bz2. Please check outgoing network connectivity."
   tar jxf makefiles.tar.bz2 && rm makefiles.tar.bz2 
+  which wget > /dev/null 2>&1 
+  if [ $? -eq 0 ]
+  then
+     cat<<'EOF'>wget.sh
+#/bin/sh
+wget $*
+EOF
+   chmod +x wget.sh
+   fi
   ) >> install.log 2>&1
 }
 
@@ -662,6 +706,8 @@ InstallerUpdate()
   fi 
   rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*
 
+  [ ! -f  $ALIEN_INSTALLER_HOME/configure ] && Error "Error: Cannot find  $ALIEN_INSTALLER_HOME/configure file."
+
  (cd $ALIEN_INSTALLER_HOME; ./configure --with-alien-release=$ALIEN_RELEASE  --with-platform=$ALIEN_INSTALLER_PLATFORM --with-bits-url=$ALIEN_BITS_URL --prefix=$ALIEN_INSTALLER_PREFIX >> install.log 2>&1 ) 
 
   export GARAUTODETECT=$ALIEN_INSTALLER_AUTODETECT
@@ -752,12 +798,17 @@ InstallerUI()
 
   style="--title AliEn-Installer-v$VERSION --clear"
 
-  release_file=`mktemp /tmp/release.XXXXXX`
-  cache_file=`mktemp /tmp/cache.XXXXXX`
   dialog_file=`mktemp /tmp/dialog.XXXXXX`
 
-  $wget -o $release_file http://alien.cern.ch/Releases > /dev/null 2>&1 
-  $wget -o $cache_file http://alien.cern.ch/BitServers > /dev/null 2>&1 
+  url=http://alien.cern.ch/Releases
+  release_file=`mktemp /tmp/release.XXXXXX`
+    
+  $wget $release_file $url > /dev/null 2>&1 || Error "Error: Cannot fetch Releases file from $url. Please check outgoing network connectivity." 
+   
+  url=http://alien.cern.ch/BitServers
+  cache_file=`mktemp /tmp/cache.XXXXXX`
+
+  $wget $cache_file $url > /dev/null 2>&1 || Error "Error: Cannot fetch BitServers file from $url. Please check outgoing network connectivity."  
 
   list=`grep -v -e HEAD -e "^#" $release_file |  awk -F: '{if (i==0 && index($4,"Stable")) {on="on"; i=1 } else {on="0"}; printf("%s %s %s ",$3,$4,on);}'`
 
@@ -783,13 +834,7 @@ InstallerUI()
 
   cmd=$cmd" --with-alien-release=$ALIEN_RELEASE "
 
-  $ALIEN_DIALOG  $style --defaultno \
-          --yesno "Would you like installer to autodetect and reuse already installed software components on your system?" 0 0 
-
-  if [ $? -eq 0 ] 
-  then
-    ALIEN_INSTALLER_AUTODETECT="true"
-  fi
+  ALIEN_INSTALLER_AUTODETECT="false"
 
   workspace=$ALIEN_INSTALLER_HOME
 
@@ -814,25 +859,6 @@ InstallerUI()
 
   platform=$ALIEN_INSTALLER_PLATFORM
 
-  case $platform in
-   i*86-*-linux-gnu)
-     platform=i686-pc-linux-gnu
-   ;; 
-   ia64-*-linux-gnu) 
-     platform=ia64-unknown-linux-gnu 
-   ;;
-   powerpc-apple-darwin8.*.*) 
-     platform=powerpc-apple-darwin8.1.0 
-   ;;
-   i686-apple-darwin8.*|i686-apple-darwin9.*)
-     platform=i686-apple-darwin8.6.1
-   ;;
-    x86_64-*-linux-gnu)
-    platform=x86_64-unknown-linux-gnu
-   ;;
-  esac
-
-
   if [ `grep -v -e "^#" $cache_file | grep -c $platform` -eq 0 ]
   then
     platform="Unknown"
@@ -849,14 +875,19 @@ InstallerUI()
                               'ia64-unknown-linux-gnu'    'Linux ia64' 0  \
                               'x86_64-unknown-linux-gnu'  'Linux Opteron' 0  \
                               'i686-apple-darwin8.6.1'    'MacOS X (Intel)' 0 \
-                              'powerpc-apple-darwin8.1.0' 'MacOS X (PPC)'    0  2>$dialog_file || Exit 1 
-
+                              'x86_64-apple-darwin8.6.1'  'MacOS X (Intel 64 bit)' 0 \
+      2>$dialog_file
       platform=`cat $dialog_file`
-      cmd=$cmd"--with-platform=$platform "
   fi
 
+  cmd=$cmd"--with-platform=$platform "
 
   ALIEN_INSTALLER_PLATFORM=$platform  
+
+  if [ "$ALIEN_INSTALLER_TEST" = "" ]
+  then 
+    [ `awk -F: '{print $3, $5}'  $release_file | grep -c -e "^.*$ALIEN_RELEASE.*$ALIEN_INSTALLER_PLATFORM"` -eq 0 ] && Error  "Sorry, release $ALIEN_RELEASE is not (yet) supported on $ALIEN_INSTALLER_PLATFORM platform."
+  fi
 
   caches=`grep -v -e "^#" $cache_file | grep $platform | awk -v platform=$ALIEN_INSTALLER_PLATFORM -v release=$ALIEN_RELEASE -F'|' '{printf("%s/%s/%s/download/",$2,platform,release)}' | sed 's/ *//'`
   cmd=$cmd" --with-bits-url=$caches "
@@ -932,7 +963,6 @@ InstallerUI()
                            'monitor' 'MonaLisa site monitor'    0  \
                            'core'    'Core VO services'         0  \
                            'wn'      'Worker node'              0  \
-                           'panda'   'PANDA CA'                 0  \
                            'arc'     'ARC Interface'            0  \
                            'tests'   'AliEn tests'              0 2>$dialog_file || Exit 1
 
@@ -952,7 +982,7 @@ InstallerUI()
  
   InstallerRcUpdate
 
-  ( $cmd ) >> install.log 2>&1
+  $cmd >> install.log 2>&1 || Error "Error: configure commad failed ($cmd)."
 
   (cd $workspace; rm -rf apps/*/*/cookies/*binextract* apps/*/*/cookies/*relocate*)
 
@@ -1016,8 +1046,12 @@ InstallerUI()
                 echo "No such package: $dir";
                 exit 1;
             fi;
-            make -s -C $pkg $target LIBDEPS= BUILDDEPS= >package.log 2>&1 || echo "Failed";
-            cat package.log >>$ALIEN_INSTALLER_HOME/install.log;
+            make -s -C $pkg $target LIBDEPS= BUILDDEPS= >package.log 2>&1
+            if [ $? -ne 0 ]
+            then 
+               cat package.log >>$ALIEN_INSTALLER_HOME/install.log
+               break
+            fi 
             echo XXX;
             echo $p;
         done | $ALIEN_DIALOG $style --gauge "Processing $pkg..." $height $width;
@@ -1036,7 +1070,6 @@ InstallerUI()
   then
     $ALIEN_DIALOG $style \
           --msgbox "Errors were reported during installation. Please check $workspace/install.log"  $height $width
-    Error 
     $ALIEN_DIALOG $style \
                      --textbox $workspace/install.log 40 60
     Exit 1 
@@ -1059,7 +1092,7 @@ InstallerUI()
 SanityCheck()
 ###########################################################################
 {
-   rc=`grep -c -e "GAR GAR GAR -e 'No such file or directory'" $workspace/install.log`
+   rc=`grep -c -e "GAR GAR GAR" -e "No such file or directory" $workspace/install.log`
    echo $rc
 }
 
@@ -1393,40 +1426,21 @@ do
         --help|-help|-h)
             cat<<EOF
 
-Usage: alien-installer [options] command [package...]
-
-Common commmands:
-  install    - install/update the named packages
-  remove     - remove the named packages
-  purge      - same as remove but also removes all configuration files
-  update     - update the named packages
-  sync       - upgrade to the latest release
-  update-all - update all installed packages
-  configure  - rerun the configuration process
-  list       - list available packages, optionally filtering by name,
-  apropos    - list packages matching a search keyword
-  describe   - display a detailed description of the named packages
-  index      - force rebuild of package cache 
-
-Options:
+Usage: alien-installer <installer options> [[configure <configure options>]|[update]]
+ 
+Installer options:
   -p, --build-prefix - installation directory
   -h, --help         - display this help text
   -q, --quiet        -  be less verbose, opposite of --verbose
   -V, --version      - display version information
   -v, --verbose      - to be more verbose, opposite of --quiet
-
-Configuration:
-
- alien-installer <installer option> configure <configure options>
  
-Installer options:
+  --prefix <path>            [/opt/alien]  
+  --home <path>              [$HOME/alien]
   --release <RELEASE>        [HEAD] 
   --type <installation type> [all,client,portal,site,core,wn]
   --platform <platform>      [,i686-pc-linux-gnu,ia64-unknown-linux-gnu,powerpc-apple-darwin7.7.0]
-  --prefix <path>            [/opt/alien]  
-  --home <path>              [$HOME/alien]
-  --autodetect
- 
+  
 Configure options:
   --prefix=dir                   Installation prefix 
   --with-globus-location=dir     Globus directory
@@ -1440,11 +1454,6 @@ EOF
 
 
             exit
-           ;;
-        list|apropos|index|describe)
-            shift 1
-            echo "Sorry, not implemented (yet)..."
-            exit 1
            ;;
         *)
            shift 1
