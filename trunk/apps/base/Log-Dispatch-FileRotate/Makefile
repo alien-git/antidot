@@ -1,5 +1,5 @@
 GARNAME = Log-Dispatch-FileRotate
-GARVERSION = 1.16
+GARVERSION = 1.18
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
