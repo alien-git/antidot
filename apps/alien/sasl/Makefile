@@ -1,5 +1,5 @@
 GARNAME = cyrus-sasl-alien
-GARVERSION = 2.1.21
+GARVERSION = 2.1.22
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -19,6 +19,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEAST_SCRIPTS = $(WORKSRC)/Makefile
+
+PRE_CONFIGURE = (cd $(WORKSRC); autoconf) 
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --with-sasl-dir=$(PREFIX) --enable-alientoken  --enable-aliengssapi --enable-alienjobtoken
 
