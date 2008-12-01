@@ -6,7 +6,6 @@ FILTER_OUT ?=
 FILTER     ?= % 
  
 ALL=\
-apps/devel/dialog \
 apps/base/eugridpma-carep \
 apps/base/alien-ca \
 apps/alien/classad \
