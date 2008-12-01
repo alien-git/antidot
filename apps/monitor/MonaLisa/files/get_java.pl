@@ -25,7 +25,8 @@ $ua->agent("get_java.pl/1.0 ");
 $ua->env_proxy();
 
 my $success = 0;
-my $file_name = "jdk-$java_ver-$platform.".($platform =~ /ia64/ ? "tar.bz2" : "bin");
+#my $file_name = "jdk-$java_ver-$platform.".($platform =~ /ia64/ ? "tar.bz2" : "bin");
+my $file_name = "jre-$java_ver-$platform.bin";
 my $res;
 for my $base (@url_base){
 	my $url = "${base}../java/${file_name}";
