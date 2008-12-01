@@ -30,7 +30,7 @@ include ../category.mk
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
 ifeq ($(JAVA_PLATFORM),linux-ia64)
-	JAVA_VERSION = 1_5_0_12
+	JAVA_VERSION = 6u7
 else
 	JAVA_VERSION = 6u10
 endif

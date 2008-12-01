@@ -7,15 +7,9 @@
 +ifneq ($(shell uname -s),Darwin)
 +	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) $(JAVA_VERSION) $(MASTER_SITES) && \
 +	(cd $(DISTNAME) &&  \
-+	if test "$(JAVA_PLATFORM)" != "linux-ia64" ; then \
-+		JAVA_BIN=`ls ../j*.bin` && \
-+		echo "yes" | sh $$JAVA_BIN | tee /dev/null && \
-+		JAVA_HOME=j* && ln -sf $$JAVA_HOME java && cd $$JAVA_HOME ; \
-+	else \
-+		JAVA_ARC=`ls ../jdk*.tar.bz2` && \
-+		tar jxvf $$JAVA_ARC && \
-+		cd java ; \
-+	fi && \
++	JAVA_BIN=`ls ../j*.bin` && \
++	echo "yes" | sh $$JAVA_BIN | tee /dev/null && \
++	JAVA_HOME=j* && ln -sf $$JAVA_HOME java && cd $$JAVA_HOME ; \
 +	rm -rf demo man sample src.zip jre/plugin jre/javaws)
 +else
 +	echo Java is already installed on Darwin
