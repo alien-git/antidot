@@ -11,7 +11,7 @@ GARCVSVERSION = $(CVS_TAG)
 
 MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/
 
-LIBDEPS = apps/alien/classad apps/alien/perl apps/base/alien-ca apps/alien/sasl apps/base/SOAP-Lite apps/base/perl-ldap apps/base/XML-Generator apps/base/Getopt-Declare apps/base/XML-Parser-EasyTree apps/base/XML-Simple apps/base/Log-TraceMessages apps/base/uuid apps/base/Crypt-OpenSSL-RSA apps/base/Log-Agent-Rotate apps/base/Cache-Cache apps/base/DBD-CSV apps/base/DBD-SQLite apps/base/Compress-Zlib apps/base/DateTime apps/base/Filesys-DiskFree apps/base/Authen-SASL apps/base/Authen-PAM apps/base/Archive-Zip apps/base/ApMon apps/base/xrootd-xrdcpapmonplugin apps/base/xrootd-shellcmds apps/base/Convert-PEM apps/base/Crypt-CBC apps/base/Convert-UU apps/base/Config-ApacheFormat apps/base/File-CacheDir apps/base/Filesys-DiskUsage
+LIBDEPS = apps/alien/classad apps/alien/perl apps/base/alien-ca apps/alien/sasl apps/base/SOAP-Lite apps/base/perl-ldap apps/base/XML-Generator apps/base/Getopt-Declare apps/base/XML-Parser-EasyTree apps/base/XML-Simple apps/base/Log-TraceMessages apps/base/uuid apps/base/Crypt-OpenSSL-RSA apps/base/Log-Agent-Rotate apps/base/Cache-Cache apps/base/DBD-CSV apps/base/Compress-Zlib apps/base/DateTime apps/base/Filesys-DiskFree apps/base/Authen-SASL apps/base/Authen-PAM apps/base/Archive-Zip apps/base/ApMon apps/base/xrootd-xrdcpapmonplugin apps/base/xrootd-shellcmds apps/base/Convert-PEM apps/base/Crypt-CBC apps/base/Convert-UU apps/base/File-CacheDir apps/base/Filesys-DiskUsage
 
 DESCRIPTION = AliEn common component
 URL = http://alien.cern.ch
