@@ -7,6 +7,7 @@ FILTER     ?= %
  
 ALL=\
 meta/wn \
+apps/base/Config-ApacheFormat \
 apps/base/Term-ReadLine-Gnu 
 
 
