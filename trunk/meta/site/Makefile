@@ -6,15 +6,9 @@ FILTER_OUT ?=
 FILTER     ?= % 
  
 ALL=\
-apps/devel/dialog \
-apps/base/eugridpma-carep \
-apps/base/alien-ca \
 apps/alien/admin \
-apps/alien/classad \
-apps/alien/common \
-apps/alien/perl \
-apps/alien/gapi \
-apps/portal/mod_perl
+apps/portal/mod_perl \
+meta/client
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
