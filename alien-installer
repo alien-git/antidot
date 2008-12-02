@@ -5,6 +5,9 @@
 #
 # modification history
 # $Log$
+# Revision 1.120  2008/11/13 09:52:08  buncic
+# Commiting last set fo updates
+#
 # Revision 1.118  2008/05/26 12:22:52  buncic
 # Using curl instead of wget
 #
@@ -399,7 +402,7 @@ ALIEN_INSTALLER_PLATFORM=${ALIEN_INSTALLER_PLATFORM:=}
 unset TMPDIR
 if [ "x$ALIEN_INSTALLER_PLATFORM" = "x" ]
 then
-  for guess in /usr/share/libtool/config.guess /usr/share/automake/config.guess /usr/lib/rpm/config.guess `locate config.guess 2> /dev/null`
+  for guess in /usr/share/libtool/config.guess  /usr/share/libtool/config/config.guess /usr/share/automake/config.guess /usr/lib/rpm/config.guess `locate config.guess 2> /dev/null`
   do
     if [ -f $guess ]  
     then 
