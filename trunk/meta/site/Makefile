@@ -10,7 +10,7 @@ apps/alien/admin \
 apps/portal/mod_perl \
 apps/base/Config-ApacheFormat \
 apps/base/Term-ReadLine-Gnu \
-pps/base/eugridpma-carep \
+apps/base/eugridpma-carep \
 apps/base/alien-ca \
 apps/alien/classad \
 apps/alien/common \
