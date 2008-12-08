@@ -1,5 +1,5 @@
 GARNAME = graphviz
-GARVERSION = 2.2.1
+GARVERSION = 2.20.3
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
