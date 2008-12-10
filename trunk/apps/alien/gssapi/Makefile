@@ -1,5 +1,5 @@
 GARNAME = alien-gssapi
-GARVERSION = 2.1.4
+GARVERSION = 2.1.6
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
