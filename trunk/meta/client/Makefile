@@ -6,7 +6,12 @@ FILTER_OUT ?=
 FILTER     ?= % 
  
 ALL=\
-meta/wn \
+apps/base/eugridpma-carep \
+apps/base/alien-ca \
+apps/alien/classad \
+apps/alien/common \
+apps/alien/perl \
+apps/alien/gapi \
 apps/base/Config-ApacheFormat \
 apps/base/Term-ReadLine-Gnu 
 

@@ -6,11 +6,13 @@ FILTER_OUT ?=
 FILTER     ?= % 
  
 ALL=\
-apps/devel/dialog \
 apps/alien/gapi   \
 apps/base/xrootd-xrdcpapmonplugin  \
 apps/base/alien-ca \
-apps/base/eugridpma-carep
+apps/base/eugridpma-carep \
+apps/base/Linux-PAM \
+apps/base/cyrus-sasl \
+apps/base/uuid
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
