@@ -16,7 +16,13 @@ LICENSE = Perl
 CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-TEST_SCRIPTS = $(WORKSRC)/Makefile
+
+TEST_SCRIPTS =
+
+ifneq ($(shell uname -s),Darwin)
+        TEST_SCRIPTS += $(WORKSRC)/Makefile
+endif
+
 
 CONFIGURE_ARGS = $(PERL_DIRPATHS) -d -des -Dinstalldirs=perl  -Doptimize="-O" -Dccflags="-fPIC" -Dinstallprefix=$(PREFIX) -Dprefix=$(PREFIX) -Dd_semctl_semun -Di_db -Di_syslog -Dudsedl=yes -Dman3ext=3 -Dusemymalloc=no -DDEBUGGING -Dplibpth="$(PREFIX)/lib" -Dldflags="-L$(PREFIX)/lib" -A append:libswanted=" pthread"
 
