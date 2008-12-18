@@ -17,11 +17,11 @@ AUTHOR =
 URL = http://software.grid.iu.edu/pacman/cadist/ca-certs-version
  
 
-CONFIGURE_SCRIPTS = $(WORKSRC)/configure
-BUILD_SCRIPTS = $(WORKSRC)/Makefile
-INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+CONFIGURE_SCRIPTS =
+BUILD_SCRIPTS = 
+INSTALL_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/globus/share/certificates --with-profile=classic
+CONFIGURE_ARGS = 
 BUILD_ARGS   = 
 INSTALL_ARGS = 
 
