@@ -1,0 +1,11 @@
+*** Makefile	2008-12-18 16:55:13.000000000 +0100
+--- Makefile.new	2008-12-18 17:01:03.000000000 +0100
+***************
+*** 0 ****
+--- 1,6 ----
++ all:
++ 
++ install:
++ 	mkdir -p $(GLOBUS_LOCATION)/share/certificates/
++ 	mv certificates/*  $(GLOBUS_LOCATION)/share/certificates; 
++ 
