@@ -18,8 +18,8 @@ URL = http://software.grid.iu.edu/pacman/cadist/ca-certs-version
  
 
 CONFIGURE_SCRIPTS =
-BUILD_SCRIPTS = 
-INSTALL_SCRIPTS = 
+BUILD_SCRIPTS =  $(WORKSRC)/Makefile
+INSTALL_SCRIPTS =  $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = 
 BUILD_ARGS   = 
