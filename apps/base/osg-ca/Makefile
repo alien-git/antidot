@@ -2,9 +2,8 @@ GARNAME = osg-ca
 GARVERSION = 1.3
 CATEGORIES = apps-tools
 DISTFILES   = osg-certificates-$(GARVERSION).tar.gz
-DISTNAME    = osg-certificates-$(GARVERSION)
-BINDISTNAME = osg-certificates-$(GARVERSION)
-PATCHFILES = 
+DISTNAME = certificates
+PATCHFILES = Makefile.patch 
 
 MASTER_SITES = http://software.grid.iu.edu/pacman/cadist/1.3/
 
@@ -18,12 +17,14 @@ URL = http://software.grid.iu.edu/pacman/cadist/ca-certs-version
  
 
 CONFIGURE_SCRIPTS =
-BUILD_SCRIPTS =  $(WORKSRC)/Makefile
+BUILD_SCRIPTS = 
 INSTALL_SCRIPTS =  $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = 
 BUILD_ARGS   = 
 INSTALL_ARGS = 
+
+#PRE_BUILD = (mv $(WORKSRC)/certificates/* $(WORKSRC)/$(DISTNAME))
 
 include ../category.mk
 
