@@ -1,4 +1,4 @@
-GARNAME = osg-ca 
+GARNAME = osg-ca
 GARVERSION = 1.3
 CATEGORIES = apps-tools
 DISTFILES   = osg-certificates-$(GARVERSION).tar.gz
