@@ -1,11 +1,12 @@
 GARNAME = eugridpma-carep
-GARVERSION = 1.25
+GARVERSION = 1.26
 CATEGORIES = apps-tools
-DISTFILES   = igtf-policy-installation-bundle-$(GARVERSION).tar.gz
-DISTNAME    = igtf-policy-installation-bundle-$(GARVERSION)
-BINDISTNAME = igtf-policy-installation-bundle-$(GARVERSION)
+DISTFILES   = igtf-preinstalled-bundle-classic-$(GARVERSION).tar.gz
+DISTNAME    = igtf-preinstalled-bundle-classic-$(GARVERSION)
+BINDISTNAME = igtf-preinstalled-bundle-classic-$(GARVERSION)
 PATCHFILES = 
 
+#http://dist.eugridpma.info/distribution/current/accredited/igtf-preinstalled-bundle-classic-1.26.tar.gz
 MASTER_SITES = http://dist.eugridpma.info/distribution/current/accredited/
 
 LIBDEPS = 
