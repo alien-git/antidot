@@ -29,11 +29,9 @@ INSTALL_ARGS = install
 include ../category.mk
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
-ifeq ($(JAVA_PLATFORM),linux-ia64)
-	JAVA_VERSION = 6u7
-else
-	JAVA_VERSION = 6u10
-endif
+JAVA_VERSION = 6u11
+
+#ifeq ($(JAVA_PLATFORM),linux-ia64)
 
 BUILD_ENV = env JAVA_PLATFORM=$(JAVA_PLATFORM) JAVA_VERSION=$(JAVA_VERSION) MASTER_SITES="$(MASTER_SITES)" DISTNAME=$(DISTNAME)
 INSTALL_ENV = env DISTNAME=$(DISTNAME) PREFIX=$(PREFIX)/java
