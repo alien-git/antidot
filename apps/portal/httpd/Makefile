@@ -8,7 +8,7 @@ endif
 
 MASTER_SITES = 
 
-LIBDEPS = apps/base/openssl
+LIBDEPS = apps/base/openssl apps/base/db
 
 DESCRIPTION = Apache Web Server
 URL = http://apache.org
