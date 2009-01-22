@@ -1,9 +1,11 @@
 GARNAME = db
-GARVERSION = 4.3.27
+GARVERSION = 4.5.20
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://ftp.sleepycat.com/releases/
+#http://www.oracle.com/technology/software/products/berkeley-db/htdocs/popup/db/4.7.25/db-targz.html
+#http://freshmeat.net/redir/berkeleydb/694/url_tgz/db-4.7.25.tar.gz
+MASTER_SITES =  http://download.oracle.com/berkeley-db/
 
 LIBDEPS = apps/gcc/gcc
 
