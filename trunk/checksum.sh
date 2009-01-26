@@ -35,7 +35,7 @@ CheckFile()
    fi
    s1=`grep "$1\$" $checksums | awk '{print $1}'` 
    s2=`$MD5 $1 | awk '{print $1}'`
-   if [ "x$s1" == "x$s2" ]
+   if [ "x$s1" = "x$s2" ]
    then
      exit 0
    else
