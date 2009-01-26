@@ -41,14 +41,12 @@ do
   esac
 done
 
-if [ "x$downloaddir" != "x" ]
-then
+if [ "x$downloaddir" != "x" ] ; then
    mkdir -p $downloaddir 
    cd $downloaddir || exit 1
 fi 
 
-if [ "x$outfile" == "x" ]
-then
+if [ "x$outfile" = "x" ]; then
    outfile=`basename $1`
 fi 
 
