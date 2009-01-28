@@ -5,45 +5,45 @@ dir=`dirname $0`
 unset TMPDIR
 
 case `$dir/config.guess` in
-    i*86-*-linux-gnu*)
-      platform=i686-pc-linux-gnu
-      autoplatform=x86
-      javaplatform=linux-i586
-      flavor=gcc32
-     ;;
-    x86_64-*-linux-gnu)
-      platform=x86_64-unknown-linux-gnu
-      autoplatform=x86_64
-      javaplatform=linux-amd64
-      flavor=gcc64
-      ;;
+	i*86-*-linux-gnu*)
+		platform=i686-pc-linux-gnu
+      	autoplatform=x86
+      	javaplatform=linux-i586
+      	flavor=gcc32
+     	;;
+	x86_64-*-linux-gnu)
+      	platform=x86_64-unknown-linux-gnu
+      	autoplatform=x86_64
+      	javaplatform=linux-amd64
+      	flavor=gcc64
+      	;;
     powerpc-apple-darwin8.*)
-      platform=powerpc-apple-darwin8.1.0
-      javaplatform=linux-ppc
-      flavor=gcc32
-      ;;
+      	platform=powerpc-apple-darwin8.1.0
+      	javaplatform=linux-ppc
+      	flavor=gcc32
+      	;;
     i686-apple-darwin8.*|i686-apple-darwin9.*)
-      platform=i686-apple-darwin8.6.1
-      javaplatform=linux-i586
-      case `sysctl machdep.cpu.extfeatures` in
-        *EM64T)
-          flavor=gcc32 # gcc64
-        ;;
-        *)    
-          flavor=gcc32
-        ;;
+		if [[ $host =~ "alimacx03" ]]; then
+        	platform=i686-apple-darwin8.6.1
+      		javaplatform=linux-i586
+      		flavor=gcc32
+		else
+        	platform=x86_64-apple-darwin8.6.1
+      		javaplatform=linux-i586
+      		flavor=gcc64        	
+		fi
       esac  
       ;;
     ia64-*-linux-gnu)
-      platform=ia64-unknown-linux-gnu
-      autoplatform=ia64
-      javaplatform=linux-ia64
-      flavor=gcc64
-      ;;
+      	platform=ia64-unknown-linux-gnu
+      	autoplatform=ia64
+      	javaplatform=linux-ia64
+      	flavor=gcc64
+      	;;
      *)
-      echo "Unknown or unsupported platform: $platform"
-      exit 1
-      ;;
+      	echo "Unknown or unsupported platform: $platform"
+      	exit 1
+      	;;
 esac
 
 case $mode in
