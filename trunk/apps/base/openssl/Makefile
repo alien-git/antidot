@@ -1,6 +1,7 @@
 GARNAME = openssl
+
 ifeq ($(shell uname),Darwin)
-GARVERSION = 0.9.7j
+GARVERSION = 0.9.8j
 else
 GARVERSION = 0.9.7e
 endif
@@ -8,9 +9,9 @@ endif
 CATEGORIES = apps-tools
 
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-ifeq ($(shell uname),Darwin)
-PATCHFILES = Makefile.org.diff
-endif
+#ifeq ($(shell uname),Darwin)
+#PATCHFILES = Makefile.org.diff
+#endif
 
 MASTER_SITES = http://www.openssl.org/source/ 
 
@@ -31,7 +32,11 @@ else
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 endif
 
+ifeq ($(shell uname),Darwin)
+CONFIGURE_ARGS = -L$(PREFIX)/lib --openssldir=$(PREFIX) #zlib no-asm no-krb5 shared -fno-strict-aliasing 
+else
 CONFIGURE_ARGS = -L$(PREFIX)/lib --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing 
+endif
 
 include ../category.mk
 
