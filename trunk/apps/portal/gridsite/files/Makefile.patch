@@ -1,6 +1,25 @@
---- work/gridsite-1.5.8/src/Makefile.new	2007-11-08 16:59:52.000000000 +0100
-+++ work/gridsite-1.5.8/src/Makefile	2008-11-26 17:22:39.000000000 +0100
-@@ -382,7 +382,7 @@
+--- work/gridsite-1.5.8/src/Makefile.old	2009-01-30 17:38:58.000000000 +0100
++++ work/gridsite-1.5.8/src/Makefile	2009-01-30 17:40:15.000000000 +0100
+@@ -44,9 +44,7 @@
+ export prefix=/usr/local
+ endif
+ 
+-ifndef libdir
+ export libdir=lib
+-endif
+ 
+ ifndef MYCFLAGS
+ export MYCFLAGS=-I. -I../interface $(HTTPD_FLAGS) -I/usr/include/httpd -I/usr/include/apr-0 -I/opt/glite/include -fPIC
+@@ -74,7 +72,7 @@
+ libgridsite.so.$(VERSION): grst_err.o grst_x509.o grst_gacl.o grst_xacml.o \
+                            grst_http.o grst_asn1.o grst_htcp.o
+ 	gcc -shared -Wl,-soname,libgridsite.so.$(MINOR_VERSION) \
+-         -o libgridsite.so.$(PATCH_VERSION) -lcrypto `xml2-config --libs` \
++         -o libgridsite.so.$(PATCH_VERSION) -lcrypto `xml2-config --libs` -L$(prefix)/lib \
+          grst_err.o grst_x509.o grst_gacl.o grst_xacml.o grst_http.o \
+          grst_asn1.o grst_htcp.o 
+ 	ln -sf libgridsite.so.$(VERSION) libgridsite.so
+@@ -382,7 +380,7 @@
  	ln -sf htcp $(prefix)/bin/htping
  	ln -sf htcp $(prefix)/bin/htfind
  	cp -f gsexec $(prefix)/sbin
