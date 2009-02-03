@@ -4,6 +4,10 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = locale.t.diff swig.diff
 
+ifeq ($(shell hostname -s), alienvm1)
+    PATCHFILES += page.h.patch
+endif
+
 MASTER_SITES = http://ftp.funet.fi/pub/CPAN/src/  http://www.cpan.org/src/
 
 LIBDEPS = apps/base/gdbm
