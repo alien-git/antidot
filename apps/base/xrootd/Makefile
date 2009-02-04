@@ -21,9 +21,9 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-ifeq ($(shell uname -s), Darwin)
+ifeq ($(shell uname -s),Darwin)
 CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl --disable-posix
-then
+else
 CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl  --with-openssl-libdir=$(PREFIX)/lib  --with-openssl-incdir=$(PREFIX)/include --disable-posix
 endif
 
