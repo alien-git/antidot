@@ -33,9 +33,9 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 endif
 
 ifeq ($(shell uname),Darwin)
-CONFIGURE_ARGS = -L$(PREFIX)/lib --openssldir=$(PREFIX) #zlib no-asm no-krb5 shared -fno-strict-aliasing 
+CONFIGURE_ARGS = -L$(PREFIX)/lib -L$(PREFIX)/lib64 --openssldir=$(PREFIX) #zlib no-asm no-krb5 shared -fno-strict-aliasing 
 else
-CONFIGURE_ARGS = -L$(PREFIX)/lib --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing 
+CONFIGURE_ARGS = -L$(PREFIX)/lib -L$(PREFIX)/lib64 --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing 
 endif
 
 include ../category.mk
