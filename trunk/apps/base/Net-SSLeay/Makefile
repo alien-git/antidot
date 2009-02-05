@@ -24,7 +24,7 @@ TEST_SCRIPTS = # $(WORKSRC)/Makefile
 #CONFIGURE_ARGS = 
 #CONFIGURE_ENV = PERL_MM_USE_DEFAULT=1
 #else
-CONFIGURE_ARGS = LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)"
+CONFIGURE_ARGS = LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)" INC="-I$(PREFIX)/globus/include/gcc32 -I$(PREFIX)/globus/include/gcc64"
 CONFIGURE_ENV = env OPENSSL_PREFIX=$(PREFIX)/globus PERL_MM_USE_DEFAULT=1
 #endif
 
