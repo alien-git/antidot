@@ -19,6 +19,6 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio --with-yassl --with-big-tables  --without-debug --enable-thread-safe-client 
 
-CONFIGURE_ENV  = env LDFLAGS="-L$(PREFIX)/lib" CFLAGS="-fPIC" CPPFLAGS="-I$(PREFIX)/include"
+CONFIGURE_ENV  = env LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-fPIC" CPPFLAGS="-I$(PREFIX)/include"
 
 include ../category.mk
