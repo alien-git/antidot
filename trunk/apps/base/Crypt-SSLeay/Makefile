@@ -25,7 +25,7 @@ BUILD_ARGS =
 #ifeq ($(shell uname -s),Darwin)
 #CONFIGURE_ARGS = -default /usr
 #else
-CONFIGURE_ARGS = -default $(PREFIX)/globus -- LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)" INC="-I$(PREFIX)/globus/include/$(GLOBUS_FLAVOR)/ -I/usr/kerberos/include/"
+CONFIGURE_ARGS = -default $(PREFIX) -- LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)" INC="-I$(PREFIX)/globus/include/$(GLOBUS_FLAVOR)/ -I/usr/kerberos/include/"
 #endif
 
 CONFIGURE_ENV  =  
