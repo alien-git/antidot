@@ -50,7 +50,7 @@ LDFLAGS  += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir))
 
 # allow us to use programs we just built
 PATH := $(DESTDIR)$(bindir):$(DESTDIR)$(sbindir):$(DESTDIR)$(BUILD_PREFIX)/bin:$(DESTDIR)$(BUILD_PREFIX)/sbin:$(GCC_BIN_DIR):$(PATH)
-LD_LIBRARY_PATH=$(strip $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(PREFIX)/lib:$(GCC_LIB_DIR))
+LD_LIBRARY_PATH=$(strip $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(PREFIX)/lib:$(PREFIX)/lib64:$(GCC_LIB_DIR))
 DYLD_LIBRARY_PATH=$(LD_LIBRARY_PATH)
 
 # This is for foo-config chaos
