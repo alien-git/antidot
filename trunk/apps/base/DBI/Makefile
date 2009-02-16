@@ -3,6 +3,8 @@ GARVERSION = 1.52
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+PATCHFILES = 40profile.diff
+
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/T/TI/TIMB/ http://www.cpan.org/authors/id/T/TI/TIMB/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/T/TI/TIMB/
 
 LIBDEPS = apps/base/PlRPC
