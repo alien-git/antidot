@@ -19,7 +19,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX)/gsoap --enable-ssl --with-openssl=$(PREFIX) 
 
-CONFIGURE_ENV = CFLAGS="-fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC"
+CONFIGURE_ENV = CFLAGS="-fPIC -I$(PREFIX)/include -L$(PREFIX)/lib  -L$(PREFIX)/lib64" CXXFLAGS="-fPIC  -I$(PREFIX)/include -L$(PREFIX)/lib  -L$(PREFIX)/lib64" CPPFLAGS="-fPIC  -I$(PREFIX)/include -L$(PREFIX)/lib  -L$(PREFIX)/lib64"
 
 include ../category.mk
 
