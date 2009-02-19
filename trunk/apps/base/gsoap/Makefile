@@ -6,7 +6,7 @@ PATCHFILES = gsoap-2.6.2-instsrc.patch
 
 MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/gsoap2/  
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/gcc/gcc apps/base/gsoap2.7
 
 DESCRIPTION = gSOAP Toolkit
 URL = http://gsoap2.sourceforge.net/
