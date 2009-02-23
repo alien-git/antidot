@@ -10,7 +10,7 @@ AUTHOR = Douglas Thain
 URL = http://www.cse.nd.edu/~ccl
 LICENSE = BSD
 
-LIBDEPS = apps/base/gdbm apps/base/readline
+LIBDEPS = apps/base/gdbm apps/base/readline apps/base/kerberos
 
 DESCRIPTION = Cooperative Computing Tools
 
