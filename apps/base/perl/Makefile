@@ -28,10 +28,10 @@ ifneq ($(shell uname -s),Darwin)
 endif
 
 
-CONFIGURE_ARGS = $(PERL_DIRPATHS) -d -des -Dinstalldirs=perl  -Doptimize="-O" -Dccflags="-fPIC" -Dinstallprefix=$(PREFIX) -Dprefix=$(PREFIX) -Dd_semctl_semun -Di_db -Di_syslog -Dudsedl=yes -Dman3ext=3 -Dusemymalloc=no -DDEBUGGING -Dplibpth="$(PREFIX)/lib" -Dldflags="-L$(PREFIX)/lib" -A append:libswanted=" pthread"
+CONFIGURE_ARGS = $(PERL_DIRPATHS) -d -des -Dinstalldirs=perl  -Doptimize="-O" -Dccflags="-fPIC" -Dinstallprefix=$(PREFIX) -Dprefix=$(PREFIX) -Dd_semctl_semun -Di_db -Di_syslog -Dudsedl=yes -Dman3ext=3 -Dusemymalloc=no -DDEBUGGING -Dplibpth="$(PREFIX)/lib $(PREFIX)/lib64" -Dldflags="-L$(PREFIX)/lib $(PREFIX)/lib64" -A append:libswanted=" pthread"
 
 include ../category.mk
 
 ifeq ($(PLATFORM),x86_64-unknown-linux-gnu)
-CONFIGURE_ARGS += -Dlibpth="/usr/local/lib64 /lib64 /usr/lib64" 
+CONFIGURE_ARGS += -Dlibpth="$(PREFIX)/lib $(PREFIX)/lib64 /usr/local/lib64 /lib64 /usr/lib64" 
 endif
