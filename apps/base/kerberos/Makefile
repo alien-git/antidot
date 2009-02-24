@@ -17,7 +17,7 @@ BUILD_SCRIPTS = $(WORKSRC)/src/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/src/Makefile
 TEST_SCRIPTS =
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-dns=no
 
 include ../category.mk
 
