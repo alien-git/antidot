@@ -18,7 +18,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/src/Makefile
 TEST_SCRIPTS =
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-dns=no
-BUILD_ENV = LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+BUILD_ENV = LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
 
 include ../category.mk
 
