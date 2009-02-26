@@ -17,8 +17,20 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ENV = CFLAGS="-O0 -foptimize-sibling-calls -mpreferred-stack-boundary=4 -fmerge-constants" CPPFLAGS="-O0 -foptimize-sibling-calls -mpreferred-stack-boundary=4 -fmerge-constants" CXXFLAGS="-O0 -foptimize-sibling-calls -mpreferred-stack-boundary=4 -fmerge-constants"
 CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-bittorrent --disable-metalink --disable-xmltest --disable-nls --without-libxml2 --without-libexpat --with-openssl-prefix=$(PREFIX)
+
+PLATFORM = $(shell ../../../platform.sh platform)
+FLAGS = -O0 -foptimize-sibling-calls -fmerge-constants
+
+ifneq ($(PLATFORM), ia64-unknown-linux-gnu)
+	ifeq ($(PLATFORM), i686-pc-linux-gnu)
+		FLAGS +=  -mpreferred-stack-boundary=2
+	else
+		FLAGS +=  -mpreferred-stack-boundary=4
+	endif
+endif
+
+CONFIGURE_ENV = CFLAGS="$(FLAGS)" CPPFLAGS="$(FLAGS)" CXXFLAGS="$(FLAGS)"
 
 include ../category.mk
 
