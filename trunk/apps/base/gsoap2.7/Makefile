@@ -6,7 +6,7 @@ PATCHFILES = # gsoap-2.6.2-instsrc.patch
 
 MASTER_SITES = 
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/gcc/gcc apps/base/openssl
 
 DESCRIPTION = gSOAP Toolkit
 URL = http://gsoap2.sourceforge.net/
