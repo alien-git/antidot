@@ -3,7 +3,9 @@ GARVERSION = 2.1.22
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-PATCHFILES = 
+ifeq ($(shell uname),Darwin)
+PATCHFILES = alienssh.diff
+endif
 
 MASTER_SITES = 
 
