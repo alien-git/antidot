@@ -9,9 +9,6 @@ endif
 CATEGORIES = apps-tools
 
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-#ifeq ($(shell uname),Darwin)
-#PATCHFILES = Makefile.org.diff
-#endif
 
 MASTER_SITES = http://www.openssl.org/source/ 
 
@@ -25,15 +22,10 @@ LICENSE = Apache
 CONFIGURE_SCRIPTS = $(WORKSRC)/config
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-
-ifeq ($(shell uname -s),Darwin)
-TEST_SCRIPTS =
-else
 TEST_SCRIPTS = $(WORKSRC)/Makefile
-endif
 
 ifeq ($(shell uname),Darwin)
-CONFIGURE_ARGS = -L$(PREFIX)/lib -L$(PREFIX)/lib64 --openssldir=$(PREFIX) #zlib no-asm no-krb5 shared -fno-strict-aliasing 
+CONFIGURE_ARGS = -L$(PREFIX)/lib -L$(PREFIX)/lib64 --openssldir=$(PREFIX) 
 else
 CONFIGURE_ARGS = -L$(PREFIX)/lib -L$(PREFIX)/lib64 --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing 
 endif
