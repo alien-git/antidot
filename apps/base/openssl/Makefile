@@ -19,14 +19,20 @@ URL = http://www.openssl.org/
 AUTHOR = OpenSSL Project
 LICENSE = Apache
 
+PLATFORM = $(shell ../../../platform.sh platform)
+
+ifeq ($(PLATFORM), x86_64-apple-darwin8.6.1)
+CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
+else
+CONFIGURE_SCRIPTS = $(WORKSRC)/config
+endif
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS =
-
-PLATFORM = $(shell ../../../platform.sh platform)
 
 ifeq ($(PLATFORM), x86_64-apple-darwin8.6.1)
 CONFIGURE_ARGS += darwin64-x86_64-cc 
