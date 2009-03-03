@@ -19,15 +19,23 @@ URL = http://www.openssl.org/
 AUTHOR = OpenSSL Project
 LICENSE = Apache
 
-CONFIGURE_SCRIPTS = $(WORKSRC)/config
+CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
+CONFIGURE_ARGS =
+
+PLATFORM = $(shell ../../../platform.sh platform)
+
+ifeq ($(PLATFORM), x86_64-apple-darwin8.6.1)
+CONFIGURE_ARGS += darwin64-x86_64-cc 
+endif
+
 ifeq ($(shell uname),Darwin)
-CONFIGURE_ARGS = -L$(PREFIX)/lib -L$(PREFIX)/lib64 --openssldir=$(PREFIX) 
+CONFIGURE_ARGS += --openssldir=$(PREFIX) 
 else
-CONFIGURE_ARGS = -L$(PREFIX)/lib -L$(PREFIX)/lib64 --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing 
+CONFIGURE_ARGS += --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing 
 endif
 
 include ../category.mk
