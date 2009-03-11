@@ -2,9 +2,6 @@
 # This will attempt to download the 1.5.0 java virtual machine for a given
 # platform on linux.
 
-# If it's ia64, it will get a tar.bz2 file (repackaged from the jrockit JVM), otherwise
-# it will take the default sun JVM.
-
 use strict;
 use warnings;
 use LWP::UserAgent;
@@ -24,6 +21,7 @@ my $ua = LWP::UserAgent->new;
 $ua->agent("get_java.pl/1.0 ");
 $ua->env_proxy();
 
+#jre-6u12-linux-i586.bin jre-6u12-linux-ia64.bin jre-6u12-linux-x64.bin
 my $success = 0;
 #my $file_name = "jdk-$java_ver-$platform.".($platform =~ /ia64/ ? "tar.bz2" : "bin");
 my $file_name = "jre-$java_ver-$platform.bin";
