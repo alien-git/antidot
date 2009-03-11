@@ -15,7 +15,7 @@ case `$dir/config.guess` in
 	x86_64-*-linux-gnu)
       	platform=x86_64-unknown-linux-gnu
       	autoplatform=x86_64
-      	javaplatform=linux-amd64
+      	javaplatform=linux-x64
       	flavor=gcc64
       	;;
     powerpc-apple-darwin8.*)
