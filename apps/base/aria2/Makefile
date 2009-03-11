@@ -17,7 +17,11 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-bittorrent --disable-metalink --disable-xmltest --disable-nls --without-libxml2 --without-libexpat --with-openssl-prefix=$(PREFIX)
+ifeq ($(PLATFORM), ia64-unknown-linux-gnu)
+    CONFIGURE_ARGS = --prefix=$(PREFIX) --with-openssl-prefix=$(PREFIX)
+else
+    CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-bittorrent --disable-metalink --disable-xmltest --disable-nls --without-libxml2 --without-libexpat --with-openssl-prefix=$(PREFIX)
+endif
 
 PLATFORM = $(shell ../../../platform.sh platform)
 FLAGS = -O0 -foptimize-sibling-calls -fmerge-constants
