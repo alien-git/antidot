@@ -181,6 +181,7 @@ sub getAliEnServicesLogs {
 	"TransferManager"   => "Manager::Transfer",
 	"TransferOptimizer" => "Optimizer::Transfer",
 	"JobOptimizer"	    => "Optimizer::Job",
+	"JobInfoManager"    => "Manager::JobInfo", 
 	"SEManager" 		=> "Manager::SEMaster",
 	"CatalogueOptimizer"=> "Optimizer::Catalogue",
 	"Monitor"	    	=> "ClusterMonitor"
