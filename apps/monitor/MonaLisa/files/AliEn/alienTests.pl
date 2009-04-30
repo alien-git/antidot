@@ -32,14 +32,8 @@ sub dumpStatus {
 
 # create the test file
 umask 0027;
-system("rm -f /tmp/myAtest* ; echo 'My test file for pid $$' > /tmp/myAtest$$");
 
 my @tests = (
-	"alien -exec mkdir"		=> "alien -exec mkdir -p alien-tests",
-	"alien -exec rm test"           => "alien -exec rm 'myTestFile*' 'alien-tests/myTestFile*'",
-	"alien -exec add test"          => "alien -exec add alien-tests/myTestFile$$ /tmp/myAtest$$",
-	"alien -exec whereis test"      => "alien -exec whereis alien-tests/myTestFile$$",
-	"alien -exec get test"          => "alien -exec get alien-tests/myTestFile$$ /tmp/myAtest$$.2",
 	"alien version"			=> "alien -v",
 	"alien proxy"			=> "grid-proxy-info",
 	);
