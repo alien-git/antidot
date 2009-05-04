@@ -17,6 +17,15 @@ BUILD_SCRIPTS = $(WORKSRC)/BUILD/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/BUILD/Makefile
 
 AUTOTEST=locateCommand gcc -dumpversion
+UBUNTU = `cat /etc/*-release | grep -i -c ubuntu`
+
+ifneq ($(shell uname),Darwin)
+    ifneq ($(UBUNTU),0)
+        CONFIGURE_ENV =	env CPPFLAGS="-D_FORTIFY_SOURCE=2" CFLAGS="-D_FORTIFY_SOURCE=2"
+	BUILD_ENV =	env CPPFLAGS="-D_FORTIFY_SOURCE=2" CFLAGS="-D_FORTIFY_SOURCE=2"
+        INSTALL_ENV =	env CPPFLAGS="-D_FORTIFY_SOURCE=2" CFLAGS="-D_FORTIFY_SOURCE=2"
+    endif
+endif
 
 CONFIGURE_ARGS = --prefix=$(PREFIX)/$(PLATFORM)/$(GARVERSION) --enable-threads=posix --enable-clocale=gnu --enable-__cxa_atexit --enable-languages=c,c++,f77 --enable-shared --disable-checking --disable-multilib --srcdir=..
 
