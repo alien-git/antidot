@@ -4,7 +4,9 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = locale.t.diff swig.diff
 
-ifeq ($(shell hostname -s), alienvm1)
+UBUNTU = $(shell cat /etc/*-release | grep -i -c ubuntu)
+
+ifneq ($(UBUNTU), 0)
     PATCHFILES += page.h.patch
 endif
 
