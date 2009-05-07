@@ -40,7 +40,7 @@ endif
 ifeq ($(shell uname),Darwin)
 CONFIGURE_ARGS += --openssldir=$(PREFIX) 
 else
-CONFIGURE_ARGS += --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing 
+CONFIGURE_ARGS += --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib -L$(PREFIX)/lib64
 endif
 
 include ../category.mk
