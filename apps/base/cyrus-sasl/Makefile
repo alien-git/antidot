@@ -23,7 +23,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --enable-alientoken -enable-alienssh --enable-aliengssapi --disable-cram --disable-digest --disable-otp --disable-gssapi --disable-anon --disable-plain --enable-krb4=no --with-plugindir=$(PREFIX)/lib/sasl2 --enable-shared --with-dblib=none --disable-macos-framework
+CONFIGURE_ENV = env LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+CONFIGURE_ARGS = $(DIRPATHS) --with-ssl=$(PREFIX) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --enable-alientoken -enable-alienssh --enable-aliengssapi --disable-cram --disable-digest --disable-otp --disable-gssapi --disable-anon --disable-plain --enable-krb4=no --with-plugindir=$(PREFIX)/lib/sasl2 --enable-shared --with-dblib=none --disable-macos-framework
 
 include ../category.mk
 
