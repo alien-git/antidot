@@ -12,9 +12,9 @@ URL = http://gcc.gnu.org/
 AUTHOR = GCC Team
 LICENSE = GPL2
 
-CONFIGURE_SCRIPTS = $(WORKSRC)/BUILD/configure 
-BUILD_SCRIPTS = $(WORKSRC)/BUILD/Makefile
-INSTALL_SCRIPTS = $(WORKSRC)/BUILD/Makefile
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure 
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 AUTOTEST=locateCommand gcc -dumpversion
 
