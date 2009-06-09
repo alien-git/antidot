@@ -1,5 +1,5 @@
 GARNAME = autoconf
-GARVERSION = 2.59
+GARVERSION = 2.63
 CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
