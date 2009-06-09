@@ -1,12 +1,12 @@
-GARNAME = gsoap
-GARVERSION = 2.6
+GARNAME = gsoap2.7
+GARVERSION = 2.7.10
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION).2.tar.gz
-PATCHFILES = gsoap-2.6.2-instsrc.patch
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = # gsoap-2.6.2-instsrc.patch
 
-MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/gsoap2/  
+MASTER_SITES = 
 
-LIBDEPS = apps/gcc/gcc apps/base/gsoap2.7
+LIBDEPS = apps/gcc/gcc apps/base/openssl
 
 DESCRIPTION = gSOAP Toolkit
 URL = http://gsoap2.sourceforge.net/
@@ -17,11 +17,9 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --enable-ssl --with-openssl=$(PREFIX) 
+CONFIGURE_ARGS = --prefix=$(PREFIX)/gsoap --enable-ssl --with-openssl=$(PREFIX) 
 
-CONFIGURE_ENV = CFLAGS="-fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC"
+CONFIGURE_ENV = CFLAGS="-fPIC -I$(PREFIX)/include -L$(PREFIX)/lib  -L$(PREFIX)/lib64" CXXFLAGS="-fPIC  -I$(PREFIX)/include -L$(PREFIX)/lib  -L$(PREFIX)/lib64" CPPFLAGS="-fPIC  -I$(PREFIX)/include -L$(PREFIX)/lib  -L$(PREFIX)/lib64"
 
 include ../category.mk
-
-PRE_CONFIGURE = (cd $(WORKSRC); aclocal; autoheader; automake -a; autoconf )
 
