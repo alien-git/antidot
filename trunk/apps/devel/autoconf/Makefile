@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES = http://ftp.gnu.org/gnu/autoconf/
 
-LIBDEPS = 
+LIBDEPS = apps/devel/m4
 
 DESCRIPTION = GNU Autoconf
 URL = http://www.gnu.org/software/autoconf/
