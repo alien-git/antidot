@@ -50,4 +50,4 @@ if [ "x$outfile" = "x" ]; then
    outfile=`basename $1`
 fi 
 
-curl -f -L -o $outfile $1
+curl --insecure -f -L -o $outfile $1
