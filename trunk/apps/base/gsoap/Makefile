@@ -1,10 +1,11 @@
-GARNAME = gsoap2.7
-GARVERSION = 2.7.10
+GARNAME = gsoap
+GARVERSION = 2.7.13
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = # gsoap-2.6.2-instsrc.patch
+DISTFILES = $(GARNAME)_$(GARVERSION).tar.gz
+DISTNAME = $(GARNAME)-2.7
+PATCHFILES = 
 
-MASTER_SITES = 
+MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/gsoap2/
 
 LIBDEPS = apps/gcc/gcc apps/base/openssl
 
@@ -23,3 +24,4 @@ CONFIGURE_ENV = CFLAGS="-fPIC -I$(PREFIX)/include -L$(PREFIX)/lib  -L$(PREFIX)/l
 
 include ../category.mk
 
+POST_INSTALL = (cp $(WORKSRC)/gsoap/stdsoap2.h $(PREFIX)/include)
