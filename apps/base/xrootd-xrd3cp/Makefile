@@ -5,7 +5,8 @@ DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(GARNAME).tar.gz
 PATCHFILES = 
 
-MASTER_SITES = https://svnweb.cern.ch/trac/CERNXROOT/export/112/trunk/source-tgz/
+#MASTER_SITES = https://svnweb.cern.ch/trac/CERNXROOT/export/112/trunk/source-tgz/
+MASTER_SITES =
 
 LIBDEPS = apps/base/xrootd
 
