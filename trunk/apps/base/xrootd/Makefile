@@ -1,5 +1,5 @@
 GARNAME = xrootd
-GARVERSION = 20090529.1112
+GARVERSION = v20090623-1817
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
@@ -33,6 +33,8 @@ endif
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd  $(WORKSRC);touch configure.in Makefile.in src/Makefile_include && sh bootstrap.sh; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* ; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
+#we don't need the bootstrapping
+#PRE_CONFIGURE = (cd  $(WORKSRC);touch configure.in Makefile.in src/Makefile_include && sh bootstrap.sh; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* ; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
+
 POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* ; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
 
