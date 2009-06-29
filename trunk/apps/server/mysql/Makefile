@@ -1,10 +1,11 @@
 GARNAME = mysql
-GARVERSION = 5.0.67
+GARVERSION = 5.1.28
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz 
+DISTFILES = $(GARNAME)-$(GARVERSION)-rc.tar.gz
+DISTNAME =  $(GARNAME)-$(GARVERSION)-rc
 PATCHFILES =
 
-MASTER_SITES = 
+MASTER_SITES = http://downloads.mysql.com/archives/mysql-5.1/
 
 LIBDEPS = apps/gcc/gcc
 
@@ -17,7 +18,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio --with-yassl --with-big-tables  --without-debug --enable-thread-safe-client 
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio --with-ssl --with-big-tables  --without-debug --enable-thread-safe-client 
 
 CONFIGURE_ENV  = env LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-fPIC" CPPFLAGS="-I$(PREFIX)/include"
 
