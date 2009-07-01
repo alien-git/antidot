@@ -19,7 +19,7 @@ TEST_SCRIPTS =
 
 PLATFORM = $(shell ../../../platform.sh platform)
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --without-tcl
 
 ifneq ($(PLATFORM), ia64-unknown-linux-gnu)
 	CONFIGURE_ARGS +=  --enable-dns=no
