@@ -7,7 +7,7 @@ PATCHFILES =
 
 MASTER_SITES = http://downloads.mysql.com/archives/mysql-5.1/
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/gcc/gcc apps/base/ncurses
 
 DESCRIPTION = MySQL database
 URL = http://dev.mysql.com/
