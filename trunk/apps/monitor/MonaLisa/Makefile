@@ -1,5 +1,5 @@
 GARNAME = MonaLisa
-GARVERSION = 1.8.8
+GARVERSION = 1.8.14
 CATEGORIES = java
 DISTFILES = $(GARNAME).v$(GARVERSION).tar.gz
 DISTNAME  = $(GARNAME).v1.8
@@ -29,7 +29,7 @@ INSTALL_ARGS = install
 include ../category.mk
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
-JAVA_VERSION = 6u12
+JAVA_VERSION = 6u14
 
 #ifeq ($(JAVA_PLATFORM),linux-ia64)
 
