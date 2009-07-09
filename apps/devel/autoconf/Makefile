@@ -1,11 +1,11 @@
 GARNAME = autoconf
-GARVERSION = 2.63
+GARVERSION = 2.59
 CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
 MASTER_SITES = http://ftp.gnu.org/gnu/autoconf/
 
-LIBDEPS = apps/devel/m4
+LIBDEPS = 
 
 DESCRIPTION = GNU Autoconf
 URL = http://www.gnu.org/software/autoconf/

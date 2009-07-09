@@ -1,5 +1,5 @@
 GARNAME = automake
-GARVERSION = 1.11
+GARVERSION = 1.6.3
 CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 

@@ -1,5 +1,5 @@
 GARNAME    = gapi-apiservice
-GARVERSION = 2.1.17
+GARVERSION = 2.1.16
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
@@ -7,7 +7,7 @@ PATCHFILES =
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice/
 
 BUILDDEPS = apps/alien/common apps/base/swig # apps/base/xrootd
-LIBDEPS   = apps/alien/perl apps/base/globus-toolkit apps/base/gsoap apps/base/cronolog
+LIBDEPS   = apps/alien/perl apps/base/globus-toolkit apps/base/gsoap2.7 apps/base/cronolog
 
 DESCRIPTION = ARDA/ALICE packages for API Client+Server
 URL = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice

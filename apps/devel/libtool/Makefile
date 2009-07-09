@@ -1,11 +1,11 @@
 GARNAME = libtool
-GARVERSION = 2.2.6
+GARVERSION = 1.5.22
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION)a.tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://ftp.gnu.org/gnu/libtool/
 
-LIBDEPS = apps/devel/m4
+LIBDEPS = 
 
 DESCRIPTION = GNU Libtool
 URL = http://www.gnu.org/software/libtool/libtool.html

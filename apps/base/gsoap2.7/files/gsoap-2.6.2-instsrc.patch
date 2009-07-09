@@ -1,5 +1,5 @@
---- work/gsoap-2.6/Makefile.am	2002-10-05 23:17:35.000000000 +0200
-+++ work/gsoap-2.6src/Makefile.am	2005-01-25 14:20:46.000000000 +0100
+--- work/gsoap2.7-2.7/Makefile.am	2002-10-05 23:17:35.000000000 +0200
++++ work/gsoap2.7-2.6src/Makefile.am	2005-01-25 14:20:46.000000000 +0100
 @@ -29,6 +29,9 @@
  	echo "| Thanks for using gsoap.                                |"; \
  	echo "|                                                        |"; \
@@ -10,8 +10,8 @@
  	echo "+--------------------------------------------------------+"; 
  
  ## remove also the links for files like install.sh etc. 
---- work/gsoap-2.6/soapcpp2/Makefile.am	2003-12-20 05:24:15.000000000 +0100
-+++ work/gsoap-2.6src/soapcpp2/Makefile.am	2005-01-25 14:17:32.000000000 +0100
+--- work/gsoap2.7-2.7/soapcpp2/Makefile.am	2003-12-20 05:24:15.000000000 +0100
++++ work/gsoap2.7-2.6src/soapcpp2/Makefile.am	2005-01-25 14:17:32.000000000 +0100
 @@ -35,9 +35,11 @@
  
  include_HEADERS = stdsoap2.h

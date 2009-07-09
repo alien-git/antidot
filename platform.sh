@@ -16,7 +16,7 @@ case `$dir/config.guess` in
       	platform=x86_64-unknown-linux-gnu
       	autoplatform=x86_64
       	javaplatform=linux-x64
-      	flavor=gcc64dbg
+      	flavor=gcc64
       	;;
     powerpc-apple-darwin8.*)
       	platform=powerpc-apple-darwin8.1.0
@@ -31,14 +31,14 @@ case `$dir/config.guess` in
 		else
         	platform=x86_64-apple-darwin8.6.1
       		javaplatform=linux-i586
-      		flavor=gcc64dbg
+      		flavor=gcc64        	
 		fi 
       ;;
     ia64-*-linux-gnu)
       	platform=ia64-unknown-linux-gnu
       	autoplatform=ia64
       	javaplatform=linux-ia64
-      	flavor=gcc64dbg
+      	flavor=gcc64
       	;;
      *)
       	echo "Unknown or unsupported platform: $platform"

@@ -66,10 +66,6 @@ $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 http//%:
 	@$(WGET) -c $(WGETOPTS) -P $(DOWNLOADDIR) http://$*
 
-# download an http URL
-https//%:
-	@$(WGET) -c $(WGETOPTS) -P $(DOWNLOADDIR) http://$*
-
 # download file from cvsweb
 webcvs//%:
 	@(cd $(DOWNLOADDIR) && $(WGET) $(WGETOPTS) -O $(GARCVSNAME).tar.gz http://$(dir $*)/$(GARCVSNAME)/$(GARCVSNAME).tar.gz?tarball=1\&only_with_tag=$(GARCVSVERSION))
