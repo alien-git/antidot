@@ -1,11 +1,12 @@
 GARNAME = cctools
-GARVERSION = 2.3.2
-#GARVERSION = 2.0.14
+GARVERSION = 2_5_3
 CATEGORIES = apps-tools
-DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = # configure.diff
+DISTFILES  = $(GARNAME)-$(GARVERSION)-src.tar.gz
+DISTNAME = $(GARNAME)-$(GARVERSION)-src
+PATCHFILES = 
 
-MASTER_SITES =  
+#http://www.cse.nd.edu/~ccl/software/files/cctools-2_5_3-src.tar.gz
+MASTER_SITES =  http://www.cse.nd.edu/~ccl/software/files/
 AUTHOR = Douglas Thain
 URL = http://www.cse.nd.edu/~ccl
 LICENSE = BSD
