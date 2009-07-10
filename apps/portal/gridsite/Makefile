@@ -13,7 +13,8 @@ URL = http://www.gridsite.org
 AUTHOR = Andrew McNab
 LICENSE = Apache
 
-BUILD_ENV = env MYCFLAGS="-I. -I../interface -I$(PREFIX)/httpd/include -I$(PREFIX)/include -I$(PREFIX)/include/curl $(OWN_CFLAGS)" MYLDFLAGS="-L. -L$(PREFIX)/lib -L$(PREFIX)/lib64 $(OWN_LDFLAGS)" GSOAPDIR="$(PREFIX)/share/soapcpp2"
+CONFIGURE_ENV = env MYCFLAGS="-I. -I../interface -I$(PREFIX)/httpd/include -I$(PREFIX)/include  -I$(PREFIX)/include/libxml2 -I$(PREFIX)/include/curl $(OWN_CFLAGS)" MYLDFLAGS="-L. -L$(PREFIX)/lib -L$(PREFIX)/lib64 $(OWN_LDFLAGS)" GSOAPDIR="$(PREFIX)/share/soapcpp2"
+BUILD_ENV = env MYCFLAGS="-I. -I../interface -I$(PREFIX)/httpd/include -I$(PREFIX)/include  -I$(PREFIX)/include/libxml2 -I$(PREFIX)/include/curl $(OWN_CFLAGS)" MYLDFLAGS="-L. -L$(PREFIX)/lib -L$(PREFIX)/lib64 $(OWN_LDFLAGS)" GSOAPDIR="$(PREFIX)/share/soapcpp2"
 
 CONFIGURE_SCRIPTS = 
 BUILD_SCRIPTS = $(WORKSRC)/src/Makefile
