@@ -1,15 +1,16 @@
 GARNAME = IO-Socket-SSL
-GARVERSION = 0.97
+GARVERSION = 1.26
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BE/BEHROOZI/ http://www.cpan.org/authors/id/B/BE/BEHROOZI/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/B/BE/BEHROOZI/
+#http://search.cpan.org/CPAN/authors/id/S/SU/SULLR/IO-Socket-SSL-1.26.tar.gz
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/S/SU/SULLR/
 
 LIBDEPS = apps/base/Net-SSLeay
 
 DESCRIPTION = Nearly transparent SSL encapsulation for IO-Socket-INET
-AUTHOR =  Peter Behroozi
-URL = http://cpan.uwinnipeg.ca/~behroozi
+AUTHOR =  Steffen Ullrich & Peter Behroozi & Marko Asplund
+URL = http://search.cpan.org/dist/IO-Socket-SSL/
 LICENSE = Perl
 
 AUTOTEST = testForAliEnPerlModule IO::Socket::SSL $(GARVERSION )
@@ -19,7 +20,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-#CONFIGURE_ARGS =  LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)"
+#CONFIGURE_ARGS =  LIBS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" INC="-I$(PREFIX)/include"
 
 BUILD_ARGS =  
 
