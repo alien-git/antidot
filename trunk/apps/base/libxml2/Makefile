@@ -1,9 +1,9 @@
 GARNAME = libxml2
-GARVERSION = 2.6.23
+GARVERSION = 2.7.3
 CATEGORIES = libs
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz 
 
-MASTER_SITES = http://ftp.gnome.org/pub/gnome/sources/libxml2/2.6/ ftp://xmlsoft.org/
+MASTER_SITES = http://ftp.gnome.org/pub/gnome/sources/libxml2/2.6/ ftp://xmlsoft.org/ ftp://xmlsoft.org/libxml2/
 
 LIBDEPS = apps/gcc/gcc
 
