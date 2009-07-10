@@ -1,5 +1,5 @@
 GARNAME = Net-SSLeay
-GARVERSION = 1.32
+GARVERSION = 1.35
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
@@ -20,15 +20,9 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = # $(WORKSRC)/Makefile
 
-#ifeq ($(shell uname),Darwin)
-#CONFIGURE_ARGS = 
-#CONFIGURE_ENV = PERL_MM_USE_DEFAULT=1
-#else
-CONFIGURE_ARGS = LIBS="-L$(PREFIX)/globus/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)" INC="-I$(PREFIX)/globus/include/gcc32 -I$(PREFIX)/globus/include/gcc64"
-CONFIGURE_ENV = env OPENSSL_PREFIX=$(PREFIX)/globus PERL_MM_USE_DEFAULT=1
-#endif
+CONFIGURE_ARGS = LIBS="-L$(PREFIX)/lib -L$(PREFIX)/lib64 " INC="-I$(PREFIX)/include/"
+CONFIGURE_ENV = env OPENSSL_PREFIX=$(PREFIX) PERL_MM_USE_DEFAULT=1
 
-BUILD_ARGS =  
 
 include ../category.mk
 
