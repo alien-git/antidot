@@ -1,10 +1,13 @@
 GARNAME = Linux-PAM
-GARVERSION = 0.78
+GARVERSION = 1.1.0
 CATEGORIES = apps-libs
-DISTFILES  = $(GARNAME)-$(GARVERSION).tar.bz2
-PATCHFILES = makefile.diff configure.diff
+DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = 
+#makefile.diff configure.diff
 
-MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/pre/library/ 
+MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/library/
+#MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/pre/library/ 
+#http://www.kernel.org/pub/linux/libs/pam/library/Linux-PAM-1.1.0.tar.gz
 
 LIBDEPS = apps/gcc/gcc
 
@@ -17,10 +20,11 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --enable-includedir=$(PREFIX)/include
+CONFIGURE_ARGS = --prefix=$(PREFIX)
+#--enable-includedir=$(PREFIX)/include
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); autoconf)
-PRE_INSTALL  = (cd $(PREFIX)/lib; rm -f libpam.so.0; ln -s libpam.so.0.78 libpam.so.0)
+#PRE_CONFIGURE = (cd $(WORKSRC); autoconf)
+#PRE_INSTALL  = (cd $(PREFIX)/lib; rm -f libpam.so.0; ln -s libpam.so.0.78 libpam.so.0)
 
