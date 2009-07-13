@@ -1,9 +1,10 @@
 GARNAME = curl
-GARVERSION = 7.13.2
+GARVERSION = 7.19.5
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://alien.cern.ch/cache/ 
+#http://curl.haxx.se/download/curl-7.19.5.tar.gz
+MASTER_SITES = http://curl.haxx.se/download/ 
 
 LIBDEPS =  apps/base/zlib
 
