@@ -1,10 +1,12 @@
 GARNAME = Authen-PAM
-GARVERSION = 0.15
+GARVERSION = 0.16
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = test.pl.diff Makefile.PL.diff
+PATCHFILES = 
+#test.pl.diff Makefile.PL.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/N/NI/NIKIP/ http://www.cpan.org/authors/id/N/NI/NIKIP/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/N/NI/NIKIP/
+#http://search.cpan.org/CPAN/authors/id/N/NI/NIKIP/Authen-PAM-0.16.tar.gz
 
 LIBDEPS = apps/base/perl apps/base/Linux-PAM
 
@@ -20,6 +22,7 @@ BUILD_ENV = LDFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64"
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+
 ifeq ($(ALICBS),)
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 endif
