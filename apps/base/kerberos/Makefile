@@ -3,7 +3,7 @@ GARVERSION = 1.7
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/gcc/gcc apps/base/ncurses
 
 MASTER_SITES = 
 AUTHOR = MIT
