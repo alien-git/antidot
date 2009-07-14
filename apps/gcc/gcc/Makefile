@@ -28,7 +28,7 @@ UBUNTU = $(shell cat /etc/*-release | grep -i -c ubuntu)
 #   endif
 #endif
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/$(PLATFORM)/$(GARVERSION) --enable-languages=c,c++,fortran --disable-multilib
+CONFIGURE_ARGS = --prefix=$(PREFIX)/$(PLATFORM)/$(GARVERSION) --enable-languages=c,c++,fortran --disable-multilib --enable-shared --enable-threads=posix --enable-__cxa_atexit --enable-clocale=gnu
 
 include ../category.mk
 
