@@ -20,7 +20,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --disable-selinux
+CONFIGURE_ARGS = --prefix=$(PREFIX) --disable-selinux --includedir=$(PREFIX)/include/security
 #--enable-includedir=$(PREFIX)/include
 
 include ../category.mk
