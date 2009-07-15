@@ -15,9 +15,7 @@ AUTHOR = Nikolay Pelov
 URL    = http://cpan.uwinnipeg.ca/~nikip
 LICENSE= Perl
 
-CONFIGURE_ENV = env LDFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64" 
-BUILD_ENV = LDFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64"
-#INSTALL_ENV = env  LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" LD_RUN_PATH="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CPPFLAGS="-I$(PREFIX)/include -L$(PREFIX)/lib -L$(PREFIX)/lib64"
+CONFIGURE_ENV = env LDFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64"
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
@@ -29,8 +27,7 @@ endif
 
 AUTOTEST = testForAliEnPerlModule Authen::PAM $(GARVERSION)
 
-CONFIGURE_ARGS =
-BUILD_ARGS =  
+CONFIGURE_ARGS = PREFIX=$(PREFIX) CCFLAGS="-I$(PREFIX)/include"
 
 include ../category.mk
 
