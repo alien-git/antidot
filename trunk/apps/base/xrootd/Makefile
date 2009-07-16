@@ -1,5 +1,5 @@
 GARNAME = xrootd
-GARVERSION = v20090623-1817
+GARVERSION = 20090716.1538
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
@@ -16,25 +16,28 @@ URL = http://xrootd.slac.stanford.edu
 AUTHOR = Andy Hanushevsky
 LICENSE = 
 
-CONFIGURE_SCRIPTS = $(WORKSRC)/configure
-BUILD_SCRIPTS = $(WORKSRC)/Makefile
-INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure.classic
+BUILD_SCRIPTS = $(WORKSRC)/GNUMakefile
+INSTALL_SCRIPTS = $(WORKSRC)/GNUMakefile
 TEST_SCRIPTS = 
 
-ifeq ($(shell uname -s),Darwin)
-CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl
-else
-CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl  --with-openssl-libdir=$(PREFIX)/lib  --with-openssl-incdir=$(PREFIX)/include
-endif
+CONFIGURE_ARGS = --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint
 
-ifeq ($(shell uname -m),ia64)
-CONFIGURE_ARGS += --with-xccflavour=gcc
-endif
+#ifeq ($(shell uname -s),Darwin)
+#CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl
+#else
+#CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl  --with-openssl-libdir=$(PREFIX)/lib  --with-openssl-incdir=$(PREFIX)/include
+#endif
+
+#ifeq ($(shell uname -m),ia64)
+#CONFIGURE_ARGS += --with-xccflavour=gcc
+#endif
 
 include ../category.mk
 
 #we don't need the bootstrapping
 #PRE_CONFIGURE = (cd  $(WORKSRC);touch configure.in Makefile.in src/Makefile_include && sh bootstrap.sh; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* ; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
-
+# Recompute the platform-dependent perl integration
+PRE_CONFIGURE = (cd  $(WORKSRC)/src/XrdClient; swig -perl XrdClientAdmin_c.hh)
 POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* ; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
 
