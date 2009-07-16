@@ -359,6 +359,12 @@ configure-%/configure:
 	@(cd $* && $(CONFIGURE_ENV) ./configure $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
 
+configure-%/configure.classic:
+	@$(PRE_CONFIGURE)
+	@echo ' $(call TMSG_LIB,Running configure in,$*)'
+	@(cd $* && $(CONFIGURE_ENV) ./configure.classic $(CONFIGURE_ARGS))
+	@$(MAKECOOKIE)
+
 configure-%/Configure:
 	@$(PRE_CONFIGURE)
 	@echo ' $(call TMSG_LIB,Running Configure in,$*)'
@@ -402,6 +408,11 @@ build-%/Build:
 	@$(MAKECOOKIE)
 
 build-%/Makefile:
+	@echo ' $(call TMSG_LIB,Running make in,$*)'
+	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(MAKECOOKIE)
+
+build-%/GNUMakefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
 	@$(MAKECOOKIE)
@@ -533,6 +544,16 @@ install-%/Makefile:
 	@$(POST_INSTALL)
 	$(PROVIDE_END)
 	@$(MAKECOOKIE)
+
+install-%/GNUMakefile:
+	@echo ' $(call TMSG_LIB,Running make install in,$*)'
+	$(PROVIDE_BEGIN)
+	@$(PRE_INSTALL)
+	@$(INSTALL_ENV) $(MAKE) DESTDIR=$(DESTDIR) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) $(INSTALL_TARGET)
+	@$(POST_INSTALL)
+	$(PROVIDE_END)
+	@$(MAKECOOKIE)
+
 
 install-%/makefile:
 	@echo ' $(call TMSG_LIB,Running make install in,$*)'
