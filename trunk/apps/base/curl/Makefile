@@ -17,6 +17,6 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS)  --with-ssl=$(PREFIX) --without-ca-bundle --without-libidn
+CONFIGURE_ARGS = $(DIRPATHS)  --with-ssl=$(PREFIX) --without-ca-bundle --without-libidn  --disable-ldap --disable-ldaps
 
 include ../category.mk
