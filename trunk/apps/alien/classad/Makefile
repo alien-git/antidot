@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES =
 
-LIBDEPS = apps/base/perl apps/base/classad apps/base/swig
+LIBDEPS = apps/base/perl apps/base/classad apps/devel/swig
 
 DESCRIPTION = AliEn classad component
 URL = http://alien.cern.ch
