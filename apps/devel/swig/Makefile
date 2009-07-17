@@ -1,10 +1,13 @@
 GARNAME = swig
-GARVERSION = 1.3.39
+#1.3.39
+GARVERSION = 1.3.25
 CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 #http://downloads.sourceforge.net/sourceforge/swig/swig-1.3.39.tar.gz?use_mirror=fastbull
-MASTER_SITES = http://fastbull.dl.sourceforge.net/sourceforge/swig/
+#MASTER_SITES = http://fastbull.dl.sourceforge.net/sourceforge/swig/
+
+MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/swig/ http://ovh.dl.sourceforge.net/sourceforge/swig/ 
 
 LIBDEPS = apps/gcc/gcc
 
