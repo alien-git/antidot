@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice/
 
-BUILDDEPS = apps/alien/common apps/base/swig # apps/base/xrootd
+BUILDDEPS = apps/alien/common apps/devel/swig # apps/base/xrootd
 LIBDEPS   = apps/alien/perl apps/base/globus-toolkit apps/base/gsoap apps/base/cronolog
 
 DESCRIPTION = ARDA/ALICE packages for API Client+Server
