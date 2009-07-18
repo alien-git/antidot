@@ -16,7 +16,7 @@
 +endif
 +	(cd $(DISTNAME)/Service/lib && \
 +	for site in $(MASTER_SITES) ; do \
-+	    env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH= curl --fail $${site}../fdt/fdt.jar -o fdt.jar && break ; \
++	    env LD_LIBRARY_PATH= DYLD_LIBRARY_PATH=  PATH=/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin curl --fail $${site}../fdt/fdt.jar -o fdt.jar && break ; \
 +	done ; test -s fdt.jar)
 +
 +install:
