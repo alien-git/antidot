@@ -1,11 +1,17 @@
 GARNAME = Linux-PAM
 GARVERSION = 1.1.0
+
+ifeq ($(shell uname),Darwin)
+    GARVERSION = 0.78
+    PATCHFILES = makefile.diff configure.diff
+endif
+
+
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = 
-#makefile.diff configure.diff
 
-MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/library/
+MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/library/ http://www.kernel.org/pub/linux/libs/pam/pre/library/  
+
 #MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/pre/library/ 
 #http://www.kernel.org/pub/linux/libs/pam/library/Linux-PAM-1.1.0.tar.gz
 
@@ -21,10 +27,15 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --disable-selinux --includedir=$(PREFIX)/include/security
-#--enable-includedir=$(PREFIX)/include
+
+ifeq ($(shell uname),Darwin)
+    CONFIGURE_ARGS = $(DIRPATHS) --enable-includedir=$(PREFIX)/include
+endif
 
 include ../category.mk
 
-#PRE_CONFIGURE = (cd $(WORKSRC); autoconf)
-#PRE_INSTALL  = (cd $(PREFIX)/lib; rm -f libpam.so.0; ln -s libpam.so.0.78 libpam.so.0)
+ifeq ($(shell uname),Darwin)
+    PRE_CONFIGURE = (cd $(WORKSRC); autoconf)
+    PRE_INSTALL  = (cd $(PREFIX)/lib; rm -f libpam.so.0; ln -s libpam.so.0.78 libpam.so.0)
+endif
 
