@@ -1,5 +1,5 @@
 GARNAME = xrootd
-GARVERSION = 20090716.1538
+GARVERSION = 20090721.1409
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
@@ -21,7 +21,7 @@ BUILD_SCRIPTS = $(WORKSRC)/GNUMakefile
 INSTALL_SCRIPTS = $(WORKSRC)/GNUMakefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint
+CONFIGURE_ARGS = --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint --with-ssl=$(PREFIX) --with-krb5=$(PREFIX)
 
 #ifeq ($(shell uname -s),Darwin)
 #CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl
