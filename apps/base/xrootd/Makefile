@@ -21,8 +21,8 @@ BUILD_SCRIPTS = $(WORKSRC)/GNUMakefile
 INSTALL_SCRIPTS = $(WORKSRC)/GNUMakefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint --with-ssl=$(PREFIX) --with-krb5=$(PREFIX)
-
+CONFIGURE_ARGS = --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint --with-ssl=$(PREFIX) --with-krb5=$(PREFIX)  --incpfx=$(PREFIX)/include --syslibs=$(libdir)
+#--syslibs=$(libdir)
 #ifeq ($(shell uname -s),Darwin)
 #CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl
 #else
