@@ -16,6 +16,6 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) --without-nls
+CONFIGURE_ARGS = $(DIRPATHS) --without-nls --disable-gtk
 
 include ../category.mk
