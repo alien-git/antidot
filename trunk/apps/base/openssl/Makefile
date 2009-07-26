@@ -37,11 +37,11 @@ ifeq ($(PLATFORM), x86_64-apple-darwin8.6.1)
 CONFIGURE_ARGS += darwin64-x86_64-cc 
 endif
 
-ifeq ($(shell uname),Darwin)
-CONFIGURE_ARGS += --openssldir=$(PREFIX) 
-else
+#iifeq ($(shell uname),Darwin)
+#CONFIGURE_ARGS += --openssldir=$(PREFIX) 
+#else
 CONFIGURE_ARGS += --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib -L$(PREFIX)/lib64
-endif
+#endif
 
 include ../category.mk
 
