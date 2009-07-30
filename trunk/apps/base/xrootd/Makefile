@@ -23,8 +23,10 @@ TEST_SCRIPTS =
 
 CONFIGURE_ARGS =
 
-ifeq ($(PLATFORM),i686-apple-darwin8.6.1)
-	CONFIGURE_ARGS += macosx --ccflavour=macos
+LOCALPLATFORM = $(shell ../../../platform.sh platform)
+
+ifeq ($(LOCALPLATFORM),i686-apple-darwin8.6.1)
+    CONFIGURE_ARGS += macosx --ccflavour=macos
 endif
 
 CONFIGURE_ARGS +=  --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint --with-ssl=$(PREFIX) --with-krb5=$(PREFIX)  --incpfx=$(PREFIX)/include --syslibs=$(libdir)
