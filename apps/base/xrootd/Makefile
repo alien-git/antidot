@@ -1,8 +1,8 @@
 GARNAME = xrootd
-GARVERSION = 20090727.1318
+GARVERSION = 20090729-0855
 CATEGORIES = apps-libs
-DISTNAME  = $(GARNAME)-$(GARVERSION)
-DISTFILES = $(DISTNAME).tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTNAME  = $(GARNAME)
 PATCHFILES = 
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/base/
@@ -21,23 +21,15 @@ BUILD_SCRIPTS = $(WORKSRC)/GNUMakefile
 INSTALL_SCRIPTS = $(WORKSRC)/GNUMakefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint --with-ssl=$(PREFIX) --with-krb5=$(PREFIX)  --incpfx=$(PREFIX)/include --syslibs=$(libdir)
-#--syslibs=$(libdir)
-#ifeq ($(shell uname -s),Darwin)
-#CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl
-#else
-#CONFIGURE_ARGS = --prefix=$(PREFIX)/api --enable-perlint  --disable-krb4 --disable-krb5 --with-base-directory=$(PREFIX)/api --enable-openssl  --with-openssl-libdir=$(PREFIX)/lib  --with-openssl-incdir=$(PREFIX)/include
-#endif
+CONFIGURE_ARGS =
 
-#ifeq ($(shell uname -m),ia64)
-#CONFIGURE_ARGS += --with-xccflavour=gcc
-#endif
+ifeq ($(PLATFORM),i686-apple-darwin8.6.1)
+	CONFIGURE_ARGS += macosx --ccflavour=macos
+endif
+
+CONFIGURE_ARGS +=  --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint --with-ssl=$(PREFIX) --with-krb5=$(PREFIX)  --incpfx=$(PREFIX)/include --syslibs=$(libdir)
 
 include ../category.mk
 
-#we don't need the bootstrapping
-#PRE_CONFIGURE = (cd  $(WORKSRC);touch configure.in Makefile.in src/Makefile_include && sh bootstrap.sh; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* ; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
-# Recompute the platform-dependent perl integration
 PRE_CONFIGURE = (cd  $(WORKSRC)/src/XrdClient; swig -perl XrdClientAdmin_c.hh)
 POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* ; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
-
