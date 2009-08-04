@@ -12,6 +12,7 @@
 +       croak "No df command known for format ".$self->{'FORMAT'};
 +    if(@_){
 +       if($_[0]){
++
 +           open(HANDLE,"$cmd $_[0]|") or croak("Cannot fork $!");
 +        }
 +    }
