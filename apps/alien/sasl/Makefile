@@ -1,5 +1,5 @@
 GARNAME = cyrus-sasl-alien
-GARVERSION = 2.1.22
+GARVERSION = 2.1.22_1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
