@@ -18,9 +18,9 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
 ifeq ($(PLATFORM), ia64-unknown-linux-gnu)
-    CONFIGURE_ARGS = --prefix=$(PREFIX) --with-openssl-prefix=$(PREFIX)
+    CONFIGURE_ARGS = --prefix=$(PREFIX) --with-openssl-prefix=$(PREFIX) --with-openssl --without-gnutls
 else
-    CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-bittorrent --disable-metalink --disable-xmltest --disable-nls --without-libxml2 --without-libexpat --with-openssl-prefix=$(PREFIX)
+    CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-bittorrent --disable-metalink --disable-xmltest --disable-nls --without-libxml2 --without-libexpat --with-openssl-prefix=$(PREFIX) --with-openssl --without-gnutls
 endif
 
 PLATFORM = $(shell ../../../platform.sh platform)
@@ -34,7 +34,7 @@ ifneq ($(PLATFORM), ia64-unknown-linux-gnu)
 	endif
 endif
 
-CONFIGURE_ENV = CFLAGS="$(FLAGS)" CPPFLAGS="$(FLAGS)" CXXFLAGS="$(FLAGS)"
+#CONFIGURE_ENV = CFLAGS="$(FLAGS) -I$(PREFIX)/include" CPPFLAGS="$(FLAGS) -I$(PREFIX)/include" CXXFLAGS="$(FLAGS) -I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
 
 include ../category.mk
 
