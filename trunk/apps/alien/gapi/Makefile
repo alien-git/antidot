@@ -1,5 +1,5 @@
 GARNAME    = gapi-apiservice
-GARVERSION = 2.1.18
+GARVERSION = 2.1.19
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
@@ -18,10 +18,12 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-dist-location=$(PREFIX)/api --sysconfdir=$(PREFIX)/etc --enable-debugmacros --with-perl=$(PREFIX)/bin/perl --enable-gsisoap --with-globus-location=$(GLOBUS_LOCATION) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-gsoap-soapcpp2=$(PREFIX)/gsoap/bin --enable-debugmacros --disable-readline --enable-perl-module --with-swig=$(PREFIX)/bin --disable-xrootd
+CONFIGURE_ENV = LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-dist-location=$(PREFIX)/api --sysconfdir=$(PREFIX)/etc --enable-debugmacros --with-perl=$(PREFIX)/bin/perl --enable-gsisoap --with-globus-location=$(GLOBUS_LOCATION) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-gsoap-soapcpp2=$(PREFIX)/gsoap/bin --enable-debugmacros --disable-readline --enable-perl-module --with-swig=$(PREFIX)/bin --disable-xrootd --with-openssl=$(PREFIX)
 
 include ../category.mk
 
+PRE_CONFIGURE = (cd $(WORKSRC); libtoolize --copy --force; aclocal; automake -acf; autoconf)
 PRE_INSTALL = (mkdir -p $(PREFIX)/api/etc; cd $(WORKSRC); make clientsrc)
 POST_INSTALL = ( cd $(WORKSRC); make install-clientsrc)
 
