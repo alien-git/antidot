@@ -49,7 +49,7 @@ CFLAGS   += $(filter-out $(NOCFLAGS),-I$(DESTDIR)$(includedir))
 LDFLAGS  += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir)) 
 
 # allow us to use programs we just built
-PATH :=/usr/lib/ccache/bin:/usr/lib64/ccache/bin:$(DESTDIR)$(bindir):$(DESTDIR)$(sbindir):$(DESTDIR)$(BUILD_PREFIX)/bin:$(DESTDIR)$(BUILD_PREFIX)/sbin:$(GCC_BIN_DIR):$(PATH)
+PATH :=/usr/lib/ccache/bin:/usr/lib64/ccache/bin:$(DESTDIR)$(bindir):$(DESTDIR)$(sbindir):$(DESTDIR)$(BUILD_PREFIX)/bin:$(DESTDIR)$(BUILD_PREFIX)/sbin:$(GCC_BIN_DIR):$(DESTDIR)$(BUILD_PREFIX)/jdk/bin:$(DESTDIR)$(BUILD_PREFIX)/ant/bin:$(PATH)
 LD_LIBRARY_PATH=$(strip $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(PREFIX)/lib:$(PREFIX)/lib64:$(GCC_LIB_DIR))
 DYLD_LIBRARY_PATH=$(LD_LIBRARY_PATH)
 
