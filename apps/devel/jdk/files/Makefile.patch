@@ -15,7 +15,7 @@
 +	rm -rf $(PREFIX)/jdk && mkdir -p $(PREFIX)/jdk; \
 +	JDK_DIR=`find .  -maxdepth 1 -mindepth 1 -type d | grep -i jdk | awk -F / '{print $$2}'` ; \
 +	echo "Dir = $$JDK_DIR"; \
-+	if test -d $$JDK_DIR; then  mv $$JDK_DIR/* $(PREFIX)/jdk ; else \
++	if test -d $$JDK_DIR; then  mv -f $$JDK_DIR/* $(PREFIX)/jdk ; else \
 +	    echo "Error installing JDK"; \
 +	fi;
 +else
