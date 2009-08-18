@@ -7,7 +7,7 @@ PATCHFILES = Makefile.patch
 
 MASTER_SITES = http://monalisa.cern.ch/download/monalisa/ http://monalisa.cacr.caltech.edu/download/monalisa/
 
-LIBDEPS = apps/base/perl
+LIBDEPS =  apps/base/libwww-perl
 
 DESCRIPTION = Java Developer's Kit
 AUTHOR = SUN
