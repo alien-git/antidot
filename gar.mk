@@ -172,6 +172,11 @@ show-unique-deps:
 	     myseen="`$(MAKE) -s -C $(GARDIR)/$$pack SEEN=\"$$myseen\" show-unique-deps`" ; \
 	  fi ; \
 	done ; \
+	myfilterout="$(FILTER_OUT)" ; \
+	if [ "x$$myfilterout" != "x" ] ; then \
+	    myfilterout="`echo \"$$myfilterout\" | tr ' ' '|'`" ; \
+	    myseen="`echo \"$$myseen\" | sed -r \"s#$$myfilterout##g\"`" ; \
+	fi ; \
 	echo -n "$$myseen " ; \
 	if test -n "`echo $(GARFNAME) | grep -E -e ^apps/`" ; then \
 	   echo $(GARFNAME) ; \
