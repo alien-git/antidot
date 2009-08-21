@@ -19,3 +19,6 @@ apps/install-%/Makefile:
 
 list_packages:
 	@echo $(LIBDEPS)
+
+list_filtered:
+	@echo $(FILTER_OUT)
