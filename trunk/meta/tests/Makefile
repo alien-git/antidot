@@ -2,7 +2,7 @@ GARNAME = alien-meta-tests
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
-FILTER_OUT ?= 
+FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
 ALL=apps/alien/tests

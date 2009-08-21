@@ -2,7 +2,7 @@ GARNAME = alien-meta-all
 GARVERSION = 1.0
 CATEGORIES = meta
 DISTFILES  =
-FILTER_OUT ?= apps/gcc/gcc
+FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
 ALL=$(shell (cd $(GARDIR)/apps; make -s listdeps | sort -u))
