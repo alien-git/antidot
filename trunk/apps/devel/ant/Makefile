@@ -17,5 +17,6 @@ URL = http://ant.apache.org/
 LICENSE = The Apache License Version 2.0 
 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 include ../category.mk

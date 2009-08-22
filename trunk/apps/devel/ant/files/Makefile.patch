@@ -3,5 +3,6 @@
 @@ -0,0 +1,4 @@
 +all:
 +install:
++	rm -rf $(PREFIX)/ant
 +	mkdir -p $(PREFIX)/ant/
-+	mv *  $(PREFIX)/ant; 
++	mv -f *  $(PREFIX)/ant; 
