@@ -1,10 +1,11 @@
 GARNAME = Crypt-SSLeay
-GARVERSION = 0.51
+GARVERSION = 0.57
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = 01.diff
+PATCHFILES = Makefile.PL.patch
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CH/CHAMAS/ http://www.cpan.org/authors/id/C/CH/CHAMAS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/C/CH/CHAMAS/
+#http://search.cpan.org/CPAN/authors/id/D/DL/DLAND/Crypt-SSLeay-0.57_01.tar.gz
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CH/CHAMAS/ http://www.cpan.org/authors/id/C/CH/CHAMAS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/C/CH/CHAMAS/ http://search.cpan.org/CPAN/authors/id/D/DL/DLAND/
 
 LIBDEPS = apps/base/globus-toolkit apps/base/perl apps/base/Net-SSLeay
 
@@ -22,7 +23,7 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 BUILD_ARGS =  
 
-CONFIGURE_ARGS = -default $(PREFIX) LIBS="-L$(PREFIX)/lib -L$(PREFIX)/lib64 -lssl -lcrypto" INC="-I$(PREFIX)/include"
+CONFIGURE_ARGS = -default $(PREFIX) -lib "$(PREFIX)" LIBS="-L$(PREFIX)/lib -L$(PREFIX)/lib64 -lssl -lcrypto" INC="-I$(PREFIX)/include" 
 
 CONFIGURE_ENV  =  
 
