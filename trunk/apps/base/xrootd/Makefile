@@ -29,7 +29,7 @@ ifeq ($(LOCALPLATFORM),i686-apple-darwin8.6.1)
     CONFIGURE_ARGS += macosx --ccflavour=macos
 endif
 
-CONFIGURE_ARGS +=  --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint --with-ssl=$(PREFIX) --with-krb5=$(PREFIX)  --incpfx=$(PREFIX)/include --syslibs=$(libdir)
+CONFIGURE_ARGS +=  --no-arch-subdirs --prefix=$(PREFIX)/api --enable-perlint --with-ssl=$(PREFIX) --with-krb5=$(PREFIX)  --incpfx=$(PREFIX)/include --syslibs=$(libdir)  --with-ssl-shared=yes
 
 include ../category.mk
 
