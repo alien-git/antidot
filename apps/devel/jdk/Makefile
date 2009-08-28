@@ -1,5 +1,5 @@
 GARNAME = jdk
-GARVERSION = 6u15
+GARVERSION = 6u16
 CATEGORIES = tools-devel
 DISTNAME = jdk
 
@@ -15,7 +15,7 @@ URL = http://java.sun.com
 LICENSE = Java SE Licensees 
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
-JAVA_VERSION = 6u15
+JAVA_VERSION = 6u16
 
 
 CONFIGURE_SCRIPTS = 
