@@ -1,5 +1,5 @@
---- work/cyrus-sasl-alien-2.1.22/plugins/alienssh.c.old	2009-03-02 21:51:08.000000000 +0100
-+++ work/cyrus-sasl-alien-2.1.22/plugins/alienssh.c	2009-03-02 21:51:26.000000000 +0100
+--- work/cyrus-sasl-alien-2.1.22_2/plugins/alienssh.c.old	2009-03-02 21:51:08.000000000 +0100
++++ work/cyrus-sasl-alien-2.1.22_2/plugins/alienssh.c	2009-03-02 21:51:26.000000000 +0100
 @@ -54,7 +54,6 @@
  #include <stdio.h>
  #include <string.h> 
