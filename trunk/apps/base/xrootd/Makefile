@@ -1,8 +1,8 @@
 GARNAME = xrootd
-GARVERSION = 20090729-0855
+GARVERSION = 20090904.1035
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-DISTNAME  = $(GARNAME)
+#DISTNAME  = $(GARNAME)
 PATCHFILES = 
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/base/
