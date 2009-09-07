@@ -1,13 +1,14 @@
 GARNAME = OpenCA
-GARVERSION = 0.9.2.5
+GARVERSION = 0.9.3-rc1
 CATEGORIES = apps-tools
 DISTFILES = openca-$(GARVERSION).tar.gz
+DISTNAME = openca-$(GARVERSION)
 
 PATCHFILES =
 
 MASTER_SITES = http://switch.dl.sourceforge.net/sourceforge/openca/
 
-LIBDEPS = apps/base/Digest-HMAC apps/base/libintl-perl apps/base/MIME-Types apps/base/MIME-Lite apps/base/Net-Server apps/base/X500-DN apps/base/XML-Twig apps/base/DB_File
+LIBDEPS = apps/base/Digest-HMAC apps/base/libintl-perl apps/base/MIME-Types apps/base/MIME-Lite apps/base/Net-Server apps/base/X500-DN apps/base/XML-Twig apps/base/DB_File apps/base/IO-Socket-SSL
 
 DESCRIPTION =  OpenSource Certification Authority Toolkit 
 URL = http://www.openca.org/
