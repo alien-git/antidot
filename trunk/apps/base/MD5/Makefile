@@ -1,8 +1,9 @@
-GARNAME = MD5
-GARVERSION = 2.03
+GARNAME = Digest-MD5
+GARVERSION = 2.39
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+#http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/Digest-MD5-2.39.tar.gz
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GA/GAAS/ http://www.cpan.org/authors/id/G/GA/GAAS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/G/GA/GAAS/
 
 LIBDEPS = apps/base/perl
