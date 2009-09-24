@@ -7,7 +7,7 @@ PATCHFILES = Makefile.PL.patch
 #http://search.cpan.org/CPAN/authors/id/D/DL/DLAND/Crypt-SSLeay-0.57_01.tar.gz
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CH/CHAMAS/ http://www.cpan.org/authors/id/C/CH/CHAMAS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/C/CH/CHAMAS/ http://search.cpan.org/CPAN/authors/id/D/DL/DLAND/
 
-LIBDEPS = apps/base/globus-toolkit apps/base/perl apps/base/Net-SSLeay
+LIBDEPS = apps/base/perl apps/base/Net-SSLeay
 
 DESCRIPTION = OpenSSL glue that provides LWP https support
 AUTHOR = Joshua Chamas
