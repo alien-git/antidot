@@ -25,11 +25,11 @@ case `$dir/config.guess` in
       	;;
     i686-apple-darwin8.*|i686-apple-darwin9.*)
 		if [[ $host =~ "alimacx03" ]]; then
-        	platform=i686-apple-darwin8.6.1
+        	platform=i686-apple-darwin9.8.0
       		javaplatform=linux-i586
       		flavor=gcc32
 		else
-        	platform=x86_64-apple-darwin8.6.1
+        	platform=x86_64-apple-darwin9.8.0
       		javaplatform=linux-i586
       		flavor=gcc64
 		fi 
