@@ -29,7 +29,7 @@ case `$dir/config.guess` in
       		javaplatform=linux-i586
       		flavor=gcc32
 		else
-        	platform=x86_64-apple-darwin8,6,1
+        	platform=x86_64-apple-darwin8.6.1
       		javaplatform=linux-i586
       		flavor=gcc64
 		fi 
