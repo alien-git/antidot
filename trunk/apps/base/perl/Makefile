@@ -2,7 +2,7 @@ GARNAME = perl
 GARVERSION = 5.8.8
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = locale.t.diff swig.diff
+PATCHFILES = locale.t.diff swig.diff makedepend.SH.patch darwin.sh.patch
 
 UBUNTU = 0
 
