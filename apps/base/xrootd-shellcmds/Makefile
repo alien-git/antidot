@@ -1,5 +1,5 @@
 GARNAME = xrootd-shellcmds
-GARVERSION = 1.0.5
+GARVERSION = 1.0.6
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
