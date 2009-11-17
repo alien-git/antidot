@@ -1,3 +1,3 @@
 all:
 
-include ../../../../all.mk
+include ../../../all.mk
