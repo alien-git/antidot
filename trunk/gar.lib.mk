@@ -91,6 +91,23 @@ pserver//%:
 	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
 
+# download the file from a svn server using plain http, with an URL like svn-http://hostname/svn/$(NAME)/tags/$(VERSION)
+#if we try to build the trunk then we have to use svn-http://hostname/svn/$(NAME)/trunk
+svn-http//%:
+#   echo "GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION = $(GARCVSREVISION); GARCVSNAME = $(GARCVSNAME)" 
+    @if [ $(GARCVSVERSION) = "trunk" -o $(GARCVSNAME) = "xrootd" ]; then \
+          if [ -n "$(GARCVSREVISION)" ]; then \
+            cd $(DOWNLOADDIR) && svn co -r $(GARCVSREVISION) http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION);\
+          else \
+            cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); \
+          fi; \
+     else \
+       cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/tags/$(GARCVSVERSION); \
+     fi
+    @(cd $(DOWNLOADDIR) && mv $(GARCVSVERSION) $(GARNAME)-$(GARVERSION))
+    @(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
+    @(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
+
 # download an ftp URL
 ftp//%:
 	@$(WGET) -c $(WGETOPTS) -P $(DOWNLOADDIR) ftp://$*
