@@ -1,13 +1,13 @@
-GARNAME    = gapi-apiservice
-GARVERSION = 2.1.19
+GARNAME = xrootd-xalienfs
+GARVERSION = 1.0.10
 CATEGORIES = apps-libs
-DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = 
+DISTNAME  = $(GARNAME)-$(GARVERSION)
+DISTFILES = $(DISTNAME).tar.gz
+PATCHFILES = configure.ac.patch
 
-MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice/
+MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalienfs/
 
-BUILDDEPS = apps/alien/common apps/devel/swig # apps/base/xrootd
-LIBDEPS   = apps/alien/perl apps/base/globus-toolkit apps/base/gsoap apps/base/cronolog
+LIBDEPS = apps/base/xrootd-secssl
 
 DESCRIPTION = ARDA/ALICE packages for API Client+Server
 URL = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice
@@ -18,12 +18,15 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ENV = LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
-CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-dist-location=$(PREFIX)/api --sysconfdir=$(PREFIX)/etc --enable-debugmacros --with-perl=$(PREFIX)/bin/perl --enable-gsisoap --with-globus-location=$(GLOBUS_LOCATION) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-gsoap-soapcpp2=$(PREFIX)/gsoap/bin --enable-debugmacros --disable-readline --enable-perl-module --with-swig=$(PREFIX)/bin --disable-xrootd --with-openssl=$(PREFIX)
+CONFIGURE_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+BUILD_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+INSTALL_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api
+
+#--with-readline-libdir=$(PREFIX)/alien/$(TARGET_LIBNAME) --with-readline-incdir=$(PREFIX)/alien/include
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC); libtoolize --copy --force; aclocal; automake -acf; autoconf)
-PRE_INSTALL = (mkdir -p $(PREFIX)/api/etc; cd $(WORKSRC); make clientsrc)
-POST_INSTALL = ( cd $(WORKSRC); make install-clientsrc)
+PRE_CONFIGURE = (cd $(WORKSRC); ./bootstrap.sh;)
 
