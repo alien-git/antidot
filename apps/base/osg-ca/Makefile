@@ -6,7 +6,7 @@ DISTNAME = certificates
 PATCHFILES = Makefile.patch 
 
 #http://software.grid.iu.edu/pacman/cadist/1.8/osg-certificates-1.8.tar.gz
-MASTER_SITES = http://software.grid.iu.edu/pacman/cadist/1.9/
+MASTER_SITES = http://software.grid.iu.edu/pacman/cadist/1.10/
 
 LIBDEPS = 
 
