@@ -29,7 +29,7 @@ INSTALL_ARGS = install
 include ../category.mk
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
-JAVA_VERSION = 6u17
+JAVA_VERSION = 6u18
 
 #ifeq ($(JAVA_PLATFORM),linux-ia64)
 
