@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES = openca-$(GARVERSION).tar.gz
 DISTNAME = openca-$(GARVERSION)
 
-PATCHFILES =
+PATCHFILES = Makefile.diff
 
 MASTER_SITES = http://switch.dl.sourceforge.net/sourceforge/openca/
 
