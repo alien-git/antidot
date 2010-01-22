@@ -21,7 +21,7 @@ use AliEn::UI::Catalogue::LCM;
 use strict;
 
 my $cat=AliEn::UI::Catalogue::LCM->new({silent=>1}) or exit(-2);
-my @data = $cat->execute("listTransfer", "-all_status") or exit(-3);
+my @data = $cat->execute("listTransfer") or exit(-3);
 
 die "Failed to execute top!" if(! @data);
 
