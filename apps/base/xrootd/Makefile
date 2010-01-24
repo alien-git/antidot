@@ -1,7 +1,7 @@
 GARNAME = xrootd
 GARVERSION = 20091102-0415-root
 CATEGORIES = apps-libs
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
 #DISTNAME  = $(GARNAME)
 NOCHECKSUM = $(DISTFILES)
 PATCHFILES =
@@ -10,7 +10,7 @@ GARCVSNAME = $(GARNAME)
 GARCVSVERSION = $(GARVERSION)
 GARCVSREVISION =
 
-MASTER_SITES = svn-http://root.cern.ch/svn/root/vendors/
+MASTER_SITES = svn-http-trunk://root.cern.ch/svn/root/vendors/
 
 LIBDEPS = apps/base/ApMon-CPP apps/base/perl apps/base/libxml2 apps/base/openssl apps/base/ml_gsoapclient
 
