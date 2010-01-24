@@ -95,26 +95,24 @@ pserver//%:
 # svn-http://hostname/svn/$(NAME)/tags/$(VERSION)
 svn-http//%:
 #echo "GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION = $(GARCVSREVISION); GARCVSNAME = $(GARCVSNAME)" 
-    @cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/tags/$(GARCVSVERSION)
-
-    @(cd $(DOWNLOADDIR) && mv $(GARCVSVERSION) $(GARNAME)-$(GARVERSION))
-    @(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
-    @(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
+	@cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/tags/$(GARCVSVERSION)
+	@(cd $(DOWNLOADDIR) && mv $(GARCVSVERSION) $(GARNAME)-$(GARVERSION))
+	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
+	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
 
 # download the trunk or branch from an svn server using plain http, with an URL like: 
 # svn-http://hostname/svn/$(NAME)/$(VERSION)
 # if want to build the trunk then we have to use svn-http://hostname/svn/$(NAME)/trunk i.e. GARCVSVERSION=trunk
 svn-http-trunk//%:
 #echo "GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION = $(GARCVSREVISION); GARCVSNAME = $(GARCVSNAME)" 
-    @if [ -n "$(GARCVSREVISION)" ]; then \
-        cd $(DOWNLOADDIR) && svn co -r $(GARCVSREVISION) http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION);\
-    else \
-        cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); \
-    fi
-
-    @(cd $(DOWNLOADDIR) && mv $(GARCVSVERSION) $(GARNAME)-$(GARVERSION))
-    @(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
-    @(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
+	@if [ -n "$(GARCVSREVISION)" ]; then \
+		cd $(DOWNLOADDIR) && svn co -r $(GARCVSREVISION) http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION);\
+	else \
+		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); \
+	fi
+	@(cd $(DOWNLOADDIR) && mv $(GARCVSVERSION) $(GARNAME)-$(GARVERSION))
+	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
+	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
 
 # download an ftp URL
 ftp//%:
