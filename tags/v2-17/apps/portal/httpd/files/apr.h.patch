@@ -1,0 +1,11 @@
+--- work/httpd-2.0.55/srclib/apr/include/apr.h.in	2005-06-14 16:24:58.000000000 +0200
++++ tmp/httpd-2.0.55/srclib/apr/include/apr.h.in.new	2009-01-16 11:56:54.000000000 +0100
+@@ -214,7 +214,7 @@
+ /*  APR Feature Macros */
+ #define APR_HAS_SHARED_MEMORY     @sharedmem@
+ #define APR_HAS_THREADS           @threads@
+-#define APR_HAS_SENDFILE          @sendfile@
++#define APR_HAS_SENDFILE          0
+ #define APR_HAS_MMAP              @mmap@
+ #define APR_HAS_FORK              @fork@
+ #define APR_HAS_RANDOM            @rand@
