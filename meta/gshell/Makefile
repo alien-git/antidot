@@ -2,7 +2,7 @@ GARNAME = alien-meta-gshell
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
-FILTER_OUT ?= apps/devel/jdk apps/devel/ant
+FILTER_OUT ?= 
 FILTER     ?= % 
  
 ALL=\
@@ -26,6 +26,3 @@ apps/install-%/Makefile:
 
 list_packages:
 	@echo $(LIBDEPS)
-
-list_filtered:
-	@echo $(FILTER_OUT)
