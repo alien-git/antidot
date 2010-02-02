@@ -12,8 +12,18 @@ use Net::Domain qw(hostname hostfqdn hostdomain);
 use Net::LDAP;
 use Net::LDAP::Entry;
 
-### helper functions ################################
+######## REDEFINITION OF THE ENV ##################
 
+delete $ENV{'GLOBUS_LOCATION'};
+delete $ENV{'X509_CERT_DIR'};
+delete $ENV{'MYPROXY_LOCATION'};
+
+$ENV{'GLOBUS_LOCATION'}="/opt/globus";
+$ENV{'X509_CERT_DIR'}="/etc/grid-security/certificates";
+$ENV{'LD_LIBRARY_PATH'}="/opt/lcg/lib64:/opt/globus/lib:/opt/glite/lib64:/opt/glite/lib:$ENV{'LD_LIBRARY_PATH'}";
+$ENV{'PATH'}="$ENV{'HOME'}/bin:/usr/kerberos/bin:/opt/d-cache/srm/bin:/opt/d-cache/dcap/bin:/opt/edg/bin:/opt/glite/bin:/opt/globus/bin:/opt/lcg/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+### helper functions ################################
+system("env |sort > /tmp/env");
 sub dumpStatus {
     my $service = shift;
     my $status = shift;
@@ -593,7 +603,28 @@ sub test13 {
 	}
 }
 
-for(my $i = 1; $i < 14; $i++){
+##################################################
+# Test 14: 
+# Get the last known good RB
+##################################################
+
+sub test14 {
+
+    my $service = "DN of the host certificate";
+    my $node_dn=`/usr/bin/openssl x509 -subject -in /etc/grid-security/hostcert.pem 2>&1` || "Failed to get the DN of the node";
+
+    if ($node_dn=~ /subject=\s+(\S+)/){
+        my $dn= $1;
+        dumpStatus($service, 0,$dn);
+    }else{
+        dumpStatus($service, 1, "The DN of the node cannot be read");
+    }
+
+}
+
+
+
+for(my $i = 1; $i < 15; $i++){
 #	print "Doing test $i...\n";
     eval "test$i()";
 }
