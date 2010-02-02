@@ -2,7 +2,7 @@ GARNAME = alien-meta-user
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
-FILTER_OUT = apps/devel/m4 apps/devel/libtool apps/devel/autoconf apps/devel/automake apps/gcc/gcc apps/base/db apps/base/gdbm apps/base/perl apps/base/HTML-Tagset apps/base/HTML-Parser apps/base/URI apps/base/libwww-perl apps/devel/jdk apps/devel/ant apps/base/globus-toolkit
+FILTER_OUT ?= apps/devel/m4 apps/devel/libtool apps/devel/autoconf apps/devel/automake apps/gcc/gcc apps/base/db apps/base/gdbm apps/base/perl apps/base/HTML-Tagset apps/base/HTML-Parser apps/base/URI apps/base/libwww-perl apps/devel/jdk apps/devel/ant apps/base/globus-toolkit
 FILTER     ?= % 
 
 ALL=\
@@ -24,3 +24,5 @@ apps/install-%/Makefile:
 list_packages:
 	@echo $(LIBDEPS)
 
+list_filtered:
+	@echo $(FILTER_OUT)
