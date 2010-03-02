@@ -8,8 +8,7 @@ PATCHFILES = Makefile.patch
 
 #https://dist.eugridpma.org/distribution/igtf/1.25/accredited/igtf-policy-installation-bundle-1.25.tar.gz
 #http://dist.eugridpma.info/distribution/current/accredited/igtf-preinstalled-bundle-classic-1.26.tar.gz
-#MASTER_SITES = http://dist.eugridpma.info/distribution/current/accredited/ http://dist.eugridpma.org/distribution/igtf/1.25/accredited/
-MASTER_SITES= http://dist.eugridpma.org/distribution/igtf/$(GARVERSION)/accredited/
+MASTER_SITES = http://dist.eugridpma.info/distribution/current/accredited/ http://dist.eugridpma.org/distribution/igtf/1.25/accredited/
 
 LIBDEPS = 
 
