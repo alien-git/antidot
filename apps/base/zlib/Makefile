@@ -20,6 +20,15 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 AUTOTEST = testForLib -i libz.so.$(GARVERSION)
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --libdir=$(PREFIX)/lib --shared 
+
+UBUNTU = $(uname -a | grep -i -c ubuntu)
+
+ifeq ($(UBUNTU), 1)
+    CONFIGURE_ENV = CFLAGS="-D_LARGEFILE64_SOURCE=1 -fPIC"
+    BUILD_ENV = CFLAGS="-D_LARGEFILE64_SOURCE=1 -fPIC"
+endif
+
+
 NODIRPATHS = --bindir --exec_prefix --sbindir --libexecdir --datadir --sysconfdir --sharedstatedir --localstatedir --libdir --infodir --includedir --mandir
 
 include ../category.mk
