@@ -24,3 +24,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api --with-openssl-libdir=$(PREFIX)/lib --with-openssl-incdir=$(PREFIX)/include --with-xml2-incdir=$(PREFIX)/include/libxml2 --with-xml2-libdir=$(PREFIX)/lib
 
 include ../category.mk
+
+ifeq ($(shell uname -s),Darwin)
+	PRE_CONFIGURE = (cd $(WORKSRC) && ./bootstrap.sh)
+endif
