@@ -1,16 +1,21 @@
 GARNAME = xrootd
-GARVERSION = 20091102-0415-root
+#GARVERSION = 20091102-0415-root
+GARVERSION = 20100115.1117
+
 CATEGORIES = apps-libs
-DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
-#DISTNAME  = $(GARNAME)
-NOCHECKSUM = $(DISTFILES)
+#DISTFILES = $(GARNAME)-$(GARVERSION)_src.tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+DISTNAME  = $(GARNAME)
+#NOCHECKSUM = $(DISTFILES)
 PATCHFILES =
 
-GARCVSNAME = $(GARNAME)
-GARCVSVERSION = $(GARVERSION)
-GARCVSREVISION =
+#GARCVSNAME = $(GARNAME)
+#GARCVSVERSION = $(GARVERSION)
+#GARCVSREVISION =
 
-MASTER_SITES = svn-http-trunk://root.cern.ch/svn/root/vendors/
+#MASTER_SITES = svn-http-trunk://root.cern.ch/svn/root/vendors/
+MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/base/
 
 LIBDEPS = apps/base/ApMon-CPP apps/base/perl apps/base/libxml2 apps/base/openssl apps/base/ml_gsoapclient
 
@@ -42,5 +47,6 @@ CONFIGURE_ARGS +=  --prefix=$(PREFIX)/api --enable-perlint --with-ssl-libdir=$(P
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd  $(WORKSRC)/src/XrdClient; swig -perl XrdClientAdmin_c.hh)
+#PRE_CONFIGURE = (cd  $(WORKSRC)/src/XrdClient; swig -perl XrdClientAdmin_c.hh)
+PRE_CONFIGURE = (cp -rf work/$(GARNAME)-$(GARVERSION)/* work/$(GARNAME)/; rm -rf work/$(GARNAME)-$(GARVERSION); cd $(WORKSRC)/src/XrdClient; swig -perl XrdClientAdmin_c.hh)
 POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* ; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
