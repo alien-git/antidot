@@ -22,9 +22,15 @@ BUILD_ENV = env GLOBUS_LOCATION=$(GLOBUS_LOCATION) GPT_LOCATION=$(GPT_LOCATION) 
 INSTALL_ENV = env GLOBUS_LOCATION=$(GLOBUS_LOCATION) GPT_LOCATION=$(GPT_LOCATION) GLOBUS_FLAVOR=$(GLOBUS_FLAVOR)  CFLAGS="-I$(PREFIX)/jdk/include" CXXFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" CPPFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" GPT_LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64 -L$(PREFIX)/globus/lib" 
 
 ifneq ($(shell uname),Darwin)
-	CONFIGURE_ENV += JAVA_HOME=$(PREFIX)/jdk/
+	CONFIGURE_ENV += JAVA_HOME=$(PREFIX)/jdk/ 
 	BUILD_ENV += JAVA_HOME=$(PREFIX)/jdk/
 	INSTALL_ENV += JAVA_HOME=$(PREFIX)/jdk/
+	
+ifneq ($(shell uname -n),alimacx06.cern.ch)
+	CONFIGURE_ENV +=  UNAME_PROCESSOR="x86_64"
+	BUILD_ENV += UNAME_PROCESSOR="x86_64"
+	INSTALL_ENV += UNAME_PROCESSOR="x86_64"
+endif
 endif
 
 CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)  --with-krb5=$(PREFIX)
