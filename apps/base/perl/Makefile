@@ -41,3 +41,5 @@ include ../category.mk
 ifeq ($(PLATFORM),x86_64-unknown-linux-gnu)
 CONFIGURE_ARGS += -Dlibpth=" $(PREFIX)/lib $(PREFIX)/lib64 /usr/local/lib64 /lib64 /usr/lib64" 
 endif
+
+PRE_BUILD = (cd $(WORKSRC) && rm t/op/time.t)
