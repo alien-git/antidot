@@ -26,7 +26,7 @@ ifneq ($(shell uname),Darwin)
 	BUILD_ENV += JAVA_HOME=$(PREFIX)/jdk/
 	INSTALL_ENV += JAVA_HOME=$(PREFIX)/jdk/
 	
-ifneq ($(shell uname -n),alimacx06.cern.ch)
+ifeq ($(shell uname -n),alimacx06.cern.ch)
 	CONFIGURE_ENV +=  UNAME_PROCESSOR="x86_64"
 	BUILD_ENV += UNAME_PROCESSOR="x86_64"
 	INSTALL_ENV += UNAME_PROCESSOR="x86_64"
