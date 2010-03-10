@@ -25,13 +25,14 @@ ifneq ($(shell uname),Darwin)
 	CONFIGURE_ENV += JAVA_HOME=$(PREFIX)/jdk/ 
 	BUILD_ENV += JAVA_HOME=$(PREFIX)/jdk/
 	INSTALL_ENV += JAVA_HOME=$(PREFIX)/jdk/
-	
+endif
+
 ifeq ($(shell uname -n),alimacx06.cern.ch)
 	CONFIGURE_ENV +=  UNAME_PROCESSOR="x86_64"
 	BUILD_ENV += UNAME_PROCESSOR="x86_64"
 	INSTALL_ENV += UNAME_PROCESSOR="x86_64"
 endif
-endif
+
 
 CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)  --with-krb5=$(PREFIX)
 
