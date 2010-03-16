@@ -22,11 +22,7 @@ CONFIGURE_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXF
 BUILD_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
 INSTALL_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api
-
-ifneq ($(shell uname),Darwin)
-    CONFIGURE_ARGS += --enable-perl-module --with-swig=$(PREFIX) --with-swig-inc=$(PREFIX)/share/swig/1.3.40/ --with-perl=$(PREFIX)/bin/perl --enable-build-server
-endif
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api --enable-perl-module --with-swig=$(PREFIX) --with-swig-inc=$(PREFIX)/share/swig/1.3.40/ --with-perl=$(PREFIX)/bin/perl --enable-build-server
 
 include ../category.mk
 
