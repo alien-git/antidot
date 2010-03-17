@@ -8,6 +8,8 @@ DISTNAME  = gt$(GARVERSION)-all-source-installer
 LIBDEPS  = apps/devel/ant apps/base/libxml2 apps/base/eugridpma-carep apps/base/perl apps/base/openssl apps/base/XML-Parser
 MASTER_SITES = http://www-unix.globus.org/ftppub/gt4/4.2.1/installers/src/
 
+PATCHFILES = configure.patch aclocal.patch
+
 DESCRIPTION = Globus Toolkit
 URL = http://www.globus.org/
 LICENSE = Globus 
@@ -34,7 +36,7 @@ ifeq ($(shell uname -n),alimacx06.cern.ch)
 endif
 
 
-CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)  --with-krb5=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)  --with-krb5=$(PREFIX) --with-buildopts="-verbose"
 
 include ../category.mk
 
