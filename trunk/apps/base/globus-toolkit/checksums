@@ -6,3 +6,6 @@
 fb344e914f1ee5e66b089da467888540  download/gssapi.diff
 c3919b46293ae88ff1efa2fa910cad8c  download/globus-toolkit-4.0.4a.tar.gz
 4d280a4ff5b6cd1535fa18868228a48f  download/gt4.2.1-all-source-installer.tar.gz
+b6826737c105378ccde00e92d091a246 download/gt5.0.0-all-source-installer.tar.gz
+b96675d8cdd31b893f1449af76d44e6f download/configure.patch
+9aa7c6ae1c3bdc2fc01bdcf7f852ca30 download/aclocal.patch
