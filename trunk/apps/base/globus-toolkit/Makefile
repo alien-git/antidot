@@ -35,7 +35,7 @@ ifeq ($(shell uname -n),alimacx06.cern.ch)
 endif
 
 
-CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)  --with-krb5=$(PREFIX) --with-buildopts="-verbose"
+CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)  --with-krb5=$(PREFIX)
 
 include ../category.mk
 
