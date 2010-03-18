@@ -21,6 +21,11 @@ INSTALL_SCRIPTS = $(WORKSRC)/build_unix/Makefile
 AUTOTEST=locateCommand db_verify -V | awk -F' |:' '{print $6}'
 
 CONFIGURE_ARGS = $(DIRPATHS) --enable-posixmutexes
+i
+ifeq ($(shell uname -n),alimacx06.cern.ch)
+    CONFIGURE_ARGS += --host=x86_64-apple-darwin9.8.0 --build=x86_64-apple-darwin9.8.0
+endif
+
 
 include ../category.mk
 

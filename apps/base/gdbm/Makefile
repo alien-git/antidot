@@ -21,7 +21,7 @@ CONFIGURE_ARGS = $(DIRPATHS)
 
 
 ifeq ($(shell uname -n),alimacx06.cern.ch)
-    CONFIGURE_ARGS += --host=x86_64
+    CONFIGURE_ARGS += --host=x86_64-apple-darwin9.8.0 --build=x86_64-apple-darwin9.8.0
 endif    
 
 include ../category.mk
