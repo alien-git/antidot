@@ -19,6 +19,11 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = $(DIRPATHS)
 
+
+ifeq ($(shell uname -n),alimacx06.cern.ch)
+    CONFIGURE_ARGS += --host=x86_64
+endif    
+
 include ../category.mk
 
 POST_INSTALL = (cd $(WORKSRC); make install-compat )
