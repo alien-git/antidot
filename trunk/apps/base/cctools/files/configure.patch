@@ -1,5 +1,5 @@
---- work/cctools-2_5_3-src/configure	2009-07-01 22:39:00.000000000 +0200
-+++ work/cctools-2_5_3-src/configure.new	2009-07-15 10:28:36.163164869 +0200
+--- work/cctools-2.6.0-src/configure	2009-07-01 22:39:00.000000000 +0200
++++ work/cctools-2.6.0-src/configure.new	2009-07-15 10:28:36.163164869 +0200
 @@ -558,17 +558,17 @@
  CCTOOLS_PACKAGES=${packages}
  

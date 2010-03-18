@@ -1,10 +1,12 @@
 GARNAME = cctools
-GARVERSION = 2_5_3
+GARVERSION = 2.6.0
+
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)-src.tar.gz
 DISTNAME = $(GARNAME)-$(GARVERSION)-src
-PATCHFILES = configure.patch
+#PATCHFILES = configure.patch
 
+#http://www.cse.nd.edu/~ccl/software/files/cctools-2.6.0-src.tar.gz
 #http://www.cse.nd.edu/~ccl/software/files/cctools-2_5_3-src.tar.gz
 MASTER_SITES =  http://www.cse.nd.edu/~ccl/software/files/
 AUTHOR = Douglas Thain
@@ -20,8 +22,8 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS =
 
-#CONFIGURE_ENV = env LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CCFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
-#BUILD_ENV = env LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CCFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+CONFIGURE_ENV = env LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-I$(PREFIX)/include"
+BUILD_ENV = env LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-I$(PREFIX)/include"
 
 
 CONFIGURE_ARGS = --prefix $(PREFIX) 
@@ -29,7 +31,7 @@ CONFIGURE_ARGS = --prefix $(PREFIX)
 
 include ../category.mk
 
-PRE_CONFIGURE = (export LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:$(PREFIX)/lib:$(PREFIX)/lib64)
+#PRE_CONFIGURE = (export LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:$(PREFIX)/lib:$(PREFIX)/lib64)
 
 # unexport prefix exec_prefix bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir infodir lispdir includedir mandir docdir sourcedir
 
