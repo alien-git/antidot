@@ -9,6 +9,10 @@ MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalien
 
 LIBDEPS = apps/base/xrootd-secssl
 
+ifeq ($(shell uname -s),Darwin)
+	LIBDEPS += apps/base/readline
+endif
+
 DESCRIPTION = ARDA/ALICE packages for API Client+Server
 URL = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice
 LICENSE =
