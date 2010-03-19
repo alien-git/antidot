@@ -1,0 +1,13 @@
+--- work/cyrus-sasl-alien-2.1.22_2/plugins/aliengssapi.c.orig	2010-03-19 13:49:09.000000000 +0100
++++ work/cyrus-sasl-alien-2.1.22_2/plugins/aliengssapi.c	2010-03-19 13:47:59.000000000 +0100
+@@ -794,8 +794,8 @@
+ 
+         major_status = gss_import_name(&minor_status,&buffer,GSS_C_NULL_OID,&gss_name);
+ 
+-        if(major_status != GSS_S_COMPLETE) 
+-	display_status("Error codes",major_status,minor_status);
++        //if(major_status != GSS_S_COMPLETE) 
++	//display_status("Error codes",major_status,minor_status);
+ 	
+   gss_release_buffer(&minor_status,&buffer);
+ 

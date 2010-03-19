@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #ifeq ($(shell uname),Darwin)
 #PATCHFILES = alienssh.diff
 #endif
-
+PATCHFILES = remove_warning.diff
 MASTER_SITES = 
 
 LIBDEPS = apps/base/cyrus-sasl apps/base/globus-toolkit apps/base/Authen-SASL-Cyrus apps/base/eugridpma-carep
