@@ -1,8 +1,8 @@
 GARNAME = openldap
-GARVERSION = 2.3.43
+GARVERSION = 2.4.21
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tgz
-PATCHFILES = install.diff core.schema.patch
+#PATCHFILES = install.diff core.schema.patch
 
 MASTER_SITES = ftp://sunsite.cnlab-switch.ch/mirror/OpenLDAP/openldap-release/
 
