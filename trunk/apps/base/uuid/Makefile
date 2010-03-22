@@ -1,7 +1,12 @@
 GARNAME = uuid
-GARVERSION = 1.6.2
+GARVERSION = 1.5.1
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+#ifeq ($(shell uname -s),Darwin)
+#PATCHFILES = macos.diff
+#endif
+
+PATCHFILES = osspuuid.diff
 
 MASTER_SITES = ftp://ftp.ossp.org/pkg/lib/uuid/
 
