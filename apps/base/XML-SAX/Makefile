@@ -1,9 +1,9 @@
 GARNAME = XML-SAX
-GARVERSION = 0.15
+GARVERSION = 0.96
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSERGEANT/ http://www.cpan.org/authors/id/M/MS/MSERGEANT/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MS/MSERGEANT/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/
 
 LIBDEPS = apps/base/XML-NamespaceSupport
 
