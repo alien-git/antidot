@@ -1,9 +1,9 @@
 GARNAME = XML-Stream
-GARVERSION = 1.22
+GARVERSION = 1.23
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RE/REATMON/ http://www.cpan.org/authors/id/R/RE/REATMON/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RE/REATMON/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DA/DAPATRICK/
 
 LIBDEPS = apps/base/Authen-SASL apps/base/IO-Socket-SSL apps/base/Net-DNS
 
