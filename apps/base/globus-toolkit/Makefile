@@ -40,3 +40,5 @@ CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --wi
 include ../category.mk
 
 PRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
+
+POST_INSTALL = (cd $(WORKSRC) && ln -sf ../../bin/openssl  $(PREFIX)/globus/bin/openssl)
