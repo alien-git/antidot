@@ -1,12 +1,8 @@
 GARNAME = cyrus-sasl-alien
-GARVERSION = 2.1.22_2
+GARVERSION = 2.1.22_3
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#ifeq ($(shell uname),Darwin)
-#PATCHFILES = alienssh.diff
-#endif
-PATCHFILES = remove_warning.diff
 MASTER_SITES = 
 
 LIBDEPS = apps/base/cyrus-sasl apps/base/globus-toolkit apps/base/Authen-SASL-Cyrus apps/base/eugridpma-carep
