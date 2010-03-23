@@ -1,5 +1,5 @@
 GARNAME = uuid
-GARVERSION = 1.5.1
+GARVERSION = 1.6.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #ifeq ($(shell uname -s),Darwin)
