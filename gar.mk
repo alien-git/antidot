@@ -121,6 +121,11 @@ include $(GARDIR)/gar.conf.mk
 include $(GARDIR)/gar.lib.mk
 include $(GARDIR)/color.mk
 
+#This should be done for all rules
+LINK_LIB64=$(shell cd $(PREFIX) ; mkdir -p lib ; test -e lib64 || ln -sf lib lib64)
+$(LINK_LIB64)
+
+
 ifdef BUILD_CLEAN
 DO_BUILD_CLEAN = buildclean
 else
