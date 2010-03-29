@@ -7,7 +7,7 @@ PATCHFILES =
 
 MASTER_SITES = https://svnweb.cern.ch/trac/CERNXROOT/export/199/trunk/source-tgz/
 
-LIBDEPS = apps/base/xrootd
+LIBDEPS = apps/base/xrootd apps/base/uuid
 
 DESCRIPTION = Xrootd
 
