@@ -1,5 +1,5 @@
 ENABLE_LIBSUFFIX="--enable-libsuffix=64"
-TARGET_LIBNAME=lib64
+TARGET_LIBNAME=lib
 TARGET_PLATFORM=linux-g++-64
 TARGET_PKG_CONFIG_PATH = /usr/lib64/pkgconfig:/usr/local/lib64/pkgconfig
 
@@ -9,7 +9,7 @@ OWN_CFLAGS = -m64 -fPIC
 # Compiler options (optional)
 OWN_CFLAGS += -O2 -pipe
 
-OWN_LDFLAGS = -L$(PREFIX)/lib64 -L$(PREFIX)/lib
+OWN_LDFLAGS = -L$(PREFIX)/lib
 
 # Optional compiler options for gcc >= 3.4.0
 
