@@ -36,6 +36,7 @@ endif
 
 
 CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)  --with-krb5=$(PREFIX)
+BUILD_ARGS =  gsi-myproxy
 
 include ../category.mk
 
