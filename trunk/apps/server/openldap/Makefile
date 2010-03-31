@@ -13,8 +13,8 @@ URL = http://www.openldap.org/
 AUTHOR = 
 LICENSE = OpenLDAP 
 
-CONFIGURE_ENV = env CPPFLAGS=" -L$(PREFIX)/lib  -L$(PREFIX)/lib64 -I$(PREFIX)/include" LDFLAGS=" -L$(PREFIX)/lib  -L$(PREFIX)/lib64" CFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64 -I$(PREFIX)/include"
-BUILD_ENV = env CPPFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64 -I$(PREFIX)/include" LDFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64"  CFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64 -I$(PREFIX)/include"
+CONFIGURE_ENV = env CPPFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib  -L$(PREFIX)/lib64 -I$(PREFIX)/include" LDFLAGS=" -L$(PREFIX)/lib  -L$(PREFIX)/lib64" CFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib -L$(PREFIX)/lib64 -I$(PREFIX)/include"
+BUILD_ENV = env CPPFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib -L$(PREFIX)/lib64 -I$(PREFIX)/include" LDFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64"  CFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib -L$(PREFIX)/lib64 -I$(PREFIX)/include"
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
