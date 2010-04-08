@@ -46,9 +46,6 @@ while [ $# -gt 0 ]
 	-torrent|--torrent)
 		ALIEN_TORRENT=1
 	;;
-	-disable-links|--disable-links)
-		ALIEN_LINKS_DISABLE=1
-	;;
 	-version|--version)
 		shift 1
 		ALIEN_VERSION=$1
@@ -87,7 +84,6 @@ Usage: $0 [arguments] Makes an automatic installation of the services
 "
 if [ "$ALIEN_ADVANCED_OPTIONS" = 1 ]; then
   echo "Advanced options: Users are NOT recommended to use them unless they know what they are doing
-  -disable-links	Disable adding the alien-token-init and aliensh links
   -restart           	Restart the services after the installation has finished
   -version <version> 	Install a specific version (default is v2-17) [ ${ALIEN_VERSIONS[*]} ]
   -platform <type>	Specify the platform to install (default is $(uname -s)) [ ${ALIEN_PLATFORM_TYPES[*]} ]
@@ -236,27 +232,31 @@ else
 		fi
 		SETINSTALLDIR
 		rm -rf "$ALIEN_USER_DIR"
-		                                
 	else
-		echo -n "   $ALIEN_USER_DIR already exists. Do you wish to use it anyway? default: n [Y/n]"
-		read alien_overwrite_install
-		case "$alien_overwrite_install" in
-		y|Y)
-	    		PRINTVERBOSE "Reusing $ALIEN_USER_DIR"
-	    		SETINSTALLDIR
-	    		;;
-		n|N)
+		if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
+			echo -n "   $ALIEN_USER_DIR already exists. Do you wish to use it anyway? default: n [Y/n]"
+			read alien_overwrite_install
+			case "$alien_overwrite_install" in
+			y|Y)
+	    			PRINTVERBOSE "Reusing $ALIEN_USER_DIR"
+	    			SETINSTALLDIR
+			;;
+			n|N)
+	    			echo "   Please specify another installation directory."
+				exit -2
+			;;
+			"")
 	    		echo "   Please specify another installation directory."
 			exit -2
 	    		;;
-		"")
-	    		echo "   Please specify another installation directory."
-			exit -2
-	    		;;
-		*) 
+			*) 
 	    		echo "   Invalid answer. Installation cancelled."
 			exit -2
-		esac
+			esac
+		else
+			PRINTVERBOSE "Reusing $ALIEN_USER_DIR"
+			SETINSTALLDIR
+		fi
 	fi
 
 	echo "   Installing in the user specified directory: $ALIEN_USER_DIR"
@@ -627,7 +627,9 @@ FINDTYPE
 echo "   ###################### Automated AliEn $ALIEN_TYPE installer ##############################"
 
 # Make sure that cache and installer.rc are cleaned
-CHECKPREINSTALL
+if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
+	CHECKPREINSTALL
+fi
 
 # Set user defined installation paths otherwise use $HOME/alien
 FINDUSERDIR
@@ -673,7 +675,7 @@ then
 fi
 
 # Remove the cache directory
-rm -rf $ALIEN_INSTALLER_HOME
+#rm -rf $ALIEN_INSTALLER_HOME
 
 # Define the url from where AliEn is downloaded
 FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2
@@ -697,14 +699,14 @@ if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
     mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
     exit -2
 fi
-                
+
 # Perform AliEn relocation
 echo -n "   Relocating the $ALIEN_TYPE installation"
 
 # Remove the old link
 rm $ALIEN_USER_DIR >/dev/null 2>&1
 
-# Link the user directory to the installation directory
+# Link/Overwrite the link for the user directory to the installation directory
 ln -s $ALIEN_INSTALL_LOCAL $ALIEN_USER_DIR
 
 if [ "$ALIEN_INSTALLER_VERBOSE" != "1" ]; 
@@ -739,7 +741,7 @@ EOF
 SERVICERESTART
 
 # Add symbolic links to user home/bin directory
-if [ "$ALIEN_LINKS_DISABLE" != 1 ]; then
+if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
 	SETBINLINKS
 fi
 
