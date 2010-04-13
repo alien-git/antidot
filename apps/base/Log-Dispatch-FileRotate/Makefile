@@ -1,9 +1,10 @@
 GARNAME = Log-Dispatch-FileRotate
-GARVERSION = 1.18
+GARVERSION = 1.19
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://mirror.switch.ch/ftp/mirror/CPAN/authors/id/M/MA/MARKPF/
+#http://search.cpan.org/CPAN/authors/id/M/MA/MARKPF/Log-Dispatch-FileRotate-1.19.tar.gz
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MA/MARKPF/
 
 LIBDEPS = apps/base/Log-Log4perl apps/base/Log-Dispatch apps/base/DateManip apps/base/Params-Validate 
 
