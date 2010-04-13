@@ -1,9 +1,10 @@
 GARNAME = Test-Warn
-GARVERSION = 0.10
+GARVERSION = 0.21
 CATEGORIES = perl
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION).zip
 PATCHFILES = 
 
+#http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/Test-Warn-0.21.zip
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/
 
 LIBDEPS = apps/base/Tree-DAG_Node
