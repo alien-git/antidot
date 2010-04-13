@@ -1,8 +1,9 @@
 GARNAME = Term-Cap
-GARVERSION = 1.09
+GARVERSION = 1.12
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+#http://search.cpan.org/CPAN/authors/id/J/JS/JSTOWE/Term-Cap-1.12.tar.gz
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JS/JSTOWE/ http://www.cpan.org/authors/id/J/JS/JSTOWE/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/J/JS/JSTOWE/
 
 LIBDEPS = apps/base/perl
