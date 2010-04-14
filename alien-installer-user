@@ -578,7 +578,8 @@ then
     NOHUP=`which nohup 2> /dev/null`
     echo "   Let's restart the services (with $NOHUP)"
     echo "   This very first time, we have to kill everything"
-    (cd; sleep 15; kill ` ps -ef |grep alien |grep -v grep |grep -v $$ |awk '{print \$2}'`;kill -9 ` ps -ef |grep alien |grep -v grep |grep -v $$ |awk '{print \$2}'`; $NOHUP $ALIEN_INSTALL_DIR/etc/rc.d/init.d/aliend restart) &
+#    (cd; sleep 15; kill ` ps -ef |grep alien |grep -v grep |grep -v $$ |awk '{print \$2}'`;kill -9 ` ps -ef |grep alien |grep -v grep |grep -v $$ |awk '{print \$2}'`; 
+$NOHUP $ALIEN_INSTALL_DIR/etc/rc.d/init.d/aliend restart &
 fi
 }
 
