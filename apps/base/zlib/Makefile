@@ -33,4 +33,6 @@ NODIRPATHS = --bindir --exec_prefix --sbindir --libexecdir --datadir --sysconfdi
 
 include ../category.mk
 
-#POST_INSTALL = (mkdir -p $(PREFIX)/lib64 ; ln -sf $(PREFIX)/lib/libz.so $(PREFIX)/lib64/libz.so ; ln -sf $(PREFIX)/lib/libz.a $(PREFIX)/lib64/libz.a)
+ifeq ($(shell uname),Darwin)
+    POST_INSTALL = (cd $(PREFIX)/lib ; ln -sf libz.so libz.dylib)
+endif
