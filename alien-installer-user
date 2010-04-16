@@ -315,7 +315,7 @@ echo "   Platform set as: $ALIEN_INSTALLER_PLATFORM"
 FINDVERSION()
 {
 if [ "$ALIEN_VERSION" == '' ]; then 
-	releases="http://alien.cern.ch/Releases"
+	releases="http://alienbuild.cern.ch:8888/Releases"
 
 	if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
 	     wget $releases  -O $TMPFILE 2> /dev/null
@@ -358,7 +358,7 @@ PRINTVERBOSE "Installing version $ALIEN_VERSION"
 
 FINDRELEASES()
 {
-releases="http://alien.cern.ch/BitServers"
+releases="http://alienbuild.cern.ch:8888/BitServers"
 
 if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
     wget $releases  -O $TMPFILE 2> /dev/null 
