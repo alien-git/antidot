@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/P/PM/PMQS/ http://www.cpan.org/authors/id/P/PM/PMQS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/P/PM/PMQS/
 
-LIBDEPS = apps/base/perl apps/base/zlib apps/base/Compress-Raw-Zlib apps/base/Compress-Raw-Bzip2 apps/base/Scalar-List-Utils
+LIBDEPS = apps/base/perl apps/base/zlib apps/base/Compress-Raw-Zlib apps/base/Compress-Raw-Bzip2 apps/base/Scalar-List-Utils apps/base/IO-Compress
 
 DESCRIPTION = Interface to zlib compression library
 AUTHOR = Paul Marquess 
