@@ -168,6 +168,11 @@ checksum-%: $(CHECKSUM_FILE) $(MAKEFILE)
 #################### EXTRACT RULES ####################
 
 # rule to extract uncompressed tarballs
+tar-tgz-extract-%:
+	@echo ' $(call TMSG_LIB,Extracting,$(DOWNLOADDIR)/$*)'
+	@$(TAR) -xzf $(DOWNLOADDIR)/$* -C $(EXTRACTDIR)
+	@$(MAKECOOKIE)
+	
 tar-extract-%:
 	@echo ' $(call TMSG_LIB,Extracting,$(DOWNLOADDIR)/$*)'
 	@$(TAR) -xf $(DOWNLOADDIR)/$* -C $(EXTRACTDIR)
@@ -223,6 +228,9 @@ binextract-%.tar.bz2: tar-bz-binextract-%.tar.bz2
 	@$(MAKECOOKIE)
 
 relocate-%.tar.bz2: tar-bz-relocate-%.tar.bz2
+	@$(MAKECOOKIE)
+
+extract-%.tgz: tar-tgz-extract-%.tgz
 	@$(MAKECOOKIE)
 
 extract-%.tar: tar-extract-%.tar

@@ -1,5 +1,5 @@
 GARNAME = Event
-GARVERSION = 1.07
+GARVERSION = 1.13
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -11,8 +11,6 @@ DESCRIPTION = Event loop processing
 AUTHOR = Joshua Nathaniel Pritikin 
 URL = http://search.cpan.org/~jprit/
 LICENSE = Artistic
-
-AUTOTEST = testForAliEnPerlModule Event $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

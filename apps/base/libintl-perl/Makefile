@@ -1,5 +1,5 @@
 GARNAME = libintl-perl
-GARVERSION = 1.16
+GARVERSION = 1.20
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -11,17 +11,11 @@ DESCRIPTION = Internationalization library for Perl
 URL = http://search.cpan.org/~guido/
 AUTHOR = Guido Flohr
 LICENSE = Perl
-
-AUTOTEST = testForAliEnPerlModule libintl-perl $(GARVERSION )
  
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-TEST_SCRIPTS = $(WORKSRC)/Makefile
-
-CONFIGURE_ENV =
-CONFIGURE_ARGS = 
-BUILD_ARGS =  
+TEST_SCRIPTS = $(WORKSRC)/Makefile 
 
 include ../category.mk
 
