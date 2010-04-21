@@ -2,6 +2,7 @@ GARNAME = Net-Daemon
 GARVERSION = 0.43
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTNAME = $(GARNAME)
 
 MASTER_SITES =  http://search.cpan.org/CPAN/authors/id/M/MN/MNOONING/Net-Daemon/ 
 
