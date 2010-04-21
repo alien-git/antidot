@@ -1,1 +1,3 @@
 b9b2fdb957f50ada62d73f43ee75d044  download/perl-5.10.1.tar.gz
+0a2216378c1890317a230bab604b897e  download/gdbm.patch
+072f164674e317e7aa78dee6339427da  download/odbm.patch

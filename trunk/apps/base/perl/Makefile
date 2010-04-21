@@ -3,6 +3,8 @@ GARVERSION = 5.10.1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+PATCHFILES = gdbm.patch odbm.patch
+
 MASTER_SITES = http://ftp.funet.fi/pub/CPAN/src/  http://www.cpan.org/src/
 
 LIBDEPS = apps/base/gdbm

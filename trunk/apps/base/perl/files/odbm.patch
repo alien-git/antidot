@@ -1,0 +1,9 @@
+--- work/perl-5.10.1/ext/ODBM_File/hints/linux.pl	2009-02-12 23:58:12.000000000 +0100
++++ work/perl-5.10.1/ext/ODBM_File/hints/linux.pl.new	2010-04-21 17:29:49.000000000 +0200
+@@ -1,5 +1,5 @@
+ # uses GDBM dbm compatibility feature - at least on SuSE 8.0
+-$self->{LIBS} = ['-lgdbm'];
++$self->{LIBS} = ['-lgdbm -lgdbm_compat'];
+ 
+ # Debian/Ubuntu have /usr/lib/libgdbm_compat.so.3* but not this file,
+ # so linking may fail
