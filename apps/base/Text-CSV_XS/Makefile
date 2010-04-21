@@ -12,8 +12,6 @@ AUTHOR = Jochen Wiedmann
 URL = http://cpan.uwinnipeg.ca/~jwied
 LICENSE = Perl
 
-AUTOTEST = testForAliEnPerlModule Text::CSV_XS $(GARVERSION )
-
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
