@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RE/REHSACK/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/perl apps/baseParams-Util
 
 DESCRIPTION = Small SQL parser and engine
 AUTHOR = Jeff Zucker
