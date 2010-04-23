@@ -4,9 +4,11 @@ CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 DISTNAME = $(GARNAME)
 
+PATCHFILES = server.patch
+
 MASTER_SITES =  http://search.cpan.org/CPAN/authors/id/M/MN/MNOONING/Net-Daemon/ 
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/base/perl apps/base/IO
 
 DESCRIPTION = Abstract base class for portable servers
 AUTHOR = Jochen Wiedmann

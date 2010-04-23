@@ -1,5 +1,5 @@
 GARNAME = IO-Zlib
-GARVERSION = 1.04
+GARVERSION = 1.10
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -11,8 +11,6 @@ DESCRIPTION = IO style interface to Compress-Zlib
 AUTHOR = Tom Hughes
 URL = http://cpan.uwinnipeg.ca/~tomhughes
 LICENSE = Perl 
-
-AUTOTEST = testForAliEnPerlModule IO::Zlib $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
