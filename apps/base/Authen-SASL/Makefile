@@ -1,9 +1,8 @@
 GARNAME = Authen-SASL
-GARVERSION = 2.10
+GARVERSION = 2.1401
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-PATCHFILES = sasl.diff
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GB/GBARR/ http://www.cpan.org/authors/id/G/GB/GBARR/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/G/GB/GBARR/
 
@@ -14,7 +13,6 @@ AUTHOR = Graham Barr
 URL = http://cpan.uwinnipeg.ca/~gbarr
 LICENSE = Perl
 
-AUTOTEST = testForAliEnPerlModule Authen::SASL $(GARVERSION)
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
