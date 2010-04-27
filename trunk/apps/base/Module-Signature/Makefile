@@ -1,9 +1,9 @@
 GARNAME = Module-Signature
-GARVERSION = 0.50
+GARVERSION = 0.63
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AU/AUTRIJUS/ http://www.cpan.org/authors/id/A/AU/AUTRIJUS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/A/AU/AUTRIJUS/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/F/FL/FLORA/
 
 LIBDEPS = apps/base/gnupg apps/base/Digest-SHA1
 
@@ -11,8 +11,6 @@ DESCRIPTION = Module signature file manipulation
 AUTHOR = Autrijus Tang
 URL = http://cpan.uwinnipeg.ca/~autrijus
 LICENSE = Perl
-
-AUTOTEST = testForAliEnPerlModule Module::Signature $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

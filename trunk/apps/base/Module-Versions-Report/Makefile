@@ -1,9 +1,9 @@
 GARNAME =Module-Versions-Report
-GARVERSION = 1.02
+GARVERSION = 1.06
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/S/SB/SBURKE/ http://www.cpan.org/authors/id/S/SB/SBURKE/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/S/SB/SBURKE/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/J/JE/JESSE/
 
 LIBDEPS = apps/base/perl
 
@@ -11,8 +11,6 @@ DESCRIPTION = report versions of all modules in memory
 AUTHOR = Sean M. Burke
 URL = http://cpan.uwinnipeg.ca/~sburke
 LICENSE = Perl
-
-AUTOTEST = testForAliEnPerlModule Module::Versions::Report $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
