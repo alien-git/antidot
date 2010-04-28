@@ -1,9 +1,10 @@
 GARNAME = PlRPC
-GARVERSION = 0.2017
+GARVERSION = 0.2020
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTNAME = $(GARNAME)
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JW/JWIED/ http://www.cpan.org/authors/id/J/JW/JWIED/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/J/JW/JWIED/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MN/MNOONING/PlRPC/
 
 LIBDEPS = apps/base/Net-Daemon
 
@@ -11,8 +12,6 @@ DESCRIPTION = Perl Remote Method Invocation
 AUTHOR = Jochen Wiedmann 
 URL = http://cpan.uwinnipeg.ca/~jwied
 LICENSE = Perl
-
-AUTOTEST = testForAliEnPerlModule RPC::PlClient $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
