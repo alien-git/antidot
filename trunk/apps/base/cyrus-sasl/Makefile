@@ -2,6 +2,7 @@ GARNAME = cyrus-sasl
 GARVERSION = 2.1.24rc1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTNAME = $(GARNAME)-2.1.24
 
 MASTER_SITES = http://ftp.andrew.cmu.edu/pub/cyrus-mail/
 
