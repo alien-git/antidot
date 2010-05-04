@@ -687,6 +687,12 @@ FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2
 
 # Create the installation directory for AliEn
 mkdir -p $ALIEN_INSTALL_DIR
+if [ ! $? = 0 ]; then
+        echo "   Failed to create the installation directory. Please check you have correct permissions."
+        exit -2
+else
+        PRINTVERBOSE "$ALIEN_INSTALL_DIR created successfully"
+fi
 cd $ALIEN_INSTALL_DIR
 
 # Download the AliEn distribution tarball
