@@ -85,7 +85,7 @@ Usage: $0 [arguments] Makes an automatic installation of the services
 if [ "$ALIEN_ADVANCED_OPTIONS" = 1 ]; then
   echo "Advanced options: Users are NOT recommended to use them unless they know what they are doing
   -restart           	Restart the services after the installation has finished
-  -version <version> 	Install a specific version (default is v2-17) [ ${ALIEN_VERSIONS[*]} ]
+  -version <version> 	Install a specific version (default is v2-18) [ ${ALIEN_VERSIONS[*]} ]
   -platform <type>	Specify the platform to install (default is $(uname -s)) [ ${ALIEN_PLATFORM_TYPES[*]} ]
   -arch <type>		Specify the architecture to install (default is $(uname -m)) [${ALIEN_ARCH_TYPES[*]} ]
   -torrent		Perform installation through a torrent client
@@ -709,6 +709,28 @@ if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
     rm -rf  $ALIEN_INSTALL_DIR.failed
     mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
     exit -2
+fi
+
+# Determine if this is a valid installation
+if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
+    echo "   The version file doesn't exist"
+    rm -rf  $ALIEN_INSTALL_DIR.failed
+    mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
+    exit -2
+fi
+
+PRINTVERBOSE "Testing $ALIEN_INSTALL_DIR/bin/perl"
+if [ -f $ALIEN_INSTALL_DIR/bin/perl ]; then
+		test_perl=$ALIEN_INSTALL_DIR/bin/perl
+		test_build=`$test_perl -I $ALIEN_INSTALL_DIR/lib/perl5 -MConfig -e 'print $Config{prefix}'`
+		PRINTVERBOSE "test_build: $test_build"
+		if [ -z $test_build ]; then
+				echo "AliEn perl is incompatible with this system"
+				echo "Instalation cancelled"
+				exit -2
+		fi
+else
+		PRINTVERBOSE "Perl was not found. Installation without perl assumed"
 fi
 
 # Perform AliEn relocation
