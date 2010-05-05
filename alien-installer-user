@@ -711,14 +711,6 @@ if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
     exit -2
 fi
 
-# Determine if this is a valid installation
-if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
-    echo "   The version file doesn't exist"
-    rm -rf  $ALIEN_INSTALL_DIR.failed
-    mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
-    exit -2
-fi
-
 PRINTVERBOSE "Testing $ALIEN_INSTALL_DIR/bin/perl"
 if [ -f $ALIEN_INSTALL_DIR/bin/perl ]; then
 		test_perl=$ALIEN_INSTALL_DIR/bin/perl
