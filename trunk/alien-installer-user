@@ -725,12 +725,14 @@ if [ -f $ALIEN_INSTALL_DIR/bin/perl ]; then
 		test_build=`$test_perl -I $ALIEN_INSTALL_DIR/lib/perl5 -MConfig -e 'print $Config{prefix}'`
 		PRINTVERBOSE "test_build: $test_build"
 		if [ -z $test_build ]; then
+				rm -rf  $ALIEN_INSTALL_DIR.failed
+				mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
 				echo "AliEn perl is incompatible with this system"
 				echo "Instalation cancelled"
 				exit -2
 		fi
 else
-		PRINTVERBOSE "Perl was not found. Installation without perl assumed"
+		PRINTVERBOSE "AliEn perl was not found. Installation without perl assumed"
 fi
 
 # Perform AliEn relocation
