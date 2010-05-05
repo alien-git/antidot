@@ -727,8 +727,8 @@ if [ -f $ALIEN_INSTALL_DIR/bin/perl ]; then
 		if [ -z $test_build ]; then
 				rm -rf  $ALIEN_INSTALL_DIR.failed
 				mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
-				echo "AliEn perl is incompatible with this system"
-				echo "Instalation cancelled"
+				echo "AliEn perl is incompatible with the system"
+				echo "Installation cancelled"
 				exit -2
 		fi
 else
