@@ -435,27 +435,37 @@ configure-%/Imakefile:
 
 build-%/Build:
 	@echo ' $(call TMSG_LIB,Running Build in,$*)'
+	@$(PRE_BUILD)
 	@(cd $* && $(BUILD_ENV) ./Build $(BUILD_ARGS))
+	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 build-%/Makefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
+	@$(PRE_BUILD)
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(POST_BUILD)	
 	@$(MAKECOOKIE)
 
 build-%/GNUMakefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
+	@$(PRE_BUILD)
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 build-%/makefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
+	@$(PRE_BUILD)
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 build-%/GNUmakefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
+	@$(PRE_BUILD)
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 #################### USE RULES ####################

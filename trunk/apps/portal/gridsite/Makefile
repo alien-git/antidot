@@ -22,6 +22,6 @@ INSTALL_SCRIPTS = $(WORKSRC)/src/Makefile
 
 include ../category.mk
 
-
 #BUILD_ENV = env MYCFLAGS="-I. -I../interface -I$(PREFIX)/httpd/include $(OWN_CFLAGS)" MYLDFLAGS="-L. $(OWN_LDFLAGS)" GSOAPDIR="$(PREFIX)/share/soapcpp2" OPENSSL_GLOBUS_CFLAGS="-I$(GLOBUS_LOCATION)/include/$(GLOBUS_FLAVOR)" OPENSSL_GLOBUS_LIBS="-L$(GLOBUS_LOCATION)/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)"
 
+PRE_BUILD = (mv work/org.gridsite.core/* $(WORKSRC)/)
