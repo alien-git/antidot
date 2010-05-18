@@ -1,9 +1,13 @@
 GARNAME = gridsite
-GARVERSION = 1.7.5
+GARVERSION = 1.7.6
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION).src.tar.gz
+DISTNAME = org.gridsite.core
+
 PATCHFILES = Makefile.patch
 
+
+#http://www.gridsite.org/download/sources/gridsite-1.7.6.src.tar.gz
 MASTER_SITES = http://www.gridsite.org/download/sources/
 
 LIBDEPS = apps/base/gsoap apps/base/globus-toolkit apps/base/curl apps/base/libxml2 apps/portal/httpd 
@@ -13,8 +17,8 @@ URL = http://www.gridsite.org
 AUTHOR = Andrew McNab
 LICENSE = Apache
 
-CONFIGURE_ENV = env MYCFLAGS="-I. -I../interface -I$(PREFIX)/httpd/include -I$(PREFIX)/include  -I$(PREFIX)/include/libxml2 -I$(PREFIX)/include/curl $(OWN_CFLAGS)" MYLDFLAGS="-L. -L$(PREFIX)/lib -L$(PREFIX)/lib64 $(OWN_LDFLAGS)" GSOAPDIR="$(PREFIX)/share/soapcpp2"
-BUILD_ENV = env MYCFLAGS="-I. -I../interface -I$(PREFIX)/httpd/include -I$(PREFIX)/include  -I$(PREFIX)/include/libxml2 -I$(PREFIX)/include/curl $(OWN_CFLAGS)" MYLDFLAGS="-L. -L$(PREFIX)/lib -L$(PREFIX)/lib64 $(OWN_LDFLAGS)" GSOAPDIR="$(PREFIX)/share/soapcpp2"
+CONFIGURE_ENV = env MYCFLAGS="-I. -I../interface -I$(PREFIX)/httpd/include -I$(PREFIX)/include  -I$(PREFIX)/include/libxml2 -I$(PREFIX)/include/curl $(OWN_CFLAGS)" MYLDFLAGS="-L. -L$(PREFIX)/lib $(OWN_LDFLAGS)" GSOAPDIR="$(PREFIX)/share/soapcpp2"
+BUILD_ENV = env MYCFLAGS="-I. -I../interface -I$(PREFIX)/httpd/include -I$(PREFIX)/include  -I$(PREFIX)/include/libxml2 -I$(PREFIX)/include/curl $(OWN_CFLAGS)" MYLDFLAGS="-L. -L$(PREFIX)/lib $(OWN_LDFLAGS)" GSOAPDIR="$(PREFIX)/share/soapcpp2"
 
 CONFIGURE_SCRIPTS = 
 BUILD_SCRIPTS = $(WORKSRC)/src/Makefile
@@ -22,6 +26,3 @@ INSTALL_SCRIPTS = $(WORKSRC)/src/Makefile
 
 include ../category.mk
 
-#BUILD_ENV = env MYCFLAGS="-I. -I../interface -I$(PREFIX)/httpd/include $(OWN_CFLAGS)" MYLDFLAGS="-L. $(OWN_LDFLAGS)" GSOAPDIR="$(PREFIX)/share/soapcpp2" OPENSSL_GLOBUS_CFLAGS="-I$(GLOBUS_LOCATION)/include/$(GLOBUS_FLAVOR)" OPENSSL_GLOBUS_LIBS="-L$(GLOBUS_LOCATION)/lib -lssl_$(GLOBUS_FLAVOR) -lcrypto_$(GLOBUS_FLAVOR)"
-
-PRE_BUILD = (mv work/org.gridsite.core/* $(WORKSRC)/)
