@@ -12,6 +12,10 @@ LICENSE =
 
 DESCRIPTION = Kerberos5
 
+CONFIGURE_ENV = LDFLAGS="-L$(PREFIX)/lib"
+BUILD_ENV = LDFLAGS="-L$(PREFIX)/lib"
+
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/src/configure
 BUILD_SCRIPTS = $(WORKSRC)/src/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/src/Makefile
@@ -24,8 +28,6 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --without-tcl
 ifneq ($(PLATFORM), ia64-unknown-linux-gnu)
 	CONFIGURE_ARGS +=  --enable-dns=no
 endif
-
-BUILD_ENV = LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
 
 include ../category.mk
 
