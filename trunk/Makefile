@@ -21,5 +21,5 @@ distclean:
 	$(MAKE) clean
 
 %:
-	(cd apps; $(MAKE) $@)
+	(cd apps; $(MAKE) $@ || exit 1)
 
