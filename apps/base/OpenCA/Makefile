@@ -20,7 +20,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = # $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-openssl-prefix=$(PREFIX) --with-httpd-fs-prefix=$(PREFIX)/httpd --with-openca-user=$(USER) --with-openca-group=$(USER) --with-httpd-user=$(USER) --with-httpd-group=$(USER)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-openssl-prefix=$(PREFIX) --with-httpd-fs-prefix=$(PREFIX)/httpd --with-openca-user=$(USER) --with-openca-group=`id -ng` --with-httpd-user=$(USER) --with-httpd-group=`id -ng`
 
 INSTALL_TARGET = install-ca
 
