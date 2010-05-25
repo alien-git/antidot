@@ -117,7 +117,7 @@ else
 	which curl >/dev/null 2>&1
 	if [ $? -eq 0 ]; then
 		ALIEN_INSTALLER_CURL=1
-		ALIEN_CURL_OPTIONS="-A 'alien-installer_v123_$$@$HOSTNAME:`pwd`'"
+		ALIEN_CURL_OPTIONS="-A 'alien-installer v123 $$@$HOSTNAME:`pwd`'"
 		PRINTVERBOSE "curl will be used for downloads with additional options: $ALIEN_CURL_OPTIONS"
 	else
 		echo "   curl or wget were not found on your system."
