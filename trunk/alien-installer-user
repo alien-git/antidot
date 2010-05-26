@@ -110,21 +110,34 @@ GETDOWNLOADCLIENT()
 {
 which wget >/dev/null 2>&1
 if [ $? -eq 0 ]; then
-	ALIEN_INSTALLER_WGET=1
-	ALIEN_WGET_OPTIONS="-U 'alien-installer v123 $$@$HOSTNAME:`pwd`'"
-	PRINTVERBOSE "wget will be used for downloads with additional options: $ALIEN_WGET_OPTIONS"
+	ALIEN_DOWNLOAD_CLIENT=wget
+	ALIEN_DOWNLOAD_OUTPUT="-O"
+	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
+		ALIEN_DOWNLOAD_PREFIX="-U 'alien-installer v123 $$@$HOSTNAME:`pwd`'"
+		ALIEN_DOWNLOAD_POSTFIX=""
+	else
+		ALIEN_DOWNLOAD_PREFIX=""
+		ALIEN_DOWNLOAD_POSTFIX="2> /dev/null"
+	fi
 else
 	which curl >/dev/null 2>&1
 	if [ $? -eq 0 ]; then
-		ALIEN_INSTALLER_CURL=1
-		ALIEN_CURL_OPTIONS="-A 'alien-installer v123 $$@$HOSTNAME:`pwd`'"
-		PRINTVERBOSE "curl will be used for downloads with additional options: $ALIEN_CURL_OPTIONS"
+		ALIEN_DOWNLOAD_CLIENT=curl
+		ALIEN_DOWNLOAD_OUTPUT="-o"
+		if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
+			ALIEN_DOWNLOAD_PREFIX="-A 'alien-installer v123 $$@$HOSTNAME:`pwd`'"
+			ALIEN_DOWNLOAD_POSTFIX=""
+		else
+			ALIEN_DOWNLOAD_PREFIX=""
+			ALIEN_DOWNLOAD_POSTFIX="2> /dev/null"
+		fi
 	else
-		echo "   curl or wget were not found on your system."
+		echo "   curl and wget were not found on your system."
 		echo "   Installation cancelled!"
 		exit -2
 	fi
 fi
+PRINTVERBOSE "Download client: $ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX <path> $ALIEN_DOWNLOAD_OUTPUT <file-output> $ALIEN_DOWNLOAD_POSTFIX"
 }
 
 PRINTVERBOSE()
@@ -318,24 +331,9 @@ echo "   Platform set as: $ALIEN_INSTALLER_PLATFORM"
 FINDVERSION()
 {
 if [ "$ALIEN_VERSION" == '' ]; then
-
 	releases="http://alienbuild.cern.ch:8888/Releases"
-
-	if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
-		if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-			PRINTVERBOSE "wget $ALIEN_WGET_OPTIONS $releases -O $TMPFILE"
-			wget "$ALIEN_WGET_OPTIONS" $releases -O $TMPFILE
-		else
-			wget $releases -O $TMPFILE 2> /dev/null
-		fi
-	elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
-		if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-			PRINTVERBOSE "curl $ALIEN_CURL_OPTIONS $releases -o $TMPFILE"
-			curl "$ALIEN_CURL_OPTIONS" $releases -o $TMPFILE
-		else
-			curl $releases -o $TMPFILE 2> /dev/null
-		fi
-	fi
+	PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $releases $ALIEN_DOWNLOAD_OUTPUT $TMPFILE $ALIEN_DOWNLOAD_POSTFIX"
+	$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $releases "$ALIEN_DOWNLOAD_OUTPUT" $TMPFILE "$ALIEN_DOWNLOAD_POSTFIX"
 
 	if  [ $? != 0 ]; then
 		echo "   Error getting file $releases"
@@ -343,7 +341,6 @@ if [ "$ALIEN_VERSION" == '' ]; then
 	fi
 
 	ALIEN_VERSION=`grep 'Stable' $TMPFILE | head -n 1 | awk '{print $5'}`
-
 	rm $TMPFILE
 
 	if [ "$ALIEN_VERSION" = "" ]; then
@@ -366,28 +363,14 @@ else
 	fi
 fi
 
-PRINTVERBOSE "Installing version $ALIEN_VERSION"
+PRINTVERBOSE "Installing version: $ALIEN_VERSION"
 }
 
 FINDRELEASES()
 {
 releases="http://alienbuild.cern.ch:8888/BitServers"
-
-if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
-	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-		PRINTVERBOSE "wget $ALIEN_WGET_OPTIONS $releases -O $TMPFILE"
-		wget "$ALIEN_WGET_OPTIONS" $releases -O $TMPFILE
-	else
-		wget $releases -O $TMPFILE 2> /dev/null
-	fi
-elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
-	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-		PRINTVERBOSE "curl $ALIEN_CURL_OPTIONS $releases -o $TMPFILE"
-		curl "$ALIEN_CURL_OPTIONS" $releases -o $TMPFILE
-	else
-		curl "$releases" -o $TMPFILE 2> /dev/null
-	fi
-fi
+PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $releases $ALIEN_DOWNLOAD_OUTPUT $TMPFILE $ALIEN_DOWNLOAD_POSTFIX"
+$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $releases "$ALIEN_DOWNLOAD_OUTPUT" $TMPFILE "$ALIEN_DOWNLOAD_POSTFIX"
 
 if  [ $? != 0 ]; then
 	echo "   Error getting file $releases"
@@ -411,21 +394,8 @@ FINDCURRENTVERSION()
 {
 PRINTVERBOSE "Checking for an existing installation of AliEn"
 
-if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
-	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-		PRINTVERBOSE "wget $ALIEN_WGET_OPTIONS -q $ALIEN_BITS_URL/../../../../CompiledReleases -O CompiledReleases"
-		wget "$ALIEN_WGET_OPTIONS" -q "$ALIEN_BITS_URL/../../../../CompiledReleases" -O CompiledReleases
-	else
-		wget -q "$ALIEN_BITS_URL/../../../../CompiledReleases" -O CompiledReleases 2> /dev/null
-	fi
-elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
-	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-		PRINTVERBOSE "curl $ALIEN_CURL_OPTIONS $ALIEN_BITS_URL/../../../../CompiledReleases -o CompiledReleases"
-		curl "$ALIEN_CURL_OPTIONS" "$ALIEN_BITS_URL/../../../../CompiledReleases" -o CompiledReleases
-	else
-		curl "$ALIEN_BITS_URL/../../../../CompiledReleases" -o CompiledReleases 2> /dev/null
-	fi
-fi
+PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWLOAD_PREFIX $ALIEN_BITS_URL/../../../../CompiledReleases $ALIEN_DOWNLOAD_OUTPUT CompiledReleases $ALIEN_DOWNLOAD_POSTFIX"
+$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BITS_URL/../../../../CompiledReleases" "$ALIEN_DOWNLOAD_OUTPUT" CompiledReleases "$ALIEN_DOWNLOAD_POSTFIX"
 
 if [ $? != 0 ]; then
 	echo "    Error getting file $ALIEN_BITS_URL/../../../../CompiledReleases"
@@ -468,21 +438,8 @@ if [ ! "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
 	PROGRESS=$!
 fi
 
-if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
-	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-		PRINTVERBOSE "wget $ALIEN_WGET_OPTIONS $FILE -O alien.tar.gz"
-		wget "$ALIEN_WGET_OPTIONS" "$FILE" -O alien.tar.gz
-	else
-		wget -nv "$FILE" -O alien.tar.gz > /dev/null 2>&1
-	fi
-elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
-	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-		PRINTVERBOSE "curl $ALIEN_CURL_OPTIONS $FILE -o alien.tar.gz"
-		curl "$ALIEN_CURL_OPTIONS" "$FILE" -o alien.tar.gz
-	else
-		curl "$FILE" -o alien.tar.gz > /dev/null 2>&1
-	fi
-fi
+PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $FILE $ALIEN_DOWNLOAD_OUTPUT alien.tar.gz $ALIEN_DOWNLOAD_POSTFIX"
+$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $FILE "$ALIEN_DOWNLOAD_OUTPUT" alien.tar.gz "$ALIEN_DOWNLOAD_POSTFIX"
 
 if [ ! "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
 	disown $PROGRESS >/dev/null 2>&1
@@ -516,19 +473,8 @@ ARCH=`uname -m`
 TCLIENT="torrent_client_$ARCH.tar.bz2"
 WWWROOT="http://alitorrent.cern.ch"
 
-if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
-	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-		wget "$ALIEN_WGET_OPTIONS" "$WWWROOT/torrent_client/$TCLIENT" -O "$TCLIENT"
-	else
-		wget "$WWWROOT/torrent_client/$TCLIENT" -O "$TCLIENT" || exit 1
-	fi
-elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
-	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-		curl "$ALIEN_CURL_OPTIONS" "$WWWROOT/torrent_client/$TCLIENT" -o $TCLIENT
-	else
-		curl "$WWWROOT/torrent_client/$TCLIENT" -o $TCLIENT || exit 1
-	fi
-fi
+PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $WWWROOT/torrent_client/$TCLIENT $ALIEN_DOWNLOAD_OUTPUT $TCLIENT $ALIEN_DOWNLOAD_POSTFIX"
+$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$WWWROOT/torrent_client/$TCLIENT" "$ALIEN_DOWNLOAD_OUTPUT" $TCLIENT "$ALIEN_DOWNLOAD_POSTFIX" || exit 1
 
 bzip2 -c -d "$TCLIENT" | tar -x || exit 2
 echo "Getting the torrent"
@@ -546,7 +492,6 @@ if [ "$?" != 0 ]; then
 	exit -2
 fi
 
-# Unpack AliEn distribution tarball
 echo -n "   Extracting the files"
 
 PRINTDOTS &
