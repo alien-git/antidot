@@ -464,9 +464,7 @@ echo "Done"
 
 DOWNLOADTORRENT()
 {
-ARCH=`uname -m`
-
-TCLIENT="torrent_client_$ARCH.tar.bz2"
+TCLIENT="torrent_client_$ALIEN_INSTALLER_ARCH.tar.bz2"
 WWWROOT="http://alitorrent.cern.ch"
 
 PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $WWWROOT/torrent_client/$TCLIENT $ALIEN_DOWNLOAD_OUTPUT $TCLIENT"
@@ -475,12 +473,12 @@ $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$WWWROOT/torrent_client/$TCLIEN
 bzip2 -c -d "$TCLIENT" | tar -x || exit 2
 echo "Getting the torrent"
 
-FULLNAME="alien-$ALIEN_VERSION-$ALIEN_TYPE-$ARCH.tar.bz2"
+FULLNAME="alien-$ALIEN_VERSION-$ALIEN_TYPE-$ALIEN_INSTALLER_ARCH.tar.bz2"
 TFILE="$WWWROOT/torrents/$FULLNAME.torrent"
 
-torrent_client_$ARCH/download "$TFILE" -d torrent_source || exit 2
+torrent_client_$ALIEN_INSTALLER_ARCH/download "$TFILE" -d torrent_source || exit 2
 echo "   Seeding the torrent"
-torrent_client_$ARCH/seed "$TFILE" -d torrent_source
+torrent_client_$ALIEN_INSTALLER_ARCH/seed "$TFILE" -d torrent_source
 
 if [ "$?" != 0 ]; then
 	echo "Error getting $FILE!"
