@@ -46,6 +46,9 @@ while [ $# -gt 0 ]
 	-torrent|--torrent)
 		ALIEN_TORRENT=1
 	;;
+	-notorrent|--notorrent)
+		ALIEN_NO_TORRENT=1
+	;;
 	-version|--version)
 		shift 1
 		ALIEN_VERSION=$1
@@ -54,7 +57,7 @@ while [ $# -gt 0 ]
 		shift 1
 		ALIEN_INSTALLER_PLATFORM=$1
 	;;
-	--arch|-arch|--architecture|-architecture)
+	-arch|--arch|--architecture|-architecture)
 		shift 1
 		ALIEN_INSTALLER_ARCH=$1
 	;;
@@ -64,6 +67,7 @@ while [ $# -gt 0 ]
 	-batch|--batch)
 		ALIEN_INSTALLER_BATCH=1
 		ALIEN_INSTALLER_VERBOSE=1
+		ALIEN_TORRENT=1
 	;;
 	-verbose|--verbose)
 		ALIEN_INSTALLER_VERBOSE=1
@@ -90,8 +94,9 @@ if [ "$ALIEN_ADVANCED_OPTIONS" = 1 ]; then
   -platform <type>	Specify the platform to install (default is $(uname -s)) [ ${ALIEN_PLATFORM_TYPES[*]} ]
   -arch <type>		Specify the architecture to install (default is $(uname -m)) [${ALIEN_ARCH_TYPES[*]} ]
   -torrent		Perform installation through a torrent client
+  -notorrent		Do not use torrent installation
   -skip_rc           	Do not read the file $HOME/.alien/installer.rc for default values
-  -batch             	Run in batch mode (do not wait 10 seconds)
+  -batch             	Perform a silent installation (extremely verbose and by default through torrent)
   -verbose		Print more detailed installation information
 "
 fi
@@ -104,6 +109,26 @@ do
 	echo -n "."
 	sleep 1
 done
+}
+
+STARTDOTS()
+{
+PRINTDOTS &
+PROGRESS=$!
+}
+
+STOPDOTS()
+{
+disown $PROGRESS >/dev/null 2>&1
+kill $PROGRESS >/dev/null 2>&1
+echo "Done"
+}
+
+PRINTVERBOSE()
+{
+if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
+	echo "    $1"
+fi
 }
 
 GETDOWNLOADCLIENT()
@@ -134,13 +159,6 @@ else
 	fi
 fi
 PRINTVERBOSE "Download client: $ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX <path> $ALIEN_DOWNLOAD_OUTPUT <file-output>"
-}
-
-PRINTVERBOSE()
-{
-if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-	echo "    $1"
-fi
 }
 
 FINDTYPE()
@@ -277,6 +295,23 @@ fi
 PRINTVERBOSE "AliEn installation directory prefix: $ALIEN_INSTALL_DIR"
 }
 
+CHECKLOCK()
+{
+LOCK="$ALIEN_USER_DIR.lockfile"
+PRINTVERBOSE "Checking the lock $LOCK"
+if [ -f $LOCK ]; then
+	RECENT=`find $LOCK -cmin -180 | wc -l`
+	if [ "$RECENT" -gt 0 ]; then
+		echo "   Active $ALIEN_USER_DIR. Another installer may already be running"
+		echo "   Installation cancelled!"
+		exit -1
+	fi
+fi
+
+# Initiate a lock
+touch $LOCK
+}
+
 FINDPLATFORM()
 {
 if [ "$ALIEN_INSTALLER_PLATFORM" = '' ]; then
@@ -398,7 +433,7 @@ if [ $? != 0 ]; then
 	exit -2
 fi
 
-ALIEN_MINOR_VERSION=`cat CompiledReleases |grep $ALIEN_VERSION| awk  '{print \$3}'`
+ALIEN_MINOR_VERSION=`cat CompiledReleases |grep $ALIEN_VERSION| awk '{print \$3}'`
 
 rm CompiledReleases
 
@@ -430,17 +465,16 @@ DOWNLOADNORMAL()
 {
 if [ ! "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
 	echo -n "   Downloading $ALIEN_TYPE distribution"
-	PRINTDOTS &
-	PROGRESS=$!
+	STARTDOTS
 fi
 
 PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $FILE $ALIEN_DOWNLOAD_OUTPUT alien.tar.gz"
+
+# Download the AliEn distribution tarball
 $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $FILE "$ALIEN_DOWNLOAD_OUTPUT" alien.tar.gz
 
 if [ ! "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-	disown $PROGRESS >/dev/null 2>&1
-	kill $PROGRESS >/dev/null 2>&1
-	echo "Done"
+	STOPDOTS
 fi
 
 if [ "$?" != 0 ]; then
@@ -452,14 +486,19 @@ fi
 # Unpack AliEn distribution tarball
 echo -n "   Extracting the files"
 
-PRINTDOTS &
-PROGRESS=$!
+STARTDOTS
 
 tar jxf alien.tar.gz
 
-disown $PROGRESS
-kill $PROGRESS >/dev/null 2>&1
-echo "Done"
+STOPDOTS
+
+# Check the integrity of the installation
+if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
+	echo "   The version file doesn't exist"
+	rm -rf  $ALIEN_INSTALL_DIR.failed
+	mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
+	exit -2
+fi
 }
 
 DOWNLOADTORRENT()
@@ -468,16 +507,20 @@ TCLIENT="torrent_client_$ALIEN_INSTALLER_ARCH.tar.bz2"
 WWWROOT="http://alitorrent.cern.ch"
 
 PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $WWWROOT/torrent_client/$TCLIENT $ALIEN_DOWNLOAD_OUTPUT $TCLIENT"
+
+# Download the torrent client
 $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$WWWROOT/torrent_client/$TCLIENT" "$ALIEN_DOWNLOAD_OUTPUT" $TCLIENT || exit 1
 
 bzip2 -c -d "$TCLIENT" | tar -x || exit 2
-echo "Getting the torrent"
+echo "   Getting the torrent"
 
 FULLNAME="alien-$ALIEN_VERSION-$ALIEN_TYPE-$ALIEN_INSTALLER_ARCH.tar.bz2"
 TFILE="$WWWROOT/torrents/$FULLNAME.torrent"
 
 torrent_client_$ALIEN_INSTALLER_ARCH/download "$TFILE" -d torrent_source || exit 2
-echo "   Seeding the torrent"
+
+PRINTVERBOSE "   Seeding the torrent"
+
 torrent_client_$ALIEN_INSTALLER_ARCH/seed "$TFILE" -d torrent_source
 
 if [ "$?" != 0 ]; then
@@ -488,14 +531,20 @@ fi
 
 echo -n "   Extracting the files"
 
-PRINTDOTS &
-PROGRESS=$!
+STARTDOTS
 
 tar jxf torrent_source/*/*.tar.bz2
 
-disown $PROGRESS
-kill $PROGRESS >/dev/null 2>&1
-echo "Done"
+STOPDOTS
+
+# Check the integrity of the installation
+if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
+	echo "   The version file was not found. Falling back to normal download"
+	rm -rf $ALIEN_INSTALL_DIR.failed
+	PRINTVERBOSE "Cleaning the installation folder: $ALIEN_INSTALL_DIR"	
+	rm -rf $ALIEN_INSTALL_DIR/*
+	DOWNLOADNORMAL
+fi
 }
 
 RELOCATE()
@@ -607,6 +656,11 @@ ALIEN_INSTALLER_PLATFORM=""
 # Parse user given arguments
 PARSEARGUMENTS $*
 
+# -notorrent overrides any existing torrent enabling options
+if [ "$ALIEN_NO_TORRENT" = "1" ]; then
+	ALIEN_TORRENT=0
+fi
+
 GETDOWNLOADCLIENT
 
 # Determine the type of AliEn distribution to install
@@ -622,13 +676,16 @@ fi
 # Set user defined installation paths otherwise use $HOME/alien
 FINDUSERDIR
 
+# Check the lock on the installation
+CHECKLOCK
+
 # Set user defined platform, otherwise use the current one
 FINDPLATFORM
 
-# Set user specified version, otherwise get the latest version from: http://alien.cern.ch/Releases
+# Set user specified version, otherwise get the latest version
 FINDVERSION
 
-# Find the download server from: http://alien.cern.ch/BitServers
+# Find the download server
 FINDRELEASES
 
 # Check for the latest build, reinstall if old or non-existent
@@ -649,20 +706,10 @@ done
 # Batch mode. If enabled skip the waiting and start the installation
 if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
 	echo -n "   Waiting 10 seconds. Press 'Ctrl+c' to exit the installation"
-
-	PRINTDOTS & 
-	PROGRESS=$!
-
+	STARTDOTS
 	sleep 10
-
-	disown $PROGRESS >/dev/null 2>&1
-	kill $PROGRESS >/dev/null 2>&1
-
-	echo "Starting installation"
+	STOPDOTS
 fi
-
-# Remove the cache directory
-#rm -rf $ALIEN_INSTALLER_HOME
 
 # Define the url from where AliEn is downloaded
 FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2
@@ -683,14 +730,6 @@ if [ "$ALIEN_TORRENT" = "1" ]; then
 	DOWNLOADTORRENT
 else
 	DOWNLOADNORMAL
-fi
-
-# Determine if this is a valid installation
-if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
-	echo "   The version file doesn't exist"
-	rm -rf  $ALIEN_INSTALL_DIR.failed
-	mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
-	exit -2
 fi
 
 PRINTVERBOSE "Testing $ALIEN_INSTALL_DIR/bin/perl"
@@ -718,16 +757,13 @@ rm $ALIEN_USER_DIR >/dev/null 2>&1
 # Link/Overwrite the link for the user directory to the installation directory
 ln -s $ALIEN_INSTALL_LOCAL $ALIEN_USER_DIR
 
-if [ "$ALIEN_INSTALLER_VERBOSE" != "1" ];
-then
-	PRINTDOTS &
-	PROGRESS=$!
+if [ "$ALIEN_INSTALLER_VERBOSE" != "1" ]; then
+	
+	STARTDOTS
 
 	RELOCATE  > relocate.out 2>&1
 	
-	disown $PROGRESS
-	kill $PROGRESS >/dev/null 2>&1
-	echo "Done"
+	STOPDOTS
 else
 	RELOCATE
 fi
@@ -752,6 +788,11 @@ SERVICERESTART
 # Add symbolic links to user home/bin directory
 if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
 	SETBINLINKS
+fi
+
+if [ -f "$LOCK" ]; then
+	PRINTVERBOSE "Removing the lock file on the installation."
+	rm $LOCK
 fi
 
 echo "   Installation finished!"
