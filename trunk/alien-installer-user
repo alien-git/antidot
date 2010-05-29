@@ -433,7 +433,7 @@ if [ $? != 0 ]; then
 	exit -2
 fi
 
-ALIEN_MINOR_VERSION=`cat CompiledReleases |grep $ALIEN_VERSION| awk '{print \$3}'`
+ALIEN_MINOR_VERSION=`cat CompiledReleases |grep $ALIEN_VERSION| awk  '{print \$3}'`
 
 rm CompiledReleases
 
