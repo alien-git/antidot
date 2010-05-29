@@ -11,6 +11,11 @@ kill 	$PROGRESS >/dev/null 2>&1
 echo ""
 echo "   Installation cancelled"
 
+# Clean up the lock before exiting
+if [ -f "$LOCK" ]; then
+	rm -f $LOCK
+fi
+
 if [ "$ERROR" = '' ]; then
 	exit -1
 else
@@ -94,7 +99,7 @@ if [ "$ALIEN_ADVANCED_OPTIONS" = 1 ]; then
   -platform <type>	Specify the platform to install (default is $(uname -s)) [ ${ALIEN_PLATFORM_TYPES[*]} ]
   -arch <type>		Specify the architecture to install (default is $(uname -m)) [${ALIEN_ARCH_TYPES[*]} ]
   -torrent		Perform installation through a torrent client
-  -notorrent		Do not use torrent installation
+  -notorrent		Disable torrent installation, do a standard download
   -skip_rc           	Do not read the file $HOME/.alien/installer.rc for default values
   -batch             	Perform a silent installation (extremely verbose and by default through torrent)
   -verbose		Print more detailed installation information
@@ -297,19 +302,23 @@ PRINTVERBOSE "AliEn installation directory prefix: $ALIEN_INSTALL_DIR"
 
 CHECKLOCK()
 {
-LOCK="$ALIEN_USER_DIR.lockfile"
-PRINTVERBOSE "Checking the lock $LOCK"
-if [ -f $LOCK ]; then
-	RECENT=`find $LOCK -cmin -180 | wc -l`
-	if [ "$RECENT" -gt 0 ]; then
-		echo "   Active $ALIEN_USER_DIR. Another installer may already be running"
+LOCK="$ALIEN_USER_DIR.lock"
+
+if [ -f "$LOCK" ]; then
+	PRINTVERBOSE "Existing lock detected. Checking process activity"
+	ALIEN_PROCESS=`ps -p $(cat "$LOCK") | grep alien-installer`
+	if [ "$ALIEN_PROCESS" = "" ]; then
+		PRINTVERBOSE "Previous installation no longer active. Cleaning the lock."
+		rm -f "$LOCK"
+	else
+		echo "   Active lock: $LOCK. Another installer may already be running"
 		echo "   Installation cancelled!"
 		exit -1
 	fi
 fi
 
 # Initiate a lock
-touch $LOCK
+echo "$$" > "$LOCK"
 }
 
 FINDPLATFORM()
@@ -752,7 +761,7 @@ fi
 echo -n "   Relocating the $ALIEN_TYPE installation"
 
 # Remove the old link
-rm $ALIEN_USER_DIR >/dev/null 2>&1
+rm "$ALIEN_USER_DIR" >/dev/null 2>&1
 
 # Link/Overwrite the link for the user directory to the installation directory
 ln -s $ALIEN_INSTALL_LOCAL $ALIEN_USER_DIR
@@ -792,7 +801,7 @@ fi
 
 if [ -f "$LOCK" ]; then
 	PRINTVERBOSE "Removing the lock file on the installation."
-	rm $LOCK
+	rm -f "$LOCK"
 fi
 
 echo "   Installation finished!"
