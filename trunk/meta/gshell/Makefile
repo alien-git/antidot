@@ -6,6 +6,7 @@ FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
 ALL=\
+apps/base/google-perftools \
 apps/alien/gapi   \
 apps/base/xrootd-xrdcpapmonplugin  \
 apps/base/alien-ca \

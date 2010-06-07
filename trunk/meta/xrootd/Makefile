@@ -6,6 +6,7 @@ FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
 ALL=\
+apps/base/google-perftools \
 apps/base/xrootd \
 apps/base/xrootd-startscript \
 apps/base/xrootd-shellcmds

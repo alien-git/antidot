@@ -6,6 +6,7 @@ FILTER_OUT ?= apps/base/expat apps/base/XML-Parser apps/devel/m4 apps/devel/libt
 FILTER     ?= % 
 
 ALL=\
+apps/base/google-perftools \
 apps/base/eugridpma-carep \
 apps/base/alien-ca \
 apps/alien/gapi 
