@@ -18,7 +18,6 @@ DESCRIPTION =  The fastest malloc we've seen
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ENV = env CFLAGS="" CXXFLAGS="" CPPFLAGS=""
 
