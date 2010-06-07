@@ -1,37 +1,54 @@
 #!/bin/bash
 
-trap 'INTERRUPT' 2
-trap 'EXCEPTION' ERR
+trap 'INTERRUPT' 2 ERR
 
 INTERRUPT()
 {
 STOPDOTS
 STOPLOCK
 
-if [ -f "$TMPFILE" ]; then
-	rm -f "$TMPFILE"
-fi
+CLEANINSTALLATION
 
-echo -e "\n  Installation cancelled"
-
-if [ "$ERROR" = "" ]; then 
-	exit -1 
-else 
-	exit $ERROR 
+if [ "$ERROR" = "" ]; then
+	echo -e "\n   Installation cancelled. Exit code: -2"
+	exit -2
+else
+	echo -e "\n   Installation cancelled. Exit code: $ERROR"
+	exit "$ERROR"
 fi
 }
 
-EXCEPTION()
+GETPROCESSLIST()
 {
-STOPDOTS
-STOPLOCK
+PROCESS_LIST=( "${PROCESS_LIST[@]}"  "$1" )
+PROCESS_TEMP=( `ps -o pid --ppid $1 | grep -v PID` )
 
+for current_pid in ${PROCESS_TEMP[*]}
+do
+	GETPROCESSLIST "$current_pid"
+done
+}
+
+CLEANINSTALLATION()
+{
 if [ -f "$TMPFILE" ]; then
 	rm -f "$TMPFILE"
 fi
 
-echo -e "\n An error has occured. Installation cancelled"
-exit -2
+if [ -f "$LOCK" ]; then
+	rm -f "$LOCK"
+fi
+
+if [ ! "$ALIEN_INSTALL_DIR" = "" -a -d "$ALIEN_INSTALL_DIR" ]; then
+	ALIEN_INSTALL_FAILED="$ALIEN_INSTALL_DIR.failed"
+	while [ -d "$ALIEN_INSTALL_FAILED" ];
+	do
+		ALIEN_INSTALL_FAILED="$ALIEN_INSTALL_FAILED.failed"
+	done
+
+	PRINTVERBOSE "Moving $ALIEN_INSTALL_DIR to $ALIEN_INSTALL_FAILED"
+	mv "$ALIEN_INSTALL_DIR" "$ALIEN_INSTALL_FAILED"
+fi
 }
 
 PARSEARGUMENTS()
@@ -121,8 +138,8 @@ fi
 
 PRINTVERBOSE()
 {
-if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then 
-	echo "    $1" 
+if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
+	echo "    $1"
 fi
 }
 
@@ -273,7 +290,7 @@ else
 		mkdir $ALIEN_USER_DIR
 		if [ ! $? = 0 ]; then
 			echo "   Failed to create user directory. Please check you have correct permissions."
-			ERROR=-2
+			ERROR=-3
 			INTERRUPT
 		else
 			PRINTVERBOSE "$ALIEN_USER_DIR created successfully"
@@ -291,17 +308,17 @@ else
 			;;
 			n|N)
 	    			echo "   Please specify another installation directory."
-				ERROR=-2
+				ERROR=-3
 				INTERRUPT
 			;;
 			"")
 	    		echo "   Please specify another installation directory."
-			ERROR=-2
+			ERROR=-3
 			INTERRUPT
 	    		;;
 			*) 
 	    		echo "   Invalid answer. Installation cancelled."
-			ERROR=-2
+			ERROR=-3
 			INTERRUPT
 			esac
 		else
@@ -309,7 +326,6 @@ else
 			SETINSTALLDIR
 		fi
 	fi
-
 	echo "   Installing in the user specified directory: $ALIEN_USER_DIR"
 fi
 PRINTVERBOSE "AliEn installation directory prefix: $ALIEN_INSTALL_DIR"
@@ -334,8 +350,8 @@ if [ ! "$ALIEN_LOCK_PID" = "" ]; then
 	fi
 fi
 
-if [ -f "$LOCK" ]; then 
-	rm -f $LOCK 
+if [ -f "$LOCK" ]; then
+	rm -f "$LOCK"
 fi
 }
 
@@ -344,56 +360,56 @@ GETINSTALLTIME()
 ALIEN_TIME_END=`tail -n 1 "$LOCK" | awk '{ print $3 }'`
 ALIEN_TIME_START=`head -n 2 "$LOCK" | tail -n 1 | awk '{ print $3 }'`
 
-echo "Start Time: $ALIEN_TIME_START End Time: $ALIEN_TIME_END"
 ALIEN_TIME_ELAPSED=$(( $ALIEN_TIME_END - $ALIEN_TIME_START ))
-echo "Installation time: $ALIEN_TIME_ELAPSED seconds"
+}
+
+GETLASTACTIVITY()
+{
+ALIEN_TIME_CURRENT=`date +%s`
+ALIEN_TIME_LAST=`tail -n 1 "$LOCK" | awk '{ print $3 }'`
+
+ALIEN_TIME_ACTIVITY=$(( $ALIEN_TIME_CURRENT - $ALIEN_TIME_LAST ))
 }
 
 CHECKLOCK()
 {
-while [ -f "$LOCK" ];
-do
-	ALIEN_CURRENT_USERDIR=`head -n 1 "$LOCK" | awk '{ print $1 }'`	
-	if [ "$ALIEN_CURRENT_USERDIR" = "$ALIEN_USER_DIR" ]; then
-		ALIEN_HOSTNAME=`tail -n 1 "$LOCK" | awk '{ print $2 }'`
-		echo "Hostname in $LOCK: $ALIEN_HOSTNAME"
-		if [ "$ALIEN_HOSTNAME" = "$HOSTNAME" ]; then
-			ALIEN_PROCESS=`tail -n 1 "$LOCK" | awk '{ print $1 }'`
-			ALIEN_PROCCES=`ps -p "$ALIEN_PROCESS" | grep "$ALIEN_INSTALLER_NAME"`
-			echo "AliEn process: $ALIEN_PROCESS"
-			if [ "$ALIEN_PROCESS" = "" ]; then
-				echo "Previous installation no longer active. Cleaning the lock."
-				rm -rf "$LOCK"
+if [ -f "$LOCK" ]; then
+	ALIEN_HOSTNAME=`tail -n 1 "$LOCK" | awk '{ print $2 }'`
+	echo "Hostname in $LOCK: $ALIEN_HOSTNAME"
+	if [ "$ALIEN_HOSTNAME" = "$HOSTNAME" ]; then
+		ALIEN_PROCESS=`tail -n 1 "$LOCK" | awk '{ print $1 }' | ps -p "$1" | grep "$ALIEN_INSTALLER_NAME"`
+		echo "AliEn process: $ALIEN_PROCESS"
+		if [ "$ALIEN_PROCESS" = "" ]; then
+				echo "   Existing installation no longer active. Cleaning previous installation"
+				CLEANINSTALLATION
+		else
+			GETINSTALLTIME
+			GETLASTACTIVITY
+			if [ $ALIEN_TIME_ELAPSED -gt 7200  -o $ALIEN_TIME_ACITIVITY -gt 86400 ] ; then
+				echo "   Previous installation is taking: $ALIEN_TIME_ELAPSED seconds; Last activity: $ALIEN_TIME_ACTIVITY seconds ago"
+				echo "   Cleaning previous installation"
+				PROCESS_LIST=""
+				GETPROCESSLIST
+				PRINTVERBOSE "Previous installation processes list: ${PROCESS_LIST[@]}"
+				kill ${PROCESS_LIST[@]}
+				CLEANINSTALLATION
 			else
-				GETINSTALLTIME
-				if [ $ALIEN_TIME_ELAPSED -gt 7200 ]; then
-					echo "The time of installation exceeds two hours. Ending the previous installation and starting again"
-					kill $ALIEN_PROCESS
-				else
-					echo "AliEn installation is already running."
-					ERROR=0
-					INTERRUPT
+				echo "   Another AliEn installation may already be running for $ALIEN_USER_DIR"
+				ERROR=0
+				INTERRUPT
 				fi
 			fi
 		else
 			GETINSTALLTIME
-			if [[ $ALIEN_TIME_ELAPSED -gt 7200 ]]; then
-				echo "Hostname $ALIEN_HOSTNAME is running AliEn installation for more than 2 hours."
-				ERROR=0
-				INTERRUPT
-			else
-				echo "AliEn installation is currently active on another hostname: $ALIEN_HOSTNAME"
-				ERROR=0
-				INTERRUPT
-			fi
+			GETLASTACTIVITY
+			echo "   Hostname $ALIEN_HOSTNAME is running AliEn installation using $ALIEN_INSTALLER_NAME"
+			echo "   Installation is taking: $ALIEN_TIME_ELAPSED seconds; Last activity: $ALIEN_TIME_ACTIVITY seconds ago"
+			ERROR=0
+			INTERRUPT
 		fi
-	else
-		LOCK=${LOCK}_new
-		echo "$LOCK"
-	fi
-done
+fi
 
-echo "$ALIEN_USER_DIR $ALIEN_USER $ALIEN_TYPE" >> "$LOCK"
+echo "    Installation folder: $ALIEN_USER_DIR Installation type: $ALIEN_TYPE Installer: $ALIEN_INSTALLER_NAME" >> "$LOCK"
 STARTLOCK &
 ALIEN_LOCK_PID=$!
 PRINTVERBOSE "Lock initiated on process: $ALIEN_LOCK_PID for $ALIEN_USER_DIR installation of AliEn $ALIEN_TYPE"
@@ -509,7 +525,7 @@ if [ "$ALIEN_BITS_URL" = "" ]; then
 	INTERRUPT
 fi
 
-rm $TMPFILE
+rm -f $TMPFILE
 }
 
 FINDCURRENTVERSION()
@@ -527,27 +543,20 @@ ALIEN_MINOR_VERSION=`cat CompiledReleases |grep $ALIEN_VERSION| awk  '{print \$3
 
 rm CompiledReleases
 
-VERSION=`alien -version 2>&1  |grep "Version:" |awk -F "Version: " '{print $2}'`
+if [ -d "$ALIEN_USER_DIR" ]; then
+ALIEN_EXISTING_VERSION=`ls -all "$ALIEN_USER_DIR" | awk '{ print substr($10,index($10,"v")) }' `
 
-if [ "$VERSION" = '' ]; then
-	PRINTVERBOSE "Trying with the default location for alien: $HOME/alien/bin/alien"
-	VERSION=`$HOME/alien/bin/alien -version 2>&1  |grep "Version:" |awk -F "Version: " '{print $2}'`
-fi
-
-if [ "$VERSION" = '' ]; then
-	PRINTVERBOSE "No version was found. Installing new version."
-	return 0
-fi
-echo "   Checking the version that we will install (if it is newer than '$VERSION')"
-
-if [ "$VERSION"  = "$ALIEN_VERSION.$ALIEN_MINOR_VERSION" ]; then
-	echo "   You have the latest version installed ($VERSION). No installation is needed."
-	if  [ "$ALIEN_RESTART" = "" ]; then
-		exit 0
+if [ ! "$ALIEN_EXISTING_VERSION" = "" ]; then
+	echo "   Checking the version to be installed (if it is newer than $ALIEN_EXISTING_VERSION)"
+	if [ "$ALIEN_EXISTING_VERSION" = "$ALIEN_VERSION.$ALIEN_MINOR_VERSION" ]; then
+		echo "   You have the latest version installed ($ALIEN_EXISTING_VERSION). No installation is necessary"
+		ERROR=0
+		INTERRUPT $ERROR
 	fi
-	echo "   Exiting with error because we were supposed to restart"
+else
+	PRINTVERBOSE "No version was found. Installing new version"
 fi
-
+fi
 PRINTVERBOSE "Ready to install $ALIEN_VERSION.$ALIEN_MINOR_VERSION"
 }
 
@@ -559,7 +568,6 @@ if [ ! "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
 fi
 
 PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $FILE $ALIEN_DOWNLOAD_OUTPUT alien.tar.gz"
-
 $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $FILE "$ALIEN_DOWNLOAD_OUTPUT" alien.tar.gz
 
 if [ ! "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
@@ -585,8 +593,6 @@ echo "Done"
 
 if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
 	echo "   The version file doesn't exist"
-	rm -rf  $ALIEN_INSTALL_DIR.failed
-	mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
 	ERROR=-2
 	INTERRUPT
 fi
@@ -632,7 +638,7 @@ echo "Done"
 
 if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
 	echo "   The version file was not found. Falling back to normal download"
-	PRINTVERBOSE "Cleaning the installation folder: $ALIEN_INSTALL_DIR"	
+	PRINTVERBOSE "Cleaning the installation folder: $ALIEN_INSTALL_DIR"
 	rm -rf $ALIEN_INSTALL_DIR/*
 	DOWNLOADNORMAL
 fi
@@ -743,7 +749,6 @@ ALIEN_VERSIONS=(HEAD v2-18 v2-17 v2-16)
 # Designating the names and locations of temporary files
 ALIEN_INSTALLER_NAME=`echo "$0" | awk '{ print substr($1, 3) }'`
 TMPFILE=/tmp/."$ALIEN_INSTALLER_NAME".$$
-LOCK=/tmp/."$ALIEN_INSTALLER_NAME".lock
 
 # Clearing the environment for the installation
 ALIEN_VERSION=""
@@ -757,6 +762,7 @@ if [ "$ALIEN_NO_TORRENT" = "1" ]; then
 	ALIEN_TORRENT=0
 fi
 
+# Either curl or wget will be used for downloads
 GETDOWNLOADCLIENT
 
 # Determine the type of AliEn distribution to install
@@ -772,7 +778,8 @@ fi
 # Set user defined installation paths otherwise use $HOME/alien
 FINDUSERDIR
 
-# Check the lock on the installation
+LOCK=$(pwd)/."$ALIEN_INSTALLER_NAME".lock
+# Initiate/Check the lock on the current installation
 CHECKLOCK
 
 # Set user defined platform, otherwise use the current one
@@ -849,9 +856,9 @@ fi
 # Perform AliEn relocation
 echo -n "   Relocating the $ALIEN_TYPE installation"
 
-# Remove the old link
+# Remove the old link if it already exists
 if [ -d "$ALIEN_USER_DIR" ]; then
-	rm "$ALIEN_USER_DIR" >/dev/null 2>&1
+	rm "$ALIEN_USER_DIR"
 fi
 
 # Link/Overwrite the link for the user directory to the installation directory
@@ -884,8 +891,8 @@ EOF
 SERVICERESTART
 
 # Add symbolic links in user home/bin directory
-if [ "$ALIEN_INSTALLER_BATCH" = "" ]; then 
-	SETBINLINKS 
+if [ "$ALIEN_INSTALLER_BATCH" = "" ]; then
+	SETBINLINKS
 fi
 
 GETINSTALLTIME
