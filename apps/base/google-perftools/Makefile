@@ -6,8 +6,8 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 MASTER_SITES = http://google-perftools.googlecode.com/files/
 #google-perftools-1.5.tar.gz
 
-
-LIBDEPS = apps/gcc/gcc
+#we depend on xrootd in order to have api dir already created                                                                                      
+LIBDEPS = apps/gcc/gcc apps/base/xrootd 
 
 AUTHOR  = Craig Silverstein
 LICENSE = New BSD License
@@ -26,3 +26,4 @@ BUILD_ARGS =
 
 include ../category.mk
 
+POST_INSTALL = (cd $(PREFIX)/api/lib; ln -sf ../../lib/libtcmalloc.so libtcmalloc.so; ln -sf ../../lib/libtcmalloc_minimal.so libtcmalloc_minimal.so;)        
