@@ -7,7 +7,7 @@ MASTER_SITES = http://google-perftools.googlecode.com/files/
 #google-perftools-1.5.tar.gz
 
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/gcc/gcc
 
 AUTHOR  = Craig Silverstein
 LICENSE = New BSD License
