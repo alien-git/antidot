@@ -6,6 +6,7 @@ FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
 ALL=\
+apps/base/google-perftools \
 apps/base/eugridpma-carep \
 apps/base/alien-ca \
 apps/alien/classad \
