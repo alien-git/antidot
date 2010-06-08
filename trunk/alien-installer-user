@@ -565,17 +565,20 @@ if [ -d "$ALIEN_USER_DIR" ]; then
         fi
 fi
 
-if [ ! "$ALIEN_EXISTING_VERSION" = "" ]; then
-	echo "   Checking the version to be installed (if it is newer than $ALIEN_EXISTING_VERSION)"
-	if [ "$ALIEN_EXISTING_VERSION" = "$ALIEN_VERSION.$ALIEN_MINOR_VERSION" ]; then
-		echo "   You have the latest version installed ($ALIEN_EXISTING_VERSION). No installation is necessary"
-		ERROR=0
-		INTERRUPT $ERROR
-	fi
+if [ "$ALIEN_FORCE_INSTALLATION" = 1 ]; then
+	echo "   Force new AliEn installation. Existing versions will be ignored."
 else
-	PRINTVERBOSE "No existing version was found for $ALIEN_USER_DIR. Installing new version"
+	if [ ! "$ALIEN_EXISTING_VERSION" = "" ]; then
+		echo "   Checking the version to be installed (if it is newer than $ALIEN_EXISTING_VERSION)"
+		if [ "$ALIEN_EXISTING_VERSION" = "$ALIEN_VERSION.$ALIEN_MINOR_VERSION" ]; then
+			echo "   You have the latest version installed ($ALIEN_EXISTING_VERSION). No installation is necessary"
+			ERROR=0
+			INTERRUPT $ERROR
+		fi
+	else
+		PRINTVERBOSE "No existing version was found for $ALIEN_USER_DIR. Installing new version"
+	fi
 fi
-
 PRINTVERBOSE "Ready to install $ALIEN_VERSION.$ALIEN_MINOR_VERSION"
 }
 
