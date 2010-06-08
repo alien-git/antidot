@@ -85,6 +85,39 @@ sub get_disk_usage {
 	return $result;
 }
 
+# get the used disk space by the given file or folder
+sub get_du {
+        my $map = shift;
+        my $result = {};
+
+        while (my($name, $path) = each(%$map)){
+		$result->{$name."_path"} = $path;
+
+                if (open(DU, "du -sk $path 2>/dev/null | tail -1 |")){
+                        my $line = <DU>;
+
+                        chomp $line;
+
+
+                        if ($line && $line =~ /(\d+)\s+\S+.*/){
+                                $result->{$name."_du_MB"} = $1 / 1024.0;
+                                $result->{$name."_msg"} = "ok";
+                        }
+                        else{
+                                $result->{$name."_msg"} = $line;
+                        }
+
+                        close DU;
+                }
+		else{
+		    $result->{$name."_msg"} = "Failed running du";
+		}
+        }
+
+        return $result;
+}
+
+
 # Initialize ApMon
 my $hostName = $ENV{ALIEN_HOSTNAME} || Net::Domain::hostfqdn();
 my $apm = new ApMon(0);
@@ -97,6 +130,10 @@ my $alien_dirs = {
 	CACHE_DIR => $ENV{ALIEN_CACHEDIR},
 };
 
+my $alien_du = {
+        "CE.db_MESSAGES" => $ENV{ALIEN_LOGDIR}."/CE.db/MESSAGES"
+};
+
 sleep 1;
 
 # Do forever host and services monitoring
@@ -104,6 +141,6 @@ print "vobox_mon: ApMon initialized. Starting system background monitoring...\n"
 while(1){
 	$apm->sendBgMonitoring();
 	$apm->sendParameters("Master", $hostName, get_disk_usage($alien_dirs));
+	$apm->sendParameters("Master", $hostName, get_du($alien_du));
 	sleep 60;
 }
-
