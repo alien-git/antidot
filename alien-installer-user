@@ -39,15 +39,20 @@ if [ -f "$LOCK" ]; then
 	rm -f "$LOCK"
 fi
 
-if [ ! "$ALIEN_INSTALL_DIR" = "" -a -d "$ALIEN_INSTALL_DIR" ]; then
-	ALIEN_INSTALL_FAILED="$ALIEN_INSTALL_DIR.failed"
-	while [ -d "$ALIEN_INSTALL_FAILED" ];
+MOVETOFAILED "$ALIEN_INSTALL_DIR"
+}
+
+MOVETOFAILED()
+{
+if [ ! "$1" = "" -a -d "$1" ]; then
+	ALIEN_FAILED="$1.failed"
+	while [ -d "$ALIEN_FAILED" ];
 	do
-		ALIEN_INSTALL_FAILED="$ALIEN_INSTALL_FAILED.failed"
+		ALIEN_FAILED="$ALIEN_FAILED.failed"
 	done
 
-	PRINTVERBOSE "Moving $ALIEN_INSTALL_DIR to $ALIEN_INSTALL_FAILED"
-	mv "$ALIEN_INSTALL_DIR" "$ALIEN_INSTALL_FAILED"
+	PRINTVERBOSE "Moving $1 to $ALIEN_FAILED"
+	mv "$1" "$ALIEN_FAILED"
 fi
 }
 
@@ -335,7 +340,7 @@ STARTLOCK()
 {
 while [ true ];
 do
-	echo "$$ $HOSTNAME $(date +%s)" >> "$LOCK"
+	echo "$$ $HOSTNAME $(date +%s) $ALIEN_INSTALL_DIR" >> "$LOCK"
 	sleep 10
 done
 }
@@ -374,42 +379,50 @@ ALIEN_TIME_ACTIVITY=$(( $ALIEN_TIME_CURRENT - $ALIEN_TIME_LAST ))
 CHECKLOCK()
 {
 if [ -f "$LOCK" ]; then
+
 	ALIEN_HOSTNAME=`tail -n 1 "$LOCK" | awk '{ print $2 }'`
-	echo "Hostname in $LOCK: $ALIEN_HOSTNAME"
+	PRINTVERBOSE "Hostname in $LOCK: $ALIEN_HOSTNAME"
 	if [ "$ALIEN_HOSTNAME" = "$HOSTNAME" ]; then
-		ALIEN_PROCESS=`tail -n 1 "$LOCK" | awk '{ print $1 }' | ps -p "$1" | grep "$ALIEN_INSTALLER_NAME"`
-		echo "AliEn process: $ALIEN_PROCESS"
-		if [ "$ALIEN_PROCESS" = "" ]; then
+
+		ALIEN_PROCESS=`tail -n 1 "$LOCK" | awk '{ print $1 }' `
+		ALIEN_PROCESS_EXISTS=`ps -p $ALIEN_PROCESS | grep "$ALIEN_INSTALLER_NAME"`
+		if [ "$ALIEN_PROCESS_EXISTS" = "" ]; then
 				echo "   Existing installation no longer active. Cleaning previous installation"
 				CLEANINSTALLATION
 		else
 			GETINSTALLTIME
 			GETLASTACTIVITY
-			if [ $ALIEN_TIME_ELAPSED -gt 7200  -o $ALIEN_TIME_ACITIVITY -gt 86400 ] ; then
+			if [ $ALIEN_TIME_ELAPSED -gt 7200 -o $ALIEN_TIME_ACTIVITY -gt 86400 ]; then
 				echo "   Previous installation is taking: $ALIEN_TIME_ELAPSED seconds; Last activity: $ALIEN_TIME_ACTIVITY seconds ago"
 				echo "   Cleaning previous installation"
 				PROCESS_LIST=""
-				GETPROCESSLIST
+
+				GETPROCESSLIST "$ALIEN_PROCESS"
 				PRINTVERBOSE "Previous installation processes list: ${PROCESS_LIST[@]}"
 				kill ${PROCESS_LIST[@]}
+
+				ALIEN_PREVIOUS_INSTALL=`tail -n 1 "$LOCK" | awk '{ print $4 }'`
+				MOVETOFAILED "$ALIEN_PREVIOUS_INSTALL"
 				CLEANINSTALLATION
 			else
 				echo "   Another AliEn installation may already be running for $ALIEN_USER_DIR"
-				ERROR=0
-				INTERRUPT
-				fi
+				echo "   Installation cancelled. Exit code: 0"
+				exit 0
 			fi
-		else
-			GETINSTALLTIME
-			GETLASTACTIVITY
-			echo "   Hostname $ALIEN_HOSTNAME is running AliEn installation using $ALIEN_INSTALLER_NAME"
-			echo "   Installation is taking: $ALIEN_TIME_ELAPSED seconds; Last activity: $ALIEN_TIME_ACTIVITY seconds ago"
-			ERROR=0
-			INTERRUPT
 		fi
+	else
+		GETINSTALLTIME
+		GETLASTACTIVITY
+		echo "   Hostname $ALIEN_HOSTNAME is already running AliEn installation in $ALIEN_USER_DIR"
+		echo "   Installation is taking: $ALIEN_TIME_ELAPSED seconds; Last activity: $ALIEN_TIME_ACTIVITY seconds ago"
+		echo "   Installation cancelled! Exit code: 0"
+		exit 0
+	fi
 fi
 
-echo "    Installation folder: $ALIEN_USER_DIR Installation type: $ALIEN_TYPE Installer: $ALIEN_INSTALLER_NAME" >> "$LOCK"
+echo "AliEn $ALIEN_TYPE installation for: $ALIEN_USER_DIR using $ALIEN_INSTALLER_NAME" >> "$LOCK"
+echo "$$ $HOSTNAME $(date +%s) $ALIEN_INSTALL_DIR" >> "$LOCK"
+
 STARTLOCK &
 ALIEN_LOCK_PID=$!
 PRINTVERBOSE "Lock initiated on process: $ALIEN_LOCK_PID for $ALIEN_USER_DIR installation of AliEn $ALIEN_TYPE"
@@ -417,8 +430,8 @@ PRINTVERBOSE "Lock initiated on process: $ALIEN_LOCK_PID for $ALIEN_USER_DIR ins
 
 FINDPLATFORM()
 {
-if [ "$ALIEN_INSTALLER_PLATFORM" = "" ]; then 
-	ALIEN_INSTALLER_PLATFORM=$(uname -s) 
+if [ "$ALIEN_INSTALLER_PLATFORM" = "" ]; then
+	ALIEN_INSTALLER_PLATFORM=$(uname -s)
 fi
 
 if [ "$ALIEN_INSTALLER_ARCH" = "" ]; then
@@ -437,7 +450,7 @@ PRINTVERBOSE "Platform determined as: $ALIEN_INSTALLER_PLATFORM"
 PRINTVERBOSE "Architecture determined as: $ALIEN_INSTALLER_ARCH"
 
 if [ "$ALIEN_INSTALLER_PLATFORM" = "Linux" ]; then
-		case "$ALIEN_INSTALLER_ARCH" in	
+		case "$ALIEN_INSTALLER_ARCH" in
 			i686) ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu ;;
 			ia64) ALIEN_INSTALLER_PLATFORM=ia64-unknown-linux-gnu ;;
 			x86_64) ALIEN_INSTALLER_PLATFORM=x86_64-unknown-linux-gnu ;;
@@ -544,7 +557,13 @@ ALIEN_MINOR_VERSION=`cat CompiledReleases |grep $ALIEN_VERSION| awk  '{print \$3
 rm CompiledReleases
 
 if [ -d "$ALIEN_USER_DIR" ]; then
-ALIEN_EXISTING_VERSION=`ls -all "$ALIEN_USER_DIR" | awk '{ print substr($10,index($10,"v")) }' `
+        ALIEN_EXISTING_VERSION=`ls -all "$ALIEN_USER_DIR" | awk '{ print $NF }' | grep new`
+        if [ "$ALIEN_EXISTING_VERSION" = "" ]; then
+                ALIEN_EXISTING_VERSION=`ls -all "$ALIEN_USER_DIR" | awk '{ print substr($NF,index($NF,".")+1) }' `
+        else
+                ALIEN_EXISTING_VERSION=`ls -all "$ALIEN_USER_DIR" | awk '{ print substr($NF,index($NF,".")+1,index($NF,"_")-index($NF,".")-1) }'`
+        fi
+fi
 
 if [ ! "$ALIEN_EXISTING_VERSION" = "" ]; then
 	echo "   Checking the version to be installed (if it is newer than $ALIEN_EXISTING_VERSION)"
@@ -554,9 +573,9 @@ if [ ! "$ALIEN_EXISTING_VERSION" = "" ]; then
 		INTERRUPT $ERROR
 	fi
 else
-	PRINTVERBOSE "No version was found. Installing new version"
+	PRINTVERBOSE "No existing version was found for $ALIEN_USER_DIR. Installing new version"
 fi
-fi
+
 PRINTVERBOSE "Ready to install $ALIEN_VERSION.$ALIEN_MINOR_VERSION"
 }
 
@@ -778,7 +797,7 @@ fi
 # Set user defined installation paths otherwise use $HOME/alien
 FINDUSERDIR
 
-LOCK=$(pwd)/."$ALIEN_INSTALLER_NAME".lock
+LOCK="$ALIEN_USER_DIR".lock
 # Initiate/Check the lock on the current installation
 CHECKLOCK
 
