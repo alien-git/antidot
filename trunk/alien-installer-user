@@ -424,7 +424,8 @@ if [ -f "$LOCK" ]; then
 			STARTDOTS
 			WAITFORLOCK
 			STOPDOTS
-
+			echo "Done"
+			
 			SERVICERESTART
 			echo "   Services restarted for an existing installation."
 			exit 0
