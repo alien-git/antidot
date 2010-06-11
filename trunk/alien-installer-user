@@ -110,6 +110,9 @@ while [ $# -gt 0 ]
 	-verbose|--verbose)
 		ALIEN_INSTALLER_VERBOSE=1
 	;;
+	-skip_rc|--skip_rc)
+		echo "   skip_rc option is deprecated"
+	;;
 	*) echo "Invalid argument: '$*'. Please use: '$0 -help' for the list of available options"
 		exit -1
 	esac
@@ -425,7 +428,7 @@ if [ -f "$LOCK" ]; then
 			WAITFORLOCK
 			STOPDOTS
 			echo "Done"
-			
+
 			SERVICERESTART
 			echo "   Services restarted for an existing installation."
 			exit 0
