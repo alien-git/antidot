@@ -499,14 +499,14 @@ buildclean:
 #check cvs time for Makefile and checksum, we get the latest commit
 #if svn or cvs we have to check the log to see the date
 buildtime:
-	@$(GARDIR)/parseCVSFileLog.sh Makefile > TIME.tmp
-	@$(GARDIR)/parseCVSFileLog.sh checksums >> TIME.tmp
+	@$(GARDIR)/parseCVSFileLog.sh Makefile > work/TIME.tmp
+	@$(GARDIR)/parseCVSFileLog.sh checksums >> work/TIME.tmp
 	@if [[ "$(MASTER_SITES)" =~ ^.*pserver.*$$ ]]; then \
 	    cvsTime="`cd $(WORKSRC) && cvs log 2>&1 | $(GARDIR)../../parseCVSLog.sh $(GARCVSVERSION)`"; \
-	    echo $$cvsTime >> TIME.tmp; \
+	    echo $$cvsTime >> work/TIME.tmp; \
 	fi
-	@sort -r TIME.tmp | tail -n1 > TIME
-	@rm TIME.tmp
+	@sort -r work/TIME.tmp | tail -n1 > work/TIME
+	@rm work/TIME.tmp
 
 # these targets do not have actual corresponding files
 .PHONY: all fetch-list fetch checksum makesum extract checkpatch patch makepatch configure build bininstall install clean buildclean beaujolais strip fetch-p checksum-p extract-p patch-p configure-p build-p install-p bininstall-p builtime
