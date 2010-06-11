@@ -33,5 +33,5 @@ include ../category.mk
 PRE_CONFIGURE = (cd $(WORKSRC); ./bootstrap.sh;)
 #just to test
 ifeq ($(shell uname -s),Darwin)                                                                                                                                                                                                                                                                                             
-    POST_INSTALL = (cd $(PREFIX)/api/lib ; ln -sf ../../lib/libxml2.dylib libxml2.dylib; ln -sf ../../lib/libxml2.a libxml2.a)                                                                                                                                                                                              
+    POST_INSTALL = (cd $(PREFIX)/api/lib ; ln -sf ../../lib/libxml2.dylib libxml2.dylib; ln -sf ../../lib/libxml2.a libxml2.a; ln -sf ../../lib/libxml2.2.dylib libxml2.2.dylib)                                                                                                                                                                                              
 endif  
