@@ -505,7 +505,7 @@ buildtime:
 	    cvsTime="`cd $(WORKSRC) && cvs log 2>&1 | $(GARDIR)../../parseCVSLog.sh $(GARCVSVERSION)`"; \
 	    echo $$cvsTime >> work/TIME.tmp; \
 	fi
-	@sort -r work/TIME.tmp | tail -n1 > work/TIME
+	@sort work/TIME.tmp | tail -n1 > work/TIME
 	@rm work/TIME.tmp
 
 # these targets do not have actual corresponding files
