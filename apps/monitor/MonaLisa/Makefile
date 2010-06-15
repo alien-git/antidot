@@ -4,6 +4,7 @@ CATEGORIES = java
 DISTFILES = $(GARNAME).v$(GARVERSION).tar.gz
 DISTNAME  = $(GARNAME).v1.8
 
+#just to test 
 PLATFORM = $(shell $(GARDIR)/platform.sh platform)
 
 BINDISTNAME = $(GARNAME)-$(GARVERSION)_$(PLATFORM)
