@@ -506,7 +506,7 @@ buildtime:
 	fi; \
 	echo $$makefileTime > work/TIME.tmp; 
 	@if [[ ! "$(MASTER_SITES)" =~ ^.*pserver.*$$ ]]; then \
-	    checksumsTime="`$(GARDIR)/parseCVSFileLog.sh` checksums"; \
+	    checksumsTime="`$(GARDIR)/parseCVSFileLog.sh checksums`"; \
 	    if [[ "$$makefileTime" =~ ^.*ERROR.*$$ ]]; then \
 		echo "ERROR getting Makefile time"; \
 		exit 1; \
