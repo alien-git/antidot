@@ -499,8 +499,20 @@ buildclean:
 #check cvs time for Makefile and checksum, we get the latest commit
 #if svn or cvs we have to check the log to see the date
 buildtime:
-	@$(GARDIR)/parseCVSFileLog.sh Makefile > work/TIME.tmp
-	@$(GARDIR)/parseCVSFileLog.sh checksums >> work/TIME.tmp
+	@makefileTime="`$(GARDIR)/parseCVSFileLog.sh Makefile`"; \
+	if [[ "$$makefileTime" =~ ^.*ERROR.*$$ ]]; then \
+	    echo "ERROR getting Makefile time"; \
+	    exit 1; \
+	fi; \
+	echo $$makefileTime > work/TIME.tmp; 
+	@if [[ ! "$(MASTER_SITES)" =~ ^.*pserver.*$$ ]]; then \
+	    checksumsTime="`$(GARDIR)/parseCVSFileLog.sh` checksums"; \
+	    if [[ "$$makefileTime" =~ ^.*ERROR.*$$ ]]; then \
+		echo "ERROR getting Makefile time"; \
+		exit 1; \
+	    fi; \
+	    echo $$checksumsTime >> work/TIME.tmp; \
+	fi
 	@if [[ "$(MASTER_SITES)" =~ ^.*pserver.*$$ ]]; then \
 	    cvsTime="`cd $(WORKSRC) && cvs log 2>&1 | $(GARDIR)../../parseCVSLog.sh $(GARCVSVERSION)`"; \
 	    echo $$cvsTime >> work/TIME.tmp; \
