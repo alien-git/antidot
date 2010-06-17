@@ -3,24 +3,24 @@
 file="$1"
 
 if [ -z "$file" ]; then
-    echo "ERROR: NO FILE"
+    echo "ERROR:$file NO FILE"
     exit
 fi
 
 if [ ! -e "$file" ]; then
-    echo "ERROR: FILE DOEN'T EXIST"
+    echo "ERROR: $file FILE DOEN'T EXIST"
     exit
 fi
 
 if [ -d "$file" ]; then
-    echo "ERROR: DIRECTORY"
+    echo "ERROR: $file DIRECTORY"
     exit
 fi 
 
 revision=`cvs status $file  2>&1 | grep "Working revision" | awk '{print $3}'`
 
 if [ $? -ne 0 ]; then
-    echo "ERROR: CVS STATUS ERROR"
+    echo "ERROR: CVS $file STATUS ERROR"
     exit
 fi
 
@@ -31,7 +31,7 @@ if [ "$revision" != "" ]; then
     fileDate1=`echo -e "$fileDate" | awk '{gsub(/^ +| +$/,"")}1'`
 
     if [ $? -ne 0 ]; then
-	echo "ERROR: CVS LOG ERROR"
+	echo "ERROR: $revision $fileDate CVS LOG ERROR"
 	exit
     fi
     
@@ -39,13 +39,13 @@ if [ "$revision" != "" ]; then
 	finalDate=`date +%s -d "$fileDate1"`
 
 	if [ $? -ne 0 ]; then
-	    echo "ERROR: DATE ERROR"
+	    echo "ERROR: $fileDate1 DATE ERROR"
 	    exit
 	fi
 	echo $finalDate
 
     else
-	echo "ERROR: WRONG DATE FORMAT"
+	echo "ERROR: $fileDate1 WRONG DATE FORMAT"
 	exit
 
     fi
