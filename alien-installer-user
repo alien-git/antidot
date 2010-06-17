@@ -595,8 +595,16 @@ else
 		echo "   Checking the version to be installed (if it is newer than $ALIEN_EXISTING_VERSION)"
 		if [ "$ALIEN_EXISTING_VERSION" = "$ALIEN_VERSION.$ALIEN_MINOR_VERSION" ]; then
 			echo "   You have the latest version installed ($ALIEN_EXISTING_VERSION). No installation is necessary"
-			ERROR=0
-			INTERRUPT $ERROR
+			if [ -f "$TMPFILE" ]; then
+			    rm -f "$TMPFILE"
+			fi
+			STOPLOCK    
+			if [ -f "$LOCK" ]; then
+			    rm -f "$LOCK"
+			fi
+			echo "   Installation cancelled"
+			exit 0
+				
 		fi
 	else
 		PRINTVERBOSE "No existing version was found for $ALIEN_USER_DIR. Installing new version"
