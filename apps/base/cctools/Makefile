@@ -6,6 +6,7 @@ DISTFILES  = $(GARNAME)-$(GARVERSION)-src.tar.gz
 DISTNAME = $(GARNAME)-$(GARVERSION)-src
 PATCHFILES = configure.patch configure.tools.patch
 
+#
 #http://www.cse.nd.edu/~ccl/software/files/cctools-2.6.0-src.tar.gz
 #http://www.cse.nd.edu/~ccl/software/files/cctools-2_5_3-src.tar.gz
 MASTER_SITES =  http://www.cse.nd.edu/~ccl/software/files/
