@@ -2,6 +2,9 @@
 
 SEARCH="$1"
 
+ECHOCMD=`which echo`
+DATECMD=`which date`
+
 if [ -z "$SEARCH" -o "$SEARCH" == "HEAD" ]; then
 	SEARCH="head"
 fi
@@ -21,8 +24,8 @@ while read first second third anythingelse; do
 			read thedate
 		
 			# date: 2009-01-19 10:56:47 +0100;  author: costing;  state: Exp;  commitid: kYStOfLnVBd0Q2zt;
-			thedate=`echo "$thedate" | cut -d\; -f1 | cut -d: -f2-`
-			date +%s -d "$thedate"
+			thedate=`$ECHOCMD "$thedate" | cut -d\; -f1 | cut -d: -f2-`
+			$DATECMD +%s -d "$thedate"
 		fi
 	fi
 done | sort | tail -n 1
