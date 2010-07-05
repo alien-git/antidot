@@ -1,8 +1,8 @@
 GARNAME = perl
-GARVERSION = 5.8.8
+GARVERSION = 5.8.9
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES = locale.t.diff swig.diff makedepend.SH.patch
+#PATCHFILES = locale.t.diff swig.diff makedepend.SH.patch
 
 UBUNTU = 0
 
@@ -33,7 +33,7 @@ ifneq ($(shell uname -s),Darwin)
         TEST_SCRIPTS += $(WORKSRC)/Makefile
 endif
 
-
+CONFIGURE_ENV =  CFLAGS="-I$(PREFIX)/include"  CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib"
 CONFIGURE_ARGS = $(PERL_DIRPATHS) -d -des -Dinstalldirs=perl  -Doptimize="-O" -Dccflags="-fPIC" -Dinstallprefix=$(PREFIX) -Dprefix=$(PREFIX) -Dd_semctl_semun -Di_db -Di_syslog -Dudsedl=yes -Dman3ext=3 -Dusemymalloc=no -DDEBUGGING -Dplibpth="$(PREFIX)/lib $(PREFIX)/lib64" -Dldflags="-L$(PREFIX)/lib -L$(PREFIX)/lib64" -A append:libswanted=" pthread"
 
 include ../category.mk
