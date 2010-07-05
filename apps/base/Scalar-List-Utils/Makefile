@@ -18,7 +18,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-#CONFIGURE_ARGS =  LIBS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" INC="-I$(PREFIX)/include"
+CONFIGURE_ARGS =  LIBS="-L$(PREFIX)/lib" INC="-I$(PREFIX)/include"
 
 BUILD_ARGS =  
 
