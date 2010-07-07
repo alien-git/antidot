@@ -169,7 +169,7 @@ ALIEN_DOT_PID=$!
 STOPDOTS()
 {
 if [ ! "$ALIEN_DOT_PID" = "" ]; then
-	TMP_PROCESS=`ps -p "$ALIEN_DOT_PID" | grep "$ALIEN_INSTALLER_NAME"`
+	TMP_PROCESS=`ps -p "$ALIEN_DOT_PID"`
 	if [ ! "$TMP_PROCESS" = "" ]; then
 		disown 	$ALIEN_DOT_PID >/dev/null 2>&1
 		kill 	$ALIEN_DOT_PID >/dev/null 2>&1
@@ -351,7 +351,7 @@ done
 STOPLOCK()
 {
 if [ ! "$ALIEN_LOCK_PID" = "" ]; then
-	TMP_PROCESS=`ps -p "$ALIEN_LOCK_PID" | grep "$ALIEN_INSTALLER_NAME"`
+	TMP_PROCESS=`ps -p "$ALIEN_LOCK_PID"`
 	if [ ! "$TMP_PROCESS" = "" ]; then
 		disown 	$ALIEN_LOCK_PID >/dev/null 2>&1
 		kill 	$ALIEN_LOCK_PID >/dev/null 2>&1
@@ -396,8 +396,9 @@ if [ -f "$LOCK" ]; then
 	if [ "$ALIEN_HOSTNAME" = "$HOSTNAME" ]; then
 
 		ALIEN_PROCESS=`tail -n 1 "$LOCK" | awk '{ print $1 }' `
-		ALIEN_PROCESS_EXISTS=`ps -p $ALIEN_PROCESS | grep "$ALIEN_INSTALLER_NAME"`
-		if [ "$ALIEN_PROCESS_EXISTS" = "" ]; then
+		PRINTVERBOSE "We are about to check existing process: $ALIEN_PROCESS"
+		kill -0 "$ALIEN_PROCESS"
+		if [ "$?" = "1" ]; then
 				echo "   Existing installation no longer active. Cleaning previous installation"
 				CLEANINSTALLATION
 		else
@@ -500,6 +501,7 @@ echo "   Platform set as: $ALIEN_INSTALLER_PLATFORM"
 
 FINDVERSION()
 {
+TMPFILE="Releases"
 if [ "$ALIEN_VERSION" = '' ]; then
 	releases="http://alienbuild.cern.ch:8888/Releases"
 	PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $releases $ALIEN_DOWNLOAD_OUTPUT $TMPFILE"
@@ -540,6 +542,7 @@ PRINTVERBOSE "Installing version: $ALIEN_VERSION"
 
 FINDRELEASES()
 {
+TMPFILE="BitServers"
 releases="http://alienbuild.cern.ch:8888/BitServers"
 PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $releases $ALIEN_DOWNLOAD_OUTPUT $TMPFILE"
 $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $releases "$ALIEN_DOWNLOAD_OUTPUT" $TMPFILE
@@ -800,8 +803,7 @@ ALIEN_ARCH_TYPES=(i686 i386 ia64 x86_64)
 ALIEN_VERSIONS=(HEAD v2-18 v2-17 v2-16)
 
 # Designating the names and locations of temporary files
-ALIEN_INSTALLER_NAME=`echo "$0" | awk '{ print substr($1, 3) }'`
-TMPFILE=/tmp/."$ALIEN_INSTALLER_NAME".$$
+ALIEN_INSTALLER_NAME=`basename "$0"`
 
 # Clearing the environment for the installation
 ALIEN_VERSION=""
