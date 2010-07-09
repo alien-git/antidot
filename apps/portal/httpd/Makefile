@@ -7,7 +7,7 @@ ifeq ($(shell uname),Darwin)
 PATCHFILES = apr.h.patch
 endif
 
-PATCHFILES += ssl_modules.patch
+#PATCHFILES += ssl_modules.patch
 
 MASTER_SITES = http://apache.cict.fr/httpd/
 
