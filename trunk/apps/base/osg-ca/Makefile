@@ -1,12 +1,12 @@
 GARNAME = osg-ca
-GARVERSION = 1.13
+GARVERSION = 1.15a
 CATEGORIES = apps-tools
 DISTFILES   = osg-certificates-$(GARVERSION).tar.gz
 DISTNAME = certificates
 PATCHFILES = Makefile.patch 
 
-#http://software.grid.iu.edu/pacman/cadist/1.8/osg-certificates-1.8.tar.gz
-MASTER_SITES = http://software.grid.iu.edu/pacman/cadist/1.13/
+#http://software.grid.iu.edu/pacman/cadist/1.15a/osg-certificates-1.15a.tar.gz
+MASTER_SITES = http://software.grid.iu.edu/pacman/cadist/1.15a/
 
 LIBDEPS = 
 
