@@ -1,9 +1,9 @@
 GARNAME = mod_perl
-GARVERSION = 2.0.4
+GARVERSION = 2.0.1
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GO/GOZER/
+MASTER_SITES = 
 
 LIBDEPS = apps/base/perl apps/portal/httpd
 

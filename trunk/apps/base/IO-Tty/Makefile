@@ -1,6 +1,5 @@
 GARNAME = IO-Tty
-GARVERSION = 1.08
-
+GARVERSION = 1.03
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -12,6 +11,8 @@ URL = http://cpan.uwinnipeg.ca/~rgiersig
 LICENSE = Perl
 
 DESCRIPTION = provide an interface to TTYs and PTYs
+
+AUTOTEST = testForAliEnPerlModule IO::Tty $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

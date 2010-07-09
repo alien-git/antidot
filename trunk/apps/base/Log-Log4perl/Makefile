@@ -1,9 +1,8 @@
 GARNAME = Log-Log4perl
-GARVERSION = 1.28
+GARVERSION = 1.11
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/M/MS/MSCHILLI/Log-Log4perl-1.28.tar.gz
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSCHILLI/ http://www.cpan.org/authors/id/M/MS/MSCHILLI/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MS/MSCHILLI/
 
 LIBDEPS = apps/base/perl

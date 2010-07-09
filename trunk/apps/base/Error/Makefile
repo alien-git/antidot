@@ -1,9 +1,9 @@
 GARNAME = Error
-GARVERSION = 0.17016
+GARVERSION = 0.15
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/U/UA/UARUN/ http://www.cpan.org/authors/id/U/UA/UARUN/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/U/UA/UARUN/
 
 LIBDEPS = apps/base/perl
 
@@ -11,6 +11,8 @@ DESCRIPTION = Error/exception handling in an OO-ish way
 AUTHOR = Arun Kumar U
 URL = http://cpan.uwinnipeg.ca/~uarun
 LICENSE = Perl
+
+AUTOTEST = testForAliEnPerlModule Error $(GARVERSION )
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

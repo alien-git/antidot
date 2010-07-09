@@ -1,10 +1,9 @@
 GARNAME = Test-Simple
-GARVERSION = 0.94
+GARVERSION = 0.80
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
-#http://search.cpan.org/CPAN/authors/id/M/MS/MSCHWERN/Test-Simple-0.94.tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MS/MSCHWERN/
 
 LIBDEPS = apps/base/perl
