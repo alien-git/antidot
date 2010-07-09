@@ -168,11 +168,6 @@ checksum-%: $(CHECKSUM_FILE) $(MAKEFILE)
 #################### EXTRACT RULES ####################
 
 # rule to extract uncompressed tarballs
-tar-tgz-extract-%:
-	@echo ' $(call TMSG_LIB,Extracting,$(DOWNLOADDIR)/$*)'
-	@$(TAR) -xzf $(DOWNLOADDIR)/$* -C $(EXTRACTDIR)
-	@$(MAKECOOKIE)
-	
 tar-extract-%:
 	@echo ' $(call TMSG_LIB,Extracting,$(DOWNLOADDIR)/$*)'
 	@$(TAR) -xf $(DOWNLOADDIR)/$* -C $(EXTRACTDIR)
@@ -228,9 +223,6 @@ binextract-%.tar.bz2: tar-bz-binextract-%.tar.bz2
 	@$(MAKECOOKIE)
 
 relocate-%.tar.bz2: tar-bz-relocate-%.tar.bz2
-	@$(MAKECOOKIE)
-
-extract-%.tgz: tar-tgz-extract-%.tgz
 	@$(MAKECOOKIE)
 
 extract-%.tar: tar-extract-%.tar
@@ -435,37 +427,27 @@ configure-%/Imakefile:
 
 build-%/Build:
 	@echo ' $(call TMSG_LIB,Running Build in,$*)'
-	@$(PRE_BUILD)
 	@(cd $* && $(BUILD_ENV) ./Build $(BUILD_ARGS))
-	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 build-%/Makefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
-	@$(PRE_BUILD)
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
-	@$(POST_BUILD)	
 	@$(MAKECOOKIE)
 
 build-%/GNUMakefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
-	@$(PRE_BUILD)
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
-	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 build-%/makefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
-	@$(PRE_BUILD)
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
-	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 build-%/GNUmakefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
-	@$(PRE_BUILD)
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
-	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 #################### USE RULES ####################

@@ -50,4 +50,4 @@ if [ "x$outfile" = "x" ]; then
    outfile=`basename $1`
 fi 
 
-PATH=/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin curl -A MSIE --insecure -f -L -o $outfile $1
+PATH=/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin curl --insecure -f -L -o $outfile $1

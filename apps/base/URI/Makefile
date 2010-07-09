@@ -1,7 +1,9 @@
 GARNAME = URI
-GARVERSION = 1.54
+GARVERSION = 1.53
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+PATCHFILES = heuristic.t.patch
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/G/GA/GAAS/ http://www.cpan.org/authors/id/G/GA/GAAS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/G/GA/GAAS/
 

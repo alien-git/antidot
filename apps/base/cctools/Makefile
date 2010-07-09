@@ -27,7 +27,7 @@ CONFIGURE_ENV = env LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-I$(PREF
 BUILD_ENV = env LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" CFLAGS="-I$(PREFIX)/include"
 
 
-CONFIGURE_ARGS = --prefix $(PREFIX) --with-readline-path $(PREFIX) --with-zlib-path $(PREFIX) --with-krb5-path $(PREFIX)
+CONFIGURE_ARGS = --prefix $(PREFIX) --with-gdbm-path $(PREFIX) --with-readline-path $(PREFIX) --with-zlib-path $(PREFIX)
 
 include ../category.mk
 

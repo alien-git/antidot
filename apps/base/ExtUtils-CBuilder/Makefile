@@ -1,10 +1,9 @@
 GARNAME = ExtUtils-CBuilder
-GARVERSION = 0.2703
+GARVERSION = 0.18
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/K/KW/KWILLIAMS/ http://www.cpan.org/authors/id/K/KW/KWILLIAMS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/K/KW/KWILLIAMS/
 
 LIBDEPS = apps/base/perl
 
