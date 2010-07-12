@@ -3,7 +3,10 @@ GARVERSION = 1.0.6
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-PATCHFILES = 
+
+ifeq ($(shell uname),Darwin)
+    PATCHFILES = configure.patch
+endif
 
 #http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/shell/xrootd-shellcmds-1.0.5.tar.gz
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/shell/
