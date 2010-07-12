@@ -3,8 +3,10 @@ GARVERSION = 1.1.0
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-PATCHFILES = 
 
+ifeq ($(shell uname),Darwin)                                                                                                                                                                      
+    PATCHFILES = configure.patch                                                                                                                                                                  
+endif    
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/xrdcpapmonplugin/
 
