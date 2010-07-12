@@ -43,7 +43,7 @@ BUILD_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS
 INSTALL_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
 
 
-CONFIGURE_ARGS +=  --prefix=$(PREFIX)/api --enable-perlint --with-ssl-libdir=$(PREFIX)/lib --with-ssl-incdir=$(PREFIX)/include --with-krb5=$(PREFIX)  --with-ssl-shared=yes --enable-gsi --disable-posix --no-arch-subdirs
+CONFIGURE_ARGS +=  --syslibs=$(PREFIX)/lib --incpfx=$(PREFIX)/include --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-ssl-libdir=$(PREFIX)/lib --with-ssl-incdir=$(PREFIX)/include --with-krb5=$(PREFIX)  --with-ssl-shared=yes --enable-gsi --disable-posix --no-arch-subdirs
 
 include ../category.mk
 
