@@ -3,6 +3,10 @@ GARVERSION = 1.1.6b
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+ifeq ($(shell uname),Darwin)
+    PATCHFILES = configure.patch
+endif
+
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/tkauthz/
 
 LIBDEPS = apps/base/perl apps/base/libxml2 apps/devel/swig apps/base/openssl apps/base/globus-toolkit
