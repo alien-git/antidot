@@ -3,7 +3,10 @@ GARVERSION = 3.0.5
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-PATCHFILES =
+
+ifeq ($(shell uname),Darwin)
+    PATCHFILES = configure.patch
+endif
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalienfs/
 
@@ -15,7 +18,7 @@ URL = http://xrootd.slac.stanford.edu
 AUTHOR = Andy Hanushevsky
 LICENSE =
 
-CONFIGURE_ENV = CPFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+CONFIGURE_ENV = CPFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-L$(PREFIX)/lib"
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
@@ -25,6 +28,3 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api --w
 
 include ../category.mk
 
-ifeq ($(shell uname -s),Darwin)
-	PRE_CONFIGURE = (cd $(WORKSRC) && ./bootstrap.sh)
-endif
