@@ -11,6 +11,7 @@ LIBDEPS = apps/base/xrootd-secssl
 
 ifeq ($(shell uname -s),Darwin)
 	LIBDEPS += apps/base/readline
+	PATCHFILES += configure.patch
 endif
 
 DESCRIPTION = ARDA/ALICE packages for API Client+Server
