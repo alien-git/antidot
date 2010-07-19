@@ -3,5 +3,5 @@ b6b0eff1670fd5c2f188fd46deb3b989  download/xrootd-xalienfs-1.0.5.tar.gz
 989204504ec647b792a40c99581b755a  download/xrootd-xalienfs-1.0.11.tar.gz
 85f4b5e1979fd99d81e012d0aeecdcc0  download/xrootd-xalienfs-1.0.12.tar.gz
 cda61fbd54a1eb4370cb2c004635f30d  download/xrootd-xalienfs-1.0.14.tar.gz
-a3eda191892e9439463aba0a3bd42191  download/configure.ac.patch
-394183bda41f3bfd5304b17a289d367f  download/configure.patch
+69805c4dfd254d61cdf849d410ba1b67  download/configure.ac.patch
+be2a6d55d2624fd80fe35a72028ef4b6  download/configure.patch
