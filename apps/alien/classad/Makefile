@@ -20,5 +20,4 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --with-classads-dir=$(PREFIX) --with-classad
 
 include ../category.mk
 
-#PRE_CONFIGURE = (cd $(WORKSRC);env PREFIX=$(PREFIX) sh bootstrap )
-PRE_CONFIGURE = (PLATFORM=`uname` && if [ "$PLATFORM" != "Darwin" ]; then cd $(WORKSRC); env PREFIX=$(PREFIX) sh bootstrap; fi)
+PRE_CONFIGURE = (cd $(WORKSRC);env PREFIX=$(PREFIX) sh bootstrap )

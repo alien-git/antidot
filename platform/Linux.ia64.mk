@@ -12,6 +12,6 @@ OWN_CFLAGS += -O2 -pipe
 export GARLIBEXT=so
 export GARSHARED=-shared
 
-export MASKED := apps/gcc/gcc= apps/gui/qt-mac-opensource-src= apps/base/cctools= apps/base/google-perftools= /apps/base/Scalar-List-Utils= apps/base/IO-Compress= apps/base/Params-Util=
+export MASKED := apps/gcc/gcc= apps/gui/qt-mac-opensource-src= apps/base/cctools= apps/base/google-perftools=
 
 
