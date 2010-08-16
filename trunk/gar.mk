@@ -323,10 +323,12 @@ bininstall:
 ifeq ($(CATEGORIES),source-only)
 	@$(MAKE) reinstall
 else
-  ifeq ($(GARAUTODETECT),true)
-	@env MASKED="$(MASKED) $(MYMASK)" BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL)
-  else
-	@env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL) 
+	ifneq($(BININSTALL_IGNORE),true)
+  		ifeq ($(GARAUTODETECT),true)
+			@env MASKED="$(MASKED) $(MYMASK)" BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL)
+  		else
+			@env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL) 
+		endif
   endif
 endif
 
