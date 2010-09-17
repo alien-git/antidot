@@ -1,0 +1,29 @@
+--- work/sloccount-2.26/makefile.old	2004-08-01 20:52:06.000000000 +0200
++++ work/sloccount-2.26/makefile	2005-07-05 15:11:39.414144220 +0200
+@@ -28,7 +28,6 @@
+ # Set this for where to store the man pages and executables.
+ # If you want to store this as part of an official distribution,
+ # change this to "/usr":
+-PREFIX=/usr/local
+ 
+ # Set "EXE_SUFFIX" to ".exe" if you're running on Windows, like this:
+ # EXE_SUFFIX=.exe
+@@ -125,7 +124,17 @@
+ MYDOCS=sloccount.html README TODO ChangeLog
+ 
+ 
+-all: $(COMPILED_EXECUTABLES)
++all: $(COMPILED_EXECUTABLES) perl_prefix
++
++perl_prefix:
++	MY_PREFIX=$(PREFIX) ; \
++	MY_PREFIX=$${MY_PREFIX:=/usr} ; \
++	MY_PREFIX=`echo $$MY_PREFIX | sed 's/\//\\\\\//g'` ; \
++	for f in `grep -l -E "\#\!.*/bin/perl" *` ; do \
++		mv $$f $$f.backup ; \
++		cat $$f.backup | sed -e "s/^\#\!.*\/bin\/perl/\#\!$$MY_PREFIX\/bin\/perl/g" > $$f ; \
++		rm $$f.backup ; \
++	done
+ 
+ lexcount1$(EXE_SUFFIX): lexcount1.c
+ 	$(CC) lexcount1.c -o lexcount1$(EXE_SUFFIX)

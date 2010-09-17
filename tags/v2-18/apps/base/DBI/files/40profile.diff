@@ -1,0 +1,13 @@
+--- work/DBI-1.52/t/40profile.t.old	2006-08-07 01:36:51.000000000 +0200
++++ work/DBI-1.52/t/40profile.t	2009-02-16 16:42:40.000000000 +0100
+@@ -14,10 +14,8 @@
+ use Storable qw(dclone);
+ 
+ BEGIN {
+-    if ($DBI::PurePerl) {
+ 	print "1..0 # Skipped: profiling not supported for DBI::PurePerl\n";
+ 	exit 0;
+-    }
+ }
+ 
+ use Test::More tests => 46;
