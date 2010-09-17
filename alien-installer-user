@@ -107,6 +107,9 @@ while [ $# -gt 0 ]
 		ALIEN_INSTALLER_VERBOSE=1
 		ALIEN_TORRENT=1
 	;;
+	-updatebin|--updatebin)
+        ALIEN_UPDATE_BIN=1
+    ;;
 	-verbose|--verbose)
 		ALIEN_INSTALLER_VERBOSE=1
 	;;
@@ -946,8 +949,8 @@ EOF
 SERVICERESTART
 
 # Add symbolic links in user home/bin directory
-if [ "$ALIEN_INSTALLER_BATCH" = "" ]; then
-	SETBINLINKS
+if [ "$ALIEN_INSTALLER_BATCH" = ""  -o "$ALIEN_UPDATE_BIN" = "1" ]; then
+        SETBINLINKS
 fi
 
 GETINSTALLTIME
