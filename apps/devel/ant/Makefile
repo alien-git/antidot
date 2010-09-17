@@ -4,9 +4,7 @@ CATEGORIES = tools-devel
 DISTFILES = apache-$(GARNAME)-$(GARVERSION)-bin.tar.gz
 DISTNAME = apache-$(GARNAME)-$(GARVERSION)
 
-PATCHFILES = Makefile.patch
- 
-BININSTALL_IGNORE = true
+PATCHFILES = Makefile.patch 
 
 #http://apache.multidist.com/ant/binaries/apache-ant-1.7.1-bin.tar.gz
 MASTER_SITES = http://apache.multidist.com/ant/binaries/

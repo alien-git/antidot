@@ -1,10 +1,9 @@
 GARNAME = Text-CSV_XS
-GARVERSION = 0.73
+GARVERSION = 0.23
 CATEGORIES = perl
-DISTFILES = $(GARNAME)-$(GARVERSION).tgz
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/Text-CSV_XS-0.73.tgz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/J/JW/JWIED/ http://www.cpan.org/authors/id/J/JW/JWIED/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/J/JW/JWIED/
 
 LIBDEPS = apps/base/perl
 

@@ -1,58 +1,20 @@
 #!/bin/bash
 
-trap 'INTERRUPT' 2 ERR
+TMPFILE=/tmp/.alien_installer.$$
+
+trap 'INTERRUPT' 2
 
 INTERRUPT()
 {
-STOPDOTS
-STOPLOCK
+disown 	$PROGRESS >/dev/null 2>&1
+kill 	$PROGRESS >/dev/null 2>&1
+echo ""
+echo "   Installation cancelled"
 
-CLEANINSTALLATION
-
-if [ "$ERROR" = "" ]; then
-	echo -e "\n   Installation cancelled. Exit code: -2"
-	exit -2
+if [ "$ERROR" = '' ]; then  
+	exit -1
 else
-	echo -e "\n   Installation cancelled. Exit code: $ERROR"
-	exit "$ERROR"
-fi
-}
-
-GETPROCESSLIST()
-{
-PROCESS_LIST=( "${PROCESS_LIST[@]}"  "$1" )
-PROCESS_TEMP=( `ps -o pid --ppid $1 | grep -v PID` )
-
-for current_pid in ${PROCESS_TEMP[*]}
-do
-	GETPROCESSLIST "$current_pid"
-done
-}
-
-CLEANINSTALLATION()
-{
-if [ -f "$TMPFILE" ]; then
-	rm -f "$TMPFILE"
-fi
-
-if [ -f "$LOCK" ]; then
-	rm -f "$LOCK"
-fi
-
-MOVETOFAILED "$ALIEN_INSTALL_DIR"
-}
-
-MOVETOFAILED()
-{
-if [ ! "$1" = "" -a -d "$1" ]; then
-	ALIEN_FAILED="$1.failed"
-	while [ -d "$ALIEN_FAILED" ];
-	do
-		ALIEN_FAILED="$ALIEN_FAILED.failed"
-	done
-
-	PRINTVERBOSE "Moving $1 to $ALIEN_FAILED"
-	mv "$1" "$ALIEN_FAILED"
+	exit $ERROR
 fi
 }
 
@@ -84,8 +46,8 @@ while [ $# -gt 0 ]
 	-torrent|--torrent)
 		ALIEN_TORRENT=1
 	;;
-	-notorrent|--notorrent)
-		ALIEN_NO_TORRENT=1
+	-disable-links|--disable-links)
+		ALIEN_LINKS_DISABLE=1
 	;;
 	-version|--version)
 		shift 1
@@ -95,23 +57,18 @@ while [ $# -gt 0 ]
 		shift 1
 		ALIEN_INSTALLER_PLATFORM=$1
 	;;
-	-arch|--arch|--architecture|-architecture)
+	--arch|-arch|--architecture|-architecture)
 		shift 1
 		ALIEN_INSTALLER_ARCH=$1
 	;;
-	-force|--force)
-		ALIEN_FORCE_INSTALLATION=1
+	-skip_rc|--skip_rc)
+		ALIEN_SKIP_RC=1;
 	;;
 	-batch|--batch)
 		ALIEN_INSTALLER_BATCH=1
-		ALIEN_INSTALLER_VERBOSE=1
-		ALIEN_TORRENT=1
 	;;
 	-verbose|--verbose)
 		ALIEN_INSTALLER_VERBOSE=1
-	;;
-	-skip_rc|--skip_rc)
-		echo "   skip_rc option is deprecated"
 	;;
 	*) echo "Invalid argument: '$*'. Please use: '$0 -help' for the list of available options"
 		exit -1
@@ -126,28 +83,20 @@ echo "
 Usage: $0 [arguments] Makes an automatic installation of the services
   -install-dir <path> 	Specify the installation directory (default is $HOME/alien)
   -type <type>       	Specify the AliEn type of installation (default is user) [ ${ALIEN_TYPES[*]} ]
-  -help                 Print a list of options available
-  -help-more		Print an advanced list of available options
+  -help                 Prints a list of options available (prints this message)
 "
 if [ "$ALIEN_ADVANCED_OPTIONS" = 1 ]; then
   echo "Advanced options: Users are NOT recommended to use them unless they know what they are doing
+  -disable-links	Disable adding the alien-token-init and aliensh links
   -restart           	Restart the services after the installation has finished
-  -version <version> 	Install a specific version (default is v2-18) [ ${ALIEN_VERSIONS[*]} ]
+  -version <version> 	Install a specific version (default is v2-17) [ ${ALIEN_VERSIONS[*]} ]
   -platform <type>	Specify the platform to install (default is $(uname -s)) [ ${ALIEN_PLATFORM_TYPES[*]} ]
   -arch <type>		Specify the architecture to install (default is $(uname -m)) [${ALIEN_ARCH_TYPES[*]} ]
   -torrent		Perform installation through a torrent client
-  -notorrent		Disable torrent installation. Standard download procedure will be used instead
-  -force           	Force the installation of AliEn, even if the latest version is already installed
-  -batch             	Perform a silent installation (extremely verbose and by default in torrent mode)
-  -verbose		Print more detailed installation information (prints this)
+  -skip_rc           	Do not read the file $HOME/.alien/installer.rc for default values
+  -batch             	Run in batch mode (do not wait 10 seconds)
+  -verbose		Print more detailed installation information
 "
-fi
-}
-
-PRINTVERBOSE()
-{
-if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-	echo "    $1"
 fi
 }
 
@@ -160,58 +109,37 @@ do
 done
 }
 
-STARTDOTS()
-{
-PRINTDOTS &
-ALIEN_DOT_PID=$!
-}
-
-STOPDOTS()
-{
-if [ ! "$ALIEN_DOT_PID" = "" ]; then
-	TMP_PROCESS=`ps -p "$ALIEN_DOT_PID"`
-	if [ ! "$TMP_PROCESS" = "" ]; then
-		disown 	$ALIEN_DOT_PID >/dev/null 2>&1
-		kill 	$ALIEN_DOT_PID >/dev/null 2>&1
-	fi
-fi
-}
-
 GETDOWNLOADCLIENT()
 {
 which wget >/dev/null 2>&1
 if [ $? -eq 0 ]; then
-	ALIEN_DOWNLOAD_CLIENT=wget
-	ALIEN_DOWNLOAD_OUTPUT="-O"
-	if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-		ALIEN_DOWNLOAD_PREFIX="-U 'alien-installer v123 $$@$HOSTNAME:`pwd`'"
-	else
-		ALIEN_DOWNLOAD_PREFIX="-q"
-	fi
+    ALIEN_INSTALLER_WGET=1
+    PRINTVERBOSE "wget will be used for downloads."
 else
-	which curl >/dev/null 2>&1
-	if [ $? -eq 0 ]; then
-		ALIEN_DOWNLOAD_CLIENT=curl
-		ALIEN_DOWNLOAD_OUTPUT="-o"
-		if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-			ALIEN_DOWNLOAD_PREFIX="-A 'alien-installer v123 $$@$HOSTNAME:`pwd`'"
-		else
-			ALIEN_DOWNLOAD_PREFIX="-s"
-		fi
-	else
-		echo "   curl and wget were not found on your system."
-		echo "   Installation cancelled!"
-		INTERRUPT
-	fi
+    which curl >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+	ALIEN_INSTALLER_CURL=1
+	PRINTVERBOSE "curl will be used for downloads"
+    else
+	echo "   curl or wget were not found on your system."
+	echo "   Installation cancelled!"
+	exit -2
+    fi
 fi
-PRINTVERBOSE "Download client: $ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX <path> $ALIEN_DOWNLOAD_OUTPUT <file-output>"
+}
+
+PRINTVERBOSE()
+{
+if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
+	echo "---> $1"
+fi
 }
 
 FINDTYPE()
 {
-if [ "$ALIEN_TYPE" = "" ]; then
+if [ "$ALIEN_TYPE" = "" ]; then 
 	ALIEN_TYPE=user
-	PRINTVERBOSE "Default installation type: $ALIEN_TYPE"
+	PRINTVERBOSE "Default installation type: $ALIEN_TYPE"	
 else
 	for index in ${ALIEN_TYPES[*]};
 	do if [[ $index == $ALIEN_TYPE ]]; then
@@ -223,15 +151,19 @@ else
 	if [ ! "$ALIEN_TYPE_FOUND" = 1 ]; then
 		echo "   Invalid type of installation was specified"
 		echo "   Please use one of the following installation types: ${ALIEN_TYPES[*]}"
-		INTERRUPT
+		exit -1
 	fi
 fi
 }
 
 CHECKPREINSTALL()
 {
+if  [ "$ALIEN_SKIP_RC" = "" ]; then
+	[ -f   $HOME/.alien/installer.rc ] &&   source $HOME/.alien/installer.rc
+fi
+
 if [  -f $HOME/.alien/installer.rc ]; then
-	echo -n "   Found $HOME/.alien/installer.rc. Delete the file? (default: Y - Highly recommended) [Y/n]"
+	echo -n "   Found $HOME/.alien/installer.rc. Delete the file? (default: Y - Highly recommended) [Y/n]"  
 	read alien_rc_delete
 	case "$alien_rc_delete" in
 	y|Y)
@@ -247,11 +179,11 @@ if [  -f $HOME/.alien/installer.rc ]; then
 	;;
 	*) 
 		echo "Invalid answer. Installation cancelled."
-		INTERRUPT
+		exit -1
 	esac
 fi
 
-if [  -d $HOME/.alien/cache ]; then
+if [  -d $HOME/.alien/cache ]; then 
 	echo -n "   Found $HOME/.alien/cache/ directory. Delete the directory? (default: Y - Highly recommended) [Y/n]"
 	read alien_cache_delete
 	case "$alien_cache_delete" in
@@ -266,9 +198,9 @@ if [  -d $HOME/.alien/cache ]; then
 		rm -r $HOME/.alien/cache
 		echo "   Directory $HOME/.alien/cache removed"
 	;;
-	*)
+	*) 
 		echo "   Invalid answer. Installation cancelled."
-		INTERRUPT
+		exit -1
 	esac
 fi
 }
@@ -284,7 +216,7 @@ FINDUSERDIR()
 {
 ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME=$HOME/.alien/cache}
 
-if [ "$ALIEN_USER_DIR" = "" ]; then
+if [ "$ALIEN_USER_DIR" = '' ]; then
 	ALIEN_INSTALL_DIR=${ALIEN_INSTALL_DIR=$HOME/alien}
 	ALIEN_USER_DIR=${ALIEN_INSTALL_DIR}
 	echo "   Installing in the default directory: $ALIEN_USER_DIR"
@@ -298,175 +230,56 @@ else
 		mkdir $ALIEN_USER_DIR
 		if [ ! $? = 0 ]; then
 			echo "   Failed to create user directory. Please check you have correct permissions."
-			ERROR=-3
-			INTERRUPT
+			exit -2
 		else
 			PRINTVERBOSE "$ALIEN_USER_DIR created successfully"
 		fi
 		SETINSTALLDIR
 		rm -rf "$ALIEN_USER_DIR"
+		                                
 	else
-		if [ "$ALIEN_INSTALLER_BATCH" = "" ]; then
-			echo -n "   $ALIEN_USER_DIR already exists. Do you wish to use it anyway? default: n [Y/n]"
-			read alien_overwrite_install
-			case "$alien_overwrite_install" in
-			y|Y)
-	    			PRINTVERBOSE "Reusing $ALIEN_USER_DIR"
-	    			SETINSTALLDIR
-			;;
-			n|N)
-	    			echo "   Please specify another installation directory."
-				ERROR=-3
-				INTERRUPT
-			;;
-			"")
-	    		echo "   Please specify another installation directory."
-			ERROR=-3
-			INTERRUPT
+		echo -n "   $ALIEN_USER_DIR already exists. Do you wish to use it anyway? default: n [Y/n]"
+		read alien_overwrite_install
+		case "$alien_overwrite_install" in
+		y|Y)
+	    		PRINTVERBOSE "Reusing $ALIEN_USER_DIR"
+	    		SETINSTALLDIR
 	    		;;
-			*) 
+		n|N)
+	    		echo "   Please specify another installation directory."
+			exit -2
+	    		;;
+		"")
+	    		echo "   Please specify another installation directory."
+			exit -2
+	    		;;
+		*) 
 	    		echo "   Invalid answer. Installation cancelled."
-			ERROR=-3
-			INTERRUPT
-			esac
-		else
-			PRINTVERBOSE "Reusing $ALIEN_USER_DIR"
-			SETINSTALLDIR
-		fi
+			exit -2
+		esac
 	fi
+
 	echo "   Installing in the user specified directory: $ALIEN_USER_DIR"
 fi
+
 PRINTVERBOSE "AliEn installation directory prefix: $ALIEN_INSTALL_DIR"
-}
-
-STARTLOCK()
-{
-while [ true ];
-do
-	echo "$$ $HOSTNAME $(date +%s) $ALIEN_INSTALL_DIR" >> "$LOCK"
-	sleep 10
-done
-}
-
-STOPLOCK()
-{
-if [ ! "$ALIEN_LOCK_PID" = "" ]; then
-	TMP_PROCESS=`ps -p "$ALIEN_LOCK_PID"`
-	if [ ! "$TMP_PROCESS" = "" ]; then
-		disown 	$ALIEN_LOCK_PID >/dev/null 2>&1
-		kill 	$ALIEN_LOCK_PID >/dev/null 2>&1
-	fi
-fi
-
-if [ -f "$LOCK" ]; then
-	rm -f "$LOCK"
-fi
-}
-
-GETINSTALLTIME()
-{
-ALIEN_TIME_END=`tail -n 1 "$LOCK" | awk '{ print $3 }'`
-ALIEN_TIME_START=`head -n 2 "$LOCK" | tail -n 1 | awk '{ print $3 }'`
-
-ALIEN_TIME_ELAPSED=$(( $ALIEN_TIME_END - $ALIEN_TIME_START ))
-}
-
-GETLASTACTIVITY()
-{
-ALIEN_TIME_CURRENT=`date +%s`
-ALIEN_TIME_LAST=`tail -n 1 "$LOCK" | awk '{ print $3 }'`
-
-ALIEN_TIME_ACTIVITY=$(( $ALIEN_TIME_CURRENT - $ALIEN_TIME_LAST ))
-}
-
-WAITFORLOCK()
-{
-while [ -f "$LOCK" ];
-do
-	sleep 10
-done
-}
-
-CHECKLOCK()
-{
-if [ -f "$LOCK" ]; then
-
-	ALIEN_HOSTNAME=`tail -n 1 "$LOCK" | awk '{ print $2 }'`
-	PRINTVERBOSE "Hostname in $LOCK: $ALIEN_HOSTNAME"
-	if [ "$ALIEN_HOSTNAME" = "$HOSTNAME" ]; then
-
-		ALIEN_PROCESS=`tail -n 1 "$LOCK" | awk '{ print $1 }' `
-		PRINTVERBOSE "We are about to check existing process: $ALIEN_PROCESS"
-		ALIEN_ALIVE=`ps -p "$ALIEN_PROCESS" | grep "$ALIEN_PROCESS"`
-		if [ "$ALIEN_ALIVE" = "" ]; then
-				echo "   Existing installation no longer active. Cleaning previous installation"
-				CLEANINSTALLATION
-		else
-			GETINSTALLTIME
-			GETLASTACTIVITY
-			if [ $ALIEN_TIME_ELAPSED -gt 7200 -o $ALIEN_TIME_ACTIVITY -gt 86400 ]; then
-				echo "   Previous installation is taking: $ALIEN_TIME_ELAPSED seconds; Last activity: $ALIEN_TIME_ACTIVITY seconds ago"
-				echo "   Cleaning previous installation"
-				PROCESS_LIST=""
-
-				GETPROCESSLIST "$ALIEN_PROCESS"
-				PRINTVERBOSE "Previous installation processes list: ${PROCESS_LIST[@]}"
-				kill ${PROCESS_LIST[@]}
-
-				ALIEN_PREVIOUS_INSTALL=`tail -n 1 "$LOCK" | awk '{ print $4 }'`
-				MOVETOFAILED "$ALIEN_PREVIOUS_INSTALL"
-				CLEANINSTALLATION
-			else
-				echo "   AliEn installation may already be running for $ALIEN_USER_DIR"
-				echo "   Installation cancelled. Exit code: 0"
-				exit 0
-			fi
-		fi
-	else
-		if [ "$ALIEN_RESTART" = 1 ]; then
-			echo -n "   Waiting for the existing installation to finish."
-			STARTDOTS
-			WAITFORLOCK
-			STOPDOTS
-			echo "Done"
-
-			SERVICERESTART
-			echo "   Services restarted for an existing installation."
-			exit 0
-		else
-			GETINSTALLTIME
-			GETLASTACTIVITY
-			echo "   Hostname $ALIEN_HOSTNAME is already running AliEn installation in $ALIEN_USER_DIR"
-			echo "   Installation is taking: $ALIEN_TIME_ELAPSED seconds; Last activity: $ALIEN_TIME_ACTIVITY seconds ago"
-			echo "   Installation cancelled! Exit code: 0"
-			exit 0
-		fi
-	fi
-fi
-
-echo "AliEn $ALIEN_TYPE installation for: $ALIEN_USER_DIR using $ALIEN_INSTALLER_NAME" >> "$LOCK"
-echo "$$ $HOSTNAME $(date +%s) $ALIEN_INSTALL_DIR" >> "$LOCK"
-
-STARTLOCK &
-ALIEN_LOCK_PID=$!
-PRINTVERBOSE "Lock initiated on process: $ALIEN_LOCK_PID for $ALIEN_USER_DIR installation of AliEn $ALIEN_TYPE"
 }
 
 FINDPLATFORM()
 {
-if [ "$ALIEN_INSTALLER_PLATFORM" = "" ]; then
+if [ "$ALIEN_INSTALLER_PLATFORM" = '' ]; then 
 	ALIEN_INSTALLER_PLATFORM=$(uname -s)
 fi
 
-if [ "$ALIEN_INSTALLER_ARCH" = "" ]; then
+if [ "$ALIEN_INSTALLER_ARCH" = '' ]; then 
 	ALIEN_INSTALLER_ARCH=$(uname -m)
-	if [ "$ALIEN_INSTALLER_PLATFORM" = "Darwin" ]; then
-		sysctl machdep.cpu.extfeatures | grep "64" > /dev/null 2>&1
-		if [ $? -eq 0 ]; then
-			ALIEN_INSTALLER_ARCH=x86_64
-		else
-			ALIEN_INSTALLER_ARCH=i686
-		fi
+        if [ "$ALIEN_INSTALLER_PLATFORM" = "Darwin" ]; then
+    	    sysctl machdep.cpu.extfeatures | grep "64" > /dev/null 2>&1
+            if [ $? -eq 0 ]; then
+                ALIEN_INSTALLER_ARCH=x86_64
+            else
+                ALIEN_INSTALLER_ARCH=i686
+            fi
 	fi
 fi
 
@@ -474,14 +287,14 @@ PRINTVERBOSE "Platform determined as: $ALIEN_INSTALLER_PLATFORM"
 PRINTVERBOSE "Architecture determined as: $ALIEN_INSTALLER_ARCH"
 
 if [ "$ALIEN_INSTALLER_PLATFORM" = "Linux" ]; then
-		case "$ALIEN_INSTALLER_ARCH" in
-			i686) ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu ;;
-			ia64) ALIEN_INSTALLER_PLATFORM=ia64-unknown-linux-gnu ;;
+		case "$ALIEN_INSTALLER_ARCH" in	
+			i686) ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu ;; 
+			ia64) ALIEN_INSTALLER_PLATFORM=ia64-unknown-linux-gnu ;; 
 			x86_64) ALIEN_INSTALLER_PLATFORM=x86_64-unknown-linux-gnu ;;
-			*)
+			*) 	
 			echo "   Invalid architecture was specified"
 			echo "   Please use one of the following available architectures: ${ALIEN_ARCH_TYPES[*]}"
-			INTERRUPT ;;
+			exit -1 ;;
 		esac
 
 elif [ "$ALIEN_INSTALLER_PLATFORM" = "Darwin" ]; then
@@ -492,7 +305,7 @@ elif [ "$ALIEN_INSTALLER_PLATFORM" = "Darwin" ]; then
 			*)
 			echo "   Invalid platform was specified"
 			echo "   Please use one of the following available platforms: ${ALIEN_PLATFORM_TYPES[*]}"
-			INTERRUPT
+			exit -1
 		esac
 fi
 
@@ -501,203 +314,204 @@ echo "   Platform set as: $ALIEN_INSTALLER_PLATFORM"
 
 FINDVERSION()
 {
-TMPFILE="Releases"
-if [ "$ALIEN_VERSION" = '' ]; then
-	releases="http://alienbuild.cern.ch:8888/Releases"
-	PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $releases $ALIEN_DOWNLOAD_OUTPUT $TMPFILE"
-	$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $releases "$ALIEN_DOWNLOAD_OUTPUT" $TMPFILE
+if [ "$ALIEN_VERSION" == '' ]; then 
+	releases="http://alien.cern.ch/Releases"
 
-	if  [ $? != 0 ]; then
+	if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
+	     wget $releases  -O $TMPFILE 2> /dev/null
+	elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
+	    curl "$releases" -o $TMPFILE 2> /dev/null
+	fi
+	
+	if  [ $? != 0 ];
+	then 
 		echo "   Error getting file $releases"
-		ERROR=-2
-		INTERRUPT
+		exit -2
 	fi
 
 	ALIEN_VERSION=`grep 'Stable' $TMPFILE | head -n 1 | awk '{print $5'}`
 	rm $TMPFILE
 
-	if [ "$ALIEN_VERSION" = "" ]; then
+	if [ "$ALIEN_VERSION" = "" ];
+	then 
 		echo "   Error getting AliEn version from $releases"
-		ERROR=-2
-		INTERRUPT
+		exit -2
 	fi
 else
 	for index in ${ALIEN_VERSIONS[*]};
-	do
-	    if [[ $index == $ALIEN_VERSION ]]; then
-		PRINTVERBOSE "User specified a valid version: $ALIEN_VERSION"
-		ALIEN_VERSION_FOUND=1
-	    fi
+	do if [[ $index == $ALIEN_VERSION ]];
+	then
+	    PRINTVERBOSE "User specified a valid version: $ALIEN_VERSION"
+	    ALIEN_VERSION_FOUND=1
+	fi
 	done
 	
-	if [ ! "$ALIEN_VERSION_FOUND" = 1 ]; then
+	if [ ! "$ALIEN_VERSION_FOUND" = 1 ];
+	then
 		echo "   Invalid version was specified"
 		echo "   Please use one of the following available versions: ${ALIEN_VERSIONS[*]}"
-		INTERRUPT
+		exit -1
 	fi
 fi
-
-PRINTVERBOSE "Installing version: $ALIEN_VERSION"
+PRINTVERBOSE "Installing version $ALIEN_VERSION"
 }
 
 FINDRELEASES()
 {
-TMPFILE="BitServers"
-releases="http://alienbuild.cern.ch:8888/BitServers"
-PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $releases $ALIEN_DOWNLOAD_OUTPUT $TMPFILE"
-$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $releases "$ALIEN_DOWNLOAD_OUTPUT" $TMPFILE
+releases="http://alien.cern.ch/BitServers"
 
-if  [ $? != 0 ]; then
+if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
+    wget $releases  -O $TMPFILE 2> /dev/null 
+elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
+    curl "$releases" -o $TMPFILE 2> /dev/null
+fi
+
+if  [ $? != 0 ]; then 
 	echo "   Error getting file $releases"
-	ERROR=-2
-	INTERRUPT
+	exit -2
 fi
 
 ALIEN_BITS_URL=`grep $ALIEN_INSTALLER_PLATFORM  $TMPFILE | awk '{print $3'}`
 ALIEN_BITS_URL="$ALIEN_BITS_URL/$ALIEN_INSTALLER_PLATFORM/$ALIEN_VERSION/download/"
-
-if [ "$ALIEN_BITS_URL" = "" ]; then
+  
+if [ "$ALIEN_BITS_URL" = "" ]; then 
 	echo "   Error getting bits url $releases"
 	cat $TMPFILE
 	rm $TMPFILE
-	ERROR=-2
-	INTERRUPT
+	exit -2
 fi
 
-rm -f $TMPFILE
+rm $TMPFILE
 }
 
 FINDCURRENTVERSION()
 {
-PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWLOAD_PREFIX $ALIEN_BITS_URL/../../../../CompiledReleases $ALIEN_DOWNLOAD_OUTPUT CompiledReleases"
-$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BITS_URL/../../../../CompiledReleases" "$ALIEN_DOWNLOAD_OUTPUT" CompiledReleases
+PRINTVERBOSE "Checking for an existing installation of AliEn"
+
+if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
+    wget -q  $ALIEN_BITS_URL/../../../../CompiledReleases -O CompiledReleases 
+elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
+    curl "$ALIEN_BITS_URL/../../../../CompiledReleases" -o CompiledReleases 2> /dev/null
+fi
 
 if [ $? != 0 ]; then
 	echo "    Error getting file $ALIEN_BITS_URL/../../../../CompiledReleases"
-	ERROR=-2
-	INTERRUPT
+	exit -2
 fi
 
 ALIEN_MINOR_VERSION=`cat CompiledReleases |grep $ALIEN_VERSION| awk  '{print \$3}'`
-
 rm CompiledReleases
 
-if [ -d "$ALIEN_USER_DIR" ]; then
-        ALIEN_EXISTING_VERSION=`ls -all "$ALIEN_USER_DIR" | awk '{ print $NF }' | grep new`
-        if [ "$ALIEN_EXISTING_VERSION" = "" ]; then
-                ALIEN_EXISTING_VERSION=`ls -all "$ALIEN_USER_DIR" | awk '{ print substr($NF,index($NF,".")+1) }' `
-        else
-                ALIEN_EXISTING_VERSION=`ls -all "$ALIEN_USER_DIR" | awk '{ print substr($NF,index($NF,".")+1,index($NF,"_")-index($NF,".")-1) }'`
-        fi
-fi
+VERSION=`alien -version 2>&1  |grep "Version:" |awk -F "Version: " '{print $2}'`
 
-if [ "$ALIEN_FORCE_INSTALLATION" = 1 ]; then
-	echo "   Forcing new AliEn installation. Existing versions will be ignored."
-else
-	if [ ! "$ALIEN_EXISTING_VERSION" = "" ]; then
-		echo "   Checking the version to be installed (if it is newer than $ALIEN_EXISTING_VERSION)"
-		if [ "$ALIEN_EXISTING_VERSION" = "$ALIEN_VERSION.$ALIEN_MINOR_VERSION" ]; then
-			echo "   You have the latest version installed ($ALIEN_EXISTING_VERSION). No installation is necessary"
-			if [ -f "$TMPFILE" ]; then
-			    rm -f "$TMPFILE"
-			fi
-			STOPLOCK    
-			if [ -f "$LOCK" ]; then
-			    rm -f "$LOCK"
-			fi
-			echo "   Installation cancelled"
-			exit 0
-				
-		fi
-	else
-		PRINTVERBOSE "No existing version was found for $ALIEN_USER_DIR. Installing new version"
+if [ "$VERSION" = '' ]; then
+	PRINTVERBOSE "Trying with the default location for alien: $HOME/alien/bin/alien"
+	VERSION=`$HOME/alien/bin/alien -version 2>&1  |grep "Version:" |awk -F "Version: " '{print $2}'`
+fi
+  
+if [ "$VERSION" = '' ]; then
+	PRINTVERBOSE "No version was found. Installing new version."
+	return 0
+fi
+echo "   Checking the version that we will install (if it is newer than '$VERSION')"
+
+if [ "$VERSION"  = "$ALIEN_VERSION.$ALIEN_MINOR_VERSION" ]; then
+	echo "   You have the latest version installed ($VERSION). No installation is needed."
+
+	if  [ "$ALIEN_RESTART" = "" ];
+	then
+		exit 0
 	fi
+
+	echo "   Exiting with error because we were supposed to restart"
+  
 fi
 PRINTVERBOSE "Ready to install $ALIEN_VERSION.$ALIEN_MINOR_VERSION"
 }
 
 DOWNLOADNORMAL()
 {
-if [ ! "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
+if [ "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
+	echo -n "---> Downloading $FILE"
+else
 	echo -n "   Downloading $ALIEN_TYPE distribution"
-	STARTDOTS
 fi
 
-PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $FILE $ALIEN_DOWNLOAD_OUTPUT alien.tar.gz"
-$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $FILE "$ALIEN_DOWNLOAD_OUTPUT" alien.tar.gz
+PRINTDOTS & 
+PROGRESS=$!
 
-if [ ! "$ALIEN_INSTALLER_VERBOSE" = 1 ]; then
-	STOPDOTS
-	echo "Done"
+if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
+    wget -nv "$FILE" -O alien.tar.gz > /dev/null 2>&1 
+elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
+    curl "$FILE" -o alien.tar.gz > /dev/null 2>&1
 fi
 
-if [ "$?" != 0 ]; then
-	echo "   Error getting $FILE!"
-	rm -rf  $ALIEN_INSTALL_DIR
-	ERROR=-2
-	INTERRUPT
+disown $PROGRESS >/dev/null 2>&1
+kill $PROGRESS >/dev/null 2>&1
+echo "Done"
+
+if [ "$?" != 0 ];
+then
+  echo "   Error getting $FILE!"
+  rm -rf  $ALIEN_INSTALL_DIR
+  exit -2
 fi
 
+# Unpack AliEn distribution tarball
 echo -n "   Extracting the files"
 
-STARTDOTS
+PRINTDOTS & 
+PROGRESS=$!
 
 tar jxf alien.tar.gz
 
-STOPDOTS
+disown $PROGRESS 
+kill $PROGRESS >/dev/null 2>&1
 echo "Done"
-
-if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
-	echo "   The version file doesn't exist"
-	ERROR=-2
-	INTERRUPT
-fi
 }
 
 DOWNLOADTORRENT()
 {
-TCLIENT="torrent_client_$ALIEN_INSTALLER_ARCH.tar.bz2"
+ARCH=`uname -m`
+
+TCLIENT="torrent_client_$ARCH.tar.bz2"
 WWWROOT="http://alitorrent.cern.ch"
 
-PRINTVERBOSE "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $WWWROOT/torrent_client/$TCLIENT $ALIEN_DOWNLOAD_OUTPUT $TCLIENT"
 
-# Download the torrent client
-$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$WWWROOT/torrent_client/$TCLIENT" "$ALIEN_DOWNLOAD_OUTPUT" $TCLIENT || INTERRUPT
-
-bzip2 -c -d "$TCLIENT" | tar -x || exit 2
-echo "   Getting the torrent"
-
-FULLNAME="alien-$ALIEN_VERSION-$ALIEN_TYPE-$ALIEN_INSTALLER_ARCH.tar.bz2"
-TFILE="$WWWROOT/torrents/$FULLNAME.torrent"
-
-torrent_client_$ALIEN_INSTALLER_ARCH/download "$TFILE" -d torrent_source || INTERRUPT
-
-PRINTVERBOSE "   Seeding the torrent"
-
-torrent_client_$ALIEN_INSTALLER_ARCH/seed "$TFILE" -d torrent_source
-
-if [ "$?" != 0 ]; then
-	echo "Error getting $FILE!"
-	rm -rf  $ALIEN_INSTALL_DIR
-	ERROR=-2
-	INTERRUPT
+if [ "$ALIEN_INSTALLER_WGET" = 1 ]; then
+    wget "$WWWROOT/torrent_client/$TCLIENT" -O "$TCLIENT" || exit 1
+elif [ "$ALIEN_INSTALLER_CURL" = 1 ]; then
+    curl "$WWWROOT/torrent_clien/$TCLIENT" -o $TCLIENT || exit 1
 fi
 
+bzip2 -c -d "$TCLIENT" | tar -x || exit 2
+echo "Getting the torrent"
+
+FULLNAME="alien-$ALIEN_VERSION-$ALIEN_TYPE-$ARCH.tar.bz2"
+TFILE="$WWWROOT/torrents/$FULLNAME.torrent"
+
+torrent_client_$ARCH/download "$TFILE" -d torrent_source || exit 2
+echo "   Seeding the torrent"
+torrent_client_$ARCH/seed "$TFILE" -d torrent_source
+
+if [ "$?" != 0 ];
+then
+  echo "Error getting $FILE!"
+  rm -rf  $ALIEN_INSTALL_DIR
+  exit -2
+fi
+
+# Unpack AliEn distribution tarball
 echo -n "   Extracting the files"
 
-STARTDOTS
+PRINTDOTS & 
+PROGRESS=$!
 
 tar jxf torrent_source/*/*.tar.bz2
 
-STOPDOTS
+disown $PROGRESS 
+kill $PROGRESS >/dev/null 2>&1
 echo "Done"
-
-if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
-	echo "   The version file was not found. Falling back to normal download"
-	PRINTVERBOSE "Cleaning the installation folder: $ALIEN_INSTALL_DIR"
-	rm -rf $ALIEN_INSTALL_DIR/*
-	DOWNLOADNORMAL
-fi
 }
 
 RELOCATE()
@@ -709,19 +523,19 @@ build_prefix=/opt/alien
 if [ "$prefix" != "$build_prefix" ]; 
 then
 	if [ "$ALIEN_TYPE" != "user" ]; then
-
+		
 		PRINTVERBOSE "Relocating perl"
 		config=`find $prefix/lib/perl5 -name Config.pm -exec grep -l "This file was created by configpm" {} \;`
 		if [ "$config" = "" ] ; then
 			PRINTVERBOSE "Couldn't find Config.pm in $prefix/lib/perl5!"
 			ERROR=-2
 			INTERRUPT
-		fi
+		fi     
 		perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix%$prefix%sg; s%$build_prefix %$prefix %sg " $config
 		config=`find $prefix/lib/perl5 -path "*/CORE/config.h"`
 
 		if [ "$config" = "" ] ; then
-			PRINTVERBOSE "Couldn't find CORE/config.h in $prefix/lib/perl5!"
+			PRINTVERBOSE "Couldn't find CORE/config.h in $prefix/lib/perl5!"  
 			ERROR=-2
 			INTERRUPT
 		fi
@@ -735,14 +549,14 @@ then
 		PRINTVERBOSE "Relocating globus"
 		if [ -f $prefix/globus/setup/globus/setup-globus-common ]; then
 			env GLOBUS_LOCATION=$prefix/globus GPT_LOCATION=$prefix/globus PERL5LIB="$prefix/globus/lib/perl5:$prefix/lib/perl5" $prefix/bin/perl $prefix/globus/setup/globus/setup-globus-common.pl
-		fi
+		fi 
 
 		PRINTVERBOSE "Relocating alien-perl"
 		if [ -f $prefix/bin/alien-perl ]; then
 			$prefix/bin/alien-perl --bootstrap --prefix $prefix
-		fi
+		fi 
 	fi
-
+  
 	for p in curl-config gpg-error-config libgcrypt-config libgnutls-config libgnutls-extra-config uuid-config xml2-config freetype-config pkg-config
 	do
 	if [ -f $prefix/bin/$p ] ; then
@@ -754,32 +568,32 @@ then
 	PRINTVERBOSE "Relocating gapi"
 	(cd $prefix/api/bin; ./alien_apiservice-bootstrap)
 	PRINTVERBOSE "Relocation for gapi complete"
-fi
+fi    
 }
 
 SERVICERESTART()
 {
-if [ "$ALIEN_RESTART" = 1 ]; then
-	NOHUP=`which nohup 2> /dev/null`
-	echo "   Let's restart the services (with $NOHUP)"
-	echo "   This very first time, we have to kill everything"
-#    (cd; sleep 15; kill ` ps -ef |grep alien |grep -v grep |grep -v $$ |awk '{print \$2}'`;kill -9 ` ps -ef |grep alien |grep -v grep |grep -v $$ |awk '{print \$2}'`; 
-($NOHUP $ALIEN_INSTALL_DIR/etc/rc.d/init.d/aliend restart &)
+if [ "$ALIEN_RESTART" = 1 ];
+then
+    NOHUP=`which nohup 2> /dev/null`
+    echo "   Let's restart the services (with $NOHUP)"
+    echo "   This very first time, we have to kill everything"
+    (cd; sleep 15; kill ` ps -ef |grep alien |grep -v grep |grep -v $$ |awk '{print \$2}'`;kill -9 ` ps -ef |grep alien |grep -v grep |grep -v $$ |awk '{print \$2}'`; $NOHUP $ALIEN_INSTALL_DIR/etc/rc.d/init.d/aliend restart) &
 fi
 }
 
 SETBINLINKS()
 {
-if [ ! -d "$HOME/bin" ]; then
+if [ ! -d "$HOME/bin" ];
+then
 	mkdir -p $HOME/bin
 	PRINTVERBOSE "$HOME/bin did not exist. Thus it was created."
 fi
-
 PRINTVERBOSE "Creating soft links to alien-token-init and aliensh in $HOME/bin"
 
 if [ -f "$HOME/bin/alien-token-init" ]; then
 	PRINTVERBOSE "Links already exist. Overwriting them."
-	rm "$HOME/bin/alien-token-init"
+	rm "$HOME/bin/alien-token-init" 
 	rm "$HOME/bin/aliensh"
 fi
 
@@ -802,22 +616,9 @@ ALIEN_PLATFORM_TYPES=(Linux Darwin)
 ALIEN_ARCH_TYPES=(i686 i386 ia64 x86_64)
 ALIEN_VERSIONS=(HEAD v2-18 v2-17 v2-16)
 
-# Designating the names and locations of temporary files
-ALIEN_INSTALLER_NAME=`basename "$0"`
-
-# Clearing the environment for the installation
-ALIEN_VERSION=""
-ALIEN_INSTALLER_PLATFORM=""
-
 # Parse user given arguments
 PARSEARGUMENTS $*
 
-# -notorrent overrides any existing torrent enabling options
-if [ "$ALIEN_NO_TORRENT" = "1" ]; then
-	ALIEN_TORRENT=0
-fi
-
-# Either curl or wget will be used for downloads
 GETDOWNLOADCLIENT
 
 # Determine the type of AliEn distribution to install
@@ -826,24 +627,18 @@ FINDTYPE
 echo "   ###################### Automated AliEn $ALIEN_TYPE installer ##############################"
 
 # Make sure that cache and installer.rc are cleaned
-if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
-	CHECKPREINSTALL
-fi
+CHECKPREINSTALL
 
 # Set user defined installation paths otherwise use $HOME/alien
 FINDUSERDIR
 
-LOCK="$ALIEN_USER_DIR".lock
-# Initiate/Check the lock on the current installation
-CHECKLOCK
-
 # Set user defined platform, otherwise use the current one
 FINDPLATFORM
 
-# Set user specified version, otherwise get the latest version
+# Set user specified version, otherwise get the latest version from: http://alien.cern.ch/Releases
 FINDVERSION
 
-# Find the download server
+# Find the download server from: http://alien.cern.ch/BitServers
 FINDRELEASES
 
 # Check for the latest build, reinstall if old or non-existent
@@ -854,78 +649,76 @@ ALIEN_INSTALL_DIR="$ALIEN_INSTALL_DIR.$ALIEN_VERSION.$ALIEN_MINOR_VERSION"
 ALIEN_INSTALL_LOCAL="alien.$ALIEN_VERSION.$ALIEN_MINOR_VERSION"
 
 # If the installation directory already exists, then increment by "_new"
-while [ -d "$ALIEN_INSTALL_DIR" ];
+while [ -d "$ALIEN_INSTALL_DIR" ]; 
 do
-	PRINTVERBOSE "Another Installation directory detected: $ALIEN_INSTALL_DIR"
-	ALIEN_INSTALL_DIR=${ALIEN_INSTALL_DIR}_new
-	ALIEN_INSTALL_LOCAL=${ALIEN_INSTALL_LOCAL}_new
+   PRINTVERBOSE "Another Installation directory detected: $ALIEN_INSTALL_DIR"
+   ALIEN_INSTALL_DIR=${ALIEN_INSTALL_DIR}_new
+   ALIEN_INSTALL_LOCAL=${ALIEN_INSTALL_LOCAL}_new
 done
 
 # Batch mode. If enabled skip the waiting and start the installation
-if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
-	echo -n "   Waiting 10 seconds. Press 'Ctrl+c' to exit the installation"
-	STARTDOTS
-	sleep 10
-	STOPDOTS
-	echo "Done"
+if [ "$ALIEN_INSTALLER_BATCH" = '' ];
+then 
+  echo -n "   Waiting 10 seconds. Press 'Ctrl+c' to exit the installation"
+
+  PRINTDOTS & 
+  PROGRESS=$!
+  
+  sleep 10
+  
+  disown $PROGRESS >/dev/null 2>&1
+  kill $PROGRESS >/dev/null 2>&1
+  
+  echo "Starting installation"
 fi
+
+# Remove the cache directory
+rm -rf $ALIEN_INSTALLER_HOME
 
 # Define the url from where AliEn is downloaded
 FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2
 
 # Create the installation directory for AliEn
 mkdir -p $ALIEN_INSTALL_DIR
-if [ ! $? = 0 ]; then
-	echo "   Failed to create the installation directory. Please check you have correct permissions."
-	ERROR=-2
-	INTERRUPT
-else
-	PRINTVERBOSE "$ALIEN_INSTALL_DIR created successfully"
-fi
-
 cd $ALIEN_INSTALL_DIR
 
 # Download the AliEn distribution tarball
-if [ "$ALIEN_TORRENT" = "1" ]; then
-	DOWNLOADTORRENT
+if [ "$ALIEN_TORRENT" = "1" ];
+then
+      DOWNLOADTORRENT
 else
-	DOWNLOADNORMAL
+      DOWNLOADNORMAL
 fi
 
-PRINTVERBOSE "Testing $ALIEN_INSTALL_DIR/bin/perl"
-if [ -f $ALIEN_INSTALL_DIR/bin/perl ]; then
-		test_perl=$ALIEN_INSTALL_DIR/bin/perl
-		test_build=`$test_perl -I $ALIEN_INSTALL_DIR/lib/perl5 -MConfig -e 'print $Config{prefix}'`
-		PRINTVERBOSE "test_build: $test_build"
-		if [ -z $test_build ]; then
-			rm -rf  $ALIEN_INSTALL_DIR.failed
-			mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
-			echo "AliEn perl is incompatible with the system"
-			ERROR=-2
-			INTERRUPT
-		fi
-else
-	PRINTVERBOSE "AliEn perl was not found. Installation without perl assumed"
+# Determine if this is a valid installation
+if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then
+    echo "   The version file doesn't exist"
+    rm -rf  $ALIEN_INSTALL_DIR.failed
+    mv $ALIEN_INSTALL_DIR $ALIEN_INSTALL_DIR.failed
+    exit -2
 fi
-
+                
 # Perform AliEn relocation
 echo -n "   Relocating the $ALIEN_TYPE installation"
 
-# Remove the old link if it already exists
-if [ -d "$ALIEN_USER_DIR" ]; then
-	rm "$ALIEN_USER_DIR"
-fi
+# Remove the old link
+rm $ALIEN_USER_DIR >/dev/null 2>&1
 
-# Link/Overwrite the link for the user directory to the installation directory
+# Link the user directory to the installation directory
 ln -s $ALIEN_INSTALL_LOCAL $ALIEN_USER_DIR
 
-if [ "$ALIEN_INSTALLER_VERBOSE" != "1" ]; then
-	STARTDOTS
+if [ "$ALIEN_INSTALLER_VERBOSE" != "1" ]; 
+then
+	PRINTDOTS & 
+	PROGRESS=$!
+
 	RELOCATE  > relocate.out 2>&1
-	STOPDOTS
+	
+	disown $PROGRESS 
+	kill $PROGRESS >/dev/null 2>&1
 	echo "Done"
 else
-	RELOCATE
+		RELOCATE
 fi
 
 # Remove the distribution tarball
@@ -942,17 +735,12 @@ MYPROXY_LOCATION=\$ALIEN_ROOT/globus
 
 EOF
 
-# Restart the services on demand
+# Restarting the services on demand
 SERVICERESTART
 
-# Add symbolic links in user home/bin directory
-if [ "$ALIEN_INSTALLER_BATCH" = "" ]; then
+# Add symbolic links to user home/bin directory
+if [ "$ALIEN_LINKS_DISABLE" != 1 ]; then
 	SETBINLINKS
 fi
-
-GETINSTALLTIME
-PRINTVERBOSE "AliEn $ALIEN_TYPE installation took $ALIEN_TIME_ELAPSED seconds"
-
-STOPLOCK
 
 echo "   Installation finished!"

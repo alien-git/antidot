@@ -9,8 +9,6 @@ MASTER_SITES = http://monalisa.cern.ch/download/monalisa/ http://monalisa.cacr.c
 
 LIBDEPS =  apps/base/libwww-perl
 
-BININSTALL_IGNORE = true
-
 DESCRIPTION = Java Developer's Kit
 AUTHOR = SUN
 URL = http://java.sun.com
