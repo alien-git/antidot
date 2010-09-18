@@ -276,7 +276,9 @@ sub setupConfig {
     # first, populate the environment with all known env variables
     for my $key (sort keys %ENV){
 	if($key !~ /JAVA_HOME|JAVA_OPTS|FARM_NAME|MonaLisa_HOME|SHOULD_UPDATE|MONALISA_USER/){
-		push(@$add, "export $key=\"$ENV{$key}\"");
+		my $envValue = $ENV{$key};
+		$envValue =~ s/'/\\'/g;
+		push(@$add, "export $key=\'$envValue\'");
 	}
     }
     getEnvVarsFromFile("$farmHome/ml_env", "URL_LIST_UPDATE");
