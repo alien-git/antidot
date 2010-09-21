@@ -1,5 +1,5 @@
 GARNAME = xrootd-shellcmds
-GARVERSION = 1.0.6
+GARVERSION = 1.0.7
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
@@ -9,7 +9,7 @@ ifeq ($(shell uname),Darwin)
 endif
 
 #http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/shell/xrootd-shellcmds-1.0.5.tar.gz
-MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/shell/
+MASTER_SITES =  #http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/shell/
 
 BUILDDEPS = apps/base/xrootd
 LIBDEPS   = apps/gcc/gcc 
