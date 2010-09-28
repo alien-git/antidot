@@ -1,0 +1,10 @@
+--- work/xrootd-xalienfs-1.0.12/bootstrap.sh.old	2010-08-17 14:50:55.000000000 +0200
++++ work/xrootd-xalienfs-1.0.12/bootstrap.sh	2010-08-17 14:50:59.000000000 +0200
+@@ -4,7 +4,6 @@
+ 
+ # create autotools build files from the CVS sources
+ libtoolize --copy --force
+-autoheader 
+ aclocal
+ automake -acf
+ autoconf

@@ -1,0 +1,22 @@
+--- work/perl-5.8.8/perl.h	2006-09-12 12:26:09.000000000 +0200
++++ work/perl-5.8.8/perl.h.new	2006-09-12 12:24:48.000000000 +0200
+@@ -159,7 +159,7 @@
+ #endif
+ 
+ #ifndef PERL_UNUSED_DECL
+-#  ifdef HASATTRIBUTE_UNUSED
++#  if defined(HASATTRIBUTE_UNUSED) && !defined(__cplusplus)
+ #    define PERL_UNUSED_DECL __attribute__unused__
+ #  else
+ #    define PERL_UNUSED_DECL
+--- work/perl-5.8.8/XSUB.h	2006-09-12 12:27:03.000000000 +0200
++++ work/perl-5.8.8/XSUB.h.new	2006-09-12 12:26:21.000000000 +0200
+@@ -91,7 +91,7 @@
+ #if defined(__CYGWIN__) && defined(USE_DYNAMIC_LOADING)
+ #  define XS(name) __declspec(dllexport) void name(pTHX_ CV* cv)
+ #else
+-#  ifdef HASATTRIBUTE_UNUSED
++#  if defined(HASATTRIBUTE_UNUSED) && !defined(__cplusplus)
+ #    define XS(name) void name(pTHX_ CV* cv __attribute__unused__)
+ #  else
+ #    define XS(name) void name(pTHX_ CV* cv)

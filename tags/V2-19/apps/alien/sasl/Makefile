@@ -1,0 +1,27 @@
+GARNAME = cyrus-sasl-alien
+GARVERSION = 2.1.22_3
+CATEGORIES = apps-tools
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+MASTER_SITES = 
+
+LIBDEPS = apps/tools/cyrus-sasl apps/tools/globus-toolkit apps/perl/Authen-SASL-Cyrus apps/tools/eugridpma-carep
+
+DESCRIPTION = SASL is the Simple Authentication and Security Layer
+URL = http://asg.web.cmu.edu/sasl/
+AUTHOR =  Artem HARUTYUNYAN, Arsen HAYRAPETYAN
+
+LICENSE = 
+
+CONFIGURE_SCRIPTS = $(WORKSRC)/configure
+BUILD_SCRIPTS = $(WORKSRC)/Makefile
+INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEAST_SCRIPTS = $(WORKSRC)/Makefile
+
+
+CONFIGURE_ENV = CFLAGS="-g" CPPFLAGS="-g" CXXFLAGS="-g"
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --with-openssl=$(PREFIX) --with-sasl-dir=$(PREFIX) --enable-alientoken  --enable-aliengssapi --enable-alienjobtoken
+
+include ../category.mk
+
+#PRE_CONFIGURE = (cd $(WORKSRC); ./bootstrap) 

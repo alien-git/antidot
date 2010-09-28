@@ -1,0 +1,36 @@
+GARNAME = alien-meta-portal
+GARVERSION = 1
+CATEGORIES = meta
+DISTFILES  =
+FILTER_OUT ?= apps/devel/jdk apps/devel/ant
+FILTER     ?= % 
+ 
+ALL=\
+apps/tools/eugridpma-carep \
+apps/alien/alien-ca \
+apps/alien/admin \
+apps/server/DBD-mysql \
+apps/alien/classad \
+apps/alien/common \
+apps/portal/CGI-FastTemplate \
+apps/portal/CGI_Imagemap \
+apps/portal/gridsite \
+apps/portal/mod_perl \
+apps/perl/Authen-PAM \
+apps/perl/POE
+
+LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
+
+DESCRIPTION = AliEn - Portal components
+
+include ../category.mk
+
+apps/install-%/Makefile:
+	@mkdir -p $(COOKIEDIR)/install-$*
+	@$(MAKECOOKIE)
+
+list_packages:
+	@echo $(LIBDEPS)
+
+list_filtered:
+	@echo $(FILTER_OUT)

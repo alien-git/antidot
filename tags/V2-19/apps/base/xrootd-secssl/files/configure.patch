@@ -1,0 +1,16 @@
+--- work/xrootd-secssl-3.0.5/configure.old	2010-07-12 14:45:47.000000000 +0200
++++ work/xrootd-secssl-3.0.5/configure	2010-07-12 14:46:14.000000000 +0200
+@@ -418,13 +418,6 @@
+ # only ac_max_sed_lines should be used.
+ : ${ac_max_here_lines=38}
+ 
+-# Identity of this package.
+-PACKAGE_NAME='xrootd-secssl'
+-PACKAGE_TARNAME='xrootd-secssl'
+-PACKAGE_VERSION='3.0.5'
+-PACKAGE_STRING='xrootd-secssl 3.0.5'
+-PACKAGE_BUGREPORT='andreas.joachim.peters@cern.ch'
+-
+ ac_unique_file="XrdSecProtocolsslTrace.hh"
+ # Factoring default headers for most tests.
+ ac_includes_default="\

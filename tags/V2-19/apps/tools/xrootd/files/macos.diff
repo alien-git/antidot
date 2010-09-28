@@ -1,0 +1,13 @@
+--- work/xrootd-20060928-1600-poll16/src/XrdOuc/XrdOucPlatform.cc	2006-01-28 13:13:39.000000000 +0100
++++ work/xrootd-20060928-1600-poll16/src/XrdOuc/XrdOucPlatform.cc	2006-04-12 15:36:37.000000000 +0200
+@@ -39,6 +39,10 @@
+ 
+ #endif
+ 
++#if (defined(__i386__) && defined(__APPLE__))
++#define HAS_STRLCPY
++#endif
++
+ #ifndef HAS_STRLCPY
+ extern "C"
+ {
