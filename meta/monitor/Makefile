@@ -6,11 +6,10 @@ FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
 ALL=\
-apps/devel/dialog \
 apps/alien/admin \
 apps/alien/common \
 apps/monitor/MonaLisa \
-apps/base/POE
+apps/perl/POE
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
