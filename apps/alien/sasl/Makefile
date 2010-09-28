@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = 
 
-LIBDEPS = apps/base/cyrus-sasl apps/base/globus-toolkit apps/base/Authen-SASL-Cyrus apps/base/eugridpma-carep
+LIBDEPS = apps/tools/cyrus-sasl apps/tools/globus-toolkit apps/perl/Authen-SASL-Cyrus apps/tools/eugridpma-carep
 
 DESCRIPTION = SASL is the Simple Authentication and Security Layer
 URL = http://asg.web.cmu.edu/sasl/
@@ -19,7 +19,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEAST_SCRIPTS = $(WORKSRC)/Makefile
 
 
-
+CONFIGURE_ENV = CFLAGS="-g" CPPFLAGS="-g" CXXFLAGS="-g"
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-globus-nothr-flavor=$(GLOBUS_FLAVOR) --with-globus=$(GLOBUS_LOCATION) --with-openssl=$(PREFIX) --with-sasl-dir=$(PREFIX) --enable-alientoken  --enable-aliengssapi --enable-alienjobtoken
 
 include ../category.mk

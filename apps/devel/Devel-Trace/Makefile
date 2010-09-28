@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MJ/MJD/ http://www.cpan.org/authors/id/M/MJ/MJD/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MJ/MJD/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/perl/perl
 
 DESCRIPTION = Print out each line before it is executed 
 URL = http://cpan.uwinnipeg.ca/~mjd

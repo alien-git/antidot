@@ -1,11 +1,11 @@
 GARNAME = alien-classad
-GARVERSION = 2.1.1
+GARVERSION = 2.1.2
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES =
 
-LIBDEPS = apps/base/perl apps/base/classad apps/devel/swig
+LIBDEPS = apps/perl/perl apps/tools/classad apps/devel/swig
 
 DESCRIPTION = AliEn classad component
 URL = http://alien.cern.ch
@@ -16,7 +16,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-classads-dir=$(PREFIX) --with-classad-lib=aclassad --with-swig-dir=$(PREFIX) --with-perl5=$(PREFIX)/bin/perl
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-classads-dir=$(PREFIX) --with-classad-lib=classad --with-swig-dir=$(PREFIX) --with-perl5=$(PREFIX)/bin/perl
 
 include ../category.mk
 

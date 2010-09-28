@@ -6,7 +6,7 @@ NOCHECKSUM = $(DISTFILES)
 
 MASTER_SITES = 
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/perl/perl
 
 DESCRIPTION = AliEn perl
 URL = http://alien.cern.ch

@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES =
 
-LIBDEPS = apps/base/globus-toolkit apps/base/eugridpma-carep
+LIBDEPS = apps/tools/globus-toolkit apps/tools/eugridpma-carep apps/perl/Log-TraceMessages apps/perl/MIME-Base64
 
 DESCRIPTION = AliEn GSSAPI component
 URL = http://alien.cern.ch

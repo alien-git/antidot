@@ -1,0 +1,16 @@
+--- work/ml-gsoapclient-2.7.10/configure.old	2010-07-08 14:59:10.000000000 +0200
++++ work/ml-gsoapclient-2.7.10/configure	2010-07-08 14:59:18.000000000 +0200
+@@ -708,13 +708,6 @@
+ MAKEFLAGS=
+ SHELL=${CONFIG_SHELL-/bin/sh}
+ 
+-# Identity of this package.
+-PACKAGE_NAME='ml gsoapclient'
+-PACKAGE_TARNAME='ml-gsoapclient'
+-PACKAGE_VERSION='2.7.10'
+-PACKAGE_STRING='ml gsoapclient 2.7.10'
+-PACKAGE_BUGREPORT=''
+-
+ ac_unique_file="src/monalisawsclient.h"
+ # Factoring default headers for most tests.
+ ac_includes_default="\

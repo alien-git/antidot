@@ -1,25 +1,21 @@
 GARNAME = DBD-mysql
-GARVERSION = 3.0008
+GARVERSION = 4.017
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CA/CAPTTOFU/ http://www.cpan.org/authors/id/C/CA/CAPTTOFU/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/C/CA/CAPTTOFU/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/C/CA/CAPTTOFU/
 
-LIBDEPS = apps/base/perl apps/server/mysql apps/base/DBI
+LIBDEPS = apps/perl/perl apps/server/mysql apps/perl/DBI
 
 DESCRIPTION = MySQL driver for DBI
 AUTHOR = Rudy Lippan
 URL = http://cpan.uwinnipeg.ca/~rudy
 LICENSE = Perl
 
-AUTOTEST = testForAliEnPerlModule DBD::mysql $(GARVERSION )
-
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-TEST_SCRIPTS = 
-
-AUTOTEST = testForAliEnPerlModule DBD::mysql $(GARVERSION)
+TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS =  
 BUILD_ARGS =  

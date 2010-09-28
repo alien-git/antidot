@@ -1,6 +1,6 @@
 all:
 
-DIRS=gcc devel base portal server alien monitor
+DIRS=gcc devel tools portal server alien monitor system perl
 
 %:
 	@for i in $(DIRS); do \

@@ -1,20 +1,20 @@
 GARNAME = openldap
-GARVERSION = 2.3.43
+GARVERSION = 2.4.23
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tgz
-PATCHFILES = install.diff core.schema.patch
+#PATCHFILES = install.diff core.schema.patch
 
 MASTER_SITES = ftp://sunsite.cnlab-switch.ch/mirror/OpenLDAP/openldap-release/
 
-LIBDEPS = apps/base/openssl apps/base/cyrus-sasl apps/base/db apps/base/gdbm
+LIBDEPS = apps/system/openssl apps/tools/cyrus-sasl apps/system/db apps/system/gdbm
 
 DESCRIPTION = OpenLDAP
 URL = http://www.openldap.org/
 AUTHOR = 
 LICENSE = OpenLDAP 
 
-CONFIGURE_ENV = env CPPFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib  -L$(PREFIX)/lib64 -I$(PREFIX)/include" LDFLAGS=" -L$(PREFIX)/lib  -L$(PREFIX)/lib64" CFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib -L$(PREFIX)/lib64 -I$(PREFIX)/include"
-BUILD_ENV = env CPPFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib -L$(PREFIX)/lib64 -I$(PREFIX)/include" LDFLAGS=" -L$(PREFIX)/lib -L$(PREFIX)/lib64"  CFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib -L$(PREFIX)/lib64 -I$(PREFIX)/include"
+CONFIGURE_ENV = env CPPFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib -I$(PREFIX)/include" LDFLAGS=" -L$(PREFIX)/lib " CFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib  -I$(PREFIX)/include"
+BUILD_ENV = env CPPFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib -I$(PREFIX)/include" LDFLAGS=" -L$(PREFIX)/lib "  CFLAGS="-D_GNU_SOURCE -L$(PREFIX)/lib -I$(PREFIX)/include"
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
@@ -25,4 +25,4 @@ CONFIGURE_ARGS = $(DIRPATHS) --oldincludedir=$(PREFIX)/include --with-tls=openss
 
 include ../category.mk
 
-PRE_CONFIGURE = export LD_LIBRARY_PATH=$(PREFIX)/lib:$(PREFIX)/lib64
+PRE_CONFIGURE = export LD_LIBRARY_PATH=$(PREFIX)/lib

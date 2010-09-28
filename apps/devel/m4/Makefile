@@ -1,7 +1,9 @@
 GARNAME = m4
-GARVERSION = 1.4.13
+GARVERSION = 1.4.14
 CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+BININSTALL_IGNORE = true
 
 #http://ftp.gnu.org/gnu/m4/m4-1.4.13.tar.gz
 MASTER_SITES = http://ftp.gnu.org/gnu/m4/
@@ -16,9 +18,8 @@ LICENSE = GNU GPL
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-#TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) 
+CONFIGURE_ARGS = --prefix=$(PREFIX)
 BUILD_ARGS =  
 
 include ../category.mk

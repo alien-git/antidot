@@ -1,15 +1,17 @@
 GARNAME = swig
 #1.3.39
-GARVERSION = 1.3.40
+GARVERSION = 2.0.0
 CATEGORIES = tools-devel
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+BININSTALL_IGNORE = true
 
 #http://downloads.sourceforge.net/sourceforge/swig/swig-1.3.39.tar.gz?use_mirror=fastbull
 #MASTER_SITES = http://fastbull.dl.sourceforge.net/sourceforge/swig/
 
-MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/swig/ http://ovh.dl.sourceforge.net/sourceforge/swig/ 
+MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/swig/ http://ovh.dl.sourceforge.net/sourceforge/swig/  http://prdownloads.sourceforge.net/swig/
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/gcc/gcc apps/devel/libtool apps/devel/automake apps/devel/autoconf
 
 DESCRIPTION = Simplified Wrapper and Interface Generator
 URL = http://www.swig.org
