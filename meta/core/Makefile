@@ -6,19 +6,17 @@ FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
 ALL=\
-apps/base/google-perftools \
-apps/devel/dialog \
-apps/base/eugridpma-carep \
+apps/tools/eugridpma-carep \
 apps/alien/classad \
 apps/alien/common \
-apps/base/alien-ca \
+apps/alien/alien-ca \
 apps/alien/perl \
 apps/alien/gapi \
 apps/alien/admin \
 apps/server/mysql \
 apps/server/DBD-mysql \
 apps/server/openldap \
-apps/base/Authen-PAM \
+apps/perl/Authen-PAM \
 apps/monitor/MonaLisa
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
