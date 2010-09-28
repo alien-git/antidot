@@ -7,7 +7,7 @@ PATCHFILES = configure.ac.patch
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalienfs/
 
-LIBDEPS = apps/base/xrootd-secssl
+LIBDEPS = apps/tools/xrootd-secssl
 
 ifeq ($(shell uname -s),Darwin)
 	LIBDEPS += apps/base/readline

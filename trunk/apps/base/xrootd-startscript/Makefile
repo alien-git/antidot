@@ -7,7 +7,7 @@ PATCHFILES =
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/start/
 
-LIBDEPS = apps/base/xrootd
+LIBDEPS = apps/tools/xrootd
 
 DESCRIPTION = xrootd startscript
 

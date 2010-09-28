@@ -11,7 +11,41 @@ GARCVSVERSION = $(CVS_TAG)
 
 MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/
 
-LIBDEPS = apps/alien/classad apps/alien/perl apps/base/alien-ca apps/alien/sasl apps/base/SOAP-Lite apps/base/perl-ldap apps/base/XML-Generator apps/base/Getopt-Declare apps/base/XML-Parser-EasyTree apps/base/XML-Simple apps/base/Log-TraceMessages apps/base/uuid apps/base/Crypt-OpenSSL-RSA apps/base/Log-Agent-Rotate apps/base/Cache-Cache apps/base/DBD-CSV apps/base/Compress-Zlib apps/base/DateTime apps/base/Filesys-DiskFree apps/base/Authen-SASL apps/base/Authen-PAM apps/base/Archive-Zip apps/base/ApMon apps/base/xrootd-xrdcpapmonplugin apps/base/xrootd-shellcmds apps/base/Convert-PEM apps/base/Crypt-CBC apps/base/Convert-UU apps/base/File-CacheDir apps/base/Filesys-DiskUsage apps/base/aria2
+LIBDEPS =  apps/perl/ApMon \
+apps/perl/Archive-Zip \
+apps/perl/Authen-PAM \
+apps/perl/Authen-SASL \
+apps/perl/Cache-Cache \
+apps/tools/classad \
+apps/perl/Crypt-OpenSSL-Random \
+apps/perl/Crypt-OpenSSL-RSA \
+apps/server/DBD-mysql \
+apps/perl/DBI \
+apps/perl/File-CacheDir \
+apps/perl/Filesys-DiskFree \
+apps/perl/Filesys-DiskUsage \
+apps/alien/gapi \
+apps/alien/gssapi \
+apps/perl/IO-Socket-SSL \
+apps/perl/LockFile-Simple \
+apps/perl/Log-Agent \
+apps/perl/Log-Agent-Rotate \
+apps/perl/Log-Dispatch \
+apps/perl/Log-TraceMessages \
+apps/perl/libwww-perl \
+apps/perl/MIME-Base64 \
+apps/perl/Net-SSLeay \
+apps/perl/perl \
+apps/perl/perl-ldap \
+apps/perl/PlRPC \
+apps/perl/SOAP-Lite \
+apps/alien/sasl \
+apps/perl/uuid \
+apps/perl/URI \
+apps/perl/XML-Generator \
+apps/perl/XML-Parser \
+apps/perl/XML-Parser-EasyTree \
+apps/perl/XML-Simple
 
 DESCRIPTION = AliEn common component
 URL = http://alien.cern.ch

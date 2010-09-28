@@ -1,9 +1,9 @@
 GARNAME = mod_macro
-GARVERSION = 1.1.6
+GARVERSION = 1.1.10
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
-MASTER_SITES =
+MASTER_SITES = http://cri.ensmp.fr/~coelho/mod_macro/
 
 LIBDEPS = apps/portal/httpd
 

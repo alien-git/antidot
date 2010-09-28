@@ -1,5 +1,5 @@
 GARNAME = mysql
-GARVERSION = 5.1.41
+GARVERSION = 5.1.49
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).zip
 DISTNAME =  $(GARNAME)-$(GARVERSION)
@@ -8,7 +8,7 @@ PATCHFILES =
 #http://mirror.switch.ch/ftp/mirror/mysql/Downloads/MySQL-5.1/mysql-5.1.36.zip
 MASTER_SITES = http://mirror.switch.ch/ftp/mirror/mysql/Downloads/MySQL-5.1/
 
-LIBDEPS = apps/gcc/gcc apps/base/ncurses
+LIBDEPS = apps/gcc/gcc apps/system/ncurses apps/system/zlib
 
 DESCRIPTION = MySQL database
 URL = http://dev.mysql.com/

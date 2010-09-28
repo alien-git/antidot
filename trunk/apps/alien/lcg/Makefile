@@ -11,7 +11,7 @@ GARCVSVERSION = $(CVS_TAG)
 
 MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/ 
 
-LIBDEPS = apps/alien/common # apps/lcg/lfc-perl apps/lcg/lcg-util apps/glite/data-transfer-api-perl
+LIBDEPS = apps/alien/common apps/perl/Expect
 
 DESCRIPTION = AliEn LCG Interface
 URL = http://alien.cern.ch

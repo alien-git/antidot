@@ -1,11 +1,11 @@
 GARNAME = mod_perl
-GARVERSION = 2.0.1
+GARVERSION = 2.0.4
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = 
 
-LIBDEPS = apps/base/perl apps/portal/httpd
+LIBDEPS = apps/perl/perl apps/portal/httpd
 
 DESCRIPTION = mod_perl is the marriage of Apache and Perl
 URL = http://perl.apache.org

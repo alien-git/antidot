@@ -1,7 +1,9 @@
 GARNAME = libtool
-GARVERSION = 2.2.6
+GARVERSION = 2.2.10
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)-$(GARVERSION)a.tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+
+BININSTALL_IGNORE = true
 
 MASTER_SITES = http://ftp.gnu.org/gnu/libtool/
 
@@ -12,12 +14,10 @@ URL = http://www.gnu.org/software/libtool/libtool.html
 AUTHOR = 
 LICENSE = GPL
 
-AUTOTEST=locateCommand libtool --version  2>&1 | head -n 1 | awk '{print \$4}'
-
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS) 
+CONFIGURE_ARGS = --prefix=$(PREFIX)
 
 include ../category.mk

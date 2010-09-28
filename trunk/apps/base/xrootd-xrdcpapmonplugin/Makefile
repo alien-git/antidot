@@ -10,7 +10,7 @@ endif
 
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/xrdcpapmonplugin/
 
-LIBDEPS = apps/base/ApMon-CPP apps/base/xrootd apps/base/xrootd
+LIBDEPS = apps/tools/ApMon-CPP apps/tools/xrootd
 
 DESCRIPTION = xrdcp plugin for ApMon
 

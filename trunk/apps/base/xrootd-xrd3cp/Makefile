@@ -10,7 +10,7 @@ endif
 
 MASTER_SITES = https://svnweb.cern.ch/trac/CERNXROOT/export/580/trunk/source-tgz/
 
-LIBDEPS = apps/base/xrootd apps/base/uuid
+LIBDEPS = apps/tools/xrootd apps/perl/uuid
 
 DESCRIPTION = Xrootd
 
