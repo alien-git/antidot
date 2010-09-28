@@ -16,7 +16,7 @@ LICENSE = Sleepycat
 CONFIGURE_SCRIPTS = $(WORKSRC)/build_unix/configure
 BUILD_SCRIPTS = $(WORKSRC)/build_unix/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/build_unix/Makefile
-TEST_SCRIPTS = $(WORKSRC)/build_unix/Makefile
+#TEST_SCRIPTS = $(WORKSRC)/build_unix/Makefile
 
 CONFIGURE_ARGS = $(DIRPATHS) --enable-posixmutexes
 
