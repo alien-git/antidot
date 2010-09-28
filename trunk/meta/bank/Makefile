@@ -5,8 +5,7 @@ DISTFILES  =
 FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
-ALL=\
-apps/tools/gold
+ALL=apps/tools/gold
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 

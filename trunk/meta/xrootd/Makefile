@@ -6,10 +6,9 @@ FILTER_OUT ?=
 FILTER     ?= % 
  
 ALL=\
-apps/base/google-perftools \
-apps/base/xrootd \
-apps/base/xrootd-startscript \
-apps/base/xrootd-shellcmds
+apps/tools/xrootd \
+apps/tools/xrootd-startscript \
+apps/tools/xrootd-shellcmds
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 

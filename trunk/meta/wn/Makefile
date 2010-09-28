@@ -6,9 +6,8 @@ FILTER_OUT ?=
 FILTER     ?= % 
  
 ALL=\
-apps/base/google-perftools \
-apps/base/eugridpma-carep \
-apps/base/alien-ca \
+apps/tools/eugridpma-carep \
+apps/alien/alien-ca \
 apps/alien/classad \
 apps/alien/common \
 apps/alien/perl \

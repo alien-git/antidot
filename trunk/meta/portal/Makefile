@@ -6,10 +6,8 @@ FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
 ALL=\
-apps/base/google-perftools \
-apps/devel/dialog \
-apps/base/eugridpma-carep \
-apps/base/alien-ca \
+apps/tools/eugridpma-carep \
+apps/alien/alien-ca \
 apps/alien/admin \
 apps/server/DBD-mysql \
 apps/alien/classad \
@@ -18,8 +16,8 @@ apps/portal/CGI-FastTemplate \
 apps/portal/CGI_Imagemap \
 apps/portal/gridsite \
 apps/portal/mod_perl \
-apps/base/Authen-PAM \
-apps/base/POE
+apps/perl/Authen-PAM \
+apps/perl/POE
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 

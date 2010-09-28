@@ -6,14 +6,13 @@ FILTER_OUT ?= apps/devel/jdk apps/devel/ant
 FILTER     ?= % 
  
 ALL=\
-apps/base/google-perftools \
 apps/alien/gapi   \
-apps/base/xrootd-xrdcpapmonplugin  \
-apps/base/alien-ca \
-apps/base/eugridpma-carep \
-apps/base/Linux-PAM \
-apps/base/cyrus-sasl \
-apps/base/uuid
+apps/tools/xrootd-xrdcpapmonplugin  \
+apps/alien/alien-ca \
+apps/tools/eugridpma-carep \
+apps/system/Linux-PAM \
+apps/tools/cyrus-sasl \
+apps/perl/uuid
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
