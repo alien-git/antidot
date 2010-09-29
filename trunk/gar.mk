@@ -320,18 +320,17 @@ binclean:
 	@rm -rf $(COOKIEDIR)/*binextract*
 
 bininstall: 
-ifeq ($(CATEGORIES),source-only)
-	@$(MAKE) reinstall
-else
-	ifneq($(BININSTALL_IGNORE),true)
-  		ifeq ($(GARAUTODETECT),true)
-			@env MASKED="$(MASKED) $(MYMASK)" BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL)
-  		else
-			@env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL) 
-		endif
-  endif
-endif
-
+	if [[ "x$(CATEGORIES)" == "xsource-only" ]]; then \
+	    $(MAKE) reinstall; \
+	else \
+	    if [[ "x$(BININSTALL_IGNORE)" != "xtrue" ]]; then \
+		if [[ "x$(GARAUTODETECT)" == "xtrue" ]]; then \
+		    env MASKED="$(MASKED) $(MYMASK)" BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL); \
+		else \
+		    env BININSTALL=1 $(MAKE) install-bin MASTER_SITES=$(BITS_URL); \
+		fi; \
+	    fi; \
+	fi  
 
 bininstall-p:
 	$(foreach COOKIEFILE, $(addprefix binextract-,$(filter-out $(NOEXTRACT),$(BINDISTFILES))), test -e $(COOKIEDIR)/$(COOKIEFILE) ;)
