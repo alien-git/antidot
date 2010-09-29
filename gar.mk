@@ -388,7 +388,7 @@ configure-p:
 # build			- Actually compile the sources.
 BUILD_TARGETS = $(addprefix build-,$(BUILD_SCRIPTS))
 
-build: configure pre-build $(BUILD_TARGETS) post-build
+build: configure pre-build $(BUILD_TARGETS) post-build buildtime
 	$(DONADA)
 
 # returns true if build has completed successfully, false
