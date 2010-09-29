@@ -4,6 +4,8 @@ CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 DISTNAME =  $(GARNAME)
 
+PATCHFILES = 5.10.patch
+
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MN/MNOONING/Net-Daemon/
 
 LIBDEPS = apps/perl/perl
