@@ -18,7 +18,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 
-CONFIGURE_ARGS = -des -Dprefix=$(PREFIX) -Dinstallprefix=$(PREFIX) -Dusethreads -Duselargefiles -Uafs -Ud_csh -Ud_ualarm -Uusesfio -Uusenm -DDEBUGGING=-g -Doptimize=-O2 -Duseshrplib  -Dinstalldirs=perl -Dccflags="-fPIC" -Dplibpth="$(PREFIX)/lib" -Dldflags="-L$(PREFIX)/lib"
+CONFIGURE_ARGS = -des -Dprefix=$(PREFIX) -Dinstallprefix=$(PREFIX) -Dusethreads -Duselargefiles -Uafs -Ud_csh -Ud_ualarm -Uusesfio -Uusenm -DDEBUGGING=-g -Doptimize=-O2 -Dinstalldirs=perl -Dccflags="-fPIC" -Dplibpth="$(PREFIX)/lib" -Dldflags="-L$(PREFIX)/lib"
 
 #$(PERL_DIRPATHS) -d -des -Dinstalldirs=perl  -Doptimize="-O" -Dccflags="-fPIC" -Dinstallprefix=$(PREFIX) -Dprefix=$(PREFIX) -Dd_semctl_semun -Di_db -Di_syslog -Dudsedl=yes -Dman3ext=3 -Dusemymalloc=no -DDEBUGGING -Dplibpth="$(PREFIX)/lib" -Dldflags="-L$(PREFIX)/lib" -A append:libswanted=" pthread"
 
