@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export LD_LIBRARY_PATH=
+
 SEARCH="$1"
 
 ECHOCMD=`which echo`
