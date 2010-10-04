@@ -10,7 +10,7 @@ endif
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalienfs/
 
-LIBDEPS = apps/tools/xrootd
+LIBDEPS = apps/base/xrootd
 
 DESCRIPTION = XRootD ssl plugin
 
