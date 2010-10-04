@@ -1,32 +1,12 @@
---- work/openldap-2.3.43/servers/slapd/schema/core.schema	2008-02-12 00:24:25.000000000 +0100
-+++ tmp/openldap-2.3.43/servers/slapd/schema/core.schema.new	2009-01-20 13:42:26.000000000 +0100
-@@ -502,25 +502,6 @@
- 		physicalDeliveryOfficeName $ st $ l $ description ) )
- 
- #
--# Object Classes from RFC 2587
--#
--objectclass ( 2.5.6.21 NAME 'pkiUser'
--	DESC 'RFC2587: a PKI user'
--	SUP top AUXILIARY
--	MAY userCertificate )
--
--objectclass ( 2.5.6.22 NAME 'pkiCA'
--	DESC 'RFC2587: PKI certificate authority'
--	SUP top AUXILIARY
--	MAY ( authorityRevocationList $ certificateRevocationList $
--		cACertificate $ crossCertificatePair ) )
--
--objectclass ( 2.5.6.23 NAME 'deltaCRL'
--	DESC 'RFC2587: PKI user'
--	SUP top AUXILIARY
--	MAY deltaRevocationList )
--
--#
- # Standard Track URI label schema from RFC 2079
- # system schema
- #attributetype ( 1.3.6.1.4.1.250.1.57 NAME 'labeledURI'
-@@ -581,11 +562,3 @@
+--- work/openldap-2.4.23/servers/slapd/schema/core.schema.old	2010-10-04 09:31:11.000000000 +0200
++++ work/openldap-2.4.23/servers/slapd/schema/core.schema	2010-10-04 09:31:22.000000000 +0200
+@@ -1,4 +1,4 @@
+-# OpenLDAP Core schema
++`l# OpenLDAP Core schema
+ # $OpenLDAP: pkg/ldap/servers/slapd/schema/core.schema,v 1.88.2.8 2010/04/13 20:23:48 kurt Exp $
+ ## This work is part of OpenLDAP Software <http://www.openldap.org/>.
+ ##
+@@ -600,11 +600,3 @@
  	SUBSTR caseIgnoreIA5SubstringsMatch
  	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
  
