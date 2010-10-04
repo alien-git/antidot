@@ -2,7 +2,7 @@ GARNAME = alien-meta-bank
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
-FILTER_OUT ?= apps/devel/jdk apps/devel/ant
+FILTER_OUT ?= 
 FILTER     ?= % 
  
 ALL=apps/tools/gold
