@@ -1,16 +1,17 @@
---- work/xrootd-secssl-3.0.5/configure.old	2010-07-12 14:45:47.000000000 +0200
-+++ work/xrootd-secssl-3.0.5/configure	2010-07-12 14:46:14.000000000 +0200
-@@ -418,13 +418,6 @@
- # only ac_max_sed_lines should be used.
- : ${ac_max_here_lines=38}
+--- work/xrootd-shellcmds-1.0.7/configure.old	2010-09-22 17:31:04.000000000 +0200
++++ work/xrootd-shellcmds-1.0.7/configure	2010-09-22 17:31:29.000000000 +0200
+@@ -698,14 +698,6 @@
+ MFLAGS=
+ MAKEFLAGS=
  
 -# Identity of this package.
--PACKAGE_NAME='xrootd-secssl'
--PACKAGE_TARNAME='xrootd-secssl'
--PACKAGE_VERSION='3.0.5'
--PACKAGE_STRING='xrootd-secssl 3.0.5'
--PACKAGE_BUGREPORT='andreas.joachim.peters@cern.ch'
+-PACKAGE_NAME='xrootd-shellcmds'
+-PACKAGE_TARNAME='xrootd-shellcmds'
+-PACKAGE_VERSION='1.0.7'
+-PACKAGE_STRING='xrootd-shellcmds 1.0.7'
+-PACKAGE_BUGREPORT='xrootd-l@slac.stanford.edu'
+-PACKAGE_URL=''
 -
- ac_unique_file="XrdSecProtocolsslTrace.hh"
+ ac_unique_file="xrdrm.cc"
  # Factoring default headers for most tests.
  ac_includes_default="\

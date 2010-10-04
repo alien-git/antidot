@@ -1,0 +1,17 @@
+--- work/tokenauthz-1.1.6b/configure.old	2010-07-12 11:02:51.000000000 +0200
++++ work/tokenauthz-1.1.6b/configure	2010-07-12 11:03:05.000000000 +0200
+@@ -696,14 +696,6 @@
+ MFLAGS=
+ MAKEFLAGS=
+ 
+-# Identity of this package.
+-PACKAGE_NAME='tokenAuthz'
+-PACKAGE_TARNAME='tokenauthz'
+-PACKAGE_VERSION='1.1.6b'
+-PACKAGE_STRING='tokenAuthz 1.1.6b'
+-PACKAGE_BUGREPORT='andreas.joachim.peters@cern.ch,derek.feichtinger@cern.ch'
+-PACKAGE_URL=''
+-
+ ac_unique_file="TTokenAuthz.cxx"
+ # Factoring default headers for most tests.
+ ac_includes_default="\

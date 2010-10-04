@@ -1,5 +1,5 @@
-GARNAME = xrootd-secssl
-GARVERSION = 3.0.5
+GARNAME = xrootd-shellcmds
+GARVERSION = 1.0.7
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
@@ -8,23 +8,24 @@ ifeq ($(shell uname),Darwin)
     PATCHFILES = configure.patch
 endif
 
-MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalienfs/
+#http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/shell/xrootd-shellcmds-1.0.5.tar.gz
+MASTER_SITES =  #http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/shell/
 
-LIBDEPS = apps/tools/xrootd
+BUILDDEPS = apps/base/xrootd
+LIBDEPS   = apps/gcc/gcc 
 
-DESCRIPTION = XRootD ssl plugin
+DESCRIPTION = Xrootd shell commands
 
 URL = http://xrootd.slac.stanford.edu
-AUTHOR = Andy Hanushevsky
-LICENSE =
-
-CONFIGURE_ENV = CPFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-L$(PREFIX)/lib"
+AUTHOR = Andreas Peters
+LICENSE = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api --with-openssl-libdir=$(PREFIX)/lib --with-openssl-incdir=$(PREFIX)/include --with-xml2-incdir=$(PREFIX)/include/libxml2 --with-xml2-libdir=$(PREFIX)/lib
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api
 
 include ../category.mk
 
