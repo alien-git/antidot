@@ -1,11 +1,5 @@
 --- work/openldap-2.4.23/servers/slapd/schema/core.schema.old	2010-10-04 09:31:11.000000000 +0200
 +++ work/openldap-2.4.23/servers/slapd/schema/core.schema	2010-10-04 09:31:22.000000000 +0200
-@@ -1,4 +1,4 @@
--# OpenLDAP Core schema
-+`l# OpenLDAP Core schema
- # $OpenLDAP: pkg/ldap/servers/slapd/schema/core.schema,v 1.88.2.8 2010/04/13 20:23:48 kurt Exp $
- ## This work is part of OpenLDAP Software <http://www.openldap.org/>.
- ##
 @@ -600,11 +600,3 @@
  	SUBSTR caseIgnoreIA5SubstringsMatch
  	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )

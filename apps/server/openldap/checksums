@@ -6,4 +6,4 @@ e7128c57b2bacd940e8906057c94ff26  download/openldap-2.4.21.tgz
 90150b8c0d0192e10b30157e68844ddf  download/openldap-2.4.23.tgz
 b877f74a7e39dabd3aaf9dbeb94112d9  download/cosine.patch
 f16cfa6decd4ba44441d39115cd6490c  download/install.diff
-02f84fc08255cc028ffeb32803efe1b4  download/core.schema.patch
+d738bf60e6d465e2da402779f25be97e  download/core.schema.patch
