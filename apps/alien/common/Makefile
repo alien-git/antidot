@@ -26,6 +26,7 @@ apps/perl/File-CacheDir \
 apps/perl/Filesys-DiskFree \
 apps/perl/Filesys-DiskUsage \
 apps/alien/gapi \
+apps/alien/perl \
 apps/alien/gssapi \
 apps/perl/IO-Socket-SSL \
 apps/perl/LockFile-Simple \
