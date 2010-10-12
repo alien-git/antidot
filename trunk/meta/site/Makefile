@@ -9,12 +9,12 @@ ALL=\
 apps/alien/admin \
 apps/alien/alien-ca \
 apps/alien/classad \
-apps/alien/lcg
+apps/alien/lcg \
 apps/monitor/MonaLisa \
 apps/perl/Config-ApacheFormat \
 apps/perl/Term-ReadLine-Gnu \
 apps/perl/POE \
-apps/portal/mod_perl \
+apps/portal/mod_perl
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
