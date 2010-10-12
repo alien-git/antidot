@@ -8,8 +8,8 @@ FILTER     ?= %
 ALL=\
 apps/alien/gapi   \
 apps/tools/xrootd-xrdcpapmonplugin  \
+apps/tools/xrootd-shellcmds \
 apps/alien/alien-ca \
-apps/tools/eugridpma-carep \
 apps/system/Linux-PAM \
 apps/tools/cyrus-sasl \
 apps/perl/uuid

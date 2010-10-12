@@ -7,15 +7,14 @@ FILTER     ?= %
  
 ALL=\
 apps/alien/admin \
-apps/portal/mod_perl \
-apps/perl/Config-ApacheFormat \
-apps/perl/Term-ReadLine-Gnu \
-apps/tools/eugridpma-carep \
 apps/alien/alien-ca \
 apps/alien/classad \
-apps/alien/common \
-apps/alien/perl \
-apps/alien/gapi
+apps/alien/lcg
+apps/monitor/MonaLisa \
+apps/perl/Config-ApacheFormat \
+apps/perl/Term-ReadLine-Gnu \
+apps/perl/POE \
+apps/portal/mod_perl \
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
