@@ -747,11 +747,10 @@ if [ "$prefix" != "$build_prefix" ]; then
 		LOG verbose "Perl relocation: config=$config"		
 	
 		if [ "$config" = "" ] ; then INTERRUPT -5 "Couldn't find Config.pm in $prefix/lib/perl5!"; fi
-	LOG verbose "perl -pi -es "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix%$prefix%sg; s%$build_prefix %$prefix %sg " $config"
-	perl -pi -es "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix%$prefix%sg; s%$build_prefix %$prefix %sg " $config
-		if [ ! $? = 0 ]; then 	INTERRUPT -5 "Perl relocation: Failed for Config.pm"
+
+	perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix%$prefix%sg; s%$build_prefix %$prefix %sg " $config
+		if [ ! "$?" = "0" ]; then 	INTERRUPT -5 "Perl relocation: Failed for Config.pm"
 		else 			LOG silent "Perl relocation: Config.pm done"; fi
-				
 		config=`find $prefix/lib/perl5 -path "*/CORE/config.h"`
 
 		if [ "$config" = "" ] ; then INTERRUPT -5 "Couldn't find CORE/config.h in $prefix/lib/perl5!"; fi
