@@ -2,16 +2,17 @@ GARNAME = alien-meta-wn
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
-FILTER_OUT ?= 
+FILTER_OUT ?= apps/server/mysql
 FILTER     ?= % 
  
 ALL=\
-apps/tools/eugridpma-carep \
 apps/alien/alien-ca \
 apps/alien/classad \
 apps/alien/common \
-apps/alien/perl \
-apps/alien/gapi
+apps/alien/gapi \
+apps/tools/aria2 \
+apps/tools/xrootd-shellcmds \
+apps/tools/xrootd-xrdcpapmonplugin
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
