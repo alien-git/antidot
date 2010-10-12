@@ -89,7 +89,7 @@ else
 	shift 1
 	echo -e "   $@"; fi
 
-echo `date +"%F %T"`: "$@" >> "$LOGFILE"
+echo "[$$] "`date +"%F %T"`: "$@" >> "$LOGFILE"
 }
 
 #############################################################
@@ -97,9 +97,9 @@ LOGFILERELOCATE()
 #############################################################
 {
 # For workernode place the installation log where the install folder is, otherwise inside the install directory
-if [ "$ALIEN_TYPE" = "workernode" ]; then 	cat "$LOGFILE" >> "$ALIEN_USER_DIR/../$ALIEN_INSTALLER_NAME.log";
-else						cat "$LOGFILE" >> "$ALIEN_USER_DIR/$ALIEN_INSTALLER_NAME.log"; fi
-
+#if [ "$ALIEN_TYPE" = "workernode" ]; then 	cat "$LOGFILE" >> "$ALIEN_USER_DIR/../$ALIEN_INSTALLER_NAME.log";
+#else						cat "$LOGFILE" >> "$ALIEN_USER_DIR/$ALIEN_INSTALLER_NAME.log"; fi
+cat "$LOGFILE" >> "$ALIEN_USER_DIR/$ALIEN_INSTALLER_NAME.log"
 rm "$LOGFILE"
 }
 
@@ -477,7 +477,7 @@ if [ -f "$LOCK" ]; then
 				if [ -f "$LOCK" ]; then rm -f "$LOCK"; fi
 			else
 				LOG normal "AliEn installation may already be running for $ALIEN_USER_DIR \n   Installation cancelled. Exit code: 0"
-				LOGFILERELOCATE
+				#LOGFILERELOCATE
 				exit 0; fi
 		fi
 	else
