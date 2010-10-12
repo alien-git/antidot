@@ -6,7 +6,6 @@ FILTER_OUT ?= apps/system/expat apps/perl/XML-Parser apps/gcc/gcc apps/system/db
 FILTER     ?= % 
 
 ALL=\
-apps/tools/eugridpma-carep \
 apps/alien/alien-ca \
 apps/alien/gapi 
 
