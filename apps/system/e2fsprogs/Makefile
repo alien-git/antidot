@@ -6,6 +6,8 @@ PATCHFILES = Makefile.in.diff
 
 MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/e2fsprogs/
 
+BININSTALL_IGNORE = true
+
 LIBDEPS = apps/gcc/gcc
 
 AUTHOR  =  Theodore Tso
