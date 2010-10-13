@@ -1,11 +1,11 @@
 GARNAME = IPC-Run
-GARVERSION = 0.79
+GARVERSION = 0.89
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+#                http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/IPC-Run-0.89.tar.gz
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RS/RSOD/ http://www.cpan.org/authors/id/R/RS/RSOD/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/R/RS/RSOD/
-
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/perl/perl
 
 DESCRIPTION = Child procs w/ piping, redir and psuedo-ttys
 AUTHOR = Richard Soderberg
