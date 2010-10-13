@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://pcaliproject.cern.ch/bits/
 
-LIBDEPS = extra/bits/Template extra/bits/Graphviz-perl extra/bits/SLOCcount apps/portal/httpd apps/base/ApMon
+LIBDEPS = extra/bits/Template extra/bits/Graphviz-perl extra/bits/SLOCcount apps/portal/httpd apps/perl/ApMon
 
 DESCRIPTION = AliEn Build Integration and Testing System
 AUTHOR = Catalin Cirstoiu
