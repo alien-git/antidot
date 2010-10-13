@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/A/AB/ABW/ http://www.cpan.org/authors/id/A/AB/ABW/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/A/AB/ABW/
 
-LIBDEPS = apps/base/perl
+LIBDEPS = apps/perl/perl
 
 DESCRIPTION = Application config (from ARGV, file, ...)
 AUTHOR = Andy Wardley
