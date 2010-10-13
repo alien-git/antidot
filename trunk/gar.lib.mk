@@ -485,6 +485,8 @@ variables:
 	@echo "DISTFILES = $(DISTFILES)"
 	@echo "PKG_BUILD_NUMBER = $(PKG_BUILD_NUMBER)"
 	@echo "BINDISTFILES = $(BINDISTFILES)"
+	@echo "BININSTALL_IGNORE = $(BININSTALL_IGNORE)"   
+	
 
 #################### TEST RULES ####################
 
