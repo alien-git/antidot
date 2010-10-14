@@ -1,5 +1,5 @@
---- work/Filesys-DiskFree-0.06/DiskFree.pm_orig	2008-12-05 12:31:13.221572484 +0100
-+++ work/Filesys-DiskFree-0.06/DiskFree.pm	2008-12-05 12:33:08.714420359 +0100
+--- work/Filesys-DiskFree-0.06/DiskFree.pm.orig	2010-09-15 12:02:36.000000000 +0200
++++ work/Filesys-DiskFree-0.06/DiskFree.pm	2010-09-15 12:05:33.000000000 +0200
 @@ -122,6 +122,25 @@
      close(HANDLE) or croak("Cannot df $!");
  }
@@ -26,6 +26,15 @@
  sub load()  {
      my $self=shift;
      my $handle=shift;
+@@ -222,7 +241,7 @@
+ sub device() { return extract(@_,'device'); }
+ sub total()  { return extract(@_,'total');  }
+ sub used()   { return extract(@_,'used');   }
+-sub avail()  { return extract(@_,'avail');  }
++sub avail()  {  my @l=extract(@_,'avail'); $l[0] and return $l[0]; my $self=shift; $self->df();return extract($self,@_,'avail');  }
+ sub mount()  { return extract(@_,'mount');  }
+ 
+ sub extract () {
 @@ -300,6 +319,13 @@
  
  Perfoms a 'df' command, and stores the values for later use.
