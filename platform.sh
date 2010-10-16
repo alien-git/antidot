@@ -18,19 +18,9 @@ case `$dir/config.guess` in
       	javaplatform=linux-x64
       	flavor=gcc64
       	;;
-    powerpc-apple-darwin8.*)
-      	platform=powerpc-apple-darwin8.1.0
-      	javaplatform=linux-ppc
-      	flavor=gcc32
-      	;;
-    i686-apple-darwin8.*|i686-apple-darwin9.*)
-		if [[ $host =~ "alimacx03" ]]; then
-        	platform=i686-apple-darwin8.6.1
-      		javaplatform=linux-i586
-      		flavor=gcc32
-		else
-        	platform=x86_64-apple-darwin8.6.1
-      		javaplatform=linux-i586
+    *darwin*)
+        	platform=x86_64-apple-darwin
+      		javaplatform=linux-x64
       		flavor=gcc64
 		fi 
       ;;
