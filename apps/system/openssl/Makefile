@@ -25,7 +25,7 @@ PLATFORM = $(shell ../../../platform.sh platform)
 CONFIGURE_ENV = CFLAGS="-g" CXXFLAGS="-g" CPPFLAGS="-g"
 BUILD_ENV = CFLAGS="-g" CXXFLAGS="-g" CPPFLAGS="-g"
 
-ifeq ($(PLATFORM), x86_64-apple-darwin8.6.1)
+ifeq ($(PLATFORM), x86_64-apple-darwin)
 CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
 else
 CONFIGURE_SCRIPTS = $(WORKSRC)/config
@@ -37,7 +37,7 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS =
 
-ifeq ($(PLATFORM), x86_64-apple-darwin8.6.1)
+ifeq ($(PLATFORM), x86_64-apple-darwin)
 CONFIGURE_ARGS += darwin64-x86_64-cc 
 endif
 
