@@ -22,7 +22,6 @@ case `$dir/config.guess` in
         	platform=x86_64-apple-darwin
       		javaplatform=linux-x64
       		flavor=gcc64
-		fi 
       ;;
     ia64-*-linux-gnu)
       	platform=ia64-unknown-linux-gnu
