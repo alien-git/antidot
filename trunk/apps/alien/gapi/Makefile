@@ -31,9 +31,6 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api --e
 
 include ../category.mk
 
-ifneq ($(shell uname -s),Darwin) 
-	PRE_CONFIGURE = (cd $(WORKSRC); ./bootstrap.sh;)
-endif
 #just to test
 ifeq ($(shell uname -s),Darwin)                                                                                                                                                                                                                                                                                             
     POST_INSTALL = (cd $(PREFIX)/api/lib ; ln -sf ../../lib/libxml2.dylib libxml2.dylib; ln -sf ../../lib/libxml2.a libxml2.a; ln -sf ../../lib/libxml2.2.dylib libxml2.2.dylib)                                                                                                                                                                                              
