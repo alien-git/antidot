@@ -540,9 +540,9 @@ if [ "$ALIEN_INSTALLER_PLATFORM" = "Linux" ]; then
 
 elif [ "$ALIEN_INSTALLER_PLATFORM" = "Darwin" ]; then
 		case "$ALIEN_INSTALLER_ARCH" in
-			i386) ALIEN_INSTALLER_PLATFORM=i686-apple-darwin8.6.1 ;;
-			i686) ALIEN_INSTALLER_PLATFORM=i686-apple-darwin8.6.1 ;;
-			x86_64) ALIEN_INSTALLER_PLATFORM=x86_64-apple-darwin8.6.1 ;;
+			i386) INTERRUPT -3 "Darwin 32bit platform no longer available" ;;
+			i686) INTERRUPT -3 "Darwin 32bit platform no longer available" ;;
+			x86_64) ALIEN_INSTALLER_PLATFORM=x86_64-apple-darwin ;;
 			*) LOG normal "Invalid platform was specified"
 			INTERRUPT -3 "Please use one of the following available platforms: ${ALIEN_PLATFORM_TYPES[*]}" ;;
 		esac; fi
