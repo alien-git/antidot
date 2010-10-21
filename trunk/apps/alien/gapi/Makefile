@@ -10,7 +10,7 @@ MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalien
 LIBDEPS = apps/tools/xrootd-secssl apps/devel/swig apps/system/e2fsprogs
 
 ifeq ($(shell uname -s),Darwin)
-	LIBDEPS += apps/base/readline
+	LIBDEPS += apps/system/readline
 	PATCHFILES += configure.patch
 endif
 
