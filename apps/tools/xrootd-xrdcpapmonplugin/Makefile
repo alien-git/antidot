@@ -4,10 +4,6 @@ CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
 
-ifeq ($(shell uname),Darwin)                                                                                                                                                                      
-    PATCHFILES = configure.patch                                                                                                                                                                  
-endif    
-
 MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/xrdcpapmonplugin/
 
 LIBDEPS = apps/tools/ApMon-CPP apps/tools/xrootd
