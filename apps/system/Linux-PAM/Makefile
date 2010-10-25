@@ -36,6 +36,6 @@ include ../category.mk
 
 ifeq ($(shell uname),Darwin)
     PRE_CONFIGURE = (cd $(WORKSRC); autoconf)
-    PRE_INSTALL  = (cd $(PREFIX)/lib; rm -f libpam.so.0; ln -s libpam.so.0.78 libpam.so.0)
+    PRE_INSTALL  = (cd $(PREFIX)/lib; ln -sf libpam.dylib.0.78 libpam.dylib.0; ln -sf libpamc.dylib.0.78 libpamc.dylib.0)
 endif
 
