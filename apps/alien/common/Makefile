@@ -59,3 +59,4 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 include ../category.mk
 
+PRE_CONFIGURE = (rm -f ~/.alien/Environment)
