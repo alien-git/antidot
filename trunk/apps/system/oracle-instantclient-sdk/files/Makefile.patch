@@ -7,7 +7,7 @@
 +all:
 +	echo "We are running make install for Oracle Instant Client"
 +	mkdir -p /opt/alien/oracle
-+	cp -f * /opt/alien/oracle
++	cp -rf * /opt/alien/oracle
 +
 +clean:
 +	echo "Cleaning Oracle Instant Client"
