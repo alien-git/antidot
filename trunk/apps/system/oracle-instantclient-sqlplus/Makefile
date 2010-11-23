@@ -5,6 +5,12 @@ CATEGORIES = perl
 #instantclient-sqlplus-linux-x86-64-11.2.0.2.0.zip
 DISTFILES =
 
+DISTNAME = instantclient_11_2
+PATCHFILES = Makefile.patch
+
+MASTER_SITES = 
+
+
 ifeq ($(shell ../../../platform.sh platform),x86_64-unknown-linux-gnu)
     DISTFILES = $(GARNAME)-linux-x86-64-$(GARVERSION).zip
 endif
@@ -15,14 +21,9 @@ endif
 
 ifeq ($(shell ../../../platform.sh platform),x86_64-apple-darwin)
     DISTFILES = $(GARNAME)-10.2.0.4.0-macosx-x64.zip
+    DISTNAME = instantclient_10_2
+    PATCHFILES = Makefile.macos.patch
 endif
-
-
-DISTNAME = instantclient_11_2
-
-PATCHFILES = Makefile.patch
-
-MASTER_SITES = 
 
 LIBDEPS = apps/gcc/gcc
 
