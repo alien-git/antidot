@@ -3,12 +3,6 @@ GARVERSION = 2.1.23
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#PATCHFILES = client.c.diff
-
-ifeq ($(shell uname),Darwin)
-PATCHFILES = gcc4.diff
-endif
-
 MASTER_SITES = http://ftp.andrew.cmu.edu/pub/cyrus-mail/
 
 LIBDEPS = apps/tools/globus-toolkit apps/system/openssl
