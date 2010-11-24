@@ -3,7 +3,7 @@ GARVERSION = 1.7.6
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).src.tar.gz
 DISTNAME = org.gridsite.core
-#PATCHFILES = Makefile.patch
+PATCHFILES = Makefile.patch
 
 MASTER_SITES = http://www.gridsite.org/download/sources/
 
