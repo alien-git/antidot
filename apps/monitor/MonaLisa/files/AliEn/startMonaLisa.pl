@@ -2,6 +2,8 @@
 # v0.3.9
 # Catalin.Cirstoiu@cern.ch
 
+# 01.12.2010 - adding a few modules available in 1.9.1
+#            - moved crontab after ML start (overriding ML default crontab)
 # 14/07/2008 - adding 2 new central services,PackManMaster and MessagesMaster
 # 24/10/2007 - run the checkJAStatus script less often (once each 30 minutes)
 #            - adding the ALIEN_*DIR (LOG, TMP, CACHE) directories to env for monitoring
@@ -318,6 +320,12 @@ link.default.phys=$eth
 	push(@$add, "#JobAgent LCG Status - from Stefano - reports using ApMon; output of last run in checkJAStatus.log");
 	push(@$add, '*JA_LCGStatus{monStatusCmd, localhost, "$ALIEN_ROOT/bin/alien -x $ALIEN_ROOT/scripts/lcg/checkJAStatus.pl -s 0 >checkJAStatus.log 2>&1,timeout=800"}%1800');
     }
+    
+    push(@$add, '*IPs{monIPAddresses, localhost, ""}%900');
+    push(@$add, '*MonaLisa_MemInfo{MemInfo, localhost, ""}%60');
+    push(@$add, '*MonaLisa_DiskDF{DiskDF, localhost, ""}%300');
+    push(@$add, '*MonaLisa_SysInfo{SysInfo, localhost, ""}%900');
+    push(@$add, '*MonaLisa_NetworkConfiguration{NetworkConfiguration, localhost, ""}%900');
 
     # setup the config for monitoring the log files of the configured services for this machine
     push(@$add, "#AliEn Services logs") if(keys(%$servicesLogs));
@@ -426,7 +434,7 @@ sub setupCrontab {
     my $farmHome = shift;
     
     my $ml_line = "0,5,10,15,20,25,30,35,40,45,50,55 * * * * /bin/sh -c 'export PATH=/bin:\$PATH ; export CONFDIR=$farmHome ; $ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/CHECK_UPDATE'\n";
-    my $lines = `env VISUAL=cat crontab -l | grep -v '/Service/CMD/CHECK_UPDATE'`;
+    my $lines = `env VISUAL=cat crontab -l | grep -v '/Service/CMD/CHECK_UPDATE' | grep -v '/Service/CMD/ML_SER'`;
     if(open(CRON, "| crontab -")){
 	print CRON $lines;
 	print CRON $ml_line;
@@ -443,7 +451,6 @@ sub setupCrontab {
 #print "Setting up ML config...\n";
 my $farmHome = "$config->{LOG_DIR}/MonaLisa";
 my $logDir = setupConfig($farmHome);
-setupCrontab($farmHome);
 #print "Starting ML...\n";
 
 # Start ML
@@ -451,7 +458,8 @@ my $r = system("export CONFDIR=$farmHome ; $ENV{ALIEN_ROOT}/java/MonaLisa/Servic
 system("ln -sf $farmHome/.ml.pid $config->{LOG_DIR}/MonaLisa.pid");
 system("ln -sf $logDir/ML0.log $config->{LOG_DIR}/MonaLisa.log");
 
+setupCrontab($farmHome);
+
 startAdditionalServices($farmHome, "$ENV{ALIEN_ROOT}/java/MonaLisa");
 
 exit $r;
-
