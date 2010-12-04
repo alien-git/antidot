@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/DBD-SQLite-1.31.tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/
 
-LIBDEPS = apps/perl/SQL-Statement 
+LIBDEPS = apps/perl/SQL-Statement  apps/perl/DBI
 
 DESCRIPTION = SQL engine and DBI driver for SQLite files
 AUTHOR = Adam Kennedy <adamk@cpan.org>
