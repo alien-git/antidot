@@ -21,7 +21,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS =  
+CONFIGURE_ARGS = ccflags=-I$(PREFIX)/x86_64-unknown-linux-gnu/4.1.2/lib/gcc/x86_64-unknown-linux-gnu/4.1.2/include/  
 BUILD_ARGS =  
 
 include ../category.mk
