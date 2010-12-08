@@ -21,7 +21,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 #CONFIGURE_ARGS = $(DIRPATHS) --oldincludedir=$(PREFIX)/include --enable-bdb=no --enable-hdb=no --enable-ldbm --enable-ldbm-api=gdbm --with-tls=openssl --with-cyrus-sasl --enable-dynamic --without-gssapi
-CONFIGURE_ARGS = $(DIRPATHS) --oldincludedir=$(PREFIX)/include --with-tls=openssl --with-cyrus-sasl --enable-dynamic --without-gssapi
+CONFIGURE_ARGS = $(DIRPATHS) --oldincludedir=$(PREFIX)/include --with-tls=openssl --enable-dynamic --without-gssapi
 
 include ../category.mk
 
