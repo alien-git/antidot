@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES =  http://search.cpan.org/CPAN/authors/id/G/GB/GBARR/
 
-LIBDEPS = apps/perl/Convert-ASN1 apps/perl/Authen-SASL apps/perl/XML-SAX-Writer apps/perl/IO-Socket-SSL
+LIBDEPS = apps/perl/Convert-ASN1 apps/perl/XML-SAX-Writer apps/perl/IO-Socket-SSL
 
 DESCRIPTION = Interface to LDAP Protocol (RFC1777)
 URL = http://ldap.perl.org/
