@@ -14,7 +14,6 @@ MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/
 LIBDEPS =  apps/perl/ApMon \
 apps/perl/Archive-Zip \
 apps/perl/Authen-PAM \
-apps/perl/Authen-SASL \
 apps/perl/Cache-Cache \
 apps/tools/classad \
 apps/perl/Crypt-OpenSSL-Random \
@@ -41,7 +40,6 @@ apps/perl/perl \
 apps/perl/perl-ldap \
 apps/perl/PlRPC \
 apps/perl/SOAP-Lite \
-apps/alien/sasl \
 apps/perl/uuid \
 apps/perl/URI \
 apps/perl/XML-Generator \
