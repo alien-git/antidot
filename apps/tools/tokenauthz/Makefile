@@ -9,7 +9,7 @@ endif
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/tkauthz/
 
-LIBDEPS = apps/perl/perl apps/system/libxml2 apps/devel/swig apps/system/openssl apps/tools/globus-toolkit
+LIBDEPS = apps/perl/perl apps/system/libxml2 apps/devel/swig apps/system/openssl
 
 AUTHOR  = Andreas Peters and Derek Feichtinger
 LICENSE = 
