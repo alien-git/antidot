@@ -11,7 +11,6 @@ apps/tools/xrootd-xrdcpapmonplugin  \
 apps/tools/xrootd-shellcmds \
 apps/alien/alien-ca \
 apps/system/Linux-PAM \
-apps/tools/cyrus-sasl \
 apps/perl/uuid
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
