@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = 
 
-LIBDEPS = apps/tools/globus-toolkit
+LIBDEPS = apps/tools/eugridpma-carep
 
 DESCRIPTION = AliEn CA certificate
 URL = 
