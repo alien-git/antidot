@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/C/CA/CAPTTOFU/
 
-LIBDEPS = apps/perl/perl apps/server/mysql apps/perl/DBI
+LIBDEPS = apps/perl/perl apps/server/mysql apps/perl/DBI apps/alien/admin
 
 DESCRIPTION = MySQL driver for DBI
 AUTHOR = Rudy Lippan
