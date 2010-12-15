@@ -19,7 +19,6 @@ apps/tools/classad \
 apps/perl/Crypt-OpenSSL-Random \
 apps/perl/Crypt-OpenSSL-RSA \
 apps/perl/Crypt-OpenSSL-X509 \
-apps/server/DBD-mysql \
 apps/perl/DBI \
 apps/perl/File-CacheDir \
 apps/perl/Filesys-DiskFree \
