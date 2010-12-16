@@ -17,6 +17,7 @@ apps/perl/Authen-PAM \
 apps/perl/Cache-Cache \
 apps/tools/classad \
 apps/perl/DBD-SQLite \
+apps/perl/Crypt-SSLeay \
 apps/perl/Crypt-OpenSSL-Random \
 apps/perl/Crypt-OpenSSL-RSA \
 apps/perl/Crypt-OpenSSL-X509 \
