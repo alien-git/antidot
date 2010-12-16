@@ -7,7 +7,7 @@ build_prefix=/opt/alien
 if [ "$prefix" != "$build_prefix" ]
 then
   case $app in 
-   */apps/base/perl)
+   */apps/perl/perl)
      echo Relocating $app
      config=`find $prefix/lib/perl5 -name Config.pm -exec grep -l "This file was created by configpm" {} \;`
      if [ "$config" = "" ] ; then
@@ -26,13 +26,7 @@ then
           perl -pi -e "s%$build_prefix/%$prefix/%g" $file
      done
      ;;
-   */apps/base/globus)
-     echo Relocating $app
-     if [ -f $prefix/globus/setup/globus/setup-globus-common ]
-     then
-       env GLOBUS_LOCATION=$prefix/globus GPT_LOCATION=$prefix/globus PERL5LIB="$prefix/globus/lib/perl5:$prefix/lib/perl5" $prefix/bin/perl $prefix/globus/setup/globus/setup-globus-common.pl
-     fi 
-     ;;
+
    */apps/alien/gapi)
      echo Relocating $app
      (cd $prefix/api/bin; ./alien_apiservice-bootstrap)
@@ -44,37 +38,17 @@ then
        $prefix/bin/alien-perl --bootstrap --prefix $prefix
      fi
      ;;
-   */apps/base/curl)
+   */apps/tools/curl)
      echo Relocating $app
      perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/curl-config
      ;;
-   */apps/base/libgpg-error)
-     echo Relocating $app
-     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/gpg-error-config
-     ;;
-   */apps/base/libgcrypt)
-     echo Relocating $app
-     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/libgcrypt-config
-     ;;
-   */apps/base/gnutls)
-     echo Relocating $app
-     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/libgnutls-config $prefix/bin/libgnutls-extra-config
-     ;;
-   */apps/base/uuid)
+   */apps/perl/uuid)
      echo Relocating $app
      perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/uuid-config
      ;;
-   */apps/base/libxml2)
+   */apps/system/libxml2)
      echo Relocating $app
      perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/xml2-config
-     ;;
-   */apps/gui/freetype2)
-     echo Relocating $app
-     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/freetype-config
-     ;;
-   */apps/devel/pkgconfig)
-     echo Relocating $app
-     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/pkg-config
      ;;
      *)
       ;;
