@@ -515,7 +515,7 @@ buildtime:
 	    echo $$checksumsTime >> work/TIME.tmp; \
 	fi
 	@if [[ "$(MASTER_SITES)" =~ ^.*pserver.*$$ ]]; then \
-	    cvsTime="`cd $(WORKSRC) && cvs log 2>&1 | $(GARDIR)../../parseCVSLog.sh $(GARCVSVERSION)`"; \
+	    cvsTime="`cd $(WORKSRC) && LD_LIBRARY_PATH= cvs log 2>&1 | $(GARDIR)../../parseCVSLog.sh $(GARCVSVERSION)`"; \
 	    echo $$cvsTime >> work/TIME.tmp; \
 	fi
 	@sort work/TIME.tmp | tail -n1 > work/TIME
