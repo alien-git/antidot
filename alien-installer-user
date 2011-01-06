@@ -343,7 +343,7 @@ else
 	if [ ! "${ALIEN_USER_DIR:0:1}" = "/"  ]; then ALIEN_USER_DIR="$(pwd)/$ALIEN_USER_DIR"; fi
 	if [ ! -d "$ALIEN_USER_DIR" ]; then
 		
-		mkdir $ALIEN_USER_DIR
+		mkdir -p $ALIEN_USER_DIR
 		if [ ! $? = 0 ]; then 	INTERRUPT -3 "Failed to create user directory. Please check you have correct permissions."
 		else			LOG verbose "$ALIEN_USER_DIR created successfully"; fi
 		
@@ -407,7 +407,7 @@ GETINSTALLTIME()
 ALIEN_TIME_END=`tail -n 1 "$LOCK" | awk '{ print $3 }'`
 ALIEN_TIME_START=`head -n 2 "$LOCK" | tail -n 1 | awk '{ print $3 }'`
 
-ALIEN_TIME_ELAPSED=$(( $ALIEN_TIME_END - $ALIEN_TIME_START ))
+ALIEN_TIME_ELAPSED=$(($ALIEN_TIME_END - $ALIEN_TIME_START))
 }
 
 
@@ -419,7 +419,7 @@ GETLASTACTIVITY()
 ALIEN_TIME_CURRENT=`date +%s`
 ALIEN_TIME_LAST=`tail -n 1 "$LOCK" | awk '{ print $3 }'`
 
-ALIEN_TIME_ACTIVITY=$(( $ALIEN_TIME_CURRENT - $ALIEN_TIME_LAST ))
+ALIEN_TIME_ACTIVITY=$(($ALIEN_TIME_CURRENT - $ALIEN_TIME_LAST))
 }
 
 
@@ -742,38 +742,35 @@ if [ "$prefix" != "$build_prefix" ]; then
 	
 	# For everything but user distribution, do full relocation (perl, globus etc)
 	if [ "$ALIEN_TYPE" != "user" ]; then
-
 		config=`find $prefix/lib/perl5 -name Config.pm -exec grep -l "This file was created by configpm" {} \;`
-		LOG verbose "Perl relocation: config=$config"		
+		LOG silent "Perl relocation: config=$config"		
 	
 		if [ "$config" = "" ] ; then INTERRUPT -5 "Couldn't find Config.pm in $prefix/lib/perl5!"; fi
-
-	perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix%$prefix%sg; s%$build_prefix %$prefix %sg " $config
+	
+		perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix%$prefix%sg; s%$build_prefix %$prefix %sg " $config
 		if [ ! "$?" = "0" ]; then 	INTERRUPT -5 "Perl relocation: Failed for Config.pm"
-		else 			LOG silent "Perl relocation: Config.pm done"; fi
+		else 				LOG silent "Perl relocation: Config.pm done"; fi
+		
 		config=`find $prefix/lib/perl5 -path "*/CORE/config.h"`
-
 		if [ "$config" = "" ] ; then INTERRUPT -5 "Couldn't find CORE/config.h in $prefix/lib/perl5!"; fi
 		
 		perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg; s%\"$build_prefix\"%\"$prefix\"%sg; " $config
-		
 		if [ "$?" != 0 ]; then 	INTERRUPT -5 "Perl relocation: Failed for CORE/config.h"
 		else 			LOG silent "Perl relocation: CORE/config.h done"; fi
 		
 		for file in `find $prefix/lib/perl5 -name .packlist`
 		do
-			perl -pi -e "s%$build_prefix/%$prefix/%g" $file
-			
+			perl -pi -e "s%$build_prefix/%$prefix/%g" $file	
 			if [ "$?" != 0 ]; then 	INTERRUPT -5 "Perl relocation: Failed for $file"
 			else 			LOG silent "Perl relocation: $file done"; fi
 		done
 		
 		if [ -f $prefix/globus/setup/globus/setup-globus-common ]; then	
 			env GLOBUS_LOCATION=$prefix/globus GPT_LOCATION=$prefix/globus PERL5LIB="$prefix/globus/lib/perl5:$prefix/lib/perl5" $prefix/bin/perl $prefix/globus/setup/globus/setup-globus-common.pl
-			LOG verbose "globus relocation done"; fi
-		
+			LOG silent "globus relocation done"; fi
+
 		if [ -f $prefix/bin/alien-perl ]; then
-			$prefix/bin/alien-perl --bootstrap --prefix $prefix
+			$prefix/bin/alien-perl --bootstrap --prefix $prefix >> $LOGFILE
 			if [ "$?" != 0 ]; then 	INTERRUPT -5 "alien-perl: failed relocation"
 			else 			LOG silent "alien-perl: relocation done"; fi
 		fi
@@ -783,12 +780,12 @@ if [ "$prefix" != "$build_prefix" ]; then
 	do
 	if [ -f $prefix/bin/$p ] ; then
 		perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix%$prefix%sg; s%$build_prefix %$prefix %sg " $prefix/bin/$p
-		if [ "$?" != 0 ]; then INTERRUPT -5 "$p: relocation failed"
-		else LOG silent "$p: relocation done"; fi
+		if [ "$?" != 0 ]; then	INTERRUPT -5 "$p: relocation failed"
+		else			LOG silent "$p: relocation done"; fi
 	fi
 	done
 
-	(cd $prefix/api/bin; ./alien_apiservice-bootstrap)
+	(cd $prefix/api/bin; ./alien_apiservice-bootstrap >> $LOGFILE)
 	if [ "$?" != 0 ]; then 	INTERRUPT -5 "gapi: failed relocation"
 	else 			LOG silent "gapi: relocation done"; fi
 fi
