@@ -19,13 +19,13 @@ ifeq ($(shell uname),Darwin)
     BUILD_SCRIPTS = $(WORKSRC)/Makefile
     INSTALL_SCRIPTS = $(WORKSRC)/Makefile
     
-    CONFIGURE_ARGS = --with-base-directory=$(PREFIX) --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-openssl-libdir=$(PREFIX) --with-openssl-incdir=$(PREFIX)/include --with-krb5=$(PREFIX) --enable-gsi --disable-posix --enable-secssl --disable-apps
+    CONFIGURE_ARGS = --with-base-directory=$(PREFIX) --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-xml-incdir=$(PREFIX)/include/libxml2 --with-xml-libdir=$(PREFIX)/lib --with-openssl-libdir=$(PREFIX) --with-openssl-incdir=$(PREFIX)/include --with-krb5=$(PREFIX) --enable-gsi --disable-posix --enable-secssl --disable-apps
 else
     CONFIGURE_SCRIPTS = $(WORKSRC)/configure.classic
     BUILD_SCRIPTS = $(WORKSRC)/GNUmakefile
     INSTALL_SCRIPTS = $(WORKSRC)/GNUmakefile
     
-    CONFIGURE_ARGS = --syslibs=$(PREFIX)/lib --incpfx=$(PREFIX)/include --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-ssl-libdir=$(PREFIX)/lib --with-ssl-incdir=$(PREFIX)/include --with-krb5=$(PREFIX)  --with-ssl-shared=yes --enable-gsi --disable-posix --no-arch-subdirs
+    CONFIGURE_ARGS = --syslibs=$(PREFIX)/lib --incpfx=$(PREFIX)/include --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-xml-incdir=$(PREFIX)/include/libxml2 --with-xml-libdir=$(PREFIX)/lib --with-ssl-libdir=$(PREFIX)/lib --with-ssl-incdir=$(PREFIX)/include --with-krb5=$(PREFIX)  --with-ssl-shared=yes --enable-gsi --disable-posix --no-arch-subdirs
 endif
 
 CONFIGURE_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib"
