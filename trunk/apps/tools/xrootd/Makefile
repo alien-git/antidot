@@ -19,7 +19,7 @@ ifeq ($(shell uname),Darwin)
     BUILD_SCRIPTS = $(WORKSRC)/Makefile
     INSTALL_SCRIPTS = $(WORKSRC)/Makefile
     
-    CONFIGURE_ARGS = --with-base-directory=$(PREFIX) --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-xml-incdir=$(PREFIX)/include/libxml2 --with-xml-libdir=$(PREFIX)/lib --with-openssl-libdir=$(PREFIX) --with-openssl-incdir=$(PREFIX)/include --with-krb5=$(PREFIX) --enable-gsi --disable-posix --enable-secssl --disable-apps
+    CONFIGURE_ARGS = --with-base-directory=$(PREFIX) --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-xml2-incdir=$(PREFIX)/include/libxml2 --with-xml2-libdir=$(PREFIX)/lib --with-openssl-libdir=$(PREFIX)/lib --with-openssl-incdir=$(PREFIX)/include --with-krb5-incdir=$(PREFIX)/include --with-krb5-libdir=$(PREFIX)/lib --enable-gsi --disable-posix --enable-secssl --disable-apps
 else
     CONFIGURE_SCRIPTS = $(WORKSRC)/configure.classic
     BUILD_SCRIPTS = $(WORKSRC)/GNUmakefile
