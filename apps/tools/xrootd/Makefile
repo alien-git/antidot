@@ -42,4 +42,4 @@ else
     PRE_CONFIGURE = (cd  $(WORKSRC)/src/XrdClient;  swig -perl XrdClientAdmin_c.hh)
 endif
 
-POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* ; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
+POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* libxml2.* libz.*; ln -s ../../lib/libcrypto.* ../../lib/libssl.* ../../lib/libxml2.* ../../lib/libz.* .)
