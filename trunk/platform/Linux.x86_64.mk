@@ -17,5 +17,5 @@ OWN_LDFLAGS = -L$(PREFIX)/lib
 export GARLIBEXT=so
 export GARSHARED=-shared
 
-export MASKED := apps/gui/qt-mac-opensource-src= apps/base/bash= apps/lcg/lcg-gfal= apps/lcg/lcg-util= apps/base/google-perftools=
+export MASKED := 
 
