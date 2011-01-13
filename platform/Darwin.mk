@@ -12,6 +12,7 @@ apps/portal/gridsite= \
 apps/portal/mod_macro= \
 apps/portal/mod_perl= \
 apps/system/kerberos= \
+apps/system/zlib= \
 apps/aria2/aria2= \
 apps/devel/autoconf= \
 apps/devel/automake= \
