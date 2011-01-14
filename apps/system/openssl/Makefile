@@ -1,6 +1,11 @@
 GARNAME = openssl
 
-GARVERSION = 0.9.8o
+GARVERSION = 0.9.8l
+#ifeq ($(shell uname),Darwin)
+#GARVERSION = 0.9.8j
+#else
+#GARVERSION = 0.9.7e
+#endif
 
 CATEGORIES = apps-tools
 
@@ -17,10 +22,13 @@ LICENSE = Apache
 
 PLATFORM = $(shell ../../../platform.sh platform)
 
+CONFIGURE_ENV = CFLAGS="-g" CXXFLAGS="-g" CPPFLAGS="-g"
+BUILD_ENV = CFLAGS="-g" CXXFLAGS="-g" CPPFLAGS="-g"
+
 ifeq ($(PLATFORM), x86_64-apple-darwin)
-    CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
+CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
 else
-    CONFIGURE_SCRIPTS = $(WORKSRC)/config
+CONFIGURE_SCRIPTS = $(WORKSRC)/config
 endif
 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
@@ -30,11 +38,17 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 CONFIGURE_ARGS =
 
 ifeq ($(PLATFORM), x86_64-apple-darwin)
-    CONFIGURE_ARGS += darwin64-x86_64-cc 
+CONFIGURE_ARGS += darwin64-x86_64-cc 
 endif
 
-CONFIGURE_ARGS += --prefix=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib
-#Ubuntu --prefix=/usr --openssldir=/usr/lib/ssl no-idea no-mdc2 no-rc5 zlib  enable-tlsext no-sslv2 
+#iifeq ($(shell uname),Darwin)
+#CONFIGURE_ARGS += --openssldir=$(PREFIX) 
+#else
+CONFIGURE_ARGS += --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib
+#endif
 
 include ../category.mk
 
+#ifeq ($(shell uname -s),Linux)
+#PRE_CONFIGURE = (cp $(WORKSRC)/../../files/atasi.h $(PREFIX)/include)
+#endif
