@@ -15,6 +15,8 @@ AUTHOR = Andy Hanushevsky
 LICENSE =
 
 ifeq ($(shell uname),Darwin)
+
+    PATCHFILES = XrdCryptoFactory.patch
     CONFIGURE_SCRIPTS = $(WORKSRC)/configure
     BUILD_SCRIPTS = $(WORKSRC)/Makefile
     INSTALL_SCRIPTS = $(WORKSRC)/Makefile
