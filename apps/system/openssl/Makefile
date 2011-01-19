@@ -1,14 +1,6 @@
 GARNAME = openssl
-
 GARVERSION = 0.9.8l
-#ifeq ($(shell uname),Darwin)
-#GARVERSION = 0.9.8j
-#else
-#GARVERSION = 0.9.7e
-#endif
-
 CATEGORIES = apps-tools
-
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://www.openssl.org/source/ 
@@ -22,33 +14,11 @@ LICENSE = Apache
 
 PLATFORM = $(shell ../../../platform.sh platform)
 
-CONFIGURE_ENV = CFLAGS="-g" CXXFLAGS="-g" CPPFLAGS="-g"
-BUILD_ENV = CFLAGS="-g" CXXFLAGS="-g" CPPFLAGS="-g"
-
-ifeq ($(PLATFORM), x86_64-apple-darwin)
-CONFIGURE_SCRIPTS = $(WORKSRC)/Configure
-else
 CONFIGURE_SCRIPTS = $(WORKSRC)/config
-endif
 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS =
-
-ifeq ($(PLATFORM), x86_64-apple-darwin)
-CONFIGURE_ARGS += darwin64-x86_64-cc 
-endif
-
-#iifeq ($(shell uname),Darwin)
-#CONFIGURE_ARGS += --openssldir=$(PREFIX) 
-#else
-CONFIGURE_ARGS += --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib
-#endif
+CONFIGURE_ARGS = --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib
 
 include ../category.mk
-
-#ifeq ($(shell uname -s),Linux)
-#PRE_CONFIGURE = (cp $(WORKSRC)/../../files/atasi.h $(PREFIX)/include)
-#endif
