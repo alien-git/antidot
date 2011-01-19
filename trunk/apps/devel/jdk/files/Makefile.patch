@@ -1,5 +1,5 @@
---- work/jdk/Makefile	2009-08-17 15:23:36.000000000 +0200
-+++ work/jdk/Makefile.new	2009-08-17 15:25:12.000000000 +0200
+--- work/jdk/Makefile.new	2009-08-17 15:25:12.000000000 +0200
++++ work/jdk/Makefile	2009-08-17 15:23:36.000000000 +0200
 @@ -0,0 +1,26 @@
 +build:
 +ifneq ($(shell uname -s),Darwin)
