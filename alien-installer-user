@@ -770,7 +770,7 @@ if [ "$prefix" != "$build_prefix" ]; then
 			LOG silent "globus relocation done"; fi
 
 		if [ -f $prefix/bin/alien-perl ]; then
-			$prefix/bin/alien-perl --bootstrap --prefix $prefix >> $LOGFILE
+			$ALIEN_INSTALL_DIR/bin/alien-perl --bootstrap --prefix $ALIEN_INSTALL_DIR >> $LOGFILE
 			if [ "$?" != 0 ]; then 	INTERRUPT -5 "alien-perl: failed relocation"
 			else 			LOG silent "alien-perl: relocation done"; fi
 		fi
