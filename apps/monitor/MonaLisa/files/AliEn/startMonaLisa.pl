@@ -172,12 +172,13 @@ sub getAliEnServicesLogs {
     my $srvConf  = "$ENV{ALIEN_HOME}/etc/aliend/$ENV{ALIEN_ORGANISATIONS}/startup.conf";
     my $csLogDir = "$ENV{ALIEN_HOME}/var/log/AliEn/$ENV{ALIEN_ORGANISATIONS}";
     my $ssLogDir = $config->{LOG_DIR};
-    my @csList = qw(Proxy IS Authen Server Logger TransferManager Broker TransferBroker TransferOptimizer JobOptimizer CatalogueOptimizer PackManMaster MessagesMaster SEManager JobInfoManager);
+    my @csList = qw(Proxy IS Authen Server Logger TransferManager Broker TransferBroker JobBroker TransferOptimizer JobOptimizer CatalogueOptimizer PackManMaster MessagesMaster SEManager JobInfoManager);
     my @ssList = qw(Monitor SE PackMan CE MonaLisa FTD httpd);
     
     my $serv2log = {
 	"Proxy"		    => "ProxyServer",
 	"Broker"	    => "Broker::Job",
+	"JobBroker"	    => "Broker::Job",
 	"TransferBroker"    => "Broker::Transfer",
 	"Server"	    => "Manager::Job",
 	"TransferManager"   => "Manager::Transfer",
