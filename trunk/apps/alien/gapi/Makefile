@@ -7,7 +7,7 @@ PATCHFILES = configure.ac.patch
 
 MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalienfs/
 
-LIBDEPS = apps/tools/xrootd apps/devel/swig apps/system/e2fsprogs
+LIBDEPS = apps/tools/xrootd apps/devel/swig apps/system/e2fsprogs apps/tools/cronolog
 
 ifeq ($(shell uname -s),Darwin)
 	LIBDEPS += apps/system/readline
