@@ -21,14 +21,14 @@ INTERRUPT()
 STOPDOTS
 STOPLOCK
 
-if [ -f "$TMPFILE" ]; then rm -f "$TMPFILE"; fi
-if [ -f "$LOCK" ]; then rm -f "$LOCK"; fi
+if [ -f "$TMPFILE" ]; then 	rm -f "$TMPFILE"; fi
+if [ -f "$LOCK" ]; then 	rm -f "$LOCK"; fi
 
 ERROR_CODE="$1"
 shift 1
 
 if 	[ "$ERROR_CODE" = "" ]; then		LOG normal " \n   Installation interrupted. Exit code: -2"; exit -2;
-elif 	[ "$ERROR_CODE" = "-3" ]; then	LOG normal "$@ Exit code: $ERROR_CODE";
+elif 	[ "$ERROR_CODE" = "-3" ]; then		LOG normal "$@ Exit code: $ERROR_CODE";
 else
 	MOVETOFAILED "$ALIEN_INSTALL_DIR"
 	LOG normal "$@ \n   Installation cancelled. Exit code: $ERROR_CODE"; fi
@@ -80,14 +80,9 @@ LOG()
 #	- silent: 	Only log the message. Do not display.	
 # 	- process: 	Special print, used for download/dot prints.
 
-if [ "$1" = "process" ]; then
-	shift 1
-	echo -n "   $@"
-elif [ ! "$ALIEN_INSTALLER_VERBOSE" = "1" -a "$1" = "verbose" ] || [ "$1" = "silent" ]; then
-	shift 1
-else
-	shift 1
-	echo -e "   $@"; fi
+if [ "$1" = "process" ]; then 									shift 1; echo -n "   $@";
+elif [ ! "$ALIEN_INSTALLER_VERBOSE" = "1" -a "$1" = "verbose" ] || [ "$1" = "silent" ]; then 	shift 1;
+else 												shift 1; echo -e "   $@"; fi
 
 echo "[$$] "`date +"%F %T"`: "$@" >> "$LOGFILE"
 }
@@ -120,7 +115,6 @@ STARTDOTS()
 {
 # Log the initial process message.
 LOG process "$@"
-
 # Start print of dots as a separate process.
 PRINTDOTS &
 ALIEN_DOT_PID=$!
@@ -134,10 +128,9 @@ STOPDOTS()
 if [ ! "$ALIEN_DOT_PID" = "" ]; then
 	TMP_PROCESS=`ps -p "$ALIEN_DOT_PID"`
 	if [ ! "$TMP_PROCESS" = "" ]; then
-		disown 	$ALIEN_DOT_PID >/dev/null 2>&1
-		kill 	$ALIEN_DOT_PID >/dev/null 2>&1
-		
-		# Reset the dot process process identifier.
+		disown $ALIEN_DOT_PID >/dev/null 2>&1
+		kill $ALIEN_DOT_PID >/dev/null 2>&1
+		# Reset the dot process identifier.
 		ALIEN_DOT_PID=""; fi
 	LOG normal "Done"; fi
 }
@@ -175,7 +168,7 @@ while [ $# -gt 0 ]
 		ALIEN_VERSION=$1 ;;
 	-platform|--platform)
 		shift 1
-		ALIEN_INSTALLER_PLATFORM=$1 ;;
+		ALIEN_MACHINE_PLATFORM=$1 ;;
 	-arch|--arch|--architecture|-architecture)
 		shift 1
 		ALIEN_INSTALLER_ARCH=$1 ;;
@@ -231,7 +224,6 @@ GETDOWNLOADCLIENT()
 {
 # Determine the download client to use. Currently, this can be either curl or wget.
 # The download prefixes are set accordingly. Exit with an error if none are found.
-
 which wget >/dev/null 2>&1
 if [ $? -eq 0 ]; then
 	ALIEN_DOWNLOAD_CLIENT=wget
@@ -247,7 +239,6 @@ else
 		else 						ALIEN_DOWNLOAD_PREFIX="-s"; fi
 	else 	INTERRUPT -3 "curl and wget were not found on your system."; fi
 fi
-
 LOG verbose "Download client: $ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX <path> $ALIEN_DOWNLOAD_OUTPUT <file-output>"
 }
 
@@ -266,12 +257,10 @@ ALIEN_VERSIONS=(`cat "$TMPFILE" | awk 'BEGIN { FS = "_" } ; { print $1 }' | sort
 ALIEN_TYPES=(`cat "$TMPFILE" | awk 'BEGIN { FS = "_" } ; { print $2 }' | awk 'BEGIN { FS = "=" } ; { print $1 }' | sort | uniq`)
 
 LOG verbose "AliEn versions available: ${ALIEN_VERSIONS[*]} || Types available: ${ALIEN_TYPES[*]}"
-
 rm "$TMPFILE"
 
 # "user" installation is set as default. If ALIEN_TYPE is specified, then verify
 # its validity (within the list of available types) before proceeding any further.
-
 if [ "$ALIEN_TYPE" = "" ]; then
 	ALIEN_TYPE=user
 	LOG verbose "Default installation type: $ALIEN_TYPE"
@@ -333,8 +322,6 @@ FINDUSERDIR()
 {
 # If user did not specify a directory then use $HOME/alien as default. Otherwise, check
 # that the current directory can be written to i.e. correct write permissions.
-#ALIEN_INSTALLER_HOME=${ALIEN_INSTALLER_HOME=$HOME/.alien/cache}
-
 if [ "$ALIEN_USER_DIR" = "" ]; then
 	ALIEN_INSTALL_DIR=${ALIEN_INSTALL_DIR=$HOME/alien}
 	ALIEN_USER_DIR=${ALIEN_INSTALL_DIR}
@@ -346,7 +333,6 @@ else
 		mkdir -p $ALIEN_USER_DIR
 		if [ ! $? = 0 ]; then 	INTERRUPT -3 "Failed to create user directory. Please check you have correct permissions."
 		else			LOG verbose "$ALIEN_USER_DIR created successfully"; fi
-		
 		SETINSTALLDIR
 		rm -rf "$ALIEN_USER_DIR"
 	else
@@ -375,9 +361,8 @@ STARTLOCK()
 {
 # Starts a loop that updates the lock file every 10 seconds
 # with the hostname, current time and the installation directory.
-
-while [ true ];
-do	echo "$$ $HOSTNAME $(date +%s) $ALIEN_INSTALL_DIR" >> "$LOCK"
+while [ true ]; do
+	echo "$$ $HOSTNAME $(date +%s) $ALIEN_INSTALL_DIR" >> "$LOCK"
 	sleep 10
 done
 }
@@ -394,7 +379,6 @@ if [ ! "$ALIEN_LOCK_PID" = "" ]; then
 		disown 	$ALIEN_LOCK_PID >/dev/null 2>&1
 		kill 	$ALIEN_LOCK_PID >/dev/null 2>&1; fi
 fi
-
 if [ -f "$LOCK" ]; then rm -f "$LOCK"; fi
 }
 
@@ -406,7 +390,6 @@ GETINSTALLTIME()
 # Determine the installation time
 ALIEN_TIME_END=`tail -n 1 "$LOCK" | awk '{ print $3 }'`
 ALIEN_TIME_START=`head -n 2 "$LOCK" | tail -n 1 | awk '{ print $3 }'`
-
 ALIEN_TIME_ELAPSED=$(($ALIEN_TIME_END - $ALIEN_TIME_START))
 }
 
@@ -418,7 +401,6 @@ GETLASTACTIVITY()
 # Determine how long ago was the installer active
 ALIEN_TIME_CURRENT=`date +%s`
 ALIEN_TIME_LAST=`tail -n 1 "$LOCK" | awk '{ print $3 }'`
-
 ALIEN_TIME_ACTIVITY=$(($ALIEN_TIME_CURRENT - $ALIEN_TIME_LAST))
 }
 
@@ -470,7 +452,6 @@ if [ -f "$LOCK" ]; then
 				GETPROCESSLIST "$ALIEN_PROCESS"
 				LOG verbose "Previous installation processes list: ${PROCESS_LIST[@]}"
 				kill ${PROCESS_LIST[@]}
-
 				ALIEN_PREVIOUS_INSTALL=`tail -n 1 "$LOCK" | awk '{ print $4 }'`
 				MOVETOFAILED "$ALIEN_PREVIOUS_INSTALL"
 				if [ -f "$TMPFILE" ]; then rm -f "$TMPFILE"; fi
@@ -485,7 +466,6 @@ if [ -f "$LOCK" ]; then
 			STARTDOTS "Waiting for the existing installation to finish."
 			WAITFORLOCK
 			STOPDOTS
-
 			SERVICERESTART
 			LOG normal "Services restarted for an existing installation."
 			exit 0
@@ -498,14 +478,11 @@ if [ -f "$LOCK" ]; then
 			exit 0; fi
 	fi
 fi
-
-# Create a new lock file 
+# Start a new lock
 echo "AliEn $ALIEN_TYPE installation for: $ALIEN_USER_DIR using $ALIEN_INSTALLER_NAME" >> "$LOCK"
 echo "$$ $HOSTNAME $(date +%s) $ALIEN_INSTALL_DIR" >> "$LOCK"
-
 STARTLOCK &
 ALIEN_LOCK_PID=$!
-
 LOG verbose "Lock initiated on process: $ALIEN_LOCK_PID for $ALIEN_USER_DIR installation of AliEn $ALIEN_TYPE"
 }
 
@@ -515,21 +492,27 @@ FINDPLATFORM()
 #############################################################
 {
 # If platform was not specified by the user, then use uname
-if [ "$ALIEN_INSTALLER_PLATFORM" = "" ]; then ALIEN_INSTALLER_PLATFORM=$(uname -s); fi
+if [ "$ALIEN_MACHINE_PLATFORM" = "" ]; then ALIEN_MACHINE_PLATFORM=$(uname -s); fi
 
-# Check if the platform is Darwin and determine the appropriate architecture
+# Special checks for Darwin and Ubuntu machines
 if [ "$ALIEN_INSTALLER_ARCH" = "" ]; then
 	ALIEN_INSTALLER_ARCH=$(uname -m)
-	if [ "$ALIEN_INSTALLER_PLATFORM" = "Darwin" ]; then
+	if [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" ]; then
 		sysctl machdep.cpu.extfeatures | grep "64" > /dev/null 2>&1
 		if [ $? -eq 0 ]; then 	ALIEN_INSTALLER_ARCH=x86_64;
 		else			ALIEN_INSTALLER_ARCH=i686; fi
-	fi
+		ALIEN_SYSTEM_VERSION=`system_profiler SPSoftwareDataType | grep "System Version" | awk '{ number=NF-1; print $number }' | awk 'BEGIN { FS="." } { print $1"."$2 }'`
+		LOG normal "Darwin version determined as: $ALIEN_SYSTEM_VERSION"
+		if [ $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $1 }') -lt 10 -a $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $2 }') -lt 6 ]; then INTERRUPT -3 "Darwin $ALIEN_SYSTEM_VERSION not supported."; fi
+	elif [ "$ALIEN_INSTALLER_ARCH" = "x86_64" -a "$(lsb_release -i | awk '{print $NF}')" = "Ubuntu" ]; then 
+		ALIEN_MACHINE_PLATFORM=Ubuntu
+		ALIEN_SYSTEM_VERSION=`lsb_release -r | awk '{ print $2 }'`
+		if [ $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $1 }') -lt 10 -a $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $2 }') -lt 4 ]; then LOG verbose "Ubuntu $ALIEN_SYSTEM_VERSION not compatible. Using SLC settings."; ALIEN_MACHINE_PLATFORM=Linux; fi
+	else	ALIEN_MACHINE_PLATFORM=Linux; fi
 fi
 
-LOG verbose "Platform determined as: $ALIEN_INSTALLER_PLATFORM \n   Architecture determined as: $ALIEN_INSTALLER_ARCH"
-
-if [ "$ALIEN_INSTALLER_PLATFORM" = "Linux" ]; then
+LOG verbose "Platform determined as: $ALIEN_MACHINE_PLATFORM \n   Architecture determined as: $ALIEN_INSTALLER_ARCH"
+if [ "$ALIEN_MACHINE_PLATFORM" = "Linux" ]; then
 		case "$ALIEN_INSTALLER_ARCH" in
 			i686) ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu ;;
 			ia64) ALIEN_INSTALLER_PLATFORM=ia64-unknown-linux-gnu ;;
@@ -537,8 +520,14 @@ if [ "$ALIEN_INSTALLER_PLATFORM" = "Linux" ]; then
 			*) LOG normal "Invalid architecture was specified"
 			INTERRUPT -3 "Please use one of the following available architectures: ${ALIEN_ARCH_TYPES[*]}" ;;
 		esac
-
-elif [ "$ALIEN_INSTALLER_PLATFORM" = "Darwin" ]; then
+elif [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then
+		case "$ALIEN_INSTALLER_ARCH" in
+			i686) LOG verbose "$ALIEN_MACHINE_PLATFORM 32 bits is not available. Switching to Linux 32 bits."; ALIEN_MACHINE_PLATFORM="Linux"; ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu ;;
+			i386) LOG verbose "$ALIEN_MACHINE_PLATFORM 32 bits is not available. Switching to Linux 32 bits."; ALIEN_MACHINE_PLATFORM="Linux"; ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu ;;
+			x86_64) ALIEN_INSTALLER_PLATFORM=x86_64-unknown-linux-gnu ;;
+			*) INTERRUPT -3 "Please use one of the following available architectures: ${ALIEN_ARCH_TYPES[*]}";;
+		esac
+elif [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" ]; then
 		case "$ALIEN_INSTALLER_ARCH" in
 			i386) INTERRUPT -3 "Darwin 32bit platform no longer available" ;;
 			i686) INTERRUPT -3 "Darwin 32bit platform no longer available" ;;
@@ -546,7 +535,7 @@ elif [ "$ALIEN_INSTALLER_PLATFORM" = "Darwin" ]; then
 			*) LOG normal "Invalid platform was specified"
 			INTERRUPT -3 "Please use one of the following available platforms: ${ALIEN_PLATFORM_TYPES[*]}" ;;
 		esac; fi
-LOG normal "Platform set as: $ALIEN_INSTALLER_PLATFORM"
+LOG normal "Platform set as $ALIEN_MACHINE_PLATFORM: $ALIEN_INSTALLER_PLATFORM"
 }
 
 
@@ -592,7 +581,8 @@ $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BUILD_URL/BitServers" "$
 if  [ $? != 0 ]; then INTERRUPT -3 "Error getting file $releases"; fi
 
 # Map relevant platform to a build server
-ALIEN_BITS_URL=`grep "$ALIEN_INSTALLER_PLATFORM" "$TMPFILE" | awk '{print $3'}`
+if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 	ALIEN_BITS_URL=`grep "$ALIEN_MACHINE_PLATFORM" "$TMPFILE" | awk '{ print $3 }'`;
+else 							ALIEN_BITS_URL=`grep "$ALIEN_INSTALLER_PLATFORM" "$TMPFILE" | awk '{print $3'}`; fi
 
 if [ "$ALIEN_BITS_URL" = "" ]; then
 	cat $TMPFILE | LOG normal
@@ -639,16 +629,12 @@ else
 		LOG normal "Checking the version to be installed (if it is newer than $ALIEN_EXISTING_VERSION)"
 		
 		if [ "$ALIEN_EXISTING_VERSION" = "$ALIEN_VERSION.$ALIEN_MINOR_VERSION" ]; then
-			
 			LOG normal "You have the latest version installed ($ALIEN_EXISTING_VERSION). No installation is necessary"
-			STOPLOCK    
-
+			STOPLOCK
 			if [ -f "$TMPFILE" ]; then rm -f "$TMPFILE"; fi
 			if [ -f "$LOCK" ]; then rm -f "$LOCK"; fi
-			
 			LOG normal "Installation cancelled"
-			
-			LOGFILERELOCATE			
+			LOGFILERELOCATE
 			exit 0
 		fi
 	else 	LOG verbose "No existing version was found for $ALIEN_USER_DIR. Installing new version"; fi
@@ -765,12 +751,20 @@ if [ "$prefix" != "$build_prefix" ]; then
 			else 			LOG silent "Perl relocation: $file done"; fi
 		done
 		
+		config=$prefix/httpd/conf/httpd.conf
+		if [ -f "$config" ]; then
+		        perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg; s%\"$build_prefix\"%\"$prefix\"%sg; " $config
+		        if [ "$?" != 0 ]; then  INTERRUPT -5 "Httpd relocation: Failed for $config";
+		        else                    LOG silent "Httpd relocation: $config done"; fi
+		fi
+		
 		if [ -f $prefix/globus/setup/globus/setup-globus-common ]; then	
-			env GLOBUS_LOCATION=$prefix/globus GPT_LOCATION=$prefix/globus PERL5LIB="$prefix/globus/lib/perl5:$prefix/lib/perl5" $prefix/bin/perl $prefix/globus/setup/globus/setup-globus-common.pl
+			env GLOBUS_LOCATION=$prefix/globus GPT_LOCATION=$prefix/globus PERL5LIB="$prefix/globus/lib/perl5:$prefix/lib/perl5" $prefix/bin/perl $prefix/globus/setup/globus/setup-globus-common.pl >> $LOGFILE
 			LOG silent "globus relocation done"; fi
 
 		if [ -f $prefix/bin/alien-perl ]; then
-			$ALIEN_INSTALL_DIR/bin/alien-perl --bootstrap --prefix $ALIEN_INSTALL_DIR >> $LOGFILE
+			#$prefix/bin/alien-perl --bootstrap --prefix $prefix >> $LOGFILE
+			$prefix/bin/alien-perl --bootstrap --prefix $ALIEN_INSTALL_DIR >> $LOGFILE
 			if [ "$?" != 0 ]; then 	INTERRUPT -5 "alien-perl: failed relocation"
 			else 			LOG silent "alien-perl: relocation done"; fi
 		fi
@@ -816,36 +810,45 @@ if [ ! -d "$HOME/bin" ]; then
 
 LOG verbose "Creating soft links to alien-token-init and aliensh in $HOME/bin"
 
-if [ -f "$HOME/bin/alien-token-init" ]; then
-	LOG verbose "Links already exist. Overwriting them."
-	rm "$HOME/bin/alien-token-init" "$HOME/bin/aliensh"; fi
+if [ "$ALIEN_TYPE" = "vobox" ]; then
+	LOG verbose "Creating/Overriding links to alien and aliend in $HOME/bin"
+	if [ -f "$HOME/bin/alien" ]; then 	LOG verbose "$HOME/bin/alien already exists. Overwriting them."; rm "$HOME/bin/alien"; fi
+	ln -s "$ALIEN_INSTALL_DIR/scripts/alien" "$HOME/bin/alien"
+	if [ -f "$HOME/bin/aliend" ]; then	LOG verbose "$HOME/bin/aliend already exists. Overwriting them."; rm "$HOME/bin/aliend"; fi
+	ln -s "$ALIEN_INSTALL_DIR/etc/rc.d/init.d/aliend" "$HOME/bin/aliend"
+else
+	LOG verbose "Creating soft links to alien-token-init and aliensh in $HOME/bin"
+	if [ -f "$HOME/bin/alien-token-init" ]; then LOG verbose "Links already exist. Overwriting them."; rm "$HOME/bin/alien-token-init" "$HOME/bin/aliensh"; fi
 
 cat >> $HOME/bin/alien-token-init << EOF
 #! /bin/bash
 (cd $ALIEN_INSTALL_DIR/api/bin && ./alien-token-init \$@)
 EOF
 
-chmod +x "$HOME/bin/alien-token-init"
-
-ln -s "$ALIEN_INSTALL_DIR/api/bin/aliensh" "$HOME/bin/aliensh";
+	chmod +x "$HOME/bin/alien-token-init"
+	ln -s "$ALIEN_INSTALL_DIR/api/bin/aliensh" "$HOME/bin/aliensh"
+fi
 }
 
 #################################################################################################
 ################################## Main #########################################################
 
 # Arrays listing available platforms and architectures 
-ALIEN_PLATFORM_TYPES=(Linux Darwin)
+ALIEN_PLATFORM_TYPES=(Linux Ubuntu Darwin)
 ALIEN_ARCH_TYPES=(i686 i386 ia64 x86_64)
-ALIEN_BUILD_URL="http://alienbuild.cern.ch:8888"
+ALIEN_BUILD_URL="http://alienbuild.cern.ch:8880"
 
 # Designating the names and locations of temporary files
 ALIEN_INSTALLER_NAME=`basename "$0"`
-TMPFILE=`pwd`"/.$ALIEN_INSTALLER_NAME.$$.tmp"
 LOGFILE=`pwd`"/$ALIEN_INSTALLER_NAME.log"
+if [ -f "$LOGFILE" ]; then rm "$LOGFILE"; LOG verbose "Previous $LOGFILE removed"; fi
+TMPFILE=`pwd`"/.$ALIEN_INSTALLER_NAME.$$.tmp"
+if [ -f "$TMPFILE" ]; then rm "$TMPFILE"; LOG verbose "Previous $TMPFILE removed"; fi
 
 # Clearing the environment for the installation
 ALIEN_VERSION=""
 ALIEN_INSTALLER_PLATFORM=""
+ALIEN_MACHINE_PLATFORM=""
 
 # Parse arguments provided by the user
 PARSEARGUMENTS $*
@@ -913,8 +916,11 @@ else			LOG verbose "$ALIEN_INSTALL_DIR created successfully"; fi
 
 cd $ALIEN_INSTALL_DIR
 
-if [ "$ALIEN_TORRENT" = "1" ]; then	DOWNLOADTORRENT
-else					DOWNLOADNORMAL; fi
+if [ "$ALIEN_TORRENT" = "1" ]; then	
+    if [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" -o "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 	
+		LOG verbose "Torrent installation for $ALIEN_MACHINE_PLATFORM is not available. Using normal download."; DOWNLOADNORMAL;
+    else	DOWNLOADTORRENT; fi
+else		DOWNLOADNORMAL; fi
 
 LOG verbose "Testing $ALIEN_INSTALL_DIR/bin/perl"
 
