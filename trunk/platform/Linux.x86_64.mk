@@ -17,5 +17,13 @@ OWN_LDFLAGS = -L$(PREFIX)/lib
 export GARLIBEXT=so
 export GARSHARED=-shared
 
-export MASKED := 
+UBUNTU_PLATFORM=$(shell uname -a | grep -c -i ubuntu)
+
+ifeq ($(UBUNTU_PLATFORM),1)
+    export MASKED := apps/gcc/gcc
+else
+    export MASKED := 
+endif
+
+
 
