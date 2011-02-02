@@ -28,5 +28,5 @@ CONFIGURE_ENV  =  env CFLAGS=-DSSL_EXPERIMENTAL_ENGINE
 
 include ../category.mk
 
-
+POST_INSTALL = (patch $(PREFIX)/httpd/conf/httpd.conf files/httpd.conf.patch)
 
