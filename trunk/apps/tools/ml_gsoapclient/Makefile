@@ -3,8 +3,14 @@ GARVERSION = 2.7.10
 CATEGORIES = libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+PATCHFILES =
+
 ifeq ($(shell uname),Darwin)
-    PATCHFILES = configure.patch
+    PATCHFILES += configure.patch
+endif
+
+ifeq ($(shell uname -a | grep -c -i ubuntu),1)
+    PATCHFILES += testWS.cxx.patch
 endif
 
 MASTER_SITES = http://monalisa.cacr.caltech.edu/download/monalisa/
