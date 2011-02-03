@@ -3,8 +3,6 @@ use Apache::SOAP;
 use AliEn::Logger;
 use AliEn::Database::TaskQueue;
 
-#my @services=qw( ClusterMonitor ) ;
-#);
 my @services=qw( ClusterMonitor ) ;
 
 #following line is a mark for 300-prepareBankService.t. Please don't remove or modify 
