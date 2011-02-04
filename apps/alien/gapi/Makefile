@@ -9,11 +9,6 @@ MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalien
 
 LIBDEPS = apps/tools/xrootd apps/devel/swig apps/system/e2fsprogs apps/tools/cronolog
 
-ifeq ($(shell uname -s),Darwin)
-	LIBDEPS += apps/system/readline
-	PATCHFILES += configure.patch
-endif
-
 DESCRIPTION = ARDA/ALICE packages for API Client+Server
 URL = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice
 LICENSE =
