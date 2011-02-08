@@ -646,8 +646,8 @@ if [ "$?" != 0 ]; then
 		ALIEN_BITS_URL=""
 		FINDRELEASES
 		# Define the url from where AliEn is downloaded
-		if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 	FILE=${ALIEN_BITS_URL}alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
-		else 							FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2; fi
+		if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then FILE=${ALIEN_BITS_URL}alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
+		else FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2; fi
 		$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $FILE "$ALIEN_DOWNLOAD_OUTPUT" alien.tar.gz
 		if [ "$?" != 0 ]; then INTERRUPT -4 "Error downloading alien distribution tarball"; fi
 	else
@@ -682,8 +682,8 @@ bzip2 -c -d "$TCLIENT" | tar -x
 if [ "$?" != 0 ]; then FALLBACKTONORMAL "Error extracting the torrent client."; fi
 
 # Define the url from where AliEn is downloaded
-if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 	FULLNAME=alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
-else 							FULLNAME=alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2; fi
+if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 	FULLNAME="alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE-$ALIEN_INSTALLER_ARCH.tar.bz2";
+else FULLNAME="alien-$ALIEN_VERSION-$ALIEN_TYPE-$ALIEN_INSTALLER_ARCH.tar.bz2"; fi
 TFILE="$WWWROOT/torrents/$FULLNAME.torrent"
 
 LOG normal "Getting the torrent"
@@ -906,8 +906,8 @@ if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
 	STOPDOTS; fi
 
 # Define the url from where AliEn is downloaded
-if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 	FILE=${ALIEN_BITS_URL}alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
-else 							FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2; fi
+if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then FILE=${ALIEN_BITS_URL}alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
+else FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2; fi
 
 # Create the installation directory for AliEn
 mkdir -p $ALIEN_INSTALL_DIR
