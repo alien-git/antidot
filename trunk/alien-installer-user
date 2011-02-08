@@ -487,14 +487,14 @@ if [ "$ALIEN_INSTALLER_ARCH" = "" ]; then
 		else			ALIEN_INSTALLER_ARCH=i686; fi
 		ALIEN_SYSTEM_VERSION=`system_profiler SPSoftwareDataType | grep "System Version" | awk '{ number=NF-1; print $number }' | awk 'BEGIN { FS="." } { print $1"."$2 }'`
 		LOG normal "Darwin version determined as: $ALIEN_SYSTEM_VERSION"
-		if [ ! "$ALIEN_FORCE_INSTALLATION"="1" ]; then
-			if [ $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $1 }') -lt 10 -a $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $2 }') -lt 6 ]; then INTERRUPT -3 "Darwin $ALIEN_SYSTEM_VERSION not supported."; fi
+		if [ "$ALIEN_FORCE_INSTALLATION" = "" ]; then
+			if [ $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $1 }') -lt 10 -o $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $2 }') -lt 6 ]; then INTERRUPT -3 "Darwin $ALIEN_SYSTEM_VERSION not supported."; fi
 		else LOG normal "Darwin version ignored. Installation forced."; fi
 	elif [ "$ALIEN_INSTALLER_ARCH" = "x86_64" -a "$(lsb_release -i | awk '{print $NF}')" = "Ubuntu" ]; then 
 		ALIEN_MACHINE_PLATFORM=Ubuntu
 		ALIEN_SYSTEM_VERSION=`lsb_release -r | awk '{ print $2 }'`
-		if [ ! "$ALIEN_FORCE_INSTALLATION" = "1" ]; then
-			if [ $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $1 }') -lt 10 -a $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $2 }') -lt 4 ]; then LOG verbose "Ubuntu $ALIEN_SYSTEM_VERSION not compatible. Using SLC settings."; ALIEN_MACHINE_PLATFORM=Linux; fi
+		if [ "$ALIEN_FORCE_INSTALLATION" = "" ]; then
+			if [ $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $1 }') -lt 10 -o $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $2 }') -lt 10 ]; then LOG verbose "Ubuntu $ALIEN_SYSTEM_VERSION not compatible. Using SLC settings."; ALIEN_MACHINE_PLATFORM=Linux; fi
 		else LOG normal "Ubuntu version $ALIEN_SYSTEM_VERSION ignored. Installation forced."; fi
 	else	ALIEN_MACHINE_PLATFORM=Linux; fi
 fi
@@ -848,6 +848,7 @@ if [ -f "$TMPFILE" ]; then rm "$TMPFILE"; LOG verbose "Previous $TMPFILE removed
 ALIEN_VERSION=""
 ALIEN_INSTALLER_PLATFORM=""
 ALIEN_MACHINE_PLATFORM=""
+ALIEN_FORCE_INSTALLATION=""
 
 # Parse arguments provided by the user
 PARSEARGUMENTS $*
