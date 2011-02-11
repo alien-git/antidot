@@ -158,6 +158,9 @@ while [ $# -gt 0 ]
 	-type|--type)
 		shift 1
 		ALIEN_TYPE=$1 ;;
+	-v|--v)
+		echo "AliEn installer version : $ALIEN_INSTALLER_VERSION"
+		exit 0 ;;
 	-torrent|--torrent)	
 		ALIEN_TORRENT=1 ;;
 	-notorrent|--notorrent)	
@@ -187,6 +190,7 @@ while [ $# -gt 0 ]
 	esac
 	shift 1
 done
+LOG verbose "AliEn installer version: $ALIEN_INSTALLER_VERSION"
 }
 
 #############################################################
@@ -198,6 +202,7 @@ echo "
 Usage: $0 [arguments] Makes an automatic installation of the services
   -install-dir <path> 	Specify installation directory (default: $HOME/alien)
   -type <type>       	Specify AliEn distribution to install (default: user)
+  -v|--v 		Prints current installer version
   -help                 Print a list of available options
   -help-more		Print an advanced list of available options
 "
@@ -316,7 +321,7 @@ FINDUSERDIR()
 if [ "$ALIEN_USER_DIR" = "" ]; then
 	ALIEN_INSTALL_DIR=${ALIEN_INSTALL_DIR=$HOME/alien}
 	ALIEN_USER_DIR=${ALIEN_INSTALL_DIR}
-	LOG normal "Installing in the default directory: $ALIEN_USER_DIR \n If you wish to install in a specific directory do: ./alien-installer -install-dir <path>"
+	LOG normal "Installing in the default directory: $ALIEN_USER_DIR \n   If you wish to install in a specific directory do: ./alien-installer -install-dir <path>"
 else
 	if [ ! "${ALIEN_USER_DIR:0:1}" = "/"  ]; then ALIEN_USER_DIR="$(pwd)/$ALIEN_USER_DIR"; fi
 	if [ ! -d "$ALIEN_USER_DIR" ]; then
@@ -817,7 +822,7 @@ if [ "$ALIEN_TYPE" = "vobox" ]; then
 	ln -s "$ALIEN_INSTALL_DIR/etc/rc.d/init.d/aliend" "$HOME/bin/aliend"
 else
 	LOG verbose "Creating soft links to alien-token-init and aliensh in $HOME/bin"
-	if [ -L "$HOME/bin/alien-token-init" ]; then LOG verbose "Links already exist. Overwriting them."; rm "$HOME/bin/alien-token-init" "$HOME/bin/aliensh"; fi
+	if [ -L "$HOME/bin/alien-token-init" ]; then LOG verbose "Link $HOME/alien-token-init already exists. Overwriting it."; rm "$HOME/bin/alien-token-init"; fi
 
 cat >> $HOME/bin/alien-token-init << EOF
 #! /bin/bash
@@ -825,6 +830,7 @@ cat >> $HOME/bin/alien-token-init << EOF
 EOF
 
 	chmod +x "$HOME/bin/alien-token-init"
+	if [ -L "$HOME/bin/aliensh" ]; then LOG verbose "Link $HOME/aliensh aliready exists. Overwriting it."; rm "$HOME/bin/aliensh"; fi
 	ln -s "$ALIEN_INSTALL_DIR/api/bin/aliensh" "$HOME/bin/aliensh"
 fi
 }
@@ -833,6 +839,7 @@ fi
 ################################## Main #########################################################
 
 # Arrays listing available platforms and architectures 
+ALIEN_INSTALLER_VERSION=1.44
 ALIEN_PLATFORM_TYPES=(Linux Ubuntu Darwin)
 ALIEN_ARCH_TYPES=(i686 i386 ia64 x86_64)
 ALIEN_BUILD_URL="http://alienbuild.cern.ch:8880"
