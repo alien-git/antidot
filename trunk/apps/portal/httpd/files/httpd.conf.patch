@@ -53,7 +53,7 @@
 > </Location>
 > PerlSwitches -I/opt/alien/lib/perl5 -I /opt/alien/pro/lib/perl5/site_perl
 > PerlModule Apache2::compat
-> PerlPassEnv HOME
+> PerlPassEnv  HOME
 > PerlPassEnv  ALIEN_ROOT
 > PerlPassEnv  ALIEN_USER
 > PerlPassEnv  ALIEN_HOME
