@@ -53,4 +53,12 @@
 > </Location>
 > PerlSwitches -I/opt/alien/lib/perl5 -I /opt/alien/pro/lib/perl5/site_perl
 > PerlModule Apache2::compat
+> PerlPassEnv HOME
+> PerlPassEnv  ALIEN_ROOT
+> PerlPassEnv  ALIEN_USER
+> PerlPassEnv  ALIEN_HOME
+> PerlPassEnv  ALIEN_ORGANISATION
+> PerlPassEnv  GLOBUS_LOCATION
+> PerlPassEnv  X509_USER_PROXY
+> PerlPassEnv  X509_CERT_DIR
 > PerlConfigRequire /home/bits/.alien/httpd/conf.8084/startup.pl 
