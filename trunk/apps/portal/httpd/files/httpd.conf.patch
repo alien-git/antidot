@@ -19,7 +19,11 @@
 ---
 > #    Order deny,allow
 > #    Deny from all
-409a415,456
+290c295
+<     TypesConfig conf/mime.types
+---
+>     TypesConfig mime.types
+409a415,457
 > 
 > 
 > 
@@ -55,6 +59,7 @@
 > PerlModule Apache2::compat
 > PerlPassEnv  HOME
 > PerlPassEnv  ALIEN_ROOT
+> PerlPassEnv  ALIEN_DOMAIN
 > PerlPassEnv  ALIEN_USER
 > PerlPassEnv  ALIEN_HOME
 > PerlPassEnv  ALIEN_ORGANISATION
