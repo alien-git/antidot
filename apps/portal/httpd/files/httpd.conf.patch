@@ -19,10 +19,6 @@
 ---
 > #    Order deny,allow
 > #    Deny from all
-290c295
-<     TypesConfig conf/mime.types
----
->     TypesConfig mime.types
 409a415,457
 > 
 > 
