@@ -8,7 +8,7 @@ ifeq ($(shell uname),Darwin)
     PATCHFILES = configure.patch
 endif
 
-MASTER_SITES = https://svnweb.cern.ch/trac/CERNXROOT/export/744/trunk/source-tgz/
+MASTER_SITES = https://svnweb.cern.ch/trac/CERNXROOT/export/757/trunk/source-tgz/
 
 LIBDEPS = apps/tools/xrootd apps/perl/uuid
 
