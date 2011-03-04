@@ -14,7 +14,8 @@ apps/monitor/MonaLisa \
 apps/perl/Config-ApacheFormat \
 apps/perl/Term-ReadLine-Gnu \
 apps/perl/POE \
-apps/portal/mod_perl
+apps/portal/mod_perl \
+apps/tools/aria2
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
