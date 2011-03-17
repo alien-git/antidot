@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://graphviz.org/pub/graphviz/ARCHIVE/
 
-LIBDEPS = apps/gcc/gcc apps/system/zlib apps/system/expat
+LIBDEPS = apps/gcc/gcc apps/system/zlib apps/system/expat apps/devel/swig
 
 DESCRIPTION = Graph Visualization Software
 URL = http://graphviz.org/
@@ -16,7 +16,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --disable-tcl
 
 
 include ../category.mk
