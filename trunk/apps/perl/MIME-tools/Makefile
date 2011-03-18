@@ -1,13 +1,12 @@
 GARNAME = MIME-tools
-GARVERSION = 5.500
+GARVERSION = 5.502
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-CPAN_AUTHOR_ID=/D/DS/DSKOLL/
+#http://search.cpan.org/CPAN/authors/id/D/DS/DSKOLL/MIME-tools-5.502.tar.gz
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DS/DSKOLL/
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DO/DONEILL/
-
-LIBDEPS = apps/perl/IO-Stringy apps/perl/MailTools
+LIBDEPS = apps/perl/IO-Stringy apps/perl/MailTools apps/perl/Test-Deep
 
 DESCRIPTION =  Parses streams to create MIME entities
 AUTHOR = David F. Skoll 
