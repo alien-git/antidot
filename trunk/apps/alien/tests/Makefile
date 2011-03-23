@@ -1,4 +1,4 @@
-CVS_TAG = $(shell echo '$$Name$$' | awk '{print $$2}' | sed -e 's/^\$$$$/HEAD/' )
+CVS_TAG = $(shell echo '$$Name$$' | awk '{print $$2}' | sed -e 's/^\$$$$/trunk/' )
 
 GARNAME = alien-tests
 GARVERSION = $(CVS_TAG)
@@ -11,7 +11,7 @@ PATCHFILES =
 GARCVSNAME    = alien-tests
 GARCVSVERSION = $(CVS_TAG)
 
-MASTER_SITES = pserver://cvs@alisoft.cern.ch:/soft/cvsroot/
+MASTER_SITES = svn-https://alisoft.cern.ch/
 
 LIBDEPS = apps/alien/common apps/alien/admin apps/alien/lcg apps/server/DBD-mysql apps/server/openldap apps/perl/Expect
 
