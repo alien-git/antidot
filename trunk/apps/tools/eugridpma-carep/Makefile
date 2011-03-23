@@ -23,6 +23,6 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 include ../category.mk
 
-PRE_INSTALL = (for a in $(WORKDIR)/*; do test -f "$$a" && mv "$$a" $(WORKSRC); done)
+PRE_INSTALL = (for a in $(WORKDIR)/*; do mv "$$a" $(WORKSRC); done)
 
 

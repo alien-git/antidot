@@ -4,4 +4,4 @@
 +all:
 +install:
 +		mkdir -p $(GLOBUS_LOCATION)/share/certificates/
-+		cp -f *.*  $(GLOBUS_LOCATION)/share/certificates; 
++		cp -d -f *.*  $(GLOBUS_LOCATION)/share/certificates; 
