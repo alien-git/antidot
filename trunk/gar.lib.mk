@@ -51,7 +51,7 @@ $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
 		for i in $(filter %/$*,$(URLS)); do  \
-			$(MAKE) -s $$i || continue; \
+			$(MAKE) -s $$i > /dev/null 2>&1 || continue; \
 			$(MAKECOOKIE); \
 			break; \
 		done; \
