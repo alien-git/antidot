@@ -506,17 +506,23 @@ buildtime:
 	    exit 1; \
 	fi; \
 	echo $$makefileTime > work/TIME.tmp; 
-	@if [[ ! "$(MASTER_SITES)" =~ ^.*pserver.*$$ ]]; then \
-	    checksumsTime="`$(GARDIR)/parseCVSFileLog.sh checksums`"; \
-	    if [[ "$$makefileTime" =~ ^.*ERROR.*$$ ]]; then \
-		echo "ERROR getting Makefile time"; \
-		exit 1; \
-	    fi; \
-	    echo $$checksumsTime >> work/TIME.tmp; \
-	fi
 	@if [[ "$(MASTER_SITES)" =~ ^.*pserver.*$$ ]]; then \
 	    cvsTime="`cd $(WORKSRC) && LD_LIBRARY_PATH= cvs log 2>&1 | $(GARDIR)../../parseCVSLog.sh $(GARCVSVERSION)`"; \
 	    echo $$cvsTime >> work/TIME.tmp; \
+	fi
+	@if [[ "$(MASTER_SITES)" =~ ^.*svn.*$$ ]]; then \
+	    cvsTime="`cd $(WORKSRC) && LD_LIBRARY_PATH= svn info 2>&1 | $(GARDIR)../../parseSVNLog.sh`"; \
+	    echo $$cvsTime >> work/TIME.tmp; \
+	fi
+	@if [[ ! "$(MASTER_SITES)" =~ ^.*pserver.*$$ ]]; then \
+	    if [[ ! "$(MASTER_SITES)" =~ ^.*svn.*$$ ]]; then \
+		checksumsTime="`$(GARDIR)/parseCVSFileLog.sh checksums`"; \
+		    if [[ "$$makefileTime" =~ ^.*ERROR.*$$ ]]; then \
+		    echo "ERROR getting Makefile time"; \
+		    exit 1; \
+		fi; \
+		echo $$checksumsTime >> work/TIME.tmp; \
+	    fi \
 	fi
 	@sort work/TIME.tmp | tail -n1 > work/TIME
 	@rm work/TIME.tmp
