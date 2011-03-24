@@ -1,0 +1,21 @@
+--- work/org.gridsite.core/src/Makefile.old	2010-11-24 15:16:33.000000000 +0100
++++ work/org.gridsite.core/src/Makefile	2010-11-24 15:16:54.000000000 +0100
+@@ -44,9 +44,7 @@
+ export prefix=/usr/local
+ endif
+ 
+-ifndef libdir
+ export libdir=lib
+-endif
+ 
+ ifndef MYCFLAGS
+ export MYCFLAGS=-I. -I../interface -I/usr/include/httpd -I/usr/include/apache2 -I/usr/include/apr-0 -I/usr/include/apr-1 -I/usr/include/apr-1.0 -I/opt/glite/include -fPIC -DLINUX=2 -D_REENTRANT -D_LARGEFILE64_SOURCE $(HTTPD_FLAGS) 
+@@ -426,7 +424,7 @@
+ 	ln -sf htcp $(prefix)/bin/htping
+ 	ln -sf htcp $(prefix)/bin/htfind
+ 	cp -f gsexec $(prefix)/sbin
+-	cp -f mod_gridsite.so $(prefix)/$(libdir)/httpd/modules
++	cp -f mod_gridsite.so $(prefix)/httpd/modules
+ 
+ install-lib:
+ 	mkdir -p $(prefix)/$(libdir)

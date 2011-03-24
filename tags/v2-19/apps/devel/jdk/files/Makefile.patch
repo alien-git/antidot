@@ -1,0 +1,29 @@
+--- work/jdk/Makefile.new	2009-08-17 15:25:12.000000000 +0200
++++ work/jdk/Makefile	2009-08-17 15:23:36.000000000 +0200
+@@ -0,0 +1,26 @@
++build:
++ifneq ($(shell uname -s),Darwin)
++	$(PREFIX)/bin/perl ../../files/get_java.pl $(JAVA_PLATFORM) $(JAVA_VERSION) $(MASTER_SITES) && \
++	JAVA_BIN=`ls j*.bin` && \
++	echo "yes" | sh $$JAVA_BIN | tee /dev/null
++else
++	echo Java is already installed on Darwin
++endif
++
++install:
++ifneq ($(shell uname -s),Darwin)
++	rm -rf $(PREFIX)/jdk && mkdir -p $(PREFIX)/jdk; \
++	JDK_DIR=`find .  -maxdepth 1 -mindepth 1 -type d | grep -i jdk | awk -F / '{print $$2}'` ; \
++	echo "Dir = $$JDK_DIR"; \
++	if test -d $$JDK_DIR; then  mv -f $$JDK_DIR/* $(PREFIX)/jdk ; else \
++	    echo "Error installing JDK"; \
++	fi;
++else
++	echo Java is already installed on Darwin
++endif
++
++clean:
++	if test -d $(PREFIX)/jdk; then  rm -rf $(PREFIX)/jdk/* ; else \
++	    echo "No JDK installed"; \
++	fi;
++

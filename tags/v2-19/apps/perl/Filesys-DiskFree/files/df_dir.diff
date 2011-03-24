@@ -1,0 +1,51 @@
+--- work/Filesys-DiskFree-0.06/DiskFree.pm.orig	2010-09-15 12:02:36.000000000 +0200
++++ work/Filesys-DiskFree-0.06/DiskFree.pm	2010-09-15 12:05:33.000000000 +0200
+@@ -122,6 +122,25 @@
+     close(HANDLE) or croak("Cannot df $!");
+ }
+ 
++sub df_dir(){
++    my $self=shift;
++    my $cmd="df";
++
++    $cmd=$self->command() or
++       croak "No df command known for format ".$self->{'FORMAT'};
++    if(@_){
++       if($_[0]){
++
++           open(HANDLE,"$cmd $_[0]|") or croak("Cannot fork $!");
++        }
++    }
++    if($self->load(\*HANDLE)){
++       close(HANDLE);
++       return 'true';
++    }
++    close(HANDLE) or croak("Cannot df $!");
++}
++
+ sub load()  {
+     my $self=shift;
+     my $handle=shift;
+@@ -222,7 +241,7 @@
+ sub device() { return extract(@_,'device'); }
+ sub total()  { return extract(@_,'total');  }
+ sub used()   { return extract(@_,'used');   }
+-sub avail()  { return extract(@_,'avail');  }
++sub avail()  {  my @l=extract(@_,'avail'); $l[0] and return $l[0]; my $self=shift; $self->df();return extract($self,@_,'avail');  }
+ sub mount()  { return extract(@_,'mount');  }
+ 
+ sub extract () {
+@@ -300,6 +319,13 @@
+ 
+ Perfoms a 'df' command, and stores the values for later use.
+ 
++=item Filesys::DiskFree->df_dir($dir)
++
++Perfoms a 'df' command in the given directory $dir, and stores the
++values for later use. This command only has problems with NFS if
++$dir is not reachable, wheras df() hangs if any of the NFS mounted
++directories is not reachable. Tested only for Linux.
++
+ =item Filesys::DiskFree->command()
+ 
+ Returns the appropriate command to do a 'df' command, for the current
