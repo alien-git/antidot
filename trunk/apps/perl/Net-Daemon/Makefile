@@ -1,12 +1,12 @@
 GARNAME = Net-Daemon
-GARVERSION = 0.43
+GARVERSION = 0.48
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 DISTNAME =  $(GARNAME)
 
-PATCHFILES = 5.10.patch
+#PATCHFILES = 5.10.patch
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MN/MNOONING/Net-Daemon/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MN/MNOONING/Net-Daemon/ http://search.cpan.org/CPAN/authors/id/M/MN/MNOONING/
 
 LIBDEPS = apps/perl/perl
 
