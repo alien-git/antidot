@@ -94,7 +94,7 @@ pserver//%:
 # download the file from a svn server using plain http, with an URL like svn-http://hostname/svn/$(NAME)/tags/$(VERSION)
 #if we try to build the trunk then we have to use svn-http://hostname/svn/$(NAME)/trunk
 svn-http//%:
-	GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION=$(GARCVSREVISION); GARCVSNAME=$(GARCVSNAME); GARCVSBRANCH=$(GARCVSBRANCH); MASTER_SITES=$(dir $*)
+#	GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION=$(GARCVSREVISION); GARCVSNAME=$(GARCVSNAME); GARCVSBRANCH=$(GARCVSBRANCH); MASTER_SITES=$(dir $*)
 	@if [ $(GARCVSVERSION) = "trunk" ]; then \
 	        cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); \
 	else \
