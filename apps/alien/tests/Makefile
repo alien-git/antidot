@@ -1,4 +1,4 @@
-CVS_TAG = $(shell ../../../getSVNVersion.sh ) 
+CVS_TAG = $(shell ../../../getSVNVersion.sh)
 
 GARNAME = alien-tests
 GARVERSION = $(CVS_TAG)
