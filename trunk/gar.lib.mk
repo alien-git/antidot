@@ -94,39 +94,22 @@ pserver//%:
 # download the file from a svn server using plain http, with an URL like svn-http://hostname/svn/$(NAME)/tags/$(VERSION)
 #if we try to build the trunk then we have to use svn-http://hostname/svn/$(NAME)/trunk
 svn-http//%:
-	echo "GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION=$(GARCVSREVISION); GARCVSNAME=$(GARCVSNAME); GARCVSBRANCH=$(GARCVSBRANCH); MASTER_SITES=$(dir $*)"
+	GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION=$(GARCVSREVISION); GARCVSNAME=$(GARCVSNAME); GARCVSBRANCH=$(GARCVSBRANCH); MASTER_SITES=$(dir $*)
 	@if [ $(GARCVSVERSION) = "trunk" ]; then \
-		if [ -n "$(GARCVSREVISION)" ]; then 	cd $(DOWNLOADDIR) && svn co -r $(GARCVSREVISION) http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); \
-		else 									cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); fi; \
-	elif [ -n "$(GARCVSBRANCH)" -o -n "$(GARCVSBRANCHVERSION)" ]; then \
-		if [ -n "$(GARCVSREVISION)" ]; then \
-			if [ -n "$(GARCVSBRANCHVERSION)" ]; then 	cd $(DOWNLOADDIR) && svn co -r $(GARCVSREVISION) http://$(dir $*)/$(GARCVSNAME)/$(GARCVSBRANCH)/branches/$(GARCVSBRANCHVERSION) $(GARCVSVERSION); \
-			else 										cd $(DOWNLOADDIR) && svn co -r $(GARCVSREVISION) http://$(dir $*)/$(GARCVSNAME)/$(GARCVSBRANCH)/branches/$(GARCVSVERSION); fi; \
-		else \
-			if [ -n "$(GARCVSBRANCHVERSION)" ]; then 	cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/$(GARCVSBRANCH)/branches/$(GARCVSBRANCHVERSION) $(GARCVSVERSION); \
-			else 										cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/$(GARCVSBRANCH)/branches/$(GARCVSVERSION); fi; \
-		fi; \
+	        cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); \
 	else \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/tags/$(GARCVSVERSION); \
+		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/branches/$(GARCVSVERSION); \
 	fi
 	@(cd $(DOWNLOADDIR) && mv $(GARCVSVERSION) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
 
 svn-https//%:
+#	GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION=$(GARCVSREVISION); GARCVSNAME=$(GARCVSNAME); GARCVSBRANCH=$(GARCVSBRANCH); MASTER_SITES=$(dir $*)
 	@if [ $(GARCVSVERSION) = "trunk" ]; then \
-		if [ -n "$(GARCVSREVISION)" ]; then 		cd $(DOWNLOADDIR) && svn co -r $(GARCVSREVISION) https://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION);\
-		else 										cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); fi; \
-	elif [ -n "$(GARCVSBRANCH)" -o -n "$(GARCVSBRANCHVERSION)" ]; then \
-		if [ -n "$(GARCVSREVISION)" ]; then \
-			if [ -n "$(GARCVSBRANCHVERSION)" ]; then 	cd $(DOWNLOADDIR) && svn co -r $(GARCVSREVISION) https://$(dir $*)/$(GARCVSNAME)/$(GARCVSBRANCH)/branches/$(GARCVSBRANCHVERSION) $(GARCVSVERSION); \
-			else 										cd $(DOWNLOADDIR) && svn co -r $(GARCVSREVISION) https://$(dir $*)/$(GARCVSNAME)/$(GARCVSBRANCH)/branches/$(GARCVSVERSION); fi; \
-		else \
-			if [ -n "$(GARCVSBRANCHVERSION)" ]; then 	cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARCVSNAME)/$(GARCVSBRANCH)/branches/$(GARCVSBRANCHVERSION) $(GARCVSVERSION); \
-			else 										cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARCVSNAME)/$(GARCVSBRANCH)/branches/$(GARCVSVERSION); fi; \
-		fi; \
+	    cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); \
 	else \
-		cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARCVSNAME)/tags/$(GARCVSVERSION);\
+		cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARCVSNAME)/branches/$(GARCVSVERSION);\
 	fi
 	@(cd $(DOWNLOADDIR) && mv $(GARCVSVERSION) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))

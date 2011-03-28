@@ -1,4 +1,4 @@
-CVS_TAG = $(shell echo '$$Name$$' | awk '{print $$2}' | sed -e 's/^\$$$$/trunk/' )
+CVS_TAG = $(shell ../../../getSVNVersion.sh ) 
 
 GARNAME = alien-admin
 GARVERSION = $(CVS_TAG)
