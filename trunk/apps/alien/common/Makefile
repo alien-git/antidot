@@ -1,4 +1,4 @@
-CVS_TAG = $(ALIEN_VERSION)
+CVS_TAG = trunk
 
 GARNAME    = alien-common
 GARVERSION = $(CVS_TAG)
