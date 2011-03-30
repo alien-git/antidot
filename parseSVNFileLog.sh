@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export LD_LIBRARY_PATH=
+export DYLD_LIBRARY_PATH=
 
 file="$1"
 
