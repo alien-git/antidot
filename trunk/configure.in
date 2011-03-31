@@ -17,7 +17,6 @@ GCC_LIB_DIR=$GCC_PREFIX/lib
 GCC_BIN_DIR=$GCC_PREFIX/bin
 
 GLOBUS_FLAVOR=$(./platform.sh flavor)
-ALIEN_VERSION=$(./getSVNVersion.sh)
 
 AC_ARG_WITH(globus_location,
             [  --with-globus-location=dir     Globus directory],
@@ -94,7 +93,6 @@ AC_SUBST(GCC_PREFIX)
 AC_SUBST(GCC_INC_DIR)
 AC_SUBST(GCC_LIB_DIR)
 AC_SUBST(GCC_BIN_DIR)
-AC_SUBST(ALIEN_VERSION)
 
 AC_OUTPUT(alien.conf.mk)
 
