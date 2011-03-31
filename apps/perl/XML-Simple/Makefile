@@ -11,7 +11,7 @@ DESCRIPTION = Easy API to maintain XML (esp config files)
 AUTHOR = Grant McLean 
 URL = http://cpan.uwinnipeg.ca/~grantm
 LICENSE = Perl
-#
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
