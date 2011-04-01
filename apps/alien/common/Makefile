@@ -41,6 +41,7 @@ apps/perl/perl \
 apps/perl/perl-ldap \
 apps/perl/PlRPC \
 apps/perl/SOAP-Lite \
+apps/perl/Tie-CPHash \
 apps/perl/uuid \
 apps/perl/URI \
 apps/perl/XML-Generator \
