@@ -11,7 +11,7 @@ BININSTALL_IGNORE = true
 
 MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/swig/ http://ovh.dl.sourceforge.net/sourceforge/swig/  http://prdownloads.sourceforge.net/swig/
 
-LIBDEPS = apps/gcc/gcc apps/devel/libtool apps/devel/automake apps/devel/autoconf
+LIBDEPS = apps/gcc/gcc apps/devel/libtool apps/devel/automake apps/devel/autoconf apps/devel/pcre
 
 DESCRIPTION = Simplified Wrapper and Interface Generator
 URL = http://www.swig.org
