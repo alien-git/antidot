@@ -15,6 +15,10 @@ $ENV{GLOBUS_LOCATION} = ( $ENV{GLOBUS_LOCATION} || "$ENV{ALIEN_ROOT}/globus" ) ;
 $ENV{X509_USER_PROXY} = ( $ENV{X509_USER_PROXY} || "/tmp/x509up_u$<" );
 $ENV{X509_CERT_DIR} = ( $ENV{X509_CERT_DIR} || "$ENV{GLOBUS_LOCATION}/share/certificates" );
 #$ENV{ALIEN_LDAP_DN} = "alice-ldap.cern.ch:8389/o=alice,dc=cern,dc=ch"; 
+#[TEST_MARK]
+
+
+
 
 my $l=AliEn::Logger->new();
 $l->infoToSTDERR();
