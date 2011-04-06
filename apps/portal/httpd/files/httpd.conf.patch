@@ -19,7 +19,7 @@
 ---
 > #    Order deny,allow
 > #    Deny from all
-409a415,457
+409a415,458
 > 
 > 
 > 
@@ -62,4 +62,5 @@
 > PerlPassEnv  GLOBUS_LOCATION
 > PerlPassEnv  X509_USER_PROXY
 > PerlPassEnv  X509_CERT_DIR
+> PerlPassEnv  ALIEN_LDAP_DN
 > PerlConfigRequire /home/bits/.alien/httpd/conf.8084/startup.pl 
