@@ -28,6 +28,7 @@ CONFIGURE_ENV  =  env CFLAGS=-DSSL_EXPERIMENTAL_ENGINE
 
 include ../category.mk
 
-PRE_CONFIGURE = (if [ -f $(PREFIX)/httpd/conf/httpd.conf ]; then rm $(PREFIX)/httpd/conf/httpd.conf; fi)
+PRE_CONFIGURE = (rm -rf $(PREFIX)/httpd)
+
 POST_INSTALL = (patch $(PREFIX)/httpd/conf/httpd.conf files/httpd.conf.patch && cp -f files/startup.pl $(PREFIX)/httpd/conf/)
 
