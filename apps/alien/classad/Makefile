@@ -14,7 +14,12 @@ LICENSE =
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-TEST_SCRIPTS = $(WORKSRC)/Makefile
+
+DARWIN = $(shell uname)
+
+ifneq ($(DARWIN),Darwin)
+    TEST_SCRIPTS = $(WORKSRC)/Makefile
+endif
 
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-classads-dir=$(PREFIX) --with-classad-lib=classad --with-swig-dir=$(PREFIX) --with-perl5=$(PREFIX)/bin/perl
 
