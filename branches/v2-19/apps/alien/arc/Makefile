@@ -1,13 +1,12 @@
-CVS_TAG = v2-19
+SVNTYPE = branches
+SVNNAME =  v2-19
+SVNREVISION = 
 
-GARNAME    = AliEn-ARC
-GARVERSION = $(CVS_TAG)
+GARNAME    = alien-arc
+GARVERSION = $(SVNNAME)
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
-
-GARCVSNAME = alien-arc
-GARCVSVERSION = $(CVS_TAG)
 
 MASTER_SITES = svn-https://alisoft.cern.ch/ 
 
