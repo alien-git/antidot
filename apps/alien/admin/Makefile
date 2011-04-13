@@ -1,13 +1,12 @@
-CVS_TAG = trunk
+SVNTYPE = trunk
+SVNNAME =  trunk
+SVNREVISION =
 
 GARNAME = alien-admin
-GARVERSION = $(CVS_TAG)
+GARVERSION = $(SVNNAME)
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
-
-GARCVSNAME = alien-admin
-GARCVSVERSION = $(CVS_TAG)
 
 MASTER_SITES = svn-https://alisoft.cern.ch/
 
