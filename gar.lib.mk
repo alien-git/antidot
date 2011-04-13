@@ -94,24 +94,40 @@ pserver//%:
 # download the file from a svn server using plain http, with an URL like svn-http://hostname/svn/$(NAME)/tags/$(VERSION)
 #if we try to build the trunk then we have to use svn-http://hostname/svn/$(NAME)/trunk
 svn-http//%:
-#	GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION=$(GARCVSREVISION); GARCVSNAME=$(GARCVSNAME); GARCVSBRANCH=$(GARCVSBRANCH); MASTER_SITES=$(dir $*)
-	@if [ $(GARCVSVERSION) = "trunk" ]; then \
-	        cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); \
-	else \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARCVSNAME)/branches/$(GARCVSVERSION); \
+	@if [ $(SVNTYPE) = "trunk" ]; then \
+	    if [ $(SVNREVISION) ]; then \
+		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk -r $(SVNREVISION); \
+	    else \
+		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk; \
+	    fi \
 	fi
-	@(cd $(DOWNLOADDIR) && mv $(GARCVSVERSION) $(GARNAME)-$(GARVERSION))
+	@if [ $(SVNTYPE) = "tags" -o $(SVNTYPE) = "branches" ]; then \
+	    if [ $(SVNTYPE) = "branches" -a $(SVNREVISION) ]; then \
+		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME) -r $(SVNREVISION); \
+	    else \
+		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME); \
+	    fi \
+	fi
+	@(cd $(DOWNLOADDIR) && mv $(SVNNAME) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
 
 svn-https//%:
-#	GARCVSVERSION = $(GARCVSVERSION); GARCVSREVISION=$(GARCVSREVISION); GARCVSNAME=$(GARCVSNAME); GARCVSBRANCH=$(GARCVSBRANCH); MASTER_SITES=$(dir $*)
-	@if [ $(GARCVSVERSION) = "trunk" ]; then \
-	    cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARCVSNAME)/$(GARCVSVERSION); \
-	else \
-		cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARCVSNAME)/branches/$(GARCVSVERSION);\
+	@if [ $(SVNTYPE) = "trunk" ]; then \
+	    if [ $(SVNREVISION) ]; then \
+		cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARNAME)/trunk -r $(SVNREVISION); \
+	    else \
+		cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARNAME)/trunk; \
+	    fi \
 	fi
-	@(cd $(DOWNLOADDIR) && mv $(GARCVSVERSION) $(GARNAME)-$(GARVERSION))
+	@if [ $(SVNTYPE) = "tags" -o $(SVNTYPE) = "branches" ]; then \
+	    if [ $(SVNTYPE) = "branches" -a $(SVNREVISION) ]; then \
+		cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME) -r $(SVNREVISION); \
+	    else \
+		cd $(DOWNLOADDIR) && svn co https://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME); \
+	    fi \
+	fi
+	@(cd $(DOWNLOADDIR) && mv $(SVNNAME) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && tar zcf $(DISTFILES) $(GARNAME)-$(GARVERSION))
 	@(cd $(DOWNLOADDIR) && rm -rf ./$(GARNAME)-$(GARVERSION))
 
@@ -499,6 +515,7 @@ test-%/Build:
 test-%/Makefile:
 	@echo ' $(call TMSG_LIB,Testing make in,$*)'
 	mkdir -p $(dir $(COOKIEDIR)/$(TEST_TARGETS))
+	echo "$(TEST_ENV) $(MAKE) $(foreach TTT,$(TEST_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* test $(TEST_ARGS) &&  $(MAKECOOKIE)) || true"
 	@($(TEST_ENV) $(MAKE) $(foreach TTT,$(TEST_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* test $(TEST_ARGS) &&  $(MAKECOOKIE)) || true
 
 test-%/makefile:
