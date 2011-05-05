@@ -1,10 +1,10 @@
 GARNAME = xrootd
-GARVERSION = 3.0.2
+GARVERSION = 3.0.3
 
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/base/
+MASTER_SITES = http://xrootd.org/download/v3.0.3/
 
 LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/libxml2 apps/system/openssl apps/tools/ml_gsoapclient
 
