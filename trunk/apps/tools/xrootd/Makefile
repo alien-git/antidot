@@ -3,6 +3,7 @@ GARVERSION = aae5c0738405ccfbe3802308cc6128549d7974c8
 
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+NOCHECKSUM = $(DISTFILES)
 
 MASTER_SITES = http://xrootd.cern.ch/cgi-bin/cgit.cgi/xrootd/snapshot/
 
