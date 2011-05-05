@@ -1,0 +1,9 @@
+diff --speed-large-files --minimal -Nru tmp/xrootd-aae5c0738405ccfbe3802308cc6128549d7974c8/config/GNUmake.rules.gcc work/xrootd-aae5c0738405ccfbe3802308cc6128549d7974c8/config/GNUmake.rules.gcc
+--- tmp/xrootd-aae5c0738405ccfbe3802308cc6128549d7974c8/config/GNUmake.rules.gcc	2011-05-04 17:39:30.000000000 +0200
++++ work/xrootd-aae5c0738405ccfbe3802308cc6128549d7974c8/config/GNUmake.rules.gcc	2011-05-05 14:46:38.000000000 +0200
+@@ -20,4 +20,4 @@
+ TYPELDSO  += -m32
+ endif
+ 
+-TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc
++TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc -lpthread
