@@ -14,6 +14,8 @@ URL = http://xrootd.slac.stanford.edu
 AUTHOR = Andy Hanushevsky
 LICENSE =
 
+PATCHFILES = pthread.patch
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure.classic
 BUILD_SCRIPTS = $(WORKSRC)/GNUmakefile
 INSTALL_SCRIPTS = $(WORKSRC)/GNUmakefile
