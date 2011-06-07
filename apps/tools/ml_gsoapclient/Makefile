@@ -13,7 +13,7 @@ ifeq ($(shell uname -a | grep -c -i ubuntu),1)
     PATCHFILES += testWS.cxx.patch
 endif
 
-MASTER_SITES = http://monalisa.cacr.caltech.edu/download/monalisa/
+MASTER_SITES =
 
 LIBDEPS = apps/tools/gsoap
 
