@@ -1,5 +1,5 @@
 GARNAME = DateTime-TimeZone
-GARVERSION = 1.20
+GARVERSION = 1.34
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
