@@ -1,26 +1,21 @@
-GARNAME = zlib
-GARVERSION = 1.2.5
-CATEGORIES = apps-libs
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
+GARNAME = libxml2
+GARVERSION = 2.7.8
+CATEGORIES = libs
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz 
 
-MASTER_SITES =  http://puzzle.dl.sourceforge.net/sourceforge/libpng/ 
+MASTER_SITES = http://ftp.gnome.org/pub/gnome/sources/libxml2/2.6/ ftp://xmlsoft.org/ ftp://xmlsoft.org/libxml2/
 
-LIBDEPS = apps/gcc/gcc apps/devel/libtool apps/devel/automake
+LIBDEPS = apps/gcc/gcc apps/devel/automake apps/devel/libtool apps/system/zlib
 
-DESCRIPTION = Lossless data-compression library 
-URL = http://www.zlib.net/
-AUTHOR = Jean-loup Gailly Mark Adler
-LICENSE = zlib
+DESCRIPTION = The XML C parser and toolkit of Gnome
+URL = http://xmlsoft.org/
+AUTHOR = Daniel Veillard
+LICENSE = MIT
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-#TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --libdir=$(PREFIX)/lib --shared 
-
-NODIRPATHS = --bindir --exec_prefix --sbindir --libexecdir --datadir --sysconfdir --sharedstatedir --localstatedir --libdir --infodir --includedir --mandir
+CONFIGURE_ARGS = --prefix=$(PREFIX)
 
 include ../category.mk
-
-#POST_INSTALL = (mkdir -p $(PREFIX)/lib64 ; ln -sf $(PREFIX)/lib/libz.so $(PREFIX)/lib64/libz.so ; ln -sf $(PREFIX)/lib/libz.a $(PREFIX)/lib64/libz.a)

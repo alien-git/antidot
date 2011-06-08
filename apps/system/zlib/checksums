@@ -1,4 +1,8 @@
-1b8aab042d40979e456194c468fd72c5  download/zlib-1.2.2.tar.bz2
-dee233bf288ee795ac96a98cc2e369b6  download/zlib-1.2.3.tar.bz2
-763c6a0b4ad1cdf5549e3ab3f140f4cb  download/zlib-1.2.4.tar.bz2
-be1e89810e66150f5b0327984d8625a0  download/zlib-1.2.5.tar.bz2
+0d6b46fd789ef0a0f4708f9bec3bf725  download/libxml2-2.6.16_i686-pc-linux-gnu-2.96.tar.bz2
+1ad0827b95e17e546265f2c4da001a6a  download/libxml2-2.6.16.tar.bz2
+9327fd407de215008297cbf91cdb3b22  download/libxml2-2.6.16_ia64-unknown-linux-gnu.tar.bz2
+a404ba7ba6df24dfd705ddc161e3ee24  download/libxml2-2.6.16_powerpc-apple-darwin7.7.0.tar.bz2
+e98018a6b562f1fa454e705dde2269de  download/libxml2-2.6.23.tar.bz2
+8f4fda3969237c2a33bdb1583b5d06b2  download/libxml2-2.7.3.tar.gz
+9abc9959823ca9ff904f1fbcf21df066  download/libxml2-2.7.7.tar.gz
+8127a65e8c3b08856093099b52599c86  download/libxml2-2.7.8.tar.gz
