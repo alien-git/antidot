@@ -1,5 +1,5 @@
 GARNAME = POE-Test-Loops
-GARVERSION = 1.040
+GARVERSION = 1.312
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #http://search.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/POE-Test-Loops-1.035.tar.gz
