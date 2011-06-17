@@ -1,12 +1,12 @@
 GARNAME = xrootd
-GARVERSION = SHUTTLE
+GARVERSION = 3.0.4
 
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES =  GNUmakerules.patch
+#PATCHFILES =  GNUmakerules.patch
 NOCHECKSUM = $(DISTFILES) $(PATCHFILES)
 
-MASTER_SITES = http://xrootd.cern.ch/cgi-bin/cgit.cgi/xrootd/snapshot/
+MASTER_SITES = http://xrootd.org/download/v3.0.4/
 
 LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/libxml2 apps/system/openssl apps/tools/ml_gsoapclient
 
