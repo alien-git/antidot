@@ -1,10 +1,12 @@
 GARNAME = xrootd
-GARVERSION = 3.0.3
+GARVERSION = 3.0.4
 
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES =  GNUmakerules.patch
+NOCHECKSUM = $(DISTFILES) $(PATCHFILES)
 
-MASTER_SITES = http://xrootd.org/download/v3.0.3/
+MASTER_SITES = http://xrootd.org/download/v3.0.4/
 
 LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/libxml2 apps/system/openssl apps/tools/ml_gsoapclient
 
@@ -13,8 +15,6 @@ DESCRIPTION = Xrootd
 URL = http://xrootd.slac.stanford.edu
 AUTHOR = Andy Hanushevsky
 LICENSE =
-
-PATCHFILES = pthread.patch
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure.classic
 BUILD_SCRIPTS = $(WORKSRC)/GNUmakefile
