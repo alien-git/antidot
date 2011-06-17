@@ -1,9 +1,9 @@
 GARNAME = DBD-mysql
-GARVERSION = 4.017
+GARVERSION = 4.019
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/C/CA/CAPTTOFU/
+MASTER_SITES = http://mirror.switch.ch/ftp/mirror/CPAN/authors/id/C/CA/CAPTTOFU/
 
 LIBDEPS = apps/perl/perl apps/server/mysql apps/perl/DBI apps/alien/admin
 
