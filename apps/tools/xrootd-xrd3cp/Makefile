@@ -3,12 +3,13 @@ GARVERSION = 1.0.0
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(GARNAME).tar.gz
+NOCHECKSUM = $(DISTFILES)
 
 ifeq ($(shell uname),Darwin)
     PATCHFILES = configure.patch
 endif
 
-MASTER_SITES = https://svnweb.cern.ch/trac/CERNXROOT/export/757/trunk/source-tgz/
+MASTER_SITES = https://svnweb.cern.ch/trac/CERNXROOT/export/785/trunk/source-tgz/
 
 LIBDEPS = apps/tools/xrootd apps/perl/uuid
 
