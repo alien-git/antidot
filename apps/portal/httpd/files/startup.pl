@@ -26,6 +26,8 @@ foreach my $s (@services) {
     eval "require $name" or die("Error requiring the module: $@");
     my $serv=$name->new() ;
     $serv or exit(-2);
+    $l->info(1, "Starting $s on httpd ");
+
   };
   if ($@) {
     print "NOPE!!\n $@\n";
