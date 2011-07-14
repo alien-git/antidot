@@ -1,16 +1,9 @@
---- work/xrootd-xrd3cp-1.0.0/configure.old	2010-07-12 15:23:39.000000000 +0200
-+++ work/xrootd-xrd3cp-1.0.0/configure	2010-07-12 15:23:47.000000000 +0200
-@@ -418,13 +418,6 @@
- # only ac_max_sed_lines should be used.
- : ${ac_max_here_lines=38}
- 
--# Identity of this package.
--PACKAGE_NAME='xrootd-xrd3cp'
--PACKAGE_TARNAME='xrootd-xrd3cp'
--PACKAGE_VERSION='1.0.0'
--PACKAGE_STRING='xrootd-xrd3cp 1.0.0'
--PACKAGE_BUGREPORT=''
--
- ac_unique_file="Xrd3cp.cc"
- # Factoring default headers for most tests.
- ac_includes_default="\
+421,426c421
+< # Identity of this package.
+< PACKAGE_NAME='xrootd-xrd3cp'
+< PACKAGE_TARNAME='xrootd-xrd3cp'
+< PACKAGE_VERSION='3.0.4'
+< PACKAGE_STRING='xrootd-xrd3cp 3.0.4'
+< PACKAGE_BUGREPORT=''
+---
+> 
