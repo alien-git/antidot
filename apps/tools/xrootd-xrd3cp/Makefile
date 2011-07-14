@@ -5,9 +5,9 @@ DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(GARNAME).tar.gz
 NOCHECKSUM = $(DISTFILES)
 
-ifeq ($(shell uname),Darwin)
-    PATCHFILES = configure.patch
-endif
+#ifeq ($(shell uname),Darwin)
+#    PATCHFILES = configure.patch
+#endif
 
 MASTER_SITES = https://svnweb.cern.ch/trac/CERNXROOT/export/785/trunk/source-tgz/
 
@@ -29,3 +29,4 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api
 
 include ../category.mk
 
+PRE_CONFIGURE=( if [ "$(shell uname)" = "Darwin" ]; then patch $(WORKSRC)/configure files/configure.patch; fi )
