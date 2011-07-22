@@ -20,7 +20,7 @@ export GARSHARED=-shared
 UBUNTU_PLATFORM=$(shell uname -a | grep -c -i ubuntu)
 
 ifeq ($(UBUNTU_PLATFORM),1)
-    export MASKED := apps/gcc/gcc=
+    export MASKED := apps/gcc/gcc= apps/gcc/m4=
 else
     export MASKED := 
 endif
