@@ -48,9 +48,14 @@ CPPFLAGS += $(filter-out $(NOCPPFLAGS),-I$(DESTDIR)$(includedir))
 CFLAGS   += $(filter-out $(NOCFLAGS),-I$(DESTDIR)$(includedir))
 LDFLAGS  += $(filter-out $(NOLDFLAGS),-L$(DESTDIR)$(libdir)) 
 
+CFLAGS += -I/usr/include/x86_64-linux-gnu
+CPPFLAGS += -I/usr/include/x86_64-linux-gnu
+CXXFLAGS += -I/usr/include/x86_64-linux-gnu
+LDFLAGS += -L/lib/x86_64-linux-gnu
+
 # allow us to use programs we just built
 PATH :=/usr/lib/ccache/bin:/usr/lib64/ccache/bin:$(DESTDIR)$(bindir):$(DESTDIR)$(sbindir):$(DESTDIR)$(BUILD_PREFIX)/bin:$(DESTDIR)$(BUILD_PREFIX)/sbin:$(GCC_BIN_DIR):$(DESTDIR)$(BUILD_PREFIX)/jdk/bin:$(DESTDIR)$(BUILD_PREFIX)/ant/bin:$(PATH)
-LD_LIBRARY_PATH=$(strip $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(PREFIX)/lib:$(PREFIX)/lib64:$(GCC_LIB_DIR))
+LD_LIBRARY_PATH=$(strip $(DESTDIR)$(libdir):$(DESTDIR)$(BUILD_PREFIX)/$(TARGET_LIBNAME):$(PREFIX)/lib:$(PREFIX)/lib64:$(GCC_LIB_DIR)):/lib/x86_64-linux-gnu
 DYLD_LIBRARY_PATH=$(LD_LIBRARY_PATH)
 
 # This is for foo-config chaos
