@@ -25,6 +25,8 @@
 +	find $(DISTNAME) -exec touch {} \; ; \
 +	cp -r $(DISTNAME) $(PREFIX)/ ; \
 +	echo "Copying AliEn specific files..." ; \
++	mkdir -p $(PREFIX)/$(DISTNAME); \
++	cp install.sh install2.sh $(PREFIX)/$(DISTNAME)/; \
 +	(cd ../../files ; \
 +	find bin AliEn Control Service ! -path \*/CVS* -type d -exec mkdir -p $(PREFIX)/$(DISTNAME)/{} \; ; \
 +	find bin AliEn Control Service ! -path \*/CVS* -type f -exec cp {} $(PREFIX)/$(DISTNAME)/{} \; ) ; \
