@@ -12,14 +12,17 @@ URL = http://www.zlib.net/
 AUTHOR = Jean-loup Gailly Mark Adler
 LICENSE = zlib
 
+CONFIGURE_ENV = CFLAGS="-fPIC -O3" CPPFLAGS="-fPIC -O3" CXXFLAGS="-fPIC -O3"
+BUILD_ENV = CFLAGS="-fPIC -O3" CPPFLAGS="-fPIC -O3" CXXFLAGS="-fPIC -O3"
+INSTALL_ENV = CFLAGS="-fPIC -O3" CPPFLAGS="-fPIC -O3" CXXFLAGS="-fPIC -O3"
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 #TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --libdir=$(PREFIX)/lib --shared 
+CONFIGURE_ARGS = --prefix=$(PREFIX) --shared 
 
-NODIRPATHS = --bindir --exec_prefix --sbindir --libexecdir --datadir --sysconfdir --sharedstatedir --localstatedir --libdir --infodir --includedir --mandir
 
 include ../category.mk
 
