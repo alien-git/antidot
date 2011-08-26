@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://ftp.gnome.org/pub/gnome/sources/libxml2/2.6/ ftp://xmlsoft.org/ ftp://xmlsoft.org/libxml2/
 
-LIBDEPS = apps/gcc/gcc apps/devel/automake apps/devel/libtool apps/system/zlib
+LIBDEPS = apps/gcc/gcc apps/devel/automake apps/devel/libtool apps/system/zlib apps/system/readline
 
 DESCRIPTION = The XML C parser and toolkit of Gnome
 URL = http://xmlsoft.org/
@@ -16,6 +16,6 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-zlib=$(PREFIX) --with-readline=$(PREFIX)
 
 include ../category.mk

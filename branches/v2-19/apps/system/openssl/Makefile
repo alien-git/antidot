@@ -1,5 +1,5 @@
 GARNAME = openssl
-GARVERSION = 0.9.8l
+GARVERSION = 0.9.8o
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -15,10 +15,11 @@ LICENSE = Apache
 PLATFORM = $(shell ../../../platform.sh platform)
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/config
-
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --openssldir=$(PREFIX) zlib no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib
+CONFIGURE_ARGS = --prefix=$(PREFIX) --openssldir=$(PREFIX) zlib no-idea  zlib no-mdc2 no-rc5 no-ec no-ecdh no-ecdsa no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib -Wa,--noexecstack -DOPENSSL_USE_NEW_FUNCTIONS fipscanisterbuild
 
 include ../category.mk
+
+POST_CONFIGURE = (cd $(WORKSRC) && bubu && make depend)
