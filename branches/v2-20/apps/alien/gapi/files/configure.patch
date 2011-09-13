@@ -1,0 +1,16 @@
+--- work/xrootd-xalienfs-1.0.14b/configure.old	2010-07-19 19:48:48.000000000 +0200
++++ work/xrootd-xalienfs-1.0.14b/configure	2010-07-19 19:49:07.000000000 +0200
+@@ -742,13 +742,6 @@
+ MAKEFLAGS=
+ SHELL=${CONFIG_SHELL-/bin/sh}
+ 
+-# Identity of this package.
+-PACKAGE_NAME='xrootd-xalienfs'
+-PACKAGE_TARNAME='xrootd-xalienfs'
+-PACKAGE_VERSION='1.0.14b'
+-PACKAGE_STRING='xrootd-xalienfs 1.0.14b'
+-PACKAGE_BUGREPORT='andreas.joachim.peters@cern.ch'
+-
+ ac_unique_file="server/XrdxAlienFs.cc"
+ # Factoring default headers for most tests.
+ ac_includes_default="\
