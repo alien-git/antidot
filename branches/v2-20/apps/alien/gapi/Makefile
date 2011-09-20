@@ -1,11 +1,11 @@
 GARNAME = xrootd-xalienfs
-GARVERSION = 1.0.14i
+GARVERSION = 1.0.14j
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
 PATCHFILES = configure.ac.patch
 
-MASTER_SITES = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/xalienfs/
+MASTER_SITES = http://aliendb9.cern.ch/src/xalienfs/
 
 LIBDEPS = apps/tools/xrootd apps/devel/swig apps/system/e2fsprogs apps/tools/cronolog
 
