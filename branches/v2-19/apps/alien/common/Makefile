@@ -1,6 +1,6 @@
 SVNTYPE = branches
 SVNNAME =  v2-19
-SVNREVISION = 1527
+SVNREVISION =
 
 GARNAME    = alien-common
 GARVERSION = $(SVNNAME)
