@@ -16,6 +16,6 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-zlib=$(PREFIX) --with-readline=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX) --without-zlib --with-readline=$(PREFIX)
 
 include ../category.mk
