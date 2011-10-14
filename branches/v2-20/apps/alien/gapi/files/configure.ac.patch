@@ -1,5 +1,5 @@
---- work/xrootd-xalienfs-1.0.14j/configure.ac.old	2010-07-19 19:57:33.000000000 +0200
-+++ work/xrootd-xalienfs-1.0.14j/configure.ac	2010-07-19 19:35:09.000000000 +0200
+--- work/xrootd-xalienfs-1.0.14l/configure.ac.old	2010-07-19 19:57:33.000000000 +0200
++++ work/xrootd-xalienfs-1.0.14l/configure.ac	2010-07-19 19:35:09.000000000 +0200
 @@ -103,8 +103,8 @@
  ACX_LIBOPTION(readline,[use GNU Readline support],yes)
  
