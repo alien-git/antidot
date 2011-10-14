@@ -26,6 +26,6 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api --e
 
 include ../category.mk
 
-ifeq ($(shell uname -s),Darwin)
+#ifeq ($(shell uname -s),Darwin)
 	PRE_CONFIGURE = (cd $(WORKSRC) && ./bootstrap.sh)
-endif
+#endif
