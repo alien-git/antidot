@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/F/FL/FLORA/ http://www.cpan.org/authors/id/F/FL/FLORA/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/F/FL/FLORA/
 
-LIBDEPS = apps/perl/perl
+LIBDEPS = apps/system/openssl apps/perl/perl
 
 DESCRIPTION = Perl extension for using OpenSSL
 AUTHOR = Sampo Kellomaki
@@ -20,7 +20,12 @@ TEST_SCRIPTS = # $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = LIBS="-L$(PREFIX)/lib  -lssl -lcrypto" INC="-I$(PREFIX)/include/"
 
-CONFIGURE_ENV = env PERL_MM_USE_DEFAULT=1
+ifeq ($(shell uname),Darwin)
+	CONFIGURE_ENV = env PERL_MM_USE_DEFAULT=1
+else
+	CONFIGURE_ENV = env OPENSSL_PREFIX=$(PREFIX) PERL_MM_USE_DEFAULT=1
+endif
+
 
 include ../category.mk
 
