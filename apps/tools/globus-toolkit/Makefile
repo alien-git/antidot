@@ -5,7 +5,7 @@ GARVERSION = 4.2.1
 DISTFILES  = gt$(GARVERSION)-all-source-installer.tar.gz
 DISTNAME  = gt$(GARVERSION)-all-source-installer
 
-LIBDEPS  = apps/devel/ant apps/system/libxml2 apps/system/openssl apps/tools/eugridpma-carep apps/system/openssl apps/perl/XML-Parser
+LIBDEPS  = apps/devel/ant apps/tools/eugridpma-carep apps/perl/XML-Parser
 MASTER_SITES = http://www-unix.globus.org/ftppub/gt4/4.2.1/installers/src/
 
 DESCRIPTION = Globus Toolkit
@@ -35,11 +35,9 @@ ifeq ($(shell uname -n),alimacx06.cern.ch)
 endif
 
 
-CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)  --with-krb5=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR)
 BUILD_ARGS =  gsi-myproxy
 
 include ../category.mk
 
 PRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
-
-POST_INSTALL = (cd $(WORKSRC) && ln -sf ../../bin/openssl  $(PREFIX)/globus/bin/openssl)
