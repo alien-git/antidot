@@ -3,7 +3,7 @@ GARVERSION = 1.12.1
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.bz2
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/gcc/gcc apps/system/openssl apps/system/zlib
 
 #http://ovh.dl.sourceforge.net/sourceforge/aria2/aria2-1.2.0.tar.bz2
 MASTER_SITES =  http://puzzle.dl.sourceforge.net/sourceforge/aria2 http://switch.dl.sourceforge.net/sourceforge/aria2/  http://ovh.dl.sourceforge.net/sourceforge/aria2/
@@ -18,9 +18,9 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
 ifeq ($(PLATFORM), ia64-unknown-linux-gnu)
-    CONFIGURE_ARGS = --prefix=$(PREFIX) --with-openssl --without-gnutls
+    CONFIGURE_ARGS = --prefix=$(PREFIX) --with-openssl-prefix=$(PREFIX) --with-openssl --without-gnutls
 else
-    CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-bittorrent --disable-metalink --disable-xmltest --disable-nls --without-libxml2 --without-libexpat --without-gnutls
+    CONFIGURE_ARGS = --prefix=$(PREFIX) --enable-bittorrent --disable-metalink --disable-xmltest --disable-nls --without-libxml2 --without-libexpat --with-openssl-prefix=$(PREFIX) --with-openssl --without-gnutls
 endif
 
 PLATFORM = $(shell ../../../platform.sh platform)
