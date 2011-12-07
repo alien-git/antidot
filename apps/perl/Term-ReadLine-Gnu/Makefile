@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/H/HA/HAYASHI/
 
-LIBDEPS = apps/perl/perl
+LIBDEPS = apps/perl/perl apps/system/readline
 
 DESCRIPTION = GNU Readline XS library wrapper
 AUTHOR = Hiroo HAYASHI
