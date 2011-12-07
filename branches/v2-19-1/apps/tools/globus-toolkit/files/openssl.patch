@@ -1,0 +1,255 @@
+diff -Nuar work/globus-toolkit-4.0.3/source-trees/gsi/callback/source/library/globus_gsi_callback.c work.new/globus-toolkit-4.0.3/source-trees/gsi/callback/source/library/globus_gsi_callback.c
+--- work/globus-toolkit-4.0.3/source-trees/gsi/callback/source/library/globus_gsi_callback.c	2005-05-27 02:12:40.000000000 +0200
++++ work.new/globus-toolkit-4.0.3/source-trees/gsi/callback/source/library/globus_gsi_callback.c	2006-11-09 19:19:20.000000000 +0100
+@@ -16,8 +16,8 @@
+  * @author Sam Meder, Sam Lang
+  *
+  * $RCSfile$
+- * $Revision: 2173 $
+- * $Date: 2010-09-28 11:03:14 +0200 (Tue, 28 Sep 2010) $
++ * $Revision: 2173 $
++ * $Date: 2010-09-28 11:03:14 +0200 (Tue, 28 Sep 2010) $
+  */
+ #endif
+ 
+@@ -375,6 +375,22 @@
+      * we want to override so we  can replace some of the checks.
+      */
+     context->check_issued = globus_gsi_callback_check_issued;
++    /*
++     * If this is not set, OpenSSL-0.9.8 assumes the proxy cert 
++     * as an EEC and the next level cert in the chain as a CA cert
++     * and throws an invalid CA error. If we set this, the callback
++     * (globus_gsi_callback_handshake_callback) gets called with 
++     * preverify_ok = 0 with an error "unhandled critical extension" 
++     * and "path length exceeded".
++     * globus_i_gsi_callback_cred_verify() called by 
++     * globus_gsi_callback_handshake_callback() checks for these 
++     * errors and returns success. globus_i_gsi_callback_cred_verify() 
++     * will check the critical extension and path length later.
++     */
++    #if (OPENSSL_VERSION_NUMBER >= 0x0090800fL)
++    X509_STORE_CTX_set_flags(
++                   context, X509_V_FLAG_ALLOW_PROXY_CERTS);
++    #endif
+     result = X509_verify_cert(context);
+ 
+     GLOBUS_I_GSI_CALLBACK_DEBUG_EXIT;
+@@ -626,7 +642,9 @@
+     X509_STORE_CTX *                    x509_context)
+ {
+     globus_result_t                     result = GLOBUS_SUCCESS;
++    globus_gsi_cert_utils_cert_type_t   cert_type;
+     X509 *                              tmp_cert = NULL;
++    X509 *                              prev_cert = NULL;
+     static char *                       _function_name_ = 
+         "globus_i_gsi_callback_cred_verify";
+ 
+@@ -641,6 +659,14 @@
+         {
+         case X509_V_ERR_PATH_LENGTH_EXCEEDED:
+ 
++	/*
++	 * OpenSSL-0.9.8 has this error (0.9.7d did not have this)
++	 * So we will ignore the errors now and do our checks later
++	 * on (as explained below).
++	 */
++	#if (OPENSSL_VERSION_NUMBER >= 0x0090800fL)
++        case X509_V_ERR_PROXY_PATH_LENGTH_EXCEEDED:
++
+             GLOBUS_I_GSI_CALLBACK_DEBUG_PRINT(
+                 2, "X509_V_ERR_PATH_LENGTH_EXCEEDED\n");
+             /*
+@@ -652,7 +678,79 @@
+              */
+             result = GLOBUS_SUCCESS;
+             break;
+-
++	#endif
++	#if (OPENSSL_VERSION_NUMBER >= 0x0090706fL)
++	/*
++	 * OpenSSL versions 097f+ have an explicit check during
++	 * certificate validation to see that the CA setting in 
++	 * each certificate on the chain is correct. As a side
++	 * effect it always do some checks including if there is 
++	 * an unhandled critical extension. OpenSSL would treat 
++	 * the proxy  certs as ones that have unhandled critical 
++	 * extensions. OpenSSL versions 097g+ does know about 
++	 * proxies, but not non-rfc compliant proxies, it will 
++	 * count them as unhandled critical extensions.
++	 * So we will ignore the errors for now and do our
++	 * own checks later on, when we check the last
++	 * certificate in the chain we will check the chain.
++	 */
++        case X509_V_ERR_UNHANDLED_CRITICAL_EXTENSION:
++            GLOBUS_I_GSI_CALLBACK_DEBUG_PRINT(
++                2, "X509_V_ERR_UNHANDLED_CRITICAL_EXTENSION\n");
++	    /*
++	     * Setting this for 098 or later versions avoid the invalid
++	     * CA error but would result in proxy path len exceeded which
++	     * is handled above. For versions less than 098 and greater
++	     * than or equal to 097g causes a seg fault in 
++	     * check_chain_extensions (line 498 in crypto/x509/x509_vfy.c)
++	     * If this flag is set, openssl assumes proxy extensions would
++	     * definitely be there and tries to access the extensions but
++	     * the extension is not there really, as it not recognized by
++	     * openssl. So openssl versions >= 097g and < 098 would
++	     * consider our proxy as an EEC and higher level proxy in the
++	     * cert chain (if any) or EEC as a CA cert and thus would throw 
++	     * an invalid CA error. We handle that error below.
++	     */
++	    #if (OPENSSL_VERSION_NUMBER >= 0x0090800fL)
++            x509_context->current_cert->ex_flags |= EXFLAG_PROXY;
++	    #endif
++            result = GLOBUS_SUCCESS;
++            break;
++	#endif
++	
++        #if (OPENSSL_VERSION_NUMBER < 0x0090800fL)
++	#if (OPENSSL_VERSION_NUMBER >= 0x0090706fL)
++	case X509_V_ERR_INVALID_CA:
++	    /*
++	     * If the previous cert in the chain is a proxy cert then
++	     * we get this error just because openssl does not recognize 
++	     * our proxy and treats it as an EEC. And thus, it would
++	     * treat higher level proxies (if any) or EEC as CA cert 
++	     * (which are not actually CA certs) and would throw this
++	     * error. As long as the previous cert in the chain is a
++	     * proxy cert, we ignore this error.
++	     */
++	    prev_cert = sk_X509_value(
++		    x509_context->chain, x509_context->error_depth-1);
++	    result = globus_gsi_cert_utils_get_cert_type(prev_cert, &cert_type);
++	    if(result != GLOBUS_SUCCESS)
++	    {
++		result = (globus_result_t)GLOBUS_FAILURE;
++	    }
++	    else 
++	    {
++		if(GLOBUS_GSI_CERT_UTILS_IS_PROXY(cert_type))
++		{
++		    result = GLOBUS_SUCCESS;
++		}
++		else
++		{
++		    result = (globus_result_t)GLOBUS_FAILURE;
++		}
++            }
++	    break;
++        #endif	
++        #endif	
+         default:
+             result = (globus_result_t)GLOBUS_FAILURE;
+             break;
+diff -Nuar work/globus-toolkit-4.0.3/source-trees/gsi/credential/source/library/globus_gsi_cred_handle.c work.new/globus-toolkit-4.0.3/source-trees/gsi/credential/source/library/globus_gsi_cred_handle.c
+--- work/globus-toolkit-4.0.3/source-trees/gsi/credential/source/library/globus_gsi_cred_handle.c	2006-02-27 18:19:10.000000000 +0100
++++ work.new/globus-toolkit-4.0.3/source-trees/gsi/credential/source/library/globus_gsi_cred_handle.c	2006-11-09 19:19:20.000000000 +0100
+@@ -15,8 +15,8 @@
+  * @author Sam Lang, Sam Meder
+  *
+  * $RCSfile$
+- * $Revision: 2173 $
+- * $Date: 2010-09-28 11:03:14 +0200 (Tue, 28 Sep 2010) $
++ * $Revision: 2173 $
++ * $Date: 2010-09-28 11:03:14 +0200 (Tue, 28 Sep 2010) $
+  */
+ #endif
+ 
+@@ -1721,7 +1721,18 @@
+             store_context,
+             callback_data_index, 
+             (void *)callback_data);
+-                 
++
++        /*
++         * If this is not set, OpenSSL-0.9.8 (check_chain_extensions()
++         * called by x509_verify_cert()) treats the cert next to proxy
++         * in the chain to be CA cert and throws invalid CA error
++         */ 
++
++        #if (OPENSSL_VERSION_NUMBER >= 0x0090800fL)
++	X509_STORE_CTX_set_flags(
++                        store_context, X509_V_FLAG_ALLOW_PROXY_CERTS);
++        #endif
++
+         if(!X509_verify_cert(store_context))
+         {
+             globus_result_t             callback_error;
+diff -Nuar work/globus-toolkit-4.0.3/source-trees/gsi/gssapi/source/library/globus_i_gsi_gss_utils.c work.new/globus-toolkit-4.0.3/source-trees/gsi/gssapi/source/library/globus_i_gsi_gss_utils.c
+--- work/globus-toolkit-4.0.3/source-trees/gsi/gssapi/source/library/globus_i_gsi_gss_utils.c	2005-05-04 02:19:37.000000000 +0200
++++ work.new/globus-toolkit-4.0.3/source-trees/gsi/gssapi/source/library/globus_i_gsi_gss_utils.c	2006-11-09 19:19:20.000000000 +0100
+@@ -15,11 +15,11 @@
+  * @author Sam Lang, Sam Meder
+  * 
+  * $RCSfile$
+- * $Revision: 2173 $
+- * $Date: 2010-09-28 11:03:14 +0200 (Tue, 28 Sep 2010) $
++ * $Revision: 2173 $
++ * $Date: 2010-09-28 11:03:14 +0200 (Tue, 28 Sep 2010) $
+  */
+ 
+-static char *rcsid = "$Id: openssl.patch 2173 2010-09-28 09:03:14Z alina $";
++static char *rcsid = "$Id: openssl.patch 2173 2010-09-28 09:03:14Z alina $";
+ 
+ #include "gssapi_openssl.h"
+ #include "globus_i_gsi_gss_utils.h"
+@@ -2075,6 +2075,13 @@
+         goto exit;
+     }
+ 
++    /*
++     * post-0.9.8 versions of the SSL library seem to move part of the 
++     * cipher setup code into SSL_library_init(). Without this call, the
++     * SSL_CTX_new routine comaplains at not being able to initialize the 
++     * list of ciphers.
++     */
++    SSL_library_init();
+     cred_handle->ssl_context = SSL_CTX_new(SSLv23_method());
+     if(cred_handle->ssl_context == NULL)
+     {
+@@ -2132,8 +2139,20 @@
+      */
+     SSL_CTX_set_purpose(cred_handle->ssl_context, X509_PURPOSE_ANY);
+ 
++    /*
++     * For OpenSSL >= 0.9.7g, existence of this call creates problem when
++     * the server (for eg. GridFTP server) is run as a user and thus the
++     * cert presented is proxy cert. As the OpenSSL code does not 
++     * recognize Globus legacy proxies, we need to explicitly set the
++     * proxy flag in the cert and we do it only when our callback is
++     * called by OpenSSL with the critical extension error, so this call
++     * is removed for OpenSSL versions 0.9.7g and later.
++     */
++     
++    #if (OPENSSL_VERSION_NUMBER < 0x0090707fL)
+     X509_STORE_set_flags(SSL_CTX_get_cert_store(cred_handle->ssl_context),
+                          X509_V_FLAG_IGNORE_CRITICAL);
++    #endif
+     
+     if(anon_ctx != GLOBUS_I_GSI_GSS_ANON_CONTEXT)
+     {
+diff -Nuar work/globus-toolkit-4.0.3/source-trees/gsi/xmlsec1/src/openssl/x509vfy.c work.new/globus-toolkit-4.0.3/source-trees/gsi/xmlsec1/src/openssl/x509vfy.c
+--- work/globus-toolkit-4.0.3/source-trees/gsi/xmlsec1/src/openssl/x509vfy.c	2003-11-12 18:54:22.000000000 +0100
++++ work.new/globus-toolkit-4.0.3/source-trees/gsi/xmlsec1/src/openssl/x509vfy.c	2006-11-09 19:19:20.000000000 +0100
+@@ -499,8 +499,19 @@
+ 	}    
+ 	X509_LOOKUP_add_dir(lookup, (char*)path, X509_FILETYPE_DEFAULT);
+     }
+-    ctx->xst->depth = 9; /* the default cert verification path in openssl */	
+-	
++
++    /*
++     * post OpenSSL-0.9.8, ctx->xst does not have depth anymore, 
++     * it has been moved to ctx->xst->param. 
++     */
++    #if (OPENSSL_VERSION_NUMBER >= 0x00908000L) 
++    /* the default cert verification path in openssl */
++    ctx->xst->param->depth = 9;
++    #else
++    /* the default cert verification path in openssl */
++    ctx->xst->depth = 9;  
++    #endif
++
+     ctx->untrusted = sk_X509_new_null();
+     if(ctx->untrusted == NULL) {
+ 	xmlSecError(XMLSEC_ERRORS_HERE,
