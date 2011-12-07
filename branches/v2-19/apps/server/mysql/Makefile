@@ -8,7 +8,7 @@ PATCHFILES = term.c.patch
 #http://mirror.switch.ch/ftp/mirror/mysql/Downloads/MySQL-5.1/mysql-5.1.36.zip
 MASTER_SITES = http://mirror.switch.ch/ftp/mirror/mysql/Downloads/MySQL-5.1/
 
-LIBDEPS = apps/gcc/gcc apps/system/ncurses apps/system/zlib
+LIBDEPS = apps/gcc/gcc
 
 DESCRIPTION = MySQL database
 URL = http://dev.mysql.com/
