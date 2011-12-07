@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #http://curl.haxx.se/download/curl-7.19.5.tar.gz
 MASTER_SITES = http://curl.haxx.se/download/ 
 
-LIBDEPS =  apps/system/zlib apps/system/openssl
+LIBDEPS =  apps/gcc/gcc
 
 DESCRIPTION = The Lib Update/AutoUpdate Suite
 URL = http://luau.sourceforge.net/
@@ -17,6 +17,6 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = $(DIRPATHS)  --with-ssl=$(PREFIX) --without-ca-bundle --without-libidn  --disable-ldap --disable-ldaps
+CONFIGURE_ARGS = $(DIRPATHS) --without-ca-bundle --without-libidn  --disable-ldap --disable-ldaps
 
 include ../category.mk
