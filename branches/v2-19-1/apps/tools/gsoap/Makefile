@@ -1,8 +1,8 @@
 GARNAME = gsoap
-GARVERSION = 2.7.13
+GARVERSION = 2.8.5
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)_$(GARVERSION).tar.gz
-DISTNAME = $(GARNAME)-2.7
+DISTFILES = $(GARNAME)_$(GARVERSION).zip
+DISTNAME = $(GARNAME)-2.8
 PATCHFILES = 
 
 MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/gsoap2/
