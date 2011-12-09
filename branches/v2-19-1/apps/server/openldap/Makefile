@@ -6,7 +6,7 @@ PATCHFILES = core.schema.patch install.diff
 
 MASTER_SITES = ftp://sunsite.cnlab-switch.ch/mirror/OpenLDAP/openldap-release/
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/gcc/gcc apps/system/db
 
 DESCRIPTION = OpenLDAP
 URL = http://www.openldap.org/
