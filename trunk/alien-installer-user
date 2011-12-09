@@ -2,7 +2,7 @@
 
 trap 'INTERRUPT' 2 ERR
 
-############################################################
+#############################################################
 INTERRUPT()
 #############################################################
 {
@@ -116,8 +116,10 @@ STARTDOTS()
 # Log the initial process message.
 LOG process "$@"
 # Start print of dots as a separate process.
-PRINTDOTS &
-ALIEN_DOT_PID=$!
+if [ -z "$ALIEN_INSTALLER_BATCH" ]; then
+	PRINTDOTS &
+	ALIEN_DOT_PID=$!
+fi
 }
 
 #############################################################
@@ -131,7 +133,8 @@ if [ ! "$ALIEN_DOT_PID" = "" ]; then
 		disown $ALIEN_DOT_PID >/dev/null 2>&1
 		kill $ALIEN_DOT_PID >/dev/null 2>&1
 		# Reset the dot process identifier.
-		ALIEN_DOT_PID=""; fi
+		ALIEN_DOT_PID=""
+	fi
 	LOG normal "Done"; fi
 }
 
@@ -183,6 +186,9 @@ while [ $# -gt 0 ]
 	-platform|--platform)
 		shift 1
 		ALIEN_MACHINE_PLATFORM=$1 ;;
+	-server|--server)
+		shift 1
+		ALIEN_DOWNLOAD_SERVER=$1 ;;
 	-arch|--arch|--architecture|-architecture)
 		shift 1
 		ALIEN_INSTALLER_ARCH=$1 ;;
@@ -222,11 +228,12 @@ if [ "$ALIEN_ADVANCED_OPTIONS" = 1 ]; then
   echo "Advanced options: Users are NOT recommended to use them unless they know what they are doing
   -restart           	Restart services after the installation has finished
   -update-me		Update the installer (if needed) to the latest version
-  -version <version> 	Install a specific version of AliEn
+  -version <version> 	Install a specific version of AliEn (default: v2-19) [ v2-19 v2-18 trunk ]
   -platform <type>	Specify the platform to install (default: $(uname -s)) [ ${ALIEN_PLATFORM_TYPES[*]} ]
   -arch <type>		Specify the architecture to install (default: $(uname -m)) [${ALIEN_ARCH_TYPES[*]} ]
   -torrent		Perform installation through a torrent client
   -notorrent		Disable torrent installation. Standard download procedure will be used instead
+  -server 		Use a specific server for downloading the distribution
   -force           	Force installation irrespective of machine version and existing versions present
   -batch             	Perform a silent installation (extremely verbose and by default in torrent mode)
   -updatebin		Force update of $HOME/bin/alien-token-init and aliensh
@@ -511,9 +518,9 @@ if [ "$ALIEN_INSTALLER_ARCH" = "" ]; then
 	elif [ "$ALIEN_INSTALLER_ARCH" = "x86_64" -a "$(lsb_release -i | awk '{print $NF}')" = "Ubuntu" ]; then 
 		ALIEN_MACHINE_PLATFORM=Ubuntu
 		ALIEN_SYSTEM_VERSION=`lsb_release -r | awk '{ print $2 }'`
-		if [ "$ALIEN_FORCE_INSTALLATION" = "" ]; then
-			if [ $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $1 }') -lt 10 -o $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $2 }') -lt 10 ]; then LOG verbose "Ubuntu $ALIEN_SYSTEM_VERSION not compatible. Using SLC settings."; ALIEN_MACHINE_PLATFORM=Linux; fi
-		else LOG normal "Ubuntu version $ALIEN_SYSTEM_VERSION ignored. Installation forced."; fi
+		#if [ "$ALIEN_FORCE_INSTALLATION" = "" ]; then
+		#	if [ $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $1 }') -lt 10 -o $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $2 }') -lt 10 ]; then LOG verbose "Ubuntu $ALIEN_SYSTEM_VERSION not compatible. Using SLC settings."; ALIEN_MACHINE_PLATFORM=Linux; fi
+		#else LOG normal "Ubuntu version $ALIEN_SYSTEM_VERSION ignored. Installation forced."; fi
 	else	ALIEN_MACHINE_PLATFORM=Linux; fi
 fi
 
@@ -556,6 +563,10 @@ if [ "$ALIEN_VERSION" = "" ]; then
 	if  [ ! "$?" = "0" ]; then INTERRUPT -3 "Error getting file $ALIEN_BUILD_URL/Releases"; fi
 
 	ALIEN_VERSION=`grep 'Stable' $TMPFILE | head -n 1 | awk '{print $5}'`
+
+	if [ "$ALIEN_TYPE" = "user" ]; then
+	    ALIEN_VERSION="v2-19"
+	fi
 	
 	if [ "$ALIEN_VERSION" = "" ]; then INTERRUPT -3 "Error getting AliEn version from $releases"; fi
 	rm "$TMPFILE"
@@ -583,10 +594,16 @@ $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BUILD_URL/BitServers" "$
 if  [ $? != 0 ]; then INTERRUPT -3 "Error getting file $releases"; fi
 
 # Map relevant platform to a build server
-if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then ALIEN_BITS_URL=`grep "$ALIEN_MACHINE_PLATFORM" "$TMPFILE" | awk '{ print $3 }'`;
+if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then ALIEN_BITS_URL=`grep "$ALIEN_MACHINE_PLATFORM-10_04" "$TMPFILE" | awk '{ print $3 }'`;
 else ALIEN_BITS_URL=`grep "$ALIEN_INSTALLER_PLATFORM" "$TMPFILE" | awk '{print $3'}`; fi
 
 if [ "$ALIEN_BITS_URL" = "" ]; then cat $TMPFILE | LOG normal; INTERRUPT -3 "Error getting BITS URL $releases"; fi
+
+# Check whether a specific server was specified
+if [ ! "$ALIEN_DOWNLOAD_SERVER" = "" ]; then 
+	ALIEN_BITS_URL=`grep "$ALIEN_DOWNLOAD_SERVER" "$TMPFILE" | awk '{ print $3 }'`; 
+	if [ "$ALIEN_BITS_URL" = "" ]; then cat $TMPFILE | LOG normal; INTERRUPT -3 "Invalid server $ALIEN_DOWNLOAD_SERVER was specified"; fi
+fi
 
 # Set the AliEn distribution tarball download path
 ALIEN_BITS_URL="$ALIEN_BITS_URL/$ALIEN_INSTALLER_PLATFORM/$ALIEN_VERSION/download/"
@@ -599,13 +616,13 @@ FINDCURRENTVERSION()
 ############################################################
 {
 # Determine the tarball distribution version/name available on the build server
-LOG verbose "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWLOAD_PREFIX $ALIEN_BITS_URL/../../../../CompiledReleases $ALIEN_DOWNLOAD_OUTPUT $TMPFILE"
+LOG verbose "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWLOAD_PREFIX $ALIEN_BITS_URL/../../../../InstallReleases $ALIEN_DOWNLOAD_OUTPUT $TMPFILE"
 
-$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BITS_URL/../../../../CompiledReleases" "$ALIEN_DOWNLOAD_OUTPUT" "$TMPFILE"
-if [ $? != 0 ]; then INTERRUPT -3 "Error getting file $ALIEN_BITS_URL/../../../../CompiledReleases"; fi
+$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BITS_URL/../../../../InstallReleases" "$ALIEN_DOWNLOAD_OUTPUT" "$TMPFILE"
+if [ $? != 0 ]; then INTERRUPT -3 "Error getting file $ALIEN_BITS_URL/../../../../InstallReleases"; fi
 
 # Parse for minor/cvs version
-ALIEN_MINOR_VERSION=`cat "$TMPFILE" | grep "$ALIEN_VERSION" | awk  '{print \$4}'`
+ALIEN_MINOR_VERSION=`cat "$TMPFILE" | grep "$ALIEN_VERSION"_ | grep "$ALIEN_TYPE" | awk  'BEGIN { FS="=" } ; {print \$2}'`
 
 rm "$TMPFILE"
 
@@ -690,10 +707,13 @@ DOWNLOADTORRENT()
 {
 TCLIENT="torrent_client_$ALIEN_INSTALLER_ARCH.tar.bz2"
 WWWROOT="http://alitorrent.cern.ch"
+TCLIENTPATH=""
 
-LOG verbose "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $WWWROOT/torrent_client/$TCLIENT $ALIEN_DOWNLOAD_OUTPUT $TCLIENT"
+if which aria2c &>/dev/null; then TCLIENTPATH="scripts/"; fi
 
-$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$WWWROOT/torrent_client/$TCLIENT" "$ALIEN_DOWNLOAD_OUTPUT" $TCLIENT 
+LOG verbose "$ALIEN_DOWNLOAD_CLIENT $ALIEN_DOWNLOAD_PREFIX $WWWROOT/torrent_client/$TCLIENTPATH$TCLIENT $ALIEN_DOWNLOAD_OUTPUT $TCLIENT"
+
+$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$WWWROOT/torrent_client/$TCLIENTPATH$TCLIENT" "$ALIEN_DOWNLOAD_OUTPUT" $TCLIENT 
 if [ "$?" != 0 ]; then FALLBACKTONORMAL "Error downloading torrent client."; fi
 
 bzip2 -c -d "$TCLIENT" | tar -x
@@ -765,8 +785,8 @@ if [ "$prefix" != "$build_prefix" ]; then
 		if [ -f "$config" ]; then
 		        perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg; s%\"$build_prefix\"%\"$prefix\"%sg; " $config
 		        if [ "$?" != 0 ]; then  INTERRUPT -5 "Httpd relocation: Failed for $config"; fi
-                        config_user=`whoami`
-            		perl -pi -e "s%User daemon%User $config_user%sg; s%User daemon'%User $config_user'%sg; s%User daemon %User $config_user %sg; s%\"User daemon\"%\"User $config_user\"%sg; " $config
+			config_user=`whoami`
+			perl -pi -e "s%User daemon%User $config_user%sg; s%User daemon'%User $config_user'%sg; s%User daemon %User $config_user %sg; s%\"User daemon\"%\"User $config_user\"%sg; " $config
                         if [ "$?" != 0 ]; then  INTERRUPT -5 "Httpd user name relocation: Failed for $config"; fi
                         config_group=`ls -all -d $HOME | awk '{ print $4 }'`
                         perl -pi -e "s%Group daemon%Group $config_group%sg; s%Group daemon'%Group $config_group'%sg; s%Group daemon %Group $config_group %sg; s%\"Group daemon\"%\"Group $config_group\"%sg; " $config
@@ -869,6 +889,7 @@ ALIEN_VERSION=""
 ALIEN_INSTALLER_PLATFORM=""
 ALIEN_MACHINE_PLATFORM=""
 ALIEN_FORCE_INSTALLATION=""
+ALIEN_DOWNLOAD_SERVER=""
 
 # Parse arguments provided by the user
 PARSEARGUMENTS $*
@@ -927,6 +948,7 @@ if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
 
 # Define the url from where AliEn is downloaded
 if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then FILE=${ALIEN_BITS_URL}alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
+elif [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" ]; then FILE=${ALIEN_BITS_URL}alien_darwin-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
 else FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2; fi
 
 # Create the installation directory for AliEn
