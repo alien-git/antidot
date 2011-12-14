@@ -23,7 +23,7 @@ ifeq ($(shell uname),Darwin)
 	CONFIGURE_ARGS = --includedir=$(PREFIX)/include --includedir=/sw/include --libdir=$(PREFIX)/$(TARGET_LIBNAME) --libdir=/sw/lib
 else
 	CONFIGURE_ARGS = --includedir=$(PREFIX)/include --libdir=$(PREFIX)/$(TARGET_LIBNAME)
-fi
+endif
 
 include ../category.mk
 
