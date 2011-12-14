@@ -19,7 +19,11 @@ ifeq ($(ALICBS),)
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 endif
 
-CONFIGURE_ARGS = --includedir=$(PREFIX)/include --libdir=$(PREFIX)/$(TARGET_LIBNAME)
+ifeq ($(shell uname),Darwin)
+	CONFIGURE_ARGS = --includedir=$(PREFIX)/include --includedir=/sw/include --libdir=$(PREFIX)/$(TARGET_LIBNAME) --libdir=/sw/lib
+else
+	CONFIGURE_ARGS = --includedir=$(PREFIX)/include --libdir=$(PREFIX)/$(TARGET_LIBNAME)
+fi
 
 include ../category.mk
 
