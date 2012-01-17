@@ -3,7 +3,7 @@ GARVERSION = 1.12.1
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.bz2
 
-LIBDEPS = apps/gcc/gcc apps/system/zlib
+LIBDEPS = apps/gcc/gcc
 
 #http://ovh.dl.sourceforge.net/sourceforge/aria2/aria2-1.2.0.tar.bz2
 MASTER_SITES =  http://puzzle.dl.sourceforge.net/sourceforge/aria2 http://switch.dl.sourceforge.net/sourceforge/aria2/  http://ovh.dl.sourceforge.net/sourceforge/aria2/
