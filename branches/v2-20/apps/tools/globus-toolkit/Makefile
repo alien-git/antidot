@@ -5,7 +5,7 @@ GARVERSION = 4.2.1
 DISTFILES  = gt$(GARVERSION)-all-source-installer.tar.gz
 DISTNAME  = gt$(GARVERSION)-all-source-installer
 
-LIBDEPS  = apps/devel/ant apps/tools/eugridpma-carep apps/system/openssl apps/perl/XML-Parser
+LIBDEPS  = apps/devel/ant apps/tools/eugridpma-carep apps/perl/XML-Parser
 MASTER_SITES = http://www-unix.globus.org/ftppub/gt4/4.2.1/installers/src/
 
 DESCRIPTION = Globus Toolkit
