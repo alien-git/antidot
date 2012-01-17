@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/F/FL/FLORA/ http://www.cpan.org/authors/id/F/FL/FLORA/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/F/FL/FLORA/
 
-LIBDEPS = apps/system/openssl apps/perl/perl
+LIBDEPS = apps/perl/perl
 
 DESCRIPTION = Perl extension for using OpenSSL
 AUTHOR = Sampo Kellomaki

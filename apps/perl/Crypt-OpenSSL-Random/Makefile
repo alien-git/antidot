@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/I/IR/IROBERTS/ http://www.cpan.org/authors/id/I/IR/IROBERTS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/I/IR/IROBERTS/
 
-LIBDEPS = apps/system/openssl apps/perl/perl
+LIBDEPS = apps/perl/perl
 
 DESCRIPTION = Interface to OpenSSL PRNG methods
 AUTHOR = Ian Robertson
