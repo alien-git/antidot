@@ -1,5 +1,5 @@
 GARNAME = httpd
-GARVERSION = 2.2.16
+GARVERSION = 2.2.21
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -11,7 +11,7 @@ PATCHFILES += ssl_modules.patch
 
 #MASTER_SITES = http://apache.cict.fr/httpd/
 
-LIBDEPS = apps/system/openssl apps/system/db apps/system/expat apps/devel/libtool apps/devel/automake apps/gcc/gcc
+LIBDEPS = apps/system/expat apps/devel/libtool apps/devel/automake apps/gcc/gcc
 
 DESCRIPTION = Apache Web Server
 URL = http://apache.org
@@ -22,7 +22,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/httpd --with-mpm=prefork --enable-ssl --enable-so  --enable-rewrite --enable-dav --with-ssl=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(PREFIX)/httpd --with-mpm=prefork --enable-ssl --enable-so  --enable-rewrite --enable-dav
 
 CONFIGURE_ENV  =  env CFLAGS=-DSSL_EXPERIMENTAL_ENGINE
 
