@@ -855,7 +855,7 @@ if [ "$ALIEN_TYPE" = "vobox" ]; then
 	ln -s "$ALIEN_INSTALL_DIR/etc/rc.d/init.d/aliend" "$HOME/bin/aliend"
 else
 	LOG verbose "Creating soft links to alien-token-init and aliensh in $HOME/bin"
-	if [ -L "$HOME/bin/alien-token-init" ]; then LOG verbose "Link $HOME/alien-token-init already exists. Overwriting it."; rm "$HOME/bin/alien-token-init"; fi
+	if [ -f "$HOME/bin/alien-token-init" ]; then LOG verbose "Link $HOME/alien-token-init already exists. Overwriting it."; rm "$HOME/bin/alien-token-init"; fi
 
 cat >> $HOME/bin/alien-token-init << EOF
 #! /bin/bash
