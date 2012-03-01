@@ -19,7 +19,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio --with-ssl --with-big-tables  --without-debug --enable-thread-safe-client 
+CONFIGURE_ARGS = --prefix=$(PREFIX) --with-vio --with-ssl --with-big-tables  --without-debug --enable-thread-safe-client --with-plugins=innodb_plugin
 
 CONFIGURE_ENV  = env LDFLAGS="-L$(PREFIX)/lib" CFLAGS="-fPIC" CPPFLAGS="-I$(PREFIX)/include"
 
