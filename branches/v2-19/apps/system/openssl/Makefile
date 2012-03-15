@@ -23,4 +23,3 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --openssldir=$(PREFIX) zlib no-idea  zlib no
 include ../category.mk
 
 POST_CONFIGURE = (cd $(WORKSRC) && bubu && make depend)
-POST_INSTALL=(cd $(PREFIX)/lib && ln -s libcrypto.so.0.9.8 libcrypto.so.6)
