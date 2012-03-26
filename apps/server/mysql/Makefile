@@ -1,12 +1,12 @@
 GARNAME = mysql
-GARVERSION = 5.1.61
+GARVERSION = 5.5.22
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).zip
 DISTNAME =  $(GARNAME)-$(GARVERSION)
 #PATCHFILES = term.c.patch
 
 #http://mirror.switch.ch/ftp/mirror/mysql/Downloads/MySQL-5.1/mysql-5.1.36.zip
-MASTER_SITES = http://mirror.switch.ch/ftp/mirror/mysql/Downloads/MySQL-5.1/
+MASTER_SITES = http://mirror.switch.ch/ftp/mirror/mysql/Downloads/MySQL-5.5/
 
 LIBDEPS = apps/gcc/gcc
 
