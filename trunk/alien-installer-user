@@ -564,9 +564,10 @@ if [ "$ALIEN_VERSION" = "" ]; then
 
 	ALIEN_VERSION=`grep 'Stable' $TMPFILE | head -n 1 | awk '{print $5}'`
 
-	if [ "$ALIEN_TYPE" = "user" ]; then
-	    ALIEN_VERSION="v2-19"
-	fi
+#	if [ "$ALIEN_TYPE" = "user" -o "$ALIEN_TYPE" = "workernode" ]; then
+#	if [ "$ALIEN_TYPE" = "user" ]; then
+#	    ALIEN_VERSION="v2-19-1"
+#	fi
 	
 	if [ "$ALIEN_VERSION" = "" ]; then INTERRUPT -3 "Error getting AliEn version from $releases"; fi
 	rm "$TMPFILE"
@@ -705,7 +706,13 @@ if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then INTERRUPT -4 "The
 DOWNLOADTORRENT()
 ############################################################
 {
-TCLIENT="torrent_client_$ALIEN_INSTALLER_ARCH.tar.bz2"
+TORRENT_PACKAGE=$ALIEN_INSTALLER_ARCH
+
+if uname -r | grep -q -E -e "^(3|4|5|2.6.3[0123456789])"; then
+    TORRENT_PACKAGE="${TORRENT_PACKAGE}_new"
+fi
+
+TCLIENT="torrent_client_${TORRENT_PACKAGE}.tar.bz2"
 WWWROOT="http://alitorrent.cern.ch"
 TCLIENTPATH=""
 
@@ -725,11 +732,11 @@ else FULLNAME="alien-$ALIEN_VERSION-$ALIEN_TYPE-$ALIEN_INSTALLER_ARCH.tar.bz2"; 
 TFILE="$WWWROOT/torrents/$FULLNAME.torrent"
 
 LOG normal "Getting the torrent"
-torrent_client_$ALIEN_INSTALLER_ARCH/download "$TFILE" -d torrent_source 
+torrent_client_${TORRENT_PACKAGE}/download "$TFILE" -d torrent_source 
 if [ "$?" != 0 ]; then FALLBACKTONORMAL "Error downloading $TFILE."; fi
 
 LOG verbose "Seeding the torrent"
-torrent_client_$ALIEN_INSTALLER_ARCH/seed "$TFILE" -d torrent_source
+torrent_client_${TORRENT_PACKAGE}/seed "$TFILE" -d torrent_source
 #if [ "$?" != 0 ]; then INTERRUPT -4 "Error seeding $TFILE!"; fi
 
 STARTDOTS "Extracting the files"
