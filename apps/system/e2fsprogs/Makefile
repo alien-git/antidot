@@ -1,10 +1,11 @@
 GARNAME = e2fsprogs
-GARVERSION = 1.41.12
+GARVERSION = 1.42.2
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = Makefile.in.diff
 
-MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/e2fsprogs/
+#MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/e2fsprogs/
+MASTER_SITES = http://sourceforge.net/projects/$(GARNAME)/files/$(GARNAME)/v$(GARVERSION)/
 
 BININSTALL_IGNORE = true
 
