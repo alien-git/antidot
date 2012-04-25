@@ -4,7 +4,8 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
-MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/expat/ 
+#MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/expat/ 
+MASTER_SITES = http://sourceforge.net/projects/expat/files/expat/$(GARVERSION)/
 
 LIBDEPS = apps/gcc/gcc apps/devel/libtool apps/devel/automake
 
