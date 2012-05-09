@@ -5,13 +5,13 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/H/HA/HAYASHI/
 
-LIBDEPS = apps/perl/perl apps/system/readline
-
+#LIBDEPS = apps/perl/perl apps/system/readline
+PREFIX = /opt/alien
 DESCRIPTION = GNU Readline XS library wrapper
 AUTHOR = Hiroo HAYASHI
 URL = http://cpan.uwinnipeg.ca/~hayashi
 LICENSE = Perl
-
+PATCHFILES = Makefile.PL.patch
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
