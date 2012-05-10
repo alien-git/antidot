@@ -21,7 +21,11 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 BUILD_ARGS =  
 
-CONFIGURE_ARGS = -default $(PREFIX)  LIBS="-L$(PREFIX)/lib -lssl -lcrypto" INC="-I$(PREFIX)/include" 
+ifeq ($(shell uname),Darwin)
+    CONFIGURE_ARGS = -default $(PREFIX)  LIBS="-L$(PREFIX)/lib -lssl -lcrypto" INC="-I$(PREFIX)/include" 
+else
+    CONFIGURE_ARGS = -default $(PREFIX) -lib "$(PREFIX)" LIBS="-L$(PREFIX)/lib -lssl -lcrypto" INC="-I$(PREFIX)/include" 
+endif 
 
 CONFIGURE_ENV  =  
 
