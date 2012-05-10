@@ -23,6 +23,10 @@ URL     =
 
 DESCRIPTION = A library to read from MonaLisa Web Service
 
+CONFIGURE_ENV = CFLAGS="-I$(PREFIX)/include -fPIC" CPPFLAGS="-I$(PREFIX)/include  -fPIC" CXXFLAGS="-I$(PREFIX)/include  -fPIC" LDFLAGS="-L$(PREFIX)/lib"
+BUILD_ENV = CFLAGS="-I$(PREFIX)/include -fPIC" CPPFLAGS="-I$(PREFIX)/include  -fPIC" CXXFLAGS="-I$(PREFIX)/include  -fPIC" LDFLAGS="-L$(PREFIX)/lib"
+INSTALL_ENV = CFLAGS="-I$(PREFIX)/include -fPIC" CPPFLAGS="-I$(PREFIX)/include  -fPIC" CXXFLAGS="-I$(PREFIX)/include  -fPIC" LDFLAGS="-L$(PREFIX)/lib"
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure 
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile

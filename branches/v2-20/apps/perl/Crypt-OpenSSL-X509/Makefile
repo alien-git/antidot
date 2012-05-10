@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #http://search.cpan.org/CPAN/authors/id/D/DA/DANIEL/Crypt-OpenSSL-X509-1.4.tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DA/DANIEL/
 
-LIBDEPS = apps/perl/perl
+LIBDEPS = apps/system/openssl apps/perl/perl
 
 DESCRIPTION = Perl extension to OpenSSL's X509 API.  
 AUTHOR = Dan Sully
