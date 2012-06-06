@@ -1,7 +1,7 @@
 GARNAME = Test-Warn
-GARVERSION = 0.21
+GARVERSION = 0.24
 CATEGORIES = perl
-DISTFILES = $(GARNAME)-$(GARVERSION).zip
+DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
 #http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/Test-Warn-0.21.zip
