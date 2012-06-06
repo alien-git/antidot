@@ -1,5 +1,5 @@
 GARNAME = httpd
-GARVERSION = 2.2.21
+GARVERSION = 2.2.22
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -9,7 +9,7 @@ endif
 
 PATCHFILES += ssl_modules.patch
 
-#MASTER_SITES = http://apache.cict.fr/httpd/
+MASTER_SITES = http://apache.cict.fr/httpd/
 
 LIBDEPS = apps/system/expat apps/devel/libtool apps/devel/automake apps/gcc/gcc
 
@@ -30,5 +30,5 @@ include ../category.mk
 
 PRE_CONFIGURE = (rm -rf $(PREFIX)/httpd)
 
-POST_INSTALL = (patch $(PREFIX)/httpd/conf/httpd.conf files/httpd.conf.patch && cp -f files/startup.pl $(PREFIX)/httpd/conf/)
+#POST_INSTALL = (patch $(PREFIX)/httpd/conf/httpd.conf files/httpd.conf.patch && cp -f files/startup.pl $(PREFIX)/httpd/conf/)
 
