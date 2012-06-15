@@ -31,7 +31,6 @@ apps/perl/IO-Socket-SSL \
 apps/perl/LockFile-Simple \
 apps/perl/Log-Agent \
 apps/perl/Log-Agent-Rotate \
-apps/perl/Log-Dispatch \
 apps/perl/Log-TraceMessages \
 apps/perl/libwww-perl \
 apps/perl/MIME-Base64 \
@@ -39,7 +38,6 @@ apps/perl/Net-SSLeay \
 apps/perl/perl \
 apps/perl/perl-ldap \
 apps/perl/PlRPC \
-apps/perl/SOAP-Transport-TCP \
 apps/perl/Tie-CPHash \
 apps/perl/uuid \
 apps/perl/URI \
