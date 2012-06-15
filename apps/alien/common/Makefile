@@ -37,7 +37,6 @@ apps/perl/MIME-Base64 \
 apps/perl/Net-SSLeay \
 apps/perl/perl \
 apps/perl/perl-ldap \
-apps/perl/PlRPC \
 apps/perl/Tie-CPHash \
 apps/perl/uuid \
 apps/perl/URI \
