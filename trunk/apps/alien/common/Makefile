@@ -43,6 +43,7 @@ apps/perl/URI \
 apps/perl/XML-Generator \
 apps/perl/XML-Parser \
 apps/perl/XML-Parser-EasyTree \
+apps/perl/JSON-RPC \
 apps/perl/XML-Simple
 
 DESCRIPTION = AliEn common component
