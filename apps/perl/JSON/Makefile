@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MA/MAKAMAKA/
 
-LIBDEPS = apps/perl/JSON-XS apps/perl/JSON-RPC
+LIBDEPS = apps/perl/JSON-XS 
 
 DESCRIPTION = JSON server
 LICENSE = Perl
