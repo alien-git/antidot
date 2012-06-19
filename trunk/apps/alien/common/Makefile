@@ -44,7 +44,8 @@ apps/perl/XML-Generator \
 apps/perl/XML-Parser \
 apps/perl/XML-Parser-EasyTree \
 apps/perl/JSON-RPC \
-apps/perl/XML-Simple
+apps/perl/XML-Simple \
+apps/perl/Sys-Proctitle
 
 DESCRIPTION = AliEn common component
 URL = http://alien.cern.ch
