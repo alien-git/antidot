@@ -6,7 +6,6 @@ export GARSHARED=-dynamic
 export OWN_LDFLAGS += -dylib -undefined dynamic_lookup -single_module
 export OWN_CXXLDFLAGS += -dynamiclib -undefined dynamic_lookup -single_module
 export MASKED := \
-apps/alien/classad= \
 apps/gcc/gcc= \
 apps/portal/httpd= \
 apps/portal/gridsite= \
