@@ -27,6 +27,7 @@ DOWNLOADDIR ?= download
 COOKIEDIR ?= cookies
 WORKDIR ?= work
 WORKSRC ?= $(WORKDIR)/$(DISTNAME)
+OBJWORKSRC ?= $(WORKDIR)/objdir
 EXTRACTDIR ?= $(WORKDIR)
 SCRATCHDIR ?= tmp
 CHECKSUM_FILE ?= checksums
