@@ -1,8 +1,0 @@
---- work/globus-toolkit-4.0.3/Makefile.in	Fri Aug  5 15:36:30 2005
-+++ work/globus-toolkit-4.0.3/Makefile.in.new	Fri Oct 14 09:46:17 2005
-@@ -1,4 +1,4 @@
--all: gpt @prewsmds@ @gridftp@ @prewsgram@ @rls@ @myproxy@ @gsiopenssh@ @wsjava@ @wsmds@ @wsdel@ @wsrft@ @wsgram@ @wsgramcondor@ @wsgramlsf@ @wsgrampbs@ @wscas@ @webmds@ @wsc@ @i18n@ @tests@ @wstests@ @drs@ @rndvz@ done
-+all: gpt @gridftp@ @myproxy@ @gsiopenssh@ done
- GLOBUS_LOCATION=@prefix@
- GPT_LOCATION=@gptlocation@
- GLOBUS_IODBC_PATH=@globus_iodbc@
