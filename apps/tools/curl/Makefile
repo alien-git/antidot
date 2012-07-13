@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #http://curl.haxx.se/download/curl-7.19.5.tar.gz
 MASTER_SITES = http://curl.haxx.se/download/ 
 
-LIBDEPS =  apps/system/zlib apps/system/openssl
+LIBDEPS =  apps/system/openssl
 
 DESCRIPTION = The Lib Update/AutoUpdate Suite
 URL = http://luau.sourceforge.net/

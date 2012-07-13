@@ -46,11 +46,5 @@ then
      echo Relocating $app
      perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/uuid-config
      ;;
-   */apps/system/libxml2)
-     echo Relocating $app
-     perl -pi -e "s%$build_prefix/%$prefix/%sg; s%$build_prefix'%$prefix'%sg; s%$build_prefix %$prefix %sg " $prefix/bin/xml2-config
-     ;;
-     *)
-      ;;
   esac 
 fi
