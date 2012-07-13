@@ -428,6 +428,14 @@ configure-%/config:
 	@echo ' $(call TMSG_LIB,Running config in,$*)'
 	@(cd $* && $(CONFIGURE_ENV) ./config $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
+	
+configure-%/cmake:
+	true && $(PRE_CONFIGURE)
+	@mkdir -p $*
+	@rm -rf $*/*
+	@(cd $* && $(CONFIGURE_ENV) cmake $(CONFIGURE_ARGS) ../../$(WORKSRC))
+	@$(MAKECOOKIE)
+	
 
 # configure a package that uses imake
 # FIXME: untested and likely not the right way to handle the
@@ -465,6 +473,15 @@ build-%/makefile:
 build-%/GNUmakefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(MAKECOOKIE)
+
+build-%/cmake:
+	@echo ' $(call TMSG_LIB,Running cmake in,$*)'
+	@echo "$(PRE_BUILD)"
+	@$(PRE_BUILD)
+	@echo "$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)"
+	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 #################### USE RULES ####################
@@ -617,6 +634,17 @@ install-%/GNUmakefile:
 	@$(POST_INSTALL)
 	@$(PROVIDE_END)
 	@$(MAKECOOKIE)
+
+install-%/cmake:
+	@echo ' $(call TMSG_LIB,Running make install in,$*)'
+	$(PROVIDE_BEGIN)
+	@$(PRE_INSTALL)
+	@echo "$(INSTALL_ENV) $(MAKE) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) $(INSTALL_TARGET)"
+	@$(INSTALL_ENV) $(MAKE) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) $(INSTALL_TARGET)
+	@$(POST_INSTALL)
+	$(PROVIDE_END)
+	@$(MAKECOOKIE)
+
 
 ######################################
 # Use a manifest file of the format:
