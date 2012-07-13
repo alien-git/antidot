@@ -11,7 +11,7 @@ DESCRIPTION = GNU Readline XS library wrapper
 AUTHOR = Hiroo HAYASHI
 URL = http://cpan.uwinnipeg.ca/~hayashi
 LICENSE = Perl
-PATCHFILES = Makefile.PL.patch
+
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
@@ -19,11 +19,7 @@ ifeq ($(ALICBS),)
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 endif
 
-ifeq ($(shell uname),Darwin)
-	CONFIGURE_ARGS = --includedir=$(PREFIX)/include --includedir=/sw/include --libdir=$(PREFIX)/$(TARGET_LIBNAME) --libdir=/sw/lib
-else
-	CONFIGURE_ARGS = --includedir=$(PREFIX)/include --libdir=$(PREFIX)/$(TARGET_LIBNAME)
-endif
+CONFIGURE_ARGS = --includedir=$(PREFIX)/include --libdir=$(PREFIX)/$(TARGET_LIBNAME)
 
 include ../category.mk
 
