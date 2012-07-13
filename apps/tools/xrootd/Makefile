@@ -8,7 +8,7 @@ NOCHECKSUM = $(DISTFILES) $(PATCHFILES)
 
 MASTER_SITES = http://xrootd.org/download/v3.0.4/
 
-LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/tools/ml_gsoapclient apps/system/openssl
+LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/openssl apps/tools/ml_gsoapclient
 
 DESCRIPTION = Xrootd
 
@@ -23,7 +23,7 @@ INSTALL_SCRIPTS = $(WORKSRC)/GNUmakefile
 ifeq ($(shell uname),Darwin)
 	CONFIGURE_ARGS = --enable-ssl --prefix=$(PREFIX)/api --enable-perlint --disable-mon --enable-gsi --disable-posix --no-arch-subdirs
 else
-	CONFIGURE_ARGS = --build=debug --with-ssl-libdir=$(PREFIX)/lib --with-ssl-incdir=$(PREFIX)/include --prefix=$(PREFIX)/api --enable-perlint --disable-mon --enable-gsi --disable-posix --no-arch-subdirs
+	CONFIGURE_ARGS = --syslibs=$(PREFIX)/lib --incpfx=$(PREFIX)/include --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-ssl-libdir=$(PREFIX)/lib --with-ssl-incdir=$(PREFIX)/include --with-ssl-shared=yes --enable-gsi --disable-posix --no-arch-subdirs
 endif
 
 CONFIGURE_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib"
@@ -35,4 +35,8 @@ include ../category.mk
 PRE_CONFIGURE = (cd  $(WORKSRC)/src/XrdClient;  swig -perl XrdClientAdmin_c.hh)
 
 
-POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon)
+ifeq ($(shell uname),Darwin)
+	POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon)
+else
+	POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.*; ln -s ../../lib/libcrypto.* ../../lib/libssl.* .)
+endif
