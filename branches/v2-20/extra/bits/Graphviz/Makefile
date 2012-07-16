@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 MASTER_SITES = http://graphviz.org/pub/graphviz/ARCHIVE/
 
 #depends on pango and cairo-devel!!!
-LIBDEPS = apps/gcc/gcc apps/system/zlib apps/system/expat apps/devel/swig
+LIBDEPS = apps/gcc/gcc apps/system/expat apps/devel/swig
 
 DESCRIPTION = Graph Visualization Software
 URL = http://graphviz.org/
