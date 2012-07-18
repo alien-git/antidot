@@ -1,5 +1,5 @@
 GARNAME = e2fsprogs
-GARVERSION = 1.42.3
+GARVERSION = 1.42.4
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #PATCHFILES = Makefile.in.diff
