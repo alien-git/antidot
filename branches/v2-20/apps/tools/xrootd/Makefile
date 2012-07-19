@@ -8,7 +8,7 @@ NOCHECKSUM = $(DISTFILES) $(PATCHFILES)
 
 MASTER_SITES = http://xrootd.org/download/v3.0.4/
 
-LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/openssl apps/tools/ml_gsoapclient
+LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/openssl apps/tools/ml_gsoapclient apps/devel/pcre
 
 DESCRIPTION = Xrootd
 
