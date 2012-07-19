@@ -708,7 +708,7 @@ DOWNLOADTORRENT()
 {
 TORRENT_PACKAGE=$ALIEN_INSTALLER_ARCH
 
-if uname -r | grep -q -E -e "^(3|4|5|2.6.3[0123456789])"; then
+if ldd --version | head -n1 | awk '{print $NF}' | grep -q -E -e "^2\\.[123456789][0123456789]"; then
     TORRENT_PACKAGE="${TORRENT_PACKAGE}_new"
 fi
 
