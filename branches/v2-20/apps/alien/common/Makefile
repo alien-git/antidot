@@ -1,6 +1,6 @@
 SVNTYPE = trunk
 SVNNAME =  trunk
-SVNREVISION = 1652
+SVNREVISION = 1680
 
 GARNAME    = alien-common
 GARVERSION = $(SVNNAME)
@@ -31,22 +31,20 @@ apps/perl/IO-Socket-SSL \
 apps/perl/LockFile-Simple \
 apps/perl/Log-Agent \
 apps/perl/Log-Agent-Rotate \
-apps/perl/Log-Dispatch \
 apps/perl/Log-TraceMessages \
 apps/perl/libwww-perl \
 apps/perl/MIME-Base64 \
 apps/perl/Net-SSLeay \
 apps/perl/perl \
 apps/perl/perl-ldap \
-apps/perl/PlRPC \
-apps/perl/SOAP-Transport-TCP \
 apps/perl/Tie-CPHash \
 apps/perl/uuid \
 apps/perl/URI \
 apps/perl/XML-Generator \
 apps/perl/XML-Parser \
 apps/perl/XML-Parser-EasyTree \
-apps/perl/XML-Simple
+apps/perl/JSON-RPC \
+apps/perl/XML-Simple 
 
 DESCRIPTION = AliEn common component
 URL = http://alien.cern.ch
