@@ -13,7 +13,6 @@ apps/alien/lcg \
 apps/monitor/MonaLisa \
 apps/perl/Config-ApacheFormat \
 apps/perl/Term-ReadLine-Gnu \
-apps/perl/POE \
 apps/portal/mod_perl \
 apps/tools/aria2
 
