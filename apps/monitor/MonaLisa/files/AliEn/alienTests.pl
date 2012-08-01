@@ -36,6 +36,9 @@ umask 0027;
 my @tests = (
 	"alien version"			=> "alien -v",
 	"alien proxy"			=> "grid-proxy-info",
+	"alien ldap"			=>
+		"ldapsearch -LLL -x -h alice-ldap.cern.ch:8389 -b "
+		. "o=alice,dc=cern,dc=ch objectClass=AliEnVOConfig objectClass",
 	);
 
 POE::Session->create(
@@ -117,14 +120,20 @@ sub sig_chld {
 			}else{
 				$msg = ($ENV{X509_USER_PROXY} ? 
 					(-r $ENV{X509_USER_PROXY} ?
+						'Failed running grid-proxy-info' :
 						"X509_USER_PROXY doesn't point to a readable file."
-						:
-						'Failed running grid-proxy-info')
-					:
+					) :
 					"Undefined X509_USER_PROXY.");
 				$err = 1;
 			}
 			dumpStatus($heap->{test_name}, $err, $msg, "timeleft" => $timeleft);
+		}elsif($heap->{test_name} eq "alien ldap"){
+			if ($message =~ /objectClass: AliEnVOConfig/i) {
+				dumpStatus($heap->{test_name}, 0);
+			} else {
+				dumpStatus($heap->{test_name}, 1,
+					"The AliEn LDAP server could not be read: $message");
+			}
 		}else{
 			dumpStatus($heap->{test_name}, 0, $message);
 		}
