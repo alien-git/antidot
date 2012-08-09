@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = $(CPAN_MIRROR)/authors/id/L/LB/LBROCARD/ http://www.cpan.org/authors/id/L/LB/LBROCARD/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/L/LB/LBROCARD/
 
-LIBDEPS = extra/bits/IPC-Run extra/bits/Graphviz
+LIBDEPS = extra/bits/IPC-Run
 
 DESCRIPTION = Interface to the GraphViz graphing tool
 AUTHOR = Leon Brocard
