@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
 
-LIBDEPS = apps/perl/perl apps/perl/Encode-Locale apps/perl/IO-Compress apps/perl/LWP-Mediatypes
+LIBDEPS = apps/perl/perl apps/perl/Encode-Locale apps/perl/IO-Compress apps/perl/LWP-MediaTypes
 
 DESCRIPTION = HTTP-Message
 URL = http://lwp.linpro.no/lwp/
