@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
 
-LIBDEPS = apps/perl/perl apps/perl/HTTP-Date apps/perl/HTTP-Message
+LIBDEPS = apps/perl/HTTP-Message
 
 DESCRIPTION = HTTP-Cookies
 URL = http://lwp.linpro.no/lwp/
