@@ -1,13 +1,13 @@
-GARNAME = libwww-perl
+GARNAME = File-Listing
 GARVERSION = 6.04
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
 
-LIBDEPS = apps/perl/HTML-Parser apps/perl/HTML-Tagset apps/perl/URI apps/perl/WWW-RobotRules apps/perl/HTTP-Cookies apps/perl/File-Listing apps/perl/HTTP-Daemon apps/perl/HTTP-Negotiate apps/perl/Net-HTTP
+LIBDEPS = apps/perl/perl
 
-DESCRIPTION = Libwww-perl
+DESCRIPTION = File-Listing
 URL = http://lwp.linpro.no/lwp/
 AUTHOR = Gisle Aas
 LICENSE = Perl
