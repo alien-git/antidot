@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
 
-LIBDEPS = apps/perl/perl
+LIBDEPS = apps/perl/HTTP-Date
 
 DESCRIPTION = File-Listing
 URL = http://lwp.linpro.no/lwp/
