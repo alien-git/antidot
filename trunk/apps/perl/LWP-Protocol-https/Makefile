@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
 
-LIBDEPS = apps/perl/perl apps/perl/IO-Socket-SSL 
+LIBDEPS = apps/perl/IO-Socket-SSL apps/perl/libwww-perl apps/perl/Mozilla-CA apps/perl/Net-HTTP
 
 DESCRIPTION = LWP-Protocol-https
 URL = http://lwp.linpro.no/lwp/
