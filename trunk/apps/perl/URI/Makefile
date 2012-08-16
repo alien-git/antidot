@@ -1,11 +1,11 @@
 GARNAME = URI
-GARVERSION = 1.56
+GARVERSION = 1.60
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
 
-LIBDEPS = apps/perl/perl
+LIBDEPS = apps/perl/Test-Simple apps/perl/MIME-Base64
 
 DESCRIPTION = Uniform Resource Identifiers (absolute and relative)
 AUTHOR =  Gisle Aas
