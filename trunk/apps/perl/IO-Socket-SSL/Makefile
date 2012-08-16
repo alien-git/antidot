@@ -1,9 +1,9 @@
 GARNAME = IO-Socket-SSL
-GARVERSION = 1.33
+GARVERSION = 1.76
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/S/SU/SULLR/IO-Socket-SSL-1.26.tar.gz
+#http://search.cpan.org/CPAN/authors/id/S/SU/SULLR/IO-Socket-SSL-1.76.tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/S/SU/SULLR/
 
 LIBDEPS = apps/perl/Net-SSLeay
