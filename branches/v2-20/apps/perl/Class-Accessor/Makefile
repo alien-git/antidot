@@ -1,16 +1,17 @@
-GARNAME = MIME-Base64
-GARVERSION = 3.13
+GARNAME = Class-Accessor
+GARVERSION = 0.34
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
+#http://search.cpan.org/CPAN/authors/id/K/KA/KASEI/Class-Accessor-0.34.tar.gz
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/K/KA/KASEI/
 
 LIBDEPS = apps/perl/perl
 
-DESCRIPTION = Encoding and decoding of base64 strings  
-AUTHOR = Gisle Aas
-URL = http://search.cpan.org/~gaas/
+DESCRIPTION = Automated accessor generation  
 LICENSE = Perl
+URL = http://search.cpan.org/~kasei/
+AUTHOR = Marty Pauley
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
