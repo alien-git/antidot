@@ -1,6 +1,6 @@
 SVNTYPE = trunk
 SVNNAME =  trunk
-SVNREVISION = 1680
+SVNREVISION = 1702
 
 GARNAME    = alien-common
 GARVERSION = $(SVNNAME)
