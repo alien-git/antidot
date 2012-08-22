@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MA/MAKAMAKA/
 
-LIBDEPS = apps/perl/perl apps/perl/Plack apps/perl/Router-Simple apps/perl/Class-Accessor-Lite apps/perl/JSON
+LIBDEPS = apps/perl/perl apps/perl/Plack apps/perl/Router-Simple apps/perl/Class-Accessor-Lite apps/perl/JSON apps/perl/LWP-Protocol-https
 
 DESCRIPTION = JSON-RPC server
 LICENSE = Perl
