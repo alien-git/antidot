@@ -1,8 +1,9 @@
 GARNAME = Test-Fatal
-GARVERSION = 0.006
+GARVERSION = 0.010
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+#http://search.cpan.org/CPAN/authors/id/R/RJ/RJBS/Test-Fatal-0.010.tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RJ/RJBS/
 
 LIBDEPS = apps/perl/Try-Tiny
