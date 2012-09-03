@@ -3,10 +3,6 @@ GARVERSION = 2.2.22
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-ifeq ($(shell uname),Darwin)
-PATCHFILES = apr.h.patch
-endif
-
 PATCHFILES += ssl_modules.patch
 
 MASTER_SITES = http://apache.cict.fr/httpd/
@@ -24,7 +20,9 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = --prefix=$(PREFIX)/httpd --with-mpm=prefork --enable-ssl --enable-so  --enable-rewrite --enable-dav --with-ssl=$(PREFIX)
 
-CONFIGURE_ENV  =  env CFLAGS=-DSSL_EXPERIMENTAL_ENGINE
+CONFIGURE_ENV  =  env CFLAGS=-DSSL_EXPERIMENTAL_ENGINE CC=gcc
+BUILD_ENV= env CC=gcc
+INSTALL_ENV= env CC=gcc
 
 include ../category.mk
 
