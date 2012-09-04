@@ -1,12 +1,13 @@
 GARNAME = globus-toolkit
 CATEGORIES = apps-tools
-GARVERSION = 4.2.1
+GARVERSION = 5.2.1
 
 DISTFILES  = gt$(GARVERSION)-all-source-installer.tar.gz
 DISTNAME  = gt$(GARVERSION)-all-source-installer
 
+#http://www.globus.org/ftppub/gt5/5.2/5.2.1/installers/src/gt5.2.1-all-source-installer.tar.gz
 LIBDEPS  = apps/devel/ant apps/system/openssl apps/tools/eugridpma-carep apps/perl/XML-Parser
-MASTER_SITES = http://www-unix.globus.org/ftppub/gt4/4.2.1/installers/src/
+MASTER_SITES = http://www.globus.org/ftppub/gt5/5.2/5.2.1/installers/src/
 
 DESCRIPTION = Globus Toolkit
 URL = http://www.globus.org/
@@ -25,13 +26,10 @@ ifneq ($(shell uname),Darwin)
 	CONFIGURE_ENV += JAVA_HOME=$(PREFIX)/jdk/ 
 	BUILD_ENV += JAVA_HOME=$(PREFIX)/jdk/
 	INSTALL_ENV += JAVA_HOME=$(PREFIX)/jdk/
-endif
-
-ifeq ($(shell uname -n),alimacx06.cern.ch)
-	CONFIGURE_ENV +=  UNAME_PROCESSOR="x86_64"
-	BUILD_ENV += UNAME_PROCESSOR="x86_64"
-	INSTALL_ENV += UNAME_PROCESSOR="x86_64"
-	PATCHFILES = configure.patch aclocal.patch
+else
+	CONFIGURE_ENV += JAVA_HOME=/usr/
+	BUILD_ENV += JAVA_HOME=/usr/
+	INSTALL_ENV += JAVA_HOME=/usr/
 endif
 
 
