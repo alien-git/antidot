@@ -12,5 +12,6 @@ apps/devel/autoconf= \
 apps/devel/automake= \
 apps/portal/gridsite= \
 apps/devel/libtool= \
+apps/portal/gridsite \
 apps/devel/jdk= \
 apps/system/openssl= \
