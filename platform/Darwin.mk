@@ -10,6 +10,7 @@ apps/gcc/gcc= \
 apps/system/kerberos= \
 apps/devel/autoconf= \
 apps/devel/automake= \
+apps/portal/gridsite= \
 apps/devel/libtool= \
 apps/devel/jdk= \
 apps/system/openssl= \
