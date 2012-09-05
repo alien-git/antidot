@@ -1,0 +1,23 @@
+--- work/globus-toolkit-4.0.4/source-trees/gsi/gssapi/source/library/globus_i_gsi_gss_utils.c	2005-05-04 02:19:37.000000000 +0200
++++ work/globus-toolkit-4.0.4/source-trees/gsi/gssapi/source/library/globus_i_gsi_gss_utils.c.new	2007-07-30 11:42:29.000000000 +0200
+@@ -814,7 +814,8 @@
+ 
+     GLOBUS_I_GSI_GSSAPI_DEBUG_ENTER;
+ 
+-    /*
++    ERR_clear_error();
++
+      * do the BIO_do_handshake which may produce output,
+      * and endup waiting for input.
+      * when completed without error, connection established
+--- work/globus-toolkit-4.0.4/source-trees/gsi/gssapi/source/library/unwrap.c	2005-04-16 01:37:20.000000000 +0200
++++ work/globus-toolkit-4.0.4/source-trees/gsi/gssapi/source/library/unwrap.c.new	2007-07-30 11:43:22.000000000 +0200
+@@ -234,6 +234,8 @@
+             goto exit;
+         }
+ 
++        ERR_clear_error();
++
+         /* now get the data from SSL. 
+          * We don't know how big it is, so assume the max?
+          */

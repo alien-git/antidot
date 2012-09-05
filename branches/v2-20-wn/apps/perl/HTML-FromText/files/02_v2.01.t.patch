@@ -1,0 +1,20 @@
+--- work/HTML-FromText-2.05/t/02_v2.01.t.old	2010-08-13 16:16:47.000000000 +0200
++++ work/HTML-FromText-2.05/t/02_v2.01.t	2010-08-13 16:17:24.000000000 +0200
+@@ -60,7 +60,7 @@
+  *         Powerful presentation language supports all standard templating directives, e.g. variable substitution, includes, conditionals,
+           loops. 
+    *       Many additional features such as output filtering, exception handling, macro definition, support for plugin objects, definition
+-          of template metadata, embedded Perl code (only enabled by EVAL_PERL option), definition of template blocks, a 'switch'
++          of template metadata, embedded Perl code (only enabled by EVAL_PERL option), definition of template blocks, a 'switch';
+           statement, and more. 
+    *       Full support for complex Perl data types such as hashes, lists, objects and sub-routine references. 
+   *        Clear separation of concerns between user interface (templates), application code (Perl objects/sub-routines) and data
+@@ -83,7 +83,7 @@
+           loops. </li>
+    <ul class="hft-bullets">
+    <li>       Many additional features such as output filtering, exception handling, macro definition, support for plugin objects, definition
+-          of template metadata, embedded Perl code (only enabled by EVAL_PERL option), definition of template blocks, a 'switch'
++          of template metadata, embedded Perl code (only enabled by EVAL_PERL option), definition of template blocks, a &#39;switch&#39;;
+           statement, and more. </li>
+    <li>       Full support for complex Perl data types such as hashes, lists, objects and sub-routine references. </li>
+    </ul>
