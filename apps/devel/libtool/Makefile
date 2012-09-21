@@ -3,7 +3,7 @@ GARVERSION = 2.2.10
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-BININSTALL_IGNORE = true
+BININSTALL_IGNORE = false
 
 MASTER_SITES = http://ftp.gnu.org/gnu/libtool/
 
