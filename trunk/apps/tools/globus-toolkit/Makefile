@@ -33,7 +33,7 @@ else
 endif
 
 
-CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)
+CONFIGURE_ARGS = --prefix=$(GLOBUS_LOCATION) --libdir=$(GLOBUS_LOCATION)/lib --with-flavor=$(GLOBUS_FLAVOR) --with-openssl=$(PREFIX)
 BUILD_ARGS =  gsi-myproxy
 
 include ../category.mk
