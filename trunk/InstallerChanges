@@ -1,0 +1,17 @@
+
+1.46 Mon Sep 17 10:14:53 CEST 2012
+- Moving for User installation from prebuild packages to compiled packages
+- The installation is using a central configuration file UserReleases downloaded from the main build server
+
+1.47 Wed Sep 19 14:54:27 CEST 2012
+- Adding cmake support for newer versions of xrootd
+- Adding certificate validation:
+    - the certificate exits
+    - the private key has the right access <=600
+    - the certificate is still valid
+    
+1.48 Fri Sep 21 17:47:34 CEST 2012
+- Adding official CA certificates from CA http://dist.eugridpma.info/distribution/current/accredited/  
+
+1.49 Mon Sep 24 11:21:59 CEST 2012
+- adding no-certificate-check flag

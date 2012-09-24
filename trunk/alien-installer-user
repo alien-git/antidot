@@ -16,6 +16,8 @@ INTERRUPT()
 #	3	*Pre-install failure
 #	4	AliEn distribution download failure.
 #	5	Relocation failure
+#	6	Compiltion failure
+#	7 	Certificate error
 # * - nothing will be moved to .failed
 
 STOPDOTS
@@ -194,6 +196,8 @@ while [ $# -gt 0 ]
 		ALIEN_INSTALLER_ARCH=$1 ;;
 	-force|--force)
 		ALIEN_FORCE_INSTALLATION=1 ;;
+	-no-certificate-check|--no-certificate-check)
+		ALIEN_NO_CERTIFICATE_CHECK=1 ;;
 	-batch|--batch)
 		ALIEN_INSTALLER_BATCH=1
 		ALIEN_INSTALLER_VERBOSE=1
@@ -235,6 +239,7 @@ if [ "$ALIEN_ADVANCED_OPTIONS" = 1 ]; then
   -notorrent		Disable torrent installation. Standard download procedure will be used instead
   -server 		Use a specific server for downloading the distribution
   -force           	Force installation irrespective of machine version and existing versions present
+  -no-certificate-check Do not check the existence and validity of the user certificate. This can be used only in combination with user/compile installation
   -batch             	Perform a silent installation (extremely verbose and by default in torrent mode)
   -updatebin		Force update of $HOME/bin/alien-token-init and aliensh
   -verbose		Print more detailed installation information
@@ -276,19 +281,103 @@ $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BUILD_URL/InstallRelease
 if  [ "$?" != "0" ]; then 	INTERRUPT -3 "Error downloading $ALIEN_BUILD_URL/InstallReleases"; fi
 
 ALIEN_VERSIONS=(`cat "$TMPFILE" | awk 'BEGIN { FS = "_" } ; { print $1 }' | sort | uniq`)
-ALIEN_TYPES=(`cat "$TMPFILE" | awk 'BEGIN { FS = "_" } ; { print $2 }' | awk 'BEGIN { FS = "=" } ; { print $1 }' | sort | uniq`)
+ALIEN_TYPES=(`cat "$TMPFILE" | awk 'BEGIN { FS = "_" } ; { print $2 }' | awk 'BEGIN { FS = "=" } ; { print $1 }' | sort | uniq` compile)
 
 LOG verbose "AliEn versions available: ${ALIEN_VERSIONS[*]} || Types available: ${ALIEN_TYPES[*]}"
 rm "$TMPFILE"
 
 # "user" installation is set as default. If ALIEN_TYPE is specified, then verify
 # its validity (within the list of available types) before proceeding any further.
-if [ "$ALIEN_TYPE" = "" ]; then ALIEN_TYPE=user; LOG verbose "Default installation type: $ALIEN_TYPE";
+if [ "$ALIEN_TYPE" = "" ]; then ALIEN_TYPE=compile; LOG verbose "Default installation type: $ALIEN_TYPE";
 else
 	for index in ${ALIEN_TYPES[*]};
 	do if [[ $index == $ALIEN_TYPE ]]; then LOG verbose "User specified valid installation type: $ALIEN_TYPE"; ALIEN_TYPE_FOUND=1; fi
 	done
 	if [ ! "$ALIEN_TYPE_FOUND" = 1 ]; then INTERRUPT -3 "Invalid type of installation was specified \n Please use one of the following installation types: ${ALIEN_TYPES[*]}"; fi
+fi
+}
+
+#############################################################
+CHECKUSERCERTIFICATE()
+#############################################################
+{
+if [ "$ALIEN_TYPE" = "compile" -o "$ALIEN_TYPE" = "user" ];then
+
+    if [ "$ALIEN_NO_CERTIFICATE_CHECK" != "1" ]; then
+
+	LOG normal "Installer type is user or compile, we need to check for a valid certificate"
+
+	#check for certificate and private key
+	if [ -f "${HOME}/.globus/usercert.pem" ]; then
+	    LOG verbose "Certificate found in ${HOME}/.globus/usercert.pem"
+	
+	    OPENSSLBIN=`which openssl`
+	
+	    if [ "$?" != "0" ]; then
+		INTERRUPT - 7 "No openssl installed. Please install openssl to go further"
+	    else	
+		LOG normal "Found certificate: ${HOME}/.globus/usercert.pem"
+	
+		CERTSUBJECT=`openssl x509 -noout -in ${HOME}/.globus/usercert.pem -subject`
+		LOG normal "Certificate subject: ${CERTSUBJECT}"
+		CERTISSUER=`openssl x509 -noout -in ${HOME}/.globus/usercert.pem -issuer`
+		LOG normal "Certificate issuer: ${CERTISSUER}"
+	
+		DATETODAY=`TZ='GMT' date +"%b %d %H:%M:%S %Y %Z"`
+		DATENOTBEFORE=`openssl x509 -noout -in ${HOME}/.globus/usercert.pem -dates | grep notBefore | cut -d"=" -f2-`
+		DATENOTAFTER=`openssl x509 -noout -in ${HOME}/.globus/usercert.pem -dates | grep notAfter | cut -d"=" -f2-`
+	    
+		CERTIFICATEEXP=`openssl x509 -noout -in ${HOME}/.globus/usercert.pem -checkend 0`
+	    	    
+		if [ "$?" != 0 ]; then
+		    INTERRUPT -7 "Certificate expired on \"${DATENOTAFTER}\"! Please install a proper certificate"
+		else
+		    LOG normal "Certificate valid. Moving forward with AliEn installation." 
+		fi
+    	    fi
+        
+    	    if [ -f "${HOME}/.globus/userkey.pem" ]; then
+    		KEYPERMISSIONS=`stat -c "%a" ${HOME}/.globus/userkey.pem 2>&1`
+    	    
+    		if [ "$?" != 0 ]; then
+    		    KEYPERMISSIONS=`stat -f "%p" ${HOME}/.globus/userkey.pem 2>&1`
+    	    
+    		    if [ "$?" != 0 ]; then
+    			LOG normal "I am not able to test the permissions on the file. Please verify that the certificate is read/write only for the owner"
+    		    else
+    			OTHERSPERMISSIONS=`echo $KEYPERMISSIONS | cut -c 5-6`
+    			USERPERMISSIONS=`echo $KEYPERMISSIONS | cut -c 4`    		    
+    		    
+    			if [ "$OTHERSPERMISSIONS" != "00" ]; then    			
+    			    INTERRUPT -7 "Wrong permissions on the private key file 1: \"${USERPERMISSIONS}${OTHERSPERMISSIONS}\". The key must be readble/writable only to the owner. Please run \"chmod 600 ${HOME}/.globus/userkey.pem\""
+    			fi
+    		    
+    			if (( USERPERMISSIONS < 4 )); then
+    			    INTERRUPT -7 "Wrong permissions on the private key file 2: \"${USERPERMISSIONS}${OTHERSPERMISSIONS}\". The key must be readble/writable only to the owner. Please run \"chmod 600 ${HOME}/.globus/userkey.pem\""
+    			fi 
+    		    fi
+    		else
+    		    OTHERSPERMISSIONS=`echo $KEYPERMISSIONS | cut -c 2-3`
+    		    USERPERMISSIONS=`echo $KEYPERMISSIONS | cut -c 1`    		
+    		
+    		    if [ "$OTHERSPERMISSIONS" != "00" ]; then
+    			INTERRUPT -7 "Wrong permissions on the private key file 3: \"${KEYPERMISSIONS}\". The key must be readble/writable only to the owner. Please run \"chmod 600 ${HOME}/.globus/userkey.pem\""
+    		    fi
+    		
+    		    if (( USERPERMISSIONS < 4 )); then
+    			INTERRUPT -7 "Wrong permissions on the private key file 4: \"${KEYPERMISSIONS}\". The key must be readble/writable only to the owner. Please run \"chmod 600 ${HOME}/.globus/userkey.pem\""
+    		    fi 	
+    		fi
+    	    
+    	    else
+    		INTERRUPT -7 "No private key found in ${HOME}/.globus. Please extract the private key from your certificate"
+    	    fi
+	else
+	    INTERRUPT -7  "No user certificate found in ${HOME}/.globus/. Please get a proper certificate in order to run AliEn"
+	fi
+    else
+	LOG normal "\e[01;34;47m  User certificate disabled! Make sure that your certificate is still valid! \033[m"
+    fi
 fi
 }
 
@@ -503,7 +592,7 @@ FINDPLATFORM()
 # If platform was not specified by the user, then use uname
 if [ "$ALIEN_MACHINE_PLATFORM" = "" ]; then ALIEN_MACHINE_PLATFORM=$(uname -s); fi
 
-# Special checks for Darwin and Ubuntu machines
+# Special checks for Darwin/Ubuntu/SLC6 machines
 if [ "$ALIEN_INSTALLER_ARCH" = "" ]; then
 	ALIEN_INSTALLER_ARCH=$(uname -m)
 	if [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" ]; then
@@ -515,6 +604,9 @@ if [ "$ALIEN_INSTALLER_ARCH" = "" ]; then
 		if [ "$ALIEN_FORCE_INSTALLATION" = "" ]; then
 			if [ $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $1 }') -lt 10 -o $( echo $ALIEN_SYSTEM_VERSION | awk 'BEGIN { FS="." } ; { print $2 }') -lt 6 ]; then INTERRUPT -3 "Darwin $ALIEN_SYSTEM_VERSION not supported."; fi
 		else LOG normal "Darwin version ignored. Installation forced."; fi
+	elif [ "$(lsb_release -i | awk '{print $NF}')" = "ScientificCERNSLC" -a "$(lsb_release -r | awk '{print $2}' | cut -d. -f1)" = "6" ]; then
+		ALIEN_MACHINE_PLATFORM=SLC6-$ALIEN_INSTALLER_ARCH
+		ALIEN_SYSTEM_VERSION=`lsb_release -r | awk '{ print $2 }'`; 
 	elif [ "$ALIEN_INSTALLER_ARCH" = "x86_64" -a "$(lsb_release -i | awk '{print $NF}')" = "Ubuntu" ]; then 
 		ALIEN_MACHINE_PLATFORM=Ubuntu
 		ALIEN_SYSTEM_VERSION=`lsb_release -r | awk '{ print $2 }'`
@@ -524,7 +616,8 @@ if [ "$ALIEN_INSTALLER_ARCH" = "" ]; then
 	else	ALIEN_MACHINE_PLATFORM=Linux; fi
 fi
 
-LOG verbose "Platform determined as: $ALIEN_MACHINE_PLATFORM \n   Architecture determined as: $ALIEN_INSTALLER_ARCH"
+LOG verbose "Platform determined as: $ALIEN_MACHINE_PLATFORM"
+LOG verbose "Architecture determined as: $ALIEN_INSTALLER_ARCH"
 if [ "$ALIEN_MACHINE_PLATFORM" = "Linux" ]; then
 		case "$ALIEN_INSTALLER_ARCH" in
 			i686) ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu ;;
@@ -539,6 +632,13 @@ elif [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then
 			i386) LOG verbose "$ALIEN_MACHINE_PLATFORM 32 bits is not available. Switching to Linux 32 bits."; ALIEN_MACHINE_PLATFORM="Linux"; ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu ;;
 			x86_64) ALIEN_INSTALLER_PLATFORM=x86_64-unknown-linux-gnu ;;
 			*) INTERRUPT -3 "Please use one of the following available architectures: ${ALIEN_ARCH_TYPES[*]}";;
+		esac
+elif [[ "$ALIEN_MACHINE_PLATFORM" =~ ^SLC6.*$ ]]; then
+		case "$ALIEN_INSTALLER_ARCH" in
+			i686) ALIEN_INSTALLER_PLATFORM=i686-pc-linux-gnu ;;
+			x86_64) ALIEN_INSTALLER_PLATFORM=x86_64-unknown-linux-gnu ;;
+			*) LOG normal "Invalid architecture was specified"
+			INTERRUPT -3 "Please use one of the following available architectures: i686, x86_64}" ;;
 		esac
 elif [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" ]; then
 		case "$ALIEN_INSTALLER_ARCH" in
@@ -595,8 +695,16 @@ $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BUILD_URL/BitServers" "$
 if  [ $? != 0 ]; then INTERRUPT -3 "Error getting file $releases"; fi
 
 # Map relevant platform to a build server
-if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then ALIEN_BITS_URL=`grep "$ALIEN_MACHINE_PLATFORM-10_04" "$TMPFILE" | awk '{ print $3 }'`;
-else ALIEN_BITS_URL=`grep "$ALIEN_INSTALLER_PLATFORM" "$TMPFILE" | awk '{print $3'}`; fi
+if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 
+    ALIEN_BITS_URL=`grep "$ALIEN_MACHINE_PLATFORM-10_04" "$TMPFILE" | awk '{ print $3 }'`; 
+    LOG verbose "AliEn build server = $ALIEN_BITS_URL";
+elif [[ "$ALIEN_MACHINE_PLATFORM" =~ ^SLC6.*$ ]]; then 
+    ALIEN_BITS_URL=`grep "$ALIEN_MACHINE_PLATFORM" "$TMPFILE" | awk '{print $3'}`;
+    LOG verbose "AliEn build server = $ALIEN_BITS_URL";
+else 
+    ALIEN_BITS_URL=`grep "$ALIEN_INSTALLER_PLATFORM" "$TMPFILE" | awk '{print $3'}`; 
+    LOG verbose "AliEn build server = $ALIEN_BITS_URL";
+fi
 
 if [ "$ALIEN_BITS_URL" = "" ]; then cat $TMPFILE | LOG normal; INTERRUPT -3 "Error getting BITS URL $releases"; fi
 
@@ -607,8 +715,9 @@ if [ ! "$ALIEN_DOWNLOAD_SERVER" = "" ]; then
 fi
 
 # Set the AliEn distribution tarball download path
+ALIEN_BITS_BASE_URL=$ALIEN_BITS_URL
 ALIEN_BITS_URL="$ALIEN_BITS_URL/$ALIEN_INSTALLER_PLATFORM/$ALIEN_VERSION/download/"
-
+LOG verbose "AliEn build download location = $ALIEN_BITS_URL"
 rm -f $TMPFILE
 }
 
@@ -623,7 +732,18 @@ $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BITS_URL/../../../../Ins
 if [ $? != 0 ]; then INTERRUPT -3 "Error getting file $ALIEN_BITS_URL/../../../../InstallReleases"; fi
 
 # Parse for minor/cvs version
-ALIEN_MINOR_VERSION=`cat "$TMPFILE" | grep "$ALIEN_VERSION"_ | grep "$ALIEN_TYPE" | awk  'BEGIN { FS="=" } ; {print \$2}'`
+if [ "$ALIEN_TYPE" != "compile" ]; then
+    ALIEN_MINOR_VERSION=`cat "$TMPFILE" | grep "$ALIEN_VERSION"_ | grep "$ALIEN_TYPE" | awk  'BEGIN { FS="=" } ; {print $2}' | sed 's/\\"//g'`
+else
+    LOG verbose "$ALIEN_DOWNLOAD_CLIENT \"$ALIEN_DOWNLOAD_PREFIX\" \"$ALIEN_BUILD_URL/UserReleases\" \"$ALIEN_DOWNLOAD_OUTPUT\" \"$TMPFILE\""
+    $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BUILD_URL/UserReleases" "$ALIEN_DOWNLOAD_OUTPUT" "$TMPFILE"
+    
+    ALIEN_MINOR_VERSION=`cat $TMPFILE | grep "${ALIEN_VERSION}_minor=" | awk -F= '{print $2}' | sed 's/\\"//g'`
+fi
+
+if [ "$ALIEN_MINOR_VERSION" = "" ]; then
+    INTERRUPT -1 "Could not retrieve ALIEN_MINOR_VERSION"
+fi
 
 rm "$TMPFILE"
 
@@ -683,6 +803,7 @@ if [ "$?" != 0 ]; then
 		FINDRELEASES
 		# Define the url from where AliEn is downloaded
 		if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then FILE=${ALIEN_BITS_URL}alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
+		elif [[ "$ALIEN_MACHINE_PLATFORM" =~ ^ASLC6.*$ ]]; then FILE=${ALIEN_BITS_URL}alien_$ALIEN_MACHINE_PLATFORM-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
 		else FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2; fi
 		$ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" $FILE "$ALIEN_DOWNLOAD_OUTPUT" alien.tar.gz
 		if [ "$?" != 0 ]; then INTERRUPT -4 "Error downloading alien distribution tarball"; fi
@@ -700,6 +821,295 @@ if [ "$?" != 0 ]; then INTERRUPT -4 "Error extracting the distribution tarball";
 STOPDOTS
 
 if [ ! -f $ALIEN_INSTALL_DIR/share/alien/ALIEN_VERSION ]; then INTERRUPT -4 "The version file doesn't exist"; fi
+}
+
+############################################################
+BUILDUSERALIEN()
+############################################################
+{
+
+    LOG verbose "$ALIEN_DOWNLOAD_CLIENT \"$ALIEN_DOWNLOAD_PREFIX\" \"$ALIEN_BUILD_URL/UserReleases\" \"$ALIEN_DOWNLOAD_OUTPUT\" \"$TMPFILE\""
+    $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$ALIEN_BUILD_URL/UserReleases" "$ALIEN_DOWNLOAD_OUTPUT" "$TMPFILE"
+    
+    ALIEN_PACKAGES=(`cat $TMPFILE | grep "${ALIEN_VERSION}_${ALIEN_MINOR_VERSION}=" | awk -F= '{print $2}' | sed 's/\\"//g'`)
+    
+    if [ ${#ALIEN_PACKAGES[@]} = "0" ]; then
+	INTERRUPT -1 "Could not retreive AliEn packages information or no packages were defined for AliEn compilation"
+    fi
+    
+    LOG normal "Compiling packages : ${ALIEN_PACKAGES[*]} into $ALIEN_INSTALL_DIR"
+    
+    CHECKUSERREQUIREMENTS
+    
+    for index in ${ALIEN_PACKAGES[*]};
+    do
+	LOG normal "Building package $index"
+	cd $ALIEN_INSTALLER_DIR
+	BUILDALIENPACKAGE "$index"
+    done
+
+    cd $ALIEN_INSTALL_DIR
+    CURRENT_DATE=`date`
+    mkdir -p "share/alien/"
+    echo "AliEn $ALIEN_VERSION, build: $ALIEN_USER_MINOR, on: $CURRENT_DATE" > "share/alien/ALIEN_VERSION"    
+    rm -f "$TMPFILE"
+}
+
+############################################################
+CHECKUSERREQUIREMENTS()
+############################################################
+{
+    ###Requirements
+    LOG verbose "Checking for requirements"   
+    
+    LOG verbose "Checking compiler version"
+    GCCCOMPILER=`which cc 2>&1`
+    
+    REQERROR="0"
+    REQERRORLOG="Missing development packages! Please install:\n"
+    
+    if [ "$?" != "0" ];then
+	LOG verbose "No C compiler found"
+    
+	REQERROR="1"
+	REQERRORLOG="   - C compiler\n"
+    else
+	LOG verbose "CC found at $GCCCOMPILER"
+	
+	GCCVERSION=`${GCCCOMPILER} -dumpversion`
+	LOG verbose "Compiling User AliEn with cc ${GCCVERSION}"
+    fi
+     
+    LOG verbose "Checking for cmake"
+    CMAKEBIN=`which cmake 2>&1`
+    
+    if [ "$?" != "0" ]; then
+	LOG verbose "No cmake found"
+    
+	REQERROR="1"
+	REQERRORLOG="${REQERRORLOG}   - cmake\n"
+    else
+	LOG verbose "cmake found in ${CMAKEBIN}"
+    fi
+     
+    LOG verbose "Checking for libtool"     
+    LIBTOOLBIN=`which libtoolize 2>&1`
+    
+    if [ "$?"  != "0" ]; then
+	LOG verbose "No libtoolize found"
+	LOG verbose "Checking for glibtoolize"
+	
+	LIBTOOLBIN=`which  glibtoolize 2>&1`
+	
+	if [ "$?" != "0" ]; then
+	    REQERROR="1"
+	    REQERRORLOG="${REQERRORLOG}   - libtoolize - libtool package\n"
+	else
+	    LOG verbose "Glibtoolize found in ${LIBTOOLBIN}"
+	fi
+    else
+	LOG verbose "Libtoolize found in ${LIBTOOLBIN}"
+    fi
+    
+    LOG verbose "Checking for automake"
+    AUTOMAKEBIN=`which automake 2>&1`
+    
+    if [ "$?" != "0" ]; then 
+	LOG verbose "No automake found"
+    
+	REQERROR="1"
+	REQERRORLOG="${REQERRORLOG}   - automake\n"
+    else
+	LOG verbose "Automake found in ${AUTOMAKEBIN}"
+    fi
+    
+    LOG verbose "Checking for autoconf"
+    AUTOCONFBIN=`which autoconf 2>&1`
+    
+    if [ "$?" != "0" ]; then
+	LOG verbose "No autoconf found"
+    
+	REQERROR="1"
+	REQERRORLOG="${REQERRORLOG}   - autoconf\n"
+    else
+	LOG verbose "autoconf found in ${AUTOCONFBIN}"
+    fi
+    
+    #zlib
+    LOG verbose "Checking for zlib-devel"
+    echo "
+#include \"zlib.h\"
+#include \"stdio.h\" 
+
+int main( int argc, const char* argv[] )
+{  }" > zlibtest.c
+    cc zlibtest.c -o zlibtest.o > /dev/null 2>&1
+    
+    if [ "$?" != 0 ]; then
+	LOG verbose "No libz-devel found"
+	
+	REQERROR="1"
+	REQERRORLOG="${REQERRORLOG}   - zlib-devel\n"
+    else
+	LOG verbose "zlib.h found"
+	rm -f zlibtest.c
+	rm -f zlibtest.o
+    fi
+    
+    #libxml
+    LOG verbose "Checking for libxml2-devel"
+    LIBXMLCONFIG=`which xml2-config 2>&1`
+    
+    if [ "$?" != 0 ]; then
+	LOG verbose "No libxml2-devel found"
+	
+	REQERROR="1"
+	REQERRORLOG="${REQERRORLOG}   - libxml2-devel\n"
+    else
+	LOG verbose "xml2-config found at ${LIBXMLCONFIG}"
+    fi
+    
+    #openssl
+    LOG verbose "Checking for libssl-devel"
+    echo "
+#include \"openssl/ssl.h\"
+#include \"stdio.h\"
+int main( int argc, const char* argv[] )
+{  }  " > testssl.c
+
+    cc testssl.c -o testssl.o  > /dev/null 2>&1
+    
+    if [ "$?" != 0 ]; then
+	LOG verbose "No libssl-devel found"
+	
+	REQERROR="1"
+	REQERRORLOG="${REQERRORLOG}   -libssl-devel\n"
+    else
+	LOG verbose "ssl.h found"
+	rm -f testssl.c
+	rm -f testssl.o
+    fi
+    
+    if [ "$REQERROR" = "1" ]; then
+	INTERRUPT -6 "${REQERRORLOG}"
+    fi
+    
+    ###End requirements
+
+}
+
+############################################################
+BUILDALIENPACKAGE()
+############################################################
+{
+    PACKAGE=$1
+    
+    PACKAGE_VERSION=`cat $TMPFILE | grep "${ALIEN_VERSION}_${ALIEN_MINOR_VERSION}_${PACKAGE}_version" |  cut -d '=' -f2- | sed 's/\\"//g'`
+    
+    if [ "$PACKAGE_VERSION" = "" ]; then
+	INTERRUPT -1 "Could not retreive $PACKAGE version"
+    fi
+    
+    PACKAGE_FILE=`cat $TMPFILE | grep "${ALIEN_VERSION}_${ALIEN_MINOR_VERSION}_${PACKAGE}_file" |  cut -d '=' -f2- | sed 's/\\"//g'`
+    
+    if [ "$PACKAGE_FILE" = "" ]; then
+	INTERRUPT -1 "Could not retreive $PACKAGE source archive"
+    fi 
+
+    PACKAGE_URL=`cat $TMPFILE | grep "${ALIEN_VERSION}_${ALIEN_MINOR_VERSION}_${PACKAGE}_url" | cut -d '=' -f2- | sed 's/\\"//g'`
+    
+    if [ "$PACKAGE_URL" = "" ]; then
+	INTERRUPT -1 "Could not retreive $PACKAGE download url"
+    fi
+    
+    PACKAGE_CONFIGURE=`cat $TMPFILE | grep "${ALIEN_VERSION}_${ALIEN_MINOR_VERSION}_${PACKAGE}_configure" | cut -d '=' -f2- | sed 's/\\"//g'`
+
+    if [ "$PACKAGE_CONFIGURE" == "" ]; then
+	INTERRUPT -1 "Could not retreive $PACKAGE configure parameters"
+    fi
+
+    PACKAGE_LOG="$ALIEN_INSTALLER_DIR/${PACKAGE}-${PACKAGE_VERSION}.log"   
+
+    if [ -f "${ALIEN_INSTALLER_DIR}/${PACKAGE_FILE}" ]; then
+	    rm -f "${ALIEN_INSTALLER_DIR}/${PACKAGE_FILE}"
+    fi
+    
+    LOG verbose " $ALIEN_DOWNLOAD_CLIENT \"$ALIEN_DOWNLOAD_PREFIX\" \"$PACKAGE_URL/$PACKAGE_FILE\" \"$ALIEN_DOWNLOAD_OUTPUT\" \"$PACKAGE_FILE\""
+    $ALIEN_DOWNLOAD_CLIENT "$ALIEN_DOWNLOAD_PREFIX" "$PACKAGE_URL/$PACKAGE_FILE" "$ALIEN_DOWNLOAD_OUTPUT" $PACKAGE_FILE
+    
+    if [ -d "$PACKAGE-$PACKAGE_VERSION" ]; then
+	rm -rf $PACKAGE-$PACKAGE_VERSION
+    fi
+    
+    if [ -d "objdir" ]; then
+	rm -rf objdir
+    fi
+    
+    if [ -f $PACKAGE_LOG ]; then
+	rm $PACKAGE_LOG
+    fi
+    
+    if [ "${PACKAGE}" = "igtf-preinstalled-bundle-classic" ]; then
+	mkdir -p "$ALIEN_INSTALL_DIR/globus/share/certificates/" 
+	tar -xzf $PACKAGE_FILE -C "$ALIEN_INSTALL_DIR/globus/share/certificates/"   
+    else
+	tar -xzf $PACKAGE_FILE
+    fi
+    
+    if [ $? != "0" ]; then
+	INTERRUPT -1 "Error extracting $PACKAGE archive"
+    fi
+    
+    if [ "${PACKAGE}" != "igtf-preinstalled-bundle-classic" ] ; then
+    
+	cd $PACKAGE-$PACKAGE_VERSION
+    
+	if [ `echo "${PACKAGE_CONFIGURE}" | grep -c -i "cmake"` != 0 ]; then
+	    LOG verbose "This package is build using cmake"
+	    mkdir -p "${ALIEN_INSTALLER_DIR}/objdir"
+	    cd "${ALIEN_INSTALLER_DIR}/objdir"
+	else
+	    LOG verbose "This package is build using autotools"
+	fi
+
+	eval "$PACKAGE_CONFIGURE >> $PACKAGE_LOG 2>&1 "    
+    
+	if [ $? != "0" ]; then
+	    echo "${PACKAGE} log : ${PACKAGE_LOG}"
+	    INTERRUPT -6 "Error while configuring package: $PACKAGE"
+	fi
+
+	make -j4 >> $PACKAGE_LOG  2>&1 
+    
+	if [ $? != "0" ]; then
+	    echo "${PACKAGE} log : ${PACKAGE_LOG}"    
+	    INTERRUPT -6 "Error while making package: $PACKAGE"
+	fi
+	make install >> $PACKAGE_LOG 2>&1
+
+	if [ $? != "0" ]; then
+	    echo "${PACKAGE} log : ${PACKAGE_LOG}"
+	    INTERRUPT -6 "Error while make installing package: $PACKAGE"
+	fi
+    fi
+    
+    if [ "$ALIEN_INSTALLER_VERBOSE" != "1" ]; then
+	if [ -d "${ALIEN_INSTALLER_DIR}/objdir" ]; then
+	    rm -rf "${ALIEN_INSTALLER_DIR}/objdir"
+	fi
+	
+	if [ -d "${ALIEN_INSTALLER_DIR}/${PACKAGE}-${PACKAGE_VERSION}" ]; then
+	    rm -rf "${ALIEN_INSTALLER_DIR}/${PACKAGE}-${PACKAGE_VERSION}"
+	fi
+	
+	if [ -f "${ALIEN_INSTALLER_DIR}/${PACKAGE_FILE}" ]; then
+	    rm -f "${ALIEN_INSTALLER_DIR}/${PACKAGE_FILE}"
+	fi
+	
+	if [ -f "${PACKAGE_LOG}" ]; then
+	    rm -f "${PACKAGE_LOG}"
+	fi
+    fi    
 }
 
 ############################################################
@@ -728,6 +1138,7 @@ if [ "$?" != 0 ]; then FALLBACKTONORMAL "Error extracting the torrent client."; 
 
 # Define the url from where AliEn is downloaded
 if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 	FULLNAME="alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE-$ALIEN_INSTALLER_ARCH.tar.bz2";
+elif [[ "$ALIEN_MACHINE_PLATFORM" =~ ^SLC6.*$ ]]; then		FULLNAME="alien_$ALIEN_MACHINE_PLATFORM-$ALIEN_VERSION-$ALIEN_TYPE-$ALIEN_INSTALLER_ARCH.tar.bz2";
 else FULLNAME="alien-$ALIEN_VERSION-$ALIEN_TYPE-$ALIEN_INSTALLER_ARCH.tar.bz2"; fi
 TFILE="$WWWROOT/torrents/$FULLNAME.torrent"
 
@@ -763,8 +1174,8 @@ build_prefix=/opt/alien
 
 if [ "$prefix" != "$build_prefix" ]; then
 	
-	# For everything but user distribution, do full relocation (perl, globus etc)
-	if [ "$ALIEN_TYPE" != "user" ]; then
+	# For everything but user/compile distribution, do full relocation (perl, globus etc)
+	if [ "$ALIEN_TYPE" != "user" -a "$ALIEN_TYPE" != "compile" ]; then
 		config=`find $prefix/lib/perl5 -name Config.pm -exec grep -l "This file was created by configpm" {} \;`
 		LOG silent "Perl relocation: config=$config"		
 	
@@ -879,13 +1290,14 @@ fi
 ################################## Main #########################################################
 
 # Arrays listing available platforms and architectures 
-ALIEN_INSTALLER_VERSION=1.45
-ALIEN_PLATFORM_TYPES=(Linux Ubuntu Darwin)
+ALIEN_INSTALLER_VERSION=1.49
+ALIEN_PLATFORM_TYPES=(Linux SLC6 Ubuntu Darwin)
 ALIEN_ARCH_TYPES=(i686 i386 ia64 x86_64)
 ALIEN_BUILD_URL="http://alienbuild.cern.ch:8880"
 
 # Designating the names and locations of temporary files
 ALIEN_INSTALLER_NAME=`basename "$0"`
+ALIEN_INSTALLER_DIR=`pwd`
 LOGFILE=`pwd`"/$ALIEN_INSTALLER_NAME.log"
 if [ -f "$LOGFILE" ]; then rm "$LOGFILE"; LOG verbose "Previous $LOGFILE removed"; fi
 TMPFILE=`pwd`"/.$ALIEN_INSTALLER_NAME.$$.tmp"
@@ -901,11 +1313,15 @@ ALIEN_DOWNLOAD_SERVER=""
 # Parse arguments provided by the user
 PARSEARGUMENTS $*
 
+
 # Determine the client to use for downloads
 GETDOWNLOADCLIENT
 
 # Determine the type of AliEn distribution to install
 FINDTYPE
+
+#checkcertificates
+CHECKUSERCERTIFICATE
 
 # -notorrent overrides any existing torrent enabling options
 if [ "$ALIEN_NO_TORRENT" = "1" ]; then ALIEN_TORRENT=0; fi
@@ -954,9 +1370,19 @@ if [ "$ALIEN_INSTALLER_BATCH" = '' ]; then
 	STOPDOTS; fi
 
 # Define the url from where AliEn is downloaded
-if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then FILE=${ALIEN_BITS_URL}alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
-elif [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" ]; then FILE=${ALIEN_BITS_URL}alien_darwin-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
-else FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2; fi
+if [ "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 
+    FILE=${ALIEN_BITS_URL}alien_ubuntu-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
+    LOG verbose "AliEn file to download = $FILE";
+elif [[ "$ALIEN_MACHINE_PLATFORM" =~ ^SLC6.*$ ]]; then 
+    FILE=${ALIEN_BITS_URL}alien_$ALIEN_MACHINE_PLATFORM-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
+    LOG verbose "AliEn file to download = $FILE";    
+elif [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" ]; then 
+    FILE=${ALIEN_BITS_URL}alien_darwin-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2;
+    LOG verbose "AliEn file to download = $FILE";
+else 
+    FILE=${ALIEN_BITS_URL}alien-$ALIEN_VERSION-$ALIEN_TYPE.tar.bz2; 
+    LOG verbose "AliEn file to download = $FILE";
+fi
 
 # Create the installation directory for AliEn
 mkdir -p $ALIEN_INSTALL_DIR
@@ -964,13 +1390,20 @@ mkdir -p $ALIEN_INSTALL_DIR
 if [ ! $? = 0 ]; then	INTERRUPT -3 "Failed to create the installation directory. Please check you have correct permissions."
 else			LOG verbose "$ALIEN_INSTALL_DIR created successfully"; fi
 
-cd $ALIEN_INSTALL_DIR
 
-if [ "$ALIEN_TORRENT" = "1" ]; then	
-    if [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" -o "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 
+
+if [ "$ALIEN_TYPE" = "compile" ]; then
+    BUILDUSERALIEN
+else
+    cd $ALIEN_INSTALL_DIR
+    if [ "$ALIEN_TORRENT" = "1" ]; then	
+	if [ "$ALIEN_MACHINE_PLATFORM" = "Darwin" -o "$ALIEN_MACHINE_PLATFORM" = "Ubuntu" ]; then 
 		LOG verbose "Torrent installation for $ALIEN_MACHINE_PLATFORM is not available. Using normal download."; DOWNLOADNORMAL;
-    else	DOWNLOADTORRENT; fi
-else		DOWNLOADNORMAL; fi
+	elif [[ "$ALIEN_MACHINE_PLATFORM" =~ ^SLC6.*$ ]]; then
+		LOG verbose "Torrent installation for $ALIEN_MACHINE_PLATFORM is not available. Using normal download."; DOWNLOADNORMAL;    
+	else	DOWNLOADTORRENT; fi
+    else		DOWNLOADNORMAL; fi
+fi
 
 LOG verbose "Testing $ALIEN_INSTALL_DIR/bin/perl"
 
