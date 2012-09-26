@@ -2,9 +2,9 @@ GARNAME = globus-toolkit
 CATEGORIES = apps-tools
 
 ifneq ($(shell uname),Darwin)
-	GARVERSION = 5.2.1
-else
 	GARVERSION = 4.2.1
+else
+	GARVERSION = 5.2.1
 endif
 
 DISTFILES  = gt$(GARVERSION)-all-source-installer.tar.gz
