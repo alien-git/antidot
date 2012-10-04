@@ -43,7 +43,7 @@ ALLFILES    = $(DISTFILES) $(PATCHFILES)
 GARFNAME=$(shell (echo $(CURDIR) | sed -e 's%.*/apps/%apps/%' -e 's%.*/meta/%meta/%'))
 
 # Current build number for this package
-PKG_BUILD_NUMBER=$(shell if test ! -f $(GARDIR)/BUILD_NUMBERS ; then touch $(GARDIR)/BUILD_NUMBERS ; fi ; grep $(GARFNAME)= $(GARDIR)/BUILD_NUMBERS | cut -f 2 -d= )
+PKG_BUILD_NUMBER=$(shell if test ! -f $(GARDIR)/BUILD_NUMBERS ; then touch $(GARDIR)/BUILD_NUMBERS ; fi ; grep $(GARFNAME)= $(GARDIR)/BUILD_NUMBERS | cut -f 2 -d= | sed 's/"//g')
 
 # Current BINDIST-NAMES and -FILES
 BINDISTNAME=$(GARNAME)-$(GARVERSION)$(shell if test -n "$(PKG_BUILD_NUMBER)" ; then echo "_" ; fi)$(PKG_BUILD_NUMBER)_$(PLATFORM)
