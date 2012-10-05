@@ -36,9 +36,4 @@ JAVA_VERSION = 6u24
 BUILD_ENV = env JAVA_PLATFORM=$(JAVA_PLATFORM) JAVA_VERSION=$(JAVA_VERSION) MASTER_SITES="$(MASTER_SITES)" DISTNAME=$(DISTNAME)
 INSTALL_ENV = env DISTNAME=$(DISTNAME) PREFIX=$(PREFIX)/java
 
-ifeq ($(shell uname -s),Darwin)
-post-build:
-	@sed <work/$(DISTNAME)/$(DISTNAME)/Service/CMD/ML_SER -e 's/hostname *-f/hostname/g' > work/$(DISTNAME)/$(DISTNAME)/Service/CMD/ML_SER.mac ; \
-	mv work/$(DISTNAME)/$(DISTNAME)/Service/CMD/ML_SER{.mac,}
-endif
 
