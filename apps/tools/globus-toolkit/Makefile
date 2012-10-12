@@ -40,4 +40,4 @@ include ../category.mk
 
 PRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
 
-POST_INSTALL = (cd $(WORKSRC) && ln -sf ../../bin/openssl  $(PREFIX)/globus/bin/openssl && cp -fr $(PREFIX)/globus/lib64/* $(PREFIX)/globus/lib/)
+POST_INSTALL = (cd $(WORKSRC) && ln -sf ../../bin/openssl  $(PREFIX)/globus/bin/openssl && if [ -d "$(PREFIX)/globus/lib64" ]; then cp -fr $(PREFIX)/globus/lib64/* $(PREFIX)/globus/lib/; fi )
