@@ -52,7 +52,7 @@ DESCRIPTION = AliEn common component
 URL = http://alien.cern.ch
 LICENSE =
 
-PATCHFILES = JobAgent.diff
+#PATCHFILES = JobAgent.diff
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
