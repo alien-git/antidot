@@ -29,8 +29,8 @@
      }
 +    if ($source) {
 +       $self->info("Checking if the packman installation can be accessed");
++       $source =~ s/^\s*//;
 +       my ($file, $rest)=split(/ /, $source);
-+       $file =~ s/^\s*//;
 +       $self->info("The file is '$file'");
 +       if (! -f "$file"){
 +          $self->info("We can't access the packman installation in $file");
