@@ -1,5 +1,5 @@
---- work/alien-common-v2-19/lib/AliEn/PackMan/Local.pm.orig	2012-10-26 12:16:37.000000000 +0200
-+++ work/alien-common-v2-19/lib/AliEn/PackMan/Local.pm	2012-10-26 12:17:10.000000000 +0200
+--- work/alien-common-v2-19/lib/AliEn/PackMan/Local.pm.orig	2012-10-26 14:55:11.000000000 +0200
++++ work/alien-common-v2-19/lib/AliEn/PackMan/Local.pm	2012-10-26 14:55:29.000000000 +0200
 @@ -182,6 +182,10 @@
      $self->info( "$$ This package is defined by the VO. Let's put the user to VO");
      $user=uc("VO_$self->{CONFIG}->{ORG_NAME}");
@@ -21,27 +21,28 @@
      return undef,"The package $package (v $version) does not exist for $platform \n"; 
    }
  
---- work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm.orig	2012-10-26 12:20:22.000000000 +0200
-+++ work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm	2012-10-26 12:21:13.000000000 +0200
-@@ -1106,6 +1106,17 @@
+--- work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm.orig	2012-10-26 14:54:46.000000000 +0200
++++ work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm	2012-10-26 14:54:51.000000000 +0200
+@@ -1106,6 +1106,18 @@
  	$self->putJobLog("error","Package $_ not installed ");
        return;
      }
 +    if ($source) {
 +       $self->info("Checking if the packman installation can be accessed");
 +       my ($file, $rest)=split(/ /, $source);
-+       $self->info("THe file is $source");
-+       if (! -f "$source"){
-+          $self->info("We can't access the packman installation in $source");
++       $file =~ s/^\s*//;
++       $self->info("The file is '$file'");
++       if (! -f "$file"){
++          $self->info("We can't access the packman installation in $file");
 +          $ENV{ALIEN_PROC_ID} and
-+             $self->putJobLog("error","Package $_ not installed ");
++             $self->putJobLog("error","Package $_ not installed (can't access $file) ");
 +          return;
 +       }
 +    }
    }
    $self->info("Package $package installed successfully ($ok)!!");
    ($source) and   $self->info("For the package we have to do $source");
-@@ -1276,7 +1287,7 @@
+@@ -1276,7 +1288,7 @@
  
    $self->getInputZip($catalog) or return;
  
@@ -50,7 +51,7 @@
  
    foreach my $file (@files) {
      $self->_getInputFile($catalog, $file->{cat},$file->{real}) or return;
-@@ -1306,8 +1317,57 @@
+@@ -1306,8 +1318,57 @@
  
  }
  
@@ -108,7 +109,7 @@
  
    my $dir = AliEn::Util::getProcDir($self->{JOB_USER}, undef, $self->{QUEUEID}) . "/";
  
-@@ -1319,22 +1379,56 @@
+@@ -1319,22 +1380,56 @@
    }else {
      $self->info("There is no validation script");
    }
