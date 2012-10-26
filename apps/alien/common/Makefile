@@ -53,7 +53,7 @@ URL = http://alien.cern.ch
 LICENSE =
 
 #PATCHFILES = JobAgent.diff
-#PATCHFILES = PackMan.diff
+PATCHFILES = PackMan.diff
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
