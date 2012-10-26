@@ -4,7 +4,7 @@
      $self->info( "$$ This package is defined by the VO. Let's put the user to VO");
      $user=uc("VO_$self->{CONFIG}->{ORG_NAME}");
    }
-+  if ($lfn =~ /-2/){
++  if ($lfn eq -2){
 +     $self->info("We couldn't get the lfn of that package!!");
 +     return (-1, "Couldn't get the lfn of $user,$package, $version");
 +  }
