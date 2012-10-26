@@ -1,0 +1,177 @@
+--- work/alien-common-v2-19/lib/AliEn/PackMan/Local.pm.orig	2012-10-26 12:16:37.000000000 +0200
++++ work/alien-common-v2-19/lib/AliEn/PackMan/Local.pm	2012-10-26 12:17:10.000000000 +0200
+@@ -182,6 +182,10 @@
+     $self->info( "$$ This package is defined by the VO. Let's put the user to VO");
+     $user=uc("VO_$self->{CONFIG}->{ORG_NAME}");
+   }
++  if ($lfn =~ /-2/){
++     $self->info("We couldn't get the lfn of that package!!");
++     return (-1, "Couldn't get the lfn of $user,$package, $version");
++  }
+ 
+   #First, let's try to install all the dependencies
+   $self->info("Ready to install $package and $version and $user (from $lfn)");
+@@ -261,7 +265,8 @@
+     or return undef, "Error talking to the PackManMaster";
+ 
+   my @info=$self->{SOAP}->GetOutput($result);
+-  if (  $info[0] eq /^-2$/ ){
++  $self->info("And the info is @info");
++  if (  $info[0] eq -2 ){
+     return undef,"The package $package (v $version) does not exist for $platform \n"; 
+   }
+ 
+--- work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm.orig	2012-10-26 12:20:22.000000000 +0200
++++ work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm	2012-10-26 12:21:13.000000000 +0200
+@@ -1106,6 +1106,17 @@
+ 	$self->putJobLog("error","Package $_ not installed ");
+       return;
+     }
++    if ($source) {
++       $self->info("Checking if the packman installation can be accessed");
++       my ($file, $rest)=split(/ /, $source);
++       $self->info("THe file is $source");
++       if (! -f "$source"){
++          $self->info("We can't access the packman installation in $source");
++          $ENV{ALIEN_PROC_ID} and
++             $self->putJobLog("error","Package $_ not installed ");
++          return;
++       }
++    }
+   }
+   $self->info("Package $package installed successfully ($ok)!!");
+   ($source) and   $self->info("For the package we have to do $source");
+@@ -1276,7 +1287,7 @@
+ 
+   $self->getInputZip($catalog) or return;
+ 
+-  my @files=$self->getListInputFiles();
++  my @files=$self->getListInputFiles($catalog);
+ 
+   foreach my $file (@files) {
+     $self->_getInputFile($catalog, $file->{cat},$file->{real}) or return;
+@@ -1306,8 +1317,57 @@
+ 
+ }
+ 
++sub getFilesFromInputCollection{
++  my $self = shift;
++  my $job_ca = shift;
++  my $catalogue=shift;
++  
++  my @files;
++  my ($ok, @inputData) =
++    $job_ca->evaluateAttributeVectorString("InputDataCollection");
++
++	foreach my $file (@inputData) {
++    $self->putJobLog("trace", "Using the inputcollection $file");
++
++    my ($file2, $options) = split(',', $file, 2);
++    $options and $options = ",$options";
++    $options or $options = "";
++    $file2 =~ s/^LF://;
++    my ($type) = $catalogue->execute("type", $file2);
++    $self->info("IT IS A $type");
++    if ($type =~ /^collection$/) {
++    	my ($files)=$catalogue->execute("listFilesFromCollection", $file2);
++    	if ($files) {
++    	  foreach my $entry (@$files) {
++          if ($entry->{origLFN}) {
++            push @files, "LF:$entry->{origLFN}$options";
++          } else {
++            push @files, "GUID:$entry->{guid}";
++          }
++    	  }
++    	}
++    }  else {
++    	my ($localFile) = $catalogue->execute("get", $file2);
++    	$localFile or $self->info("Error getting $file2") and return;
++    	my $ds=AliEn::Dataset->new(); 
++    	my $dataset = $ds->readxml($localFile);
++    	my $lfnRef = $ds->getAllLFN()
++       or $self->info("Error getting the LFNS from the dataset")
++        and return;
++
++      map { $_ = "LF:$_$options" } @{ $lfnRef->{lfns} };
++      $self->info("Adding the files " . @{ $lfnRef->{lfns} });
++      push @files, @{ $lfnRef->{lfns} };
++    	
++    } 
++	}
++  return 1, @files;
++}
++
++
+ sub getListInputFiles {
+   my $self=shift;
++  my $catalogue=shift;
+ 
+   my $dir = AliEn::Util::getProcDir($self->{JOB_USER}, undef, $self->{QUEUEID}) . "/";
+ 
+@@ -1319,22 +1379,56 @@
+   }else {
+     $self->info("There is no validation script");
+   }
+-  my ( $ok,  @inputFiles)=$self->{CA}->evaluateAttributeVectorString("InputDownload");
+-  foreach (@inputFiles){
+-    my ($proc, $lfn)=split /->/;
+-    $self->debug(1, "Adding '$lfn' (dir '$dir')");
+-    $proc =~ s{^$dir}{$self->{WORKDIR}/} or $proc="$self->{WORKDIR}/$proc";
+-    push @files, {cat=> $lfn, real=>$proc};
+-    if ($proc =~ /^($self->{WORKDIR}\/.*\/)[^\/]*$/ ) {
+-      $self->info("Checking if $1 exists");
+-      if (! -d $1) {
+-        mkdir $1 or print "Error making the directory $1 ($!)\n";
++  my ( $ok,  @inputFiles)=$self->{CA}->evaluateAttributeVectorString("InputFile");
++  ($ok, my @inputData)=$self->{CA}->evaluateAttributeVectorString("InputData");
++
++   ($ok, my @moreFiles)=$self->getFilesFromInputCollection($self->{CA}, $catalogue);
++
++  my $done={};
++  foreach my $lfn (@inputFiles , @inputData, @moreFiles ){
++    $lfn=~ s/^LF://;
++    $lfn =~ /,nodownload/ and $self->info("Ignoring $lfn") and next;    
++    $self->debug(1, "Adding '$lfn' ");
++    my $real= $self->findProcName($lfn, $done);
++    if ($real =~ /^(.*\/)[^\/]*$/ ) {
++      $self->info("Checking if $self->{WORKDIR}/$1 exists");
++      if (! -d "$self->{WORKDIR}/$1") {
++        mkdir "$self->{WORKDIR}/$1" or print "Error making the directory $self->{WORKDIR}/$1 ($!)\n";
+       }
+     }
++    push @files, {cat=> $lfn, real=>"$self->{WORKDIR}/$real"};
+   }
+   return @files
+ }
+ 
++sub findProcName {
++  my $self     = shift;
++  my $origname = shift;
++  my $done     = (shift or {});
++
++  $done->{files}
++    or $done->{files} = { stdout => 0, resources => 0, stderr => 0 };
++  $done->{dir} or $done->{dir} = -1;
++  $self->debug(1, "In findProcName finding a procname for $origname");
++
++  $origname =~ /\/([^\/]*)$/ and $origname = $1;
++  $self->debug(1, "In findProcName finding a name for $origname");
++  my $i = $done->{files}->{$origname};
++  my $name;
++  if (!defined $i) {
++    $done->{files}->{$origname} = 1;
++    $name = $origname;
++  } else {
++    $name = "$i/$origname";
++    $done->{files}->{$origname}++;
++  }
++  return $name;
++
++}
++
++
++
++
+ sub getUserDefinedGUIDS{
+   my $self=shift;
+ 
