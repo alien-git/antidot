@@ -15,7 +15,7 @@
 +    $self->{agentlog_counter}+=1;
 +
 +    $self->{SOAP}->CallSOAP("CLUSTERMONITOR","putJobLog", $id,"agent",
-+        sprintf("%03d Last message repeated %d time(s)", $self->{agentlog_counter}, $message, $self->{last_agent_counter}),@_) 
++        sprintf("%03d Last message repeated %d time(s)", $self->{agentlog_counter}, $self->{last_agent_counter}),@_) 
 +  }
    my $joblog = $self->{SOAP}->CallSOAP("CLUSTERMONITOR","putJobLog", $id,"agent", 
          sprintf("%03d %s", $self->{agentlog_counter}, $message),@_) or return;
