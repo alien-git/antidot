@@ -1,0 +1,26 @@
+--- work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm.orig	2012-11-15 12:07:14.000000000 +0100
++++ work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm	2012-11-15 12:06:27.000000000 +0100
+@@ -307,8 +307,23 @@
+   $self->{agentlog_counter} or $self->{agentlog_counter}=0;  
+   $self->{agentlog_counter}+=1;
+   
++  if($self->{last_agent_message} eq $message){
++    $self->info("This is the same message");
++    $self->{last_agent_counter}+=1;
++    return 1;
++  }
++
++
++  if ($self->{last_agent_counter}){
++    $self->{agentlog_counter}+=1;
++
++    $self->{SOAP}->CallSOAP("CLUSTERMONITOR","putJobLog", $id,"agent",
++        sprintf("%03d Last message repeated %d time(s)", $self->{agentlog_counter}, $message, $self->{last_agent_counter}),@_) 
++  }
+   my $joblog = $self->{SOAP}->CallSOAP("CLUSTERMONITOR","putJobLog", $id,"agent", 
+         sprintf("%03d %s", $self->{agentlog_counter}, $message),@_) or return;
++  $self->{last_agent_message}=$message;
++  $self->{last_agent_counter}=0;
+   return 1;
+ }
+ 
