@@ -1,7 +1,8 @@
 SVNTYPE = trunk
 SVNNAME =  trunk
 SVNDIR = lcg
-SVNREVISION = 3576
+SVNREVISION =
+#OD 3576
 
 GARNAME    = alien-lcg
 GARVERSION = $(SVNNAME)
