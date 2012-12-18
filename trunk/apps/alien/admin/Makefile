@@ -1,5 +1,6 @@
 SVNTYPE = trunk
 SVNNAME =  trunk
+SVNDIR = admin
 SVNREVISION =
 
 GARNAME = alien-admin
@@ -8,7 +9,7 @@ CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
 
-MASTER_SITES = svn-https://alisoft.cern.ch/
+MASTER_SITES = svn-http://svn.cern.ch/guest/AliEn/
 
 LIBDEPS = apps/alien/common
 
