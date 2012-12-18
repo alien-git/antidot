@@ -1,5 +1,6 @@
 SVNTYPE = trunk
 SVNNAME =  trunk
+SVNDIR = tests
 SVNREVISION =
 
 GARNAME = alien-tests
@@ -10,7 +11,7 @@ NOCHECKSUM = $(DISTFILES)
 
 PATCHFILES = 
 
-MASTER_SITES = svn-https://alisoft.cern.ch/
+MASTER_SITES = svn-http://svn.cern.ch/guest/AliEn/
 
 LIBDEPS = apps/alien/common apps/alien/admin apps/alien/lcg apps/server/DBD-mysql apps/server/openldap apps/perl/Expect
 
