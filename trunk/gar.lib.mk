@@ -51,7 +51,7 @@ $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
 		for i in $(filter %/$*,$(URLS)); do  \
-			$(MAKE) -s $$i || continue; \
+			$(MAKE) -s $$i > /dev/null 2>&1 || continue; \
 			$(MAKECOOKIE); \
 			break; \
 		done; \
@@ -94,26 +94,34 @@ pserver//%:
 # download the file from a svn server using plain http, with an URL like svn-http://hostname/svn/$(NAME)/tags/$(VERSION)
 #if we try to build the trunk then we have to use svn-http://hostname/svn/$(NAME)/trunk
 svn-http//%:
-	@if [ $(SVNTYPE) = "trunk" ]; then \
-	    if [ $(SVNDIR) ]; then \
-		if [ $(SVNREVISION) ]; then \
+	@if [ "$(SVNTYPE)" = "trunk" ]; then \
+	    if [ "$(SVNDIR)" ]; then \
+		if [ "$(SVNREVISION)" ]; then \
 		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/trunk/$(SVNDIR) -r $(SVNREVISION) $(SVNNAME); \
 		else \
 		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/trunk/$(SVNDIR) $(SVNNAME); \
 		fi \
 	    else \
-		if [ $(SVNREVISION) ]; then \
+		if [ "$(SVNREVISION)" ]; then \
 		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk -r $(SVNREVISION); \
 		else \
 		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk; \
 		fi \
 	    fi \
 	fi
-	@if [ $(SVNTYPE) = "tags" -o $(SVNTYPE) = "branches" ]; then \
-	    if [ $(SVNTYPE) = "branches" -a $(SVNREVISION) ]; then \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME) -r $(SVNREVISION); \
+	@if [ "$(SVNTYPE)" = "tags" -o "$(SVNTYPE)" = "branches" ]; then \
+	    if [ "$(SVNDIR)" ]; then \
+		if [ "$(SVNTYPE)" = "branches" -a "$(SVNREVISION)" ]; then \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(SVNTYPE)/$(SVNNAME)/$(SVNDIR) -r $(SVNREVISION) $(SVNNAME); \
+		else \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(SVNTYPE)/$(SVNNAME)/$(SVNDIR) $(SVNNAME); \
+		fi \
 	    else \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME); \
+		if [ "$(SVNTYPE)" = "branches" -a "$(SVNREVISION)" ]; then \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME) -r $(SVNREVISION); \
+		else \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME); \
+		fi \
 	    fi \
 	fi
 	@(cd $(DOWNLOADDIR) && mv $(SVNNAME) $(GARNAME)-$(GARVERSION))
