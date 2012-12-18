@@ -51,7 +51,7 @@ $(DOWNLOADDIR)/%: $(FETCH_TARGETS)
 	@if test -f $(COOKIEDIR)/checksum-$*; then : ; else \
 		echo " ==> Grabbing $(call TMSG_ID,$@)"; \
 		for i in $(filter %/$*,$(URLS)); do  \
-			$(MAKE) -s $$i > /dev/null 2>&1 || continue; \
+			$(MAKE) -s $$i || continue; \
 			$(MAKECOOKIE); \
 			break; \
 		done; \
@@ -95,10 +95,18 @@ pserver//%:
 #if we try to build the trunk then we have to use svn-http://hostname/svn/$(NAME)/trunk
 svn-http//%:
 	@if [ $(SVNTYPE) = "trunk" ]; then \
-	    if [ $(SVNREVISION) ]; then \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk -r $(SVNREVISION); \
+	    if [ $(SVNDIR) ]; then \
+		if [ $(SVNREVISION) ]; then \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/trunk/$(SVNDIR) -r $(SVNREVISION) $(SVNNAME); \
+		else \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/trunk/$(SVNDIR) $(SVNNAME); \
+		fi \
 	    else \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk; \
+		if [ $(SVNREVISION) ]; then \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk -r $(SVNREVISION); \
+		else \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk; \
+		fi \
 	    fi \
 	fi
 	@if [ $(SVNTYPE) = "tags" -o $(SVNTYPE) = "branches" ]; then \
