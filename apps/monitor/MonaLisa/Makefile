@@ -11,7 +11,7 @@ PATCHFILES = Makefile.patch
 
 MASTER_SITES = http://monalisa.cern.ch/download/monalisa/ http://monalisa.cacr.caltech.edu/download/monalisa/
 #
-LIBDEPS = apps/perl/libwww-perl
+#LIBDEPS = apps/perl/libwww-perl
 
 DESCRIPTION = MonALISA Monitoring Framework
 LICENSE = CIT
@@ -29,7 +29,7 @@ INSTALL_ARGS = install
 include ../category.mk
 
 JAVA_PLATFORM = $(shell $(GARDIR)/platform.sh javaplatform)
-JAVA_VERSION = 6u24
+JAVA_VERSION = 7u11
 
 #ifeq ($(JAVA_PLATFORM),linux-ia64)
 
