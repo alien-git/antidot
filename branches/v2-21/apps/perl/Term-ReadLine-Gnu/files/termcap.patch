@@ -1,0 +1,14 @@
+diff --speed-large-files --minimal -Nru tmp/Term-ReadLine-Gnu-1.20/Makefile.PL work/Term-ReadLine-Gnu-1.20/Makefile.PL
+--- tmp/Term-ReadLine-Gnu-1.20/Makefile.PL	2010-05-02 12:37:55.000000000 +0200
++++ work/Term-ReadLine-Gnu-1.20/Makefile.PL	2012-10-10 14:21:48.000000000 +0200
+@@ -60,8 +60,8 @@
+     # Old Cygwin may require setting false (0).
+     my $PREFER_CURSES = $Config{osname} eq 'aix' || $Config{osname} eq 'hpux'
+ 			|| $Config{osname} eq 'cygwin';
+-    my $TERMCAP_LIB = (! $PREFER_CURSES && &search_lib('-ltermcap'))
+-	|| &search_lib('-lncurses')
++    my $TERMCAP_LIB = (! $PREFER_CURSES && &search_lib('-lncurses'))
++	|| &search_lib('-ltermcap')
+ 	    || &search_lib('-lcurses');
+ 
+     unless ($TERMCAP_LIB) {

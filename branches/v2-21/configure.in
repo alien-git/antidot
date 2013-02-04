@@ -1,0 +1,98 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(alien.conf.mk.in)
+
+# Configuration items
+
+AC_PREFIX_DEFAULT("/opt/alien")
+
+PREFIX=$prefix
+
+PLATFORM=$(./platform.sh platform)
+
+GCC_VERSION=$(cd apps/gcc/gcc; make version | awk '{print $2}')
+GCC_PREFIX=$PREFIX/$PLATFORM/$GCC_VERSION
+GCC_INC_DIR=$GCC_PREFIX/include
+GCC_LIB_DIR=$GCC_PREFIX/lib
+GCC_BIN_DIR=$GCC_PREFIX/bin
+
+GLOBUS_FLAVOR=$(./platform.sh flavor)
+
+AC_ARG_WITH(globus_location,
+            [  --with-globus-location=dir     Globus directory],
+            [GLOBUS_LOCATION=$with_globus_location],
+            [GLOBUS_LOCATION=$prefix/globus])
+
+AC_ARG_WITH(gpt_location,
+            [  --with-gpt-location=dir     GPT directory],
+            [GPT_LOCATION=$with_gpt_location],
+            [GPT_LOCATION=$GLOBUS_LOCATION])
+
+AC_ARG_WITH(globus_flavor,
+            [  --with-globus-flavor=string     Globus flavor],
+            [GLOBUS_FLAVOR=$with_globus_flavor],
+            [GLOBUS_FLAVOR=$GLOBUS_FLAVOR])
+
+AC_ARG_WITH(alien_release,
+            [  --with-alien-release=string     AliEn release],
+            [RELEASE=$with_alien_release],
+            [RELEASE=HEAD])
+
+AC_ARG_WITH(cache_dir,
+            [  --with-cache-dir=dir       local package cache],
+            [CACHE_DIR=$with_cache_dir],
+            [CACHE_DIR=$prefix/dist])
+
+AC_ARG_WITH(cache_url,
+            [  --with-cache-url=url       remote package cache],
+            [CACHE_URL=$with_cache_url],
+            [CACHE_URL=http://alien.cern.ch/cache/])
+
+AC_ARG_WITH(bits_url,
+            [  --with-bits-url=string     remote binary package cache],
+            [BITS_URL=$with_bits_url],
+            [BITS_URL=http://alien.cern.ch/cache/dist/releases/$RELEASE/])
+
+AC_ARG_WITH(platform,
+            [  --with-platform=string     platform],
+            [PLATFORM=$with_platform],
+            [PLATFORM=$PLATFORM])
+
+AC_ARG_WITH(masked,
+            [  --mask=string              masked packages],
+            [MASKED=$masked],
+            [MASKED= ])
+
+AC_ARG_WITH(gcc_path,
+            [  --with-gcc-path=string     full path to gcc],
+            [GCC_PATH=$with_gcc_path;
+            libgcca=`$GCC_PATH -print-libgcc-file-name`;
+            GCC_LIB_DIR=`dirname $libgcca`;
+            GCC_BIN_DIR=`dirname $GCC_PATH`;
+            GCC_PREFIX=`dirname $GCC_BIN_DIR`;
+            GCC_INC_DIR="$GCC_PREFIX/include";
+            GCC_MASKED="apps/gcc/gcc=";
+            GCC_VERSION=`$GCC_PATH -dumpversion`],
+            [GCC_MASKED=])
+
+MASKED="$GCC_MASKED $MASKED"
+
+AC_SUBST(MASKED)
+AC_SUBST(CACHE_DIR)
+AC_SUBST(CACHE_URL)
+AC_SUBST(BITS_URL)
+AC_SUBST(PLATFORM)
+AC_SUBST(PREFIX)
+AC_SUBST(CACHEDIR)
+AC_SUBST(GPT_LOCATION)
+AC_SUBST(GLOBUS_LOCATION)
+AC_SUBST(GLOBUS_FLAVOR)
+AC_SUBST(RELEASE)
+AC_SUBST(GCC_VERSION)
+AC_SUBST(GCC_PREFIX)
+AC_SUBST(GCC_INC_DIR)
+AC_SUBST(GCC_LIB_DIR)
+AC_SUBST(GCC_BIN_DIR)
+
+AC_OUTPUT(alien.conf.mk)
+

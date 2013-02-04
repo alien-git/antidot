@@ -1,0 +1,11 @@
+--- work/xrootd-20101014-1447/src/XrdCrypto/XrdCryptoFactory.cc.old	2011-01-14 14:44:05.000000000 +0100
++++ work/xrootd-20101014-1447/src/XrdCrypto/XrdCryptoFactory.cc	2011-01-14 14:44:16.000000000 +0100
+@@ -374,7 +374,7 @@
+ 
+    //
+    // Form library name
+-   snprintf(libfn, sizeof(libfn)-1, "libXrdCrypto.so");
++   snprintf(libfn, sizeof(libfn)-1, "libXrdCrypto.dylib");
+    libfn[sizeof(libfn)-1] = '\0';
+ 
+    //

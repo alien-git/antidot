@@ -1,0 +1,27 @@
+export GLOBUS_LOCATION=@GLOBUS_LOCATION@
+export GLOBUS_FLAVOR=@GLOBUS_FLAVOR@
+export GPT_LOCATION=@GPT_LOCATION@
+export PKG_CONFIG_PATH=@PREFIX@/lib/pkgconfig/
+export PLATFORM=@PLATFORM@
+export CACHE_DIR=@CACHE_DIR@
+export CACHE_URL=@CACHE_URL@
+export ALIEN_PREFIX=@PREFIX@
+export BITS_URL=@BITS_URL@
+
+export GCC_VERSION=@GCC_VERSION@
+export GCC_LIB_DIR=@GCC_LIB_DIR@
+export GCC_INC_DIR=@GCC_INC_DIR@
+export GCC_BIN_DIR=@GCC_BIN_DIR@
+
+# The GARCHIVEDIR is a directory containing cached files. It can be created
+# manually, or with 'make garchive' once you've started downloading required
+# files (say with 'make paranoid-checksum'. Example:
+
+GARCHIVEDIR = @CACHE_DIR@
+
+#BUILD_CLEAN = true
+
+MASTER_SITES := @CACHE_URL@ @BITS_URL@ $(MASTER_SITES)
+
+export MASKED += @MASKED@
+

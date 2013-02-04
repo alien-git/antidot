@@ -1,0 +1,24 @@
+--- work/xrootd-xalienfs-1.0.14n/configure.ac.old	2010-07-19 19:57:33.000000000 +0200
++++ work/xrootd-xalienfs-1.0.14n/configure.ac	2010-07-19 19:35:09.000000000 +0200
+@@ -103,8 +103,8 @@
+ ACX_LIBOPTION(readline,[use GNU Readline support],yes)
+ 
+ # extend the preprocessor and link PATHs to the Vars provided by ACX_LIBOPTION
+-CPPFLAGS="$READLINE_INCDIR $CPPFLAGS"
+-LDFLAGS="$READLINE_LIBDIR $LDFLAGS"
++#CPPFLAGS="$READLINE_INCDIR $CPPFLAGS"
++#LDFLAGS="$READLINE_LIBDIR $LDFLAGS"
+ 
+ if test x"$activate_readline" = xyes -o x"$activate_readline" = xdefault_yes ; then
+    AC_CHECK_HEADERS([readline/readline.h readline/history.h curses.h term.h],
+@@ -129,8 +129,8 @@
+    AC_MSG_WARN([xrd application will be built without GNU readline support])
+ fi
+ 
+-CPPFLAGS="$CPPFLAGS_BUP"
+-LDFLAGS="$LDFLAGS_BUP"
++#CPPFLAGS="$CPPFLAGS_BUP"
++#LDFLAGS="$LDFLAGS_BUP"
+ SHELL_LIBS="$READLINE_LIBS"
+ 
+ AC_SUBST(SHELL_LIBS)
