@@ -1,5 +1,5 @@
-SVNTYPE = trunk
-SVNNAME =  trunk
+SVNTYPE = branches
+SVNNAME =  v2-21
 SVNDIR = arc
 SVNREVISION =
 
