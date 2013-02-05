@@ -1,10 +1,10 @@
 GARNAME = Tree-DAG_Node
-GARVERSION = 1.06
+GARVERSION = 1.11
 CATEGORIES = perl
-DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+DISTFILES = $(GARNAME)-$(GARVERSION).tgz
 PATCHFILES = 
-
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/C/CO/COGENT/
+#http://search.cpan.org/CPAN/authors/id/R/RS/RSAVAGE/Tree-DAG_Node-1.11.tgz
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RS/RSAVAGE/
 
 LIBDEPS = apps/perl/perl
 

@@ -1,11 +1,11 @@
 GARNAME = HTTP-Message
-GARVERSION = 6.03
+GARVERSION = 6.06
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
 
-LIBDEPS = apps/perl/LWP-MediaTypes apps/perl/Encode-Locale apps/perl/URI apps/perl/HTTP-Date apps/perl/HTML-Parser
+LIBDEPS = apps/perl/LWP-MediaTypes apps/perl/Encode-Locale apps/perl/URI apps/perl/HTTP-Date apps/perl/HTML-Parser apps/perl/IO-HTML
 
 DESCRIPTION = HTTP-Message
 URL = http://lwp.linpro.no/lwp/
