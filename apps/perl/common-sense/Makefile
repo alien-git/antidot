@@ -1,5 +1,5 @@
 GARNAME = common-sense
-GARVERSION = 3.5
+GARVERSION = 3.6
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 

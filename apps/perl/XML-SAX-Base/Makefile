@@ -1,9 +1,10 @@
 GARNAME = XML-SAX-Base
-GARVERSION = 1.00
+GARVERSION = 1.08
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/K/KH/KHAMPTON/
+#http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/XML-SAX-Base-1.08.tar.gz
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/
 
 LIBDEPS = apps/perl/perl
 

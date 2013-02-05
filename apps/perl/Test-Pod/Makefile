@@ -1,5 +1,5 @@
 GARNAME = Test-Pod
-GARVERSION = 1.44
+GARVERSION = 1.45
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DW/DWHEELER/
