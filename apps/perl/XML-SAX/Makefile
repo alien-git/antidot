@@ -1,11 +1,11 @@
 GARNAME = XML-SAX
-GARVERSION = 0.96
+GARVERSION = 0.99
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/
 
-LIBDEPS = apps/perl/XML-NamespaceSupport
+LIBDEPS = apps/perl/XML-NamespaceSupport apps/perl/XML-SAX-Base
 
 DESCRIPTION = Simple API for XML
 AUTHOR = Matt Sergeant
