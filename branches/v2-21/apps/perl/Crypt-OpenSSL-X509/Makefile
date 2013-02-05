@@ -1,9 +1,9 @@
 GARNAME = Crypt-OpenSSL-X509
-GARVERSION = 1.4
+GARVERSION = 1.800.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/D/DA/DANIEL/Crypt-OpenSSL-X509-1.4.tar.gz
+#http://search.cpan.org/CPAN/authors/id/D/DA/DANIEL/Crypt-OpenSSL-X509-1.800.2.tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DA/DANIEL/
 
 LIBDEPS = apps/system/openssl apps/perl/perl

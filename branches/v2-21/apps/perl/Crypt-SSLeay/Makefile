@@ -1,13 +1,13 @@
 GARNAME = Crypt-SSLeay
-GARVERSION = 0.57
+GARVERSION = 0.64
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = Makefile.PL.patch
 
 #http://search.cpan.org/CPAN/authors/id/D/DL/DLAND/Crypt-SSLeay-0.57_01.tar.gz
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/C/CH/CHAMAS/ http://www.cpan.org/authors/id/C/CH/CHAMAS/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/C/CH/CHAMAS/ http://search.cpan.org/CPAN/authors/id/D/DL/DLAND/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/N/NA/NANIS/
 
-LIBDEPS = apps/perl/perl apps/system/openssl
+LIBDEPS = apps/system/openssl apps/perl/LWP-Protocol-https apps/perl/Try-Tiny
 
 DESCRIPTION = OpenSSL glue that provides LWP https support
 AUTHOR = Joshua Chamas

@@ -1,11 +1,11 @@
 GARNAME = perl-ldap
-GARVERSION = 0.4001
+GARVERSION = 0.53
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 PATCHFILES = Makefile.PL.patch
 
-MASTER_SITES =  http://search.cpan.org/CPAN/authors/id/G/GB/GBARR/
+MASTER_SITES =  http://search.cpan.org/CPAN/authors/id/M/MA/MARSCHAP/
 
 LIBDEPS = apps/perl/Convert-ASN1 apps/perl/XML-SAX-Writer apps/perl/IO-Socket-SSL
 

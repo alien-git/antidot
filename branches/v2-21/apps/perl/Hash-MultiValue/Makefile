@@ -1,10 +1,10 @@
 GARNAME = Hash-MultiValue
-GARVERSION = 0.12
+GARVERSION = 0.13
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/A/AR/ARISTOTLE/Hash-MultiValue-0.12.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/A/AR/ARISTOTLE/
+#http://search.cpan.org/CPAN/authors/id/M/MI/MIYAGAWA/Hash-MultiValue-0.13.tar.gz
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MI/MIYAGAWA/
 
 LIBDEPS = apps/perl/perl
 
