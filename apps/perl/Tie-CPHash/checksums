@@ -20,3 +20,4 @@ TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 include ../category.mk
 
+2d71103208922b0305adfd50bc2f1736  download/Tie-CPHash-1.05.tar.gz
