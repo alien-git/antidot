@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 #http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/Module-Implementation-0.06.tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/
-LIBDEPS = apps/perl/perl
+LIBDEPS = apps/perl/Module-Runtime
 
 DESCRIPTION = Loads one of several alternate underlying implementations for a module
 AUTHOR = Dave Rolsky
