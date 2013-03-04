@@ -7,7 +7,6 @@ FILTER     ?= %
  
 ALL=\
 apps/alien/alien-ca \
-apps/alien/classad \
 apps/alien/common \
 apps/alien/gapi \
 apps/tools/aria2 \
