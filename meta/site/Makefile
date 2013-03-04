@@ -8,7 +8,6 @@ FILTER     ?= %
 ALL=\
 apps/alien/admin \
 apps/alien/alien-ca \
-apps/alien/classad \
 apps/alien/lcg \
 apps/monitor/MonaLisa \
 apps/perl/Config-ApacheFormat \
