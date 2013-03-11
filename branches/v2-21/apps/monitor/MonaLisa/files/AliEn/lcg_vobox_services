@@ -13,18 +13,13 @@ use warnings;
 # definition of the env
 ###############################################################################
 
-$ENV{'GLOBUS_LOCATION'} = "/opt/globus";
-$ENV{'X509_CERT_DIR'}   = "/etc/grid-security/certificates";
-$ENV{'LD_LIBRARY_PATH'} =
-    "/opt/lcg/lib64:/opt/globus/lib:/opt/glite/lib64:/opt/glite/lib:" .
-    $ENV{'LD_LIBRARY_PATH'};
-$ENV{'PATH'} =
-    "$ENV{'HOME'}/bin:/usr/kerberos/bin:/opt/d-cache/srm/bin:" .
-    "/opt/d-cache/dcap/bin:/opt/edg/bin:/opt/glite/bin:" .
-    "/opt/globus/bin:/opt/lcg/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+if (exists $ENV{ALIEN_ROOT}) {
+    for ('LD_LIBRARY_PATH', 'PATH') {
+	$ENV{$_} =~ s,.*$ENV{ALIEN_ROOT}/[^:]+:?,,;
+    }
+}
 
-$ENV{'MYPROXY_SERVER'}  = 'myproxy.cern.ch'
-    unless defined $ENV{'MYPROXY_SERVER'};
+$ENV{'PATH'} = "$ENV{'HOME'}/bin:$ENV{'PATH'}";
 
 #
 # to avoid that myproxy-* commands might hang:
@@ -33,7 +28,12 @@ $ENV{'MYPROXY_SERVER'}  = 'myproxy.cern.ch'
 delete $ENV{ 'GLOBUS_TCP_PORT_RANGE'};
 delete $ENV{'MYPROXY_TCP_PORT_RANGE'};
 
-my $vobox_dir    = '/opt/vobox/alice';
+my $vobox_dir;
+
+for ('/var/lib', '/opt') {
+    last if -d ($vobox_dir = "$_/vobox/alice");
+}
+
 my $renewalProxy = "$vobox_dir/renewal-proxy.pem";
 
 ###############################################################################
@@ -287,9 +287,10 @@ sub test6
     my $info = "";
     $ENV{X509_USER_PROXY} = $renewalProxy;
     my @command;
-    my $renew = "$ENV{LCG_LOCATION}/bin/lcg-proxy-renew";
 
-    if (-x "$renew") {
+    chomp(my $renew = `which lcg-proxy-renew 2> /dev/null`);
+
+    if (! $? && -x "$renew") {
 	$info = "with VOMS extensions";
 	@command = (
 	    "$renew",
