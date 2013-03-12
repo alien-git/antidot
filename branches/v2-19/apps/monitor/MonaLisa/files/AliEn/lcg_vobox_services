@@ -15,7 +15,7 @@ use warnings;
 
 if (exists $ENV{ALIEN_ROOT}) {
     for ('LD_LIBRARY_PATH', 'PATH') {
-	$ENV{$_} =~ s,.*$ENV{ALIEN_ROOT}/[^:]+:?,,;
+	$ENV{$_} =~ s,.*$ENV{ALIEN_ROOT}+[./][^:]+:?,,;
     }
 }
 
