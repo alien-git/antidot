@@ -12,7 +12,6 @@ apps/perl/perl= \
 apps/perl/Tree-DAG_Node= \
 apps/tools/ApMon-CPP= \
 apps/system/openssl= \
-apps/tools/ml_gsoapclient= \
 apps/perl/Test-Requires= \
 apps/perl/Class-Inspector= \
 apps/perl/File-ShareDir= \
