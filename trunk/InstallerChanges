@@ -15,3 +15,6 @@
 
 1.49 Mon Sep 24 11:21:59 CEST 2012
 - adding no-certificate-check flag
+
+1.50 Tue Apr 16 15:28:59 CEST 2013
+- deleting .alien/httpd conf files
