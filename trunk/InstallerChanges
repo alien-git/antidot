@@ -16,5 +16,8 @@
 1.49 Mon Sep 24 11:21:59 CEST 2012
 - adding no-certificate-check flag
 
-1.50 Tue Apr 16 15:28:59 CEST 2013
+1.50 Wed Nov 28 16:17:18 CET 2012
+- installer matches Scientific Linux and CERN Scientific Linux
+
+1.51 Tue Apr 16 15:53:23 CET 2013
 - deleting .alien/httpd conf files
