@@ -1,5 +1,5 @@
 GARNAME = ant
-GARVERSION = 1.8.4
+GARVERSION = 1.9.0
 CATEGORIES = tools-devel
 DISTFILES = apache-$(GARNAME)-$(GARVERSION)-bin.tar.gz
 DISTNAME = apache-$(GARNAME)-$(GARVERSION)
@@ -9,7 +9,8 @@ PATCHFILES = Makefile.patch
 BININSTALL_IGNORE = true
 
 #http://apache.multidist.com/ant/binaries/apache-ant-1.7.1-bin.tar.gz
-MASTER_SITES = http://apache.multidist.com/ant/binaries/
+#http://wwwftp.ciril.fr/pub/apache//ant/binaries/apache-ant-1.9.0-bin.zip
+MASTER_SITES = http://wwwftp.ciril.fr/pub/apache//ant/binaries/
 
 LIBDEPS = apps/devel/jdk
 
