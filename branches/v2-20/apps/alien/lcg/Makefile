@@ -1,6 +1,7 @@
-SVNTYPE = trunk
-SVNNAME =  trunk
-SVNREVISION = 278
+SVNTYPE = branches
+SVNNAME =  v2-20
+SVNDIR = lcg
+SVNREVISION =
 
 GARNAME    = alien-lcg
 GARVERSION = $(SVNNAME)
@@ -8,7 +9,7 @@ CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
 
-MASTER_SITES = svn-https://alisoft.cern.ch/
+MASTER_SITES = svn-http://svn.cern.ch/guest/AliEn/
 
 LIBDEPS = apps/alien/common apps/perl/Expect
 
