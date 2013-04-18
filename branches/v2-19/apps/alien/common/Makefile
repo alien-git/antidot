@@ -1,5 +1,6 @@
 SVNTYPE = branches
-SVNNAME =  v2-19
+SVNNAME =  v2-21
+SVNDIR = common
 SVNREVISION =
 
 GARNAME    = alien-common
@@ -8,7 +9,7 @@ CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION)_src.tar.gz
 NOCHECKSUM = $(DISTFILES)
 
-MASTER_SITES = svn-https://alisoft.cern.ch/
+MASTER_SITES = svn-http://svn.cern.ch/guest/AliEn/
 
 LIBDEPS =  apps/perl/ApMon \
 apps/perl/Archive-Zip \

@@ -94,18 +94,34 @@ pserver//%:
 # download the file from a svn server using plain http, with an URL like svn-http://hostname/svn/$(NAME)/tags/$(VERSION)
 #if we try to build the trunk then we have to use svn-http://hostname/svn/$(NAME)/trunk
 svn-http//%:
-	@if [ $(SVNTYPE) = "trunk" ]; then \
-	    if [ $(SVNREVISION) ]; then \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk -r $(SVNREVISION); \
+	@if [ "$(SVNTYPE)" = "trunk" ]; then \
+	    if [ "$(SVNDIR)" ]; then \
+		if [ "$(SVNREVISION)" ]; then \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/trunk/$(SVNDIR) -r $(SVNREVISION) $(SVNNAME); \
+		else \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/trunk/$(SVNDIR) $(SVNNAME); \
+		fi \
 	    else \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk; \
+		if [ "$(SVNREVISION)" ]; then \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk -r $(SVNREVISION); \
+		else \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/trunk; \
+		fi \
 	    fi \
 	fi
-	@if [ $(SVNTYPE) = "tags" -o $(SVNTYPE) = "branches" ]; then \
-	    if [ $(SVNTYPE) = "branches" -a $(SVNREVISION) ]; then \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME) -r $(SVNREVISION); \
+	@if [ "$(SVNTYPE)" = "tags" -o "$(SVNTYPE)" = "branches" ]; then \
+	    if [ "$(SVNDIR)" ]; then \
+		if [ "$(SVNTYPE)" = "branches" -a "$(SVNREVISION)" ]; then \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(SVNTYPE)/$(SVNNAME)/$(SVNDIR) -r $(SVNREVISION) $(SVNNAME); \
+		else \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(SVNTYPE)/$(SVNNAME)/$(SVNDIR) $(SVNNAME); \
+		fi \
 	    else \
-		cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME); \
+		if [ "$(SVNTYPE)" = "branches" -a "$(SVNREVISION)" ]; then \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME) -r $(SVNREVISION); \
+		else \
+		    cd $(DOWNLOADDIR) && svn co http://$(dir $*)/$(GARNAME)/$(SVNTYPE)/$(SVNNAME); \
+		fi \
 	    fi \
 	fi
 	@(cd $(DOWNLOADDIR) && mv $(SVNNAME) $(GARNAME)-$(GARVERSION))
@@ -428,6 +444,14 @@ configure-%/config:
 	@echo ' $(call TMSG_LIB,Running config in,$*)'
 	@(cd $* && $(CONFIGURE_ENV) ./config $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
+	
+configure-%/cmake:
+	true && $(PRE_CONFIGURE)
+	@mkdir -p $*
+	@rm -rf $*/*
+	@(cd $* && $(CONFIGURE_ENV) cmake $(CONFIGURE_ARGS) ../../$(WORKSRC))
+	@$(MAKECOOKIE)
+	
 
 # configure a package that uses imake
 # FIXME: untested and likely not the right way to handle the
@@ -465,6 +489,15 @@ build-%/makefile:
 build-%/GNUmakefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(MAKECOOKIE)
+
+build-%/cmake:
+	@echo ' $(call TMSG_LIB,Running cmake in,$*)'
+	@echo "$(PRE_BUILD)"
+	@$(PRE_BUILD)
+	@echo "$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)"
+	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 #################### USE RULES ####################
@@ -617,6 +650,17 @@ install-%/GNUmakefile:
 	@$(POST_INSTALL)
 	@$(PROVIDE_END)
 	@$(MAKECOOKIE)
+
+install-%/cmake:
+	@echo ' $(call TMSG_LIB,Running make install in,$*)'
+	$(PROVIDE_BEGIN)
+	@$(PRE_INSTALL)
+	@echo "$(INSTALL_ENV) $(MAKE) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) $(INSTALL_TARGET)"
+	@$(INSTALL_ENV) $(MAKE) $(foreach TTT,$(INSTALL_OVERRIDE_DIRS),$(TTT)="$(DESTDIR)$($(TTT))") -C $* $(INSTALL_ARGS) $(INSTALL_TARGET)
+	@$(POST_INSTALL)
+	$(PROVIDE_END)
+	@$(MAKECOOKIE)
+
 
 ######################################
 # Use a manifest file of the format:
