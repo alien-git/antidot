@@ -1,5 +1,5 @@
---- work/httpd-2.2.22/modules/ssl/ssl_engine_init.c	2010-02-27 22:00:58.000000000 +0100
-+++ work/httpd-2.2.22/modules/ssl/ssl_engine_init.c.new	2010-04-26 21:13:43.000000000 +0200
+--- work/httpd-2.2.24/modules/ssl/ssl_engine_init.c	2010-02-27 22:00:58.000000000 +0100
++++ work/httpd-2.2.24/modules/ssl/ssl_engine_init.c.new	2010-04-26 21:13:43.000000000 +0200
 @@ -501,9 +501,11 @@
                                     modssl_ctx_t *mctx)
  {
@@ -14,8 +14,8 @@
      SSL_CTX_set_info_callback(ctx, ssl_callback_Info);
  }
 
---- work/httpd-2.2.22/modules/ssl/ssl_private.h	2010-02-27 22:00:58.000000000 +0100
-+++ work/httpd-2.2.22/modules/ssl/ssl_private.h.new	2010-04-26 20:26:44.000000000 +0200
+--- work/httpd-2.2.24/modules/ssl/ssl_private.h	2010-02-27 22:00:58.000000000 +0100
++++ work/httpd-2.2.24/modules/ssl/ssl_private.h.new	2010-04-26 20:26:44.000000000 +0200
 @@ -572,6 +572,9 @@
  void         ssl_init_Child(apr_pool_t *, server_rec *);
  apr_status_t ssl_init_ModuleKill(void *data);
@@ -27,8 +27,8 @@
  int          ssl_hook_Auth(request_rec *);
  int          ssl_hook_UserCheck(request_rec *);
 
---- work/httpd-2.2.22/modules/ssl/ssl_engine_kernel.c	2010-02-27 22:00:58.000000000 +0100
-+++ work/httpd-2.2.22/modules/ssl/ssl_engine_kernel.c.new	2010-04-26 20:26:44.000000000 +0200
+--- work/httpd-2.2.24/modules/ssl/ssl_engine_kernel.c	2010-02-27 22:00:58.000000000 +0100
++++ work/httpd-2.2.24/modules/ssl/ssl_engine_kernel.c.new	2010-04-26 20:26:44.000000000 +0200
 @@ -1287,6 +1287,725 @@
      return (DH *)mc->pTmpKeys[idx];
  }
