@@ -7,7 +7,7 @@ PATCHFILES = Makefile.PL.patch
 
 MASTER_SITES =  http://search.cpan.org/CPAN/authors/id/M/MA/MARSCHAP/
 
-LIBDEPS = apps/perl/Convert-ASN1 apps/perl/XML-SAX-Writer apps/perl/IO-Socket-SSL apps/perl/JSON
+LIBDEPS = apps/perl/Convert-ASN1 apps/perl/XML-SAX-Writer apps/perl/IO-Socket-SSL apps/perl/JSON apps/perl/libwww-perl
 
 DESCRIPTION = Interface to LDAP Protocol (RFC1777)
 URL = http://ldap.perl.org/
