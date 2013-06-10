@@ -1,5 +1,5 @@
 GARNAME = ant
-GARVERSION = 1.9.0
+GARVERSION = 1.9.1
 CATEGORIES = tools-devel
 DISTFILES = apache-$(GARNAME)-$(GARVERSION)-bin.tar.gz
 DISTNAME = apache-$(GARNAME)-$(GARVERSION)
