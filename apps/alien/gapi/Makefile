@@ -1,5 +1,5 @@
 GARNAME = xrootd-xalienfs
-GARVERSION = 1.0.14n
+GARVERSION = 1.0.14r
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
@@ -27,6 +27,7 @@ CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api
 else
 CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api --enable-perl-module --with-swig=$(PREFIX) --with-swig-inc=$(PREFIX)/share/swig/2.0.3/ --with-perl=$(PREFIX)/bin/perl --enable-build-server --disable-readline
 endif
+
 include ../category.mk
 
 #ifeq ($(shell uname -s),Darwin)
