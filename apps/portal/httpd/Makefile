@@ -1,11 +1,11 @@
 GARNAME = httpd
-GARVERSION = 2.2.24
+GARVERSION = 2.2.25
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 PATCHFILES += ssl_modules.patch
 
-MASTER_SITES = http://apache.cict.fr/httpd/
+MASTER_SITES = http://apache.cict.fr/httpd/ http://mirror.switch.ch/mirror/apache/dist//httpd/
 
 LIBDEPS = apps/system/expat apps/devel/libtool apps/devel/automake apps/system/openssl
 

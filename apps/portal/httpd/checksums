@@ -4,6 +4,6 @@ b45f16a9878e709497820565d42b00b9  download/httpd-2.0.55.tar.gz
 7f33f2c8b213ad758c009ae46d2795ed  download/httpd-2.2.16.tar.gz
 b24ca6db942a4f8e57c357e5e3058d31  download/httpd-2.2.21.tar.gz
 d77fa5af23df96a8af68ea8114fa6ce1  download/httpd-2.2.22.tar.gz
-8952a16994bf2bbaaebdabce7414db30  download/ssl_modules.patch
 64a3392018ad60583209a16d728180d3  download/httpd-2.2.24.tar.gz
-52f97064c0deae54a0375404f0740e23  download/ssl_modules.patch
+ea9d400f20f19b585773cf42b9ce49c7  download/httpd-2.2.25.tar.gz
+569f4f3afb77151b207cb87031dcfd4b  download/ssl_modules.patch
