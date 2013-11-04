@@ -2,7 +2,7 @@ GARNAME = MonaLisa
 GARVERSION = 13.11.04
 CATEGORIES = java
 DISTFILES = $(GARNAME).v$(GARVERSION).tar.gz
-#DISTNAME  = $(GARNAME).v1.9
+DISTNAME  = $(GARNAME).v$(GARVERSION)
 
 PLATFORM = $(shell $(GARDIR)/platform.sh platform)
 
