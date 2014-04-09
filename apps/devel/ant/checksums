@@ -5,4 +5,5 @@ dc9cc5ede14729f87fe0a4fe428b9185  download/apache-ant-1.8.1-bin.tar.gz
 afb0c7950a663f94e65da9f3be676d8f  download/apache-ant-1.8.2-bin.tar.gz
 f5975145d90efbbafdcabece600f716b  download/apache-ant-1.8.4-bin.tar.gz
 8360ecbf5375769241abf7145954b62b  download/apache-ant-1.9.0-bin.tar.gz
-8f4fa9c5aa70934e5f8bd3c37a98a10c  download/Makefile.patch
+89b76fa1b34cc2eb650a87ff81ccdf3c  download/apache-ant-1.9.3-bin.tar.gz
+3706b9bb039fe91b9acd61120e9adbb0  download/Makefile.patch
