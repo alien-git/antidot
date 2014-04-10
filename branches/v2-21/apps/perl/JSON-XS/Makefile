@@ -1,11 +1,11 @@
 GARNAME = JSON-XS
-GARVERSION = 2.33
+GARVERSION = 3.01
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/ML/MLEHMANN/
 
-LIBDEPS = apps/perl/perl apps/perl/common-sense
+LIBDEPS = apps/perl/perl apps/perl/common-sense apps/perl/Types-Serialiser
 
 DESCRIPTION = JSON-XS server
 LICENSE = Perl

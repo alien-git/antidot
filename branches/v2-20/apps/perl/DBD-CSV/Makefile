@@ -1,12 +1,12 @@
 GARNAME = DBD-CSV
-GARVERSION = 0.36
+GARVERSION = 0.41
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tgz
 
 #http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/DBD-CSV-0.30.tgz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/
 
-LIBDEPS = apps/perl/SQL-Statement apps/perl/Text-CSV_XS
+LIBDEPS = apps/perl/DBI apps/perl/SQL-Statement apps/perl/Text-CSV_XS
 
 DESCRIPTION = SQL engine and DBI driver for CSV files
 AUTHOR = Jeff Zucker 
