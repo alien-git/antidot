@@ -5,7 +5,7 @@ diff --speed-large-files --minimal -Nru tmp/perl-5.10.1/Configure work/perl-5.10
  
  : general looking path for locating libraries
  glibpth="/lib /usr/lib $xlibpth"
-+glibpth="$glibpth /usr/lib/i386-linux-gnu /usr/lib/x86_64-linux-gnu"
++glibpth="$glibpth /lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/"
  glibpth="$glibpth /usr/ccs/lib /usr/ucblib /usr/local/lib"
  test -f /usr/shlib/libc.so && glibpth="/usr/shlib $glibpth"
  test -f /shlib/libc.so     && glibpth="/shlib $glibpth"

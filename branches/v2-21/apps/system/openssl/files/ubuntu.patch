@@ -1,0 +1,12 @@
+diff --speed-large-files --minimal -Nru tmp/openssl-0.9.8o/Makefile.org work/openssl-0.9.8o/Makefile.org
+--- tmp/openssl-0.9.8o/Makefile.org	2010-01-27 17:06:36.000000000 +0100
++++ work/openssl-0.9.8o/Makefile.org	2014-07-16 16:02:34.004255731 +0200
+@@ -615,7 +615,7 @@
+ dist_pem_h:
+ 	(cd crypto/pem; $(MAKE) -e $(BUILDENV) pem.h; $(MAKE) clean)
+ 
+-install: all install_docs install_sw
++install: all install_sw
+ 
+ install_sw:
+ 	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \

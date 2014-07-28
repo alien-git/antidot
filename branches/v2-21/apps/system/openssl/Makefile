@@ -3,6 +3,8 @@ GARVERSION = 0.9.8o
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
+PATCHFILES = ubuntu.patch
+
 MASTER_SITES = http://www.openssl.org/source/ 
 
 LIBDEPS = apps/gcc/gcc apps/devel/automake apps/devel/libtool

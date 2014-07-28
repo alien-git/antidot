@@ -1,9 +1,8 @@
 GARNAME = Test-Requires
-GARVERSION = 0.06
+GARVERSION = 0.08
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/Test-Requires-0.06.tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/
 
 LIBDEPS = apps/perl/perl
