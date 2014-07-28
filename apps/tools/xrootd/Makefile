@@ -3,7 +3,7 @@ GARVERSION = 3.0.4
 
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES =  GNUmakerules.patch
+PATCHFILES =  ubuntu.patch
 NOCHECKSUM = $(DISTFILES) $(PATCHFILES)
 
 MASTER_SITES = http://xrootd.org/download/v3.0.4/

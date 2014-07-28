@@ -1,11 +1,11 @@
 GARNAME = gsoap
-GARVERSION = 2.7.13
+GARVERSION = 2.7.16
 CATEGORIES = apps-tools
-DISTFILES = $(GARNAME)_$(GARVERSION).tar.gz
+DISTFILES = $(GARNAME)_$(GARVERSION).zip
 DISTNAME = $(GARNAME)-2.7
 PATCHFILES = 
 
-MASTER_SITES = http://puzzle.dl.sourceforge.net/sourceforge/gsoap2/
+MASTER_SITES = http://sourceforge.net/projects/gsoap2/files/gSOAP/gSOAP%202.7.16%20stable/ http://puzzle.dl.sourceforge.net/sourceforge/gsoap2/
 
 LIBDEPS = apps/gcc/gcc apps/system/openssl
 

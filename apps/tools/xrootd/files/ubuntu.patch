@@ -1,0 +1,29 @@
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.4/config/GNUmake.rules.gcc work/xrootd-3.0.4/config/GNUmake.rules.gcc
+--- tmp/xrootd-3.0.4/config/GNUmake.rules.gcc	2011-06-14 17:39:38.000000000 +0200
++++ work/xrootd-3.0.4/config/GNUmake.rules.gcc	2014-07-16 17:31:03.510717566 +0200
+@@ -20,4 +20,4 @@
+ TYPELDSO  += -m32
+ endif
+ 
+-TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc
++TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc -lpthread
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.4/config/GNUmake.rules.gccx8664 work/xrootd-3.0.4/config/GNUmake.rules.gccx8664
+--- tmp/xrootd-3.0.4/config/GNUmake.rules.gccx8664	2011-06-14 17:39:38.000000000 +0200
++++ work/xrootd-3.0.4/config/GNUmake.rules.gccx8664	2014-07-16 17:31:18.006910738 +0200
+@@ -16,4 +16,4 @@
+ TYPELDSO   = -m64 -shared
+ TYPESHLIB  = so
+ 
+-TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc
++TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc -lpthread
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.4/src/XrdOss/XrdOssAio.cc work/xrootd-3.0.4/src/XrdOss/XrdOssAio.cc
+--- tmp/xrootd-3.0.4/src/XrdOss/XrdOssAio.cc	2011-06-14 17:39:38.000000000 +0200
++++ work/xrootd-3.0.4/src/XrdOss/XrdOssAio.cc	2014-07-16 17:30:10.942017025 +0200
+@@ -15,6 +15,7 @@
+ #include <signal.h>
+ #include <stdio.h>
+ #include <unistd.h>
++#include <fcntl.h>
+ #ifdef _POSIX_ASYNCHRONOUS_IO
+ #ifdef __FreeBSD__
+ #include <fcntl.h>

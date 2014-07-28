@@ -1,5 +1,5 @@
 GARNAME = Linux-PAM
-GARVERSION = 1.1.3
+GARVERSION = 1.1.8
 
 ifeq ($(shell uname),Darwin)
     GARVERSION = 0.78
@@ -10,7 +10,7 @@ endif
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/library/ http://www.kernel.org/pub/linux/libs/pam/pre/library/   http://ftp.kernel.org/pub/linux/libs/pam/library/
+MASTER_SITES = http://www.linux-pam.org/library/ http://www.kernel.org/pub/linux/libs/pam/library/ http://www.kernel.org/pub/linux/libs/pam/pre/library/   http://ftp.kernel.org/pub/linux/libs/pam/library/
 
 #MASTER_SITES = http://www.kernel.org/pub/linux/libs/pam/pre/library/ 
 #http://www.kernel.org/pub/linux/libs/pam/library/Linux-PAM-1.1.0.tar.gz

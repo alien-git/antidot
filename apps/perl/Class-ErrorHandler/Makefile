@@ -1,9 +1,11 @@
 GARNAME = Class-ErrorHandler
-GARVERSION = 0.01
+GARVERSION = 0.02
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/B/BT/BTROTT/ http://www.cpan.org/authors/id/B/BT/BTROTT/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/B/BT/BTROTT/
+#MASTER_SITES = http://www.cpan.org/authors/id/B/BT/BTROTT/ $(CPAN_MIRROR)/authors/id/B/BT/BTROTT/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/B/BT/BTROTT/
+#MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/
+MASTER_SITES = http://pkgs.fedoraproject.org/lookaside/pkgs/perl-Class-ErrorHandler/Class-ErrorHandler-0.02.tar.gz/b516490ce7cf919d690f40f68c59a37c/
 
 LIBDEPS = apps/perl/perl
 
