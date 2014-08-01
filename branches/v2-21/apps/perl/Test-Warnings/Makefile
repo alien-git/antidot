@@ -6,7 +6,7 @@ PATCHFILES =
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/E/ET/ETHER/
 
-LIBDEPS = 
+LIBDEPS = apps/perl/perl
 
 DESCRIPTION = Test for warnings and the lack of them  
 AUTHOR = ETHER
