@@ -1,16 +1,16 @@
 GARNAME = Test-Simple
-GARVERSION = 0.98
+GARVERSION = 1.001003
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MS/MSCHWERN/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/E/EX/EXODIST/
 
 LIBDEPS = apps/perl/perl
 
 DESCRIPTION = Basic utilities for writing tests.  
-AUTHOR = Michael G Schwern
-URL = http://search.cpan.org/~mschwern/
+AUTHOR = EXODIST
+URL = http://search.cpan.org/CPAN/authors/id/E/EX/EXODIST/
 LICENSE = Perl
 
 AUTOTEST = 

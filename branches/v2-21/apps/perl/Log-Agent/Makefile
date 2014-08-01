@@ -1,9 +1,10 @@
 GARNAME = Log-Agent
-GARVERSION = 0.307
+GARVERSION = 1.000
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://www.cpan.org/authors/id/M/MR/MROGASKI/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MR/MROGASKI/ http://search.cpan.org/CPAN/authors/id/M/MR/MROGASKI/
+#MASTER_SITES = http://www.cpan.org/authors/id/M/MR/MROGASKI/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MR/MROGASKI/ http://search.cpan.org/CPAN/authors/id/M/MR/MROGASKI/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MR/MROGASKI/
 
 LIBDEPS = apps/perl/perl
 
@@ -21,4 +22,5 @@ CONFIGURE_ARGS =
 BUILD_ARGS =  
 
 include ../category.mk
+
 

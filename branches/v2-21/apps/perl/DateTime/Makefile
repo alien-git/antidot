@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/
 
-LIBDEPS = apps/perl/DateTime-Locale apps/perl/DateTime-TimeZone
+LIBDEPS = apps/perl/DateTime-Locale apps/perl/DateTime-TimeZone apps/perl/Test-Warnings apps/perl/Test-Fatal
 
 DESCRIPTION = A complete, easy to use date and time object
 URL = http://cpan.uwinnipeg.ca/~drolsky
