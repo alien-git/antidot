@@ -1,17 +1,16 @@
-GARNAME = List-MoreUtils
-GARVERSION = 0.33
+GARNAME = File-Slurp-Tiny
+GARVERSION = 0.003
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/L/LE/LEONT/
 
 LIBDEPS = apps/perl/perl
 
-AUTHOR  = ADAMK
+DESCRIPTION = A simple, sane and efficient file slurper
+AUTHOR = LEONT
+URL = http://search.cpan.org/CPAN/authors/id/L/LE/LEONT/
 LICENSE = Perl
-URL     = http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/
-
-DESCRIPTION =  Provide the stuff missing in List::Util  
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
@@ -22,4 +21,3 @@ CONFIGURE_ARGS =
 BUILD_ARGS =  
 
 include ../category.mk
-

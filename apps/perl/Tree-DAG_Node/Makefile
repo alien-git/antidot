@@ -6,7 +6,7 @@ PATCHFILES =
 #http://search.cpan.org/CPAN/authors/id/R/RS/RSAVAGE/Tree-DAG_Node-1.11.tgz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RS/RSAVAGE/
 
-LIBDEPS = apps/perl/perl
+LIBDEPS = apps/perl/File-Slurp-Tiny
 
 DESCRIPTION = Class for representing nodes in a tree 
 AUTHOR = David Hand
