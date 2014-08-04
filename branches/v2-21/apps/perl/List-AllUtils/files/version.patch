@@ -1,0 +1,16 @@
+diff --speed-large-files --minimal -Nru tmp/List-AllUtils-0.08/lib/List/AllUtils.pm work/List-AllUtils-0.08/lib/List/AllUtils.pm
+--- tmp/List-AllUtils-0.08/lib/List/AllUtils.pm	2014-04-01 22:16:48.000000000 +0200
++++ work/List-AllUtils-0.08/lib/List/AllUtils.pm	2014-08-04 14:40:11.109394187 +0200
+@@ -5,10 +5,10 @@
+ 
+ # List::Util does not define an :all tag
+ BEGIN {
+-    use List::Util 1.31 ();
++    use List::Util ();
+     List::Util->import(@List::Util::EXPORT_OK);
+ 
+-    use List::MoreUtils 0.28;
++    use List::MoreUtils;
+ 
+     my %imported = map { $_ => 1 } @List::Util::EXPORT_OK;
+     List::MoreUtils->import( grep { !$imported{$_} }

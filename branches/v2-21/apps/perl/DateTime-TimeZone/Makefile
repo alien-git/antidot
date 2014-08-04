@@ -1,11 +1,11 @@
 GARNAME = DateTime-TimeZone
-GARVERSION = 1.56
+GARVERSION = 1.72
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/
 
-LIBDEPS = apps/perl/Class-Singleton apps/perl/Params-Validate apps/perl/Class-Load
+LIBDEPS = apps/perl/Test-Fatal apps/perl/Test-Output apps/perl/Test-Requires apps/perl/Class-Load apps/perl/List-AllUtils apps/perl/Params-Validate
 
 DESCRIPTION = Time zone object base class and factory
 AUTHOR = Dave Rolsky
