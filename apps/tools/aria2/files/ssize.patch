@@ -1,0 +1,11 @@
+diff --speed-large-files --minimal -Nru tmp/aria2-1.12.1/src/DHTConnection.h work/aria2-1.12.1/src/DHTConnection.h
+--- tmp/aria2-1.12.1/src/DHTConnection.h	2010-11-27 13:23:58.000000000 +0100
++++ work/aria2-1.12.1/src/DHTConnection.h	2014-08-05 10:25:16.782804542 +0200
+@@ -37,6 +37,7 @@
+ 
+ #include "common.h"
+ #include <string>
++#include <sys/types.h>
+ 
+ namespace aria2 {
+ 
