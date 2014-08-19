@@ -1,10 +1,9 @@
 GARNAME = LockFile-Simple
-GARVERSION = 0.2.5
+GARVERSION = 0.208
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = $(CPAN_MIRROR)/authors/id/R/RA/RAM/ http://www.cpan.org/authors/id/R/RA/RAM/
-
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/S/SC/SCHWIGON/lockfile-simple/
 LIBDEPS = apps/perl/perl
 
 DESCRIPTION = Simple file locking scheme
