@@ -6,3 +6,5 @@ c56ac5dbdd46122eb9b8da59613b7b0a  download/Crypt-OpenSSL-Random-0.04.tar.gz
 cc78b8deb9268e7ff2360357aac589da  download/Crypt-OpenSSL-X509-1.4.tar.gz
 2859915bf11cbf98155150d37ab5dbdd  download/Crypt-OpenSSL-X509-1.800.2.tar.gz
 a3f019e91531f53a389f80fdcb656786  download/Crypt-OpenSSL-X509-1.804.tar.gz
+70fea83d0ec6784a6f852058e47fb5f3  download/Crypt-OpenSSL-X509-1.803.tar.gz
+ff178161614b95e2ff20e6e0ce66c9cd  download/ubuntu.patch

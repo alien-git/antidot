@@ -2,6 +2,7 @@ GARNAME = Crypt-OpenSSL-X509
 GARVERSION = 1.804
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
+PATCHFILES = ubuntu.patch
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DA/DANIEL/
 
@@ -17,7 +18,7 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = LIBS="-L$(PREFIX)/lib -lssl -lcrypto" INC="-I$(PREFIX)/include/"
+CONFIGURE_ARGS = LIBS="-L$(PREFIX)/lib/ -lssl -lcrypto" INC="-I$(PREFIX)/include/"
 
 BUILD_ARGS =  
 
