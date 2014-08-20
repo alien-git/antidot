@@ -1,0 +1,50 @@
+diff --speed-large-files --minimal -Nru tmp/Crypt-OpenSSL-X509-1.804/t/utf8.t work/Crypt-OpenSSL-X509-1.804/t/utf8.t
+--- tmp/Crypt-OpenSSL-X509-1.804/t/utf8.t	2011-04-16 01:20:34.000000000 +0200
++++ work/Crypt-OpenSSL-X509-1.804/t/utf8.t	2014-08-20 10:16:14.920499464 +0200
+@@ -1,5 +1,5 @@
+ 
+-use Test::More tests => 11;
++use Test::More tests => 8;
+ use Encode;
+ 
+ binmode(STDOUT, ":utf8");
+@@ -40,15 +40,15 @@
+ ######  and a broken UTF8 cert #####
+ 
+ # OpenSSL v1.0.0 (and higher?) fails to read this cert.
+-SKIP: {
+-  skip "OpenSSL v1.0.0 can't read broken certs.", 3 if Crypt::OpenSSL::X509::OPENSSL_VERSION_NUMBER >= 0x10000000;
++#SKIP: {
++#  skip "OpenSSL v1.0.0 can't read broken certs.", 3 if Crypt::OpenSSL::X509::OPENSSL_VERSION_NUMBER >= 0x10000000;
+ 
+-  ok($x509 = Crypt::OpenSSL::X509->new_from_file('certs/broken-utf8.pem'), 'new_from_file()');
+-  $sub = $x509->subject();
+-  Dump($sub) if ($debug);
++#  ok($x509 = Crypt::OpenSSL::X509->new_from_file('certs/broken-utf8.pem'), 'new_from_file()');
++#  $sub = $x509->subject();
++#  Dump($sub) if ($debug);
+ 
+-  ok(utf8::is_utf8($sub), "subject is utf8");
+-  is($sub, "C=PL, ST=mazowieckie, L=Warszawa, O=D.A.S. Towarzystwo Ubezpieczen Ochrony Prawnej S.A., OU=Dzi\x{fffd} Informatyki, CN=das.pl", "utf8 subject as expected");
+-};
++#  ok(utf8::is_utf8($sub), "subject is utf8");
++#  is($sub, "C=PL, ST=mazowieckie, L=Warszawa, O=D.A.S. Towarzystwo Ubezpieczen Ochrony Prawnej S.A., OU=Dzi\x{fffd} Informatyki, CN=das.pl", "utf8 subject as expected");
++#};
+ 
+ 0;
+diff --speed-large-files --minimal -Nru tmp/Crypt-OpenSSL-X509-1.804/X509.xs work/Crypt-OpenSSL-X509-1.804/X509.xs
+--- tmp/Crypt-OpenSSL-X509-1.804/X509.xs	2013-12-01 18:14:25.000000000 +0100
++++ work/Crypt-OpenSSL-X509-1.804/X509.xs	2014-08-20 10:16:44.408500049 +0200
+@@ -576,11 +576,11 @@
+   Crypt::OpenSSL::X509 x509;
+ 
+   CODE:
+-  EVP_PKEY *pkey;
+ #ifdef OPENSSL_NO_EC
+   if ( x509 ) {} // fix unused variable warning.
+   croak("OpenSSL without EC-support");
+ #else
++  EVP_PKEY *pkey;
+   pkey = X509_extract_key(x509);
+   if (pkey == NULL) {
+     EVP_PKEY_free(pkey);
