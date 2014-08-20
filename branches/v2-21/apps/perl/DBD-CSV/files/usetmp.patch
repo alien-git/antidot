@@ -1,0 +1,18 @@
+diff --speed-large-files --minimal -Nru tmp/DBD-CSV-0.44/Makefile.PL work/DBD-CSV-0.44/Makefile.PL
+--- tmp/DBD-CSV-0.44/Makefile.PL	2014-06-30 12:39:45.000000000 +0200
++++ work/DBD-CSV-0.44/Makefile.PL	2014-08-20 10:28:14.600513739 +0200
+@@ -49,14 +49,9 @@
+ 
+ {   my $tmp_dir = File::Spec->tmpdir ();
+     my $default = $ENV{AUTOMATED_TESTING} ? "n" : "y";
+-    if (prompt ("Enable the use of $tmp_dir for tests?", $default) =~ m/[Yy]/) {
+-	unlink "tests.skip";
+-	}
+-    else {
+ 	open my $fh, ">", "tests.skip";
+ 	print $fh "tmpdir\n";
+ 	close $fh;
+-	}
+     }
+ my %wm = (
+     NAME         => "DBD::CSV",

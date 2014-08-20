@@ -1,15 +1,15 @@
 GARNAME = DBD-CSV
-GARVERSION = 0.41
+GARVERSION = 0.44
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tgz
+PATCHFILES = usetmp.patch
 
-#http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/DBD-CSV-0.30.tgz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/
 
 LIBDEPS = apps/perl/DBI apps/perl/SQL-Statement apps/perl/Text-CSV_XS
 
 DESCRIPTION = SQL engine and DBI driver for CSV files
-AUTHOR = Jeff Zucker 
+AUTHOR = Jeff Zucker
 URL = http://cpan.uwinnipeg.ca/~jzucker
 LICENSE = Perl
 
@@ -19,8 +19,8 @@ INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = $(WORKSRC)/Makefile
 
 
-CONFIGURE_ARGS =  
-BUILD_ARGS =  
+CONFIGURE_ARGS =
+BUILD_ARGS =
 
 include ../category.mk
 
