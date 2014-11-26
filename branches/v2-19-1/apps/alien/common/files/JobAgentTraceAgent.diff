@@ -1,0 +1,111 @@
+--- work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm.orig	2012-11-14 16:35:56.000000000 +0100
++++ work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm	2012-11-14 16:43:04.000000000 +0100
+@@ -136,6 +136,7 @@
+   print "Executing in $self->{HOST}\n";
+   $self->{PID}=$$;
+   print "PID = $self->{PID}\n";
++  $ENV{ALIEN_JOBAGENT_ID} and $ENV{ALIEN_JOBAGENT_ID}.="_$self->{PID}";
+ 
+   my $packConfig=1;
+   $options->{disablePack} and $packConfig=0;
+@@ -252,7 +253,7 @@
+     }		      
+     $self->{MONITOR}->addJobToMonitor($self->{PROCESSID}, $self->{WORKDIR}, $self->{CONFIG}->{CE_FULLNAME}.'_Jobs', $ENV{ALIEN_PROC_ID});
+   }
+-  $self->sendJAStatus('JOB_STARTED');
++  $self->sendJAStatus('JOB_STARTED', {totaljobs=>$self->{TOTALJOBS}});
+   return 1;
+ }
+ 
+@@ -299,6 +300,19 @@
+   return 1;
+ }
+ 
++sub putAgentLog {
++  my $self=shift;
++  my $message=shift;
++  my $id="$self->{CONFIG}->{CE_FULLNAME}_$ENV{ALIEN_JOBAGENT_ID}";
++  $self->{agentlog_counter} or $self->{agentlog_counter}=0;  
++  $self->{agentlog_counter}+=1;
++  
++  my $joblog = $self->{SOAP}->CallSOAP("CLUSTERMONITOR","putJobLog", $id,"agent", 
++        sprintf("%03d %s", $self->{agentlog_counter}, $message),@_) or return;
++  return 1;
++}
++
++
+ sub getHostClassad{
+   my $self=shift;
+   my $ca=AliEn::Classad::Host->new({PACKMAN=>$self->{PACKMAN}}) or return;
+@@ -392,10 +406,6 @@
+     }
+     my $hostca_stage;
+ 
+-    $self->sendJAStatus(undef, {TTL=>$self->{TTL}});
+-
+-    #my $done = $self->{SOAP}->CallSOAP("CLUSTERMONITOR","getJobAgent", $ENV{ALIEN_JOBAGENT_ID}, "$self->{HOST}:$self->{PORT}", $self->{CONFIG}->{ROLE}, $hostca, $hostca_stage);
+-    
+     my $host=$self->{CONFIG}->{HOST};
+     if ($ENV{ALIEN_CM_AS_LDAP_PROXY}){
+        $host=$ENV{ALIEN_CM_AS_LDAP_PROXY};
+@@ -413,7 +423,7 @@
+ 	my @execute=@{$info->{execute}};
+ 	$result=shift @execute;
+ 	if ($result eq "-3") {
+-	  $self->sendJAStatus('INSTALLING_PKGS');
++	  $self->sendJAStatus('INSTALLING_PKGS', {packages=>join("", @execute)});
+ 	  $self->{SOAP}->CallSOAP("Manager/Job", "setSiteQueueStatus",$self->{CONFIG}->{CE_FULLNAME},"jobagent-install-pack");
+ 	  $self->info("We have to install some packages (@execute)");
+ 	  foreach (@execute) {
+@@ -464,10 +474,6 @@
+ 
+   my $message="The Job has been taken by Jobagent $ENV{ALIEN_JOBAGENT_ID}, AliEn Version: $self->{CONFIG}->{VERSION}";
+   $ENV{EDG_WL_JOBID} and $message.="(  $ENV{EDG_WL_JOBID} )";
+-  if (  $ENV{LSB_JOBID} ){
+-    $message.=" (LSF ID $ENV{LSB_JOBID} )";
+-     $self->sendJAStatus(undef, {LSF_ID=>$ENV{LSB_JOBID}});
+-  }
+   $self->putJobLog("trace",$message);
+ 
+ 
+@@ -2552,7 +2558,7 @@
+   delete $ENV{ALIEN_JOB_TOKEN};
+   delete $ENV{ALIEN_PROC_ID};
+   if (!$success){
+-    $self->sendJAStatus('DONE');
++    $self->sendJAStatus('DONE', {totaljobs=>$self->{TOTALJOBS}, error=>1});
+     $self->info("The job did not finish properly... we don't ask for more jobs");
+     $self->stopService(getppid());
+     kill (9, getppid());
+@@ -2580,7 +2586,7 @@
+     $self->sendJAStatus('REQUESTING_JOB');
+     $self->info("Asking for a new job");
+     if (! $self->requestJob()) {
+-      $self->sendJAStatus('DONE');
++      $self->sendJAStatus('DONE',  {totaljobs=>$self->{TOTALJOBS}});
+       $self->info("There are no jobs to execute. We have executed $self->{TOTALJOBS}");
+       #Tell the CM that we are done"
+       $self->{MONITOR} and 
+@@ -2794,6 +2800,14 @@
+   return if ! $self->{MONITOR};
+ 
+   # add the given parameters
++  my $msg="The jobagent is in $status";
++  $params->{job_id} = $ENV{ALIEN_PROC_ID} || 0;
++  foreach my $key (keys %$params){
++     $params->{$key} and $msg .=" $key=$params->{$key}";
++    
++   }
++  
++  $self->putAgentLog($msg);
+ 
+   defined  $status and $params->{ja_status} = AliEn::Util::jaStatusForML($status);
+   if($ENV{ALIEN_JOBAGENT_ID} && $ENV{ALIEN_JOBAGENT_ID} =~ /(\d+)\.(\d+)/){
+@@ -2801,7 +2815,6 @@
+     $params->{ja_id_min} = $2;
+   }
+   $ENV{SITE_NAME} and $params->{siteName}=$ENV{SITE_NAME};
+-  $params->{job_id} = $ENV{ALIEN_PROC_ID} || 0;
+   $self->{MONITOR}->sendParameters("$self->{CONFIG}->{SITE}_".$self->{SERVICENAME}, "$self->{HOST}:$self->{PORT}", $params);
+   return 1;
+ }

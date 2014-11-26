@@ -1,0 +1,4 @@
+all:
+
+include ../../all.mk
+

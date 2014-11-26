@@ -1,0 +1,16 @@
+--- work/openldap-2.4.23/servers/slapd/Makefile.in	2001-07-22 04:28:28.000000000 +0200
++++ work/openldap-2.4.23/servers/slapd/Makefile.in.new	2006-11-14 09:57:37.000000000 +0100
+@@ -270,13 +263,6 @@
+ 	@-$(MKDIR) $(DESTDIR)$(sysconfdir)
+ 	@-$(INSTALL) -m 700 -d $(DESTDIR)$(localstatedir)/openldap-ldbm
+ 	$(INSTALL) $(INSTALLFLAGS) -m 600 slapd.conf.tmp $(DESTDIR)$(sysconfdir)/slapd.conf.default
+-	if test ! -f $(DESTDIR)$(sysconfdir)/slapd.conf; then \
+-		echo "installing slapd.conf in $(sysconfdir)"; \
+-		echo "$(INSTALL) $(INSTALLFLAGS) -m 600 slapd.conf.tmp $(DESTDIR)$(sysconfdir)/slapd.conf"; \
+-		$(INSTALL) $(INSTALLFLAGS) -m 600 slapd.conf.tmp $(DESTDIR)$(sysconfdir)/slapd.conf; \
+-	else \
+-		echo "PRESERVING EXISTING CONFIGURATION FILE $(DESTDIR)$(sysconfdir)/slapd.conf" ; \
+-	fi
+ 
+ install-tools: FORCE
+ 	@-$(MKDIR) $(DESTDIR)$(sbindir)

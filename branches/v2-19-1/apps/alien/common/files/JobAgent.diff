@@ -1,0 +1,104 @@
+--- work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm.orig	2012-10-24 18:08:25.000000000 +0200
++++ work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm	2012-10-24 18:09:05.000000000 +0200
+@@ -1276,7 +1276,7 @@
+ 
+   $self->getInputZip($catalog) or return;
+ 
+-  my @files=$self->getListInputFiles();
++  my @files=$self->getListInputFiles($catalog);
+ 
+   foreach my $file (@files) {
+     $self->_getInputFile($catalog, $file->{cat},$file->{real}) or return;
+@@ -1306,8 +1306,57 @@
+ 
+ }
+ 
++sub getFilesFromInputCollection{
++  my $self = shift;
++  my $job_ca = shift;
++  my $catalogue=shift;
++  
++  my @files;
++  my ($ok, @inputData) =
++    $job_ca->evaluateAttributeVectorString("InputDataCollection");
++
++	foreach my $file (@inputData) {
++    $self->putJobLog("trace", "Using the inputcollection $file");
++
++    my ($file2, $options) = split(',', $file, 2);
++    $options and $options = ",$options";
++    $options or $options = "";
++    $file2 =~ s/^LF://;
++    my ($type) = $catalogue->execute("type", $file2);
++    $self->info("IT IS A $type");
++    if ($type =~ /^collection$/) {
++    	my ($files)=$catalogue->execute("listFilesFromCollection", $file2);
++    	if ($files) {
++    	  foreach my $entry (@$files) {
++          if ($entry->{origLFN}) {
++            push @files, "LF:$entry->{origLFN}$options";
++          } else {
++            push @files, "GUID:$entry->{guid}";
++          }
++    	  }
++    	}
++    }  else {
++    	my ($localFile) = $catalogue->execute("get", $file2);
++    	$localFile or $self->info("Error getting $file2") and return;
++    	my $ds=AliEn::Dataset->new(); 
++    	my $dataset = $ds->readxml($localFile);
++    	my $lfnRef = $ds->getAllLFN()
++       or $self->info("Error getting the LFNS from the dataset")
++        and return;
++
++      map { $_ = "LF:$_$options" } @{ $lfnRef->{lfns} };
++      $self->info("Adding the files " . @{ $lfnRef->{lfns} });
++      push @files, @{ $lfnRef->{lfns} };
++    	
++    } 
++	}
++  return 1, @files;
++}
++
++
+ sub getListInputFiles {
+   my $self=shift;
++  my $catalogue=shift;
+ 
+   my $dir = AliEn::Util::getProcDir($self->{JOB_USER}, undef, $self->{QUEUEID}) . "/";
+ 
+@@ -1319,18 +1368,24 @@
+   }else {
+     $self->info("There is no validation script");
+   }
+-  my ( $ok,  @inputFiles)=$self->{CA}->evaluateAttributeVectorString("InputDownload");
+-  foreach (@inputFiles){
+-    my ($proc, $lfn)=split /->/;
+-    $self->debug(1, "Adding '$lfn' (dir '$dir')");
+-    $proc =~ s{^$dir}{$self->{WORKDIR}/} or $proc="$self->{WORKDIR}/$proc";
+-    push @files, {cat=> $lfn, real=>$proc};
+-    if ($proc =~ /^($self->{WORKDIR}\/.*\/)[^\/]*$/ ) {
+-      $self->info("Checking if $1 exists");
+-      if (! -d $1) {
+-        mkdir $1 or print "Error making the directory $1 ($!)\n";
++  my ( $ok,  @inputFiles)=$self->{CA}->evaluateAttributeVectorString("InputFile");
++  ($ok, my @inputData)=$self->{CA}->evaluateAttributeVectorString("InputData");
++
++   ($ok, my @moreFiles)=$self->getFilesFromInputCollection($self->{CA}, $catalogue);
++
++  my $done={};
++  foreach my $lfn (@inputFiles , @inputData, @moreFiles ){
++    $lfn=~ s/^LF://;
++    $lfn =~ /,nodownload/ and $self->info("Ignoring $lfn") and next;    
++    $self->debug(1, "Adding '$lfn' ");
++    my $real= $self->findProcName($lfn, $done);
++    if ($real =~ /^(.*\/)[^\/]*$/ ) {
++      $self->info("Checking if $self->{WORKDIR}/$1 exists");
++      if (! -d "$self->{WORKDIR}/$1") {
++        mkdir "$self->{WORKDIR}/$1" or print "Error making the directory $self->{WORKDIR}/$1 ($!)\n";
+       }
+     }
++    push @files, {cat=> $lfn, real=>"$self->{WORKDIR}/$real"};
+   }
+   return @files
+ }
