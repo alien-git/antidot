@@ -1,5 +1,5 @@
 GARNAME = Getopt-Declare
-GARVERSION = 1.14
+GARVERSION = 1.13
 CATEGORIES = apps-perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 

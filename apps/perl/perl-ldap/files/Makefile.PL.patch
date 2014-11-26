@@ -1,39 +1,20 @@
-diff --speed-large-files --minimal -Nru tmp/perl-ldap-0.53/Makefile.PL work/perl-ldap-0.53/Makefile.PL
---- tmp/perl-ldap-0.53/Makefile.PL	2013-01-26 18:15:19.000000000 +0100
-+++ work/perl-ldap-0.53/Makefile.PL	2013-02-05 17:21:57.000000000 +0100
-@@ -29,10 +29,10 @@
- test_requires	'IO::File';
+--- work/perl-ldap-0.4001/Makefile.PL.old	2010-12-20 11:24:32.000000000 +0100
++++ work/perl-ldap-0.4001/Makefile.PL	2010-12-20 11:24:43.000000000 +0100
+@@ -26,13 +26,13 @@
+ include 	('ExtUtils::AutoInstall');
  
- features
--        'IPv6 support' => [
--		-default => 0,
--                'IO::Socket::INET6' => 0,
--        ],
-+#        'IPv6 support' => [
-+#		-default => 0,
-+#                'IO::Socket::INET6' => 0,
-+#        ],
- 	'LDAPS support' => [
- 		-default => 0,
- 		'IO::Socket::SSL' => 1.26,
-@@ -41,13 +41,13 @@
- 		-default => 0,
- 		'MIME::Base64'  => 0,
- 	],
--	'SASL authentication' => [
--		-default => 0,
--		'Authen::SASL'  => '2.00',
--		recommends 'Digest::MD5',	# for DIGEST-MD5 SASL mech
--		recommends 'Digest::HMAC_MD5',	# for CRAM-MD5 SASL mech
--		recommends 'GSSAPI',		# for GSSAPI SASL mech
--	],
-+#	'SASL authentication' => [
-+#		-default => 0,
-+#		'Authen::SASL'  => '2.00',
-+#		recommends 'Digest::MD5',	# for DIGEST-MD5 SASL mech
-+#		recommends 'Digest::HMAC_MD5',	# for CRAM-MD5 SASL mech
-+#		recommends 'GSSAPI',		# for GSSAPI SASL mech
-+#	],
- 	'LDAP URLs' => [
- 		-default => 0,
- 		'URI::ldap' => 1.10,
+ features(
+-  'SASL authentication' => [
+-    -default => 0,
+-    'Authen::SASL'  => '2.00',
++  #'SASL authentication' => [
++#    -default => 0,
++#    'Authen::SASL'  => '2.00',
+     #recommends('Digest::MD5'),		# for DIGEST-MD5 SASL mech
+     #recommends('Digest::HMAC_MD5'),	# for CRAM-MD5 SASL mech
+     #recommends('GSSAPI'),		# for GSSAPI SASL mech
+-  ],
++ # ],
+   'LDAP URLs' => [
+     -default => 0,
+     'URI::ldap' => 1.10,

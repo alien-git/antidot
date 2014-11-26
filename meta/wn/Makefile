@@ -11,8 +11,10 @@ apps/alien/classad \
 apps/alien/common \
 apps/alien/gapi \
 apps/tools/aria2 \
+apps/alien/lcg/ \
 apps/tools/xrootd-shellcmds \
-apps/tools/xrootd-xrdcpapmonplugin
+apps/tools/xrootd-xrdcpapmonplugin \
+apps/alien/lcg
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 

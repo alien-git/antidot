@@ -1,5 +1,5 @@
 GARNAME = Linux-PAM
-GARVERSION = 1.1.3
+GARVERSION = 1.1.1
 
 ifeq ($(shell uname),Darwin)
     GARVERSION = 0.78

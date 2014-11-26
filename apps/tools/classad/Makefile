@@ -1,5 +1,5 @@
 GARNAME = classads
-GARVERSION = 1.0.10
+GARVERSION = 1.0.9
 CATEGORIES = apps-tools
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 

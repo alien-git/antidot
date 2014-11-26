@@ -1,5 +1,5 @@
---- work/httpd-2.2.22/srclib/apr/include/apr.h.in	2009-10-13 17:51:48.000000000 +0200
-+++ work/httpd-2.2.22/srclib/apr/include/apr.h.in.new	2010-05-10 05:18:18.000000000 +0200
+--- work/httpd-2.2.16/srclib/apr/include/apr.h.in	2009-10-13 17:51:48.000000000 +0200
++++ work/httpd-2.2.16/srclib/apr/include/apr.h.in.new	2010-05-10 05:18:18.000000000 +0200
 @@ -229,7 +229,7 @@
  /*  APR Feature Macros */
  #define APR_HAS_SHARED_MEMORY     @sharedmem@

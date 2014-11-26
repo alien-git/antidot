@@ -1,0 +1,15 @@
+--- work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm.orig	2012-11-07 10:03:26.000000000 +0100
++++ work/alien-common-v2-19/lib/AliEn/Service/JobAgent.pm	2012-11-07 10:04:15.000000000 +0100
+@@ -2501,6 +2501,12 @@
+ 	$self->{STATUS} = "ERROR_VT";
+       } else {
+ 	( -e "$self->{WORKDIR}/.validated" ) or  $self->{STATUS} = "ERROR_V";
++        $self->putJobLog("trace","The validation created some trace");
++        if ( open(my $f, "<", "$self->{WORKDIR}/.alienValidation.trace") ){
++         my $traceContent=join("", <$f>);
++         close $f;
++         $self->putJobLog("trace",$traceContent);
++        }
+       }
+     } else {
+       $self->putJobLog("error","The validation script '$validation' didn't exist");

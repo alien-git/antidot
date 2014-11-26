@@ -21,10 +21,10 @@ my $ua = LWP::UserAgent->new;
 $ua->agent("get_java.pl/1.0 ");
 $ua->env_proxy();
 
-#jre-6u12-linux-i586.bin jre-6u12-linux-ia64.bin jre-6u12-linux-x64.bin        jre-7u11-linux-x64.tar.gz
+#jre-6u12-linux-i586.bin jre-6u12-linux-ia64.bin jre-6u12-linux-x64.bin
 my $success = 0;
 #my $file_name = "jdk-$java_ver-$platform.".($platform =~ /ia64/ ? "tar.bz2" : "bin");
-my $file_name = "jre-$java_ver-$platform.tar.gz";
+my $file_name = "jre-$java_ver-$platform.bin";
 my $res;
 for my $base (@url_base){
 	my $url = "${base}../java/${file_name}";

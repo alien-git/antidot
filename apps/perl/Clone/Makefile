@@ -1,10 +1,10 @@
 GARNAME = Clone
-GARVERSION = 0.34
+GARVERSION = 0.31
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 #http://search.cpan.org/CPAN/authors/id/R/RD/RDF/Clone-0.31.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GARU/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RD/RDF/
 
 LIBDEPS = apps/perl/perl
 

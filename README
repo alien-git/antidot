@@ -4,7 +4,7 @@ Introduction
 AliBI is AliEn Build & Integration tool. It is derived KDE Konstruct tool
 which was modified to handle the binary package distributions.
 
-Like "Konstruct", AliBIT is a build system which helps you to install releases 
+Like "Konstruct", AliBI is a build system which helps you to install releases 
 and applications on your system. It downloads defined source or binary 
 tarballs, checks their integrity, decompresses, patches, configures, builds 
 and installs them.

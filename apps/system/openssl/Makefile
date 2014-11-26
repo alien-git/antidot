@@ -1,12 +1,11 @@
 GARNAME = openssl
-GARVERSION = 1.0.1e
+GARVERSION = 0.9.8l
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://www.openssl.org/source/openssl-1.0.1e.tar.gz
 MASTER_SITES = http://www.openssl.org/source/ 
 
-LIBDEPS = apps/gcc/gcc apps/devel/automake apps/devel/libtool
+LIBDEPS = apps/gcc/gcc apps/system/zlib apps/devel/automake apps/devel/libtool
 
 DESCRIPTION = OpenSSL toolkit 
 URL = http://www.openssl.org/
@@ -19,7 +18,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/config
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) zlib no-asm shared -L$(PREFIX)/lib
+CONFIGURE_ARGS = --prefix=$(PREFIX) --openssldir=$(PREFIX) zlib no-idea  zlib no-mdc2 no-rc5 no-ec no-ecdh no-ecdsa no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib -Wa,--noexecstack -DOPENSSL_USE_NEW_FUNCTIONS fipscanisterbuild
 
 include ../category.mk
 

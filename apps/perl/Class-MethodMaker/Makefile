@@ -1,10 +1,9 @@
 GARNAME = Class-MethodMaker
-GARVERSION = 2.18
+GARVERSION = 2.16
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/S/SC/SCHWIGON/Class-MethodMaker-2.18.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/S/SC/SCHWIGON/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/S/SC/SCHWIGON/class-methodmaker/
 
 LIBDEPS = apps/perl/perl
 

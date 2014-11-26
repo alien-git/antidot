@@ -1,9 +1,9 @@
 GARNAME = alien-ca
-GARVERSION = 1.1
+GARVERSION = 1.2
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = 
+MASTER_SITES = http://alien.cern.ch/cache/
 
 LIBDEPS = apps/tools/eugridpma-carep
 

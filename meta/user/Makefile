@@ -2,7 +2,7 @@ GARNAME = alien-meta-user
 GARVERSION = 1
 CATEGORIES = meta
 DISTFILES  =
-FILTER_OUT ?= apps/system/expat apps/perl/XML-Parser apps/gcc/gcc apps/system/db  apps/perl/perl apps/perl/HTML-Tagset apps/perl/HTML-Parser apps/perl/URI apps/perl/libwww-perl apps/tools/globus-toolkit
+FILTER_OUT ?= apps/system/expat apps/perl/XML-Parser apps/gcc/gcc apps/system/db apps/system/gdbm apps/perl/perl apps/perl/HTML-Tagset apps/perl/HTML-Parser apps/perl/URI apps/perl/libwww-perl apps/tools/globus-toolkit
 FILTER     ?= % 
 
 ALL=\

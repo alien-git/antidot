@@ -1,6 +1,11 @@
 GARNAME = globus-toolkit
 CATEGORIES = apps-tools
-GARVERSION = 5.2.1
+
+ifneq ($(shell uname),Darwin)
+	GARVERSION = 4.2.1
+else
+	GARVERSION = 5.2.1
+endif
 
 DISTFILES  = gt$(GARVERSION)-all-source-installer.tar.gz
 DISTNAME  = gt$(GARVERSION)-all-source-installer
@@ -40,4 +45,4 @@ include ../category.mk
 
 PRE_CONFIGURE = (rm -rf $(GLOBUS_LOCATION))
 
-POST_INSTALL = (cd $(WORKSRC) && ln -sf ../../bin/openssl  $(PREFIX)/globus/bin/openssl && if [ -d "$(PREFIX)/globus/lib64" ]; then cp -fr $(PREFIX)/globus/lib64/* $(PREFIX)/globus/lib/; fi )
+POST_INSTALL = (cd $(WORKSRC) && ln -sf ../../bin/openssl  $(PREFIX)/globus/bin/openssl)

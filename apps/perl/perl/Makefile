@@ -7,7 +7,7 @@ PATCHFILES = locale.t.diff ubuntu.patch
 
 MASTER_SITES = http://ftp.funet.fi/pub/CPAN/src/  http://www.cpan.org/src/
 
-LIBDEPS = apps/gcc/gcc
+LIBDEPS = apps/system/gdbm
 
 DESCRIPTION = The Perl interpreter
 AUTHOR = Larry Wall

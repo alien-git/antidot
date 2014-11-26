@@ -1,261 +1,147 @@
 #!/usr/bin/perl
-###############################################################################
+####################################################################
 # Script to perform some simple tests on AliEn
 # USAGE: $ALIEN_ROOT/bin/alien -x alienTests.pl
-# versions <  2012 by Patricia Mendez Lorenzo
-# # versions >= 2012 by Maarten Litmaath
-# modified April 2013 for AliEn v2-20 by Rene Dosdall
-################################################################################
+# Author, bugs, questions: Catalin.Cirstoiu@cern.ch
+# Original version from: Patricia MENDEZ LORENZO <pmendez@mail.cern.ch>
+###################################################################
 
 use strict;
 use warnings;
 
-my $ALIEN_ROOT = $ENV{ALIEN_ROOT};
+use POE;
+use POE::Filter::Line;
+use POE::Wheel::Run;
 
-###############################################################################
-# definition of the env
-###############################################################################
+my $MAX_STATUS_LINES = 4;
+my $MAX_RUN_TIME = 60;
+my $ML_CMD_RUN = "$ENV{ALIEN_ROOT}/java/MonaLisa/Service/CMD/cmd_run.sh";
 
-if (exists $ENV{ALIEN_ROOT}) {
-    for ('LD_LIBRARY_PATH', 'PATH') {
-	$ENV{$_} =~ s,.*$ENV{ALIEN_ROOT}+[./][^:]+:?,,;
-    }
-}
-
-$ENV{'PATH'} = "$ENV{'HOME'}/bin:$ENV{'PATH'}";
-
-#
-# to avoid that myproxy-* commands might hang:
-#
-
-delete $ENV{ 'GLOBUS_TCP_PORT_RANGE'};
-delete $ENV{'MYPROXY_TCP_PORT_RANGE'};
-
-my $vobox_dir;
-
-for ('/var/lib', '/opt') {
-    last if -d ($vobox_dir = "$_/vobox/alice");
-}
-
-
-###############################################################################
-# helper functions
-###############################################################################
-
-sub timeout_cmd($@)
-{
-    my ($timeout, @cmd) = @_;
-    my $output;
-
-    pipe READ, WRITE or return (-1, $!);
-
-    my $pid = fork();
-
-    unless (defined $pid) {
-	close READ;
-	close WRITE;
-	return (-1, $!);
-    }
-
-    if ($pid == 0) {
-	close READ;
-	open STDOUT, '>&WRITE';
-	close WRITE;
-
-	my $bad = 255;
-
-	pipe READ2, WRITE2 or exit $bad;
-
-	my $pid2 = fork();
-
-	exit $bad unless defined $pid2;
-
-	if ($pid2 == 0) {
-
-	    #
-	    # while the requested command is run in its own process group,
-	    # this subprocess runs in the original process group and is
-	    # therefore allowed to write to the user's tty, if STDERR
-	    # happens to be connected to that (in such cases the command
-	    # itself might get suspended with a SIGTTOU and time out)
-	    #
-
-	    close WRITE2;
-
-	    print STDERR while <READ2>;
-
-	    exit 0;
+sub dumpStatus {
+	my $service = shift;
+	my $status = shift;
+	my $message = shift;
+	my %others = @_;
+	$others{"Message"} = $message if($message);
+	my $extra = "";
+	while(my ($key, $value) = each(%others)){
+		$extra .= "\t$key\t$value";
 	}
-
-	close READ2;
-	open STDERR, '>&WRITE2';
-	close WRITE2;
-
-	setpgrp 0, 0;
-	exec @cmd;
-	exit 127;
-    }
-
-    close WRITE;
-
-    eval {
-	local $SIG{ALRM} = sub { die "timeout\n" };
-	alarm $timeout;
-
-	$output .= $_ while <READ>;
-
-	alarm 0;
-    };
-
-    kill -9, $pid;
-    close READ;
-    waitpid $pid, 0;
-
-    return ($?, $output);
+	print "$service\tStatus\t$status".$extra."\n";
 }
 
-sub explain($)
-{
-    my $val = shift;
-    my $sig = $val & 0x7F;
-    my $sts = ($val >> 8) & 0xFF;
+# create the test file
+umask 0027;
 
-    return $sig == 9 ? "timeout" :
-	$sig ? "killed by signal $sig" : "exit code $sts";
+my @tests = (
+	"alien version"			=> "alien -v",
+	"alien proxy"			=> "grid-proxy-info",
+	"alien ldap"			=>
+		"ldapsearch -LLL -x -h alice-ldap.cern.ch:8389 -b "
+		. "o=alice,dc=cern,dc=ch objectClass=AliEnVOConfig objectClass",
+	);
+
+POE::Session->create(
+	inline_states => {
+		_start => \&start,
+		tick => \&tick,
+		got_cmd_event => \&got_cmd_event,
+		got_err_event => \&got_err_event,
+		cmd_finished => \&cmd_finished,
+		sig_chld => \&sig_chld,
+	});
+$poe_kernel->run();
+exit 0;
+
+sub start {
+	my $heap = $_[HEAP];
+
+	$heap->{test_name} = shift @tests;
+	$heap->{test_cmd} = shift @tests;
+	if((! $heap->{test_name}) || (! $heap->{test_cmd})){
+		dumpStatus("SCRIPTRESULT", 0);
+		exit 0;
+	}
+	$heap->{start_time} = time;
+	$heap->{status_lines} = [];
+	undef $heap->{cmd_killed};
+	undef $heap->{exit_code};
+	$poe_kernel->sig(CHLD => "sig_chld");
+	$heap->{wheel} = POE::Wheel::Run->new(
+		Program      => "$ML_CMD_RUN $heap->{test_cmd}",
+		StdioFilter  => POE::Filter::Line->new(),
+		StderrFilter => POE::Filter::Line->new(),
+		StdoutEvent  => "got_cmd_event",
+		StderrEvent  => "got_cmd_event");
+	$poe_kernel->delay(tick => 1);
 }
 
-sub dumpStatus
-{
-    my $service = shift;
-    my $status  = shift;
-    my $message = shift;
-    my %others  = @_;
-    $others{"Message"} = $message if ($message);
-    my $extra = "";
+sub tick {
+	my $heap = $_[HEAP];
 
-    while (my ($key, $value) = each(%others)) {
-        $extra .= "\t$key\t$value";
-    }
-    print "$service\tStatus\t$status$extra\n";
+	my $now = time;
+	my $run_time = $now - $heap->{start_time};
+	if($run_time >=$MAX_RUN_TIME){
+		$heap->{cmd_killed} = 1;
+		$heap->{wheel}->kill();
+	}else{
+		$poe_kernel->delay(tick => 1);
+	}
 }
 
-#
-# take only the last 5 lines of the given string and concatenate them;
-# replace tabs with spaces
-#
+sub got_cmd_event {
+	my ($heap, $line) = @_[HEAP, ARG0];
 
-sub filter_out
-{
-    my $text = shift;
-
-    $text =~ s/\t/ /g;
-    my @lines = split(/\n/, $text);
-    @lines = @lines[@lines - 5 .. @lines - 1] if (@lines > 5);
-    return join(" ", @lines);
+	return if($heap->{cmd_killed});
+	shift(@{$heap->{status_lines}}) if(@{$heap->{status_lines}} >= $MAX_STATUS_LINES);
+	push(@{$heap->{status_lines}}, $line); 
 }
 
-sub parse_proxy_timeleft
-{
-    my $proxy_file = shift;
-    my $command = shift;
-    my $proxy_type = shift;
-
-    my ($val, $out) = timeout_cmd(30, "$command 2>&1");
-    $out = explain($val) unless defined $out;
-
-    return (1, "Failed to execute '$command': " . filter_out($out), 0)
-	if ($val);
-
-    my $leftt = $1 if $out =~ /timeleft\s*:\s*([0-9:]+)/;
-    my $timeleft = 0;
-    my $err = 0;
-    my $msg = undef;
-
-    if ($leftt) {
-	my @f = reverse(split(/:/, $leftt));
-	$timeleft = ($f[0] || 0) + 60 * ($f[1] || 0) + 3600 * ($f[2] || 0);
-    } else {
-	$msg = $proxy_file ? -r $proxy_file ?
-	    "Failed checking the proxy for $proxy_type." :
-	    "Proxy for $proxy_type absent or unreadable." :
-	    "Undefined proxy file for $proxy_type.";
-	$err = 1;
-    }
-
-    return ($err, $msg, $timeleft);
+sub sig_chld {
+	my ($heap, $sig, $pid, $exit_code) = @_[HEAP, ARG0, ARG1, ARG2];
+	
+	$exit_code >>= 8;
+	my $message = join(" ", @{$heap->{status_lines}});
+	$message =~ s/\t/  /g;
+	if($exit_code == 0){
+		if($heap->{test_name} eq "alien version"){
+			my $ver = $1 if $message =~ /Version: (.*)/;
+			$ver = $message if ! $ver;
+			$ver = "No output" if ! $ver;
+			dumpStatus($heap->{test_name}, 0, $ver);
+		}elsif($heap->{test_name} eq "alien proxy"){
+			my $leftt = $1 if $message =~ /timeleft\s*:\s*([0-9:]*)/;
+			my $timeleft = 0;
+			my $err = 0;
+			my $msg = undef;
+			if($leftt){
+				my @leftl = reverse(split(/:/, $leftt));
+				$timeleft = ($leftl[0] || 0) + 60 * ($leftl[1] || 0) + 3600 * ($leftl[2] || 0);
+			}else{
+				$msg = ($ENV{X509_USER_PROXY} ? 
+					(-r $ENV{X509_USER_PROXY} ?
+						'Failed running grid-proxy-info' :
+						"X509_USER_PROXY doesn't point to a readable file."
+					) :
+					"Undefined X509_USER_PROXY.");
+				$err = 1;
+			}
+			dumpStatus($heap->{test_name}, $err, $msg, "timeleft" => $timeleft);
+		}elsif($heap->{test_name} eq "alien ldap"){
+			if ($message =~ /objectClass: AliEnVOConfig/i) {
+				dumpStatus($heap->{test_name}, 0);
+			} else {
+				dumpStatus($heap->{test_name}, 1,
+					"The AliEn LDAP server could not be read: $message");
+			}
+		}else{
+			dumpStatus($heap->{test_name}, 0, $message);
+		}
+	}else{
+		dumpStatus($heap->{test_name}, 1,
+			($heap->{cmd_killed} ? "Timeout after $MAX_RUN_TIME sec. " : "Failed with exit code: $exit_code. ").
+			"Last lines were: $message");
+	}
+	$poe_kernel->yield("_start");
 }
-
-###############################################################################
-## TEST 1:
-## Check if the proxy renewal service is running
-################################################################################
-
-sub test1
-{
-    my $service = "alien version";
-
-    my $command = '$ALIEN_ROOT/bin/alien -v 2> /dev/null';
-    my ($val, $out) = timeout_cmd(30, "$command 2>&1");
-         $out = explain($val) unless defined $out;
-    $out = substr($out, -10);
-    dumpStatus($service, 0, $out);
-
-}
-
-###############################################################################
-# TEST 2:
-# Check if the proxy renewal service is running
-###############################################################################
-
-sub test2
-{
-    my $service = "alien proxy";
-
-    my $command = '$ALIEN_ROOT/bin/alien proxy-info 2> /dev/null';
-    my ($err, $msg, $timeleft) = parse_proxy_timeleft("", $command, $service);
-    dumpStatus($service, 0, $msg, 'timeleft' =>  $timeleft);
-
-}
-
-#############################################
-# TEST 10:
-# check if the AliEn LDAP server can be read
-#############################################
-
-sub test10
-{
-    #
-    # this test is not specific to LCG and should be run by alienTests.pl
-    #
-
-    return;
-
-    my $service = "read AliEn LDAP server";
-
-    my $srv = 'alice-ldap.cern.ch:8389';
-    my $cmd = "ldapsearch -LLL -x -h $srv -b o=alice,dc=cern,dc=ch"
-	. " objectClass=AliEnVOConfig objectClass";
-
-    my ($val, $out) = timeout_cmd(30, "$cmd 2>&1");
-    $out = explain($val) unless defined $out;
-
-    if ($out =~ /objectClass: AliEnVOConfig/i) {
-	dumpStatus($service, 0);
-    } else {
-	dumpStatus($service, 1, "The AliEn LDAP server could not be read:"
-	    . filter_out($out));
-    }
-}
-
-
-
-for (my $i = 1; $i < 15; $i++)
-{
-    my $f = "test$i";
-
-    eval "$f() if defined &main::$f";
-}
-
-dumpStatus("SCRIPTRESULT", 0);
-
 

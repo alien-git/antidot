@@ -1,10 +1,9 @@
 GARNAME = Net-DNS
-GARVERSION = 0.72
+GARVERSION = 0.66
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/N/NL/NLNETLABS/Net-DNS-0.72.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/N/NL/NLNETLABS/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/O/OL/OLAF/
 
 LIBDEPS = apps/perl/Net-IP apps/perl/Digest-HMAC
 

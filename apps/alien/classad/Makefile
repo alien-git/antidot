@@ -1,5 +1,5 @@
 GARNAME = alien-classad
-GARVERSION = 3.0.0
+GARVERSION = 2.1.2
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 

@@ -1,9 +1,9 @@
 GARNAME = XML-Parser
-GARVERSION = 2.41
+GARVERSION = 2.36
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/M/MS/MSERGEANT/ http://www.cpan.org/authors/id/M/MS/MSERGEANT/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/M/MS/MSERGEANT/
 
 LIBDEPS = apps/perl/perl apps/system/expat
 

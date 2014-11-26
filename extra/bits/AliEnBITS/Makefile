@@ -1,9 +1,9 @@
 GARNAME = AliEnBITS
-GARVERSION = 2.1
+GARVERSION = 1.5.2
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://alien2.cern.ch/bits/download/
+MASTER_SITES = http://pcaliproject.cern.ch/bits/
 
 LIBDEPS = extra/bits/Template extra/bits/Graphviz-perl extra/bits/SLOCcount apps/portal/httpd apps/perl/ApMon
 

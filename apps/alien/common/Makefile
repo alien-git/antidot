@@ -1,5 +1,5 @@
-SVNTYPE = trunk
-SVNNAME =  trunk
+SVNTYPE = branches
+SVNNAME =  v2-19
 SVNDIR = common
 SVNREVISION =
 
@@ -32,24 +32,30 @@ apps/perl/IO-Socket-SSL \
 apps/perl/LockFile-Simple \
 apps/perl/Log-Agent \
 apps/perl/Log-Agent-Rotate \
+apps/perl/Log-Dispatch \
 apps/perl/Log-TraceMessages \
 apps/perl/libwww-perl \
 apps/perl/MIME-Base64 \
 apps/perl/Net-SSLeay \
 apps/perl/perl \
 apps/perl/perl-ldap \
+apps/perl/PlRPC \
+apps/perl/SOAP-Transport-TCP \
 apps/perl/Tie-CPHash \
 apps/perl/uuid \
 apps/perl/URI \
 apps/perl/XML-Generator \
 apps/perl/XML-Parser \
 apps/perl/XML-Parser-EasyTree \
-apps/perl/JSON-RPC \
 apps/perl/XML-Simple
 
 DESCRIPTION = AliEn common component
 URL = http://alien.cern.ch
 LICENSE =
+
+#PATCHFILES = JobAgent.diff
+#PATCHFILES = PackMan.diff JobAgentTrace.diff JobAgentTraceAgent.diff JobAgentTraceAgent2.diff torrent.diff
+
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile

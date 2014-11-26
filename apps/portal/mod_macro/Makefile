@@ -1,5 +1,5 @@
 GARNAME = mod_macro
-GARVERSION = 1.1.11
+GARVERSION = 1.1.10
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 

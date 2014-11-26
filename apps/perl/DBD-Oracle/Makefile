@@ -1,9 +1,10 @@
 GARNAME = DBD-Oracle
-GARVERSION = 1.56
+GARVERSION = 1.26
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/P/PY/PYTHIAN/
+#http://search.cpan.org/CPAN/authors/id/T/TI/TIMB/DBD-Oracle-1.26.tar.gz
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TI/TIMB/
 
 LIBDEPS = apps/perl/DBI apps/system/oracle-instantclient-basic apps/system/oracle-instantclient-sdk apps/system/oracle-instantclient-sqlplus
 

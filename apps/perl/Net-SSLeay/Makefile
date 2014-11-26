@@ -1,11 +1,10 @@
 GARNAME = Net-SSLeay
-GARVERSION = 1.52
+GARVERSION = 1.36
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
-#http://search.cpan.org/CPAN/authors/id/M/MI/MIKEM/Net-SSLeay-1.48.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/MI/MIKEM/
+MASTER_SITES = $(CPAN_MIRROR)/authors/id/F/FL/FLORA/ http://www.cpan.org/authors/id/F/FL/FLORA/ ftp://sunsite.cnlab-switch.ch/mirror/CPAN/authors/id/F/FL/FLORA/
 
 LIBDEPS = apps/system/openssl apps/perl/perl
 
@@ -17,7 +16,7 @@ LICENSE = OpenSSL
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
-TEST_SCRIPTS = $(WORKSRC)/Makefile
+TEST_SCRIPTS = # $(WORKSRC)/Makefile
 
 CONFIGURE_ARGS = LIBS="-L$(PREFIX)/lib  -lssl -lcrypto" INC="-I$(PREFIX)/include/"
 

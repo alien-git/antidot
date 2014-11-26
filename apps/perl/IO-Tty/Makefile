@@ -1,10 +1,9 @@
 GARNAME = IO-Tty
-GARVERSION = 1.10
+GARVERSION = 1.08
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/IO-Tty-1.10.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RG/RGIERSIG/
 
 LIBDEPS = apps/perl/perl
 

@@ -3,9 +3,8 @@ GARVERSION = 1.20
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-PATCHFILES = termcap.patch
-
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/H/HA/HAYASHI/
+PATCHFILES = termcap.patch
 
 LIBDEPS = apps/perl/perl apps/system/readline
 

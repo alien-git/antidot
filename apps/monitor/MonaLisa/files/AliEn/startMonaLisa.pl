@@ -172,7 +172,7 @@ sub getAliEnServicesLogs {
     my $srvConf  = "$ENV{ALIEN_HOME}/etc/aliend/$ENV{ALIEN_ORGANISATIONS}/startup.conf";
     my $csLogDir = "$ENV{ALIEN_HOME}/var/log/AliEn/$ENV{ALIEN_ORGANISATIONS}";
     my $ssLogDir = $config->{LOG_DIR};
-    my @csList = qw(Proxy IS Authen Server Logger TransferManager Broker TransferBroker JobBroker TransferOptimizer JobOptimizer PopularityOptimizer CatalogueOptimizer PackManMaster MessagesMaster SEManager JobInfoManager);
+    my @csList = qw(Proxy IS Authen Server Logger TransferManager Broker TransferBroker JobBroker TransferOptimizer JobOptimizer CatalogueOptimizer PackManMaster MessagesMaster SEManager JobInfoManager);
     my @ssList = qw(Monitor SE PackMan CE MonaLisa FTD httpd CMreport);
     
     my $serv2log = {
@@ -187,7 +187,6 @@ sub getAliEnServicesLogs {
 	"JobInfoManager"    => "Manager::JobInfo", 
 	"SEManager" 		=> "Manager::SEMaster",
 	"CatalogueOptimizer"=> "Optimizer::Catalogue",
-	"PopularityOptimizer"=> "Optimizer::Popularity",
 	"Monitor"	    	=> "ClusterMonitor"
     };
     
@@ -201,9 +200,6 @@ sub getAliEnServicesLogs {
 	"JobOptimizer" => {
 	    "subdir"	=> "JobOptimizer",
 	    "logs"	=> [qw(Charge HeartBeat Inserting Merging Priority Saved Zombies Expired Hosts Killed MonALISA Resubmit Splitting)]},
-	"PopularityOptimizer" => {
-	    "subdir"    => "PopularityOptimizer",
-	    "logs"      => [qw(Parser HourlyCollector DailyCollector)]},
 	"CatalogueOptimizer" => {
 	    "subdir"	=> "CatalogueOptimizer",
 	    "logs"	=> [qw(Expired Packages Trigger)]

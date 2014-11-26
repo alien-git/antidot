@@ -1,5 +1,4 @@
 c2004c373f144b81a66a4131d2247a9f  download/01.diff
 e276fd3970d573139fe56695a7b747bd  download/Crypt-SSLeay-0.51.tar.gz
 82264180f5911dce33dbd85e24b1f36b  download/Crypt-SSLeay-0.57.tar.gz
-4812f14d6e8c71714a26c0ad733666dc  download/Crypt-SSLeay-0.64.tar.gz
-5055888e9b7293368a394a4aaece7469  download/Makefile.PL.patch
+1692cb4f74d2cfba7032b3af0a817d4a  download/Makefile.PL.patch
