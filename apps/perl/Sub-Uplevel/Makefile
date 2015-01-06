@@ -4,7 +4,7 @@ CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/ http://backpan.perl.org/authors/id/D/DA/DAGOLDEN/
 
 LIBDEPS = apps/perl/perl
 
