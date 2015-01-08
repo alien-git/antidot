@@ -3,7 +3,7 @@ GARVERSION = 1.354
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #http://search.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/POE-Test-Loops-1.035.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/ http://backpan.perl.org/authors/id/R/RC/RCAPUTO/
 
 LIBDEPS  = apps/perl/perl
 

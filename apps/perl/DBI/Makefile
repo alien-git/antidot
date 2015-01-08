@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 #PATCHFILES = 40profile.diff
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TI/TIMB/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TI/TIMB/ http://backpan.perl.org/authors/id/T/TI/TIMB/
 
 LIBDEPS = apps/perl/perl
 
