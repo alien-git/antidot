@@ -1,5 +1,5 @@
 GARNAME = httpd
-GARVERSION = 2.2.16
+GARVERSION = 2.2.29
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
@@ -7,15 +7,16 @@ ifeq ($(shell uname),Darwin)
 PATCHFILES = apr.h.patch
 endif
 
-PATCHFILES += ssl_modules.patch
+PATCHFILES += ssl_modules_new.patch
 
 #MASTER_SITES = http://apache.cict.fr/httpd/
+MASTER_SITES = http://apache.tradebit.com/pub//httpd/
 
 LIBDEPS = apps/system/openssl apps/system/db apps/system/expat apps/devel/libtool apps/devel/automake apps/gcc/gcc
 
 DESCRIPTION = Apache Web Server
 URL = http://apache.org
-AUTHOR = Apache Project 
+AUTHOR = Apache Project
 LICENSE = Apache
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure

@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 #http://curl.haxx.se/download/curl-7.19.5.tar.gz
-MASTER_SITES = http://curl.haxx.se/download/ 
+MASTER_SITES = http://curl.haxx.se/download/ http://curl.haxx.se/download/archeology/
 
 LIBDEPS =  apps/system/zlib apps/system/openssl
 
