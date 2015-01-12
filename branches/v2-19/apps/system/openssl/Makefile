@@ -18,7 +18,7 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/config
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --openssldir=$(PREFIX) --with-fipslibdir=$(PREFIX)/lib fips  zlib no-idea  zlib no-mdc2 no-rc5  no-ec no-ecdh no-ecdsa no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib -Wa,--noexecstack -DOPENSSL_USE_NEW_FUNCTIONS 
+CONFIGURE_ARGS = --prefix=$(PREFIX) no-fips  zlib no-idea  zlib no-mdc2 no-rc5  no-ec no-ecdh no-ecdsa no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib -Wa,--noexecstack -DOPENSSL_USE_NEW_FUNCTIONS 
  
 include ../category.mk
 
