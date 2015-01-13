@@ -1,5 +1,5 @@
 GARNAME = openssl
-GARVERSION = 0.9.8zd
+GARVERSION = 0.9.8zc
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
