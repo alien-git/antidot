@@ -1,9 +1,9 @@
 GARNAME = openssl-fips
-GARVERSION = 1.2
+GARVERSION = 1.2.4
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://www.openssl.org/source/ 
+MASTER_SITES = http://www.openssl.org/source/old/fips/ http://www.openssl.org/source/
 
 LIBDEPS = apps/gcc/gcc apps/system/zlib apps/devel/automake apps/devel/libtool
 
@@ -18,6 +18,6 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/config
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --openssldir=$(PREFIX) fipscanisterbuild no-asm
+CONFIGURE_ARGS = --prefix=$(PREFIX) fipscanisterbuild no-asm
 
 include ../category.mk
