@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://www.openssl.org/source/
 
-LIBDEPS = apps/gcc/gcc apps/system/zlib apps/devel/automake apps/devel/libtool
+LIBDEPS = apps/gcc/gcc apps/system/zlib apps/devel/automake apps/devel/libtool apps/system/openssl-fips
 
 DESCRIPTION = OpenSSL toolkit
 URL = http://www.openssl.org/
@@ -18,9 +18,9 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/config
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX) --openssldir=$(PREFIX)  zlib no-idea  zlib no-mdc2 no-rc5  no-ec no-ecdh no-ecdsa no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib -Wa,--noexecstack -DOPENSSL_USE_NEW_FUNCTIONS fipscanisterbuild
+CONFIGURE_ARGS = --prefix=$(PREFIX) --openssldir=$(PREFIX) --with-fipslibdir=$(PREFIX)/fips/lib/ fips zlib no-idea  zlib no-mdc2 no-rc5  no-ec no-ecdh no-ecdsa no-asm no-krb5 shared -fno-strict-aliasing -L$(PREFIX)/lib 
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC) && rm -rf test)
 POST_CONFIGURE = (cd $(WORKSRC) && bubu && make depend)
+
