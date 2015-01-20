@@ -1,0 +1,14 @@
+diff --speed-large-files --minimal -Nru tmp/mysql-5.5.41/vio/viossl.c work/mysql-5.5.41/vio/viossl.c
+--- tmp/mysql-5.5.41/vio/viossl.c	2014-11-04 08:49:52.000000000 +0100
++++ work/mysql-5.5.41/vio/viossl.c	2015-01-20 10:29:36.000000000 +0100
+@@ -172,8 +172,10 @@
+   SSL_SESSION_set_timeout(SSL_get_session(ssl), timeout);
+   SSL_set_fd(ssl, vio->sd);
+ #ifndef HAVE_YASSL
++#ifdef SSL_OP_NO_COMPRESSION
+   SSL_set_options(ssl, SSL_OP_NO_COMPRESSION);
+ #endif
++#endif
+ 
+   if ((r= connect_accept_func(ssl)) < 1)
+   {
