@@ -18,9 +18,9 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/config
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/fips fipscanisterbuild no-asm
+CONFIGURE_ARGS = --openssldir=$(PREFIX)/fips fipscanisterbuild no-asm
 
 include ../category.mk
 
-PRE_CONFIGURE = (mkdir -p $(PREFIX)/fips)
-POST_INSTALL = (cp $(PREFIX)/fips/lib/fips* $(PREFIX)/lib/;  rm -rf $(PREFIX)/fips/)
+#PRE_CONFIGURE = (mkdir -p $(PREFIX)/fips)
+#POST_INSTALL = (cp $(PREFIX)/fips/lib/fips* $(PREFIX)/lib/;  rm -rf $(PREFIX)/fips/)
