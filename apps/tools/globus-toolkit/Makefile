@@ -2,38 +2,39 @@ GARNAME = globus-toolkit
 CATEGORIES = apps-tools
 
 ifneq ($(shell uname),Darwin)
-        GARVERSION = 5.2.5
+	GARVERSION = 4.2.1
 else
-        GARVERSION = 5.2.5
+	GARVERSION = 5.2.1
 endif
 
 DISTFILES  = gt$(GARVERSION)-all-source-installer.tar.gz
 DISTNAME  = gt$(GARVERSION)-all-source-installer
 
+#http://www.globus.org/ftppub/gt5/5.2/5.2.1/installers/src/gt5.2.1-all-source-installer.tar.gz
 LIBDEPS  = apps/devel/ant apps/system/openssl apps/tools/eugridpma-carep apps/perl/XML-Parser
-MASTER_SITES = http://www.globus.org/ftppub/gt5/5.2/5.2.5/installers/src/
+MASTER_SITES = http://www.globus.org/ftppub/gt5/5.2/5.2.1/installers/src/
 
 DESCRIPTION = Globus Toolkit
 URL = http://www.globus.org/
-LICENSE = Globus
+LICENSE = Globus 
 AUTHOR = Globus Alliance
-
+ 
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
 CONFIGURE_ENV = env GLOBUS_LOCATION=$(GLOBUS_LOCATION) GPT_LOCATION=$(GPT_LOCATION) GLOBUS_FLAVOR=$(GLOBUS_FLAVOR) CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/jdk/include" CXXFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" CPPFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" GPT_LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64 -L$(PREFIX)/globus/lib"
 BUILD_ENV = env GLOBUS_LOCATION=$(GLOBUS_LOCATION) GPT_LOCATION=$(GPT_LOCATION) GLOBUS_FLAVOR=$(GLOBUS_FLAVOR) CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/jdk/include" CXXFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" CPPFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" GPT_LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64 -L$(PREFIX)/globus/lib"
-INSTALL_ENV = env GLOBUS_LOCATION=$(GLOBUS_LOCATION) GPT_LOCATION=$(GPT_LOCATION) GLOBUS_FLAVOR=$(GLOBUS_FLAVOR)  CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/jdk/include" CXXFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" CPPFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" GPT_LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64 -L$(PREFIX)/globus/lib"
+INSTALL_ENV = env GLOBUS_LOCATION=$(GLOBUS_LOCATION) GPT_LOCATION=$(GPT_LOCATION) GLOBUS_FLAVOR=$(GLOBUS_FLAVOR)  CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/jdk/include" CXXFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" CPPFLAGS="-I$(PREFIX)/jdk/include -I$(PREFIX)/jdk/include/linux" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64" GPT_LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64 -L$(PREFIX)/globus/lib" 
 
 ifneq ($(shell uname),Darwin)
-        CONFIGURE_ENV += JAVA_HOME=$(PREFIX)/jdk/
-        BUILD_ENV += JAVA_HOME=$(PREFIX)/jdk/
-        INSTALL_ENV += JAVA_HOME=$(PREFIX)/jdk/
+	CONFIGURE_ENV += JAVA_HOME=$(PREFIX)/jdk/ 
+	BUILD_ENV += JAVA_HOME=$(PREFIX)/jdk/
+	INSTALL_ENV += JAVA_HOME=$(PREFIX)/jdk/
 else
-        CONFIGURE_ENV += JAVA_HOME=/usr/
-        BUILD_ENV += JAVA_HOME=/usr/
-        INSTALL_ENV += JAVA_HOME=/usr/
+	CONFIGURE_ENV += JAVA_HOME=/usr/
+	BUILD_ENV += JAVA_HOME=/usr/
+	INSTALL_ENV += JAVA_HOME=/usr/
 endif
 
 
