@@ -39,6 +39,6 @@ for my $job (@data){
 	my $received = $job->{received} || 0;
 	my $started = $job->{started} || 0;
 	my $finished = $job->{finished} || 0;
-	print "$job->{queueId}\t$status\t$job->{submitHost}\t$execSite\t$received\t$started\t$finished\n";
+	print "$job->{queueId}\t$status\t$job->{user}\@$job->{submitHost}\t$execSite\t$received\t$started\t$finished\n";
 }
 print "DONE\n";
