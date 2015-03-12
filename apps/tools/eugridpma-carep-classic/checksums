@@ -13,7 +13,6 @@ a8da223b7c4279cf707df062ee5b453b  download/igtf-preinstalled-bundle-classic-1.34
 4dba15f400f3351a895a33926e15db6b  download/igtf-preinstalled-bundle-classic-1.36.tar.gz
 7920d3f8081924046e548dd7273755ab  download/igtf-preinstalled-bundle-classic-1.37.tar.gz
 4fbb09e7fe22c3e4b648a20dd51e802e  download/igtf-preinstalled-bundle-classic-1.38.tar.gz
-6d98957def109d27a36542b462c48f94  download/Makefile.patch
 a65a559c28d9f47ecf447df3ae318329  download/igtf-preinstalled-bundle-classic-1.40.tar.gz
 f052a285794b9b7e4ef12a09224d4e73  download/igtf-preinstalled-bundle-classic-1.42.tar.gz
 c607ca661a1c31728ffcd431b38f1f2f  download/igtf-preinstalled-bundle-classic-1.43.tar.gz
@@ -26,4 +25,5 @@ c73bd636fc2a9c349be3c46a3b2c5d71  download/igtf-preinstalled-bundle-classic-1.54
 45cc4f75bc28c052235f7492efc32f2b  download/igtf-preinstalled-bundle-classic-1.56.tar.gz
 92802df8b833574c21a7c50f9989e879  download/igtf-preinstalled-bundle-classic-1.61.tar.gz
 5341a81175fd887db2f893b3843f7968  download/igtf-preinstalled-bundle-classic-1.62.tar.gz
+9fc30938d93f61ca85fd10415215e824  download/Makefile.patch
 

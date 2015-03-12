@@ -1,13 +1,11 @@
-GARNAME = eugridpma-carep
+GARNAME = eugridpma-carep-classic
 GARVERSION = 1.62
 CATEGORIES = apps-tools
 DISTFILES   = igtf-preinstalled-bundle-classic-$(GARVERSION).tar.gz
 DISTNAME = $(GARNAME)
-#DISTNAME    = igtf-preinstalled-bundle-classic-$(GARVERSION)
-#BINDISTNAME = igtf-preinstalled-bundle-classic-$(GARVERSION)
 PATCHFILES = Makefile.patch
 
-MASTER_SITES = http://dist.eugridpma.info/distribution/current/accredited/ http://dist.eugridpma.org/distribution/igtf/1.25/accredited/
+MASTER_SITES = http://dist.eugridpma.info/distribution/current/accredited/
 
 LIBDEPS = apps/gcc/gcc
 
