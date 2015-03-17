@@ -1,0 +1,14 @@
+diff --speed-large-files --minimal -Nru tmp/perl-5.18.2/Configure work/perl-5.18.2/Configure
+--- tmp/perl-5.18.2/Configure	2014-01-06 23:46:42.000000000 +0100
++++ work/perl-5.18.2/Configure	2014-07-17 13:08:50.886246498 +0200
+@@ -1346,8 +1346,8 @@
+ loclibpth="$loclibpth /opt/gnu/lib /usr/GNU/lib /opt/GNU/lib"
+ 
+ : general looking path for locating libraries
+-glibpth="/lib /usr/lib $xlibpth"
+-glibpth="$glibpth /usr/ccs/lib /usr/ucblib /usr/local/lib"
++glibpth="/lib /lib64 /usr/lib $xlibpth"
++glibpth="$glibpth /usr/include/ /lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/ /usr/ccs/lib /usr/ucblib /usr/local/lib"
+ test -f /usr/shlib/libc.so && glibpth="/usr/shlib $glibpth"
+ test -f /shlib/libc.so     && glibpth="/shlib $glibpth"
+ test -d /usr/lib64         && glibpth="$glibpth /lib64 /usr/lib64 /usr/local/lib64"

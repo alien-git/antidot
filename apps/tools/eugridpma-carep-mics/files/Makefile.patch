@@ -1,0 +1,7 @@
+--- work/eugridpma-carep-mics/Makefile.new	2007-11-08 16:59:52.000000000 +0100
++++ work/eugridpma-carep-mics/Makefile	2008-11-26 17:22:39.000000000 +0100
+@@ -0,0 +1,4 @@
++all:
++install:
++		mkdir -p $(GLOBUS_LOCATION)/share/certificates/
++		cp -d -f *.*  $(GLOBUS_LOCATION)/share/certificates; 

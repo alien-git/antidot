@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://alien.cern.ch/cache/
 
-LIBDEPS = apps/tools/eugridpma-carep
+LIBDEPS = apps/tools/eugridpma-carep-classic apps/tools/eugridpma-carep-slcs apps/tools/eugridpma-carep-iota apps/tools/eugridpma-carep-mics
 
 DESCRIPTION = AliEn CA certificate
 URL = 
