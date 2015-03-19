@@ -13,9 +13,11 @@ MASTER_SITES = svn-http://svn.cern.ch/guest/AliEn/
 
 LIBDEPS =  apps/perl/ApMon \
 apps/perl/Archive-Zip \
+apps/perl/Archive-Zip-SimpleZip \
 apps/perl/Authen-PAM \
 apps/perl/Cache-Cache \
 apps/tools/classad \
+apps/perl/Class-ISA \
 apps/perl/DBD-SQLite \
 apps/perl/Crypt-SSLeay \
 apps/perl/Crypt-OpenSSL-Random \

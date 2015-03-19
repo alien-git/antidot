@@ -1,17 +1,17 @@
 
 GARNAME = List-MoreUtils
-GARVERSION = 0.25_02
+GARVERSION = 0.33
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/V/VP/VPARSEVAL/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/
 
 
 LIBDEPS = apps/perl/perl
 
-AUTHOR  = Tassilo von Parseval 
+AUTHOR  = ADAMK
 LICENSE = Perl
-URL     = http://search.cpan.org/~vparseval/
+URL     = http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/
 
 DESCRIPTION =  Provide the stuff missing in List::Util  
 

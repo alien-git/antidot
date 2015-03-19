@@ -1,19 +1,18 @@
-GARNAME = Test-Simple
-GARVERSION = 1.001003
+GARNAME = Archive-Zip-SimpleZip
+GARVERSION = 0.009
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/E/EX/EXODIST/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/P/PM/PMQS/
 
 LIBDEPS = apps/perl/perl
 
-DESCRIPTION = Basic utilities for writing tests.  
-AUTHOR = EXODIST
-URL = http://search.cpan.org/CPAN/authors/id/E/EX/EXODIST/
-LICENSE = Perl
+DESCRIPTION = zip64 wrapper
+AUTHOR = PMQS
+URL = http://search.cpan.org/CPAN/authors/id/P/PM/PMQS/
+LICENSE = The Perl 5 License (Artistic 1 & GPL 1)
 
-AUTOTEST = 
 
 CONFIGURE_SCRIPTS = $(WORKSRC)/Makefile.PL
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
@@ -24,3 +23,4 @@ BUILD_ARGS =
 
 include ../category.mk
 
+ 
