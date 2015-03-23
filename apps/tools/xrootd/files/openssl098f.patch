@@ -1,0 +1,19 @@
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslX509.cc work/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslX509.cc
+--- tmp/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslX509.cc	2011-06-14 17:39:38.000000000 +0200
++++ work/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslX509.cc	2015-03-23 16:34:02.000000000 +0100
+@@ -565,11 +565,11 @@
+ 
+    // Analyse the structure
+    unsigned char *p = ext->value->data;
+-#ifdef R__SSL_GE_098
+-   BASIC_CONSTRAINTS *bc =
+-      d2i_BASIC_CONSTRAINTS(0, const_cast<const unsigned char**>(&p), ext->value->length);
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
++BASIC_CONSTRAINTS *bc =
++d2i_BASIC_CONSTRAINTS(0, const_cast<const unsigned char**>(&p), ext->value->length);
+ #else
+-   BASIC_CONSTRAINTS *bc = d2i_BASIC_CONSTRAINTS(0, &p, ext->value->length);
++BASIC_CONSTRAINTS *bc = d2i_BASIC_CONSTRAINTS(0, &p, ext->value->length);
+ #endif
+ 
+    // CA?
