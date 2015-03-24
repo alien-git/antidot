@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/ http://backpan.perl.org/authors/id/R/RC/RCAPUTO/
 
-LIBDEPS = apps/perl/perl
+LIBDEPS = apps/perl/Exporter-Lite
 
 AUTHOR = RCAPUTO
 URL = http://backpan.perl.org/authors/id/R/RC/RCAPUTO/
