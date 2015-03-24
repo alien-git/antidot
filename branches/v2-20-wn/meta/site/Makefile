@@ -14,7 +14,8 @@ apps/monitor/MonaLisa \
 apps/perl/Config-ApacheFormat \
 apps/perl/Term-ReadLine-Gnu \
 apps/portal/mod_perl \
-apps/tools/aria2
+apps/tools/aria2 \
+apps/devel/Devel-Trace
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
