@@ -1,19 +1,123 @@
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslgsiAux.cc work/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslgsiAux.cc
+--- tmp/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslgsiAux.cc	2011-06-14 17:39:38.000000000 +0200
++++ work/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslgsiAux.cc	2015-03-24 10:14:47.000000000 +0100
+@@ -96,7 +96,7 @@
+ 	a2d_ASN1_OBJECT(p,i,s,-1);
+ 	
+ 	p=buf;
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+ 	// not op=d2i_ASN1_OBJECT(0, &p, i) (C.H. Christensen, Oct 12, 2005)
+ 	op = d2i_ASN1_OBJECT(0, const_cast<const unsigned char**>(&p), j);
+ #else
+@@ -157,7 +157,7 @@
+ // ProxyCertInfo object, even if we are not presently interested
+ // in the policy.
+ //___________________________________________________________________________
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+ gsiProxyPolicy_t *d2i_gsiProxyPolicy(gsiProxyPolicy_t **pol,
+                                      const unsigned char **pp, long length)
+ #else
+@@ -266,7 +266,7 @@
+ // This function allow to convert the internal representation to a 
+ // gsiProxyCertInfo_t object.
+ //___________________________________________________________________________
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+ gsiProxyCertInfo_t *d2i_gsiProxyCertInfo(gsiProxyCertInfo_t **pci,
+                                          const unsigned char **pp, long length)
+ #else
+@@ -360,7 +360,7 @@
+ 
+    // Now extract the path length constraint, if any
+    unsigned char *p = ext->value->data;
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+    gsiProxyCertInfo_t *pci =
+       d2i_gsiProxyCertInfo(0, (const unsigned char **)(&p), ext->value->length);
+ #else
+@@ -406,7 +406,7 @@
+ 
+    // Now extract the path length constraint, if any
+    unsigned char *p = ext->value->data;
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+    gsiProxyCertInfo_t *pci =
+       d2i_gsiProxyCertInfo(0, (const unsigned char **)(&p), ext->value->length);
+ #else
+@@ -886,7 +886,7 @@
+       OBJ_obj2txt(s, sizeof(s), X509_EXTENSION_get_object(xpiext), 1);
+       if (!strcmp(s, gsiProxyCertInfo_OID)) {
+          unsigned char *p = xpiext->value->data;
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+          gsiProxyCertInfo_t *inpci =
+             d2i_gsiProxyCertInfo(0, (const unsigned char **)(&p), xpiext->value->length);
+ #else
+@@ -1128,7 +1128,7 @@
+          OBJ_obj2txt(s, sizeof(s), obj, 1);
+       if (!strcmp(s, gsiProxyCertInfo_OID)) {
+          unsigned char *p = xpiext->value->data;
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+          gsiProxyCertInfo_t *inpci =
+             d2i_gsiProxyCertInfo(0, (const unsigned char **)(&p), xpiext->value->length);
+ #else
+@@ -1177,7 +1177,7 @@
+    // Get the content
+    int reqdepthlen = -1;
+    unsigned char *p = xriext->value->data;
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+    gsiProxyCertInfo_t *reqpci =
+       d2i_gsiProxyCertInfo(0, (const unsigned char **)(&p), xriext->value->length);
+ #else
 diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslX509.cc work/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslX509.cc
 --- tmp/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslX509.cc	2011-06-14 17:39:38.000000000 +0200
-+++ work/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslX509.cc	2015-03-23 16:34:02.000000000 +0100
-@@ -565,11 +565,11 @@
++++ work/xrootd-3.0.4/src/XrdCrypto/XrdCryptosslX509.cc	2015-03-24 10:14:47.000000000 +0100
+@@ -565,7 +565,7 @@
  
     // Analyse the structure
     unsigned char *p = ext->value->data;
 -#ifdef R__SSL_GE_098
--   BASIC_CONSTRAINTS *bc =
--      d2i_BASIC_CONSTRAINTS(0, const_cast<const unsigned char**>(&p), ext->value->length);
 +#if OPENSSL_VERSION_NUMBER >= 0x0090800f
-+BASIC_CONSTRAINTS *bc =
-+d2i_BASIC_CONSTRAINTS(0, const_cast<const unsigned char**>(&p), ext->value->length);
+    BASIC_CONSTRAINTS *bc =
+       d2i_BASIC_CONSTRAINTS(0, const_cast<const unsigned char**>(&p), ext->value->length);
  #else
--   BASIC_CONSTRAINTS *bc = d2i_BASIC_CONSTRAINTS(0, &p, ext->value->length);
-+BASIC_CONSTRAINTS *bc = d2i_BASIC_CONSTRAINTS(0, &p, ext->value->length);
- #endif
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.4/src/XrdSecssl/libsslGridSite/grst_asn1.c work/xrootd-3.0.4/src/XrdSecssl/libsslGridSite/grst_asn1.c
+--- tmp/xrootd-3.0.4/src/XrdSecssl/libsslGridSite/grst_asn1.c	2011-06-14 17:39:38.000000000 +0200
++++ work/xrootd-3.0.4/src/XrdSecssl/libsslGridSite/grst_asn1.c	2015-03-24 10:14:47.000000000 +0100
+@@ -36,7 +36,7 @@
  
-    // CA?
+ #include "gridsite.h"
+ 
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+ #define SSLARG const unsigned char**
+ #else
+ #define SSLARG unsigned char**
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.4/src/XrdSecssl/libsslGridSite/grst_verifycallback.c work/xrootd-3.0.4/src/XrdSecssl/libsslGridSite/grst_verifycallback.c
+--- tmp/xrootd-3.0.4/src/XrdSecssl/libsslGridSite/grst_verifycallback.c	2011-06-14 17:39:38.000000000 +0200
++++ work/xrootd-3.0.4/src/XrdSecssl/libsslGridSite/grst_verifycallback.c	2015-03-24 10:14:47.000000000 +0100
+@@ -105,7 +105,7 @@
+    called early enough */
+ {
+    ctx->check_issued = GRST_X509_check_issued_wrapper;
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+    X509_STORE_CTX_set_flags(ctx, X509_V_FLAG_ALLOW_PROXY_CERTS);
+ #endif
+    return X509_verify_cert(ctx);
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.4/src/XrdSecssl/XrdSecProtocolssl.hh work/xrootd-3.0.4/src/XrdSecssl/XrdSecProtocolssl.hh
+--- tmp/xrootd-3.0.4/src/XrdSecssl/XrdSecProtocolssl.hh	2011-06-14 17:39:38.000000000 +0200
++++ work/xrootd-3.0.4/src/XrdSecssl/XrdSecProtocolssl.hh	2015-03-24 10:14:47.000000000 +0100
+@@ -61,7 +61,7 @@
+ 
+ // fix for SSL 098 stuff and g++ 
+ 
+-#ifdef R__SSL_GE_098
++#if OPENSSL_VERSION_NUMBER >= 0x0090800f
+ #undef PEM_read_SSL_SESSION
+ #undef PEM_write_SSL_SESSION
+ 
