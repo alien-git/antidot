@@ -11,7 +11,8 @@ apps/alien/common \
 apps/alien/gapi \
 apps/tools/aria2 \
 apps/tools/xrootd-shellcmds \
-apps/tools/xrootd-xrdcpapmonplugin
+apps/tools/xrootd-xrdcpapmonplugin \
+apps/devel/Devel-Trace
 
 LIBDEPS=$(strip $(filter $(FILTER),$(filter-out $(FILTER_OUT),$(ALL))))
 
