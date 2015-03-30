@@ -1,0 +1,45 @@
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.3/config/GNUmake.rules.fbsd work/xrootd-3.0.3/config/GNUmake.rules.fbsd
+--- tmp/xrootd-3.0.3/config/GNUmake.rules.fbsd	2011-04-11 13:24:37.000000000 +0200
++++ work/xrootd-3.0.3/config/GNUmake.rules.fbsd	2011-05-24 16:29:31.000000000 +0200
+@@ -16,4 +16,4 @@
+ TYPELDSO   = -shared
+ TYPESHLIB  = so
+ 
+-TYPELIBS   =  $(PTHREAD) -lrt -lc
++TYPELIBS   =  $(PTHREAD) -lrt -lc -lpthread
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.3/config/GNUmake.rules.gcc work/xrootd-3.0.3/config/GNUmake.rules.gcc
+--- tmp/xrootd-3.0.3/config/GNUmake.rules.gcc	2011-04-11 13:24:37.000000000 +0200
++++ work/xrootd-3.0.3/config/GNUmake.rules.gcc	2011-05-24 16:29:39.000000000 +0200
+@@ -20,4 +20,4 @@
+ TYPELDSO  += -m32
+ endif
+ 
+-TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc
++TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc -lpthread
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.3/config/GNUmake.rules.gccia64 work/xrootd-3.0.3/config/GNUmake.rules.gccia64
+--- tmp/xrootd-3.0.3/config/GNUmake.rules.gccia64	2011-04-11 13:24:37.000000000 +0200
++++ work/xrootd-3.0.3/config/GNUmake.rules.gccia64	2011-05-24 16:29:43.000000000 +0200
+@@ -16,4 +16,4 @@
+ TYPELDSO   = -shared
+ TYPESHLIB  = so
+ 
+-TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc
++TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc -lpthread 
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.3/config/GNUmake.rules.gccppc64 work/xrootd-3.0.3/config/GNUmake.rules.gccppc64
+--- tmp/xrootd-3.0.3/config/GNUmake.rules.gccppc64	2011-04-11 13:24:37.000000000 +0200
++++ work/xrootd-3.0.3/config/GNUmake.rules.gccppc64	2011-05-24 16:29:56.000000000 +0200
+@@ -16,4 +16,4 @@
+ TYPELDSO   = -m64 -shared
+ TYPESHLIB  = so
+ 
+-TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc
++TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc -lpthread
+diff --speed-large-files --minimal -Nru tmp/xrootd-3.0.3/config/GNUmake.rules.gccx8664 work/xrootd-3.0.3/config/GNUmake.rules.gccx8664
+--- tmp/xrootd-3.0.3/config/GNUmake.rules.gccx8664	2011-04-11 13:24:37.000000000 +0200
++++ work/xrootd-3.0.3/config/GNUmake.rules.gccx8664	2011-05-24 16:30:01.000000000 +0200
+@@ -16,4 +16,4 @@
+ TYPELDSO   = -m64 -shared
+ TYPESHLIB  = so
+ 
+-TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc
++TYPELIBS   =  -lnsl $(PTHREAD) -lrt -ldl -lc -lpthread

@@ -4,7 +4,7 @@ CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 #http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/Router-Simple-0.09.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/ http://backpan.perl.org/authors/id/T/TO/TOKUHIROM/
 
 LIBDEPS = apps/perl/Class-Accessor
 

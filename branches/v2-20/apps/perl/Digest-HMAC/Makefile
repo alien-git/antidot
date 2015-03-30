@@ -4,7 +4,7 @@ CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 #http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/Digest-HMAC-1.02.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/ http://backpan.perl.org/authors/id/G/GA/GAAS/
 
 LIBDEPS = apps/perl/Digest-SHA1
 

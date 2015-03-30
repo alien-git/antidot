@@ -3,7 +3,7 @@ GARVERSION = 6.03
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/ http://backpan.perl.org/authors/id/G/GA/GAAS/
 
 LIBDEPS = apps/perl/LWP-MediaTypes apps/perl/Encode-Locale apps/perl/URI apps/perl/HTTP-Date apps/perl/HTML-Parser
 

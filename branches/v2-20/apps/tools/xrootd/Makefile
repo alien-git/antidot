@@ -3,10 +3,10 @@ GARVERSION = 3.0.4
 
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES =  GNUmakerules.patch
+PATCHFILES =  GNUmakerules.patch openssl098f.patch
 NOCHECKSUM = $(DISTFILES) $(PATCHFILES)
 
-MASTER_SITES = http://xrootd.org/download/v3.0.4/
+MASTER_SITES = https://pkgs.fedoraproject.org/repo/pkgs/xrootd/xrootd-3.0.4.tar.gz/cd260d0ea347fcc029ad6ad092667d05/
 
 LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/openssl apps/tools/ml_gsoapclient apps/devel/pcre
 

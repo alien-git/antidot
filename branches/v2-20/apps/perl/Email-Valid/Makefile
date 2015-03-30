@@ -4,7 +4,7 @@ CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = #  valid.t.diff
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RJ/RJBS/ 
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RJ/RJBS/ http://backpan.perl.org/authors/id/R/RJ/RJBS/
 
 LIBDEPS = apps/perl/Net-DNS apps/perl/MailTools
 

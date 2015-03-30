@@ -4,7 +4,7 @@ CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tgz
 
 #http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/Text-CSV_XS-0.73.tgz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/ http://backpan.perl.org/authors/id/H/HM/HMBRAND/
 
 LIBDEPS = apps/perl/perl
 

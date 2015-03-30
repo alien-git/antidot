@@ -4,7 +4,7 @@ CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 #http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/Test-Requires-0.06.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/ http://backpan.perl.org/authors/id/T/TO/TOKUHIROM/
 
 LIBDEPS = apps/perl/perl
 

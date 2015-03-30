@@ -6,7 +6,7 @@ DISTFILES  = gt$(GARVERSION)-all-source-installer.tar.gz
 DISTNAME  = gt$(GARVERSION)-all-source-installer
 
 #http://www.globus.org/ftppub/gt5/5.2/5.2.1/installers/src/gt5.2.1-all-source-installer.tar.gz
-LIBDEPS  = apps/devel/ant apps/system/openssl apps/tools/eugridpma-carep apps/perl/XML-Parser
+LIBDEPS  = apps/devel/ant apps/system/openssl apps/tools/eugridpma-carep-classic apps/tools/eugridpma-carep-slcs apps/tools/eugridpma-carep-iota apps/tools/eugridpma-carep-mics apps/perl/XML-Parser
 MASTER_SITES = http://www.globus.org/ftppub/gt5/5.2/5.2.1/installers/src/
 
 DESCRIPTION = Globus Toolkit
