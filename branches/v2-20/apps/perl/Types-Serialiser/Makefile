@@ -6,7 +6,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 #ttp://search.cpan.org/CPAN/authors/id/M/ML/MLEHMANN/Types-Serialiser-1.0.tar.gz
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/ML/MLEHMANN/
 
-LIBDEPS = apps/perl/perl
+LIBDEPS = apps/perl/common-sense
 
 DESCRIPTION = simple data types for common serialisation formats  
 AUTHOR = Marc Lehmann 
