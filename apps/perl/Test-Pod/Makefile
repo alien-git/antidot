@@ -2,7 +2,7 @@ GARNAME = Test-Pod
 GARVERSION = 1.44
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DW/DWHEELER/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DW/DWHEELER/ http://backpan.perl.org/authors/id/D/DW/DWHEELER/
 
 LIBDEPS = apps/perl/perl
 

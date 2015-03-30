@@ -4,7 +4,7 @@ CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 #http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/Devel-StackTrace-1.27.tar.gz
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/ http://backpan.perl.org/authors/id/D/DR/DROLSKY/
 
 LIBDEPS = apps/perl/perl
 

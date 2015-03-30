@@ -8,9 +8,7 @@ PATCHFILES = Makefile.patch
  
 BININSTALL_IGNORE = true
 
-#http://apache.multidist.com/ant/binaries/apache-ant-1.7.1-bin.tar.gz
-#http://wwwftp.ciril.fr/pub/apache//ant/binaries/apache-ant-1.9.0-bin.zip
-MASTER_SITES = http://wwwftp.ciril.fr/pub/apache//ant/binaries/
+MASTER_SITES = http://archive.apache.org/dist/ant/binaries/
 
 LIBDEPS = apps/devel/jdk
 

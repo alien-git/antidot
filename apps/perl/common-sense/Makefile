@@ -3,7 +3,7 @@ GARVERSION = 3.72
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/ML/MLEHMANN/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/M/ML/MLEHMANN/ http://backpan.perl.org/authors/id/M/ML/MLEHMANN/
 
 LIBDEPS = apps/perl/perl 
 

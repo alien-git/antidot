@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
 #http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/Test-Warn-0.21.zip
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/ http://backpan.perl.org/authors/id/C/CH/CHORNY/
 
 LIBDEPS = apps/perl/Tree-DAG_Node apps/perl/Sub-Uplevel
 
