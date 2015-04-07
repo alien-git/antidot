@@ -18,12 +18,6 @@ URL     =
 
 DESCRIPTION = Class to read authorization envelopes
 
-#CFLAGS="-I/usr/lib" CPPFLAGS="-I/usr/lib/" CXXFLAGS="-I/usr/lib" LDFLAGS="-L/usr/lib"
-CONFIGURE_ENV = CFLAGS="-I/usr/lib64" CPPFLAGS="-I/usr/lib64" CXXFLAGS="-I/usr/lib64" LDFLAGS="-L/usr/lib64"
-BUILD_ENV = CFLAGS="-I/usr/lib64" CPPFLAGS="-I/usr/lib64" CXXFLAGS="-I/usr/lib64" LDFLAGS="-L/usr/lib64"
-INSTALL_ENV = CFLAGS="-I/usr/lib64" CPPFLAGS="-I/usr/lib64" CXXFLAGS="-I/usr/lib64" LDFLAGS="-L/usr/lib64"
-
-
 CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
