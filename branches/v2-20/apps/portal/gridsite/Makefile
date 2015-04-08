@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).src.tar.gz
 DISTNAME = org.gridsite.core
 PATCHFILES = Makefile.patch
 
-MASTER_SITES = http://www.gridsite.org/download/sources/ http://pkgs.fedoraproject.org/repo/pkgs/gridsite/gridsite-1.7.9.src.tar.gz/29be13f59f1250d915cd96e9ae74d418/
+MASTER_SITES = http://www.gridsite.org/download/sources/ http://pkgs.fedoraproject.org/repo/pkgs/gridsite/gridsite-1.7.21.src.tar.gz/ac17ead3492c66e8914e2fc559b1ef25/
 
 LIBDEPS = apps/tools/gsoap apps/tools/globus-toolkit apps/tools/curl apps/portal/httpd 
 
