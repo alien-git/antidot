@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://www.openssl.org/source/old/fips/ http://www.openssl.org/source/
 
-LIBDEPS = apps/gcc/gcc apps/system/zlib apps/devel/automake apps/devel/libtool
+LIBDEPS = apps/gcc/gcc apps/devel/automake apps/devel/libtool
 
 DESCRIPTION = OpenSSL toolkit 
 URL = http://www.openssl.org/
