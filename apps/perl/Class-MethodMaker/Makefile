@@ -3,7 +3,7 @@ GARVERSION = 2.16
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/S/SC/SCHWIGON/class-methodmaker/
+MASTER_SITES = http://backpan.perl.org/authors/id/S/SC/SCHWIGON/class-methodmaker/ http://search.cpan.org/CPAN/authors/id/S/SC/SCHWIGON/class-methodmaker/
 
 LIBDEPS = apps/perl/perl
 

@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tgz
 PATCHFILES = core.schema.patch install.diff
 
-MASTER_SITES = ftp://sunsite.cnlab-switch.ch/mirror/OpenLDAP/openldap-release/
+MASTER_SITES = http://www.openldap.org/software/download/OpenLDAP/openldap-release/ ftp://sunsite.cnlab-switch.ch/mirror/OpenLDAP/openldap-release/
 
 LIBDEPS = apps/system/openssl apps/system/db apps/system/gdbm
 

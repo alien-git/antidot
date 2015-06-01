@@ -1,5 +1,5 @@
 GARNAME = eugridpma-carep-classic
-GARVERSION = 1.63
+GARVERSION = 1.64
 CATEGORIES = apps-tools
 DISTFILES   = igtf-preinstalled-bundle-classic-$(GARVERSION).tar.gz
 DISTNAME = $(GARNAME)
