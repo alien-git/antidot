@@ -7,7 +7,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 BININSTALL_IGNORE = true
 
 #ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.12.tar.gz
-MASTER_SITES = ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/
+MASTER_SITES = http://sourceforge.net/projects/pcre/files/pcre/8.35/ ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/
 
 LIBDEPS = apps/gcc/gcc apps/devel/libtool apps/devel/automake apps/devel/autoconf
 
