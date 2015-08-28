@@ -1,5 +1,5 @@
 GARNAME = eugridpma-carep-slcs
-GARVERSION = 1.64
+GARVERSION = 1.65
 CATEGORIES = apps-tools
 DISTFILES   = igtf-preinstalled-bundle-slcs-$(GARVERSION).tar.gz
 DISTNAME = $(GARNAME)
