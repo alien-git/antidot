@@ -1,13 +1,13 @@
 GARNAME = xrootd
-GARVERSION = 3.0.4
+GARVERSION = 3.3.6
 
 CATEGORIES = apps-libs
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
-PATCHFILES =  GNUmakerules.patch openssl098f.patch
+#PATCHFILES =  GNUmakerules.patch openssl098f.patch
+PATCHFILES =
 NOCHECKSUM = $(DISTFILES) $(PATCHFILES)
 
-#MASTER_SITES = http://xrootd.org/download/v3.0.4/
-MASTER_SITES = https://pkgs.fedoraproject.org/repo/pkgs/xrootd/xrootd-3.0.4.tar.gz/cd260d0ea347fcc029ad6ad092667d05/
+MASTER_SITES = http://alitorrent.cern.ch/src/xrd3/repository/
 
 LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/libxml2 apps/system/openssl apps/tools/ml_gsoapclient apps/devel/pcre
 
@@ -17,27 +17,36 @@ URL = http://xrootd.slac.stanford.edu
 AUTHOR = Andy Hanushevsky
 LICENSE =
 
-CONFIGURE_SCRIPTS = $(WORKSRC)/configure.classic
-BUILD_SCRIPTS = $(WORKSRC)/GNUmakefile
-INSTALL_SCRIPTS = $(WORKSRC)/GNUmakefile
+CONFIGURE_SCRIPTS = $(WORKSRC)/cmake.ng
+BUILD_SCRIPTS = $(WORKSRC)/cmake.ng
+INSTALL_SCRIPTS = $(WORKSRC)/cmake.ng
 
-ifeq ($(shell uname),Darwin)
-	CONFIGURE_ARGS = --enable-ssl --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-xml-incdir=$(PREFIX)/include/libxml2 --with-xml-libdir=$(PREFIX)/lib --enable-gsi --disable-posix --no-arch-subdirs
-else
-	CONFIGURE_ARGS = --build=debug --syslibs=$(PREFIX)/lib --incpfx=$(PREFIX)/include --prefix=$(PREFIX)/api --enable-perlint --disable-mon --with-xml-incdir=$(PREFIX)/include/libxml2 --with-xml-libdir=$(PREFIX)/lib --with-ssl-libdir=$(PREFIX)/lib --with-ssl-incdir=$(PREFIX)/include --with-krb5=$(PREFIX)  --with-ssl-shared=yes --enable-gsi --disable-posix --no-arch-subdirs
-endif
+CONFIGURE_ARGS = -DCMAKE_INSTALL_PREFIX=$(PREFIX)/api \
+                 -DCMAKE_INSTALL_LIBDIR=$(PREFIX)/api/lib \
+                 -DENABLE_CRYPTO=TRUE \
+                 -DENABLE_PERL=TRUE \
+                 -DENABLE_KRB5=TRUE \
+                 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+                 -DOPENSSL_ROOT_DIR=$(PREFIX) \
+                 -DKERBEROS5_ROOT_DIR=$(PREFIX) \
+                 -DREADLINE_ROOT_DIR=$(PREFIX) \
+                 -DREADLINE_INCLUDE_DIR=$(PREFIX)/include \
+                 -DZLIB_ROOT=$(PREFIX)
 
 CONFIGURE_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib"
 BUILD_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib"
 INSTALL_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib"
 
+ifneq ($(shell uname),Darwin)
+  BUILD_ENV += MAKEFLAGS=-j$(shell grep -c bogomips /proc/cpuinfo)
+endif
+
 include ../category.mk
 
-PRE_CONFIGURE = (cd  $(WORKSRC)/src/XrdClient;  swig -perl XrdClientAdmin_c.hh)
-
+PRE_CONFIGURE = (cd $(WORKSRC)/src/XrdClient && swig -perl XrdClientAdmin_c.hh)
 
 ifeq ($(shell uname),Darwin)
-	POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon)
+        POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon)
 else
-	POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* libxml2.* libz.*; ln -s ../../lib/libcrypto.* ../../lib/libssl.* ../../lib/libxml2.* ../../lib/libz.* .)
+        POST_INSTALL  = (cd $(PREFIX)/api/bin; rm -rf xrdcpapmon;  ln -s xrdcp xrdcpapmon; cd $(PREFIX)/api/lib; rm -rf libcrypto.*  libssl.* libxml2.* libz.*; ln -s ../../lib/libcrypto.* ../../lib/libssl.* ../../lib/libxml2.* ../../lib/libz.* .)
 endif

@@ -444,7 +444,14 @@ configure-%/config:
 	@echo ' $(call TMSG_LIB,Running config in,$*)'
 	@(cd $* && $(CONFIGURE_ENV) ./config $(CONFIGURE_ARGS))
 	@$(MAKECOOKIE)
-	
+
+configure-%/cmake.ng:
+	true && $(PRE_CONFIGURE)
+	@echo ' $(call TMSG_LIB,Running CMake-ng in,$*)'
+	@mkdir -p $*/CMake-Build
+	@(cd $*/CMake-Build && $(CONFIGURE_ENV) cmake .. $(CONFIGURE_ARGS))
+	@$(MAKECOOKIE)
+
 configure-%/cmake:
 	true && $(PRE_CONFIGURE)
 	@mkdir -p $*
@@ -489,6 +496,18 @@ build-%/makefile:
 build-%/GNUmakefile:
 	@echo ' $(call TMSG_LIB,Running make in,$*)'
 	@$(BUILD_ENV) $(MAKE) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(MAKECOOKIE)
+
+build-%/Makefile.multicore:
+	@echo ' $(call TMSG_LIB,Running make multicore in,$*)'
+	@$(BUILD_ENV) $(MAKE) -j$(shell grep -c bogomips /proc/cpuinfo || echo 4) $(foreach TTT,$(BUILD_OVERRIDE_DIRS),$(TTT)="$($(TTT))") -C $* $(BUILD_ARGS)
+	@$(MAKECOOKIE)
+
+build-%/cmake.ng:
+	@echo ' $(call TMSG_LIB,Running make for a CMake-ng project in,$*)'
+	$(PRE_BUILD)
+	@(cd $*/CMake-Build && $(MAKE) -j$(shell grep -c bogomips /proc/cpuinfo || echo 4) $(BUILD_ARGS))
+	$(POST_BUILD)
 	@$(MAKECOOKIE)
 
 build-%/cmake:
@@ -593,6 +612,15 @@ install-%/build_gpt:
 	@(cd $* && $(INSTALL_ENV) ./build_gpt $(INSTALL_ARGS))
 	@$(POST_INSTALL)
 	@$(PROVIDE_END)
+	@$(MAKECOOKIE)
+
+install-%/cmake.ng:
+	@echo ' $(call TMSG_LIB,Running make install for a CMake-ng project in,$*)'
+	$(PROVIDE_BEGIN)
+	$(PRE_INSTALL)
+	@(cd $*/CMake-Build && $(MAKE) $(INSTALL_ARGS) install)
+	$(POST_INSTALL)
+	$(PROVIDE_END)
 	@$(MAKECOOKIE)
 
 install-%/gpt-build:
