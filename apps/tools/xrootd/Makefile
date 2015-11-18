@@ -9,7 +9,7 @@ NOCHECKSUM = $(DISTFILES) $(PATCHFILES)
 
 MASTER_SITES = http://alitorrent.cern.ch/src/xrd3/repository/
 
-LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/libxml2 apps/system/openssl apps/tools/ml_gsoapclient apps/devel/pcre
+LIBDEPS = apps/tools/ApMon-CPP apps/perl/perl apps/system/libxml2 apps/system/openssl apps/tools/ml_gsoapclient apps/devel/pcre apps/devel/swig
 
 DESCRIPTION = Xrootd
 
