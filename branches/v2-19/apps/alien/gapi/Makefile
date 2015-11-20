@@ -7,7 +7,7 @@ PATCHFILES = configure.ac.patch
 
 MASTER_SITES = http://aliendb9.cern.ch/src/xalienfs/
 
-LIBDEPS = apps/tools/xrootd apps/devel/swig apps/system/e2fsprogs apps/tools/cronolog
+LIBDEPS = apps/tools/xrootd apps/devel/swig apps/system/e2fsprogs apps/tools/cronolog apps/tools/autoconf
 
 DESCRIPTION = ARDA/ALICE packages for API Client+Server
 URL = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice
