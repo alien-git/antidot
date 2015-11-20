@@ -7,7 +7,7 @@ PATCHFILES = configure.ac.patch
 
 MASTER_SITES = http://aliendb9.cern.ch/src/xalienfs/
 
-LIBDEPS = apps/tools/xrootd apps/devel/swig apps/system/e2fsprogs apps/tools/cronolog apps/tools/autoconf
+LIBDEPS = apps/tools/xrootd apps/devel/swig apps/system/e2fsprogs apps/tools/cronolog
 
 DESCRIPTION = ARDA/ALICE packages for API Client+Server
 URL = http://project-arda-dev.web.cern.ch/project-arda-dev/alice/apiservice
@@ -30,5 +30,4 @@ endif
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC) && sed -i -e '1s|^|\#include <XrdOss/XrdOss.hh>\n|g ; s|XrdNet/XrdNetDNS|XrdSys/XrdSysDNS|g ; s|XrdNetDNS|XrdSysDNS|g' server/XrdxAlienFs.cc && sed -i -e 's|XrdOfsDirectory(user)|XrdOfsDirectory(user, 0)|g ; s|XrdOfsFile(user)|XrdOfsFile(user, 0)|g' server/XrdxAlienFs.hh && ./bootstrap.sh)
-
+PRE_CONFIGURE = (cd $(WORKSRC) && sed -i -e '1s|^|\#include <XrdOss/XrdOss.hh>\n|g ; s|XrdNet/XrdNetDNS|XrdSys/XrdSysDNS|g ; s|XrdNetDNS|XrdSysDNS|g' server/XrdxAlienFs.cc && sed -i -e 's|XrdOfsDirectory(user)|XrdOfsDirectory(user, 0)|g ; s|XrdOfsFile(user)|XrdOfsFile(user, 0)|g' server/XrdxAlienFs.hh && $(PREFIX)/bin/autoreconf && ./bootstrap.sh)
