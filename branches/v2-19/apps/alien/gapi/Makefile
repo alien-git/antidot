@@ -30,5 +30,5 @@ endif
 
 include ../category.mk
 
-PRE_CONFIGURE = (cd $(WORKSRC) && sed -i -e '1s|^|\#include <XrdOss/XrdOss.hh>\n|g ; s|XrdNet/XrdNetDNS|XrdSys/XrdSysDNS|g ; s|XrdNetDNS|XrdSysDNS|g' server/XrdxAlienFs.cc && sed -i -e 's|XrdOfsDirectory(user)|XrdOfsDirectory(user, 0)|g ; s|XrdOfsFile(user)|XrdOfsFile(user, 0)|g' server/XrdxAlienFs.hh && autoreconf && ./bootstrap.sh)
+PRE_CONFIGURE = (cd $(WORKSRC) && sed -i -e '1s|^|\#include <XrdOss/XrdOss.hh>\n|g ; s|XrdNet/XrdNetDNS|XrdSys/XrdSysDNS|g ; s|XrdNetDNS|XrdSysDNS|g' server/XrdxAlienFs.cc && sed -i -e 's|XrdOfsDirectory(user)|XrdOfsDirectory(user, 0)|g ; s|XrdOfsFile(user)|XrdOfsFile(user, 0)|g' server/XrdxAlienFs.hh && ./bootstrap.sh)
 
