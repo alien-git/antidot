@@ -3,7 +3,7 @@ GARVERSION = 1.0.14r1
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-PATCHFILES = configure.ac.patch
+#PATCHFILES = configure.ac.patch
 
 MASTER_SITES = http://aliendb9.cern.ch/src/xalienfs/
 
@@ -18,9 +18,11 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
-CONFIGURE_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
-BUILD_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
-INSTALL_ENV = CFLAGS="-I$(PREFIX)/include" CPPFLAGS="-I$(PREFIX)/include" CXXFLAGS="-I$(PREFIX)/include" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+
+CONFIGURE_ENV = CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CPPFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CXXFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+BUILD_ENV = CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CPPFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CXXFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+INSTALL_ENV = CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CPPFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CXXFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+
 
 ifeq ($(shell uname),Darwin)
 CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api
