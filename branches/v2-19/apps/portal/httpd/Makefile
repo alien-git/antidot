@@ -1,13 +1,13 @@
 GARNAME = httpd
-GARVERSION = 2.2.31
+GARVERSION = 2.2.29
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-#ifeq ($(shell uname),Darwin)
-#PATCHFILES = apr.h.patch
-#endif
+ifeq ($(shell uname),Darwin)
+  PATCHFILES = apr.h.patch
+endif
 
-#PATCHFILES += ssl_modules_new.patch
+PATCHFILES += ssl_modules_new.patch
 
 #MASTER_SITES = http://apache.cict.fr/httpd/
 MASTER_SITES = http://apache.mirrors.lucidnetworks.net//httpd/ http://apache.tradebit.com/pub//httpd/
