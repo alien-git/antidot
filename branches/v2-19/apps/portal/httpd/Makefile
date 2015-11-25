@@ -10,7 +10,7 @@ endif
 PATCHFILES += ssl_modules_new.patch
 
 #MASTER_SITES = http://apache.cict.fr/httpd/
-MASTER_SITES = http://apache.mirrors.lucidnetworks.net//httpd/ http://apache.tradebit.com/pub//httpd/
+MASTER_SITES = http://archive.apache.org/dist/httpd/ http://apache.mirrors.lucidnetworks.net//httpd/ http://apache.tradebit.com/pub//httpd/
 
 LIBDEPS = apps/system/openssl apps/system/db apps/system/expat apps/devel/libtool apps/devel/automake apps/gcc/gcc
 
