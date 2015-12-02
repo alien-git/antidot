@@ -1,5 +1,5 @@
 GARNAME = eugridpma-carep-mics
-GARVERSION = 1.69
+GARVERSION = 1.70
 CATEGORIES = apps-tools
 DISTFILES   = igtf-preinstalled-bundle-mics-$(GARVERSION).tar.gz
 DISTNAME = $(GARNAME)
