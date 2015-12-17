@@ -3,7 +3,7 @@ GARVERSION = 1.0.14r1
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
-#PATCHFILES = configure.ac.patch
+PATCHFILES = biggerbuffer.patch
 
 MASTER_SITES = http://aliendb9.cern.ch/src/xalienfs/
 
