@@ -12,6 +12,7 @@ apps/alien/common \
 apps/alien/gapi \
 apps/tools/aria2 \
 apps/alien/lcg/ \
+apps/tools/xrootd-shellcmds \
 apps/tools/xrootd-xrdcpapmonplugin \
 apps/alien/lcg \
 apps/devel/Devel-Trace
