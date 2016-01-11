@@ -1,0 +1,17 @@
+--- work/xrootd-shellcmds-1.0.7/configure.old	2010-09-22 17:31:04.000000000 +0200
++++ work/xrootd-shellcmds-1.0.7/configure	2010-09-22 17:31:29.000000000 +0200
+@@ -698,14 +698,6 @@
+ MFLAGS=
+ MAKEFLAGS=
+ 
+-# Identity of this package.
+-PACKAGE_NAME='xrootd-shellcmds'
+-PACKAGE_TARNAME='xrootd-shellcmds'
+-PACKAGE_VERSION='1.0.7'
+-PACKAGE_STRING='xrootd-shellcmds 1.0.7'
+-PACKAGE_BUGREPORT='xrootd-l@slac.stanford.edu'
+-PACKAGE_URL=''
+-
+ ac_unique_file="xrdrm.cc"
+ # Factoring default headers for most tests.
+ ac_includes_default="\
