@@ -19,3 +19,4 @@ b3be95356bb869bf3df23853211dd333  download/xrootd-xalienfs-1.0.14n.tar.gz
 46509edfe67fea68b83fcf556b826a5d  download/xrootd-xalienfs-1.0.14n1.tar.gz
 72857893e9f721adc74a6dd33845d58c  download/configure.ac.patch
 00f8e141aa49e8a92adced38104c57e9  download/xrootd-xalienfs-1.0.14n2.tar.gz
+4f53f6e6990e3b72a88dafb84b795af4  download/biggerbuffer.patch
