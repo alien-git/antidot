@@ -3,7 +3,7 @@ GARVERSION = 4.1.2
 CATEGORIES = apps-gcc
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.bz2
 
-MASTER_SITES = ftp://sunsite.cnlab-switch.ch/mirror/gnu/gcc/gcc-4.1.2/
+MASTER_SITES = http://ftp.gnu.org/gnu/gcc/gcc-4.1.2/ ftp://sunsite.cnlab-switch.ch/mirror/gnu/gcc/gcc-4.1.2/
 
 LIBDEPS = apps/devel/libtool apps/devel/automake
 
@@ -28,7 +28,7 @@ UBUNTU = $(shell cat /etc/*-release | grep -i -c ubuntu)
 #   endif
 #endif
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/$(PLATFORM)/$(GARVERSION) --enable-languages=c,c++,fortran --disable-multilib --enable-shared --enable-threads=posix --enable-__cxa_atexit --enable-clocale=gnu
+CONFIGURE_ARGS = --prefix=$(PREFIX)/$(PLATFORM)/$(GARVERSION) --enable-languages=c,c++ --disable-multilib --enable-shared --enable-threads=posix --enable-__cxa_atexit --enable-clocale=gnu
 
 include ../category.mk
 

@@ -1,10 +1,10 @@
 GARNAME = Crypt-OpenSSL-RSA
-GARVERSION = 0.28
+GARVERSION = 0.26
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 PATCHFILES = 
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/P/PE/PERLER/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/I/IR/IROBERTS/
 
 LIBDEPS = apps/perl/Crypt-OpenSSL-Random
 

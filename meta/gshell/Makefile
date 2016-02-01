@@ -7,8 +7,8 @@ FILTER     ?= %
  
 ALL=\
 apps/alien/gapi   \
-apps/tools/xrootd-xrdcpapmonplugin  \
 apps/tools/xrootd-shellcmds \
+apps/tools/xrootd-xrdcpapmonplugin  \
 apps/alien/alien-ca \
 apps/system/Linux-PAM \
 apps/perl/uuid

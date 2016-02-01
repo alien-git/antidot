@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 MASTER_SITES = http://search.cpan.org/CPAN/authors/id/R/RC/RCAPUTO/ http://backpan.perl.org/authors/id/R/RC/RCAPUTO/
 
-LIBDEPS  = apps/perl/IO-Pipely apps/perl/IO-Tty apps/perl/POE-Test-Loops
+LIBDEPS  = apps/perl/IO-Tty apps/perl/POE-Test-Loops apps/perl/IO-Pipely
 
 DESCRIPTION = Portable multitasking and networking framework for Perl 
 AUTHOR = Rocco Caputo 
