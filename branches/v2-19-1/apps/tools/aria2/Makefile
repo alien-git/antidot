@@ -5,8 +5,8 @@ DISTFILES  = $(GARNAME)-$(GARVERSION).tar.bz2
 
 LIBDEPS = apps/gcc/gcc apps/system/openssl apps/system/zlib
 
-#http://ovh.dl.sourceforge.net/sourceforge/aria2/aria2-1.2.0.tar.bz2
-MASTER_SITES =  http://puzzle.dl.sourceforge.net/sourceforge/aria2 http://switch.dl.sourceforge.net/sourceforge/aria2/  http://ovh.dl.sourceforge.net/sourceforge/aria2/
+MASTER_SITES = http://alitorrent.cern.ch/src/cache/
+#MASTER_SITES = https://distfiles.macports.org/aria2/ http://puzzle.dl.sourceforge.net/sourceforge/aria2 http://switch.dl.sourceforge.net/sourceforge/aria2/  http://ovh.dl.sourceforge.net/sourceforge/aria2/
 AUTHOR = t-tujikawa@users.sourceforge.net
 URL = http://aria2.sourceforge.net
 LICENSE = GPL

@@ -4,7 +4,7 @@ CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
 ifeq ($(shell uname),Darwin)
-PATCHFILES = apr.h.patch
+  PATCHFILES = apr.h.patch
 endif
 
 PATCHFILES += ssl_modules_new.patch

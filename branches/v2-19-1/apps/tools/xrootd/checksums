@@ -11,3 +11,5 @@ b3f4a2ec9fa23574bcd46b9b985e4750  download/xrootd-20101014-1447.tar.gz
 f857ba6303f2e821420553f8e54ee188  download/xrootd-3.0.3.tar.gz
 aa89d242026f90c6a266ccd1c98122ea  download/xrootd-aae5c0738405ccfbe3802308cc6128549d7974c8.tar.gz
 cd260d0ea347fcc029ad6ad092667d05  download/xrootd-3.0.4.tar.gz
+b0989b81c5e0a93d96dbb6cfc6099436  download/openssl098f.patch
+2c16a144e938e43cc637b990d317a3f4  download/xrootd-3.3.6.tar.gz

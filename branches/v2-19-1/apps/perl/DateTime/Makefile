@@ -1,11 +1,11 @@
 GARNAME = DateTime
-GARVERSION = 1.10
+GARVERSION = 0.63
 CATEGORIES = perl
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/
+MASTER_SITES = http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/ http://backpan.perl.org/authors/id/D/DR/DROLSKY/
 
-LIBDEPS = apps/perl/DateTime-Locale apps/perl/DateTime-TimeZone apps/perl/Test-Warnings apps/perl/Test-Fatal
+LIBDEPS = apps/perl/DateTime-Locale apps/perl/DateTime-TimeZone
 
 DESCRIPTION = A complete, easy to use date and time object
 URL = http://cpan.uwinnipeg.ca/~drolsky
