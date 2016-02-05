@@ -1,6 +1,6 @@
-diff --speed-large-files --minimal -Nru tmp/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h work/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h
---- tmp/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h	2009-11-18 09:38:12.000000000 +0100
-+++ work/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h	2016-01-12 11:36:20.000000000 +0100
+diff --speed-large-files --minimal -Nru tmp/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h work/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h
+--- tmp/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h	2009-11-18 09:38:12.000000000 +0100
++++ work/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h	2015-12-17 15:41:26.000000000 +0100
 @@ -19,7 +19,7 @@
  extern int nfield;
  #endif
