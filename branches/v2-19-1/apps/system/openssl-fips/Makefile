@@ -3,7 +3,7 @@ GARVERSION = 1.2.4
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://www.openssl.org/source/old/fips/ http://www.openssl.org/source/
+MASTER_SITES = http://ftp.vim.org/security/openssl/ http://www.openssl.org/source/old/fips/ http://www.openssl.org/source/
 
 LIBDEPS = apps/gcc/gcc apps/system/zlib apps/devel/automake apps/devel/libtool
 
