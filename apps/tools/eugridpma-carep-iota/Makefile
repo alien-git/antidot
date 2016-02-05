@@ -1,5 +1,5 @@
 GARNAME = eugridpma-carep-iota
-GARVERSION = 1.70
+GARVERSION = 1.71
 CATEGORIES = apps-tools
 DISTFILES   = igtf-preinstalled-bundle-iota-$(GARVERSION).tar.gz
 DISTNAME = $(GARNAME)
