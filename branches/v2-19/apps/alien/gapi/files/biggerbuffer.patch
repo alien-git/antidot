@@ -1,7 +1,15 @@
 diff --speed-large-files --minimal -Nru tmp/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h work/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h
 --- tmp/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h	2009-11-18 09:38:12.000000000 +0100
-+++ work/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h	2016-01-12 11:36:20.000000000 +0100
-@@ -19,7 +19,7 @@
++++ work/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h	2016-02-12 18:20:45.000000000 +0100
+@@ -12,14 +12,14 @@
+ #ifndef __CODEC_H
+ #define __CODEC_H
+ #define MAXSTREAM 4
+-#define MAXCOLUMN 1024*64
++#define MAXCOLUMN 2048*64
+ #define DEFAULTCOLUMN 1024
+ #ifndef CODEC_CXX
+ extern int ncolumn;
  extern int nfield;
  #endif
  
