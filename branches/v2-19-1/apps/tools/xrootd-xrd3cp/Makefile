@@ -25,7 +25,11 @@ BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 TEST_SCRIPTS = 
 
-CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api --with-xrootd-incdir=$(PREFIX)/api/include/xrootd/ --with-xrootd-incdir=$(PREFIX)/api/include/xrootd/private/
+CONFIGURE_ENV = CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CPPFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CXXFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+BUILD_ENV = CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CPPFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CXXFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+INSTALL_ENV = CFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CPPFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" CXXFLAGS="-I$(PREFIX)/include -I$(PREFIX)/api/include/xrootd -I$(PREFIX)/api/include/xrootd/private" LDFLAGS="-L$(PREFIX)/lib -L$(PREFIX)/lib64"
+
+CONFIGURE_ARGS = --prefix=$(PREFIX)/api --with-xrootd-location=$(PREFIX)/api
 
 include ../category.mk
 
