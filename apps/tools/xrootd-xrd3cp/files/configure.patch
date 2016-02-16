@@ -1,9 +1,0 @@
-421,426c421
-< # Identity of this package.
-< PACKAGE_NAME='xrootd-xrd3cp'
-< PACKAGE_TARNAME='xrootd-xrd3cp'
-< PACKAGE_VERSION='3.0.4'
-< PACKAGE_STRING='xrootd-xrd3cp 3.0.4'
-< PACKAGE_BUGREPORT=''
----
-> 
