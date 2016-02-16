@@ -1,12 +1,45 @@
+diff --speed-large-files --minimal -Nru tmp/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.cxx work/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.cxx
+--- tmp/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.cxx	2009-11-18 09:38:26.000000000 +0100
++++ work/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.cxx	2016-02-16 10:33:22.375719349 +0100
+@@ -153,7 +153,9 @@
+ 	lFieldname = 0;
+ 
+ 	if (lColumn >= MAXCOLUMN) {
+-	  Error("Exceeded maximum number of columns!");
++          char buffer [256];
++          int n=sprintf (buffer, "Exceeded maximum number of columns! %d and MAXCOLUMN %d", lColumn, MAXCOLUMN);
++	  Error(buffer);
+ 	  return false;
+ 	}
+ 	break;
+@@ -285,7 +287,9 @@
+ 	}
+ 
+ 	if (lColumn >= MAXCOLUMN) {
+-	  Error("Exceeded maximum number of columns!");
++          char buffer [256];
++          int n=sprintf (buffer, "Exceeded maximum number of columns! %d and MAXCOLUMN %d", lColumn, MAXCOLUMN);
++          Error(buffer);
+ 	  return false;
+ 	}
+ 	break;
 diff --speed-large-files --minimal -Nru tmp/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h work/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h
 --- tmp/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h	2009-11-18 09:38:12.000000000 +0100
-+++ work/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h	2015-12-17 15:41:26.000000000 +0100
-@@ -19,7 +19,7 @@
++++ work/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h	2016-02-16 10:29:26.845708661 +0100
+@@ -12,14 +12,14 @@
+ #ifndef __CODEC_H
+ #define __CODEC_H
+ #define MAXSTREAM 4
+-#define MAXCOLUMN 1024*64
++#define MAXCOLUMN 2*1024*64
+ #define DEFAULTCOLUMN 1024
+ #ifndef CODEC_CXX
+ extern int ncolumn;
  extern int nfield;
  #endif
  
 -#define MAXFIELD  128
-+#define MAXFIELD  512
++#define MAXFIELD  4*128
  #define DEFAULTFIELD 16
  
  #define MAXBUFFER 1024*1024*512
