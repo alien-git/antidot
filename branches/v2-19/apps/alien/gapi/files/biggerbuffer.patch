@@ -1,6 +1,6 @@
-diff --speed-large-files --minimal -Nru tmp/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h work/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h
---- tmp/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h	2009-11-18 09:38:12.000000000 +0100
-+++ work/xrootd-xalienfs-1.0.14r1/base/CODEC/CODEC.h	2016-02-17 15:23:51.695693565 +0100
+diff --speed-large-files --minimal -Nru tmp/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h work/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h
+--- tmp/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h	2009-11-18 09:38:12.000000000 +0100
++++ work/xrootd-xalienfs-1.0.14n2/base/CODEC/CODEC.h	2016-02-17 15:37:08.715712893 +0100
 @@ -12,14 +12,14 @@
  #ifndef __CODEC_H
  #define __CODEC_H
