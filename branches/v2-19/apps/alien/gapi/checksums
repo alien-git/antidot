@@ -20,3 +20,4 @@ b3be95356bb869bf3df23853211dd333  download/xrootd-xalienfs-1.0.14n.tar.gz
 72857893e9f721adc74a6dd33845d58c  download/configure.ac.patch
 00f8e141aa49e8a92adced38104c57e9  download/xrootd-xalienfs-1.0.14n2.tar.gz
 22df89942e8ce4f40e15386d41ca8fd9  download/biggerbuffer.patch
+f225a91e594992e0afd37178bdcea339  download/gapiservermonitor.patch
