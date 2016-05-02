@@ -1,0 +1,24 @@
+diff --speed-large-files --minimal -Nru tmp/xrootd-xalienfs-1.0.14n2/server/scripts/gapiservermonitor.pl work/xrootd-xalienfs-1.0.14n2/server/scripts/gapiservermonitor.pl
+--- tmp/xrootd-xalienfs-1.0.14n2/server/scripts/gapiservermonitor.pl	2009-10-08 10:02:25.000000000 +0200
++++ work/xrootd-xalienfs-1.0.14n2/server/scripts/gapiservermonitor.pl	2016-05-02 11:54:42.551931252 +0200
+@@ -40,13 +40,13 @@
+     while (1) {
+ 	my $file = "/tmp/shmstat_$port.txt";
+ 
+-	my $nsession       = `cat $file | grep user | wc -l | awk '{print \$1}'`;
+-	my $nuser          = `cat $file| grep user | awk '{print \$2}' | sort | uniq | wc -l | awk '{print \$1}'`;
+-	my $nuseractive    = `cat $file| grep user | awk '{if (\$4 < 300) print \$2}' | sort | uniq | wc -l | awk '{print \$1}'`;
+-	my $nsessionvalid  = `cat $file | grep user | grep valid | wc -l | awk '{print \$1}'`;
+-	my $nsessionactive = `cat $file | grep user | awk '{if (\$4 <300) print \$2,\$4;}' | wc -l | awk '{print \$1}'`;
+-	my $ncmd           = `head -1 $file | awk '{print \$5 ;}' `;
+-	my $ntotalsession  = `head -1 $file | awk '{print \$3 ;}' `; 
++	my $nsession       = `grep -c user $file`;
++	my $nuser          = `grep user $file | env LD_LIBRARY_PATH= awk '{print \$2}' | sort -u | wc -l`;
++	my $nuseractive    = `grep user $file | env LD_LIBRARY_PATH= awk '{if (\$4 < 300) print \$2}' | sort -u | wc -l`;
++	my $nsessionvalid  = `grep user $file | grep -c valid`;
++	my $nsessionactive = `grep user $file | env LD_LIBRARY_PATH= awk '{if (\$4 <300) print \$2,\$4;}' | wc -l`;
++	my $ncmd           = `head -1 $file | env LD_LIBRARY_PATH= awk '{print \$5 ;}'`;
++	my $ntotalsession  = `head -1 $file | env LD_LIBRARY_PATH= awk '{print \$3 ;}'`; 
+ 
+ 	chomp $nsession;
+ 	chomp $nuser;
