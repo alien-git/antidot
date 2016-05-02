@@ -1,11 +1,11 @@
 GARNAME = xrootd-startscript
-GARVERSION = 1.2.0
+GARVERSION = 1.13
 CATEGORIES = apps-libs
 DISTNAME  = $(GARNAME)-$(GARVERSION)
 DISTFILES = $(DISTNAME).tar.gz
 PATCHFILES = 
 
-MASTER_SITES =  http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/start/
+MASTER_SITES = http://alitorrent.cern.ch/src/xrd3/repository/ http://project-arda-dev.web.cern.ch/project-arda-dev/xrootd/tarballs/start/
 
 LIBDEPS = apps/tools/xrootd
 
