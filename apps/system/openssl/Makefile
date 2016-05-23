@@ -1,9 +1,9 @@
 GARNAME = openssl
-GARVERSION = 0.9.8zf
+GARVERSION = 0.9.8zh
 CATEGORIES = apps-tools
 DISTFILES = $(GARNAME)-$(GARVERSION).tar.gz
 
-MASTER_SITES = http://www.openssl.org/source/
+MASTER_SITES = http://www.openssl.org/source/ ftp://ftp.openssl.org/source/old/0.9.x/ ftp://ftp.openssl.org/source/
 
 LIBDEPS = apps/gcc/gcc apps/system/zlib apps/devel/automake apps/devel/libtool apps/system/openssl-fips
 
