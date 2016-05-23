@@ -5,7 +5,7 @@ DISTFILES = $(GARNAME)-$(GARVERSION).zip
 DISTNAME =  $(GARNAME)-$(GARVERSION)
 PATCHFILES = sslcomp.patch
 
-MASTER_SITES = https://downloads.mariadb.com/archives/mysql-5.5/ http://mirror.switch.ch/ftp/mirror/mysql/Downloads/MySQL-5.5/
+MASTER_SITES = http://downloads.mysql.com/archives/get/file/
 
 LIBDEPS = apps/gcc/gcc apps/system/ncurses
 
