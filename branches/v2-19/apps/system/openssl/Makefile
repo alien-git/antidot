@@ -22,5 +22,6 @@ CONFIGURE_ARGS = --prefix=$(PREFIX) --openssldir=$(PREFIX) --with-fipslibdir=$(P
 
 include ../category.mk
 
+PRE_CONFIGURE = (cd $(WORKSRC); mkdir ./include/openssl; ln -s ../../crypto/ec/ec.h ./include/openssl/ec.h; ln -s ../../crypto/ecdh/ecdh.h ./include/openssl/ecdh.h;ln -s ../../crypto/ecdsa/ecdsa.h ./include/openssl/ecdsa.h;ln -s ../../crypto/idea/idea.h ./include/openssl/idea.h;)
 POST_CONFIGURE = (cd $(WORKSRC) && bubu && make depend)
 
