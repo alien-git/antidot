@@ -120,6 +120,7 @@ sub get_du {
 
 # Initialize ApMon
 my $hostName = $ENV{ALIEN_HOSTNAME} || Net::Domain::hostfqdn();
+$hostName =~ s/\.$//;
 my $apm = new ApMon(0);
 #$apm->setLogLevel("NOTICE");
 $apm->setDestinations(['localhost:8884']);

@@ -255,6 +255,7 @@ sub setupConfig {
     my $servicesLogs = getAliEnServicesLogs($lcgSite);
     
     my $fqdn = $ENV{ALIEN_HOSTNAME} || Net::Domain::hostfqdn();
+    $fqdn =~ s/\.$//;
     if($config->{MONALISA_HOST} && (lc($fqdn) ne lc($config->{MONALISA_HOST}))){
 	die("MonaLisa hostname from LDAP config [".$config->{MONALISA_HOST}."] differs from local one [$fqdn]. Not starting it...\n");
     }
