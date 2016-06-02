@@ -4,22 +4,19 @@
 < Listen 80
 ---
 > Listen 8084
-53c54,56
-< #
----
+54a56,60
 > 
 > LoadModule perl_module     modules/mod_perl.so
 > #LoadModule gridsite_module modules/mod_gridsite.so
-56a60,61
 > 
 > 
-117,118c122,123
+122,123c126,127
 <     Order deny,allow
 <     Deny from all
 ---
 > #    Order deny,allow
 > #    Deny from all
-409a415,458
+415a421,464
 > 
 > 
 > 
