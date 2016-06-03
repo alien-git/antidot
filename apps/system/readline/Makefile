@@ -1,5 +1,5 @@
 GARNAME = readline
-GARVERSION = 6.1
+GARVERSION = 6.3
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 
