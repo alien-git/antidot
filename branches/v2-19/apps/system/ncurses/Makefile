@@ -1,5 +1,5 @@
 GARNAME = ncurses
-GARVERSION = 5.7
+GARVERSION = 5.9
 CATEGORIES = apps-libs
 DISTFILES  = $(GARNAME)-$(GARVERSION).tar.gz
 
