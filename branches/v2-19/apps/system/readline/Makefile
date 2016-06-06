@@ -16,6 +16,8 @@ CONFIGURE_SCRIPTS = $(WORKSRC)/configure
 BUILD_SCRIPTS = $(WORKSRC)/Makefile
 INSTALL_SCRIPTS = $(WORKSRC)/Makefile
 
+BUILD_ARGS = SHLIB_LIBS=-lncurses
+
 CONFIGURE_ARGS = --prefix=$(PREFIX) --with-curses=$(PREFIX)
 
 include ../category.mk
